@@ -14,45 +14,126 @@
  * limitations under the License.
  *
  */
-
+ 
 import org.apache.tools.ant.taskdefs.condition.Os
 
-apply from: "$rootDir/gradle/jsProject.gradle"
+apply plugin: 'maven-publish'
 
-configurations {
-    reportTpl
-}
-
-npmBuild {
-    dependsOn 'updateVersion'
-    outputs.dir("build")
-    outputs.cacheIf {true}
+task updateVersionesterinaReportTools(type: Exec) {
+    workingDir "testerina-report-tools"
     doFirst {
-        exec {
-            if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-                commandLine 'cmd', '/c', 'npm', 'run', 'build'
-            } else {
-                commandLine 'npm', 'run', 'build'
-            }
+        println "update version to " + project.version
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine 'cmd', '/c', 'npm', 'run', 'update-version', '--', project.version
+        } else {
+            commandLine 'npm', 'run', 'update-version', '--', project.version
         }
     }
 }
 
-task createZip(type: Zip) {
-    from "$buildDir/"
+task npmInstallTesterinaReportTools(type: Exec) {
+    dependsOn updateVersionesterinaReportTools
+    workingDir "testerina-report-tools"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'npm', 'install'
+    } else {
+        commandLine 'npm', 'install'
+    }
+}
+
+task npmBuildTesterinaReportTools(type: Exec) {
+    dependsOn npmInstallTesterinaReportTools
+    workingDir "testerina-report-tools"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'build'
+    } else {
+        commandLine 'npm', 'run', 'build'
+    }
+}
+
+task createTesterinaReportToolsZip(type: Zip) {
+    dependsOn npmBuildTesterinaReportTools
+    from "testerina-report-tools/build"
     include 'index.html'
     include 'favicon.ico'
     include 'manifest.json'
     include '**/static/css/*.css'
     include '**/static/js/*.js'
     exclude '**/static/js/runtime-*.js'
-    archiveName 'report.zip'
-    destinationDir(file("$buildDir"))
+    archiveName 'testerina-report-tools-' + project.version + '.zip'
+    destinationDir(file("build"))
 }
 
-artifacts.add('reportTpl', file("$buildDir/report.zip"))
+task updateVersionDocerinaUi(type: Exec) {
+    workingDir "docerina-ui"
+    doFirst {
+        println "update version to " + project.version
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine 'cmd', '/c', 'npm', 'run', 'update-version', '--', project.version
+        } else {
+            commandLine 'npm', 'run', 'update-version', '--', project.version
+        }
+    }
+}
+task npmInstallDocerinaUI(type: Exec) {
+    dependsOn updateVersionDocerinaUi
+    workingDir "docerina-ui"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'npm', 'install'
+    } else {
+        commandLine 'npm', 'install'
+    }
+}
 
-build {
-    dependsOn npmBuild
-    dependsOn createZip
+task npmBuildDocerinaUI(type: Exec) {
+    dependsOn npmInstallDocerinaUI
+    workingDir "docerina-ui"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'build'
+    } else {
+        commandLine 'npm', 'run', 'build'
+    }
+}
+
+task createDocerinaUiZip(type: Zip) {
+    dependsOn npmBuildDocerinaUI
+    from "docerina-ui/dist"
+    archiveName 'docerina-ui-' + project.version + '.zip'
+    destinationDir(file("build"))
+}
+
+task createFinalZip(type: Zip) {
+    dependsOn createDocerinaUiZip
+    dependsOn createTesterinaReportToolsZip
+    from "build"
+    archiveName 'ballerina-dev-tools-js-' + project.version + '.zip'
+    destinationDir(file("dist"))
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact source: createFinalZip, extension: 'zip'
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ballerina-platform/ballerina-dev-tools")
+            credentials {
+                username = System.getenv("packageUser")
+                password = System.getenv("packagePAT")
+            }
+        }
+    }
+}
+
+task build {
+    dependsOn createFinalZip
+}
+
+task clean {
+    delete "build"
+    delete "dist"
 }
