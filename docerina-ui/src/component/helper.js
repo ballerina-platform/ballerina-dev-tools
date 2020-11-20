@@ -7,6 +7,8 @@ export const getTypeLabel = (type, defaultValue)=>{
     var label = [];
     if (type.isAnonymousUnionType) {
         label.push(type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ' | ', curr]));
+    } else if (type.isIntersectionType) {
+        label.push(type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ' & ', curr]));
     } else if (type.isTuple) {
         label.push(<span key="typeName"><span>[</span>{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>]</span></span>);
     } else if (type.isLambda && type.returnType != null) {

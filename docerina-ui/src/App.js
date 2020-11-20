@@ -30,18 +30,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modules: null
+      modules: null,
+      searchData: null,
+      packageDescription: null
     };
 
     this.loadScript("./data/doc_data.js", () => {
-      console.log("Script loaded");
+      console.log("Doc data loaded");
       this.setState({
-        modules: window.docData.modules
+        modules: window.docData.modules,
+        packageDescription: window.docData.description
       });
     });
 
     this.loadScript("./doc-search/search-data.js", () => {
       console.log("Search Data loaded");
+      this.setState({
+        searchData: "loaded"
+      });
     });
   }
 
@@ -68,9 +74,9 @@ class App extends React.Component {
   render() {
     return (
       <section className="App">
-        {this.state.modules != null &&
+        {this.state.modules != null && this.state.searchData != null &&
           <Router>
-            <Route exact path="/" render={(props) => (<PackageView {...props} modules={this.state.modules} />)} />
+            <Route exact path="/" render={(props) => (<PackageView {...props} modules={this.state.modules} packageDescription={this.state.packageDescription} />)} />
             <Route path="/:moduleName" render={(props) => (<Module {...props} modules={this.state.modules} />)} />
           </Router>
         }
