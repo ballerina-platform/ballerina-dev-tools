@@ -12,7 +12,6 @@ export class Package extends React.Component {
         this.state = {
             modules: null
         };
-        console.log(this.props.match.params.moduleName);
         this.loadScript("./data/" + this.props.match.params.packageName + ".js");
     }
 
@@ -38,22 +37,8 @@ export class Package extends React.Component {
         // Fire the loading
         head.appendChild(script);
     }
-    componentDidMount() {
-    //         if (this.state.modules != null && this.state.modules.length == 1) {
-    //             console.log("test");
-    //             this.props.history.push("/" + this.state.modules[0].id)
-    // }
-
-    }
-
-
-
 
     render() {
-        // if (this.state.modules != null && this.state.modules.length == 1) {
-        //     return <Redirect to={"/" + this.props.match.params.packageName + "/" + this.state.modules[0].id} />
-        // }
-
         return (
             <section>
 

@@ -396,7 +396,7 @@ export class SearchList extends React.Component {
 
                         {this.state.filteredTypes.length > 0 &&
                             <div className="ui segment">
-                                <h3>Constants: {this.state.filteredTypes.length}</h3>
+                                <h3>Types: {this.state.filteredTypes.length}</h3>
                                 <table className="ui very basic table">
                                     <tbody>
                                         {this.state.filteredTypes.map(item => (

@@ -10,7 +10,6 @@ import "../../public/syntax-highlighter/prism-ballerina"
 
 
 function toggleMenu() {
-    console.log($('#mobMenu'));
     $('#mobMenu').transition('slide down')
 }
 

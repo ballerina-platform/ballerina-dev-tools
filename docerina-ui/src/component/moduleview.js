@@ -239,16 +239,16 @@ const ModuleView = (props) => {
                     </section>
                 }
 
-                {props.moduleData.unionTypes.length > 0 &&
+                {props.moduleData.types.length > 0 &&
                     <section id="types" className="module-construct">
                         <div className="main-method-title here">
                             <h2>Types</h2>
-                            <p>[{props.moduleData.unionTypes.length}]</p>
+                            <p>[{props.moduleData.types.length}]</p>
                         </div>
                         <div className="ui divider"></div>
                         <table className="ui very basic table">
                             <tbody>
-                                {props.moduleData.unionTypes.map(item => (
+                                {props.moduleData.types.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate types" id={item.name} title={item.name}>
                                             <Link className={item.isDeprecated ? "strike types" : "types"} to={props.moduleData.id + "/types#" + item.name}>{item.name}</Link>

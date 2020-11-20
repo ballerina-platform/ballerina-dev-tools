@@ -29,8 +29,8 @@ const getModuleConstructTypes = (module, name) => {
         {module.annotations != null && module.annotations.length > 0 &&
             <ConstructList type="desktop" data={module.annotations} listType="annotations" moduleName={module.id} />
         }
-        {module.unionTypes != null && module.unionTypes.length > 0 &&
-            <ConstructList type="desktop" data={module.unionTypes} listType="types" moduleName={module.id} />
+        {module.types != null && module.types.length > 0 &&
+            <ConstructList type="desktop" data={module.types} listType="types" moduleName={module.id} />
         }
         {module.errors != null && module.errors.length > 0 &&
             <ConstructList type="desktop" data={module.errors} listType="errors" moduleName={module.id} />
@@ -51,10 +51,7 @@ const SideBar = (props) => {
             <section>
                 {module != null &&
                     <section>
-                        {/* {props.pageType != "module" && props.pageType != "types" && <ConstructList {...props} type="desktop" data={module[props.pageType]} listType={props.pageType} moduleName={module.id} />}
-                        {props.pageType != "module" && props.pageType == "types" && <ConstructList {...props} type="desktop" data={module["unionTypes"]} listType={props.pageType} moduleName={module.id} />} */}
-
-
+                    
                         <div className="header">
                             <Link className="capitalize" to={"/" + module.id}>{module.id}</Link>
                         </div>
@@ -75,8 +72,7 @@ const SideBar = (props) => {
             {hasChildPages &&
                 <div className="capitalize ui dropdown item">
                     {props.pageType}<i className="dropdown icon"></i>
-                    {props.pageType != "types" && <ConstructList {...props} type="mobile" data={module[props.pageType]} listType={props.pageType} moduleName={module.id} />}
-                    {props.pageType == "types" && <ConstructList {...props} type="mobile" data={module["unionTypes"]} listType={props.pageType} moduleName={module.id} />}
+                    <ConstructList {...props} type="mobile" data={module[props.pageType]} listType={props.pageType} moduleName={module.id} />
                 </div>
             }
             <div className="capitalize ui dropdown item">
