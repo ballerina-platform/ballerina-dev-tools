@@ -29,6 +29,15 @@
     margin: .5em 0;
 }
 
+.method-signature a {
+    font-size: 14px !important;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+}
+
+.method-signature .builtin-type {
+    color: #07a;
+}
+
 .method-content .main-method-title:hover a.url-link {
     visibility: visible;
     width: 16px;
