@@ -106,7 +106,7 @@ task createFinalZip(type: Zip) {
     dependsOn createDocerinaUiZip
     dependsOn createTesterinaReportToolsZip
     from "build"
-    archiveName 'ballerina-dev-tools-js-' + project.version + '.zip'
+    archiveName 'ballerina-dev-tools-' + project.version + '.zip'
     destinationDir(file("dist"))
 }
 

@@ -23,5 +23,7 @@
 hs_err_pid*
 /docerina-ui/dist/
 /docerina-ui/node_modules/
+/docerina-ui/package-lock.json
 /testerina-report-tools/build/
 /testerina-report-tools/node_modules/
+/testerina-report-tools/package-lock.json
