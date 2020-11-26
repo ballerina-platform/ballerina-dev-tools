@@ -27,3 +27,6 @@ hs_err_pid*
 /testerina-report-tools/build/
 /testerina-report-tools/node_modules/
 /testerina-report-tools/package-lock.json
+build
+.gradle/
+dist
