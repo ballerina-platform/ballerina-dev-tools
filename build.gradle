@@ -138,8 +138,7 @@ if (moduleVersion.indexOf('-') != -1) {
 }
 release {
     failOnPublishNeeded = false
-    // Disable check snapshots temporarily
-    buildTasks = ['buildProject']
+    buildTasks = ['build']
     versionPropertyFile = 'gradle.properties'
     tagTemplate = 'v${version}'
     git {
