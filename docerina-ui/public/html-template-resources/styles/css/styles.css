@@ -11,7 +11,7 @@
 }
 
 .builtin-type {
-    color: #81007F;
+    color: #07a;
 }
 
 .method-content .main-method-title a.url-link {
@@ -31,7 +31,7 @@
 
 .method-signature a {
     font-size: 14px !important;
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+    font-family: monospace,monospace !important;
 }
 
 .method-signature .builtin-type {
