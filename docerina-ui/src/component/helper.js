@@ -17,6 +17,8 @@ export const getTypeLabel = (type, defaultValue)=>{
         label.push(<span key="typeName"><code> <span>function(</span>{type.paramTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>) </span><span>() </span></code></span>);
     } else if (type.isArrayType) {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}{getSuffixes(type)}</span>);
+    } else if (type.isParenthesisedType) {
+        label.push(<span key="typeName">({getTypeLabel(type.elementType)})</span>);
     } else if (type.isRestParam) {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}{getSuffixes(type)}</span>);
     } else if (type.category == "map" && type.constraint != null) {
