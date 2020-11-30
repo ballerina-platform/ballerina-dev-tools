@@ -149,7 +149,7 @@ const Layout = (props) => {
                         <div id="main">
                             {props.pageType != "package" &&
                                 <div className="ui breadcrumb">
-                                    <Link to="/" className="section">Modules</Link>
+                                    <Link to="/" className="section">Packages</Link>
                                     <i className="right angle icon divider"></i>
                                     <Link to={"/" + props.module.id} className={props.pageType == "module" ? "section capitalize active" : "section capitalize"}>{props.module.id}</Link>
                                     {props.pageType != "module" &&
