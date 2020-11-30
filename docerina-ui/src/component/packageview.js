@@ -8,7 +8,7 @@ const PackageView = (props) => {
         <section>
             <Layout title={"API Docs"} pageType="package">
                 <span dangerouslySetInnerHTML={{ __html: props.packageDescription }} />
-                <h1 className="capitalize">Ballerina Modules</h1>
+                <h1 className="capitalize">Ballerina Packages</h1>
                 <table className="ui very basic table">
                     <tbody>
                         {props.modules.map((item) => (
