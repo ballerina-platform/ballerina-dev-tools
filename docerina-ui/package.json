@@ -1,6 +1,6 @@
 {
     "name": "webpack-react-starter",
-    "version": "0.8.2-SNAPSHOT",
+    "version": "0.8.2",
     "description": "A Webpack + Babel + React Starter bolerplate ",
     "repository": {
         "type": "git",
