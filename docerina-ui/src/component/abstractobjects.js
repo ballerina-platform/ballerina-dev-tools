@@ -3,11 +3,16 @@ import Fields from "./fields"
 import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
+import {scrollAndHighlight} from "./helper"
 
 const AbstractObject = (props) => {
     
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.abstractObjects').accordion('open',0);
 
     });
@@ -15,7 +20,7 @@ const AbstractObject = (props) => {
     let abstractObject = props.abstractObject;
 
     return (
-        <Layout title={"API Docs Abstract Object: " + abstractObject.name} module={props.module}  pageType="abstractObjects" name={abstractObject.name} >
+        <Layout {...props} title={"API Docs Abstract Object: " + abstractObject.name} name={abstractObject.name} >
 
             <section className="construct-page">
                 {abstractObject != null &&

@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
-import { getTypeLabel } from "./helper"
+import { getTypeLabel, scrollAndHighlight } from "./helper"
 import Layout from "./layout";
 
 
 const Constants = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.constants').accordion('open',0);
 
     });
 
     return (
-        <Layout title={"API Docs Constants: " } module={props.module}  pageType="constants">
+        <Layout {...props} title={"API Docs Constants: " } pageType="constants">
 
         <section>
             <h1 className="capitalize">Constants</h1>

@@ -81,3 +81,10 @@ export const getConnector=(listType)=>{
 export const removeHtmlTags=(str)=> {
     return str!=null?str.replace(/<\/?[^>]*>/g, ""):"";
 }
+
+export const scrollAndHighlight = (elemId) => {
+    const elem = document.getElementById(elemId.split("#")[1]);
+    elem.scrollIntoView();
+    elem.classList.add('highlight');
+    setTimeout(function(){elem.classList.remove('highlight');}, 2000);
+}

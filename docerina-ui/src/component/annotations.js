@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react'
-import { getTypeLabel } from "./helper"
+import { getTypeLabel, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
 
 const Annotations = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.annotations').accordion('open',0);
     });
 
     return (
-        <Layout title={"API Docs Annotations" } module={props.module}  pageType="annotations">
+        <Layout {...props} title={"API Docs Annotations" }  pageType="annotations">
 
         <section>
             <h1 className="capitalize">Annotations</h1>
@@ -22,7 +26,7 @@ const Annotations = (props) => {
                             <div key={item.name}>
                                 <li id={item.name}>
                                     <b className={item.isDeprecated ? "strike" : ""}>{item.name} </b>
-                                    <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img class="attach-icon" src="./html-template-resources/images/attach.svg" />
+                                    <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img className="attach-icon" src="./html-template-resources/images/attach.svg" />
 {item.attachmentPoints}
                                 </li>
                                 {item.isDeprecated == true &&

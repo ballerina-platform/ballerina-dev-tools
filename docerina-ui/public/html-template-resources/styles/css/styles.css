@@ -6,6 +6,19 @@
     padding-bottom: 50px;
 }
 
+@keyframes highlight {
+    0% {
+        background: #d5f3ff; 
+    }
+    100% {
+        background: none;
+    }
+}
+
+.highlight {
+    animation: highlight 3s;
+}
+
 .hidden {
     display: none;
 }
@@ -225,6 +238,10 @@ margin-top: 24px;
     border-right: 1px solid #f0eff2;
     padding-top: 17px;
     height: 80px;
+}
+
+.nav-bar .dropdown.item {
+    font-size: 16px !important;
 }
 
 .search-bar {

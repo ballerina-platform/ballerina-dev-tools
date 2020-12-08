@@ -2,21 +2,24 @@ import * as React from "react";
 import { Link } from '../Router'
 import { getConnector } from "./helper"
 
-
-
 const ConstructList = (props) => {
-
+    let path;
+    if (props.match.params.packageName != null) {
+        path = "/" + props.match.params.packageName;
+    } else {
+        path = "";
+    }
     if (props.type == "desktop") {
         return (
             <>
-                <div class={"ui accordion item "+props.listType}>
-                    <div class="title capitalize">
+                <div className={"ui accordion item "+props.listType}>
+                    <div className="title capitalize">
                     {props.listType}
-                        <i class="dropdown icon"></i>
+                        <i className="dropdown icon"></i>
                     </div>
-                    <div class="content">
-                    {props.data.map(item => (
-                            <Link key={item.name} className={props.name==item.name?"active item":"item"} to={"/" + props.moduleName + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                    <div className="content">
+                    {props.module[props.listType].map(item => (
+                            <Link title={item.name} key={item.name} className={props.match.params.constructName==item.name?"active item":"item"} to={path + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
                         ))}
                     </div>
                 </div>
@@ -32,8 +35,8 @@ const ConstructList = (props) => {
     } else {
         return (
             <div className="menu">
-                {props.data.map(item => (
-                    <Link key={item.name} className="item" to={"/" + props.moduleName + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                {props.module[props.listType].map(item => (
+                    <Link key={item.name} className="item" to={props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
                 ))}
             </div>
         )

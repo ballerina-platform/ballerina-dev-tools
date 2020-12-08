@@ -4,19 +4,23 @@ import InitMethod from "./initMethod"
 import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
+import {scrollAndHighlight} from "./helper"
 
 const BClass = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.classes').accordion('open',0);
-
     });
     
         let bClass= props.bClass;
 
         return (
-            <Layout title={"API Docs Class: " + bClass.name } module={props.module}  pageType="classes" name={bClass.name} >
+            <Layout {...props} title={"API Docs Class: " + bClass.name } name={bClass.name} >
 
             <section className="construct-page">
                 {bClass != null &&

@@ -10,9 +10,9 @@ const Method = (props) => {
             </div>
             <div>
                 <pre className="method-signature">
-                    <code className="break-spaces"><span class="token keyword">function</span> {props.method.name}(
+                    <code className="break-spaces"><span className="token keyword">function</span> {props.method.name}(
             {props.method.parameters.length > 0 && props.method.parameters.map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})
-            {props.method.returnParameters.length > 0 && <span> <span class="token keyword">returns</span> {getTypeLabel(props.method.returnParameters[0].type)}</span>}
+            {props.method.returnParameters.length > 0 && <span> <span className="token keyword">returns</span> {getTypeLabel(props.method.returnParameters[0].type)}</span>}
                     </code>
                 </pre>
             </div>

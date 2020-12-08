@@ -4,20 +4,24 @@ import InitMethod from "./initMethod"
 import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
+import {scrollAndHighlight} from "./helper"
 
 const Client = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.clients').accordion('open',0);
-
     });
 
     let client = props.client;
 
     return (
 
-        <Layout title={"API Docs Client: " + client.name } module={props.module}  pageType="clients" name={client.name}>
+        <Layout {...props} title={"API Docs Client: " + client.name } name={client.name}>
 
         <section className="construct-page">
             {client != null &&

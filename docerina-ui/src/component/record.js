@@ -5,14 +5,17 @@ import Layout from "./layout"
 const Record = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            document.getElementById(props.history.location.hash.split("#")[1]).scrollIntoView();
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.records').accordion('open',0);
     });
-
     let record = props.record;
     
     return (
-        <Layout title={"API Docs - " + props.module.id +" Record: " + record.name } module={props.module}  pageType="records" name={record.name}>
+        <Layout {...props} title={"API Docs - " + props.module.id + " Record: " + record.name} name={record.name}>
         <section className="construct-page">
             {record != null &&
                 <section>

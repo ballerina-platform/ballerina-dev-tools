@@ -21,7 +21,6 @@ export class Package extends React.Component {
             this.setState({
                 modules: window.docData.modules
             });
-            console.log(this.state.modules);
         };
         // Adding the script tag to the head as suggested before
         var head = document.head;
