@@ -4,11 +4,16 @@ import InitMethod from "./initMethod"
 import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
+import { scrollAndHighlight } from "./helper"
 
 const Listener = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.listeners').accordion('open',0);
 
     });
@@ -17,7 +22,7 @@ const Listener = (props) => {
 
     return (
 
-        <Layout title={"API Docs Listener: " + listener.name } module={props.module}  pageType="listeners" name={listener.name}>
+        <Layout {...props} title={"API Docs Listener: " + listener.name } name={listener.name}>
 
         <section className="construct-page">
             {listener != null &&

@@ -3,37 +3,38 @@ import { Link } from '../Router'
 
 import ConstructList from "./constructlist"
 
-const getModuleConstructTypes = (module, name) => {
+const getModuleConstructTypes = (props) => {
+    let module = props.module;
     return (<div className="menu">
         {module.listeners != null && module.listeners.length > 0 &&
-            <ConstructList type="desktop" data={module.listeners} listType="listeners" moduleName={module.id} name={name} />
+            <ConstructList {...props} listType="listeners" />
         }
         {module.clients != null && module.clients.length > 0 &&
-            <ConstructList type="desktop" data={module.clients} listType="clients" moduleName={module.id} name={name} />
+            <ConstructList {...props} listType="clients" />
         }
         {module.functions != null && module.functions.length > 0 &&
-            <ConstructList type="desktop" data={module.functions} listType="functions" moduleName={module.id} />
+            <ConstructList {...props} listType="functions" />
         }
         {module.classes != null && module.classes.length > 0 &&
-            <ConstructList type="desktop" data={module.classes} listType="classes" moduleName={module.id} name={name} />
+            <ConstructList {...props} listType="classes" />
         }
         {module.abstractObjects != null && module.abstractObjects.length > 0 &&
-            <ConstructList type="desktop" data={module.abstractObjects} listType="abstractObjects" moduleName={module.id} name={name} />
+            <ConstructList {...props} listType="abstractObjects" />
         }
         {module.records != null && module.records.length > 0 &&
-            <ConstructList type="desktop" data={module.records} listType="records" moduleName={module.id} name={name} />
+            <ConstructList {...props} listType="records" />
         }
         {module.constants != null && module.constants.length > 0 &&
-            <ConstructList type="desktop" data={module.constants} listType="constants" moduleName={module.id} />
+            <ConstructList {...props} listType="constants" />
         }
         {module.annotations != null && module.annotations.length > 0 &&
-            <ConstructList type="desktop" data={module.annotations} listType="annotations" moduleName={module.id} />
+            <ConstructList {...props} listType="annotations" />
         }
         {module.types != null && module.types.length > 0 &&
-            <ConstructList type="desktop" data={module.types} listType="types" moduleName={module.id} />
+            <ConstructList {...props} listType="types" />
         }
         {module.errors != null && module.errors.length > 0 &&
-            <ConstructList type="desktop" data={module.errors} listType="errors" moduleName={module.id} />
+            <ConstructList {...props} listType="errors" />
         }
         <div className="ui divider"></div>
 
@@ -44,18 +45,16 @@ const getModuleConstructTypes = (module, name) => {
 
 
 const SideBar = (props) => {
-    let module = props.module;
-
     if (props.type == "desktop") {
         return (
             <section>
-                {module != null &&
+                {props.module != null &&
                     <section>
                     
                         <div className="header">
-                            <Link className="capitalize" to={"/" + module.id}>{module.id}</Link>
+                            <Link className="capitalize" to={"/" + props.module.id}>{props.module.id}</Link>
                         </div>
-                        {getModuleConstructTypes(module, props.name)}
+                        {getModuleConstructTypes(props)}
 
                     </section>
                 }
@@ -72,14 +71,13 @@ const SideBar = (props) => {
             {hasChildPages &&
                 <div className="capitalize ui dropdown item">
                     {props.pageType}<i className="dropdown icon"></i>
-                    <ConstructList {...props} type="mobile" data={module[props.pageType]} listType={props.pageType} moduleName={module.id} />
+                    <ConstructList {...props} type="mobile" data={props.module[props.pageType]} listType={props.pageType} moduleName={props.module.id} />
                 </div>
             }
             <div className="capitalize ui dropdown item">
-                {module.id} Module <i className="dropdown icon"></i>
-                {getModuleConstructTypes(module)}
+                {props.module.id} Module <i className="dropdown icon"></i>
+                {getModuleConstructTypes(props)}
             </div>
-
 
         </>);
     }

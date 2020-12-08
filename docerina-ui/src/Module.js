@@ -24,13 +24,13 @@ const Module = (props) => {
 
             {module != null &&
                 <section>
-                    <Route exact path="/:moduleName" render={(props) => (<ModuleView {...props} moduleData={module} />)} />
+                    <Route exact path="/:moduleName" render={(props) => (<ModuleView {...props} module={module} />)} />
 
-                    <Route exact path="/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} module={module} type="records" />)} />
-                    <Route exact path="/:moduleName/classes/:constructName" render={(props) => (<FindConstruct {...props} module={module} type="classes" />)} />
-                    <Route exact path="/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} module={module} type="abstractObjects" />)} />
-                    <Route exact path="/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} module={module} type="clients" />)} />
-                    <Route exact path="/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} module={module} type="listeners" />)} />
+                    <Route exact path="/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="records" />)} />
+                    <Route exact path="/:moduleName/classes/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="classes" />)} />
+                    <Route exact path="/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="abstractObjects" />)} />
+                    <Route exact path="/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="clients" />)} />
+                    <Route exact path="/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="listeners" />)} />
 
                     <Route exact path="/:moduleName/functions" render={(props) => (<Functions {...props} functions={module.functions} module={module} />)} />
                     <Route exact path="/:moduleName/types" render={(props) => (<Types {...props} types={module.types} module={module} />)} />
@@ -47,20 +47,20 @@ const Module = (props) => {
 }
 
 const FindConstruct = (props) => {
-    let construct = props.module[props.type].filter((item) => {
+    let construct = props.module[props.pageType].filter((item) => {
         return item.name == props.match.params.constructName;
     })[0];
 
-    if (props.type == "records") {
-        return <Record record={construct} module={props.module} />
-    } else if (props.type == "classes") {
-        return <BClass bClass={construct} module={props.module} />
-    } else if (props.type == "listeners") {
-        return <Listener listener={construct} module={props.module} />
-    } else if (props.type == "clients") {
-        return <Client client={construct} module={props.module} />
-    } else if (props.type == "abstractObjects") {
-        return <AbstractObject abstractObject={construct} module={props.module} />
+    if (props.pageType == "records") {
+        return <Record {...props} record={construct} />
+    } else if (props.pageType == "classes") {
+        return <BClass {...props} bClass={construct} />
+    } else if (props.pageType == "listeners") {
+        return <Listener {...props} listener={construct} />
+    } else if (props.pageType == "clients") {
+        return <Client {...props} client={construct} />
+    } else if (props.pageType == "abstractObjects") {
+        return <AbstractObject {...props} abstractObject={construct} />
     }
 }
 

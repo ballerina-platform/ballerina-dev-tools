@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { getFirstLine } from "./helper"
+import { getFirstLine, scrollAndHighlight } from "./helper"
 import { HashLink as Link } from 'react-router-hash-link';
 import Method from "./method"
 import Layout from "./layout"
@@ -8,11 +8,16 @@ import Layout from "./layout"
 const Functions = (props) => {
 
     useEffect(() => {
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.functions').accordion('open',0);
     });
     
         return (
-            <Layout title={"API Docs Functions" } module={props.module}  pageType="functions">
+            <Layout {...props} title={"API Docs Functions" } pageType="functions">
 
             <section>
                 <h1 className="capitalize">Functions</h1>
@@ -43,7 +48,7 @@ const Functions = (props) => {
                     </table>
                     <div>
                     {props.functions.map(item => (
-                        <Method method={item}/>
+                        <Method key={item.name} method={item}/>
                     ))}
                 </div>
                 </div>

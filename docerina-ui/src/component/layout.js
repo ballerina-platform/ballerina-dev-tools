@@ -50,7 +50,7 @@ const Layout = (props) => {
 
                 <div className="mobile-logo-div">
                     <div className="ui secondary menu">
-                        <img className="mobile-logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img>
+                        <a href="/"><img className="mobile-logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>
                         <div className="right item">
                             <button className="ui icon button" onClick={toggleMenu}>
                                 <i className="large bars icon"></i>
@@ -61,9 +61,9 @@ const Layout = (props) => {
 
                 <div className="toc">
                     <div className="ui visible left vertical sidebar menu">
-                        <img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img>
+                        <a href="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>
 
-                        <SideBar {...props} type="desktop" module={props.module} pageType={props.pageType} />
+                        <SideBar {...props} type="desktop" />
                     </div>
                 </div>
 
@@ -88,9 +88,9 @@ const Layout = (props) => {
                                     Version
                             <i className="dropdown icon"></i>
                                     <div className="menu">
-                                        <a href="https://ballerina.io/1.0/learn/api-docs/ballerina/" className="item" value="1.0">1.0</a>
-                                        <a href="https://ballerina.io/1.1/learn/api-docs/ballerina/" className="item" value="1.1">1.1</a>
-                                        <a href="https://ballerina.io/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
+                                        <a href={"https://ballerina.io/1.0/learn/api-docs/ballerina/"+ (props.module!=null ? props.module.id :"")} className="item" value="1.0">1.0</a>
+                                        <a href={"https://ballerina.io/1.1/learn/api-docs/ballerina/"+ (props.module!=null ? props.module.id :"")} className="item" value="1.1">1.1</a>
+                                        <a href={"https://ballerina.io/learn/api-docs/ballerina/"+ (props.module!=null ? props.module.id :"")} className="item" value="1.2">1.2</a>
                                         <a className="item active" value="swan-lake">Swan Lake</a>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@ const Layout = (props) => {
                                     </div>
                                 </div>
                                 {props.pageType != "package" &&
-                                    <SideBar {...props} type="mobile" module={props.module} pageType={props.pageType} />
+                                    <SideBar {...props} type="mobile" />
                                 }
 
                                 <div className="ui dropdown item" id="version-picker-mob">

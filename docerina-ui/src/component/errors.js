@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react'
-import { getTypeLabel } from "./helper"
+import { getTypeLabel, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
 
 const Errors = (props) => {
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
         $('.ui.accordion.errors').accordion('open',0);
 
     });
 
     return (
-        <Layout title={"API Docs Errors " } module={props.module}  pageType="errors">
+        <Layout {...props} title={"API Docs Errors " } pageType="errors">
 
         <section>
             <h1 className="capitalize">Errors</h1>

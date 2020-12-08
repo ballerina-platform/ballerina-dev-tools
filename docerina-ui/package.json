@@ -1,19 +1,7 @@
 {
-    "name": "webpack-react-starter",
-    "version": "0.8.3-SNAPSHOT",
-    "description": "A Webpack + Babel + React Starter bolerplate ",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/mlomboglia/webpack-react-starter"
-    },
-    "keywords": [
-        "Autoprefixer",
-        "PostCSS",
-        "Webpack",
-        "React",
-        "Babel"
-    ],
-    "author": "Marcos Lomboglia <marcos.lomboglia@gmail.com> (https://marcoslombog.com)",
+    "name": "@ballerina/docs-ui",
+    "version": "0.8.4-SNAPSHOT",
+    "description": "The react app used to display API Docs.",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,7 +9,6 @@
         "build": "webpack --mode production",
         "update-version": "node ./scripts/update-version.js"
     },
-    "license": "MIT",
     "browserslist": "> 1%,last 2 versions",
     "devDependencies": {
         "@babel/core": "^7.7.5",
