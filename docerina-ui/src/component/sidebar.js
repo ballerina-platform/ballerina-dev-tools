@@ -1,7 +1,25 @@
-import * as React from "react";
-import { Link } from '../Router'
+/*
+ *  Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
 
+import React from "react";
+import { Link } from '../Router'
 import ConstructList from "./constructlist"
+import { getPackageName } from "./helper"
 
 const getModuleConstructTypes = (props) => {
     let module = props.module;
@@ -41,18 +59,18 @@ const getModuleConstructTypes = (props) => {
     </div>);
 }
 
-
-
-
 const SideBar = (props) => {
+    if (props.pageType == "package" || props.pageType == "packageIndex") {
+        return (<></>);
+    }
     if (props.type == "desktop") {
         return (
             <section>
                 {props.module != null &&
                     <section>
-                    
+
                         <div className="header">
-                            <Link className="capitalize" to={"/" + props.module.id}>{props.module.id}</Link>
+                            <Link to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id}>{props.module.id} Module</Link>
                         </div>
                         {getModuleConstructTypes(props)}
 
@@ -75,14 +93,44 @@ const SideBar = (props) => {
                 </div>
             }
             <div className="capitalize ui dropdown item">
-                {props.module.id} Module <i className="dropdown icon"></i>
-                {getModuleConstructTypes(props)}
-            </div>
+                {props.module.id} Module
+                <i className="dropdown icon"></i>
+                <div className="menu">
+                    {props.module.listeners != null && props.module.listeners.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
+                    }
+                    {props.module.clients != null && props.module.clients.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#clients"}>Clients</Link>
+                    }
+                    {props.module.functions != null && props.module.functions.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#functions"}>Functions</Link>
+                    }
+                    {props.module.classes != null && props.module.classes.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
+                    }
+                    {props.module.abstractObjects != null && props.module.abstractObjects.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
+                    }
+                    {props.module.records != null && props.module.records.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
+                    }
+                    {props.module.constants != null && props.module.constants.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>
+                    }
+                    {props.module.annotations != null && props.module.annotations.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#annotations"}>Annotations</Link>
+                    }
+                    {props.module.types != null && props.module.types.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#types"}>Types</Link>
+                    }
+                    {props.module.errors != null && props.module.errors.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
+                    }
 
+                </div>
+            </div>
         </>);
     }
-
 }
-
 
 export default SideBar;

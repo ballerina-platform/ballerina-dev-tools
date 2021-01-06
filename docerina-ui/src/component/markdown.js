@@ -16,10 +16,21 @@
  *  under the License.
  */
 
-export { HashLink as Link } from 'react-router-hash-link';
-export { Helmet as Head } from "react-helmet";
+import React from 'react'
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm'
+import CodeBlock from "./codeblock";
 
-export const appType = "react"
-export const rootPath = "./"
+function SemanticTable(props) {
+    return (
+        <table className="ui very basic table">
+            {props.children}
+        </table>
+    );
+}
 
-export const otherScripts = "";
+const Markdown = (props) => {
+    return (<ReactMarkdown source={props.text} plugins={[gfm]} renderers={{ code: CodeBlock, table: SemanticTable }} />);
+}
+
+export default Markdown;

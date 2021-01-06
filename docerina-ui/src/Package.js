@@ -1,55 +1,43 @@
-import * as React from "react";
+/*
+ *  Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+import React from "react";
 import {
     Route
 } from "react-router-dom";
 import Module from "./Module"
 import PackageView from "./component/packageview"
 
+const Package = (parentProps) => {
 
-export class Package extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modules: null
-        };
-        this.loadScript("./data/" + this.props.match.params.packageName + ".js");
-    }
-
-    loadScript(url) {
-        const callback = () => {
-            console.log("Script loaded");
-            this.setState({
-                modules: window.docData.modules
-            });
-        };
-        // Adding the script tag to the head as suggested before
-        var head = document.head;
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = url;
-
-        // Then bind the event to the callback function.
-        // There are several events for cross browser compatibility.
-        script.onreadystatechange = callback;
-        script.onload = callback;
-
-        // Fire the loading
-        head.appendChild(script);
-    }
-
-    render() {
-        return (
-            <section>
-
-                {this.state.modules != null &&
-                    <section>
-                        <Route exact path="/:packageName" render={(props) => (<PackageView {...props} moduleData={this.state.modules} />)} />
-                        <Route path="/:packageName/:moduleName" render={(props) => (<Module {...props} modules={this.state.modules} />)} />
-                    </section>
-                }
-
-            </section>
-
-        );
-    }
+    let docPackage = parentProps.packages.filter((item) => {
+        return item.name == (parentProps.match.params.packageName);
+    })[0];
+    return (
+        <section>
+            {docPackage != null &&
+                <section>
+                    <Route exact path="/:orgName/:packageName/:version" render={(props) => (<PackageView {...props} package={docPackage} searchData={parentProps.searchData} />)} />
+                    <Route path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<Module {...props} package={docPackage} searchData={parentProps.searchData} />)} />
+                </section>
+            }
+        </section>
+    );
 }
+
+export default Package;

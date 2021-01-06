@@ -1,9 +1,25 @@
+/*
+ *  Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+import React from "react";
 import { Link } from '../Router'
-import * as React from "react";
 
-
-
-export const getTypeLabel = (type, defaultValue)=>{
+export const getTypeLabel = (type, defaultValue) => {
     var label = [];
     if (type.isAnonymousUnionType) {
         label.push(type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ' | ', curr]));
@@ -26,7 +42,7 @@ export const getTypeLabel = (type, defaultValue)=>{
     } else if (type.category == "stream") {
         label.push(<span key="typeName" className="builtin-type">{type.name}&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
     } else if (type.category == "builtin" || type.moduleName == "lang.annotations" || !type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {
-        label.push(<span key="typeName" className="builtin-type">{type.name+getSuffixes(type)}</span>);
+        label.push(<span key="typeName" className="builtin-type">{type.name + getSuffixes(type)}</span>);
     } else {
         label.push(getLink(type));
     }
@@ -37,28 +53,33 @@ export const getTypeLabel = (type, defaultValue)=>{
             label.push(<span className="default">(default {defaultValue})</span>);
         }
     }
-        
+
     return label;
 }
 
-export const getFirstLine = (lines)=>{
+export const getFirstLine = (lines) => {
     var newLine = lines.replace(/<pre>(.|\n)*?<\/pre>/g, " ");
     newLine = newLine.replace(/<table>(.|\n)*?<\/table>/g, " ");
 
     var splits = newLine.split(/\.\s/, 2);
     if (splits.length < 2) {
-        return {__html: splits[0]+"</p>"};
+        return splits[0];
     } else {
-        return {__html: splits[0]+".</p>"};
+        return splits[0] + ".";
     }
 }
 
-export const getLink = (type)=>{
-    var link = <Link key="typeName" className="item" to={"/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name} replace>{type.name}</Link>
+export const getLink = (type) => {
+    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name} replace>{type.name + getSuffixes(type)}</Link>
     return link;
 }
 
-export const getSuffixes=(type)=>{
+export const getPackageName = (moduleName) => {
+    var packageName = moduleName != null ? moduleName.split(/\./, 2)[0] : "UNK";
+    return packageName == "lang" ? moduleName : packageName;
+}
+
+export const getSuffixes = (type) => {
     var suffix = "";
     if (type.isArrayType) {
         suffix = "[ ]".repeat(type.arrayDimensions);
@@ -69,22 +90,21 @@ export const getSuffixes=(type)=>{
     return suffix;
 }
 
-
-export const getConnector=(listType)=>{
-    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "abstractObjects" || listType == "listeners" ) {
+export const getConnector = (listType) => {
+    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "abstractObjects" || listType == "listeners") {
         return "/";
     } else {
         return "#";
     }
 }
 
-export const removeHtmlTags=(str)=> {
-    return str!=null?str.replace(/<\/?[^>]*>/g, ""):"";
+export const removeHtmlTags = (str) => {
+    return str != null ? str.replace(/<\/?[^>]*>/g, "") : "";
 }
 
 export const scrollAndHighlight = (elemId) => {
     const elem = document.getElementById(elemId.split("#")[1]);
     elem.scrollIntoView();
     elem.classList.add('highlight');
-    setTimeout(function(){elem.classList.remove('highlight');}, 2000);
+    setTimeout(function () { elem.classList.remove('highlight'); }, 2000);
 }
