@@ -79,13 +79,11 @@ const AbstractObject = (props) => {
                                 ))
                             }
                         </div>
-
                     </section>
                 }
             </section>
         </Layout>
     );
-
 }
 
 export default AbstractObject;

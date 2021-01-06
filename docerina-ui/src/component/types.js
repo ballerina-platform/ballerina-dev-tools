@@ -38,7 +38,6 @@ const Types = (props) => {
                                         <Markdown text={item.description} />
                                     </ul>
                                 </div>
-
                             ))}
                         </div>
                     </div>
@@ -46,7 +45,6 @@ const Types = (props) => {
             </section>
         </Layout>
     );
-
 }
 
 export default Types;

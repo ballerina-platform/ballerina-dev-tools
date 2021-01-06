@@ -37,7 +37,6 @@ const Fields = (props) => {
             </ul>
         </div>
     );
-
 }
 
 export default Fields;

@@ -82,13 +82,11 @@ const BClass = (props) => {
                                 }
                             </div>
                         </div>
-
                     </section>
                 }
             </section>
         </Layout>
     );
-
 }
 
 export default BClass;

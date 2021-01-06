@@ -126,7 +126,6 @@ const SideBar = (props) => {
                     {props.module.errors != null && props.module.errors.length > 0 &&
                         <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
                     }
-
                 </div>
             </div>
         </>);

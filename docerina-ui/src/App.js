@@ -17,14 +17,12 @@
  */
 
 import React from "react";
-
 import {
   HashRouter as Router,
   Route
 } from "react-router-dom";
 import PackageIndex from "./component/packageindex";
 import Package from "./Package";
-
 
 class App extends React.Component {
   constructor(props) {
@@ -68,8 +66,6 @@ class App extends React.Component {
     // Fire the loading
     head.appendChild(script);
   }
-
-
 
   render() {
     return (

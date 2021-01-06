@@ -60,11 +60,9 @@ const Constants = (props) => {
                         </ul>
                     </div>
                 </div>
-
             </section>
         </Layout>
     );
-
 }
 
 export default Constants;

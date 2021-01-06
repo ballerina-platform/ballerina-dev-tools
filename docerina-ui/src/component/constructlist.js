@@ -35,13 +35,6 @@ const ConstructList = (props) => {
                         ))}
                     </div>
                 </div>
-                {/* <div class="ui left pointing dropdown link item">
-                    <span class="capitalize"></span>
-                    <i class="dropdown icon"></i>
-                    <div className="menu">
-
-                    </div>
-                </div> */}
             </>
         );
     } else {
@@ -53,7 +46,6 @@ const ConstructList = (props) => {
             </div>
         )
     }
-
 }
 
 export default ConstructList;

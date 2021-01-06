@@ -74,7 +74,6 @@ const Functions = (props) => {
             </section>
         </Layout>
     );
-
 }
 
 export default Functions;

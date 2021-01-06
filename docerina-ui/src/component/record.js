@@ -56,9 +56,7 @@ const Record = (props) => {
                         {record.fields.length != 0 &&
                             <section>
                                 <h2>Fields</h2>
-
                                 <Fields fields={record.fields} />
-
                             </section>
                         }
                     </div>
@@ -67,7 +65,6 @@ const Record = (props) => {
         </section>
         </Layout>
     );
-
 }
 
 export default Record;

@@ -95,13 +95,11 @@ const Client = (props) => {
                                 ))
                             }
                         </div>
-
                     </section>
                 }
             </section>
         </Layout>
     );
-
 }
 
 export default Client;

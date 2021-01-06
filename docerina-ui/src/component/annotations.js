@@ -60,11 +60,9 @@ const Annotations = (props) => {
                         </ul>
                     </div>
                 </div>
-
             </section>
         </Layout>
     );
-
 }
 
 export default Annotations;

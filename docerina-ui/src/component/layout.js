@@ -182,7 +182,6 @@ const Layout = (props) => {
 
                                 <div className="ui very padded segment module-data">
                                     {props.children}
-
                                 </div>
                             </div>
                         </div>
