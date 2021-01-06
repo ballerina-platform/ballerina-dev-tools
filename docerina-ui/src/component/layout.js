@@ -169,7 +169,7 @@ const Layout = (props) => {
                                                     <span>
                                                         <i className="right angle icon divider"></i>
                                                         {hasChildPages ?
-                                                            (<span><Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName + "#" + props.pageType} className="section">{props.pageType}</Link><i className="right angle icon divider"></i><p className="section capitalize active">{props.name}</p></span>)
+                                                            (<span><Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName + "#" + props.pageType} className="section capitalize">{props.pageType}</Link><i className="right angle icon divider"></i><p className="section capitalize active">{props.name}</p></span>)
                                                             :
                                                             (<p className="section capitalize active">{props.pageType}</p>)
                                                         }
