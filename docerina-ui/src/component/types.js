@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 import { getTypeLabel, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
+import { appType } from '../Router'
+import Markdown from "./markdown"
 
 const Types = (props) => {
 
     useEffect(() => {
-        if (props.history.location.hash != "") {
+        if (appType == "react" && props.history.location.hash != "") {
             scrollAndHighlight(props.history.location.hash);
+        } else if (appType == "next" && location.hash != "") {
+            scrollAndHighlight(location.hash);
         } else {
             window.scrollTo(0, 0);
         }
@@ -31,10 +35,9 @@ const Types = (props) => {
                                             item.isDeprecated == true &&
                                             <div className="ui orange horizontal label">Deprecated</div>
                                         }
-                                        <span dangerouslySetInnerHTML={{ __html: item.description }}></span>
+                                        <Markdown text={item.description} />
                                     </ul>
                                 </div>
-
                             ))}
                         </div>
                     </div>
@@ -42,7 +45,6 @@ const Types = (props) => {
             </section>
         </Layout>
     );
-
 }
 
 export default Types;

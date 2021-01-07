@@ -1,14 +1,29 @@
+/*
+ *  Copyright (c) 2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 import * as React from "react";
 import { getFirstLine } from "./helper"
 import { Link } from '../Router'
 
-
 const MethodTable = (props) => {
-
 
     return (
         <section>
-
             <table className="ui very basic table">
                 <tbody>
                     {props.methods.map(item => (
@@ -21,7 +36,7 @@ const MethodTable = (props) => {
                                     item.isDeprecated == true &&
                                     <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                 }
-                                <span dangerouslySetInnerHTML={getFirstLine(item.description)} />
+                                <p>{getFirstLine(item.description)}</p>
                             </td>
                         </tr>
                     ))}
@@ -29,9 +44,6 @@ const MethodTable = (props) => {
             </table>
         </section>
     );
-
-
-
 }
 
 export default MethodTable;

@@ -16,21 +16,19 @@
  *  under the License.
  */
 
-import * as React from "react";
-import PackageView from "./component/packageview"
-import Module from "./Module"
-
+import React from "react";
 import {
   HashRouter as Router,
   Route
 } from "react-router-dom";
-
+import PackageIndex from "./component/packageindex";
+import Package from "./Package";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modules: null,
+      packages: null,
       searchData: null,
       packageDescription: null
     };
@@ -38,7 +36,7 @@ class App extends React.Component {
     this.loadScript("./data/doc_data.js", () => {
       console.log("Doc data loaded");
       this.setState({
-        modules: window.docData.modules,
+        packages: window.docData.packages,
         packageDescription: window.docData.description
       });
     });
@@ -46,7 +44,7 @@ class App extends React.Component {
     this.loadScript("./doc-search/search-data.js", () => {
       console.log("Search Data loaded");
       this.setState({
-        searchData: "loaded"
+        searchData: window.searchData
       });
     });
   }
@@ -69,15 +67,13 @@ class App extends React.Component {
     head.appendChild(script);
   }
 
-
-
   render() {
     return (
       <section className="App">
-        {this.state.modules != null && this.state.searchData != null &&
+        {this.state.packages != null && this.state.searchData != null &&
           <Router>
-            <Route exact path="/" render={(props) => (<PackageView {...props} modules={this.state.modules} packageDescription={this.state.packageDescription} />)} />
-            <Route path="/:moduleName" render={(props) => (<Module {...props} modules={this.state.modules} />)} />
+            <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} packageDescription={this.state.packageDescription} />)} />
+            <Route path="/:orgName/:packageName/:version" render={(props) => (<Package {...props} packages={this.state.packages} searchData={this.state.searchData} />)} />
           </Router>
         }
       </section>

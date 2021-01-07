@@ -16,9 +16,21 @@
  *  under the License.
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from 'react'
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm'
+import CodeBlock from "./codeblock";
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+function SemanticTable(props) {
+    return (
+        <table className="ui very basic table">
+            {props.children}
+        </table>
+    );
+}
+
+const Markdown = (props) => {
+    return (<ReactMarkdown source={props.text} plugins={[gfm]} renderers={{ code: CodeBlock, table: SemanticTable }} />);
+}
+
+export default Markdown;
