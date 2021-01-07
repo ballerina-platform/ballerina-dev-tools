@@ -35,6 +35,7 @@ export class SearchList extends React.Component {
             filteredClients: [],
             filteredListeners: [],
             filteredAnnotations: [],
+            filteredEnums: [],
             searchText: null
         };
         this.handleChange = this.handleChange.bind(this);
@@ -61,7 +62,8 @@ export class SearchList extends React.Component {
             filteredTypes: this.props.searchData.types,
             filteredClients: this.props.searchData.clients,
             filteredListeners: this.props.searchData.listeners,
-            filteredAnnotations: this.props.searchData.annotations
+            filteredAnnotations: this.props.searchData.annotations,
+            filteredEnums: this.props.searchData.enums
         });
         this.handleChange();
     }
@@ -78,7 +80,9 @@ export class SearchList extends React.Component {
             filteredTypes: this.props.searchData.types,
             filteredClients: this.props.searchData.clients,
             filteredListeners: this.props.searchData.listeners,
-            filteredAnnotations: this.props.searchData.annotations
+            filteredAnnotations: this.props.searchData.annotations,
+            filteredEnums: this.props.searchData.enums
+
         });
         this.handleChange();
     }
@@ -119,6 +123,7 @@ export class SearchList extends React.Component {
         let currentClientsList = [];
         let currentListenersList = [];
         let currentAnnotationsList = [];
+        let currentEnumsList = [];
         // Variable to hold the filtered list before putting into state
         let newModuleList = [];
         let newFunctionsList = [];
@@ -131,6 +136,7 @@ export class SearchList extends React.Component {
         let newClientsList = [];
         let newListenersList = [];
         let newAnnotationsList = [];
+        let newEnumsList = [];
         // If the search bar isn't empty
         if (searchTxt !== "") {
             // Assign the original list to currentList
@@ -145,6 +151,7 @@ export class SearchList extends React.Component {
             currentClientsList = this.props.searchData.clients;
             currentListenersList = this.props.searchData.listeners;
             currentAnnotationsList = this.props.searchData.annotations;
+            currentEnumsList = this.props.searchData.enums;
             // Use .filter() to determine which items should be displayed
             // based on the search terms
             newModuleList = currentModuleList.filter((item) => {
@@ -218,6 +225,12 @@ export class SearchList extends React.Component {
                 return lc.includes(filter);
             });
 
+            newEnumsList = currentEnumsList.filter((item) => {
+                const lc = item.id.toLowerCase();
+                const filter = searchTxt.toLowerCase();
+                return lc.includes(filter);
+            });
+
         } else {
             if (mainDiv != null) {
                 mainDiv.classList.remove('hidden');
@@ -235,7 +248,8 @@ export class SearchList extends React.Component {
             filteredTypes: newTypesList,
             filteredClients: newClientsList,
             filteredListeners: newListenersList,
-            filteredAnnotations: newAnnotationsList
+            filteredAnnotations: newAnnotationsList,
+            filteredEnums: newEnumsList
         });
     }
 
@@ -246,11 +260,11 @@ export class SearchList extends React.Component {
                     <div className="search-list">
                         <h1>Search results for '{this.state.searchText}'</h1>
                         {this.state.filteredModules.length == 0 && this.state.filteredClasses.length == 0 &&
-                        this.state.filteredFunctions.length == 0 && this.state.filteredRecords.length == 0 &&
-                        this.state.filteredConstants.length == 0 && this.state.filteredTypes.length == 0 &&
-                        this.state.filteredErrors.length == 0 && this.state.filteredClients.length == 0 &&
-                        this.state.filteredListeners.length == 0 && this.state.filteredAnnotations.length == 0
-                        && this.state.filteredAbsObjects.length == 0 && <p>No results found</p>
+                            this.state.filteredFunctions.length == 0 && this.state.filteredRecords.length == 0 &&
+                            this.state.filteredConstants.length == 0 && this.state.filteredTypes.length == 0 &&
+                            this.state.filteredErrors.length == 0 && this.state.filteredClients.length == 0 &&
+                            this.state.filteredListeners.length == 0 && this.state.filteredAnnotations.length == 0
+                            && this.state.filteredAbsObjects.length == 0 && this.state.filteredEnums.length == 0 && <p>No results found</p>
                         }
                         {this.state.filteredModules.length > 0 &&
                             <div className="ui segment">
@@ -261,7 +275,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.orgName + "/" + getPackageName(item.id) + "/" + item.version + "/" + item.id} onClick={this.onLinkClick} className="objects">
-                                                    {item.id}</Link></td>
+                                                        {item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -281,7 +295,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/classes/" + item.id} onClick={this.onLinkClick}
-                                                     className="objects">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="objects">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -300,8 +314,8 @@ export class SearchList extends React.Component {
                                         {this.state.filteredAbsObjects.map(item => (
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
-                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/abstractObjects/" + item.id } onClick={this.onLinkClick}
-                                                     className="objects">{item.moduleId + ": " + item.id}</Link></td>
+                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/abstractObjects/" + item.id} onClick={this.onLinkClick}
+                                                        className="objects">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -320,8 +334,8 @@ export class SearchList extends React.Component {
                                         {this.state.filteredClients.map(item => (
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
-                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/clients/" + item.id } onClick={this.onLinkClick}
-                                                     className="clients">{item.moduleId + ": " + item.id}</Link></td>
+                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/clients/" + item.id} onClick={this.onLinkClick}
+                                                        className="clients">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -341,8 +355,8 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/listeners/" + item.id} onClick={this.onLinkClick}
-                                                    
-                                                     className="listeners">{item.moduleId + ": " + item.id}</Link></td>
+
+                                                        className="listeners">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -362,7 +376,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/functions#" + item.id} onClick={this.onLinkClick}
-                                                    className="functions">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="functions">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -381,8 +395,8 @@ export class SearchList extends React.Component {
                                         {this.state.filteredRecords.map(item => (
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
-                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/records/" + item.id } onClick={this.onLinkClick}
-                                                     className="records">{item.moduleId + ": " + item.id}</Link></td>
+                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/records/" + item.id} onClick={this.onLinkClick}
+                                                        className="records">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -402,7 +416,27 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/constants#" + item.id} onClick={this.onLinkClick}
-                                                    className="constant">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="constant">{item.moduleId + ": " + item.id}</Link></td>
+                                                <td className="search-desc">
+                                                    <p>{item.description}</p>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+
+                        {this.state.filteredEnums.length > 0 &&
+                            <div className="ui segment">
+                                <h3>Enums: {this.state.filteredEnums.length}</h3>
+                                <table className="ui very basic table">
+                                    <tbody>
+                                        {this.state.filteredEnums.map(item => (
+                                            <tr>
+                                                <td className="search-title" id={item.id} title={item.id}>
+                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/enums/" + item.id} onClick={this.onLinkClick}
+                                                        className="constant">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -422,7 +456,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/types#" + item.id} onClick={this.onLinkClick}
-                                                    className="types">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="types">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -442,7 +476,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/errors#" + item.id} onClick={this.onLinkClick}
-                                                    className="errors">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="errors">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>
@@ -462,7 +496,7 @@ export class SearchList extends React.Component {
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
                                                     <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/annotations#" + item.id} onClick={this.onLinkClick}
-                                                    className="annotations">{item.moduleId + ": " + item.id}</Link></td>
+                                                        className="annotations">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>
                                                 </td>

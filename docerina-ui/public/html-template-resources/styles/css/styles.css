@@ -359,6 +359,11 @@ body p, li, ul, th, td {
     color: #57595d !important;
 }
 
+.enum-name {
+    font-weight: 600;
+    max-width: 150px;
+}
+
 .break-spaces {
     white-space: break-spaces !important;
 }

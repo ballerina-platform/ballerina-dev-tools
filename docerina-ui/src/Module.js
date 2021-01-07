@@ -29,6 +29,7 @@ import Errors from "./component/errors"
 import Constants from "./component/constants"
 import Annotations from "./component/annotations"
 import ModuleView from "./component/moduleview"
+import Enum from "./component/enum"
 
 const Module = (parentProps) => {
 
@@ -48,6 +49,7 @@ const Module = (parentProps) => {
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="abstractObjects" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="clients" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="listeners" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/enums/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="enums" searchData={parentProps.searchData} />)} />
 
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/functions" render={(props) => (<Functions {...props} functions={module.functions} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/types" render={(props) => (<Types {...props} types={module.types} module={module} searchData={parentProps.searchData} />)} />
@@ -75,6 +77,8 @@ const FindConstruct = (props) => {
         return <Client {...props} client={construct} />
     } else if (props.pageType == "abstractObjects") {
         return <AbstractObject {...props} abstractObject={construct} />
+    } else if (props.pageType == "enums") {
+        return <Enum {...props} bEnum={construct} />
     }
 }
 

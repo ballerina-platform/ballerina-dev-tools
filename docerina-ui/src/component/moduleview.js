@@ -242,6 +242,34 @@ const ModuleView = (props) => {
                     </section>
                 }
 
+                {props.module.enums.length > 0 &&
+                    <section id="enums" className="module-construct">
+                        <div className="main-method-title here">
+                            <h2>Enums</h2>
+                            <p>[{props.module.enums.length}]</p>
+                        </div>
+                        <div className="ui divider"></div>
+                        <table className="ui very basic table">
+                            <tbody>
+                                {props.module.enums.map(item => (
+                                    <tr key={item.name}>
+                                        <td className="module-title truncate constants" id={item.name} title={item.name}>
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/enums/" + item.name}>{item.name}</Link>
+
+                                        </td>
+                                        <td className="module-desc">
+                                            {
+                                                item.isDeprecated == true &&
+                                                <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
+                                            }
+                                            <p>{getFirstLine(item.description)}</p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                }
 
                 {props.module.annotations.length > 0 &&
                     <section id="annotations" className="module-construct">

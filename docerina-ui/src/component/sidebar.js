@@ -42,6 +42,9 @@ const getModuleConstructTypes = (props) => {
         {module.records != null && module.records.length > 0 &&
             <ConstructList {...props} listType="records" />
         }
+        {module.enums != null && module.enums.length > 0 &&
+            <ConstructList {...props} listType="enums" />
+        }
         {module.constants != null && module.constants.length > 0 &&
             <ConstructList {...props} listType="constants" />
         }
@@ -113,6 +116,9 @@ const SideBar = (props) => {
                     }
                     {props.module.records != null && props.module.records.length > 0 &&
                         <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
+                    }
+                    {props.module.enums != null && props.module.enums.length > 0 &&
+                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#enums"}>Enums</Link>
                     }
                     {props.module.constants != null && props.module.constants.length > 0 &&
                         <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>

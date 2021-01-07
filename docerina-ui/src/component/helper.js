@@ -91,7 +91,7 @@ export const getSuffixes = (type) => {
 }
 
 export const getConnector = (listType) => {
-    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "abstractObjects" || listType == "listeners") {
+    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "abstractObjects" || listType == "listeners" || listType == "enums") {
         return "/";
     } else {
         return "#";

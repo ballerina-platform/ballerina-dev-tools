@@ -29,7 +29,7 @@ const Fields = (props) => {
                     <section key={item.name}>
                         <li>
                             <span className={item.isDeprecated ? "strike" : ""}>{item.name} </span>
-                            {getTypeLabel(item.type, item.defaultValue)}
+                            {item.type != null && getTypeLabel(item.type, item.defaultValue)}
                         </li>
                         <Markdown text={item.description} />
                     </section>
