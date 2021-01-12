@@ -21,7 +21,6 @@ import { getTypeLabel, getLink } from "./helper"
 import Markdown from "./markdown"
 
 const Fields = (props) => {
-    console.log(props.fields)
     return (
         <div className="fields-listing">
             <ul>
