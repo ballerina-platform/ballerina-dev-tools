@@ -17,7 +17,7 @@
  */
 
 import React, { useEffect } from 'react'
-import { getFirstLine, scrollAndHighlight } from "./helper"
+import { getFirstLine, scrollAndHighlight, getPackageName } from "./helper"
 import { Link, appType } from '../Router'
 import Method from "./method"
 import Layout from "./layout"
@@ -46,7 +46,7 @@ const Functions = (props) => {
                             {props.functions.map(item => (
                                 <tr key={item.name}>
                                     <td width="30%">
-                                        <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + props.module.id + "/" + props.module.version + "/" + "functions#" + item.name}>{item.name}</Link>
+                                        <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/functions#" + item.name}>{item.name}</Link>
                                     </td>
                                     <td width="70%">
                                         <div className="module-desc">
