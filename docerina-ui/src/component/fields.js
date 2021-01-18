@@ -17,21 +17,44 @@
  */
 
 import React from "react";
-import { getTypeLabel } from "./helper"
+import { getTypeLabel, getLink } from "./helper"
 import Markdown from "./markdown"
 
 const Fields = (props) => {
-
     return (
         <div className="fields-listing">
             <ul>
                 {props.fields.map(item => (
                     <section key={item.name}>
                         <li>
-                            <span className={item.isDeprecated ? "strike" : ""}>{item.name} </span>
-                            {item.type != null && getTypeLabel(item.type, item.defaultValue)}
+                            {item.inclusionType == null &&
+                                <>
+                                    <span className={item.isDeprecated ? "strike" : ""}>{item.name} </span>
+                                    {getTypeLabel(item.type, item.defaultValue)}
+                                </>
+                            }
+                            {item.inclusionType != null &&
+                                <>
+                                    <span className={item.isDeprecated ? "strike" : ""}>
+                                        <span>Fields Included from </span>
+                                        <span data-tooltip="Type inclusion" data-position="top left">*</span>
+                                        {getTypeLabel(item.type, item.defaultValue)}</span>
+                                </>
+                            }
                         </li>
-                        <Markdown text={item.description} />
+                        {item.inclusionType == null && <Markdown text={item.description} />}
+                        {item.inclusionType != null &&
+                            <>
+                                <ul>
+                                    {item.type.memberTypes.map(type => {
+                                        return(
+                                            <li>{type.name} {getTypeLabel(type.elementType, type.defaultValue)}
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        }
                     </section>
                 ))}
             </ul>
