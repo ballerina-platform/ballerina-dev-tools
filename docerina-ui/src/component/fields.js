@@ -48,7 +48,8 @@ const Fields = (props) => {
                                 <ul>
                                     {item.type.memberTypes.map(type => {
                                         return(
-                                            <li>{type.name} {getTypeLabel(type.elementType, type.defaultValue)}
+                                            <li>{type.name} 
+                                            {/* {getTypeLabel(type.elementType, type.defaultValue)} */}
                                             </li>
                                         );
                                     })}
