@@ -28,9 +28,9 @@ class CodeBlock extends React.Component {
 
     render() {
         const { language, value } = this.props;
-
+        const cleanedVal = value.replace(/^#{1}/,"").replace(/\n#{1}/,"\n").replace(/\n.?```.*\n?.*/,"");
         return (
-            <Highlight {...defaultProps} code={value} language={language} theme={undefined} >
+            <Highlight {...defaultProps} code={cleanedVal} language={language} theme={undefined} >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre className={className} style={style}>
                         {tokens.map((line, i) => (
