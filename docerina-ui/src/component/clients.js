@@ -53,6 +53,14 @@ const Client = (props) => {
                             client.isDeprecated == true &&
                             <div className="ui orange horizontal label">Deprecated</div>
                         }
+                        {
+                            client.isIsolated == true &&
+                            <div className="ui horizontal label">Isolated</div>
+                        }
+                        {
+                            client.isReadOnly == true &&
+                            <div className="ui horizontal label">Read Only</div>
+                        }
                         <Markdown text={client.description} />
                         <div className="constants">
                             <div className="method-sum">

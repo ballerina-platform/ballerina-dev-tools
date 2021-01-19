@@ -52,6 +52,14 @@ const BClass = (props) => {
                             bClass.isDeprecated == true &&
                             <div className="ui orange horizontal label">Deprecated</div>
                         }
+                        {
+                            bClass.isIsolated == true &&
+                            <div className="ui horizontal label">Isolated</div>
+                        }
+                        {
+                            bClass.isReadOnly == true &&
+                            <div className="ui horizontal label">Read Only</div>
+                        }
                         <Markdown text={bClass.description} />
                         <div className="constants">
                             <div className="method-sum">
