@@ -72,7 +72,7 @@ export const getFirstLine = (lines) => {
 }
 
 export const getLink = (type) => {
-    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name} replace>{type.name + getSuffixes(type)}</Link>
+    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name}>{type.name + getSuffixes(type)}</Link>
     return link;
 }
 
