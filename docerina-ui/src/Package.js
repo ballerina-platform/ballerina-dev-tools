@@ -22,21 +22,23 @@ import {
 } from "react-router-dom";
 import Module from "./Module"
 import PackageView from "./component/packageview"
+import NotFound from "./component/notfound"
 
 const Package = (parentProps) => {
 
     let docPackage = parentProps.packages.filter((item) => {
-        return item.name == (parentProps.match.params.packageName);
+        return item.name == (parentProps.match.params.packageName) && item.orgName == (parentProps.match.params.orgName);
     })[0];
     return (
-        <section>
+        <>
             {docPackage != null &&
-                <section>
+                <>
                     <Route exact path="/:orgName/:packageName/:version" render={(props) => (<PackageView {...props} package={docPackage} searchData={parentProps.searchData} />)} />
                     <Route path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<Module {...props} package={docPackage} searchData={parentProps.searchData} />)} />
-                </section>
+                </>
             }
-        </section>
+            {docPackage == null && <NotFound {...parentProps} />}
+        </>
     );
 }
 

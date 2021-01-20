@@ -17,7 +17,7 @@
  */
 
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Record from "./component/record"
 import BClass from "./component/classes"
 import AbstractObject from "./component/abstractobjects"
@@ -30,6 +30,7 @@ import Constants from "./component/constants"
 import Annotations from "./component/annotations"
 import ModuleView from "./component/moduleview"
 import Enum from "./component/enum"
+import NotFound from "./component/notfound"
 
 const Module = (parentProps) => {
 
@@ -38,10 +39,9 @@ const Module = (parentProps) => {
     })[0];
 
     return (
-        <section>
-
+        <>
             {module != null &&
-                <section>
+                <Switch>
                     <Route exact path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<ModuleView {...props} module={module} searchData={parentProps.searchData} />)} />
 
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="records" searchData={parentProps.searchData} />)} />
@@ -56,9 +56,11 @@ const Module = (parentProps) => {
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/errors" render={(props) => (<Errors {...props} errors={module.errors} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/constants" render={(props) => (<Constants {...props} constants={module.constants} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/annotations" render={(props) => (<Annotations {...props} annotations={module.annotations} module={module} searchData={parentProps.searchData} />)} />
-                </section>
+                    <Route render={(props) => (<NotFound {...parentProps} />)} />
+                </Switch>
             }
-        </section>
+            {module == null && <NotFound {...parentProps} />}
+        </>
     );
 }
 
@@ -66,6 +68,10 @@ const FindConstruct = (props) => {
     let construct = props.module[props.pageType].filter((item) => {
         return item.name == props.match.params.constructName;
     })[0];
+
+    if (construct == null) {
+        return <NotFound {...props} />
+    }
 
     if (props.pageType == "records") {
         return <Record {...props} record={construct} />

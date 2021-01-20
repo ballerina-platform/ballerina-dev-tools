@@ -152,7 +152,7 @@ const Layout = (props) => {
                                 <SearchList searchData={props.searchData} />
                             </div>
                             <div id="main">
-                                {props.pageType != "packageIndex" &&
+                                {props.pageType != "packageIndex" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
                                         <Link to="/" className="section">Packages</Link>
                                         <i className="right angle icon divider"></i>

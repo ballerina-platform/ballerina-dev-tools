@@ -106,7 +106,9 @@ export const removeHtmlTags = (str) => {
 
 export const scrollAndHighlight = (elemId) => {
     const elem = document.getElementById(elemId.split("#")[1]);
-    elem.scrollIntoView();
-    elem.classList.add('highlight');
-    setTimeout(function () { elem.classList.remove('highlight'); }, 2000);
+    if (elem != null) {
+        elem.scrollIntoView();
+        elem.classList.add('highlight');
+        setTimeout(function () { elem.classList.remove('highlight'); }, 2000);
+    }
 }

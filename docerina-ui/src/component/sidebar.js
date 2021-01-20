@@ -63,7 +63,7 @@ const getModuleConstructTypes = (props) => {
 }
 
 const SideBar = (props) => {
-    if (props.pageType == "package" || props.pageType == "packageIndex") {
+    if (props.pageType == "package" || props.pageType == "packageIndex" || props.pageType == "404") {
         return (<></>);
     }
     if (props.type == "desktop") {
