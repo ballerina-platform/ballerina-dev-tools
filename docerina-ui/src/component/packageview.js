@@ -16,13 +16,23 @@
  *  under the License.
  */
 
-import React from "react";
-import { Link } from '../Router'
+import React, { useEffect } from "react";
+import { Link, appType } from '../Router'
 import Layout from "./layout";
-import { getPackageName } from "./helper"
+import { getPackageName, scrollAndHighlight } from "./helper"
 import Markdown from "./markdown"
 
 const PackageView = (props) => {
+    useEffect(() => {
+        if (appType == "react" && props.history.location.hash != "") {
+            scrollAndHighlight(props.history.location.hash);
+        } else if (appType == "next" && location.hash != "") {
+            scrollAndHighlight(location.hash);
+        } else {
+            window.scrollTo(0, 0);
+        }
+    });
+
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="package">
@@ -31,16 +41,18 @@ const PackageView = (props) => {
                 <Markdown text={props.package.description} />
 
                 <h1 className="capitalize">Modules</h1>
-                <table className="ui very basic table">
-                    <tbody>
-                        {props.package.modules.map((item) => (
-                            <tr>
-                                <td className="module-title modules"><Link to={"/" + item.orgName + "/" + getPackageName(item.id) + "/" + item.version + "/" + item.id}>{item.id}</Link></td>
-                                <td className="module-desc"><Markdown text={item.summary} /></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <section id="modules">
+                    <table id="modules" className="ui very basic table">
+                        <tbody>
+                            {props.package.modules.map((item) => (
+                                <tr>
+                                    <td className="module-title modules"><Link to={"/" + item.orgName + "/" + getPackageName(item.id) + "/" + item.version + "/" + item.id}>{item.id}</Link></td>
+                                    <td className="module-desc"><Markdown text={item.summary} /></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </section>
             </Layout>
         </section>
     );

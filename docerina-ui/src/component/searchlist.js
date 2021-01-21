@@ -107,7 +107,6 @@ export class SearchList extends React.Component {
             searchTxt = searchTxtMobile;
 
         }
-        console.log(searchTxt);
         this.setState({
             searchText: searchTxt
         });

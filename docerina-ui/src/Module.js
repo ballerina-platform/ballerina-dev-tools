@@ -42,20 +42,20 @@ const Module = (parentProps) => {
         <>
             {module != null &&
                 <Switch>
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<ModuleView {...props} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<ModuleView {...props} package={parentProps.package} module={module} searchData={parentProps.searchData} />)} />
 
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="records" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/classes/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="classes" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="abstractObjects" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="clients" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="listeners" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/enums/:constructName" render={(props) => (<FindConstruct {...props} module={module} pageType="enums" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="records" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/classes/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="classes" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="abstractObjects" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="clients" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="listeners" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/enums/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="enums" searchData={parentProps.searchData} />)} />
 
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/functions" render={(props) => (<Functions {...props} functions={module.functions} module={module} searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/types" render={(props) => (<Types {...props} types={module.types} module={module} searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/errors" render={(props) => (<Errors {...props} errors={module.errors} module={module} searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/constants" render={(props) => (<Constants {...props} constants={module.constants} module={module} searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/annotations" render={(props) => (<Annotations {...props} annotations={module.annotations} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/functions" render={(props) => (<Functions {...props} package={parentProps.package} functions={module.functions} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/types" render={(props) => (<Types {...props} package={parentProps.package} types={module.types} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/errors" render={(props) => (<Errors {...props} package={parentProps.package} errors={module.errors} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/constants" render={(props) => (<Constants {...props} package={parentProps.package} constants={module.constants} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/annotations" render={(props) => (<Annotations {...props} package={parentProps.package} annotations={module.annotations} module={module} searchData={parentProps.searchData} />)} />
                     <Route render={(props) => (<NotFound {...parentProps} />)} />
                 </Switch>
             }
