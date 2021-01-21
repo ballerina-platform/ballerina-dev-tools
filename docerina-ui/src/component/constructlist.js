@@ -41,7 +41,7 @@ const ConstructList = (props) => {
         return (
             <div className="menu">
                 {props.module[props.listType].map(item => (
-                    <Link key={item.name} className="item" to={props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                    <Link key={item.name} className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
                 ))}
             </div>
         )
