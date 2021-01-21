@@ -63,12 +63,25 @@ const getModuleConstructTypes = (props) => {
 }
 
 const SideBar = (props) => {
-    if (props.pageType == "package" || props.pageType == "packageIndex" || props.pageType == "404") {
+    if (props.pageType == "packageIndex" || props.pageType == "404") {
         return (<></>);
     }
     if (props.type == "desktop") {
         return (
             <section>
+                {props.package.modules.length > 1 &&
+                    <>
+                        <div className="header">
+                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "#modules"}>{props.package.name} Package Modules</Link>
+                        </div>
+                        <div className="menu">
+                            {props.package.modules.map(item => (
+                                <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className="item">{item.id}</Link>
+                            ))}
+                        </div>
+                        <div className="ui divider"></div>
+                    </>
+                }
                 {props.module != null &&
                     <section>
 
@@ -89,51 +102,65 @@ const SideBar = (props) => {
             hasChildPages = true;
         }
         return (<>
-            {hasChildPages &&
+            {props.package.modules.length > 1 &&
                 <div className="capitalize ui dropdown item">
-                    {props.pageType}<i className="dropdown icon"></i>
-                    <ConstructList {...props} type="mobile" data={props.module[props.pageType]} listType={props.pageType} moduleName={props.module.id} />
+                    {props.package.name} Package Modules
+                <i className="dropdown icon"></i>
+                    <div className="menu">
+                        {props.package.modules.map(item => (
+                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className="item">{item.id}</Link>
+                        ))}
+                    </div>
                 </div>
             }
-            <div className="capitalize ui dropdown item">
-                {props.module.id} Module
+            {props.pageType != "package" &&
+                <>
+                    {hasChildPages &&
+                        <div className="capitalize ui dropdown item">
+                            {props.pageType}<i className="dropdown icon"></i>
+                            <ConstructList {...props} type="mobile" data={props.module[props.pageType]} listType={props.pageType} moduleName={props.module.id} />
+                        </div>
+                    }
+                    <div className="capitalize ui dropdown item">
+                        {props.module.id} Module
                 <i className="dropdown icon"></i>
-                <div className="menu">
-                    {props.module.listeners != null && props.module.listeners.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
-                    }
-                    {props.module.clients != null && props.module.clients.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#clients"}>Clients</Link>
-                    }
-                    {props.module.functions != null && props.module.functions.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#functions"}>Functions</Link>
-                    }
-                    {props.module.classes != null && props.module.classes.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
-                    }
-                    {props.module.abstractObjects != null && props.module.abstractObjects.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
-                    }
-                    {props.module.records != null && props.module.records.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
-                    }
-                    {props.module.enums != null && props.module.enums.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#enums"}>Enums</Link>
-                    }
-                    {props.module.constants != null && props.module.constants.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>
-                    }
-                    {props.module.annotations != null && props.module.annotations.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#annotations"}>Annotations</Link>
-                    }
-                    {props.module.types != null && props.module.types.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#types"}>Types</Link>
-                    }
-                    {props.module.errors != null && props.module.errors.length > 0 &&
-                        <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
-                    }
-                </div>
-            </div>
+                        <div className="menu">
+                            {props.module.listeners != null && props.module.listeners.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
+                            }
+                            {props.module.clients != null && props.module.clients.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#clients"}>Clients</Link>
+                            }
+                            {props.module.functions != null && props.module.functions.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#functions"}>Functions</Link>
+                            }
+                            {props.module.classes != null && props.module.classes.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
+                            }
+                            {props.module.abstractObjects != null && props.module.abstractObjects.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
+                            }
+                            {props.module.records != null && props.module.records.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
+                            }
+                            {props.module.enums != null && props.module.enums.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#enums"}>Enums</Link>
+                            }
+                            {props.module.constants != null && props.module.constants.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>
+                            }
+                            {props.module.annotations != null && props.module.annotations.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#annotations"}>Annotations</Link>
+                            }
+                            {props.module.types != null && props.module.types.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#types"}>Types</Link>
+                            }
+                            {props.module.errors != null && props.module.errors.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
+                            }
+                        </div>
+                    </div>
+                </>}
         </>);
     }
 }

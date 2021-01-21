@@ -24,7 +24,6 @@ import Markdown from "./markdown"
 
 const PackageView = (props) => {
     useEffect(() => {
-        console.log("useeffect");
         if (appType == "react" && props.history.location.hash != "") {
             scrollAndHighlight(props.history.location.hash);
         } else if (appType == "next" && location.hash != "") {
