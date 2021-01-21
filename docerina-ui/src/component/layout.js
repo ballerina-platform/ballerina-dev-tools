@@ -162,6 +162,8 @@ const Layout = (props) => {
                                         {props.pageType != "package" &&
                                             <>
                                                 <i className="right angle icon divider"></i>
+                                                <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version} className="section">Modules</Link>
+                                                <i className="right angle icon divider"></i>
                                                 {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id} Module</Link>}
                                                 {props.pageType == "module" && <p className="section active">{props.module.id} Module</p>}
                                                 
