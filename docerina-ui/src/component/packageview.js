@@ -46,7 +46,7 @@ const PackageView = (props) => {
                         <tbody>
                             {props.package.modules.map((item) => (
                                 <tr>
-                                    <td className="module-title modules"><Link to={"/" + item.orgName + "/" + getPackageName(item.id) + "/" + item.version + "/" + item.id}>{item.id}</Link></td>
+                                    <td className="module-title modules"><Link to={"/" + item.orgName + "/" + props.package.name + "/" + item.version + "/" + item.id}>{item.id}</Link></td>
                                     <td className="module-desc"><Markdown text={item.summary} /></td>
                                 </tr>
                             ))}
