@@ -18,7 +18,7 @@
 
 import React, { useEffect } from 'react'
 import { Link, appType } from '../Router'
-import { getFirstLine, scrollAndHighlight, getPackageName } from "./helper"
+import { getFirstLine, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
 import Markdown from "./markdown"
 
@@ -52,7 +52,7 @@ const ModuleView = (props) => {
                                 {props.module.listeners.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate abstractObjects" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/listeners/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/listeners/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -81,7 +81,7 @@ const ModuleView = (props) => {
                                 {props.module.clients.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate clients" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike clients" : "clients"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/clients/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike clients" : "clients"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/clients/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -110,7 +110,7 @@ const ModuleView = (props) => {
                                 {props.module.functions.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate functions" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/functions#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/functions#" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -139,7 +139,7 @@ const ModuleView = (props) => {
                                 {props.module.classes.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate classes" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike classes" : "classes"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/classes/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike classes" : "classes"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/classes/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -167,7 +167,7 @@ const ModuleView = (props) => {
                                 {props.module.abstractObjects.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate abstractObjects" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike abstractObjects" : "abstractObjects"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/abstractObjects/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike abstractObjects" : "abstractObjects"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/abstractObjects/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -196,7 +196,7 @@ const ModuleView = (props) => {
                                 {props.module.records.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate records" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/records/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/records/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -225,7 +225,7 @@ const ModuleView = (props) => {
                                 {props.module.constants.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate constants" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/constants#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/constants#" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -254,7 +254,7 @@ const ModuleView = (props) => {
                                 {props.module.enums.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate constants" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/enums/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/enums/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -283,7 +283,7 @@ const ModuleView = (props) => {
                                 {props.module.annotations.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate annotations" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike annotations" : "annotations"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/annotations#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike annotations" : "annotations"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/annotations#" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -312,7 +312,7 @@ const ModuleView = (props) => {
                                 {props.module.types.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate types" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike types" : "types"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/types#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike types" : "types"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/types#" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -341,7 +341,7 @@ const ModuleView = (props) => {
                                 {props.module.errors.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate errors" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike errors" : "errors"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/errors#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike errors" : "errors"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/errors#" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
