@@ -37,7 +37,7 @@ const Record = (props) => {
     let record = props.record;
     
     return (
-        <Layout {...props} title={"API Docs - " + props.module.id + " Record: " + record.name} name={record.name}>
+        <Layout {...props} title={"API Docs - " + props.module.id + " Record: " + record.name}>
         <section className="construct-page">
             {record != null &&
                 <section>

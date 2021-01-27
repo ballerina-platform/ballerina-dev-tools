@@ -29,7 +29,7 @@ const MethodTable = (props) => {
                     {props.methods.map(item => (
                         <tr key={item.name}>
                             <td className={item.isDeprecated ? "module-title strike" : "module-title"} title={item.name}>
-                                <Link to={"#" + item.name}>{item.name}</Link>
+                                <Link to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.pageType + "/" + props.match.params.constructName + "#" + item.name}>{item.name}</Link>
                             </td>
                             <td className="module-desc">
                                 {

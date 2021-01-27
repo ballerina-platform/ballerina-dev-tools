@@ -42,7 +42,7 @@ const BClass = (props) => {
     let bClass = props.bClass;
 
     return (
-        <Layout {...props} title={"API Docs Class: " + bClass.name} name={bClass.name} >
+        <Layout {...props} title={"API Docs Class: " + bClass.name}>
 
             <section className="construct-page">
                 {bClass != null &&
@@ -69,7 +69,7 @@ const BClass = (props) => {
                                     <section className="method-list">
                                         <h2>Methods</h2>
                                         <div className="method-list">
-                                            <MethodTable methods={bClass.otherMethods} />
+                                            <MethodTable {...props} methods={bClass.otherMethods} />
                                         </div>
                                     </section>
                                 }
