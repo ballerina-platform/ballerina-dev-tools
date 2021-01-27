@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../Router'
 import Layout from "./layout"
 
 const NotFound = (props) => (
