@@ -154,8 +154,12 @@ const Layout = (props) => {
                             <div id="main">
                                 {props.pageType != "packageIndex" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
-                                        <Link to="/" className="section">Packages</Link>
-                                        <i className="right angle icon divider"></i>
+                                        {props.match.params.orgName == "ballerina" &&
+                                            <>
+                                                <Link to="/" className="section">Packages</Link>
+                                                <i className="right angle icon divider"></i>
+                                            </>
+                                        }
                                         {props.pageType != "package" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
                                         {props.pageType == "package" && <p className="section active">{props.match.params.packageName} Package</p>}
 
@@ -166,7 +170,7 @@ const Layout = (props) => {
                                                 <i className="right angle icon divider"></i>
                                                 {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id} Module</Link>}
                                                 {props.pageType == "module" && <p className="section active">{props.module.id} Module</p>}
-                                                
+
                                                 {props.pageType != "module" &&
                                                     <span>
                                                         <i className="right angle icon divider"></i>
