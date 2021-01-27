@@ -32,7 +32,7 @@ const InitMethod = (props) => {
                         <Markdown text={props.initMethod.description} />
                     }
                     <pre className="method-signature">
-                        <code className="break-spaces"><span className="token keyword">__init</span> ({props.initMethod.parameters.length > 0 && props.initMethod.parameters.map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})</code>
+                        <code className="break-spaces"><span className="token keyword">init</span> ({props.initMethod.parameters.length > 0 && props.initMethod.parameters.map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})</code>
                     </pre>
                     <div className="data-wrapper">
                         {props.initMethod.parameters.map(item => (

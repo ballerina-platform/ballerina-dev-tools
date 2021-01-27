@@ -56,7 +56,7 @@ const Enum = (props) => {
                                             <tbody>
                                                 {bEnum.members.map(item => (
                                                     <tr key={item.name}>
-                                                        <td className="enum-name">
+                                                        <td title={item.name} className="enum-name truncate">
                                                             <span className={item.isDeprecated ? "strike" : ""}>{item.name}</span>
                                                         </td>
                                                         <td><Markdown text={item.description} /></td>

@@ -45,7 +45,7 @@ const Functions = (props) => {
                         <tbody>
                             {props.functions.map(item => (
                                 <tr key={item.name}>
-                                    <td width="30%">
+                                    <td title={item.name} width="30%" className="truncate">
                                         <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/functions#" + item.name}>{item.name}</Link>
                                     </td>
                                     <td width="70%">
