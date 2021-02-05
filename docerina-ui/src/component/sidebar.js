@@ -19,7 +19,6 @@
 import React from "react";
 import { Link } from '../Router'
 import ConstructList from "./constructlist"
-import { getPackageName } from "./helper"
 
 const getModuleConstructTypes = (props) => {
     let module = props.module;
@@ -86,7 +85,7 @@ const SideBar = (props) => {
                     <section>
 
                         <div className="header">
-                            <Link to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id}>{props.module.id} Module</Link>
+                            <Link to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id}>{props.module.id} Module</Link>
                         </div>
                         {getModuleConstructTypes(props)}
 
@@ -126,37 +125,37 @@ const SideBar = (props) => {
                 <i className="dropdown icon"></i>
                         <div className="menu">
                             {props.module.listeners != null && props.module.listeners.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
                             }
                             {props.module.clients != null && props.module.clients.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#clients"}>Clients</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#clients"}>Clients</Link>
                             }
                             {props.module.functions != null && props.module.functions.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#functions"}>Functions</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#functions"}>Functions</Link>
                             }
                             {props.module.classes != null && props.module.classes.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
                             }
                             {props.module.abstractObjects != null && props.module.abstractObjects.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
                             }
                             {props.module.records != null && props.module.records.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>
                             }
                             {props.module.enums != null && props.module.enums.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#enums"}>Enums</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#enums"}>Enums</Link>
                             }
                             {props.module.constants != null && props.module.constants.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#constants"}>Constants</Link>
                             }
                             {props.module.annotations != null && props.module.annotations.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#annotations"}>Annotations</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#annotations"}>Annotations</Link>
                             }
                             {props.module.types != null && props.module.types.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#types"}>Types</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#types"}>Types</Link>
                             }
                             {props.module.errors != null && props.module.errors.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
                             }
                         </div>
                     </div>

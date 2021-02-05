@@ -21,7 +21,6 @@ import {
     Route
 } from "react-router-dom";
 import Module from "./Module"
-import PackageView from "./component/packageview"
 import NotFound from "./component/notfound"
 
 const Package = (parentProps) => {
@@ -33,7 +32,7 @@ const Package = (parentProps) => {
         <>
             {docPackage != null &&
                 <>
-                    <Route exact path="/:orgName/:packageName/:version" render={(props) => (<PackageView {...props} package={docPackage} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version" render={(props) => (<Module {...props} package={docPackage} searchData={parentProps.searchData} />)} />
                     <Route path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<Module {...props} package={docPackage} searchData={parentProps.searchData} />)} />
                 </>
             }

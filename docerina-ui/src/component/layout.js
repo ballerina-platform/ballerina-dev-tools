@@ -160,30 +160,31 @@ const Layout = (props) => {
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }
-                                        {props.pageType != "package" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
-                                        {props.pageType == "package" && <p className="section active">{props.match.params.packageName} Package</p>}
+                                        {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
+                                        {props.pageType == "module" && props.module.id != props.package.name && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
+                                        {props.pageType == "module" && props.module.id == props.package.name && <p className="section active">{props.match.params.packageName} Package</p>}
 
-                                        {props.pageType != "package" &&
+                                        {props.module.id != props.package.name &&
                                             <>
                                                 <i className="right angle icon divider"></i>
                                                 <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "#modules"} className="section">Modules</Link>
                                                 <i className="right angle icon divider"></i>
                                                 {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id} Module</Link>}
                                                 {props.pageType == "module" && <p className="section active">{props.module.id} Module</p>}
-
-                                                {props.pageType != "module" &&
-                                                    <span>
-                                                        <i className="right angle icon divider"></i>
-                                                        {hasChildPages ?
-                                                            (<span><Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName + "#" + props.pageType} className="section capitalize">{props.pageType}</Link>
-                                                            <i className="right angle icon divider"></i><p className="section capitalize active">{props.match.params.constructName}</p></span>)
-                                                            :
-                                                            (<p className="section capitalize active">{props.pageType}</p>)
-                                                        }
-                                                    </span>
-                                                }
                                             </>
                                         }
+                                        {props.pageType != "module" &&
+                                            <span>
+                                                <i className="right angle icon divider"></i>
+                                                {hasChildPages ?
+                                                    (<span><Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName + "#" + props.pageType} className="section capitalize">{props.pageType}</Link>
+                                                        <i className="right angle icon divider"></i><p className="section capitalize active">{props.match.params.constructName}</p></span>)
+                                                    :
+                                                    (<p className="section capitalize active">{props.pageType}</p>)
+                                                }
+                                            </span>
+                                        }
+                                        
                                     </div>
                                 }
 
