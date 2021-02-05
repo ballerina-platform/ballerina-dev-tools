@@ -44,6 +44,10 @@ const Method = (props) => {
                     props.method.isIsolated == true &&
                     <div className="ui horizontal label">Isolated Function</div>
                 }
+                {
+                    props.method.isRemote == true &&
+                    <div className="ui horizontal label">Remote Function</div>
+                }
                 <Markdown text={props.method.description} />
                 {props.method.inclusionType != null && <p>Method included from <span data-tooltip="Type inclusion" data-position="top left">*</span>{getTypeLabel(props.method.inclusionType)}</p>}
             </div>
