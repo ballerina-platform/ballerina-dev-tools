@@ -38,7 +38,37 @@ const ModuleView = (props) => {
             <div>
 
                 <h1>{props.module.orgName}/{props.module.id}:{props.module.version}</h1>
+                {props.module.id == props.package.name &&  <Markdown text={props.package.description} />}
                 <Markdown text={props.module.description} />
+
+                {props.package.modules.length > 1 &&
+                    <section id="modules" className="module-construct">
+                        <div className="main-method-title here">
+                            <h2>Modules</h2>
+                            <p>[{props.package.modules.length}]</p>
+                        </div>
+                        <div className="ui divider"></div>
+                        <table className="ui very basic table">
+                            <tbody>
+                                {props.package.modules.map(item => (
+                                    <tr key={item.id}>
+                                        <td className="module-title truncate abstractObjects" id={item.id} title={item.id}>
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + item.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id}>{item.id}</Link>
+
+                                        </td>
+                                        <td className="module-desc">
+                                            {
+                                                item.isDeprecated == true &&
+                                                <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
+                                            }
+                                            <p>{item.summary}</p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                }
 
                 {props.module.listeners.length > 0 &&
                     <section id="listeners" className="module-construct">

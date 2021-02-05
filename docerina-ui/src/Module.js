@@ -34,6 +34,11 @@ import NotFound from "./component/notfound"
 
 const Module = (parentProps) => {
 
+    // If no module name is present, use the default module
+    if (parentProps.match.params.moduleName == null) {
+        parentProps.match.params.moduleName = parentProps.match.params.packageName;
+    }
+
     let module = parentProps.package.modules.filter((item) => {
         return item.id == (parentProps.match.params.moduleName);
     })[0];
@@ -42,6 +47,7 @@ const Module = (parentProps) => {
         <>
             {module != null &&
                 <Switch>
+                    <Route exact path="/:orgName/:packageName/:version/" render={(props) => (<ModuleView {...props} package={parentProps.package} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName" render={(props) => (<ModuleView {...props} package={parentProps.package} module={module} searchData={parentProps.searchData} />)} />
 
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="records" searchData={parentProps.searchData} />)} />
