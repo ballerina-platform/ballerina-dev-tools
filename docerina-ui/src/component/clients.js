@@ -43,7 +43,7 @@ const Client = (props) => {
 
     return (
 
-        <Layout {...props} title={"API Docs Client: " + client.name} name={client.name}>
+        <Layout {...props} title={"API Docs Client: " + client.name}>
 
             <section className="construct-page">
                 {client != null &&
@@ -71,7 +71,7 @@ const Client = (props) => {
                                     <section className="method-list">
                                         <h2>Remote Methods</h2>
                                         <div>
-                                            <MethodTable methods={client.remoteMethods} />
+                                            <MethodTable {...props} methods={client.remoteMethods} />
                                         </div>
                                     </section>
                                 }
@@ -79,7 +79,7 @@ const Client = (props) => {
                                     <section className="method-list">
                                         <h2>Methods</h2>
                                         <div className="method-list">
-                                            <MethodTable methods={client.otherMethods} />
+                                            <MethodTable {...props} methods={client.otherMethods} />
                                         </div>
                                     </section>
                                 }

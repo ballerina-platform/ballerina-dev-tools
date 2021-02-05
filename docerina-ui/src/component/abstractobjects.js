@@ -42,7 +42,7 @@ const AbstractObject = (props) => {
     let abstractObject = props.abstractObject;
 
     return (
-        <Layout {...props} title={"API Docs Abstract Object: " + abstractObject.name} name={abstractObject.name} >
+        <Layout {...props} title={"API Docs Abstract Object: " + abstractObject.name} >
 
             <section className="construct-page">
                 {abstractObject != null &&
@@ -60,7 +60,7 @@ const AbstractObject = (props) => {
                                     <section className="method-list">
                                         <h2>Methods</h2>
                                         <div className="method-list">
-                                            <MethodTable methods={abstractObject.methods} />
+                                            <MethodTable {...props} methods={abstractObject.methods} />
                                         </div>
                                     </section>
                                 }

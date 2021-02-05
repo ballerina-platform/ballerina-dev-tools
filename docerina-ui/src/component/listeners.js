@@ -44,7 +44,7 @@ const Listener = (props) => {
 
     return (
 
-        <Layout {...props} title={"API Docs Listener: " + listener.name} name={listener.name}>
+        <Layout {...props} title={"API Docs Listener: " + listener.name}>
 
             <section className="construct-page">
                 {listener != null &&
@@ -72,7 +72,7 @@ const Listener = (props) => {
                                     <section className="method-list">
                                         <h2>LifeCycle Methods</h2>
                                         <div>
-                                            <MethodTable methods={listener.lifeCycleMethods} />
+                                            <MethodTable {...props} methods={listener.lifeCycleMethods} />
                                         </div>
                                     </section>
                                 }
@@ -80,7 +80,7 @@ const Listener = (props) => {
                                     <section className="method-list">
                                         <h2>Methods</h2>
                                         <div>
-                                            <MethodTable methods={listener.otherMethods} />
+                                            <MethodTable {...props} methods={listener.otherMethods} />
                                         </div>
                                     </section>
                                 }

@@ -31,7 +31,7 @@ const ConstructList = (props) => {
                     </div>
                     <div className="content">
                         {props.module[props.listType].map(item => (
-                            <Link title={item.name} key={item.name} className={props.name == item.name ? "active item" : "item"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                            <Link title={item.name} key={item.name} className={props.match.params.constructName == item.name ? "active item" : "item"} to={"/" + props.module.orgName + "/" + getPackageName(props.module.id) + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
                         ))}
                     </div>
                 </div>

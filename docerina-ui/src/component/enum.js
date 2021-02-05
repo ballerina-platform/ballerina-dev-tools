@@ -36,7 +36,7 @@ const Enum = (props) => {
     let bEnum = props.bEnum;
 
     return (
-        <Layout {...props} title={"API Docs - " + props.module.id + " Enum: " + bEnum.name} name={bEnum.name}>
+        <Layout {...props} title={"API Docs - " + props.module.id + " Enum: " + bEnum.name}>
             <section className="construct-page">
                 {bEnum != null &&
                     <section>
