@@ -100,10 +100,10 @@ const Layout = (props) => {
                                     Version
                             <i className="dropdown icon"></i>
                                     <div className="menu">
+                                        <a className="item active" value="swan-lake">Swan Lake</a>
                                         <a href={"https://ballerina.io/1.0/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.0">1.0</a>
                                         <a href={"https://ballerina.io/1.1/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.1">1.1</a>
-                                        <a href={"https://ballerina.io/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.2">1.2</a>
-                                        <a className="item active" value="swan-lake">Swan Lake</a>
+                                        <a href={"https://ballerina.io/1.2/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.2">1.2</a>
                                     </div>
                                 </div>
                             </div>
@@ -128,10 +128,10 @@ const Layout = (props) => {
                                     <div className="ui dropdown item" id="version-picker-mob">
                                         Version <i className="dropdown icon"></i>
                                         <div className="menu">
+                                            <a className="item active" value="swan-lake">Swan Lake</a>
                                             <a href="https://ballerina.io/1.0/learn/api-docs/ballerina/" className="item" value="1.0">1.0</a>
                                             <a href="https://ballerina.io/1.1/learn/api-docs/ballerina/" className="item" value="1.1">1.1</a>
-                                            <a href="https://ballerina.io/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
-                                            <a className="item active" value="swan-lake">Swan Lake</a>
+                                            <a href="https://ballerina.io/1.2/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
                                         </div>
                                     </div>
                                     <div className="ui dropdown item ballerina">
