@@ -27,6 +27,14 @@
     color: #07a;
 }
 
+.builtin-type-link {
+    color: #07a !important;
+}
+
+.builtin-type-link:hover {
+    color: #20b6b0 !important;
+}
+
 .method-content .main-method-title a.url-link {
     visibility: hidden;
 }

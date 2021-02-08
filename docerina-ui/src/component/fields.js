@@ -17,7 +17,8 @@
  */
 
 import React from "react";
-import { getTypeLabel, getLink } from "./helper"
+import { getTypeLabel } from "./helper"
+import { Link } from '../Router'
 import Markdown from "./markdown"
 
 const Fields = (props) => {
@@ -30,7 +31,7 @@ const Fields = (props) => {
                             {item.inclusionType == null &&
                                 <>
                                     <span className={item.isDeprecated ? "strike" : ""}>{item.name} </span>
-                                    {item.type.isReadOnly && <span className="builtin-type">readonly </span>}
+                                    {item.type.isReadOnly && <Link className="builtin-type-link" to="/builtin#readonly">readonly </Link>}
                                     {getTypeLabel(item.type, item.defaultValue)}
                                 </>
                             }

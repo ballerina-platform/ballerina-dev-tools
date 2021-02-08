@@ -22,6 +22,7 @@ import {
   Route
 } from "react-router-dom";
 import PackageIndex from "./component/packageindex";
+import Builtin from "./component/builtin"
 import Package from "./Package";
 
 class App extends React.Component {
@@ -30,14 +31,16 @@ class App extends React.Component {
     this.state = {
       packages: null,
       searchData: null,
-      packageDescription: null
+      packageDescription: null,
+      builtinTypesAndKeywords: null
     };
 
     this.loadScript("./data/doc_data.js", () => {
       console.log("Doc data loaded");
       this.setState({
         packages: window.docData.packages,
-        packageDescription: window.docData.description
+        packageDescription: window.docData.description,
+        builtinTypesAndKeywords: window.docData.builtinTypesAndKeywords
       });
     });
 
@@ -72,7 +75,8 @@ class App extends React.Component {
       <section className="App">
         {this.state.packages != null && this.state.searchData != null &&
           <Router>
-            <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} packageDescription={this.state.packageDescription} />)} />
+            <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} packageDescription={this.state.packageDescription} builtinTypesAndKeywords={this.state.builtinTypesAndKeywords} />)} />
+            <Route exact path="/builtin" render={(props) => (<Builtin {...props} builtinTypesAndKeywords={this.state.builtinTypesAndKeywords} searchData={this.state.searchData} />)} />
             <Route path="/:orgName/:packageName/:version" render={(props) => (<Package {...props} packages={this.state.packages} searchData={this.state.searchData} />)} />
           </Router>
         }

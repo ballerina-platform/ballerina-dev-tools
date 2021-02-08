@@ -36,15 +36,17 @@ export const getTypeLabel = (type, defaultValue) => {
     } else if (type.isParenthesisedType) {
         label.push(<span key="typeName">({getTypeLabel(type.elementType)})</span>);
     } else if (type.isTypeDesc) {
-        label.push(<span key="typeName">typedesc&lt;{getTypeLabel(type.elementType)}&gt;</span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to="/builtin#typedesc">typedesc</Link>&lt;{getTypeLabel(type.elementType)}&gt;</span>);
     } else if (type.isRestParam) {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}{getSuffixes(type)}</span>);
     } else if (type.category == "map" && type.constraint != null) {
-        label.push(<span key="typeName"><span className="builtin-type">{type.name}</span><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to="/builtin#map">{type.name}</Link><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
     } else if (type.category == "stream") {
-        label.push(<span key="typeName" className="builtin-type">{type.name}&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
-    } else if (type.category == "builtin" || type.moduleName == "lang.annotations" || !type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {
-        label.push(<span key="typeName" className="builtin-type">{type.name + getSuffixes(type)}</span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to="/builtin#stream">{type.name}</Link>&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
+    } else if (type.category == "builtin" || type.moduleName == "lang.annotations") {
+        label.push(<Link key="typeName" className="builtin-type-link" to={type.name.replace(/\s/,"") == "()" ? "/builtin#nil" : "/builtin#" + type.name}>{type.name + getSuffixes(type)}</Link>);
+    } else if (!type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {
+        label.push(<span key="typeName" className="builtin-type-other">{type.name + getSuffixes(type)}</span>);
     } else {
         label.push(getLink(type));
     }
