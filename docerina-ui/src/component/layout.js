@@ -154,7 +154,7 @@ const Layout = (props) => {
                             <div id="main">
                                 {props.pageType != "packageIndex" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
-                                        {props.match.params.orgName == "ballerina" &&
+                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax") &&
                                             <>
                                                 <Link to="/" className="section">Packages</Link>
                                                 <i className="right angle icon divider"></i>
