@@ -20,20 +20,21 @@ import React from "react";
 import { Link } from '../Router'
 import Layout from "./layout";
 import Markdown from "./markdown"
+import { getFirstLine } from "./helper"
 
 const PackageIndex = (props) => {
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="packageIndex">
                 <Markdown text={props.packageDescription} />
-                <h1 className="capitalize">Ballerina Packages</h1>
+                <h1 className="capitalize">Packages</h1>
                 <table className="ui very basic table">
                     <tbody>
                         {props.packages.map((item) => (
                             <tr>
                                 <td className="module-title modules"><Link to={"/" + item.orgName + "/" + item.name + "/" + item.version}>{item.name}</Link></td>
                                 <td className="module-desc"><p>{item.version}</p></td>
-                                <td className="module-desc"><Markdown text={item.summary} /></td>
+                                <td className="module-desc"><Markdown text={getFirstLine(item.summary)} /></td>
                             </tr>
                         ))}
                     </tbody>

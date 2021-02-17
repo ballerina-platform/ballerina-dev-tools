@@ -37,8 +37,21 @@ const ModuleView = (props) => {
 
             <div>
 
-                <h1>{props.module.orgName}/{props.module.id}:{props.module.version}</h1>
-                {props.module.id == props.package.name &&  <Markdown text={props.package.description} />}
+                <h1>{props.module.orgName}/{props.module.id}
+                    {(props.packageVersions == null || props.packageVersions.length == 1) && <span className="package-version">{props.module.version}</span>}
+                    {props.packageVersions != null && props.packageVersions.length > 1 && 
+                    <div className="ui dropdown package-version">
+                        <div className="text">{props.module.version}</div>
+                        <i className="small caret down icon"></i>
+                        <div className="menu">
+                            {props.packageVersions.map(item => (
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + item}>{item}</Link>
+                            ))}
+                        </div>
+                    </div>}
+                </h1>
+
+                {props.module.id == props.package.name && <Markdown text={props.package.description} />}
                 <Markdown text={props.module.description} />
 
                 {props.package.modules.length > 1 &&
@@ -54,7 +67,6 @@ const ModuleView = (props) => {
                                     <tr key={item.id}>
                                         <td className="module-title truncate abstractObjects" id={item.id} title={item.id}>
                                             <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + item.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id}>{item.id}</Link>
-
                                         </td>
                                         <td className="module-desc">
                                             {

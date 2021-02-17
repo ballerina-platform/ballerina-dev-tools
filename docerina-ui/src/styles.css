@@ -53,6 +53,11 @@
     margin: .5em 0;
 }
 
+.package-version {
+    margin-left: 10px;
+    color: #CBCEDB;
+}
+
 .method-signature a {
     font-size: 14px !important;
     font-family: monospace, monospace !important;
@@ -177,7 +182,11 @@ margin-top: 24px;
     font-size: 16px;
 }
 
-.ui.visible.left.vertical.sidebar.menu .item:hover {
+.ui.visible.left.vertical.sidebar.menu a:hover {
+    font-weight: 900;
+}
+
+.ui.visible.left.vertical.sidebar.menu .ui.accordion.item:hover {
     font-weight: 900;
 }
 
