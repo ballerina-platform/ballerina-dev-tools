@@ -18,7 +18,7 @@
 
 import React, { useEffect } from 'react'
 import SideBar from "./sidebar"
-import { Head, rootPath, otherScripts, Link } from '../Router'
+import { Head, rootPath, otherScripts, Link, appType } from '../Router'
 import { SearchList } from "./searchlist"
 import { removeHtmlTags } from "./helper"
 
@@ -34,6 +34,8 @@ const Layout = (props) => {
     } else {
         hasChildPages = true;
     }
+
+    let isLocal = location.hostname == null || location.hostname == "localhost" || location.hostname == "";
 
     useEffect(() => {
         $(document).ready(function () {
@@ -73,8 +75,8 @@ const Layout = (props) => {
 
                 <div className="toc">
                     <div className="ui visible left vertical sidebar menu">
-                        <a href="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>
-
+                        {!isLocal && <a href="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>}
+                        {isLocal && <Link to="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></Link>}
                         <SideBar {...props} type="desktop" />
                     </div>
                 </div>
@@ -90,13 +92,13 @@ const Layout = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="right menu">
-                                <a href="/learn" className="item active">Learn</a>
-                                <a href="/learn/events" className="item">Events</a>
-                                <a href="https://central.ballerina.io/" className="item">Central</a>
-                                <a href="/community" className="item">Community</a>
+                            {!isLocal && <div className="right menu">
+                                <a href="http://ballerina.io/learn/" className="item">Learn</a>
+                                <a href="https://ballerina.io/events" className="item">Events</a>
+                                <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
+                                <a href="https://ballerina.io/community/" className="item">Community</a>
                                 <a href="https://blog.ballerina.io/" className="item">Blog</a>
-                                <div className="ui dropdown item ballerina" id="version-picker">
+                                {appType == "react" && <div className="ui dropdown item ballerina" id="version-picker">
                                     Version
                             <i className="dropdown icon"></i>
                                     <div className="menu">
@@ -105,8 +107,9 @@ const Layout = (props) => {
                                         <a href={"https://ballerina.io/1.1/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.1">1.1</a>
                                         <a href={"https://ballerina.io/1.2/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.2">1.2</a>
                                     </div>
-                                </div>
+                                </div>}
                             </div>
+                            }
                         </div>
                     </div>
                     <div className="main-content-holder">
@@ -125,25 +128,29 @@ const Layout = (props) => {
                                     </div>
                                     <SideBar {...props} type="mobile" />
 
-                                    <div className="ui dropdown item" id="version-picker-mob">
-                                        Version <i className="dropdown icon"></i>
-                                        <div className="menu">
-                                            <a className="item active" value="swan-lake">Swan Lake</a>
-                                            <a href="https://ballerina.io/1.0/learn/api-docs/ballerina/" className="item" value="1.0">1.0</a>
-                                            <a href="https://ballerina.io/1.1/learn/api-docs/ballerina/" className="item" value="1.1">1.1</a>
-                                            <a href="https://ballerina.io/1.2/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
-                                        </div>
-                                    </div>
-                                    <div className="ui dropdown item ballerina">
-                                        Ballerina <i className="dropdown icon"></i>
-                                        <div className="menu">
-                                            <a href="/learn" className="item active">Learn</a>
-                                            <a href="/learn/events" className="item">Events</a>
-                                            <a href="https://central.ballerina.io/" className="item">Central</a>
-                                            <a href="/community" className="item">Community</a>
-                                            <a href="https://blog.ballerina.io/" className="item">Blog</a>
-                                        </div>
-                                    </div>
+                                    {!isLocal &&
+                                        <>
+                                            {appType == "react" && <div className="ui dropdown item" id="version-picker-mob">
+                                                Version <i className="dropdown icon"></i>
+                                                <div className="menu">
+                                                    <a className="item active" value="swan-lake">Swan Lake</a>
+                                                    <a href="https://ballerina.io/1.0/learn/api-docs/ballerina/" className="item" value="1.0">1.0</a>
+                                                    <a href="https://ballerina.io/1.1/learn/api-docs/ballerina/" className="item" value="1.1">1.1</a>
+                                                    <a href="https://ballerina.io/1.2/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
+                                                </div>
+                                            </div>}
+                                            <div className="ui dropdown item ballerina">
+                                                Ballerina <i className="dropdown icon"></i>
+                                                <div className="menu">
+                                                    <a href="http://ballerina.io/learn/" className="item">Learn</a>
+                                                    <a href="https://ballerina.io/events" className="item">Events</a>
+                                                    <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
+                                                    <a href="https://ballerina.io/community/" className="item">Community</a>
+                                                    <a href="https://blog.ballerina.io/" className="item">Blog</a>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
 
                                 </div>
                             </div>
@@ -184,7 +191,7 @@ const Layout = (props) => {
                                                 }
                                             </span>
                                         }
-                                        
+
                                     </div>
                                 }
 

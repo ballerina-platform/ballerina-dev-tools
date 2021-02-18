@@ -68,14 +68,21 @@ const SideBar = (props) => {
     if (props.type == "desktop") {
         return (
             <section>
+                <div className="header">
+                    <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version}>Package {props.package.name}</Link>
+                </div>
+                <div className="menu">
+                    <span className="item no-hover">Version {props.package.version}</span>
+                </div>
+                <div className="ui divider"></div>
                 {props.package.modules.length > 1 &&
                     <>
                         <div className="header">
-                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "#modules"}>{props.package.name} Package Modules</Link>
+                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "#modules"}>Modules</Link>
                         </div>
                         <div className="menu">
                             {props.package.modules.map(item => (
-                                <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className="item">{item.id}</Link>
+                                <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                             ))}
                         </div>
                         <div className="ui divider"></div>
@@ -85,7 +92,7 @@ const SideBar = (props) => {
                     <section>
 
                         <div className="header">
-                            <Link to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id}>{props.module.id} Module</Link>
+                            <Link to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id}>Module {props.module.id}</Link>
                         </div>
                         {getModuleConstructTypes(props)}
 
@@ -103,11 +110,11 @@ const SideBar = (props) => {
         return (<>
             {props.package.modules.length > 1 &&
                 <div className="capitalize ui dropdown item">
-                    {props.package.name} Package Modules
+                    Modules
                 <i className="dropdown icon"></i>
                     <div className="menu">
                         {props.package.modules.map(item => (
-                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className="item">{item.id}</Link>
+                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                         ))}
                     </div>
                 </div>
@@ -121,7 +128,7 @@ const SideBar = (props) => {
                         </div>
                     }
                     <div className="capitalize ui dropdown item">
-                        {props.module.id} Module
+                       Module {props.module.id}
                 <i className="dropdown icon"></i>
                         <div className="menu">
                             {props.module.listeners != null && props.module.listeners.length > 0 &&

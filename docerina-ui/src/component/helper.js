@@ -60,14 +60,18 @@ export const getTypeLabel = (type, defaultValue) => {
 }
 
 export const getFirstLine = (lines) => {
-    var newLine = lines.replace(/<pre>(.|\n)*?<\/pre>/g, " ");
-    newLine = newLine.replace(/<table>(.|\n)*?<\/table>/g, " ");
+    if (lines != null) {
+        var newLine = lines.replace(/<pre>(.|\n)*?<\/pre>/g, " ");
+        newLine = newLine.replace(/<table>(.|\n)*?<\/table>/g, " ");
 
-    var splits = newLine.split(/\.\s/, 2);
-    if (splits.length < 2) {
-        return splits[0];
+        var splits = newLine.split(/\.\s/, 2);
+        if (splits.length < 2) {
+            return splits[0];
+        } else {
+            return splits[0] + ".";
+        }
     } else {
-        return splits[0] + ".";
+        return "";
     }
 }
 
