@@ -20,7 +20,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Record from "./component/record"
 import BClass from "./component/classes"
-import AbstractObject from "./component/abstractobjects"
+import ObjectType from "./component/objecttypes"
 import Client from "./component/clients"
 import Listener from "./component/listeners"
 import Functions from "./component/functions"
@@ -52,7 +52,7 @@ const Module = (parentProps) => {
 
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/records/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="records" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/classes/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="classes" searchData={parentProps.searchData} />)} />
-                    <Route exact path="/:orgName/:packageName/:version/:moduleName/abstractObjects/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="abstractObjects" searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:packageName/:version/:moduleName/objectTypes/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="objectTypes" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/clients/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="clients" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/listeners/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="listeners" searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:packageName/:version/:moduleName/enums/:constructName" render={(props) => (<FindConstruct {...props} package={parentProps.package} module={module} pageType="enums" searchData={parentProps.searchData} />)} />
@@ -87,8 +87,8 @@ const FindConstruct = (props) => {
         return <Listener {...props} listener={construct} />
     } else if (props.pageType == "clients") {
         return <Client {...props} client={construct} />
-    } else if (props.pageType == "abstractObjects") {
-        return <AbstractObject {...props} abstractObject={construct} />
+    } else if (props.pageType == "objectTypes") {
+        return <ObjectType {...props} objectType={construct} />
     } else if (props.pageType == "enums") {
         return <Enum {...props} bEnum={construct} />
     }

@@ -27,7 +27,7 @@ export class SearchList extends React.Component {
             filteredModules: [],
             filteredFunctions: [],
             filteredClasses: [],
-            filteredAbsObjects: [],
+            filteredObjTypes: [],
             filteredRecords: [],
             filteredConstants: [],
             filteredErrors: [],
@@ -57,7 +57,7 @@ export class SearchList extends React.Component {
             filteredClasses: this.props.searchData.classes,
             filteredRecords: this.props.searchData.records,
             filteredConstants: this.props.searchData.constants,
-            filteredAbsObjects: this.props.searchData.abstractObjects,
+            filteredObjTypes: this.props.searchData.objectTypes,
             filteredErrors: this.props.searchData.errors,
             filteredTypes: this.props.searchData.types,
             filteredClients: this.props.searchData.clients,
@@ -73,7 +73,7 @@ export class SearchList extends React.Component {
             filteredModules: this.props.searchData.modules,
             filteredFunctions: this.props.searchData.functions,
             filteredClasses: this.props.searchData.objects,
-            filteredAbsObjects: this.props.searchData.abstractObjects,
+            filteredObjTypes: this.props.searchData.objectTypes,
             filteredRecords: this.props.searchData.records,
             filteredConstants: this.props.searchData.constants,
             filteredErrors: this.props.searchData.errors,
@@ -114,7 +114,7 @@ export class SearchList extends React.Component {
         let currentModuleList = [];
         let currentFunctionsList = [];
         let currentClassesList = [];
-        let currentAbsObjectsList = [];
+        let currentObjTypesList = [];
         let currentRecordsList = [];
         let currentConstantsList = [];
         let currentErrorsList = [];
@@ -127,7 +127,7 @@ export class SearchList extends React.Component {
         let newModuleList = [];
         let newFunctionsList = [];
         let newClassesList = [];
-        let newAbsObjectsList = [];
+        let newObjTypesList = [];
         let newRecordsList = [];
         let newConstantsList = [];
         let newErrorsList = [];
@@ -142,7 +142,7 @@ export class SearchList extends React.Component {
             currentModuleList = this.props.searchData.modules;
             currentFunctionsList = this.props.searchData.functions;
             currentClassesList = this.props.searchData.classes;
-            currentAbsObjectsList = this.props.searchData.abstractObjects;
+            currentObjTypesList = this.props.searchData.objectTypes;
             currentRecordsList = this.props.searchData.records;
             currentConstantsList = this.props.searchData.constants;
             currentErrorsList = this.props.searchData.errors;
@@ -176,7 +176,7 @@ export class SearchList extends React.Component {
                 return lc.includes(filter);
             });
 
-            newAbsObjectsList = currentAbsObjectsList.filter((item) => {
+            newObjTypesList = currentObjTypesList.filter((item) => {
                 const lc = item.id.toLowerCase();
                 const filter = searchTxt.toLowerCase();
                 return lc.includes(filter);
@@ -240,7 +240,7 @@ export class SearchList extends React.Component {
             filteredModules: newModuleList,
             filteredFunctions: newFunctionsList,
             filteredClasses: newClassesList,
-            filteredAbsObjects: newAbsObjectsList,
+            filteredObjTypes: newObjTypesList,
             filteredRecords: newRecordsList,
             filteredConstants: newConstantsList,
             filteredErrors: newErrorsList,
@@ -263,7 +263,7 @@ export class SearchList extends React.Component {
                             this.state.filteredConstants.length == 0 && this.state.filteredTypes.length == 0 &&
                             this.state.filteredErrors.length == 0 && this.state.filteredClients.length == 0 &&
                             this.state.filteredListeners.length == 0 && this.state.filteredAnnotations.length == 0
-                            && this.state.filteredAbsObjects.length == 0 && this.state.filteredEnums.length == 0 && <p>No results found</p>
+                            && this.state.filteredObjTypes.length == 0 && this.state.filteredEnums.length == 0 && <p>No results found</p>
                         }
                         {this.state.filteredModules.length > 0 &&
                             <div className="ui segment">
@@ -305,15 +305,15 @@ export class SearchList extends React.Component {
                             </div>
                         }
 
-                        {this.state.filteredAbsObjects.length > 0 &&
+                        {this.state.filteredObjTypes.length > 0 &&
                             <div className="ui segment">
-                                <h3>Abstract Objects: {this.state.filteredAbsObjects.length}</h3>
+                                <h3>Object Types: {this.state.filteredObjTypes.length}</h3>
                                 <table className="ui very basic table">
                                     <tbody>
-                                        {this.state.filteredAbsObjects.map(item => (
+                                        {this.state.filteredObjTypes.map(item => (
                                             <tr>
                                                 <td className="search-title" id={item.id} title={item.id}>
-                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/abstractObjects/" + item.id} onClick={this.onLinkClick}
+                                                    <Link to={"/" + item.moduleOrgName + "/" + getPackageName(item.moduleId) + "/" + item.moduleVersion + "/" + item.moduleId + "/objectTypes/" + item.id} onClick={this.onLinkClick}
                                                         className="objects">{item.moduleId + ": " + item.id}</Link></td>
                                                 <td className="search-desc">
                                                     <p>{item.description}</p>

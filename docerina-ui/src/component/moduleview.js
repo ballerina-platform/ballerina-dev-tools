@@ -65,7 +65,7 @@ const ModuleView = (props) => {
                             <tbody>
                                 {props.package.modules.map(item => (
                                     <tr key={item.id}>
-                                        <td className="module-title truncate abstractObjects" id={item.id} title={item.id}>
+                                        <td className="module-title truncate objectTypes" id={item.id} title={item.id}>
                                             <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + item.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id}>{item.id}</Link>
                                         </td>
                                         <td className="module-desc">
@@ -93,7 +93,7 @@ const ModuleView = (props) => {
                             <tbody>
                                 {props.module.listeners.map(item => (
                                     <tr key={item.name}>
-                                        <td className="module-title truncate abstractObjects" id={item.name} title={item.name}>
+                                        <td className="module-title truncate objectTypes" id={item.name} title={item.name}>
                                             <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/listeners/" + item.name}>{item.name}</Link>
 
                                         </td>
@@ -197,19 +197,20 @@ const ModuleView = (props) => {
                         </table>
                     </section>
                 }
-                {props.module.abstractObjects.length > 0 &&
-                    <section id="abstractObjects" className="module-construct">
+
+                {props.module.objectTypes != null && props.module.objectTypes.length > 0 &&
+                    <section id="objectTypes" className="module-construct">
                         <div className="main-method-title here">
-                            <h2>Abstract Objects </h2>
-                            <p>[{props.module.abstractObjects.length}]</p>
+                            <h2>Object Types </h2>
+                            <p>[{props.module.objectTypes.length}]</p>
                         </div>
                         <div className="ui divider"></div>
                         <table className="ui very basic table">
                             <tbody>
-                                {props.module.abstractObjects.map(item => (
+                                {props.module.objectTypes.map(item => (
                                     <tr key={item.name}>
-                                        <td className="module-title truncate abstractObjects" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike abstractObjects" : "abstractObjects"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/abstractObjects/" + item.name}>{item.name}</Link>
+                                        <td className="module-title truncate objectTypes" id={item.name} title={item.name}>
+                                            <Link className={item.isDeprecated ? "strike objectTypes" : "objectTypes"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/objectTypes/" + item.name}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
