@@ -25,7 +25,7 @@ import { scrollAndHighlight } from "./helper"
 import { appType } from '../Router'
 import Markdown from "./markdown"
 
-const AbstractObject = (props) => {
+const ObjectType = (props) => {
 
     useEffect(() => {
         if (appType == "react" && props.history.location.hash != "") {
@@ -35,46 +35,46 @@ const AbstractObject = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.abstractObjects').accordion('open', 0);
+        $('.ui.accordion.objectTypes').accordion('open', 0);
 
     });
 
-    let abstractObject = props.abstractObject;
+    let objectType = props.objectType;
 
     return (
-        <Layout {...props} title={"API Docs Abstract Object: " + abstractObject.name} >
+        <Layout {...props} title={"API Docs Object Type: " + objectType.name} >
 
             <section className="construct-page">
-                {abstractObject != null &&
+                {objectType != null &&
                     <section>
-                        <h1>Abstract Object: <span className={abstractObject.isDeprecated ? "strike" : ""}>{abstractObject.name}</span></h1>
+                        <h1>Object Type: <span className={objectType.isDeprecated ? "strike" : ""}>{objectType.name}</span></h1>
                         {
-                            abstractObject.isDeprecated == true &&
+                            objectType.isDeprecated == true &&
                             <div className="ui orange horizontal label">Deprecated</div>
                         }
-                        <Markdown text={abstractObject.description} />
+                        <Markdown text={objectType.description} />
                         <div className="constants">
                             <div className="method-sum">
 
-                                {abstractObject.methods != null && abstractObject.methods.length > 0 &&
+                                {objectType.methods != null && objectType.methods.length > 0 &&
                                     <section className="method-list">
                                         <h2>Methods</h2>
                                         <div className="method-list">
-                                            <MethodTable {...props} methods={abstractObject.methods} />
+                                            <MethodTable {...props} methods={objectType.methods} />
                                         </div>
                                     </section>
                                 }
-                                {abstractObject.fields != null && abstractObject.fields.length > 0 &&
+                                {objectType.fields != null && objectType.fields.length > 0 &&
                                     <section className="fields-list">
                                         <h2>Fields</h2>
                                         <div>
-                                            <Fields fields={abstractObject.fields} />
+                                            <Fields fields={objectType.fields} />
                                         </div>
                                     </section>
                                 }
                             </div>
-                            {abstractObject.methods != null &&
-                                abstractObject.methods.map(item => (
+                            {objectType.methods != null &&
+                                objectType.methods.map(item => (
                                     <div key={item.name}><Method method={item} /></div>
                                 ))
                             }
@@ -86,4 +86,4 @@ const AbstractObject = (props) => {
     );
 }
 
-export default AbstractObject;
+export default ObjectType;

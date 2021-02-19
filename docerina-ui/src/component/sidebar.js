@@ -35,8 +35,8 @@ const getModuleConstructTypes = (props) => {
         {module.classes != null && module.classes.length > 0 &&
             <ConstructList {...props} listType="classes" />
         }
-        {module.abstractObjects != null && module.abstractObjects.length > 0 &&
-            <ConstructList {...props} listType="abstractObjects" />
+        {module.objectTypes != null && module.objectTypes.length > 0 &&
+            <ConstructList {...props} listType="objectTypes" />
         }
         {module.records != null && module.records.length > 0 &&
             <ConstructList {...props} listType="records" />
@@ -143,8 +143,8 @@ const SideBar = (props) => {
                             {props.module.classes != null && props.module.classes.length > 0 &&
                                 <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#classes"}>Classes</Link>
                             }
-                            {props.module.abstractObjects != null && props.module.abstractObjects.length > 0 &&
-                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#abstractObjects"}>Abstract Objects</Link>
+                            {props.module.objectTypes != null && props.module.objectTypes.length > 0 &&
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#objectTypes"}>Object Types</Link>
                             }
                             {props.module.records != null && props.module.records.length > 0 &&
                                 <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#records"}>Records</Link>

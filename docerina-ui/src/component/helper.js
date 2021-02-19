@@ -49,7 +49,7 @@ export const getTypeLabel = (type, defaultValue) => {
         label.push(getLink(type));
     }
     if (defaultValue != null && defaultValue != "") {
-        if ((type.category == "abstractobjects" || type.category == "classes") && defaultValue != "()") {
+        if ((type.category == "objectTypes" || type.category == "classes") && defaultValue != "()") {
             label.push(<span key="defVal"><span className="default">(default</span> <span className="type">{getLink(type)}</span><span className="default">)</span></span>);
         } else {
             label.push(<span className="default">(default {defaultValue})</span>);
@@ -97,7 +97,7 @@ export const getSuffixes = (type) => {
 }
 
 export const getConnector = (listType) => {
-    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "abstractObjects" || listType == "listeners" || listType == "enums") {
+    if (listType == "records" || listType == "classes" || listType == "clients" || listType == "objectTypes" || listType == "listeners" || listType == "enums") {
         return "/";
     } else {
         return "#";
