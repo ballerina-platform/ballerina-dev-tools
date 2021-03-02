@@ -22,6 +22,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /docerina-ui/dist/
+/docerina-ui/coverage/
 /docerina-ui/node_modules/
 /docerina-ui/package-lock.json
 /testerina-report-tools/build/

@@ -98,6 +98,16 @@ task npmBuildDocerinaUI(type: Exec) {
     }
 }
 
+task npmTestDocerinaUI(type: Exec) {
+    dependsOn npmInstallDocerinaUI
+    workingDir "docerina-ui"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'test'
+    } else {
+        commandLine 'npm', 'run', 'test'
+    }
+}
+
 task createDocerinaUiZip(type: Zip) {
     dependsOn npmBuildDocerinaUI
     from "docerina-ui/dist"
@@ -148,7 +158,12 @@ release {
     }
 }
 
+task test {
+    dependsOn npmTestDocerinaUI
+}
+
 task build {
+    dependsOn test
     dependsOn createFinalZip
 }
 
