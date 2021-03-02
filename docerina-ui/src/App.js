@@ -33,20 +33,15 @@ class App extends React.Component {
       packageDescription: null
     };
 
-    this.loadScript("./data/doc_data.js", () => {
-      console.log("Doc data loaded");
+    this.loadScript("./api-docs.js", () => {
+      console.log("API Docs js loaded");
       this.setState({
-        packages: window.docData.packages,
-        packageDescription: window.docData.description
+        packages: window.apiDocsJson.docsData.packages,
+        packageDescription: window.apiDocsJson.docsData.description,
+        searchData: window.apiDocsJson.searchData
       });
     });
 
-    this.loadScript("./doc-search/search-data.js", () => {
-      console.log("Search Data loaded");
-      this.setState({
-        searchData: window.searchData
-      });
-    });
   }
 
   loadScript(url, callback) {
