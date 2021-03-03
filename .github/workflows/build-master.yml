@@ -29,3 +29,8 @@ jobs:
         run: |
           ./gradlew clean publish --scan
 
+      - name: Generate Codecov Report
+        uses: codecov/codecov-action@v1
+        with:
+          directory: ./docerina-ui/coverage/
+

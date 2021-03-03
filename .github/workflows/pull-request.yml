@@ -25,6 +25,12 @@ jobs:
           packagePAT: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew build
 
+      - name: Generate Codecov Report
+        if:  github.event_name == 'pull_request'
+        uses: codecov/codecov-action@v1
+        with:
+          directory: ./docerina-ui/coverage/
+
   windows-build:
 
     runs-on: windows-latest

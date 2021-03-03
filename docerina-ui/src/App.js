@@ -32,36 +32,15 @@ class App extends React.Component {
       searchData: null,
       packageDescription: null
     };
+  }
 
-    this.loadScript("./api-docs.js", () => {
-      console.log("API Docs js loaded");
-      this.setState({
-        packages: window.apiDocsJson.docsData.packages,
-        packageDescription: window.apiDocsJson.docsData.description,
-        searchData: window.apiDocsJson.searchData
-      });
+  componentDidMount() {
+    this.setState({
+      packages: this.props.data.docsData.packages,
+      searchData: this.props.data.searchData,
     });
-
   }
-
-  loadScript(url, callback) {
-    console.log("loading..........");
-
-    // Adding the script tag to the head as suggested before
-    var head = document.head;
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Fire the loading
-    head.appendChild(script);
-  }
-
+  
   render() {
     return (
       <section className="App">
