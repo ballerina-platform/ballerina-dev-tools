@@ -2,6 +2,7 @@
  [![Build main](https://github.com/ballerina-platform/ballerina-dev-tools/workflows/Build%20master/badge.svg?branch=main)](https://github.com/ballerina-platform/ballerina-dev-tools/actions?query=workflow%3ABuild)
  [![Daily build](https://github.com/ballerina-platform/ballerina-dev-tools/workflows/Daily%20build/badge.svg)](https://github.com/ballerina-platform/ballerina-dev-tools/actions?query=workflow%3A%22Daily+build%22)
  [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/ballerina-dev-tools.svg)](https://github.com/ballerina-platform/ballerina-dev-tools/commits/master)
+ [![codecov](https://codecov.io/gh/ballerina-platform/ballerina-dev-tools/branch/main/graph/badge.svg)](https://codecov.io/gh/ballerina-platform/ballerina-dev-tools)
 
 Ballerina Dev tools library contains all the npm builds required by the ballerina distribution.
 
