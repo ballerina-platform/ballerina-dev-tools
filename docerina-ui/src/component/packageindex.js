@@ -24,8 +24,6 @@ import { getFirstLine, scrollAndHighlight } from "./helper"
 
 const PackageIndex = (props) => {
 
-    console.log(props);
-
     useEffect(() => {
         if (appType == "react" && props.history.location.hash != "") {
             scrollAndHighlight(props.history.location.hash);
