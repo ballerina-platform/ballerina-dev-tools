@@ -89,7 +89,7 @@ const SideBar = (props) => {
                         </div>
                         <div className="menu">
                             {props.package.modules.map(item => (
-                                <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
+                                <Link key={item.id} to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                             ))}
                         </div>
                         <div className="ui divider"></div>
@@ -121,7 +121,7 @@ const SideBar = (props) => {
                 <i className="dropdown icon"></i>
                     <div className="menu">
                         {props.package.modules.map(item => (
-                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
+                            <Link key={item.id} to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                         ))}
                     </div>
                 </div>

@@ -51,7 +51,7 @@ class App extends React.Component {
         {this.state.packages != null && this.state.searchData != null &&
           <Router>
             <Switch>
-              <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} packageDescription={this.props.data.docsData.description} builtinTypesAndKeywords={this.state.builtinTypesAndKeywords} releaseVersion={this.props.data.docsData.releaseVersion} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
+              <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} releaseDescription={this.props.data.docsData.description} builtinTypesAndKeywords={this.state.builtinTypesAndKeywords} releaseVersion={this.props.data.docsData.releaseVersion} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
               <Route exact path="/builtin/:balVersion/:type" render={(props) => (<FindBuiltinType {...props} builtinTypesAndKeywords={this.state.builtinTypesAndKeywords} packages={this.state.packages} searchData={this.state.searchData} />)} />
               <Route path="/:orgName/:packageName/:version" render={(props) => (<Package {...props} packages={this.state.packages} searchData={this.state.searchData} />)} />
             </Switch>
@@ -65,7 +65,6 @@ class App extends React.Component {
 }
 
 const FindBuiltinType = (props) => {
-  console.log("builtin");
   let builtinType = props.builtinTypesAndKeywords.filter((item) => {
     return item.name == props.match.params.type;
   })[0]
