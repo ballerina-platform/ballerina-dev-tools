@@ -62,11 +62,12 @@ const getModuleConstructTypes = (props) => {
 }
 
 const SideBar = (props) => {
-    if (props.pageType == "packageIndex" || props.pageType == "builtin") {
+    if (props.pageType == "packageIndex" || props.pageType == "builtin" || props.pageType == "keyword") {
         return (
             <div className="menu">
-                <Link to="/#packages" className="item">Ballerina Packages</Link>
+                <Link to="/#packages" className="item">Packages</Link>
                 <Link to="/#builtin" className="item">Bulitin Types</Link>
+                <Link to="/#keywords" className="item">Keywords</Link>
             </div>
         );
     } else if (props.pageType == "404") {

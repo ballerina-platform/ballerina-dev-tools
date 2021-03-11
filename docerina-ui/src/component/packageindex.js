@@ -54,10 +54,27 @@ const PackageIndex = (props) => {
                 <h2 className="capitalize">Builtin Types</h2>
                 <table className="ui very basic table" id="builtin">
                     <tbody>
-                        {props.builtinTypesAndKeywords.map(item => (
+                        {props.builtinTypes.map(item => (
                             <tr key={item.name}>
                                 <td title={item.name} width="30%" className="truncate">
                                     <Link className="functions" to={`/builtin/${props.ballerinaShortVersion}/${item.name}`}>{item.name}</Link>
+                                </td>
+                                <td width="70%">
+                                    <div className="module-desc">
+                                        <p>{getFirstLine(item.description)}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <h2 className="capitalize">Keywords</h2>
+                <table className="ui very basic table" id="keywords">
+                    <tbody>
+                        {props.keywords.map(item => (
+                            <tr key={item.name}>
+                                <td title={item.name} width="30%" className="truncate">
+                                    <Link className="functions" to={`/keywords/${props.ballerinaShortVersion}/${item.name}`}>{item.name}</Link>
                                 </td>
                                 <td width="70%">
                                     <div className="module-desc">

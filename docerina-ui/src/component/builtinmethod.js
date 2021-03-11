@@ -43,7 +43,7 @@ const BuiltinMethod = (props) => {
                 }
                 {
                     props.method.isIsolated == true &&
-                    <Link to={`/builtin/${props.method.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated Function</div></Link>
+                    <Link to={`/keywords/${props.method.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated Function</div></Link>
                 }
                 {
                     props.method.isRemote == true &&

@@ -161,7 +161,7 @@ const Layout = (props) => {
                             <div id="main">
                                 {props.pageType != "packageIndex" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
-                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax" || props.pageType != "builtin") &&
+                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax" || props.pageType != "builtin" || props.pageType != "keyword") &&
                                             <>
                                                 <Link to="/" className="section">Packages</Link>
                                                 <i className="right angle icon divider"></i>
@@ -169,12 +169,19 @@ const Layout = (props) => {
                                         }
                                         {props.pageType == "builtin" && 
                                         <>
-                                            <Link to="/#builtin">Builtin Types and Keywords</Link>
+                                            <Link to="/#builtin">Builtin Types</Link>
                                             <i className="right angle icon divider"></i>
                                             <p className="section active">{props.match.params.type}</p>
                                         </>
                                         }
-                                        {props.pageType != "builtin" &&
+                                        {props.pageType == "keyword" && 
+                                        <>
+                                            <Link to="/#keywords">Keywords</Link>
+                                            <i className="right angle icon divider"></i>
+                                            <p className="section active">{props.match.params.type}</p>
+                                        </>
+                                        }
+                                        {props.pageType != "builtin" && props.pageType != "keyword" &&
                                             <>
                                                 {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}
                                                 {props.pageType == "module" && props.module.id != props.package.name && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}

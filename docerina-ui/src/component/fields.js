@@ -31,7 +31,7 @@ const Fields = (props) => {
                             {item.inclusionType == null &&
                                 <>
                                     <span className={item.isDeprecated ? "strike" : ""}>{item.name} </span>
-                                    {item.isReadOnly && <Link className="builtin-type-link" to={`/builtin/${item.builtInVersion}/readonly`}>readonly </Link>}
+                                    {item.isReadOnly && <Link className="builtin-type-link" to={`/keywords/${item.builtInVersion}/readonly`}>readonly </Link>}
                                     {getTypeLabel(item.type, item.defaultValue)}
                                 </>
                             }
