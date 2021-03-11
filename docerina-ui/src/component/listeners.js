@@ -56,11 +56,11 @@ const Listener = (props) => {
                         }
                         {
                             listener.isIsolated == true &&
-                            <Link to={`/builtin/${listener.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
+                            <Link to={`/keywords/${listener.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
                         }
                         {
                             listener.isReadOnly == true &&
-                            <div className="ui horizontal label">Read Only</div>
+                            <Link to={`/keywords/${listener.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
                         }
                         <Markdown text={listener.description} />
                         <div className="constants">

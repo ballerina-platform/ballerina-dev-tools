@@ -55,11 +55,11 @@ const Client = (props) => {
                         }
                         {
                             client.isIsolated == true &&
-                            <Link to={`/builtin/${client.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
+                            <Link to={`/keywords/${client.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
                         }
                         {
                             client.isReadOnly == true &&
-                            <div className="ui horizontal label">Read Only</div>
+                            <Link to={`/keywords/${client.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
                         }
                         <Markdown text={client.description} />
                         <div className="constants">

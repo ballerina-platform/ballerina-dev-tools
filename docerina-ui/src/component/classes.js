@@ -54,11 +54,11 @@ const BClass = (props) => {
                         }
                         {
                             bClass.isIsolated == true &&
-                            <Link to={`/builtin/${bClass.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
+                            <Link to={`/keywords/${bClass.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
                         }
                         {
                             bClass.isReadOnly == true &&
-                            <Link to={`/builtin/${bClass.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
+                            <Link to={`/keywords/${bClass.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
                         }
                         <Markdown text={bClass.description} />
                         <div className="constants">
