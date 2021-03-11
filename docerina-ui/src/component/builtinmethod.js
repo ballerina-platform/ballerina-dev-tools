@@ -18,6 +18,7 @@
 
 import React from "react";
 import { getTypeLabel } from "./helper"
+import { Link } from '../Router'
 import Markdown from "./markdown"
 
 const BuiltinMethod = (props) => {
