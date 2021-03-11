@@ -18,10 +18,10 @@
 
 import React from "react";
 import { getTypeLabel } from "./helper"
-import Markdown from "./markdown"
 import { Link } from '../Router'
+import Markdown from "./markdown"
 
-const Method = (props) => {
+const BuiltinMethod = (props) => {
     return (
         <div className="method-content construct-page">
             <div className="main-method-title" id={props.method.name} title={props.method.name}>
@@ -30,8 +30,8 @@ const Method = (props) => {
             </div>
             <div>
                 <pre className="method-signature">
-                    <code className="break-spaces"><span className="token keyword">function</span> {props.method.name}(
-            {props.method.parameters.length > 0 && props.method.parameters.map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})
+                    <code className="break-spaces"><span>&lt;identifier&gt;.</span>{props.method.name}(
+            {props.method.parameters.length > 1 && props.method.parameters.slice(1).map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})
             {props.method.returnParameters.length > 0 && <span> <span className="token keyword">returns</span> {getTypeLabel(props.method.returnParameters[0].type)}</span>}
                     </code>
                 </pre>
@@ -54,10 +54,10 @@ const Method = (props) => {
             </div>
             {props.method.inclusionType == null &&
                 <>
-                    {props.method.parameters.length > 0 &&
+                    {props.method.parameters.length > 1 &&
                         <div className="parameters">
                             <h3 className="param-title">Parameters</h3>
-                            {props.method.parameters.map(item => (
+                            {props.method.parameters.slice(1).map(item => (
                                 <div key={item.name} className="params-listing">
                                     <ul>
                                         <li>
@@ -89,4 +89,4 @@ const Method = (props) => {
     );
 }
 
-export default Method;
+export default BuiltinMethod;

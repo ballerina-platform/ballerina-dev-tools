@@ -56,7 +56,7 @@ const Listener = (props) => {
                         }
                         {
                             listener.isIsolated == true &&
-                            <div className="ui horizontal label">Isolated</div>
+                            <Link to={`/builtin/${listener.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
                         }
                         {
                             listener.isReadOnly == true &&

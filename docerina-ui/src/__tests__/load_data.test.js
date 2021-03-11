@@ -23,6 +23,8 @@ import '@testing-library/jest-dom';
 import docJson from './api-docs.json';
 import App from '../App';
 
+window.scrollTo = jest.fn();
+
 // before each test, create `div` element
 beforeEach(() => {
     const elem = document.createElement('div'); // <div>...
@@ -44,5 +46,5 @@ test('Test data loading for API Docs React App', () => {
     });
 
     const h1Elem = elem.querySelector('h1'); // <h1>
-    expect(h1Elem).toHaveTextContent('Packages');
+    expect(h1Elem).toHaveTextContent('swan-lake-alpha2');
 });

@@ -55,7 +55,7 @@ const Client = (props) => {
                         }
                         {
                             client.isIsolated == true &&
-                            <div className="ui horizontal label">Isolated</div>
+                            <Link to={`/builtin/${client.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
                         }
                         {
                             client.isReadOnly == true &&

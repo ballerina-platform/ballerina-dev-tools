@@ -62,8 +62,15 @@ const getModuleConstructTypes = (props) => {
 }
 
 const SideBar = (props) => {
-    if (props.pageType == "packageIndex" || props.pageType == "404") {
-        return (<></>);
+    if (props.pageType == "packageIndex" || props.pageType == "builtin") {
+        return (
+            <div className="menu">
+                <Link to="/#packages" className="item">Ballerina Packages</Link>
+                <Link to="/#builtin" className="item">Bulitin Types</Link>
+            </div>
+        );
+    } else if (props.pageType == "404") {
+        return(<></>);
     }
     if (props.type == "desktop") {
         return (
@@ -82,7 +89,7 @@ const SideBar = (props) => {
                         </div>
                         <div className="menu">
                             {props.package.modules.map(item => (
-                                <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
+                                <Link key={item.id} to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                             ))}
                         </div>
                         <div className="ui divider"></div>
@@ -114,7 +121,7 @@ const SideBar = (props) => {
                 <i className="dropdown icon"></i>
                     <div className="menu">
                         {props.package.modules.map(item => (
-                            <Link to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
+                            <Link key={item.id} to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                         ))}
                     </div>
                 </div>
