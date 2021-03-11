@@ -176,17 +176,17 @@ const Layout = (props) => {
                                         }
                                         {props.pageType != "builtin" &&
                                             <>
-                                                {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
-                                                {props.pageType == "module" && props.module.id != props.package.name && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName} Package</Link>}
-                                                {props.pageType == "module" && props.module.id == props.package.name && <p className="section active">{props.match.params.packageName} Package</p>}
+                                                {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}
+                                                {props.pageType == "module" && props.module.id != props.package.name && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}
+                                                {props.pageType == "module" && props.module.id == props.package.name && <p className="section active">{props.match.params.packageName}</p>}
 
                                                 {props.module.id != props.package.name &&
                                                     <>
                                                         <i className="right angle icon divider"></i>
                                                         <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "#modules"} className="section">Modules</Link>
                                                         <i className="right angle icon divider"></i>
-                                                        {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id} Module</Link>}
-                                                        {props.pageType == "module" && <p className="section active">{props.module.id} Module</p>}
+                                                        {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id}</Link>}
+                                                        {props.pageType == "module" && <p className="section active">{props.module.id}</p>}
                                                     </>
                                                 }
                                                 {props.pageType != "module" &&
