@@ -56,7 +56,7 @@ class App extends React.Component {
           <Router>
             <Switch>
               <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} releaseDescription={this.props.data.docsData.description} builtinTypes={this.state.builtinTypes} keywords={this.state.keywords} releaseVersion={this.props.data.docsData.releaseVersion} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
-              <Route exact path="/builtin/:balVersion/:type" render={(props) => (<FindBuiltinType {...props} builtinTypes={this.state.builtinTypes} packages={this.state.packages} searchData={this.state.searchData} />)} />
+              <Route exact path="/builtin/:balVersion/:type" render={(props) => (<FindBuiltinType {...props} builtinTypes={this.state.builtinTypes} packages={this.state.packages} searchData={this.state.searchData} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
               <Route exact path="/keywords/:balVersion/:type" render={(props) => (<FindKeyword {...props} keywords={this.props.data.docsData.keywords} packages={this.state.packages} searchData={this.state.searchData} />)} />
               <Route path="/:orgName/:packageName/:version" render={(props) => (<Package {...props} packages={this.state.packages} searchData={this.state.searchData} />)} />
             </Switch>
@@ -82,7 +82,7 @@ const FindBuiltinType = (props) => {
     })[0].modules[0]
   }
 
-  return <Builtin {...props} builtinType={builtinType} langlib={langlib} />
+  return <Builtin {...props} builtinType={builtinType} langlib={langlib} ballerinaShortVersion={props.ballerinaShortVersion}  />
 
 }
 
