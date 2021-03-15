@@ -52,7 +52,7 @@ const Bulitin = (props) => {
                             {props.langlib.functions.map(item => (
                                 <tr key={item.name}>
                                     <td title={item.name} width="30%" className="truncate">
-                                        <Link to={"/builtin/" + props.builtinType.name + "#" + item.name} className={item.isDeprecated ? "strike functions" : "functions"} >{item.name}</Link>
+                                        <Link to={`/builtin/${props.ballerinaShortVersion}/${props.builtinType.name}#${item.name}`} className={item.isDeprecated ? "strike functions" : "functions"} >{item.name}</Link>
                                     </td>
                                     <td width="70%">
                                         <div className="module-desc">
