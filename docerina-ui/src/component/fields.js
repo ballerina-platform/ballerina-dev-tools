@@ -26,7 +26,7 @@ const Fields = (props) => {
         <div className="fields-listing">
             <ul>
                 {props.fields.map(item => (
-                    <section key={item.name}>
+                    <section key={item.name} id={item.name}>
                         <li>
                             {item.inclusionType == null &&
                                 <>
