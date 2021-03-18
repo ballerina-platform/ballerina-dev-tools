@@ -37,7 +37,7 @@ const Bulitin = (props) => {
     });
 
     return (
-        <Layout {...props} title={"Ballerina Bultin types and keywords: " + props.builtinType.name} pageType="builtin">
+        <Layout {...props} title={"Ballerina Bultin Type: " + props.builtinType.name} pageType="builtin">
             <section>
                 <h1 className="capitalize">Bultin Types: {props.builtinType.name}</h1>
                 <div className="function-desc">

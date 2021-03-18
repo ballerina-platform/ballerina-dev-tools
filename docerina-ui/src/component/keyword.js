@@ -37,7 +37,7 @@ const Keyword = (props) => {
     });
 
     return (
-        <Layout {...props} title={"Ballerina Bultin types and keywords: " + props.builtinType.name} pageType="keyword">
+        <Layout {...props} title={"Ballerina Keyword: " + props.builtinType.name} pageType="keyword">
             <section>
                 <h1 className="capitalize">Keyword: {props.builtinType.name}</h1>
                 <div className="function-desc">
