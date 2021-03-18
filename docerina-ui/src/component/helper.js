@@ -28,28 +28,30 @@ export const getTypeLabel = (type, defaultValue) => {
     } else if (type.isTuple) {
         label.push(<span key="typeName"><span>[</span>{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>]</span></span>);
     } else if (type.isLambda && type.returnType != null) {
-        label.push(<span key="typeName"><code> <span>function(</span>{type.paramTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>) </span><span>returns (</span>{getTypeLabel(type.returnType)} <span>)</span></code></span>);
+        label.push(<span key="typeName"><code> <span>function(</span>{type.paramTypes.length > 0 && type.paramTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>)</span><span> returns (</span>{getTypeLabel(type.returnType)}<span>)</span></code></span>);
     } else if (type.isLambda && type.returnType == null) {
-        label.push(<span key="typeName"><code> <span>function(</span>{type.paramTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>) </span><span>() </span></code></span>);
+        label.push(<span key="typeName"><code> <span>function(</span>{type.paramTypes.length > 0 && type.paramTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}<span>) </span><span>() </span></code></span>);
     } else if (type.isArrayType) {
-        label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}{getSuffixes(type)}</span>);
+        label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}</span>);
     } else if (type.isParenthesisedType) {
         label.push(<span key="typeName">({getTypeLabel(type.elementType)})</span>);
     } else if (type.isTypeDesc) {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/typedesc`}>typedesc</Link>&lt;{getTypeLabel(type.elementType)}&gt;{getSuffixes(type)}</span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/typedesc`}>typedesc</Link>&lt;{getTypeLabel(type.elementType)}&gt;</span>);
     } else if (type.isRestParam) {
-        label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}{getSuffixes(type)}</span>);
+        label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}</span>);
     } else if (type.category == "map" && type.constraint != null) {
         label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/map`}>{type.name}</Link><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
     } else if (type.category == "stream") {
         label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/stream`}>{type.name}</Link>&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
     } else if (type.category == "builtin" || type.moduleName == "lang.annotations") {
-        label.push(<Link key="typeName" className="builtin-type-link" to={type.name.replace(/\s/,"") == "()" ? `/builtin/${type.version}/()` : `/builtin/${type.version}/${type.name}`}>{type.name + getSuffixes(type)}</Link>);
+        label.push(<Link key="typeName" className="builtin-type-link" to={type.name.replace(/\s/,"") == "()" ? `/builtin/${type.version}/()` : `/builtin/${type.version}/${type.name}`}>{type.name}</Link>);
     } else if (!type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {
-        label.push(<span key="typeName" className="builtin-type-other">{type.name + getSuffixes(type)}</span>);
+        label.push(<span key="typeName" className="builtin-type-other">{type.name}</span>);
     } else {
         label.push(getLink(type));
     }
+    // Get suffixes
+    label.push(getSuffixes(type));
     if (defaultValue != null && defaultValue != "") {
         if ((type.category == "objectTypes" || type.category == "classes") && defaultValue != "()") {
             label.push(<span key="defVal"><span className="default">(default</span> <span className="type">{getLink(type)}</span><span className="default">)</span></span>);
@@ -78,7 +80,7 @@ export const getFirstLine = (lines) => {
 }
 
 export const getLink = (type) => {
-    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name}>{type.name + getSuffixes(type)}</Link>
+    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name}>{type.name}</Link>
     return link;
 }
 
@@ -88,13 +90,15 @@ export const getPackageName = (moduleName) => {
 }
 
 export const getSuffixes = (type) => {
-    var suffix = "";
+    var suffix = [];
     if (type.isArrayType) {
-        suffix = "[ ]".repeat(type.arrayDimensions);
+        suffix.push(<span title="array">{"[ ]".repeat(type.arrayDimensions)}</span>);
     } else if (type.isRestParam) {
-        suffix = "...";
+        suffix.push(<span title="rest parameter">...</span>);
     }
-    suffix += type.isNullable ? "?" : "";
+    if (type.isNullable) {
+        suffix.push(<span title="optional">?</span>);
+    }
     return suffix;
 }
 

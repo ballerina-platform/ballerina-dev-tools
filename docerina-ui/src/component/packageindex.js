@@ -37,7 +37,7 @@ const PackageIndex = (props) => {
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="packageIndex">
-                <h1 className="capitalize">Release: {props.releaseVersion}</h1>
+                <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>
                 <Markdown text={props.releaseDescription} />
                 <h2 className="capitalize">Packages</h2>
                 <table className="ui very basic table" id="packages">
