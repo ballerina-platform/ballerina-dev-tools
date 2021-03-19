@@ -1,6 +1,6 @@
 {
     "name": "@ballerina/testerina-report",
-    "version": "0.10.0-SNAPSHOT",
+    "version": "0.10.0",
     "private": true,
     "homepage": ".",
     "dependencies": {
