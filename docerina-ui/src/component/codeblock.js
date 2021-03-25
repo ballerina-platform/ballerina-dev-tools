@@ -22,7 +22,7 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import Prism from 'prism-react-renderer/prism';
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
 
-require("../../public/syntax-highlighter/prism-ballerina");
+require("../../public/prism-ballerina");
 
 class CodeBlock extends React.Component {
 

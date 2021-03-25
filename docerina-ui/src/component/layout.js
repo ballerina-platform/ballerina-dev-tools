@@ -83,7 +83,7 @@ const Layout = (props) => {
 
                 <div className="mobile-logo-div">
                     <div className="ui secondary menu">
-                        <div className="mobile-logo"><a href="/"><img className="mobile-logo-img" src={rootPath + "images/ballerina-docs-logo.svg"}></img></a></div>
+                        <div className="mobile-logo"><a href="/"><img className="mobile-logo-img" src={rootPath + "ballerina-docs-logo.svg"}></img></a></div>
                         <div className="right item">
                             <button className="ui icon button" onClick={toggleMenu}>
                                 <i className="large bars icon"></i>
@@ -94,7 +94,7 @@ const Layout = (props) => {
 
                 <div className="toc">
                     <div className="ui visible left vertical sidebar menu">
-                        <div className="logo"><Link to="/"><img className="logo-img" src={rootPath + "images/ballerina-docs-logo.svg"}></img></Link></div>
+                        <div className="logo"><Link to="/"><img className="logo-img" src={rootPath + "ballerina-docs-logo.svg"}></img></Link></div>
                         <SideBar {...props} type="desktop" />
                     </div>
                 </div>
