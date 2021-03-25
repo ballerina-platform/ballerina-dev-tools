@@ -36,8 +36,6 @@ const Listener = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.listeners').accordion('open', 0);
-
     });
 
     let listener = props.listener;

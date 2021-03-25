@@ -37,7 +37,7 @@ const PackageIndex = (props) => {
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="packageIndex">
-                <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>
+                {props.releaseVersion != null && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
                 <Markdown text={props.releaseDescription} />
                 <h2 className="capitalize">Packages</h2>
                 <table className="ui very basic table" id="packages">
@@ -51,7 +51,7 @@ const PackageIndex = (props) => {
                         ))}
                     </tbody>
                 </table>
-                <h2 className="capitalize">Builtin Types</h2>
+                {props.builtinTypes != null && props.builtinTypes.length > 0 && <><h2 className="capitalize">Builtin Types</h2>
                 <table className="ui very basic table" id="builtin">
                     <tbody>
                         {props.builtinTypes.map(item => (
@@ -67,8 +67,8 @@ const PackageIndex = (props) => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
-                <h2 className="capitalize">Keywords</h2>
+                </table></>}
+                {props.keywords != null && props.keywords.length > 0 && <><h2 className="capitalize">Keywords</h2>
                 <table className="ui very basic table" id="keywords">
                     <tbody>
                         {props.keywords.map(item => (
@@ -84,7 +84,7 @@ const PackageIndex = (props) => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table></>}
             </Layout>
         </section>
     );

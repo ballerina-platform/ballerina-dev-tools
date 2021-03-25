@@ -32,7 +32,6 @@ const Record = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.records').accordion('open',0);
     });
     let record = props.record;
     

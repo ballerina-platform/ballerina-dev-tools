@@ -19,31 +19,35 @@
 import React from "react";
 import { Link } from '../Router'
 import { getConnector } from "./helper"
+import { Accordion } from 'semantic-ui-react'
 
 const ConstructList = (props) => {
     if (props.type == "desktop") {
+        const panel = [
+            {
+                key: props.listType,
+                title: props.listType,
+                content: {
+                    content: (
+                        <div>
+                            {props.module[props.listType].map(item => (
+                                <Link title={item.name} key={item.name} className={props.match.params.constructName == item.name ? "active item" : "item"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                            ))}
+                        </div>
+                    ),
+                },
+            },
+        ];
         return (
-            <>
-                <div className={"ui accordion item " + props.listType}>
-                    <div className="title capitalize">
-                        {props.listType}
-                        <i className="dropdown icon"></i>
-                    </div>
-                    <div className="content">
-                        {props.module[props.listType].map(item => (
-                            <Link title={item.name} key={item.name} className={props.match.params.constructName == item.name ? "active item" : "item"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
-                        ))}
-                    </div>
-                </div>
-            </>
+            <Accordion className="item" defaultActiveIndex={props.listType == props.pageType ? 0 : -1} panels={panel} />
         );
     } else {
         return (
-            <div className="menu">
+            <>
                 {props.module[props.listType].map(item => (
                     <Link key={item.name} className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
                 ))}
-            </div>
+            </>
         )
     }
 }

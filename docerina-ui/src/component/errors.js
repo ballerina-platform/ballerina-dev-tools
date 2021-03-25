@@ -32,8 +32,6 @@ const Errors = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.errors').accordion('open', 0);
-
     });
 
     return (

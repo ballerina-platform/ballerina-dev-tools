@@ -35,8 +35,6 @@ const ObjectType = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.objectTypes').accordion('open', 0);
-
     });
 
     let objectType = props.objectType;
