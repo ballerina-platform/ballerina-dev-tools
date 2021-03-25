@@ -36,7 +36,6 @@ const Client = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.clients').accordion('open', 0);
     });
 
     let client = props.client;

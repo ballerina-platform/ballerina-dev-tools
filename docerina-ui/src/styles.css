@@ -1,9 +1,19 @@
 .logo {
-    width: 150px;
-    height: auto;
     margin-left: 10px;
     padding-top: 25px;
     padding-bottom: 50px;
+}
+
+.logo-img {
+    width: 175px;
+    height: auto;
+}
+
+.docs-logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: grey;
+    letter-spacing: -1px;
 }
 
 @keyframes highlight {
@@ -25,14 +35,6 @@
 
 .builtin-type {
     color: #07a;
-}
-
-.builtin-type-link {
-    color: #07a !important;
-}
-
-.builtin-type-link:hover {
-    color: #20b6b0 !important;
 }
 
 .method-content .main-method-title a.url-link {
@@ -62,8 +64,13 @@
 }
 
 .package-version {
-    margin-left: 10px;
+    margin-left: 12px;
     color: #CBCEDB;
+}
+
+.package-version .caret.down.icon {
+    margin-left: 5px !important;
+    color: #464646;
 }
 
 .method-signature a {
@@ -211,10 +218,11 @@ margin-top: 24px;
     margin-right: 25px;
 }
 
-.ui.accordion .title {
+.ui.sidebar.menu .ui.accordion .title {
     color: #888888 !important;
     font-size: 16px !important;
     font-family: 'Roboto', sans-serif !important;
+    text-transform: capitalize !important;
 }
 
 .ui.sidebar.menu .ui.accordion .title .dropdown.icon {
@@ -518,6 +526,7 @@ text-overflow: ellipsis;*/
     }
     .ui.breadcrumb {
         margin-top: 20px;
+        margin-left: 2px;
     }
     .row.nav-bar {
         display: none;
@@ -527,10 +536,19 @@ text-overflow: ellipsis;*/
     }
     .mobile-logo {
         display: inline-block;
-        width: 100px;
         margin-top: 15px;
-        margin-left: 30px;
-        height: 19px;
+        margin-left: 20px;
+    }
+    .mobile-logo-img {
+        width: 150px;
+        height: auto;
+    }
+    
+    .mobile-docs-logo {
+        font-size: 22px;
+        font-weight: bold;
+        color: grey;
+        letter-spacing: -1px;
     }
     .mobile-logo-div {
         display: contents;

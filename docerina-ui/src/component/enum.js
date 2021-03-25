@@ -31,7 +31,6 @@ const Enum = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.enums').accordion('open', 0);
     });
     let bEnum = props.bEnum;
 

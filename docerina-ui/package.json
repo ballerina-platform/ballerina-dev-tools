@@ -33,7 +33,6 @@
         "webpack-dev-server": "^3.11.0"
     },
     "dependencies": {
-        "jquery": "^3.5.1",
         "prism-react-renderer": "^1.1.1",
         "prismjs": "^1.22.0",
         "react": "^16.12.0",

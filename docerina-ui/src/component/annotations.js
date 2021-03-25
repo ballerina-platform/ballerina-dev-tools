@@ -32,7 +32,6 @@ const Annotations = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.annotations').accordion('open', 0);
     });
 
     return (

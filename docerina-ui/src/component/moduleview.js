@@ -36,7 +36,6 @@ const ModuleView = (props) => {
         <Layout {...props} title={"API Docs : " + props.module.id} pageType="module">
 
             <div>
-
                 <h1>{props.module.orgName}/{props.module.id}
                     {(props.packageVersions == null || props.packageVersions.length == 1) && <span className="package-version">{props.module.version}</span>}
                     {props.packageVersions != null && props.packageVersions.length > 1 && 

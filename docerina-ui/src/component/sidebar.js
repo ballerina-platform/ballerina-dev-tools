@@ -17,6 +17,7 @@
  */
 
 import React from "react";
+import { Dropdown } from 'semantic-ui-react'
 import { Link } from '../Router'
 import ConstructList from "./constructlist"
 
@@ -71,7 +72,7 @@ const SideBar = (props) => {
             </div>
         );
     } else if (props.pageType == "404") {
-        return(<></>);
+        return (<></>);
     }
     if (props.type == "desktop") {
         return (
@@ -117,28 +118,25 @@ const SideBar = (props) => {
         }
         return (<>
             {props.package.modules.length > 1 &&
-                <div className="capitalize ui dropdown item">
-                    Modules
-                <i className="dropdown icon"></i>
-                    <div className="menu">
+                <Dropdown className="capitalize item" text='Modules'>
+                    <Dropdown.Menu>
                         {props.package.modules.map(item => (
                             <Link key={item.id} to={"/" + props.package.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id} className={props.module.id == item.id ? "active item" : "item"}>{item.id}</Link>
                         ))}
-                    </div>
-                </div>
+                    </Dropdown.Menu>
+                </Dropdown>
             }
             {props.pageType != "package" &&
                 <>
                     {hasChildPages &&
-                        <div className="capitalize ui dropdown item">
-                            {props.pageType}<i className="dropdown icon"></i>
-                            <ConstructList {...props} type="mobile" data={props.module[props.pageType]} listType={props.pageType} moduleName={props.module.id} />
-                        </div>
+                        <Dropdown className="capitalize item" text={props.pageType}>
+                            <Dropdown.Menu>
+                                <ConstructList {...props} type="mobile" data={props.module[props.pageType]} listType={props.pageType} moduleName={props.module.id} />
+                            </Dropdown.Menu>
+                        </Dropdown>
                     }
-                    <div className="capitalize ui dropdown item">
-                       Module {props.module.id}
-                <i className="dropdown icon"></i>
-                        <div className="menu">
+                    <Dropdown className="capitalize item" text={props.module.id}>
+                        <Dropdown.Menu>
                             {props.module.listeners != null && props.module.listeners.length > 0 &&
                                 <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#listeners"}>Listeners</Link>
                             }
@@ -172,8 +170,8 @@ const SideBar = (props) => {
                             {props.module.errors != null && props.module.errors.length > 0 &&
                                 <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "#errors"}>Errors</Link>
                             }
-                        </div>
-                    </div>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </>}
         </>);
     }

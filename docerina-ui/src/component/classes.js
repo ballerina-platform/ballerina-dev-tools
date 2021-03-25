@@ -36,7 +36,6 @@ const BClass = (props) => {
         } else {
             window.scrollTo(0, 0);
         }
-        $('.ui.accordion.classes').accordion('open', 0);
     });
 
     let bClass = props.bClass;

@@ -16,17 +16,17 @@
  *  under the License.
  */
 
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
+import { Transition, Dropdown } from 'semantic-ui-react'
 import SideBar from "./sidebar"
 import { Head, rootPath, otherScripts, Link, appType } from '../Router'
-import { SearchList } from "./searchlist"
+import SearchList from "./searchlist"
 import { removeHtmlTags } from "./helper"
 
-function toggleMenu() {
-    $('#mobMenu').transition('slide down')
-}
-
 const Layout = (props) => {
+
+    const [visibility, setVisibility] = useState(false);
+    const [searchText, setSearchText] = useState("");
 
     let hasChildPages;
     if (props.pageType == "functions" || props.pageType == "types" || props.pageType == "errors" || props.pageType == "annotations" || props.pageType == "constants") {
@@ -36,15 +36,34 @@ const Layout = (props) => {
     }
 
     let isLocal = location.hostname == null || location.hostname == "localhost" || location.hostname == "";
+    let searchBoxText = props.pageType == "packageIndex" ? "Search in distribution..." : "Search in " + props.package.name + " package...";
 
-    useEffect(() => {
-        $(document).ready(function () {
-            $('.ui.accordion').accordion();
-            $('.ui.dropdown').dropdown();
-            $('#version-picker').dropdown('set selected', "swan-lake");
-            $('#version-picker-mob').dropdown('set selected', "swan-lake");
-        });
-    })
+    function toggleMenu() {
+        setVisibility(!visibility);
+    }
+
+    function keyUpHandler(e) {
+        const inputText = e.target.value;
+        const mainDiv = document.getElementById("main");
+        if (inputText !== "") {
+            if (mainDiv != null) {
+                mainDiv.classList.add('hidden');
+            }
+        } else {
+            if (mainDiv != null) {
+                mainDiv.classList.remove('hidden');
+            }
+        }
+        setSearchText(inputText);
+    }
+
+    const resetSearch = () => {
+        setSearchText("");
+        const mainDiv = document.getElementById("main");
+        if (mainDiv != null) {
+            mainDiv.classList.remove('hidden');
+        }
+    }
 
     return (
         <div>
@@ -64,7 +83,7 @@ const Layout = (props) => {
 
                 <div className="mobile-logo-div">
                     <div className="ui secondary menu">
-                        <a href="/"><img className="mobile-logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>
+                        <div className="mobile-logo"><a href="/"><img className="mobile-logo-img" src={rootPath + "images/ballerina-docs-logo.svg"}></img></a></div>
                         <div className="right item">
                             <button className="ui icon button" onClick={toggleMenu}>
                                 <i className="large bars icon"></i>
@@ -75,8 +94,7 @@ const Layout = (props) => {
 
                 <div className="toc">
                     <div className="ui visible left vertical sidebar menu">
-                        {!isLocal && <a href="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></a>}
-                        {isLocal && <Link to="/"><img className="logo" src={rootPath + "html-template-resources/images/ballerina-logo.png"}></img></Link>}
+                        <div className="logo"><Link to="/"><img className="logo-img" src={rootPath + "images/ballerina-docs-logo.svg"}></img></Link></div>
                         <SideBar {...props} type="desktop" />
                     </div>
                 </div>
@@ -88,75 +106,49 @@ const Layout = (props) => {
                                 <div className="ui category search item search-bar">
                                     <i className="search link icon"></i>
                                     <div className="ui transparent icon input">
-                                        <input className="prompt" id="searchBox" type="text" placeholder="Search API Docs..." />
+                                        <input className="prompt" id="searchBox" onInput={keyUpHandler} type="text" placeholder={searchBoxText} />
                                     </div>
                                 </div>
                             </div>
                             {!isLocal && <div className="right menu">
                                 <a href="http://ballerina.io/learn/" className="item">Learn</a>
-                                <a href="https://ballerina.io/events" className="item">Events</a>
                                 <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
+                                <a href="https://ballerina.io/events" className="item">Events</a>
                                 <a href="https://ballerina.io/community/" className="item">Community</a>
                                 <a href="https://blog.ballerina.io/" className="item">Blog</a>
-                                {appType == "react" && <div className="ui dropdown item ballerina" id="version-picker">
-                                    Version
-                            <i className="dropdown icon"></i>
-                                    <div className="menu">
-                                        <a className="item active" value="swan-lake">Swan Lake</a>
-                                        <a href={"https://ballerina.io/1.0/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.0">1.0</a>
-                                        <a href={"https://ballerina.io/1.1/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.1">1.1</a>
-                                        <a href={"https://ballerina.io/1.2/learn/api-docs/ballerina/" + (props.module != null ? props.module.id : "")} className="item" value="1.2">1.2</a>
-                                    </div>
-                                </div>}
-                            </div>
-                            }
+                            </div>}
                         </div>
                     </div>
                     <div className="main-content-holder">
                         <div className="main-content">
-                            <div id="mobMenu" className="mob-menu">
-                                <div className="ui stackable secondary menu">
-                                    <div className="item">
-                                        <div className="search-bar">
-                                            <div className="ui category search item search-bar">
-                                                <i className="search link icon"></i>
-                                                <div className="ui transparent icon input">
-                                                    <input className="prompt" id="searchBoxMob" type="text" placeholder="Search API Docs..." />
+                            <Transition visible={visibility} animation='slide down' duration={500}>
+                                <div id="mobMenu" className="mob-menu">
+                                    <div className="ui stackable secondary menu">
+                                        <div className="item">
+                                            <div className="search-bar">
+                                                <div className="ui category search item search-bar">
+                                                    <i className="search link icon"></i>
+                                                    <div className="ui transparent icon input">
+                                                        <input className="prompt" id="searchBoxMob" onInput={keyUpHandler} type="text" placeholder={searchBoxText} />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <SideBar {...props} type="mobile" />
+                                        {!isLocal && <Dropdown className="ballerina item" text="Ballerina">
+                                            <Dropdown.Menu>
+                                                <a href="http://ballerina.io/learn/" className="item">Learn</a>
+                                                <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
+                                                <a href="https://ballerina.io/events" className="item">Events</a>
+                                                <a href="https://ballerina.io/community/" className="item">Community</a>
+                                                <a href="https://blog.ballerina.io/" className="item">Blog</a>                                            </Dropdown.Menu>
+                                        </Dropdown>}
                                     </div>
-                                    <SideBar {...props} type="mobile" />
-
-                                    {!isLocal &&
-                                        <>
-                                            {appType == "react" && <div className="ui dropdown item" id="version-picker-mob">
-                                                Version <i className="dropdown icon"></i>
-                                                <div className="menu">
-                                                    <a className="item active" value="swan-lake">Swan Lake</a>
-                                                    <a href="https://ballerina.io/1.0/learn/api-docs/ballerina/" className="item" value="1.0">1.0</a>
-                                                    <a href="https://ballerina.io/1.1/learn/api-docs/ballerina/" className="item" value="1.1">1.1</a>
-                                                    <a href="https://ballerina.io/1.2/learn/api-docs/ballerina/" className="item" value="1.2">1.2</a>
-                                                </div>
-                                            </div>}
-                                            <div className="ui dropdown item ballerina">
-                                                Ballerina <i className="dropdown icon"></i>
-                                                <div className="menu">
-                                                    <a href="http://ballerina.io/learn/" className="item">Learn</a>
-                                                    <a href="https://ballerina.io/events" className="item">Events</a>
-                                                    <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
-                                                    <a href="https://ballerina.io/community/" className="item">Community</a>
-                                                    <a href="https://blog.ballerina.io/" className="item">Blog</a>
-                                                </div>
-                                            </div>
-                                        </>
-                                    }
-
                                 </div>
-                            </div>
+                            </Transition>
 
                             <div id="search-impl">
-                                <SearchList searchData={props.searchData} />
+                                <SearchList searchText={searchText} resetFunc={resetSearch} searchData={props.searchData} />
                             </div>
                             <div id="main">
                                 {props.pageType != "packageIndex" && props.pageType != "404" &&
@@ -167,19 +159,19 @@ const Layout = (props) => {
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }
-                                        {props.pageType == "builtin" && 
-                                        <>
-                                            <Link to="/#builtin">Builtin Types</Link>
-                                            <i className="right angle icon divider"></i>
-                                            <p className="section active">{props.match.params.type}</p>
-                                        </>
+                                        {props.pageType == "builtin" &&
+                                            <>
+                                                <Link to="/#builtin">Builtin Types</Link>
+                                                <i className="right angle icon divider"></i>
+                                                <p className="section active">{props.match.params.type}</p>
+                                            </>
                                         }
-                                        {props.pageType == "keyword" && 
-                                        <>
-                                            <Link to="/#keywords">Keywords</Link>
-                                            <i className="right angle icon divider"></i>
-                                            <p className="section active">{props.match.params.type}</p>
-                                        </>
+                                        {props.pageType == "keyword" &&
+                                            <>
+                                                <Link to="/#keywords">Keywords</Link>
+                                                <i className="right angle icon divider"></i>
+                                                <p className="section active">{props.match.params.type}</p>
+                                            </>
                                         }
                                         {props.pageType != "builtin" && props.pageType != "keyword" &&
                                             <>
