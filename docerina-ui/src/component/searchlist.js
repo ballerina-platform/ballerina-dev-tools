@@ -143,7 +143,7 @@ const SearchList = (props) => {
                                     {filteredModuleList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.orgName}/${item.id}/${item.version}/${item.id}`} className="objects">
+                                                <Link to={`/${item.orgName}/${item.packageName}/${item.version}/${item.id}`} className="objects">
                                                     {item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -163,7 +163,7 @@ const SearchList = (props) => {
                                     {filteredClassesList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/classes/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/classes/${item.id}`} onClick={onLinkClick}
                                                     className="objects">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -183,7 +183,7 @@ const SearchList = (props) => {
                                     {filteredObjTypesList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/objectTypes/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/objectTypes/${item.id}`} onClick={onLinkClick}
                                                     className="objects">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -203,7 +203,7 @@ const SearchList = (props) => {
                                     {filteredClientsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/clients/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/clients/${item.id}`} onClick={onLinkClick}
                                                     className="clients">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -223,7 +223,7 @@ const SearchList = (props) => {
                                     {filteredListenersList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/listeners/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/listeners/${item.id}`} onClick={onLinkClick}
 
                                                     className="listeners">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
@@ -244,7 +244,7 @@ const SearchList = (props) => {
                                     {filteredFunctionsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/functions#${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/functions#${item.id}`} onClick={onLinkClick}
                                                     className="functions">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -264,7 +264,7 @@ const SearchList = (props) => {
                                     {filteredRecordsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/records/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/records/${item.id}`} onClick={onLinkClick}
                                                     className="records">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -284,7 +284,7 @@ const SearchList = (props) => {
                                     {filteredConstantsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/constants#${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/constants#${item.id}`} onClick={onLinkClick}
                                                     className="constant">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -304,7 +304,7 @@ const SearchList = (props) => {
                                     {filteredEnumsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/enums/${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/enums/${item.id}`} onClick={onLinkClick}
                                                     className="constant">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -324,7 +324,7 @@ const SearchList = (props) => {
                                     {filteredTypesList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/types#${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/types#${item.id}`} onClick={onLinkClick}
                                                     className="types">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -344,7 +344,7 @@ const SearchList = (props) => {
                                     {filteredErrorsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/errors#${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/errors#${item.id}`} onClick={onLinkClick}
                                                     className="errors">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
@@ -364,7 +364,7 @@ const SearchList = (props) => {
                                     {filteredAnnotationsList.map(item => (
                                         <tr>
                                             <td className="search-title" id={item.id} title={item.id}>
-                                                <Link to={`/${item.moduleOrgName}/${item.moduleId}/${item.moduleVersion}/${item.moduleId}/annotations#${item.id}`} onClick={onLinkClick}
+                                                <Link to={`/${item.moduleOrgName}/${item.packageName}/${item.moduleVersion}/${item.moduleId}/annotations#${item.id}`} onClick={onLinkClick}
                                                     className="annotations">{item.moduleId + ": " + item.id}</Link></td>
                                             <td className="search-desc">
                                                 <p>{item.description}</p>
