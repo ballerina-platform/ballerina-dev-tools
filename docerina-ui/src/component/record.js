@@ -19,7 +19,7 @@
 import React, { useEffect } from 'react'
 import Fields from "./fields"
 import Layout from "./layout"
-import { appType } from '../Router'
+import { Link, appType } from '../Router'
 import Markdown from "./markdown"
 
 const Record = (props) => {
@@ -46,6 +46,10 @@ const Record = (props) => {
                         <div className="ui orange horizontal label">Deprecated</div>
                     }
                     <Markdown text={record.description} />
+                    {
+                            record.isReadOnly == true &&
+                            <Link to={`/keywords/${record.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
+                    }
                     {
                         record.isClosed == true &&
                         <div className="ui horizontal label" data-tooltip="A record with a fixed set of fields" data-position="top left">Closed record</div>
