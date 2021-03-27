@@ -35,6 +35,8 @@ export const getTypeLabel = (type, defaultValue) => {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}</span>);
     } else if (type.isParenthesisedType) {
         label.push(<span key="typeName">({getTypeLabel(type.elementType)})</span>);
+    } else if (type.isInclusion) {
+        label.push(<span key="typeName">*{getLink(type)}</span>);
     } else if (type.isTypeDesc) {
         label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/typedesc`}>typedesc</Link>&lt;{getTypeLabel(type.elementType)}&gt;</span>);
     } else if (type.isRestParam) {

@@ -22,7 +22,7 @@ import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
 import { scrollAndHighlight } from "./helper"
-import { appType } from '../Router'
+import { Link, appType } from '../Router'
 import Markdown from "./markdown"
 
 const ObjectType = (props) => {
@@ -49,6 +49,10 @@ const ObjectType = (props) => {
                         {
                             objectType.isDeprecated == true &&
                             <div className="ui orange horizontal label">Deprecated</div>
+                        }
+                        {
+                            objectType.isReadOnly == true &&
+                            <Link to={`/keywords/${objectType.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
                         }
                         <Markdown text={objectType.description} />
                         <div className="constants">
