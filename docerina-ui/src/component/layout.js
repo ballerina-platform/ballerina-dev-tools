@@ -36,7 +36,7 @@ const Layout = (props) => {
     }
 
     let isLocal = location.hostname == null || location.hostname == "localhost" || location.hostname == "";
-    let searchBoxText = props.pageType == "packageIndex" ? "Search in distribution..." : "Search in " + props.package.name + " package...";
+    let searchBoxText = props.pageType == "packageIndex" || props.pageType == "builtin" || props.pageType == "keyword" ? "Search in distribution..." : "Search in " + props.package.name + " package...";
 
     function toggleMenu() {
         setVisibility(!visibility);
