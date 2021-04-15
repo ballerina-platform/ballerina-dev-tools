@@ -45,6 +45,6 @@ test('Test data loading for API Docs React App', () => {
         render(<App data={docJson}/>, elem);
     });
 
-    const h1Elem = elem.querySelector('h1'); // <h1>
-    expect(h1Elem).toHaveTextContent('swan-lake-alpha2');
+    const h2Elem = elem.querySelector('h2'); // <h1>
+    expect(h2Elem).toHaveTextContent('Language Libraries');
 });

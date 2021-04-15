@@ -37,35 +37,34 @@ const ModuleView = (props) => {
 
             <div>
                 <h1>{props.module.orgName}/{props.module.id}
-                    {(props.packageVersions == null || props.packageVersions.length == 1) && <span className="package-version">{props.module.version}</span>}
+                    {/* {(props.packageVersions == null || props.packageVersions.length == 1) && <span className="package-version">{props.module.version}</span>}
                     {props.packageVersions != null && props.packageVersions.length > 1 && 
                     <div className="ui dropdown package-version">
                         <div className="text">{props.module.version}</div>
                         <i className="small caret down icon"></i>
                         <div className="menu">
                             {props.packageVersions.map(item => (
-                                <Link className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + item}>{item}</Link>
+                                <Link className="item" to={"/" + props.module.orgName + "/" + props.module.id + "/" + item}>{item}</Link>
                             ))}
                         </div>
-                    </div>}
+                    </div>} */}
                 </h1>
 
-                {props.module.id == props.package.name && <Markdown text={props.package.description} />}
                 <Markdown text={props.module.description} />
 
-                {props.package.modules.length > 1 &&
+                {props.module.relatedModules.length > 1 &&
                     <section id="modules" className="module-construct">
                         <div className="main-method-title here">
                             <h2>Modules</h2>
-                            <p>[{props.package.modules.length}]</p>
+                            <p>[{props.module.relatedModules.length}]</p>
                         </div>
                         <div className="ui divider"></div>
                         <table className="ui very basic table">
                             <tbody>
-                                {props.package.modules.map(item => (
+                                {props.module.relatedModules.map(item => (
                                     <tr key={item.id}>
                                         <td className="module-title truncate objectTypes" id={item.id} title={item.id}>
-                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + item.orgName + "/" + props.package.name + "/" + props.package.version + "/" + item.id}>{item.id}</Link>
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={`/${item.orgName}/${item.id}/${item.version}`}>{item.id}</Link>
                                         </td>
                                         <td className="module-desc">
                                             {
@@ -93,7 +92,7 @@ const ModuleView = (props) => {
                                 {props.module.listeners.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate objectTypes" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/listeners/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/listeners/${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -122,7 +121,7 @@ const ModuleView = (props) => {
                                 {props.module.clients.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate clients" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike clients" : "clients"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/clients/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike clients" : "clients"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/clients/${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -151,7 +150,7 @@ const ModuleView = (props) => {
                                 {props.module.functions.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate functions" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike functions" : "functions"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/functions#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike functions" : "functions"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/functions#${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -180,7 +179,7 @@ const ModuleView = (props) => {
                                 {props.module.classes.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate classes" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike classes" : "classes"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/classes/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike classes" : "classes"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/classes/${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -209,7 +208,7 @@ const ModuleView = (props) => {
                                 {props.module.objectTypes.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate objectTypes" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike objectTypes" : "objectTypes"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/objectTypes/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike objectTypes" : "objectTypes"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/objectTypes/${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -238,8 +237,7 @@ const ModuleView = (props) => {
                                 {props.module.records.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate records" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/records/" + item.name}>{item.name}</Link>
-
+                                            <Link className={item.isDeprecated ? "strike records" : "records"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/records/${item.name}`}>{item.name}</Link>
                                         </td>
                                         <td className="module-desc">
                                             {
@@ -267,8 +265,7 @@ const ModuleView = (props) => {
                                 {props.module.constants.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate constants" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/constants#" + item.name}>{item.name}</Link>
-
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/constants#${item.name}`}>{item.name}</Link>
                                         </td>
                                         <td className="module-desc">
                                             {
@@ -296,7 +293,7 @@ const ModuleView = (props) => {
                                 {props.module.enums.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate constants" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/enums/" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/enums/${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">
@@ -325,8 +322,7 @@ const ModuleView = (props) => {
                                 {props.module.annotations.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate annotations" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike annotations" : "annotations"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/annotations#" + item.name}>{item.name}</Link>
-
+                                            <Link className={item.isDeprecated ? "strike annotations" : "annotations"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/annotations#${item.name}`}>{item.name}</Link>
                                         </td>
                                         <td className="module-desc">
                                             {
@@ -354,8 +350,7 @@ const ModuleView = (props) => {
                                 {props.module.types.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate types" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike types" : "types"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/types#" + item.name}>{item.name}</Link>
-
+                                            <Link className={item.isDeprecated ? "strike types" : "types"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/types#${item.name}`}>{item.name}</Link>
                                         </td>
                                         <td className="module-desc">
                                             {
@@ -383,7 +378,7 @@ const ModuleView = (props) => {
                                 {props.module.errors.map(item => (
                                     <tr key={item.name}>
                                         <td className="module-title truncate errors" id={item.name} title={item.name}>
-                                            <Link className={item.isDeprecated ? "strike errors" : "errors"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/errors#" + item.name}>{item.name}</Link>
+                                            <Link className={item.isDeprecated ? "strike errors" : "errors"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/errors#${item.name}`}>{item.name}</Link>
 
                                         </td>
                                         <td className="module-desc">

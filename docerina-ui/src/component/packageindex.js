@@ -18,7 +18,7 @@
 
 import React, { useEffect } from "react";
 import { Link, appType } from '../Router'
-import Layout from "./layout";
+import Layout from "./packagelayout";
 import Markdown from "./markdown"
 import { getFirstLine, scrollAndHighlight } from "./helper"
 

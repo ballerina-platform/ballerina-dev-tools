@@ -36,7 +36,7 @@ const Layout = (props) => {
     }
 
     let isLocal = location.hostname == null || location.hostname == "localhost" || location.hostname == "";
-    let searchBoxText = props.pageType == "packageIndex" || props.pageType == "builtin" || props.pageType == "keyword" ? "Search in distribution..." : "Search in " + props.package.name + " package...";
+    let searchBoxText = props.pageType == "moduleIndex" ? "Search in distribution..." : "Search in " + props.module.id + "...";
 
     function toggleMenu() {
         setVisibility(!visibility);
@@ -94,7 +94,7 @@ const Layout = (props) => {
 
                 <div className="toc">
                     <div className="ui visible left vertical sidebar menu">
-                        <div className="logo"><Link to="/"><img className="logo-img" src={rootPath + "ballerina-docs-logo.svg"}></img></Link></div>
+                        <div className="logo"><a href="/"><img className="logo-img" src={rootPath + "ballerina-docs-logo.svg"}></img></a></div>
                         <SideBar {...props} type="desktop" />
                     </div>
                 </div>
@@ -151,57 +151,33 @@ const Layout = (props) => {
                                 <SearchList searchText={searchText} resetFunc={resetSearch} searchData={props.searchData} />
                             </div>
                             <div id="main">
-                                {props.pageType != "packageIndex" && props.pageType != "404" &&
+                                {props.pageType != "moduleIndex" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
-                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax" || props.pageType != "builtin" || props.pageType != "keyword") &&
+                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax") && !props.match.params.moduleName.startsWith("lang.") &&
                                             <>
-                                                <Link to="/" className="section">Packages</Link>
+                                                <Link to="/#modules" className="section">Modules</Link>
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }
-                                        {props.pageType == "builtin" &&
+                                        {props.match.params.moduleName.startsWith("lang.") &&
                                             <>
-                                                <Link to="/#builtin">Builtin Types</Link>
+                                                <Link to="/#langlibs" className="section">Language Libraries</Link>
                                                 <i className="right angle icon divider"></i>
-                                                <p className="section active">{props.match.params.type}</p>
                                             </>
                                         }
-                                        {props.pageType == "keyword" &&
-                                            <>
-                                                <Link to="/#keywords">Keywords</Link>
+                                        {props.pageType == "module" && <p className="section active">{props.match.params.moduleName}</p>}
+                                        {props.pageType != "module" &&
+                                            <span>
+                                                <Link to={`/${props.match.params.orgName}/${props.match.params.moduleName}/${props.match.params.version}`} className="section">{props.match.params.moduleName}</Link>
                                                 <i className="right angle icon divider"></i>
-                                                <p className="section active">{props.match.params.type}</p>
-                                            </>
-                                        }
-                                        {props.pageType != "builtin" && props.pageType != "keyword" &&
-                                            <>
-                                                {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}
-                                                {props.pageType == "module" && props.module.id != props.package.name && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/"} className="section">{props.match.params.packageName}</Link>}
-                                                {props.pageType == "module" && props.module.id == props.package.name && <p className="section active">{props.match.params.packageName}</p>}
-
-                                                {props.module.id != props.package.name &&
-                                                    <>
-                                                        <i className="right angle icon divider"></i>
-                                                        <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "#modules"} className="section">Modules</Link>
-                                                        <i className="right angle icon divider"></i>
-                                                        {props.pageType != "module" && <Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName} className="section">{props.module.id}</Link>}
-                                                        {props.pageType == "module" && <p className="section active">{props.module.id}</p>}
-                                                    </>
+                                                {hasChildPages ?
+                                                    (<span><Link to={`/${props.match.params.orgName}/${props.match.params.moduleName}/${props.match.params.version}#${props.pageType}`} className="section capitalize">{props.pageType}</Link>
+                                                        <i className="right angle icon divider"></i><p className="section capitalize active">{props.match.params.constructName}</p></span>)
+                                                    :
+                                                    (<p className="section capitalize active">{props.pageType}</p>)
                                                 }
-                                                {props.pageType != "module" &&
-                                                    <span>
-                                                        <i className="right angle icon divider"></i>
-                                                        {hasChildPages ?
-                                                            (<span><Link to={"/" + props.match.params.orgName + "/" + props.match.params.packageName + "/" + props.match.params.version + "/" + props.match.params.moduleName + "#" + props.pageType} className="section capitalize">{props.pageType}</Link>
-                                                                <i className="right angle icon divider"></i><p className="section capitalize active">{props.match.params.constructName}</p></span>)
-                                                            :
-                                                            (<p className="section capitalize active">{props.pageType}</p>)
-                                                        }
-                                                    </span>
-                                                }
-                                            </>
+                                            </span>
                                         }
-
                                     </div>
                                 }
 
