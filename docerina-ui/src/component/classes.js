@@ -23,7 +23,7 @@ import MethodTable from "./methodTable"
 import Method from "./method"
 import Layout from "./layout"
 import { scrollAndHighlight } from "./helper"
-import { appType, Link } from '../Router'
+import { appType } from '../Router'
 import Markdown from "./markdown"
 
 const BClass = (props) => {
@@ -53,11 +53,11 @@ const BClass = (props) => {
                         }
                         {
                             bClass.isIsolated == true &&
-                            <Link to={`/keywords/${bClass.builtInVersion}/isolated`}><div className="ui horizontal label">Isolated</div></Link>
+                            <div className="ui horizontal label">Isolated</div>
                         }
                         {
                             bClass.isReadOnly == true &&
-                            <Link to={`/keywords/${bClass.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
+                            <div className="ui horizontal label">Read Only</div>
                         }
                         <Markdown text={bClass.description} />
                         <div className="constants">

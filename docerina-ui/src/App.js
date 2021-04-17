@@ -22,29 +22,24 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import PackageIndex from "./component/packageindex";
-import Builtin from "./component/builtin"
-import Keyword from "./component/keyword"
-import Package from "./Package";
+import ModuleIndex from "./component/moduleindex";
+import Module from "./Module";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      packages: null,
+      modules: null,
       searchData: null,
-      packageDescription: null,
-      builtinTypes: null,
-      keywords: null
+      packageDescription: null
     };
   }
 
   componentDidMount() {
     this.setState({
-      packages: this.props.data.docsData.packages,
-      searchData: this.props.data.searchData,
-      builtinTypes: this.props.data.docsData.builtinTypes,
-      keywords: this.props.data.docsData.keywords
+      modules: this.props.data.docsData.modules,
+      langLibs: this.props.data.docsData.langLibs,
+      searchData: this.props.data.searchData
     });
   }
 
@@ -52,13 +47,11 @@ class App extends React.Component {
   render() {
     return (
       <section className="App">
-        {this.state.packages != null && this.state.searchData != null &&
+        {this.state.modules != null && this.state.searchData != null &&
           <Router>
             <Switch>
-              <Route exact path="/" render={(props) => (<PackageIndex {...props} packages={this.state.packages} searchData={this.state.searchData} releaseDescription={this.props.data.docsData.description} builtinTypes={this.state.builtinTypes} keywords={this.state.keywords} releaseVersion={this.props.data.docsData.releaseVersion} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
-              <Route exact path="/builtin/:balVersion/:type" render={(props) => (<FindBuiltinType {...props} builtinTypes={this.state.builtinTypes} packages={this.state.packages} searchData={this.state.searchData} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
-              <Route exact path="/keywords/:balVersion/:type" render={(props) => (<FindKeyword {...props} keywords={this.props.data.docsData.keywords} packages={this.state.packages} searchData={this.state.searchData} />)} />
-              <Route path="/:orgName/:packageName/:version" render={(props) => (<Package {...props} packages={this.state.packages} searchData={this.state.searchData} />)} />
+              <Route exact path="/" render={(props) => (<ModuleIndex {...props} modules={this.state.modules} langLibs={this.state.langLibs} searchData={this.state.searchData} releaseDescription={this.props.data.docsData.description} releaseVersion={this.props.data.docsData.releaseVersion} ballerinaShortVersion={this.props.data.docsData.releaseShortVersion} />)} />
+              <Route path="/:orgName/:moduleName/:version" render={(props) => (<Module {...props} modules={this.state.modules} langLibs={this.state.langLibs} searchData={this.state.searchData} />)} />
             </Switch>
 
           </Router>
@@ -67,32 +60,6 @@ class App extends React.Component {
 
     );
   }
-}
-
-const FindBuiltinType = (props) => {
-  let builtinType = props.builtinTypes.filter((item) => {
-    return item.name == props.match.params.type;
-  })[0]
-
-  var langlib = null;
-
-  if (builtinType.langlib != null) {
-    langlib = props.packages.filter((item) => {
-      return item.name == builtinType.langlib.name;
-    })[0].modules[0]
-  }
-
-  return <Builtin {...props} builtinType={builtinType} langlib={langlib} ballerinaShortVersion={props.ballerinaShortVersion}  />
-
-}
-
-const FindKeyword = (props) => {
-  let builtinType = props.keywords.filter((item) => {
-    return item.name == props.match.params.type;
-  })[0]
-
-  return <Keyword {...props} builtinType={builtinType}/>
-
 }
 
 export default App;

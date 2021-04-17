@@ -19,6 +19,15 @@
 import React from "react";
 import { Link } from '../Router'
 
+export const getLangLib = (name) => {
+    const langLibs = ["array", "boolean", "decimal", "error", "float", "future", "int", "map", "object", "stream", "string", "value","xml"];
+    if (langLibs.includes(name)) {
+        return <Link className="builtin-type-link" to={`/ballerina/lang.${name}/latest`}>{name}</Link>
+    } else {
+        return <span key="typeName" className="builtin-type-other">{name}</span>
+    }
+}
+
 export const getTypeLabel = (type, defaultValue) => {
     var label = [];
     if (type.isAnonymousUnionType) {
@@ -38,15 +47,15 @@ export const getTypeLabel = (type, defaultValue) => {
     } else if (type.isInclusion) {
         label.push(<span key="typeName">*{getLink(type)}</span>);
     } else if (type.isTypeDesc) {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/typedesc`}>typedesc</Link>&lt;{getTypeLabel(type.elementType)}&gt;</span>);
+        label.push(<span key="typeName">typedesc&lt;{getTypeLabel(type.elementType)}&gt;</span>);
     } else if (type.isRestParam) {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}</span>);
     } else if (type.category == "map" && type.constraint != null) {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/map`}>{type.name}</Link><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to="/ballerina/lang.map/latest">{type.name}</Link><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
     } else if (type.category == "stream") {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to={`/builtin/${type.version}/stream`}>{type.name}</Link>&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
+        label.push(<span key="typeName"><Link className="builtin-type-link" to="/ballerina/lang.stream/latest">{type.name}</Link>&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
     } else if (type.category == "builtin" || type.moduleName == "lang.annotations") {
-        label.push(<Link key="typeName" className="builtin-type-link" to={type.name.replace(/\s/,"") == "()" ? `/builtin/${type.version}/()` : `/builtin/${type.version}/${type.name}`}>{type.name}</Link>);
+        label.push(getLangLib(type.name));
     } else if (!type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {
         label.push(<span key="typeName" className="builtin-type-other">{type.name}</span>);
     } else {
@@ -82,14 +91,10 @@ export const getFirstLine = (lines) => {
 }
 
 export const getLink = (type) => {
-    var link = <Link key="typeName" className="item" to={"/" + type.orgName + "/" + getPackageName(type.moduleName) + "/" + type.version + "/" + type.moduleName + "/" + type.category + getConnector(type.category) + type.name}>{type.name}</Link>
+    var link = <Link key="typeName" className="item" to={`/${type.orgName}/${type.moduleName}/${type.version}/${type.category + getConnector(type.category) + type.name}`}>{type.name}</Link>
     return link;
 }
 
-export const getPackageName = (moduleName) => {
-    var packageName = moduleName != null ? moduleName.split(/\./, 2)[0] : "UNK";
-    return packageName == "lang" ? moduleName : packageName;
-}
 
 export const getSuffixes = (type) => {
     var suffix = [];

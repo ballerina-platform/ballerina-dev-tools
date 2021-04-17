@@ -31,7 +31,7 @@ const ConstructList = (props) => {
                     content: (
                         <div>
                             {props.module[props.listType].map(item => (
-                                <Link title={item.name} key={item.name} className={props.match.params.constructName == item.name ? "active item" : "item"} to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                                <Link title={item.name} key={item.name} className={props.match.params.constructName == item.name ? "active item" : "item"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/${props.listType + getConnector(props.listType) + item.name}`}>{item.name}</Link>
                             ))}
                         </div>
                     ),
@@ -45,7 +45,7 @@ const ConstructList = (props) => {
         return (
             <>
                 {props.module[props.listType].map(item => (
-                    <Link key={item.name} className="item" to={"/" + props.module.orgName + "/" + props.package.name + "/" + props.module.version + "/" + props.module.id + "/" + props.listType + getConnector(props.listType) + item.name}>{item.name}</Link>
+                    <Link key={item.name} className="item" to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/${props.listType + getConnector(props.listType) + item.name}`}>{item.name}</Link>
                 ))}
             </>
         )
