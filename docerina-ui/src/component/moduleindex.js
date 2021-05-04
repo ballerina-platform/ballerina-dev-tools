@@ -34,13 +34,13 @@ const ModuleIndex = (props) => {
         }
     });
 
-
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="moduleIndex">
-                {props.releaseVersion != null && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
+                {props.releaseVersion != "" && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
                 <Markdown text={props.releaseDescription} />
-                <h2 className="capitalize">Language Libraries</h2>
+                {props.langLibs.length > 0 && 
+                <><h2 className="capitalize">Language Libraries</h2>
                 <table className="ui very basic table" id="langlibs">
                     <tbody>
                         {props.langLibs.map((item) => (
@@ -50,7 +50,7 @@ const ModuleIndex = (props) => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table></>}
                 <h2 className="capitalize">Modules</h2>
                 <table className="ui very basic table" id="modules">
                     <tbody>
@@ -63,40 +63,6 @@ const ModuleIndex = (props) => {
                         ))}
                     </tbody>
                 </table>
-                {props.builtinTypes != null && props.builtinTypes.length > 0 && <><h2 className="capitalize">Builtin Types</h2>
-                <table className="ui very basic table" id="builtin">
-                    <tbody>
-                        {props.builtinTypes.map(item => (
-                            <tr key={item.name}>
-                                <td title={item.name} width="30%" className="truncate">
-                                    <Link className="functions" to={`/builtin/${props.ballerinaShortVersion}/${item.name}`}>{item.name}</Link>
-                                </td>
-                                <td width="70%">
-                                    <div className="module-desc">
-                                        <p>{getFirstLine(item.description)}</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table></>}
-                {props.keywords != null && props.keywords.length > 0 && <><h2 className="capitalize">Keywords</h2>
-                <table className="ui very basic table" id="keywords">
-                    <tbody>
-                        {props.keywords.map(item => (
-                            <tr key={item.name}>
-                                <td title={item.name} width="30%" className="truncate">
-                                    <Link className="functions" to={`/keywords/${props.ballerinaShortVersion}/${item.name}`}>{item.name}</Link>
-                                </td>
-                                <td width="70%">
-                                    <div className="module-desc">
-                                        <p>{getFirstLine(item.description)}</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table></>}
             </Layout>
         </section>
     );
