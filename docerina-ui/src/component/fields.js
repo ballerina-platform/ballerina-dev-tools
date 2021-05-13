@@ -40,7 +40,7 @@ const Fields = (props) => {
                                     <span className={item.isDeprecated ? "strike" : ""}>
                                         <span>Fields Included from </span>
                                         <span data-tooltip="Type inclusion" data-position="top left">*</span>
-                                        {getTypeLabel(item.type, item.defaultValue)}</span>
+                                        {getTypeLabel(item.inclusionType, item.defaultValue)}</span>
                                 </>
                             }
                         </li>
@@ -48,7 +48,7 @@ const Fields = (props) => {
                         {item.inclusionType != null &&
                             <>
                                 <ul>
-                                    {item.type.memberTypes.map(type => {
+                                    {item.inclusionType.memberTypes.map(type => {
                                         return(
                                             <li>{type.name} 
                                             {/* {getTypeLabel(type.elementType, type.defaultValue)} */}

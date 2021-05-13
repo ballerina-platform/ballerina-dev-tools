@@ -47,7 +47,7 @@ const Annotations = (props) => {
                                 <div key={item.name}>
                                     <li id={item.name}>
                                         <b className={item.isDeprecated ? "strike" : ""}>{item.name} </b>
-                                        <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img className="attach-icon" src="/attach.svg" />
+                                        <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img className="attach-icon" src="/content/attach.svg" />
                                         {item.attachmentPoints}
                                     </li>
                                     {item.isDeprecated == true &&

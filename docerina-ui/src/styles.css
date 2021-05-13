@@ -36,6 +36,9 @@
 .builtin-type {
     color: #07a;
 }
+body p code {
+    background-color: #1B1F230D;
+}
 
 .method-content .main-method-title a.url-link {
     visibility: hidden;
@@ -63,14 +66,18 @@
     margin: .5em 0;
 }
 
-.package-version {
+.module-version {
     margin-left: 12px;
     color: #CBCEDB;
 }
 
-.package-version .caret.down.icon {
-    margin-left: 5px !important;
+.module-version .caret.down.icon {
+    margin-left: 1px !important;
     color: #464646;
+}
+
+.module-version-text {
+    font-size: 28px !important;
 }
 
 .method-signature a {

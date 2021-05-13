@@ -37,10 +37,9 @@ const ModuleIndex = (props) => {
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="moduleIndex">
-                {props.releaseVersion != "" && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
+                {props.releaseVersion != null && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
                 <Markdown text={props.releaseDescription} />
-                {props.langLibs.length > 0 && 
-                <><h2 className="capitalize">Language Libraries</h2>
+                <h2 className="capitalize">Language Libraries</h2>
                 <table className="ui very basic table" id="langlibs">
                     <tbody>
                         {props.langLibs.map((item) => (
@@ -50,7 +49,7 @@ const ModuleIndex = (props) => {
                             </tr>
                         ))}
                     </tbody>
-                </table></>}
+                </table>
                 <h2 className="capitalize">Modules</h2>
                 <table className="ui very basic table" id="modules">
                     <tbody>

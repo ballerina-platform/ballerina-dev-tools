@@ -19,6 +19,7 @@
 import * as React from "react";
 import { getFirstLine, getTypeLabel } from "./helper"
 import { Link } from '../Router'
+import Markdown from "./markdown"
 
 const MethodTable = (props) => {
 
@@ -36,7 +37,7 @@ const MethodTable = (props) => {
                                     item.isDeprecated == true &&
                                     <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                 }
-                                <p>{item.inclusionType == null && getFirstLine(item.description)}</p>
+                                {item.inclusionType == null && <Markdown text={getFirstLine(item.description)} />}
                                 {item.inclusionType != null && <p>Method included from {getTypeLabel(item.inclusionType)}</p>}
                             </td>
                         </tr>
