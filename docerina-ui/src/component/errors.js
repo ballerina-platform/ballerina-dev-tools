@@ -47,6 +47,9 @@ const Errors = (props) => {
                                 <div key={item.name}>
                                     <li id={item.name}>
                                         <b className={item.isDeprecated ? "strike" : ""}>{item.name} </b>
+                                        {item.isDistinct == true &&
+                                            <div className="ui horizontal label" data-position="top left">distinct</div>
+                                        }
                                         <span className="type">{item.detailType != null && getTypeLabel(item.detailType)}</span>
                                     </li>
                                     {item.isDeprecated == true &&

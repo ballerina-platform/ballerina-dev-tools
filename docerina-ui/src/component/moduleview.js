@@ -21,6 +21,7 @@ import { Link, appType } from '../Router'
 import { getFirstLine, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
 import Markdown from "./markdown"
+import { Dropdown } from 'semantic-ui-react'
 
 const ModuleView = (props) => {
     useEffect(() => {
@@ -37,17 +38,15 @@ const ModuleView = (props) => {
 
             <div>
                 <h1>{props.module.orgName}/{props.module.id}
-                    {/* {(props.packageVersions == null || props.packageVersions.length == 1) && <span className="package-version">{props.module.version}</span>}
-                    {props.packageVersions != null && props.packageVersions.length > 1 && 
-                    <div className="ui dropdown package-version">
-                        <div className="text">{props.module.version}</div>
-                        <i className="small caret down icon"></i>
-                        <div className="menu">
-                            {props.packageVersions.map(item => (
-                                <Link className="item" to={"/" + props.module.orgName + "/" + props.module.id + "/" + item}>{item}</Link>
-                            ))}
-                        </div>
-                    </div>} */}
+                    {(props.moduleVersions == null || props.moduleVersions.length == 1) && <span className="package-version"> : {props.module.version}</span>}
+                    {props.moduleVersions != null && props.moduleVersions.length > 1 && 
+                    <Dropdown className="module-version" text={props.module.version}>
+                        <Dropdown.Menu>
+                            {props.moduleVersions.map(item => (
+                                <Link key={item} className="item" to={"/" + props.module.orgName + "/" + props.module.id + "/" + item}>{item}</Link>
+                                ))}
+                        </Dropdown.Menu>
+                    </Dropdown>}
                 </h1>
 
                 <Markdown text={props.module.description} />
@@ -71,7 +70,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{item.summary}</p>
+                                            <Markdown text={item.summary} />
                                         </td>
                                     </tr>
                                 ))}
@@ -100,7 +99,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -129,7 +128,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -158,7 +157,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -187,7 +186,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -216,7 +215,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -244,7 +243,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -272,7 +271,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -301,7 +300,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -329,7 +328,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -357,7 +356,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}
@@ -386,7 +385,7 @@ const ModuleView = (props) => {
                                                 item.isDeprecated == true &&
                                                 <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </td>
                                     </tr>
                                 ))}

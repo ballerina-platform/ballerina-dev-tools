@@ -52,7 +52,11 @@ const ObjectType = (props) => {
                         }
                         {
                             objectType.isReadOnly == true &&
-                            <Link to={`/keywords/${objectType.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
+                            <div className="ui horizontal label">Read Only</div>
+                        }
+                        {
+                            item.isDistinct == true &&
+                            <div className="ui horizontal label" data-position="top left">Distinct</div>
                         }
                         <Markdown text={objectType.description} />
                         <div className="constants">

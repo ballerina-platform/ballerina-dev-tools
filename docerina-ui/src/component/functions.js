@@ -21,6 +21,7 @@ import { getFirstLine, scrollAndHighlight } from "./helper"
 import { Link, appType } from '../Router'
 import Method from "./method"
 import Layout from "./layout"
+import Markdown from "./markdown"
 
 const Functions = (props) => {
 
@@ -57,7 +58,7 @@ const Functions = (props) => {
                                                 item.isIsolated == true &&
                                                 <div className="ui horizontal label" data-tooltip="Isolated Function" data-position="top left">I</div>
                                             }
-                                            <p>{getFirstLine(item.description)}</p>
+                                            <Markdown text={getFirstLine(item.description)} />
                                         </div>
                                     </td>
                                 </tr>

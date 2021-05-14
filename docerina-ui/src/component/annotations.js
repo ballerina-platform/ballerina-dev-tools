@@ -19,7 +19,7 @@
 import React, { useEffect } from 'react'
 import { getTypeLabel, scrollAndHighlight } from "./helper"
 import Layout from "./layout"
-import { appType } from '../Router'
+import { appType, rootPath } from '../Router'
 import Markdown from "./markdown"
 
 const Annotations = (props) => {
@@ -47,8 +47,8 @@ const Annotations = (props) => {
                                 <div key={item.name}>
                                     <li id={item.name}>
                                         <b className={item.isDeprecated ? "strike" : ""}>{item.name} </b>
-                                        <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img className="attach-icon" src="/attach.svg" />
-                                        {item.attachmentPoints}
+                                        <span className="type">{item.type != null && getTypeLabel(item.type)} </span><img className="attach-icon" src={rootPath + "content/attach.svg"} />
+                                         {item.attachmentPoints}
                                     </li>
                                     {item.isDeprecated == true &&
                                         <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
