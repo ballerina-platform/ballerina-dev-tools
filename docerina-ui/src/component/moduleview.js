@@ -43,8 +43,8 @@ const ModuleView = (props) => {
                     <Dropdown className="module-version" text={props.module.version}>
                         <Dropdown.Menu>
                             {props.moduleVersions.map(item => (
-                                <Link className="item" to={"/" + props.module.orgName + "/" + props.module.id + "/" + item}>{item}</Link>
-                            ))}
+                                <Link key={item} className="item" to={"/" + props.module.orgName + "/" + props.module.id + "/" + item}>{item}</Link>
+                                ))}
                         </Dropdown.Menu>
                     </Dropdown>}
                 </h1>

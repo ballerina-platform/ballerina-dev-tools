@@ -48,7 +48,7 @@ const Record = (props) => {
                     <Markdown text={record.description} />
                     {
                             record.isReadOnly == true &&
-                            <Link to={`/keywords/${record.builtInVersion}/readonly`}><div className="ui horizontal label">Read Only</div></Link>
+                            <div className="ui horizontal label">Read Only</div>
                     }
                     {
                         record.isClosed == true &&
