@@ -55,7 +55,7 @@ const ObjectType = (props) => {
                             <div className="ui horizontal label">Read Only</div>
                         }
                         {
-                            item.isDistinct == true &&
+                            objectType.isDistinct == true &&
                             <div className="ui horizontal label" data-position="top left">Distinct</div>
                         }
                         <Markdown text={objectType.description} />
