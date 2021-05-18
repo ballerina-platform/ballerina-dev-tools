@@ -22,14 +22,18 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                query: {
+                    presets: ['@babel/preset-react', '@babel/preset-env'],
+                    plugins: ['@babel/proposal-class-properties']
+                },
             },
             {
                 test: /\.css$/,
                 use: [
-                  'style-loader',
-                  'css-loader'
-                ]            
+                    'style-loader',
+                    'css-loader'
+                ]
             },
             {
                 test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],

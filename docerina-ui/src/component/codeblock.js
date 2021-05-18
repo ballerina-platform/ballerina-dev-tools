@@ -18,36 +18,72 @@
 
 import React from "react";
 import Highlight, { defaultProps } from "prism-react-renderer";
+import { Popup } from 'semantic-ui-react'
+import { rootPath } from "../Router"
 
 import Prism from 'prism-react-renderer/prism';
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
 
 require("../../public/prism-ballerina");
 
+const timeoutLength = 1500
 class CodeBlock extends React.Component {
+
+
+    state = { isOpen: false }
+
+    handleOpen = () => {
+      this.setState({ isOpen: true })
+  
+      this.timeout = setTimeout(() => {
+        this.setState({ isOpen: false })
+      }, timeoutLength)
+    }
+  
+    handleClose = () => {
+      this.setState({ isOpen: false })
+      clearTimeout(this.timeout)
+    }
 
     render() {
         const { language, value } = this.props;
         if (value == null) {
-            return(<></>);
+            return (<></>);
         }
         const cleanedVal = value.replace(/^(\s*#){1}/, "").replace(/\n(\s*#){1}/g, "\n").replace(/\n.?```.*\n?.*/, "");
 
+        async function clipboardCopy() {
+            await navigator.clipboard.writeText(cleanedVal);
+        }
+
         return (
-            <Highlight {...defaultProps} code={cleanedVal} language={language} theme={undefined} >
-                {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                    <pre className={className} style={style}>
-                        {tokens.map((line, i) => (
-                            <div {...getLineProps({ line, key: i })}>
-                                <span className='line-number'>{i + 1}</span>
-                                {line.map((token, key) => (
-                                    <span  {...getTokenProps({ token, key })} />
-                                ))}
-                            </div>
-                        ))}
-                    </pre>
-                )}
-            </Highlight>
+            <>
+                <div className="copy-icon">
+                    <Popup
+                        trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"} onClick={clipboardCopy}/>}
+                        content={<span>Copied!</span>}
+                        on='click'
+                        open={this.state.isOpen}
+                        onClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        position='bottom center'
+                    />
+                </div>
+                <Highlight {...defaultProps} code={cleanedVal} language={language} theme={undefined} >
+                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                        <pre className={className} style={style}>
+                            {tokens.map((line, i) => (
+                                <div {...getLineProps({ line, key: i })}>
+                                    <span className='line-number'>{i + 1}</span>
+                                    {line.map((token, key) => (
+                                        <span  {...getTokenProps({ token, key })} />
+                                    ))}
+                                </div>
+                            ))}
+                        </pre>
+                    )}
+                </Highlight>
+            </>
         );
     }
 }

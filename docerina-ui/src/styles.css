@@ -48,7 +48,16 @@ body p code {
     text-transform: capitalize !important;
 }
 
+.copy-icon {
+    margin-top: -20px;
+    display:flex; 
+    justify-content:flex-end; 
+    width:100%; 
+    padding:0;
+}
+
 .line-number {
+    user-select: none;
     text-align: right;
     display: inline-block;
     width: 35px;
