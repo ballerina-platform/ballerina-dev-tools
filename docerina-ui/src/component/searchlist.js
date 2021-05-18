@@ -22,7 +22,6 @@ import { Link } from '../Router'
 const SearchList = (props) => {
 
     const onLinkClick = () => {
-        console.log("on click");
         document.getElementById("searchBox").value = "";
         var resetSearch = props.resetFunc;
         resetSearch();
