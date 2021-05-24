@@ -365,6 +365,33 @@ const ModuleView = (props) => {
                     </section>
                 }
 
+                {props.module.variables.length > 0 &&
+                    <section id="variables" className="module-construct">
+                        <div className="main-method-title here">
+                            <h2>Module Variables</h2>
+                            <p>[{props.module.variables.length}]</p>
+                        </div>
+                        <div className="ui divider"></div>
+                        <table className="ui very basic table">
+                            <tbody>
+                                {props.module.variables.map(item => (
+                                    <tr key={item.name}>
+                                        <td className="module-title truncate constants" id={item.name} title={item.name}>
+                                            <Link className={item.isDeprecated ? "strike constants" : "constants"} to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/variables#${item.name}`}>{item.name}</Link>
+                                        </td>
+                                        <td className="module-desc">
+                                            {
+                                                item.isDeprecated == true &&
+                                                <div className="ui orange horizontal label" data-tooltip="Deprecated" data-position="top left">D</div>
+                                            }
+                                            <Markdown text={getFirstLine(item.description)} />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>
+                }
                 {props.module.errors.length > 0 &&
                     <section id="errors" className="module-construct">
                         <div className="main-method-title here">
