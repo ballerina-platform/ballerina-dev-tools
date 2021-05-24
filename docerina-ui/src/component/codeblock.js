@@ -56,10 +56,6 @@ class CodeBlock extends React.Component {
         }
         const cleanedVal = value.replace(/^(\s*#){1}/, "").replace(/\n(\s*#){1}/g, "\n").replace(/\n.?```.*\n?.*/, "");
 
-        async function clipboardCopy() {
-            await navigator.clipboard.writeText(cleanedVal);
-        }
-
         return (
             <>
                 <div className="copy-icon">
