@@ -56,7 +56,7 @@ const ModuleIndex = (props) => {
                         {props.modules.map((item) => (
                             <tr>
                                 <td className="module-title modules"><Link to={"/" + item.orgName + "/" + item.id + "/" + item.version}>{item.id}</Link></td>
-                                <td className="module-desc"><p>{item.version}</p></td>
+                                <td className="module-version-index"><p>{item.version}</p></td>
                                 <td className="module-desc"><Markdown text={getFirstLine(item.summary)} /></td>
                             </tr>
                         ))}
