@@ -368,7 +368,7 @@ const ModuleView = (props) => {
                 {props.module.variables != null && props.module.variables.length > 0 &&
                     <section id="variables" className="module-construct">
                         <div className="main-method-title here">
-                            <h2>Module Variables</h2>
+                            <h2>Variables</h2>
                             <p>[{props.module.variables.length}]</p>
                         </div>
                         <div className="ui divider"></div>
