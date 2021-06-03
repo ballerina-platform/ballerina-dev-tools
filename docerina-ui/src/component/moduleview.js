@@ -365,7 +365,7 @@ const ModuleView = (props) => {
                     </section>
                 }
 
-                {props.module.variables.length > 0 &&
+                {props.module.variables != null && props.module.variables.length > 0 &&
                     <section id="variables" className="module-construct">
                         <div className="main-method-title here">
                             <h2>Module Variables</h2>
