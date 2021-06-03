@@ -54,6 +54,9 @@ const getModuleConstructTypes = (props) => {
         {module.types != null && module.types.length > 0 &&
             <ConstructList {...props} listType="types" />
         }
+        {module.variables != null && module.variables.length > 0 &&
+            <ConstructList {...props} listType="variables" />
+        }
         {module.errors != null && module.errors.length > 0 &&
             <ConstructList {...props} listType="errors" />
         }
@@ -171,6 +174,9 @@ const SideBar = (props) => {
                     }
                     {props.module.types != null && props.module.types.length > 0 &&
                         <Link className="item" to={`/${props.module.orgName}/${props.module.id}/${props.module.version}#types`}>Types</Link>
+                    }
+                    {props.module.variables != null && props.module.variables.length > 0 &&
+                        <Link className="item" to={`/${props.module.orgName}/${props.module.id}/${props.module.version}#variables`}>Variables</Link>
                     }
                     {props.module.errors != null && props.module.errors.length > 0 &&
                         <Link className="item" to={`/${props.module.orgName}/${props.module.id}/${props.module.version}#errors`}>Errors</Link>

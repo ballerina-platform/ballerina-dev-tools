@@ -30,6 +30,7 @@ import Constants from "./component/constants"
 import Annotations from "./component/annotations"
 import ModuleView from "./component/moduleview"
 import Enum from "./component/enum"
+import ModuleVariables from "./component/variables"
 import NotFound from "./component/notfound"
 
 const Module = (parentProps) => {
@@ -57,6 +58,8 @@ const Module = (parentProps) => {
                     <Route exact path="/:orgName/:moduleName/:version/errors" render={(props) => (<Errors {...props} errors={module.errors} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:moduleName/:version/constants" render={(props) => (<Constants {...props} constants={module.constants} module={module} searchData={parentProps.searchData} />)} />
                     <Route exact path="/:orgName/:moduleName/:version/annotations" render={(props) => (<Annotations {...props} annotations={module.annotations} module={module} searchData={parentProps.searchData} />)} />
+                    <Route exact path="/:orgName/:moduleName/:version/variables" render={(props) => (<ModuleVariables {...props} variables={module.variables} module={module} searchData={parentProps.searchData} />)} />
+
                     <Route render={(props) => (<NotFound {...parentProps} />)} />
                 </Switch>
             }

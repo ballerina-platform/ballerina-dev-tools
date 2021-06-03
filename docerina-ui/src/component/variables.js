@@ -22,7 +22,7 @@ import Layout from "./layout"
 import { appType } from '../Router'
 import Markdown from "./markdown"
 
-const Types = (props) => {
+const ModuleVariables = (props) => {
 
     useEffect(() => {
         if (appType == "react" && props.history.location.hash != "") {
@@ -35,18 +35,18 @@ const Types = (props) => {
     });
 
     return (
-        <Layout {...props} title={"API Docs Types "} pageType="types">
+        <Layout {...props} title={"API Docs Types "} pageType="variables">
             <section className="construct-page">
-                <h1 className="capitalize">Types</h1>
-                {props.types != null &&
+                <h1 className="capitalize">Variables</h1>
+                {props.variables != null &&
                     <div className="types">
                         <div className="data-wrapper">
-                            {props.types.map(item => (
+                            {props.variables.map(item => (
                                 <div key={item.name} id={item.name} className="params-listing">
                                     <ul>
                                         <li>
                                             <b className={item.isDeprecated ? "strike" : ""}>{item.name} </b>
-                                            <span className="type">{getTypeLabel(item)}</span>
+                                            <span className="type">{getTypeLabel(item.type, item.defaultValue)}</span>
                                         </li>
                                         {
                                             item.isDeprecated == true &&
@@ -64,4 +64,4 @@ const Types = (props) => {
     );
 }
 
-export default Types;
+export default ModuleVariables;

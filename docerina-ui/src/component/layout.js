@@ -29,7 +29,8 @@ const Layout = (props) => {
     const [searchText, setSearchText] = useState("");
 
     let hasChildPages;
-    if (props.pageType == "functions" || props.pageType == "types" || props.pageType == "errors" || props.pageType == "annotations" || props.pageType == "constants") {
+    if (props.pageType == "functions" || props.pageType == "types" || props.pageType == "errors" || props.pageType == "annotations" || props.pageType == "constants" 
+    || props.pageType == "variables") {
         hasChildPages = false;
     } else {
         hasChildPages = true;
