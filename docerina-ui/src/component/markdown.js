@@ -19,6 +19,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm'
+import rehypeRaw from 'rehype-raw'
 import CodeBlock from "./codeblock";
 
 function SemanticTable(props) {
@@ -30,7 +31,8 @@ function SemanticTable(props) {
 }
 
 const Markdown = (props) => {
-    return (<ReactMarkdown source={props.text} plugins={[gfm]} renderers={{ code: CodeBlock, table: SemanticTable }} />);
+    return (<ReactMarkdown children={props.text} remarkPlugins={[gfm]} rehypePlugins={[rehypeRaw]} 
+        components={{ code: CodeBlock, table: SemanticTable }} />);
 }
 
 export default Markdown;
