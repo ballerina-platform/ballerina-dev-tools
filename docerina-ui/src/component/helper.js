@@ -17,11 +17,11 @@
  */
 
 import React from "react";
-import { Link } from '../Router'
+import { Link, appType } from '../Router'
 
 export const getLangLib = (name) => {
     const langLibs = ["array", "boolean", "decimal", "error", "float", "future", "int", "map", "object", "stream", "string", "value","xml"];
-    if (langLibs.includes(name)) {
+    if (langLibs.includes(name) && appType != "react") {
         return <Link className="builtin-type-link" to={`/ballerina/lang.${name}/latest`}>{name}</Link>
     } else {
         return <span key="typeName" className="builtin-type-other">{name}</span>
@@ -47,13 +47,19 @@ export const getTypeLabel = (type, defaultValue) => {
     } else if (type.isInclusion) {
         label.push(<span key="typeName">*{getLink(type)}</span>);
     } else if (type.isTypeDesc) {
-        label.push(<span key="typeName">typedesc&lt;{getTypeLabel(type.elementType)}&gt;</span>);
+        label.push(<span key="typeName">typedesc{type.elementType != null && <span>&lt;{getTypeLabel(type.elementType)}&gt;</span>}</span>);
+    } else if (type.category == "future") {
+        label.push(<span key="typeName">future{type.elementType != null && <span>&lt;{getTypeLabel(type.elementType)}&gt;</span>}</span>);
+    } else if (type.category == "inline_closed_record") {
+        label.push(<span key="typeName">record &#123;|{type.memberTypes.length > 0 && <span> {type.memberTypes.map(type1 => <span>{type1.name} {getTypeLabel(type1.elementType)}</span>).reduce((prev, curr) => [prev, ', ', curr])} </span>}|&#125;</span>);
+    } else if (type.category == "inline_record") {
+        label.push(<span key="typeName">record &#123;{type.memberTypes.length > 0 && <span> {type.memberTypes.map(type1 => <span>{type1.name} {getTypeLabel(type1.elementType)}</span>).reduce((prev, curr) => [prev, ', ', curr])} </span>}&#125;</span>);
     } else if (type.isRestParam) {
         label.push(<span key="typeName" className="array-type">{getTypeLabel(type.elementType)}</span>);
     } else if (type.category == "map" && type.constraint != null) {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to="/ballerina/lang.map/latest">{type.name}</Link><span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
+        label.push(<span key="typeName">{getLangLib(type.name)}<span>&lt;{getTypeLabel(type.constraint)}&gt;</span></span>);
     } else if (type.category == "stream") {
-        label.push(<span key="typeName"><Link className="builtin-type-link" to="/ballerina/lang.stream/latest">{type.name}</Link>&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
+        label.push(<span key="typeName">{getLangLib(type.name)}&lt;{type.memberTypes.map(type1 => getTypeLabel(type1)).reduce((prev, curr) => [prev, ', ', curr])}&gt;</span>);
     } else if (type.category == "builtin" || type.moduleName == "lang.annotations") {
         label.push(getLangLib(type.name));
     } else if (!type.generateUserDefinedTypeLink || type.category == "UNKNOWN") {

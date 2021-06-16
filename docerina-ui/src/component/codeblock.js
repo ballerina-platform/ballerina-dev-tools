@@ -50,42 +50,46 @@ class CodeBlock extends React.Component {
     }
 
     render() {
-        const { language, value } = this.props;
-        if (value == null) {
+        const { inline, className, children } = this.props;
+        const match = /language-(\w+)/.exec(className || '')
+
+        if (children == null) {
             return (<></>);
         }
-        const cleanedVal = value.replace(/^(\s*#){1}/, "").replace(/\n(\s*#){1}/g, "\n").replace(/\n.?```.*\n?.*/, "");
 
-        return (
+        return !inline && match ? (
             <>
-                <div className="copy-icon">
-                    <Popup
-                        trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"} 
-                        onClick={() => {navigator.clipboard.writeText(cleanedVal)}}/>}
-                        content={<span>Copied!</span>}
-                        on='click'
-                        open={this.state.isOpen}
-                        onClose={this.handleClose}
-                        onOpen={this.handleOpen}
-                        position='bottom center'
-                    />
-                </div>
-                <Highlight {...defaultProps} code={cleanedVal} language={language} theme={undefined} >
-                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                        <pre className={className} style={style}>
-                            {tokens.map((line, i) => (
-                                <div {...getLineProps({ line, key: i })}>
-                                    <span className='line-number'>{i + 1}</span>
-                                    {line.map((token, key) => (
-                                        <span  {...getTokenProps({ token, key })} />
-                                    ))}
-                                </div>
-                            ))}
-                        </pre>
-                    )}
-                </Highlight>
-            </>
-        );
+            <div className="copy-icon">
+                <Popup
+                    trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"} 
+                    onClick={() => {navigator.clipboard.writeText(String(children))}}/>}
+                    content={<span>Copied!</span>}
+                    on='click'
+                    open={this.state.isOpen}
+                    onClose={this.handleClose}
+                    onOpen={this.handleOpen}
+                    position='bottom center'
+                />
+            </div>
+            <Highlight {...defaultProps} code={String(children)} language={match[1]} theme={undefined} >
+                {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                    <pre className={className} style={style}>
+                        {tokens.map((line, i) => (
+                            <div {...getLineProps({ line, key: i })}>
+                                <span className='line-number'>{i + 1}</span>
+                                {line.map((token, key) => (
+                                    <span  {...getTokenProps({ token, key })} />
+                                ))}
+                            </div>
+                        ))}
+                    </pre>
+                )}
+            </Highlight>
+        </>
+          ) : (
+            <code className={className} {...this.props} />
+          )
+        
     }
 }
 
