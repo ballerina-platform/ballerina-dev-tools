@@ -52,17 +52,17 @@ class CodeBlock extends React.Component {
     render() {
         const { inline, className, children } = this.props;
         const match = /language-(\w+)/.exec(className || '')
+        const code = String(children).replace(/\n$/, "");
 
         if (children == null) {
             return (<></>);
         }
-
-        return !inline && match ? (
+        return !inline ? (
             <>
             <div className="copy-icon">
                 <Popup
                     trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"} 
-                    onClick={() => {navigator.clipboard.writeText(String(children))}}/>}
+                    onClick={() => {navigator.clipboard.writeText(code)}}/>}
                     content={<span>Copied!</span>}
                     on='click'
                     open={this.state.isOpen}
@@ -71,7 +71,7 @@ class CodeBlock extends React.Component {
                     position='bottom center'
                 />
             </div>
-            <Highlight {...defaultProps} code={String(children)} language={match[1]} theme={undefined} >
+            <Highlight {...defaultProps} code={code} language={match != null ? match[1] : "markdown"} theme={undefined} >
                 {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre className={className} style={style}>
                         {tokens.map((line, i) => (
