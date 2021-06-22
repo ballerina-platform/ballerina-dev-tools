@@ -46,5 +46,5 @@ test('Test data loading for API Docs React App', () => {
     });
 
     const h2Elem = elem.querySelector('h2'); // <h1>
-    expect(h2Elem).toHaveTextContent('Language Libraries');
+    expect(h2Elem).toHaveTextContent('Language Library');
 });

@@ -29,15 +29,22 @@ const Layout = (props) => {
     const [searchText, setSearchText] = useState("");
 
     let hasChildPages;
-    if (props.pageType == "functions" || props.pageType == "types" || props.pageType == "errors" || props.pageType == "annotations" || props.pageType == "constants" 
-    || props.pageType == "variables") {
+    if (props.pageType == "functions" || props.pageType == "types" || props.pageType == "errors" || props.pageType == "annotations" || props.pageType == "constants"
+        || props.pageType == "variables") {
         hasChildPages = false;
     } else {
         hasChildPages = true;
     }
 
-    let isLocal = location.hostname == null || location.hostname == "localhost" || location.hostname == "";
-    let searchBoxText = props.pageType == "moduleIndex" ? "Search in distribution..." : "Search in " + props.module.id + "...";
+    let searchBoxText = "";
+
+    if (props.pageType == "moduleIndex") {
+        searchBoxText = "Search in distribution...";
+    } else if (props.pageType == "orgModules") {
+        searchBoxText = ""
+    } else {
+        searchBoxText = "Search in " + props.module.id + " module...";
+    }
 
     function toggleMenu() {
         setVisibility(!visibility);
@@ -103,21 +110,20 @@ const Layout = (props) => {
                 <div className="content">
                     <div className="row nav-bar">
                         <div className="ui secondary menu">
-                            <div className="search-bar">
+                            {props.pageType != "orgModules" && <div className="search-bar">
                                 <div className="ui category search item search-bar">
                                     <i className="search link icon"></i>
                                     <div className="ui transparent icon input">
                                         <input className="prompt" id="searchBox" onInput={keyUpHandler} type="text" placeholder={searchBoxText} />
                                     </div>
                                 </div>
-                            </div>
-                            {!isLocal && <div className="right menu">
-                                <a href="http://ballerina.io/learn/" className="item">Learn</a>
-                                <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
-                                <a href="https://ballerina.io/events" className="item">Events</a>
-                                <a href="https://ballerina.io/community/" className="item">Community</a>
-                                <a href="https://blog.ballerina.io/" className="item">Blog</a>
                             </div>}
+                            {appType != "react" && <div className="right menu">
+                                <a href="http://ballerina.io/" className="item">Ballerina</a>
+                                <a href="http://ballerina.io/learn/" className="item">Learn</a>
+                                <a href="https://central.ballerina.io/" className="item">Central</a>
+                            </div>
+                            }
                         </div>
                     </div>
                     <div className="main-content-holder">
@@ -136,33 +142,39 @@ const Layout = (props) => {
                                             </div>
                                         </div>
                                         <SideBar {...props} type="mobile" />
-                                        {!isLocal && <Dropdown className="ballerina item" text="Ballerina">
+                                        {appType != "react" && <Dropdown className="ballerina item" text="Ballerina">
                                             <Dropdown.Menu>
+                                                <a href="http://ballerina.io/" className="item">Ballerina</a>
                                                 <a href="http://ballerina.io/learn/" className="item">Learn</a>
-                                                <a href="https://swanlake.central.ballerina.io/" className="item">Central</a>
-                                                <a href="https://ballerina.io/events" className="item">Events</a>
-                                                <a href="https://ballerina.io/community/" className="item">Community</a>
-                                                <a href="https://blog.ballerina.io/" className="item">Blog</a>                                            </Dropdown.Menu>
-                                        </Dropdown>}
+                                                <a href="https://central.ballerina.io/" className="item">Central</a>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                        }
                                     </div>
                                 </div>
                             </Transition>
 
-                            <div id="search-impl">
+                            {props.pageType != "orgModules" && <div id="search-impl">
                                 <SearchList searchText={searchText} resetFunc={resetSearch} searchData={props.searchData} />
-                            </div>
+                            </div>}
                             <div id="main">
-                                {props.pageType != "moduleIndex" && props.pageType != "404" &&
+                                {props.pageType != "moduleIndex" && props.pageType != "orgModules" && props.pageType != "404" &&
                                     <div className="ui breadcrumb">
-                                        {(props.match.params.orgName == "ballerina" || props.match.params.orgName == "ballerinax") && !props.match.params.moduleName.startsWith("lang.") &&
+                                        {(props.match.params.orgName == "ballerina") && !props.match.params.moduleName.startsWith("lang.") &&
                                             <>
-                                                <Link to="/#modules" className="section">Modules</Link>
+                                                <Link to="/#stdlibs" className="section">Standard Library</Link>
+                                                <i className="right angle icon divider"></i>
+                                            </>
+                                        }
+                                        {(props.match.params.orgName != "ballerina") && !props.match.params.moduleName.startsWith("lang.") &&
+                                            <>
+                                                <p className="section">Module</p>
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }
                                         {props.match.params.moduleName.startsWith("lang.") &&
                                             <>
-                                                <Link to="/#langlibs" className="section">Language Libraries</Link>
+                                                <Link to="/#langlibs" className="section">Language Library</Link>
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }
