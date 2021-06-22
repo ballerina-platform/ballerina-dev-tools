@@ -37,59 +37,62 @@ class CodeBlock extends React.Component {
     }
 
     handleOpen() {
-      this.setState({ isOpen: true })
-  
-      this.timeout = setTimeout(() => {
-        this.setState({ isOpen: false })
-      }, timeoutLength)
+        this.setState({ isOpen: true })
+
+        this.timeout = setTimeout(() => {
+            this.setState({ isOpen: false })
+        }, timeoutLength)
     }
-  
+
     handleClose() {
-      this.setState({ isOpen: false })
-      clearTimeout(this.timeout)
+        this.setState({ isOpen: false })
+        clearTimeout(this.timeout)
     }
 
     render() {
         const { inline, className, children } = this.props;
-        const match = /language-(\w+)/.exec(className || '')
-        const code = String(children).replace(/\n$/, "");
-
         if (children == null) {
             return (<></>);
         }
+        // Extract langauge from className
+        const match = /language-(\w+)/.exec(className || '')
+        const language = match != null ? match[1] : "markdown";
+        // Remove the \n at the end
+        const code = String(children).replace(/\n$/, "");
+
         return !inline ? (
             <>
-            <div className="copy-icon">
-                <Popup
-                    trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"} 
-                    onClick={() => {navigator.clipboard.writeText(code)}}/>}
-                    content={<span>Copied!</span>}
-                    on='click'
-                    open={this.state.isOpen}
-                    onClose={this.handleClose}
-                    onOpen={this.handleOpen}
-                    position='bottom center'
-                />
-            </div>
-            <Highlight {...defaultProps} code={code} language={match != null ? match[1] : "markdown"} theme={undefined} >
-                {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                    <pre className={className} style={style}>
-                        {tokens.map((line, i) => (
-                            <div {...getLineProps({ line, key: i })}>
-                                <span className='line-number'>{i + 1}</span>
-                                {line.map((token, key) => (
-                                    <span  {...getTokenProps({ token, key })} />
-                                ))}
-                            </div>
-                        ))}
-                    </pre>
-                )}
-            </Highlight>
-        </>
-          ) : (
+                <div className="copy-icon">
+                    <Popup
+                        trigger={<input title="Copy Code" type="image" src={rootPath + "content/copy-icon.svg"}
+                            onClick={() => { navigator.clipboard.writeText(code) }} />}
+                        content={<span>Copied!</span>}
+                        on='click'
+                        open={this.state.isOpen}
+                        onClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        position='bottom center'
+                    />
+                </div>
+                <Highlight {...defaultProps} code={code} language={language} theme={undefined} >
+                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                        <pre className={className} style={style}>
+                            {tokens.map((line, i) => (
+                                <div {...getLineProps({ line, key: i })}>
+                                    <span className='line-number'>{i + 1}</span>
+                                    {line.map((token, key) => (
+                                        <span  {...getTokenProps({ token, key })} />
+                                    ))}
+                                </div>
+                            ))}
+                        </pre>
+                    )}
+                </Highlight>
+            </>
+        ) : (
             <code className={className} {...this.props} />
-          )
-        
+        )
+
     }
 }
 

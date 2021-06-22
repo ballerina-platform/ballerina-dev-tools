@@ -66,8 +66,19 @@ const getModuleConstructTypes = (props) => {
 }
 
 const SideBar = (props) => {
-    if (props.pageType == "404" || props.pageType == "orgModules") {
+    if (props.pageType == "404") {
         return (<></>);
+    } else if (props.pageType == "orgModules") {
+        return (
+            <section>
+                <div className="header">
+                    <span>Organization</span>
+                </div>
+                <div className="menu">
+                    <span className="item no-hover capitalize">{props.orgName}</span>
+                </div>
+                <div className="ui divider"></div>
+            </section>);
     } else if (props.pageType == "moduleIndex") {
         return (
             <section>
@@ -79,8 +90,8 @@ const SideBar = (props) => {
                 </div>
                 <div className="ui divider"></div>
                 <div className="menu">
-                    <Link className="item" to={`/#langlibs`}>Language Libraries</Link>
-                    <Link className="item" to={`/#modules`}>Modules</Link>
+                    <Link className="item" to={`/#langlibs`}>Language Library</Link>
+                    <Link className="item" to={`/#stdlibs`}>Standard Library</Link>
                 </div>
             </section>);
     }
