@@ -56,7 +56,7 @@ class CodeBlock extends React.Component {
         }
         // Extract langauge from className
         const match = /language-(\w+)/.exec(className || '')
-        const language = match != null ? match[1] : "markdown";
+        const language = match != null ? match[1] : "";
         // Remove the \n at the end
         const code = String(children).replace(/\n$/, "");
 
