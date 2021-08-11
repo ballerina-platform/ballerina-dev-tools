@@ -50,9 +50,12 @@ const Fields = (props) => {
                                 <ul>
                                     {item.inclusionType.memberTypes.map(type => {
                                         return(
-                                            <li>{type.name} 
-                                            {/* {getTypeLabel(type.elementType, type.defaultValue)} */}
+                                            <>
+                                            <li><span>{type.name} </span>
+                                            {type.elementType != null && getTypeLabel(type.elementType, type.defaultValue)}
                                             </li>
+                                            {type.description != null && <Markdown text={type.description} />}
+                                            </>
                                         );
                                     })}
                                 </ul>
