@@ -37,7 +37,12 @@ const ModuleIndex = (props) => {
     return (
         <section>
             <Layout {...props} title={"API Docs"} pageType="moduleIndex">
-                {props.releaseVersion != null && <h1 className="capitalize">Distribution: {props.releaseVersion}</h1>}
+                {props.releaseVersion != null && 
+                <div>
+                    <h1 className="capitalize">Ballerina Library (API) Documentation</h1>
+                    <h3 className="capitalize">Distribution: {props.releaseVersion}</h3>
+                </div>
+                }
                 <Markdown text={props.releaseDescription} />
                 <h2 className="capitalize">Language Library</h2>
                 <table className="ui very basic table" id="langlibs">
