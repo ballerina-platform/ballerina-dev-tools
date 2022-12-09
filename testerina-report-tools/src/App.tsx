@@ -49,10 +49,10 @@ class App extends Component {
     }
     return <div className="module-content">
       <div className="title row">
-      <span className="back-arrow" onClick={() => this.handleStateChange("index", 0, 0)}>&#60;</span>
-      <h5 id={testData.moduleStatus[moduleIndex].name}>
-      {testData.moduleStatus[moduleIndex].name}
-      </h5>
+      <span className="back-arrow" style={{fontSize:30}} onClick={() => this.handleStateChange("index", 0, 0)}>&#60;</span>
+        <span className='project'><h5 id={testData.moduleStatus[moduleIndex].name}>
+          {testData.moduleStatus[moduleIndex].name}
+        </h5></span>
     
       </div>
       <div className="row">

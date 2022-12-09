@@ -14,9 +14,13 @@ body {
 
 /* Bootstrap styles */
 
+.project {
+    margin-top: 0.5em;
+    color: black;
+}
 .back-arrow {
     cursor: pointer;
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 .back-arrow.report {
     margin-left: 1em;
