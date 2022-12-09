@@ -14,9 +14,13 @@ body {
 
 /* Bootstrap styles */
 
+.project {
+    margin-top: 0.5em;
+    color: black;
+}
 .back-arrow {
     cursor: pointer;
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 .back-arrow.report {
     margin-left: 1em;
@@ -28,7 +32,7 @@ body {
     color: #707070;
 }
 .module-content .title h5 {
-    border-bottom: 0.2em solid #24A2B7;
+    border-bottom: 0.2em solid #24a2b7;
 }
 .module-content .title span {
     opacity: 0.6;
