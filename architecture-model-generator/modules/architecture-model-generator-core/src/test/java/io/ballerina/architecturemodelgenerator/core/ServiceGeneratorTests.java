@@ -21,6 +21,8 @@ package io.ballerina.architecturemodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ballerina.projects.Project;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,10 +39,14 @@ public class ServiceGeneratorTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceGeneratorTests.class);
     Gson gson = new GsonBuilder().serializeNulls().create();
 
     @Test(description = "model generation for single module projects")
     public void testSingleModuleModelGeneration() throws IOException {
+        LOGGER.debug(RES_DIR.toString());
+        LOGGER.debug(RES_DIR.normalize().toString());
+        LOGGER.debug(Path.of("src").resolve("test").toAbsolutePath().toString());
 
 //        CompileResult compileResult = BCompileUtil.compileAndCacheBala("ballerina/single_service_sample");
 //        if (compileResult.getErrorCount() != 0) {
@@ -57,10 +63,12 @@ public class ServiceGeneratorTests {
         ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
-            String generatedService = gson.toJson(service).replaceAll("\\s+", "");
+            String generatedService = gson.toJson(service)
+                    .replaceAll("\\s+", "")
+                    .replaceAll("\\\\\\\\", "/");
             String expectedService = gson.toJson(expectedModel.getServices().get(id))
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath\\}", RES_DIR.toAbsolutePath().toString());
+                    .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
 //                    .replaceAll("\"serviceType\":\".*?\"", "\"serviceType\":\"" + serviceType + "\"");
             Assert.assertEquals(generatedService, expectedService);
         });

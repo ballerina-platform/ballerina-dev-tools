@@ -113,3 +113,4 @@ jacocoTestReport {
 
 spotbugsMain.finalizedBy validateSpotbugs
 checkstyleMain.dependsOn(":checkstyle:downloadMultipleFiles")
+checkstyleTest.dependsOn(":checkstyle:downloadMultipleFiles")

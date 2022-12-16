@@ -212,12 +212,12 @@ release {
 }
 
 task test {
-    dependsOn npmTestDocerinaUI
+//    dependsOn npmTestDocerinaUI
 }
 
 task build {
-    dependsOn test
-    dependsOn createFinalZip
+//    dependsOn test
+//    dependsOn createFinalZip
 }
 
 task clean {

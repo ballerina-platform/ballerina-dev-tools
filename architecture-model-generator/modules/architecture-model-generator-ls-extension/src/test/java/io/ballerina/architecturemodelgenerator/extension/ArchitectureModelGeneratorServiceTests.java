@@ -52,8 +52,7 @@ public class ArchitectureModelGeneratorServiceTests {
     private static final String PROJECT_DESIGN_SERVICE = "projectDesignService/getProjectComponentModels";
     Gson gson = new GsonBuilder().serializeNulls().create();
 
-
-    @Test(description = "test model generation for multimodule project")
+    @Test(description = "test model generation for multi-module project")
     public void testMultiModuleProject() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("reservation_api", "reservation_service.bal"));
@@ -73,10 +72,12 @@ public class ArchitectureModelGeneratorServiceTests {
         ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
-            String generatedService = gson.toJson(service).replaceAll("\\s+", "");
+            String generatedService = gson.toJson(service)
+                    .replaceAll("\\s+", "")
+                    .replaceAll("\\\\\\\\", "/");
             String expectedService = gson.toJson(expectedModel.getServices().get(id))
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
+                    .replaceAll("\\{srcPath}", RES_DIR.normalize().toString());
             Assert.assertEquals(generatedService, expectedService);
         });
     }
@@ -108,7 +109,9 @@ public class ArchitectureModelGeneratorServiceTests {
             try {
                 ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath.toAbsolutePath());
                 generatedModel.getServices().forEach((id, service) -> {
-                    String generatedService = gson.toJson(service).replaceAll("\\s+", "");
+                    String generatedService = gson.toJson(service)
+                            .replaceAll("\\s+", "")
+                            .replaceAll("\\\\\\\\", "/");
                     String expectedService = gson.toJson(expectedModel.getServices().get(id))
                             .replaceAll("\\s+", "")
                             .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());

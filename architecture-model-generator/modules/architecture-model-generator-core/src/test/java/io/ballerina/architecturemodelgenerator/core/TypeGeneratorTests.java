@@ -50,10 +50,12 @@ public class TypeGeneratorTests {
         ComponentModel generatedModel = componentModelBuilder.constructComponentModel(project.currentPackage());
         ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
-        String generatedEntities = gson.toJson(generatedModel.getEntities()).replaceAll("\\s+", "");
+        String generatedEntities = gson.toJson(generatedModel.getEntities())
+                .replaceAll("\\s+", "")
+                .replaceAll("\\\\\\\\", "/");
         String expectedEntities = gson.toJson(expectedModel.getEntities())
                 .replaceAll("\\s+", "")
-                .replaceAll("\\{srcPath\\}", RES_DIR.toAbsolutePath().toString());
+                .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
 
         Assert.assertEquals(generatedEntities, expectedEntities);
     }
