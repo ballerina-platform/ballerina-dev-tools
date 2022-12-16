@@ -39,26 +39,6 @@ public class ServiceGeneratorTests {
     private static final String RESULTS = "results";
     Gson gson = new GsonBuilder().serializeNulls().create();
 
-    @Test(description = "test1")
-    public void testDir1() {
-        Assert.assertEquals(RES_DIR.toString(), "");
-    }
-
-    @Test(description = "test2")
-    public void testDir2() {
-        Assert.assertEquals(RES_DIR.toAbsolutePath().toString(), "");
-    }
-
-    @Test(description = "test3")
-    public void testDir3() {
-        Assert.assertEquals(RES_DIR.normalize().toString(), "");
-    }
-
-    @Test(description = "test4")
-    public void testDir4() {
-        Assert.assertEquals(Path.of("src").resolve("test").toAbsolutePath().toString(), "");
-    }
-
     @Test(description = "model generation for single module projects")
     public void testSingleModuleModelGeneration() throws IOException {
 //        CompileResult compileResult = BCompileUtil.compileAndCacheBala("ballerina/single_service_sample");
@@ -81,7 +61,7 @@ public class ServiceGeneratorTests {
                     .replaceAll("\\\\\\\\", "/");
             String expectedService = gson.toJson(expectedModel.getServices().get(id))
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
+                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
 //                    .replaceAll("\"serviceType\":\".*?\"", "\"serviceType\":\"" + serviceType + "\"");
             Assert.assertEquals(generatedService, expectedService);
         });

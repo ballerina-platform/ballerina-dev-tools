@@ -55,7 +55,7 @@ public class TypeGeneratorTests {
                 .replaceAll("\\\\\\\\", "/");
         String expectedEntities = gson.toJson(expectedModel.getEntities())
                 .replaceAll("\\s+", "")
-                .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
+                .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
 
         Assert.assertEquals(generatedEntities, expectedEntities);
     }

@@ -77,7 +77,7 @@ public class ArchitectureModelGeneratorServiceTests {
                     .replaceAll("\\\\\\\\", "/");
             String expectedService = gson.toJson(expectedModel.getServices().get(id))
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.normalize().toString());
+                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
             Assert.assertEquals(generatedService, expectedService);
         });
     }
@@ -114,7 +114,7 @@ public class ArchitectureModelGeneratorServiceTests {
                             .replaceAll("\\\\\\\\", "/");
                     String expectedService = gson.toJson(expectedModel.getServices().get(id))
                             .replaceAll("\\s+", "")
-                            .replaceAll("\\{srcPath}", RES_DIR.toAbsolutePath().toString());
+                            .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
                     Assert.assertEquals(generatedService, expectedService);
                 });
             } catch (IOException e) {
