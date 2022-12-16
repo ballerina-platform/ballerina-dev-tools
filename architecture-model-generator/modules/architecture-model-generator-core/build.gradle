@@ -34,7 +34,6 @@ dependencies {
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
-    testImplementation "org.slf4j:slf4j-api:${slf4jApiVersion}"
     testImplementation "org.testng:testng:${testngVersion}"
 
     balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {

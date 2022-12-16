@@ -21,8 +21,6 @@ package io.ballerina.architecturemodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ballerina.projects.Project;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -39,15 +37,30 @@ public class ServiceGeneratorTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceGeneratorTests.class);
     Gson gson = new GsonBuilder().serializeNulls().create();
+
+    @Test(description = "test1")
+    public void testDir1() {
+        Assert.assertEquals(RES_DIR.toString(), "");
+    }
+
+    @Test(description = "test2")
+    public void testDir2() {
+        Assert.assertEquals(RES_DIR.toAbsolutePath().toString(), "");
+    }
+
+    @Test(description = "test3")
+    public void testDir3() {
+        Assert.assertEquals(RES_DIR.normalize().toString(), "");
+    }
+
+    @Test(description = "test4")
+    public void testDir4() {
+        Assert.assertEquals(Path.of("src").resolve("test").toAbsolutePath().toString(), "");
+    }
 
     @Test(description = "model generation for single module projects")
     public void testSingleModuleModelGeneration() throws IOException {
-        LOGGER.debug(RES_DIR.toString());
-        LOGGER.debug(RES_DIR.normalize().toString());
-        LOGGER.debug(Path.of("src").resolve("test").toAbsolutePath().toString());
-
 //        CompileResult compileResult = BCompileUtil.compileAndCacheBala("ballerina/single_service_sample");
 //        if (compileResult.getErrorCount() != 0) {
 //            Arrays.stream(compileResult.getDiagnostics()).forEach(System.out::println);
