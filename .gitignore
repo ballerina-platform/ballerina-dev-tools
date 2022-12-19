@@ -24,6 +24,9 @@ hs_err_pid*
 
 .idea
 
+# mac
+.DS_Store
+
 
 /docerina-ui/dist/
 /docerina-ui/coverage/
