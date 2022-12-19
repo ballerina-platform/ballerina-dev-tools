@@ -22,11 +22,15 @@ plugins {
 rootProject.name = 'ballerina-dev-tools'
 
 include(':checkstyle')
+include(':docerina-ui')
+include(':testerina-report-tools')
 include(':architecture-model-generator:architecture-model-generator-core')
 include(':architecture-model-generator:architecture-model-generator-plugin')
 include(':architecture-model-generator:architecture-model-generator-ls-extension')
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
+project(':docerina-ui').projectDir = file('docerina-ui')
+project(':testerina-report-tools').projectDir = file('testerina-report-tools')
 project(':architecture-model-generator:architecture-model-generator-core').projectDir = file('architecture-model-generator/modules/architecture-model-generator-core')
 project(':architecture-model-generator:architecture-model-generator-plugin').projectDir = file('architecture-model-generator/modules/architecture-model-generator-plugin')
 project(':architecture-model-generator:architecture-model-generator-ls-extension').projectDir = file('architecture-model-generator/modules/architecture-model-generator-ls-extension')

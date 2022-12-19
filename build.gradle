@@ -14,8 +14,6 @@
  * limitations under the License.
  *
  */
- 
-import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id "com.github.spotbugs-base" version "${spotbugsPluginVersion}"
@@ -74,102 +72,9 @@ subprojects {
     }
 }
 
-task updateVersionesterinaReportTools(type: Exec) {
-    workingDir "testerina-report-tools"
-    doFirst {
-        println "update version to " + project.version
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            commandLine 'cmd', '/c', 'npm', 'run', 'update-version', '--', project.version
-        } else {
-            commandLine 'npm', 'run', 'update-version', '--', project.version
-        }
-    }
-}
-
-task npmInstallTesterinaReportTools(type: Exec) {
-    dependsOn updateVersionesterinaReportTools
-    workingDir "testerina-report-tools"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'npm', 'install'
-    } else {
-        commandLine 'npm', 'install'
-    }
-}
-
-task npmBuildTesterinaReportTools(type: Exec) {
-    dependsOn npmInstallTesterinaReportTools
-    workingDir "testerina-report-tools"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'npm', 'run', 'build'
-    } else {
-        commandLine 'npm', 'run', 'build'
-    }
-}
-
-task createTesterinaReportToolsZip(type: Zip) {
-    dependsOn npmBuildTesterinaReportTools
-    from "testerina-report-tools/build"
-    include 'index.html'
-    include 'favicon.ico'
-    include 'manifest.json'
-    include '**/static/css/*.css'
-    include '**/static/js/*.js'
-    exclude '**/static/js/runtime-*.js'
-    archiveName 'testerina-report-tools-' + project.version + '.zip'
-    destinationDir(file("build"))
-}
-
-task updateVersionDocerinaUi(type: Exec) {
-    workingDir "docerina-ui"
-    doFirst {
-        println "update version to " + project.version
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            commandLine 'cmd', '/c', 'npm', 'run', 'update-version', '--', project.version
-        } else {
-            commandLine 'npm', 'run', 'update-version', '--', project.version
-        }
-    }
-}
-task npmInstallDocerinaUI(type: Exec) {
-    dependsOn updateVersionDocerinaUi
-    workingDir "docerina-ui"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'npm', 'install'
-    } else {
-        commandLine 'npm', 'install'
-    }
-}
-
-task npmBuildDocerinaUI(type: Exec) {
-    dependsOn npmInstallDocerinaUI
-    workingDir "docerina-ui"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'npm', 'run', 'build'
-    } else {
-        commandLine 'npm', 'run', 'build'
-    }
-}
-
-task npmTestDocerinaUI(type: Exec) {
-    dependsOn npmInstallDocerinaUI
-    workingDir "docerina-ui"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'npm', 'run', 'test'
-    } else {
-        commandLine 'npm', 'run', 'test'
-    }
-}
-
-task createDocerinaUiZip(type: Zip) {
-    dependsOn npmBuildDocerinaUI
-    from "docerina-ui/dist"
-    archiveName 'docerina-ui-' + project.version + '.zip'
-    destinationDir(file("build"))
-}
-
 task createFinalZip(type: Zip) {
-    dependsOn createDocerinaUiZip
-    dependsOn createTesterinaReportToolsZip
+    dependsOn(":docerina-ui:createDocerinaUiZip")
+    dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
     from "build"
     archiveName 'ballerina-dev-tools-' + project.version + '.zip'
     destinationDir(file("dist"))
@@ -212,12 +117,12 @@ release {
 }
 
 task test {
-//    dependsOn npmTestDocerinaUI
+    dependsOn(":docerina-ui:npmTestDocerinaUI")
 }
 
 task build {
-//    dependsOn test
-//    dependsOn createFinalZip
+    dependsOn test
+    dependsOn createFinalZip
 }
 
 task clean {
