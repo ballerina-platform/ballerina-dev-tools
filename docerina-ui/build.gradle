@@ -61,5 +61,5 @@ task createDocerinaUiZip(type: Zip) {
     dependsOn npmBuildDocerinaUI
     from "dist"
     archiveName 'docerina-ui-' + project.version + '.zip'
-    destinationDir(file("${rootDir}/build"))
+    destinationDir(file("$project.rootDir/build/docs/"))
 }

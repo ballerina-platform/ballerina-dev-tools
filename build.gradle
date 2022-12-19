@@ -23,6 +23,7 @@ plugins {
 }
 apply plugin: 'maven-publish'
 
+
 allprojects {
     group = project.group
     version = project.version
@@ -72,7 +73,40 @@ subprojects {
     }
 }
 
-task createFinalZip(type: Zip) {
+def moduleVersion = project.version
+if (moduleVersion.indexOf('-') != -1) {
+    moduleVersion = moduleVersion.substring(0, moduleVersion.indexOf('-'))
+}
+def artifactLibParent = file("$project.rootDir/build/lib_parent/")
+def docsParent = file("$project.rootDir/build/docs/")
+def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
+def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
+def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
+
+task copyArtifactZip {
+    dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
+    dependsOn(":architecture-model-generator:architecture-model-generator-plugin:build")
+    dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
+    inputs.dir file(project.rootDir)
+    doLast {
+        copy {
+            from targetArchModelGeneratorCore
+            into file("$artifactLibParent/libs")
+        }
+        copy {
+            from targetArchModelGeneratorPlugin
+            into file("$artifactLibParent/libs")
+        }
+        copy {
+            from targetArchModelGeneratorLSExt
+            into file("$artifactLibParent/ls-libs")
+        }
+    }
+    outputs.dir artifactLibParent
+}
+
+task createArtifactZip(type: Zip) {
+    dependsOn copyArtifactZip
     dependsOn(":docerina-ui:createDocerinaUiZip")
     dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
     from "build"
@@ -83,7 +117,7 @@ task createFinalZip(type: Zip) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact source: createFinalZip, extension: 'zip'
+            artifact source: createArtifactZip, extension: 'zip'
         }
     }
 
@@ -99,10 +133,6 @@ publishing {
     }
 }
 
-def moduleVersion = project.version
-if (moduleVersion.indexOf('-') != -1) {
-    moduleVersion = moduleVersion.substring(0, moduleVersion.indexOf('-'))
-}
 release {
     failOnPublishNeeded = false
 
@@ -122,7 +152,7 @@ task test {
 
 task build {
     dependsOn test
-    dependsOn createFinalZip
+    dependsOn createArtifactZip
 }
 
 task clean {
