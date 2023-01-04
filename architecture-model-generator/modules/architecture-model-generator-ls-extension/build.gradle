@@ -1,0 +1,128 @@
+/*
+ *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+apply from: "$rootDir/gradle/javaProject.gradle"
+apply plugin: "com.github.johnrengelman.shadow"
+
+description = 'LS extension for project design diagram generation'
+
+configurations.all {
+    resolutionStrategy.preferProjectModules()
+}
+
+configurations {
+    balTools
+}
+
+dependencies {
+    compileOnly "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
+    compileOnly "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
+    compileOnly "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
+    compileOnly "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
+
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    implementation project(':architecture-model-generator:architecture-model-generator-core')
+
+    testImplementation project(':architecture-model-generator:architecture-model-generator-core')
+    testImplementation "org.ballerinalang:language-server-core:${ballerinaLangVersion}"
+    testImplementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
+    testImplementation "org.testng:testng:${testngVersion}"
+
+    balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
+        transitive = false
+    }
+}
+
+def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")
+task jBallerinaPack() {
+    doLast {
+        configurations.balTools.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            copy {
+                from project.zipTree(artifact.getFile())
+                into new File(project.buildDir, "extracted-distribution/")
+            }
+        }
+    }
+    outputs.dir balDistribution
+}
+
+task unpackStdLibs() {
+    dependsOn(jBallerinaPack)
+    doLast {
+        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            copy {
+                from project.zipTree(artifact.getFile())
+                into new File("${project.buildDir}/extracted-stdlibs/" + artifact.name + "-zip")
+            }
+        }
+    }
+}
+
+task copyStdlibs() {
+    dependsOn(unpackStdLibs)
+    doLast {
+        /* Standard Libraries */
+        configurations.ballerinaStdLibs.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            def artifactExtractedPath = "${project.buildDir}/extracted-stdlibs/" + artifact.name + '-zip'
+            project.copy {
+                def ballerinaDist = "build/extracted-distribution/jballerina-tools-${project.ballerinaLangVersion}"
+                into ballerinaDist
+                into('repo/bala') {
+                    from "${artifactExtractedPath}/bala"
+                }
+                into('repo/cache') {
+                    from "${artifactExtractedPath}/cache"
+                }
+            }
+        }
+    }
+}
+
+test {
+    dependsOn {
+        copyStdlibs
+    }
+    systemProperty "ballerina.home", balDistribution
+
+    useTestNG() {
+        suites "src/test/resources/testng.xml"
+    }
+}
+
+ext.moduleName = 'io.ballerina.architecturemodelgenerator.extension'
+
+shadowJar {
+    configurations = [project.configurations.runtimeClasspath]
+    dependencies {
+        include(dependency(':architecture-model-generator:architecture-model-generator-core'))
+        include(dependency("com.google.code.gson:gson:${gsonVersion}"))
+        exclude('META-INF/*.SF')
+        exclude('META-INF/*.DSA')
+        exclude('META-INF/*.RSA')
+    }
+}
+
+compileJava {
+    inputs.property("moduleName", moduleName)
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+        ]
+        classpath = files()
+    }
+}
