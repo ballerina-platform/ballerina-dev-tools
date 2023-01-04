@@ -33,7 +33,6 @@ public class RemoteFunction extends ModelElement {
     private final String name;
     private final List<FunctionParameter> parameters;
     private final List<String> returns;
-
     private final List<Interaction> interactions;
 
     public RemoteFunction(String name, List<FunctionParameter> parameters, List<String> returns,

@@ -29,7 +29,6 @@ public class Association {
     private Cardinality cardinality;
 
     public Association(String associate, Cardinality cardinality) {
-
         this.associate = associate;
         this.cardinality = cardinality;
     }
@@ -59,7 +58,6 @@ public class Association {
         private final String associate;
 
         public Cardinality(String self, String associate) {
-
             this.self = self;
             this.associate = associate;
         }

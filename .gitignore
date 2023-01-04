@@ -27,7 +27,6 @@ hs_err_pid*
 # mac
 .DS_Store
 
-
 /docerina-ui/dist/
 /docerina-ui/coverage/
 /docerina-ui/node_modules/

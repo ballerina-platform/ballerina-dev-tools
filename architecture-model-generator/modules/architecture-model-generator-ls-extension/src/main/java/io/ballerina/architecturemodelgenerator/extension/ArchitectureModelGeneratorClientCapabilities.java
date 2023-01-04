@@ -31,7 +31,6 @@ public class ArchitectureModelGeneratorClientCapabilities extends BallerinaClien
     private boolean getMultiServiceModel;
 
     public ArchitectureModelGeneratorClientCapabilities() {
-
         super(ProjectDesignConstants.CAPABILITY_NAME);
     }
 

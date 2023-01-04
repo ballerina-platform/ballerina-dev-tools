@@ -39,7 +39,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 /**
  * Test project-design-service invocation.
  *

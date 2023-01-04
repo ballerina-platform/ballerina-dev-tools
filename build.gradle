@@ -159,3 +159,6 @@ task clean {
     delete "build"
     delete "dist"
 }
+
+publishToMavenLocal.dependsOn build
+publish.dependsOn build

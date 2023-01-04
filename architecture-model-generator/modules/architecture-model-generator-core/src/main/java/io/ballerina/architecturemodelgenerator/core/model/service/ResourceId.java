@@ -30,7 +30,6 @@ public class ResourceId {
     private final String action;
 
     public ResourceId(String serviceId, String action, String path) {
-
         this.serviceId = serviceId;
         this.action = action;
         this.path = path;

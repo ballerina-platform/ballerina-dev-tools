@@ -38,7 +38,6 @@ public class ComponentModel {
 
     public ComponentModel(PackageId packageId, Map<String, Service> services, Map<String, Entity> entities,
                           boolean hasCompilationErrors) {
-
         this.packageId = packageId;
         this.services = services;
         this.entities = entities;
@@ -46,17 +45,14 @@ public class ComponentModel {
     }
 
     public PackageId getPackageId() {
-
         return packageId;
     }
 
     public Map<String, Service> getServices() {
-
         return services;
     }
 
     public Map<String, Entity> getEntities() {
-
         return entities;
     }
 
@@ -74,7 +70,6 @@ public class ComponentModel {
         private final String version;
 
         public PackageId(Package currentPackage) {
-
             this.name = currentPackage.packageName().value();
             this.org = currentPackage.packageOrg().value();
             this.version = currentPackage.packageVersion().value().toString();
@@ -91,6 +86,5 @@ public class ComponentModel {
         public String getVersion() {
             return version;
         }
-
     }
 }
