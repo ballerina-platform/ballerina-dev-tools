@@ -1,0 +1,116 @@
+/*
+ *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *
+ *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+apply plugin: "java"
+apply plugin: "com.github.spotbugs"
+apply plugin: "checkstyle"
+apply plugin: "jacoco"
+
+apply from: "$rootDir/gradle/repositories.gradle"
+
+dependencies {
+    checkstyle project(':checkstyle')
+    checkstyle "com.puppycrawl.tools:checkstyle:${project.puppycrawlCheckstyleVersion}"
+
+    constraints {
+        implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
+        implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
+        implementation "org.ballerinalang:ballerina-cli:${ballerinaLangVersion}"
+        implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
+        implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
+        // StdLib Dependencies
+        implementation "io.ballerina.stdlib:http-native:${stdlibHttpVersion}"
+
+        // Test Dependencies
+        testImplementation "org.testng:testng:${testngVersion}"
+    }
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+checkstyle {
+    toolVersion "${checkStyleToolVersion}"
+    configFile rootProject.file("build-config/checkstyle/build/checkstyle.xml")
+}
+
+def excludePattern = '**/module-info.java'
+tasks.withType(Checkstyle) {
+    exclude excludePattern
+}
+
+task validateSpotbugs() {
+    doLast {
+        if (spotbugsMain.reports.size() > 0 &&
+                spotbugsMain.reports[0].destination.exists() &&
+                spotbugsMain.reports[0].destination.text.readLines().size() > 0) {
+            spotbugsMain.reports[0].destination?.eachLine {
+                println 'Failure: ' + it
+            }
+            throw new GradleException("Spotbugs rule violations were found.")
+        }
+    }
+}
+
+spotbugsMain {
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "low"
+    reportsDir = file("$project.buildDir/reports/spotbugs")
+    def excludeFile = file("spotbugs-exclude.xml")
+    if (excludeFile.exists()) {
+        it.excludeFilter = excludeFile
+    }
+    reports {
+        text.enabled = true
+    }
+}
+
+spotbugsTest {
+    it.enabled = false
+}
+
+test {
+    systemProperty "ballerina.home", "$buildDir"
+    systemProperty "org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog"
+    testLogging {
+        showStackTraces = true
+        showStandardStreams = true
+        events "failed"
+        exceptionFormat "full"
+    }
+    jacoco {
+        enabled = true
+        destinationFile = file("$buildDir/coverage-reports/jacoco.exec")
+        includeNoLocationClasses = true
+        excludes = ['jdk.internal.*']
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+spotbugsMain.finalizedBy validateSpotbugs
+checkstyleMain.dependsOn(":checkstyle:downloadMultipleFiles")
+checkstyleTest.dependsOn(":checkstyle:downloadMultipleFiles")
