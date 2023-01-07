@@ -1,0 +1,42 @@
+package io.ballerina.graphqlmodelgenerator.core.model;
+
+import java.util.List;
+import java.util.Map;
+
+public class GraphqlModel {
+    private final boolean hasCompilationErrors;
+    private final Service graphqlService;
+    // Service, records, interfaces, enums
+    private final Map<String, ObjectComponent> objects;
+    private final Map<String, Enum> enums;
+    private final Map<String, UnionComponent> unions;
+
+//    private final Map<String, Service> services;
+//    private final Map<String, Record> records;
+
+    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, ObjectComponent> objects, Map<String, Enum> enums, Map<String, UnionComponent> unions) {
+        this.hasCompilationErrors = hasCompilationErrors;
+        this.graphqlService = graphqlService;
+        this.objects = objects;
+        this.enums = enums;
+        this.unions = unions;
+    }
+
+
+//    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, Service> services, Map<String, Record> records) {
+//        this.hasCompilationErrors = hasCompilationErrors;
+//        this.graphqlService = graphqlService;
+//        this.services = services;
+//        this.records = records;
+//    }
+}
+
+
+//    SCALAR("Indicates this type is a scalar."),
+//    OBJECT("Indicates this type is an object. `fields` and `interfaces` are valid fields."),
+//    INTERFACE("Indicates this type is an interface. `fields`, `interfaces`, and `possibleTypes` are valid fields."),
+//    UNION("Indicates this type is a union. `possibleTypes` is a valid field."),
+//    ENUM("Indicates this type is an enum. `enumValues` is a valid field."),
+//    INPUT_OBJECT("Indicates this type is an input object. `inputFields` is a valid field."),
+//    LIST("Indicates this type is a list. `ofType` is a valid field."),
+//    NON_NULL("Indicates this type is a non-null. `ofType` is a valid field.");
