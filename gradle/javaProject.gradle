@@ -35,6 +35,7 @@ dependencies {
         implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
         // StdLib Dependencies
         implementation "io.ballerina.stdlib:http-native:${stdlibHttpVersion}"
+        implementation "io.ballerina.stdlib:graphql-commons:${stdlibGraphqlVersion}"
 
         // Test Dependencies
         testImplementation "org.testng:testng:${testngVersion}"

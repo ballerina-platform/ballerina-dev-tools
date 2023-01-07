@@ -68,8 +68,27 @@ subprojects {
         /* Standard libraries */
         ballerinaStdLibs "io.ballerina.stdlib:observe-ballerina:${observeVersion}"
         ballerinaStdLibs "io.ballerina:observe-ballerina:${observeInternalVersion}"
-        ballerinaStdLibs "io.ballerina.stdlib:http-ballerina:${stdlibHttpVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:grpc-ballerina:${stdlibGrpcVersion}"
+
+        ballerinaStdLibs "io.ballerina.stdlib:constraint-ballerina:${stdlibConstraintVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:io-ballerina:${stdlibIoVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:regex-ballerina:${stdlibRegexVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:time-ballerina:${stdlibTimeVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:url-ballerina:${stdlibUrlVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:crypto-ballerina:${stdlibCryptoVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:log-ballerina:${stdlibLogVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:os-ballerina:${stdlibOsVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:task-ballerina:${stdlibTaskVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:cache-ballerina:${stdlibCacheVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:file-ballerina:${stdlibFileVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:mime-ballerina:${stdlibMimeVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:uuid-ballerina:${stdlibUuidVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:auth-ballerina:${stdlibAuthVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:jwt-ballerina:${stdlibJwtVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:oauth2-ballerina:${stdlibOAuth2Version}"
+        ballerinaStdLibs "io.ballerina.stdlib:http-ballerina:${stdlibHttpVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:websocket-ballerina:${stdlibWebsocketVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:graphql-ballerina:${stdlibGraphqlVersion}"
     }
 }
 
@@ -82,11 +101,15 @@ def docsParent = file("$project.rootDir/build/docs/")
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
+def targetGraphqlModelGeneratorCore = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-core/build/libs/graphql-model-generator-core-${project.version}.jar")
+def targetGraphqlModelGeneratorLSExt = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-ls-extension/build/libs/graphql-model-generator-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-plugin:build")
     dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
+    dependsOn(":graphql-model-generator:graphql-model-generator-core:build")
+    dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:build")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
@@ -99,6 +122,14 @@ task copyArtifactZip {
         }
         copy {
             from targetArchModelGeneratorLSExt
+            into file("$artifactLibParent/ls-libs")
+        }
+        copy {
+            from targetGraphqlModelGeneratorCore
+            into file("$artifactLibParent/libs")
+        }
+        copy {
+            from targetGraphqlModelGeneratorLSExt
             into file("$artifactLibParent/ls-libs")
         }
     }
