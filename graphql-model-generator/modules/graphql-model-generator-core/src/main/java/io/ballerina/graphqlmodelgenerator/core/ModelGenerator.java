@@ -3,20 +3,17 @@ import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessages;
 import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
+import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.projects.*;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
-import io.ballerina.projects.directory.ProjectLoader;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
-import io.ballerina.stdlib.graphql.commons.types.TypeKind;
-import io.ballerina.tools.diagnostics.DiagnosticSeverity;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
-import org.wso2.ballerinalang.compiler.tree.BLangPackage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -46,6 +43,7 @@ public class ModelGenerator {
             doc = currentModule.document(docId);
         }
 
+        // TODO: check if the service is a graphql service
         SyntaxTree syntaxTree = doc.syntaxTree();
         Range range = toRange(position);
         NonTerminalNode node = findSTNode(range, syntaxTree);
@@ -58,56 +56,37 @@ public class ModelGenerator {
         String schemaString = getSchemaString(serviceDeclarationNode);
         Schema schemaObject = getDecodedSchema(schemaString);
 
-        // with the schema object call the model generator
-        GraphqlModel model = constructGraphqlModel(schemaObject);
-
-
-        return model;
+        String serviceName = ModelGenerationUtils.getServiceBasePath(serviceDeclarationNode);
+        return constructGraphqlModel(schemaObject, serviceName);
     }
 
-    public GraphqlModel constructGraphqlModel(Schema schemaObj) {
-        Map<String, Service> services = new HashMap<>();
-        Map<String, Record> records = new HashMap<>();
-        List<ResourceFunction> resourceFunctions = new ArrayList<>();
-        List<RemoteFunction> remoteFunctions = new ArrayList<>();
-        schemaObj.getQueryType().getFields().forEach(field -> {
-            List<String> returns = new ArrayList<>();
-            List<Interaction> links = new ArrayList<>();
-            if (field.getType().getOfType().getKind().name().equalsIgnoreCase("LIST")){
-                returns.add(field.getType().getOfType().getOfType().getOfType().getName());
-                if (field.getType().getOfType().getOfType().getOfType().getKind().equals(TypeKind.OBJECT)){
-                    links.add(new Interaction(field.getType().getOfType().getOfType().getOfType().getName()));
-                }
-            } else {
-                returns.add(field.getType().getOfType().getName());
-                if (field.getType().getOfType().getKind().equals(TypeKind.OBJECT)){
-                    links.add(new Interaction(field.getType().getOfType().getName()));
-                }
-            }
-            ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns,links);
-            resourceFunctions.add(resourceFunction);
+    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName) {
+        ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName);
+        Service graphqlService = serviceModelGenerator.generate();
+
+        List<Interaction> linkedComponents = getLinkedComponents(graphqlService);
+        InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj, linkedComponents);
+        componentModelGenerator.generate();
+
+        return new GraphqlModel(false,graphqlService,componentModelGenerator.getObjects(),componentModelGenerator.getEnums(),componentModelGenerator.getUnions());
+    }
+
+    private List<Interaction> getLinkedComponents(Service graphqlService){
+        List<Interaction> linkedComponents = new ArrayList<>();
+        graphqlService.getResourceFunctions().forEach(func -> {
+            func.getInteractions().forEach(item -> {
+                linkedComponents.add(item);
+            });
         });
+        if (graphqlService.getRemoteFunctions() != null ){
+            graphqlService.getRemoteFunctions().forEach(func -> {
+                func.getInteractions().forEach(item -> {
+                    linkedComponents.add(item);
+                });
+            });
+        }
 
-        //Mutation type
-        schemaObj.getMutationType().getFields().forEach(field -> {
-            List<String> returns = new ArrayList<>();
-            if (field.getType().getOfType().getKind().name().equalsIgnoreCase("LIST")){
-                returns.add(field.getType().getOfType().getOfType().getOfType().getName());
-            } else {
-                returns.add(field.getType().getOfType().getName());
-            }
-            RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns);
-            remoteFunctions.add(remoteFunction);
-        });
-
-
-        Service graphqlService = new Service("graphql","/graphql",resourceFunctions,remoteFunctions);
-        GraphqlModel graphqlModel = new GraphqlModel(false,graphqlService,null,null,null);
-
-
-
-        return graphqlModel;
-
+        return linkedComponents;
     }
 
 
@@ -211,26 +190,6 @@ public class ModelGenerator {
             return false;
         }
         return Constants.SERVICE_CONFIG_IDENTIFIER.equals(referenceNode.identifier().text());
-    }
-
-    /**
-     * Get the compilation of given Ballerina source.
-     */
-    public static PackageCompilation getPackageCompilation(Project project) throws SchemaFileGenerationException {
-        DiagnosticResult diagnosticResult = project.currentPackage().runCodeGenAndModifyPlugins();
-        boolean hasErrors = diagnosticResult
-                .diagnostics().stream()
-                .anyMatch(d -> DiagnosticSeverity.ERROR.equals(d.diagnosticInfo().severity()));
-        if (!hasErrors) {
-            PackageCompilation compilation = project.currentPackage().getCompilation();
-            hasErrors = compilation.diagnosticResult()
-                    .diagnostics().stream()
-                    .anyMatch(d -> DiagnosticSeverity.ERROR.equals(d.diagnosticInfo().severity()));
-            if (!hasErrors) {
-                return compilation;
-            }
-        }
-        throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_100, null);
     }
 
     public static NonTerminalNode findSTNode(Range range, SyntaxTree syntaxTree) {

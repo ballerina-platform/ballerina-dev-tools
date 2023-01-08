@@ -11,20 +11,16 @@ public class Field {
     private final String description;
     private final boolean isDeprecated;
     private final String deprecationReason;
-    private List<Interaction> interactions; //
-    private List<Params> parameters;
+    private final List<Interaction> interactions; //
+    private final List<Params> parameters;
 
-    public Field(String name, List<String> type) {
-        this(name,type, null,false, null);
-    }
-
-    public Field(String name, List<String> type, String description, boolean isDeprecated, String deprecationReason) {
+    public Field(String name, List<String> type, String description, boolean isDeprecated, String deprecationReason, List<Interaction> interactions, List<Params> parameters) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.isDeprecated = isDeprecated;
         this.deprecationReason = deprecationReason;
-        this.interactions = new ArrayList<>();
-        this.parameters = new ArrayList<>();
+        this.interactions = interactions;
+        this.parameters = parameters;
     }
 }

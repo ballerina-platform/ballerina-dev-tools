@@ -1,6 +1,5 @@
 package io.ballerina.graphqlmodelgenerator.core.model;
 
-import java.util.List;
 import java.util.Map;
 
 public class GraphqlModel {
@@ -8,27 +7,16 @@ public class GraphqlModel {
     private final Service graphqlService;
     // Service, records, interfaces, enums
     private final Map<String, ObjectComponent> objects;
-    private final Map<String, Enum> enums;
+    private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
 
-//    private final Map<String, Service> services;
-//    private final Map<String, Record> records;
-
-    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, ObjectComponent> objects, Map<String, Enum> enums, Map<String, UnionComponent> unions) {
+    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, ObjectComponent> objects, Map<String, EnumComponent> enums, Map<String, UnionComponent> unions) {
         this.hasCompilationErrors = hasCompilationErrors;
         this.graphqlService = graphqlService;
         this.objects = objects;
         this.enums = enums;
         this.unions = unions;
     }
-
-
-//    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, Service> services, Map<String, Record> records) {
-//        this.hasCompilationErrors = hasCompilationErrors;
-//        this.graphqlService = graphqlService;
-//        this.services = services;
-//        this.records = records;
-//    }
 }
 
 

@@ -95,6 +95,23 @@ public class GraphqlModelGeneratorServiceTests {
 
     }
 
+    @Test(description = "test model generation for graphql with enums")
+    public void testServiceWithEnums() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("graphql_services", "graphqlService_5.bal"));
+        LineRange lineRange = LineRange.from(projectPath.toString(),
+                LinePosition.from(16,1), LinePosition.from(21,1));
+
+        Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
+        TestUtil.openDocument(serviceEndpoint, projectPath);
+
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+
+        CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
+        GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();
+
+    }
+
 
 }
 

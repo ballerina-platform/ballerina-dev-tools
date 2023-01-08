@@ -1,32 +1,79 @@
 package io.ballerina.graphqlmodelgenerator.core.utils;
 
+
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.projects.Project;
-import io.ballerina.tools.text.LineRange;
-import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextDocuments;
+import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
+import io.ballerina.stdlib.graphql.commons.types.Field;
+import io.ballerina.stdlib.graphql.commons.types.Type;
+import io.ballerina.stdlib.graphql.commons.types.TypeKind;
 
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
+import static io.ballerina.stdlib.graphql.commons.utils.Utils.removeEscapeCharacter;
 
 public class ModelGenerationUtils {
-//    public Node getNode (LineRange nodePosition){
-//        String fileUri = nodePosition.filePath();
-//        Optional<SyntaxTree> syntaxTree = getPathFromURI(fileUri).flatMap(workspaceManager::syntaxTree);
-//    }
-//
-//    public static Optional<Path> getPathFromURI(String uri) {
-//        try {
-//            return Optional.of(Paths.get(new URL(uri).toURI()));
-//        } catch (URISyntaxException | MalformedURLException ignore) {
-//        }
-//        return Optional.empty();
-//    }
+    private static final String NON_NULL_FORMAT = "%s!";
+    private static final String LIST_FORMAT = "[%s]";
+
+    public static String getFormattedFieldType(Type type) {
+        if (type.getKind().equals(TypeKind.NON_NULL)) {
+            return getFormattedString(NON_NULL_FORMAT, getFormattedFieldType(type.getOfType()));
+        } else if (type.getKind().equals(TypeKind.LIST)) {
+            return getFormattedString(LIST_FORMAT, getFormattedFieldType(type.getOfType()));
+        } else {
+            return type.getName();
+        }
+    }
+
+    public static String getFormattedString(String format, String... args) {
+        return String.format(format, (Object[]) args);
+    }
+
+    public static String getFieldType(Type type) {
+        if (type.getKind().equals(TypeKind.NON_NULL)) {
+            return getFieldType(type.getOfType());
+        } else if (type.getKind().equals(TypeKind.LIST)) {
+            return getFieldType(type.getOfType());
+        } else {
+            if (type.getKind().equals(TypeKind.SCALAR)){
+                return null;
+            } else {
+                return type.getName();
+            }
+
+        }
+    }
+
+    /**
+     * Get service base path from the given service declaration node.
+     */
+    public static String getServiceBasePath(ServiceDeclarationNode serviceDefinition) {
+        StringBuilder currentServiceName = new StringBuilder();
+        NodeList<Node> serviceNameNodes = serviceDefinition.absoluteResourcePath();
+        for (Node serviceBasedPathNode : serviceNameNodes) {
+            currentServiceName.append(removeEscapeCharacter(serviceBasedPathNode.toString()));
+        }
+        return (currentServiceName.toString().trim());
+    }
+
+    public static List<String> getFormattedFieldTypeList(Field field) {
+        List<String> fieldTypes = new ArrayList<>();
+        fieldTypes.add(ModelGenerationUtils.getFormattedFieldType(field.getType()));
+        return fieldTypes;
+    }
+
+    public static List<Interaction> getInteractionList(Field field){
+        List<Interaction> links = new ArrayList<>();
+        String link = ModelGenerationUtils.getFieldType(field.getType());
+        if (link != null){
+            links.add(new Interaction(link));
+        }
+        return links;
+    }
+
+
+
 }

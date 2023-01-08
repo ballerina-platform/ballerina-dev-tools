@@ -14,4 +14,12 @@ public class Service {
         this.resourceFunctions = resourceFunctions;
         this.remoteFunctions = remoteFunctions;
     }
+
+    public List<ResourceFunction> getResourceFunctions() {
+        return resourceFunctions;
+    }
+
+    public List<RemoteFunction> getRemoteFunctions() {
+        return remoteFunctions;
+    }
 }

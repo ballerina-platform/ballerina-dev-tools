@@ -6,4 +6,8 @@ public class Interaction {
     public Interaction(String componentName) {
         this.componentName = componentName;
     }
+
+    public String getComponentName() {
+        return componentName;
+    }
 }
