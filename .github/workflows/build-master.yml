@@ -20,12 +20,33 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11.0.7
+
+      - name: Change to Timestamped Version
+        run: |
+          startTime=$(TZ="Asia/Kolkata" date +'%Y%m%d-%H%M00')
+          latestCommit=$(git log -n 1 --pretty=format:"%h")
+          VERSION=$((grep -w 'version' | cut -d= -f2) < gradle.properties | rev | cut --complement -d- -f1 | rev)
+          updatedVersion=$VERSION-$startTime-$latestCommit
+          echo $updatedVersion
+          echo TIMESTAMPED_VERSION=$updatedVersion >> $GITHUB_ENV
+          sed -i "s/version=\(.*\)/version=$updatedVersion/g" gradle.properties
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
+
+      - name: Build and Publish with timestamped version
         env:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          ./gradlew -Pversion=${TIMESTAMPED_VERSION} clean publish --scan
+
+      - name: Build and Publish
+        env:
+          packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
+          packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
+        if: github.event_name == 'push'
         run: |
           ./gradlew clean publish --scan
 
