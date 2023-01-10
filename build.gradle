@@ -96,8 +96,7 @@ def moduleVersion = project.version
 if (moduleVersion.indexOf('-') != -1) {
     moduleVersion = moduleVersion.substring(0, moduleVersion.indexOf('-'))
 }
-def artifactLibParent = file("$project.rootDir/build/lib_parent/")
-def docsParent = file("$project.rootDir/build/docs/")
+def artifactLibParent = file("$project.rootDir/build/architecture-model-generator/")
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
