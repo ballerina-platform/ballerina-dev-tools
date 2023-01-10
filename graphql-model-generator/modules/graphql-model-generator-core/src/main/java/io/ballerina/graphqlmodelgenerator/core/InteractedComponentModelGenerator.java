@@ -61,18 +61,13 @@ public class InteractedComponentModelGenerator {
         objType.getFields().forEach((field) -> {
             List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
             List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-//            List<String> returns = new ArrayList<>();
-//            returns.add(ModelGenerationUtils.getFormattedFieldType(field.getType()));
-//            List<Interaction> links = new ArrayList<>();
-//            String link = ModelGenerationUtils.getFieldType(field.getType());
-//            if (link != null){
-//                links.add(new Interaction(link));
-//            }
             Field objField = new Field(field.getName(),returnTypes,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
             fields.add(objField);
 
         });
-        ObjectComponent objectComponent = new ObjectComponent(ObjectType.SERVICE,objType.getKind() == TypeKind.INPUT_OBJECT,fields);
+
+        ObjectComponent objectComponent = new ObjectComponent(objType.getObjectKind(),
+                objType.getKind() == TypeKind.INPUT_OBJECT, objType.getPosition(), fields);
         return objectComponent;
     }
 
@@ -81,7 +76,7 @@ public class InteractedComponentModelGenerator {
         objType.getEnumValues().forEach(enumValue -> {
             enumFields.add(new EnumField(enumValue.getName(), enumValue.getDescription(), enumValue.isDeprecated(), enumValue.getDeprecationReason()));
         });
-        EnumComponent enumComponent = new EnumComponent(objType.getName(), enumFields);
+        EnumComponent enumComponent = new EnumComponent(objType.getName(), objType.getPosition(), enumFields);
         return enumComponent;
 
     }
@@ -91,7 +86,7 @@ public class InteractedComponentModelGenerator {
         objType.getPossibleTypes().forEach(type -> {
             possibleTypes.add(new Interaction(type.getName()));
         });
-        UnionComponent unionComponent = new UnionComponent(objType.getName(),possibleTypes);
+        UnionComponent unionComponent = new UnionComponent(objType.getName(), objType.getPosition(), possibleTypes);
         return unionComponent;
     }
 
