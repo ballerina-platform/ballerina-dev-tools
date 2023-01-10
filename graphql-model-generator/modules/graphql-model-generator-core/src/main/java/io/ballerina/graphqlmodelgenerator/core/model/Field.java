@@ -1,6 +1,5 @@
 package io.ballerina.graphqlmodelgenerator.core.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // remote/ resource/ record field
@@ -12,9 +11,9 @@ public class Field {
     private final boolean isDeprecated;
     private final String deprecationReason;
     private final List<Interaction> interactions; //
-    private final List<Params> parameters;
+    private final List<Param> parameters;
 
-    public Field(String name, List<String> type, String description, boolean isDeprecated, String deprecationReason, List<Interaction> interactions, List<Params> parameters) {
+    public Field(String name, List<String> type, String description, boolean isDeprecated, String deprecationReason, List<Interaction> interactions, List<Param> parameters) {
         this.name = name;
         this.type = type;
         this.description = description;

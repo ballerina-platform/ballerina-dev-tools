@@ -1,12 +1,12 @@
 package io.ballerina.graphqlmodelgenerator.core.model;
 
 import java.util.List;
-import java.util.Map;
 
 public class ResourceFunction {
     private final String identifier;
     private final boolean subscription;
     private final List<String> returns;
+    private List<Param> parameters;
     private List<Interaction> interactions;
 
     public String getIdentifier() {
@@ -25,16 +25,18 @@ public class ResourceFunction {
         return interactions;
     }
 
-    public ResourceFunction(String identifier, boolean subscription, List<String> returns) {
+    public ResourceFunction(String identifier, boolean subscription, List<String> returns, List<Param> parameters) {
         this.identifier = identifier;
         this.subscription = subscription;
         this.returns = returns;
+        this.parameters = parameters;
     }
 
-    public ResourceFunction(String identifier, boolean subscription, List<String> returns, List<Interaction> interactions) {
+    public ResourceFunction(String identifier, boolean subscription, List<String> returns,  List<Param> parameters, List<Interaction> interactions) {
         this.identifier = identifier;
         this.subscription = subscription;
         this.returns = returns;
+        this.parameters = parameters;
         this.interactions = interactions;
     }
 }

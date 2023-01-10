@@ -6,6 +6,7 @@ import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
 import io.ballerina.stdlib.graphql.commons.types.Field;
+import io.ballerina.stdlib.graphql.commons.types.InputValue;
 import io.ballerina.stdlib.graphql.commons.types.Type;
 import io.ballerina.stdlib.graphql.commons.types.TypeKind;
 
@@ -17,6 +18,7 @@ import static io.ballerina.stdlib.graphql.commons.utils.Utils.removeEscapeCharac
 public class ModelGenerationUtils {
     private static final String NON_NULL_FORMAT = "%s!";
     private static final String LIST_FORMAT = "[%s]";
+    private static final String ARGS_TYPE_FORMAT = "%s = %s";
 
     public static String getFormattedFieldType(Type type) {
         if (type.getKind().equals(TypeKind.NON_NULL)) {
@@ -72,6 +74,14 @@ public class ModelGenerationUtils {
             links.add(new Interaction(link));
         }
         return links;
+    }
+
+    public static String createArgType(InputValue arg) {
+        if (arg.getDefaultValue() == null) {
+            return getFormattedFieldType(arg.getType());
+        } else {
+            return getFormattedString(ARGS_TYPE_FORMAT, getFormattedFieldType(arg.getType()), arg.getDefaultValue());
+        }
     }
 
 

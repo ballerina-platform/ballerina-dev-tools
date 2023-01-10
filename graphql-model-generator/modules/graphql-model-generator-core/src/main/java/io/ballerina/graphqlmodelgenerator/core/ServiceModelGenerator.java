@@ -1,11 +1,9 @@
 package io.ballerina.graphqlmodelgenerator.core;
 
-import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
-import io.ballerina.graphqlmodelgenerator.core.model.RemoteFunction;
-import io.ballerina.graphqlmodelgenerator.core.model.ResourceFunction;
-import io.ballerina.graphqlmodelgenerator.core.model.Service;
+import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
+import io.ballerina.stdlib.graphql.commons.utils.SdlSchemaStringGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,13 @@ public class ServiceModelGenerator {
                 if (link != null){
                     links.add(new Interaction(link));
                 }
-                ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns,links);
+                List<Param> params = new ArrayList<>();
+                field.getArgs().forEach(inputValue -> {
+                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                    params.add(param);
+                });
+                ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns, params, links);
                 resourceFunctions.add(resourceFunction);
             });
         }
@@ -47,7 +51,13 @@ public class ServiceModelGenerator {
                 if (link != null){
                     links.add(new Interaction(link));
                 }
-                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns,links);
+                List<Param> params = new ArrayList<>();
+                field.getArgs().forEach(inputValue -> {
+                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                    params.add(param);
+                });
+                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, params, links);
                 remoteFunctions.add(remoteFunction);
             });
         }

@@ -3,21 +3,17 @@ package io.ballerina.graphqlmodelgenerator.core.model;
 import java.util.List;
 
 // function parameters
-public class Params {
-    private final List<String> type;
+public class Param {
+    private final String type;
     private final String name;
-    private boolean isOptional;
+    private final String description;
     private String defaultValue;
 
-    public Params(List<String> type, String name) {
+    public Param(String type, String name, String description, String defaultValue) {
         this.type = type;
         this.name = name;
-    }
-
-    public Params(List<String> type, String name, boolean isOptional, String defaultValue) {
-        this.type = type;
-        this.name = name;
-        this.isOptional = isOptional;
+        this.description = description;
         this.defaultValue = defaultValue;
+
     }
 }
