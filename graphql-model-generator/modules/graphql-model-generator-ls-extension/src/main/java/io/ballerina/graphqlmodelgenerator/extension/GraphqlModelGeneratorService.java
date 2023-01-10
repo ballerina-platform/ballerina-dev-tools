@@ -2,10 +2,13 @@ package io.ballerina.graphqlmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.graphqlmodelgenerator.core.ModelGenerator;
+import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticUtil;
 import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.GraphqlModel;
+import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessages;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.projects.Project;
@@ -56,52 +59,21 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
                 ModelGenerator modelGenerator = new ModelGenerator();
                 GraphqlModel generatedModel = modelGenerator.getGraphqlModel(project,request.getLineRange());
                 Gson gson = new GsonBuilder().serializeNulls().create();
-                JsonObject graphqlModelJson = (JsonObject) gson.toJsonTree(generatedModel);
-                Map<String, JsonObject> graphqlModelMap = new HashMap<>();
-                graphqlModelMap.put("", graphqlModelJson);
-
-
-                // ModelGenerator.getGraphqlModel(project,request.getLineRange());
+                JsonElement graphqlModelJson = gson.toJsonTree(generatedModel);
+                response.setGraphqlDesignModel(graphqlModelJson);
 
             } catch (WorkspaceDocumentException e) {
                 e.printStackTrace();
             } catch (EventSyncException e) {
                 e.printStackTrace();
+                String msg = "Operation 'GraphqlDesignService/getGraphqlModel' failed!";
+                DiagnosticMessages message = DiagnosticMessages.SDL_SCHEMA_100;
+                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message,request.getFilePath()));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (SchemaFileGenerationException e) {
                 e.printStackTrace();
             }
-
-//            Map<String, JsonObject> componentModelMap = new HashMap<>();
-//            for (String documentUri : request.getDocumentUris()) {
-//                Path path = Path.of(documentUri);
-//                try {
-//                    Project project = getCurrentProject(path);
-//                    PackageCompilation compilation = getPackageCompilation(project);
-//                    System.out.println("===test");
-//                    if (!Utils.modelAlreadyExists(componentModelMap, project.currentPackage())) {
-//                        ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-//                        ComponentModel projectModel = componentModelBuilder
-//                                .constructComponentModel(project.currentPackage());
-//                        Gson gson = new GsonBuilder().serializeNulls().create();
-//                        JsonObject componentModelJson = (JsonObject) gson.toJsonTree(projectModel);
-//                        componentModelMap.put(Utils.getQualifiedPackageName(
-//                                projectModel.getPackageId()), componentModelJson);
-//                    }
-//                } catch (ComponentModelException | WorkspaceDocumentException | EventSyncException e) {
-//                    // todo : Improve error messages
-//                    DiagnosticMessage message = DiagnosticMessage.componentModellingService001(documentUri);
-//                    response.addDiagnostics
-//                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response));
-//                } catch (Exception e) {
-//                    DiagnosticMessage message = DiagnosticMessage.componentModellingService002(
-//                            e.getMessage(), Arrays.toString(e.getStackTrace()), documentUri);
-//                    response.addDiagnostics
-//                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response));
-//                }
-//            }
-//            response.setComponentModels(componentModelMap);
             return response;
         });
     }
