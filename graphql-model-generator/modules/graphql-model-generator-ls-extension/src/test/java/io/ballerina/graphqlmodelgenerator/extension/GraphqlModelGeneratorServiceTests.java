@@ -24,20 +24,21 @@ public class GraphqlModelGeneratorServiceTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
-    private static final String PROJECT_DESIGN_SERVICE = "GraphqlDesignService/getGraphqlModel";
+    private static final String PROJECT_DESIGN_SERVICE = "graphqlDesignService/getGraphqlModel";
     Gson gson = new GsonBuilder().serializeNulls().create();
 
     @Test(description = "test model generation for graphql")
     public void testMultiModuleProject() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "graphqlService_1.bal"));
-        LineRange lineRange = LineRange.from(projectPath.toString(),
-                LinePosition.from(3,1), LinePosition.from(10,1));
+//        LineRange lineRange = LineRange.from(projectPath.toString(),
+//                LinePosition.from(3,1), LinePosition.from(10,1));
 
         Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(
+                projectPath.toString(),LinePosition.from(3,1), LinePosition.from(10,1));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
         GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();
@@ -48,13 +49,14 @@ public class GraphqlModelGeneratorServiceTests {
     public void testServiceAndRecords() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "graphqlService_2.bal"));
-        LineRange lineRange = LineRange.from(projectPath.toString(),
-                LinePosition.from(3,1), LinePosition.from(25,1));
+//        LineRange lineRange = LineRange.from(projectPath.toString(),
+//                LinePosition.from(3,1), LinePosition.from(25,1));
 
         Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(projectPath.toString(),
+                LinePosition.from(3,1), LinePosition.from(25,1));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
         GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();
@@ -65,13 +67,14 @@ public class GraphqlModelGeneratorServiceTests {
     public void testServiceWithInputType() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "graphqlService_3.bal"));
-        LineRange lineRange = LineRange.from(projectPath.toString(),
-                LinePosition.from(24,1), LinePosition.from(29,1));
+//        LineRange lineRange = LineRange.from(projectPath.toString(),
+//                LinePosition.from(24,1), LinePosition.from(29,1));
 
         Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(projectPath.toString(),
+                LinePosition.from(24,1), LinePosition.from(29,1));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
         GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();
@@ -82,13 +85,14 @@ public class GraphqlModelGeneratorServiceTests {
     public void testServiceWithInterface() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "graphqlService_4.bal"));
-        LineRange lineRange = LineRange.from(projectPath.toString(),
-                LinePosition.from(49,1), LinePosition.from(56,1));
+//        LineRange lineRange = LineRange.from(projectPath.toString(),
+//                LinePosition.from(49,1), LinePosition.from(56,1));
 
         Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(projectPath.toString(),
+                LinePosition.from(49,1), LinePosition.from(56,1));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
         GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();
@@ -99,13 +103,14 @@ public class GraphqlModelGeneratorServiceTests {
     public void testServiceWithEnums() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "graphqlService_5.bal"));
-        LineRange lineRange = LineRange.from(projectPath.toString(),
-                LinePosition.from(16,1), LinePosition.from(21,1));
+//        LineRange lineRange = LineRange.from(projectPath.toString(),
+//                LinePosition.from(16,1), LinePosition.from(21,1));
 
         Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(lineRange);
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(projectPath.toString(),
+                LinePosition.from(16,1), LinePosition.from(21,1));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
         GraphqlDesignServiceResponse response = (GraphqlDesignServiceResponse) result.get();

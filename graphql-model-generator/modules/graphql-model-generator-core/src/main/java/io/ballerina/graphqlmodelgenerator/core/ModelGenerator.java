@@ -1,6 +1,6 @@
 package io.ballerina.graphqlmodelgenerator.core;
 import io.ballerina.compiler.syntax.tree.*;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessages;
+import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessage;
 import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
@@ -27,8 +27,6 @@ import static io.ballerina.stdlib.graphql.commons.utils.Utils.PACKAGE_NAME;
 public class ModelGenerator {
 
     public GraphqlModel getGraphqlModel(Project project, LineRange position) throws  SchemaFileGenerationException{
-//        PackageCompilation compilation = getPackageCompilation(project);
-        System.out.println("===In model creation core");
         Package packageName = project.currentPackage();
         DocumentId docId;
         Document doc;
@@ -57,18 +55,18 @@ public class ModelGenerator {
         Schema schemaObject = getDecodedSchema(schemaString);
 
         String serviceName = ModelGenerationUtils.getServiceBasePath(serviceDeclarationNode);
-        return constructGraphqlModel(schemaObject, serviceName);
+        return constructGraphqlModel(schemaObject, serviceName, position);
     }
 
-    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName) {
-        ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName);
+    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName, LineRange nodeLocation) {
+        ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName, nodeLocation);
         Service graphqlService = serviceModelGenerator.generate();
 
         List<Interaction> linkedComponents = getLinkedComponents(graphqlService);
         InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj, linkedComponents);
         componentModelGenerator.generate();
 
-        return new GraphqlModel(false,graphqlService,componentModelGenerator.getObjects(),componentModelGenerator.getEnums(),componentModelGenerator.getUnions());
+        return new GraphqlModel(graphqlService,componentModelGenerator.getObjects(),componentModelGenerator.getEnums(),componentModelGenerator.getUnions());
     }
 
     private List<Interaction> getLinkedComponents(Service graphqlService){
@@ -121,7 +119,7 @@ public class ModelGenerator {
                 return getSchemaStringFieldFromValue(annotationValue);
             }
         }
-        throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_102, null, Constants.MESSAGE_MISSING_ANNOTATION);
+        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null, Constants.MESSAGE_MISSING_ANNOTATION);
     }
 
     /**
@@ -136,7 +134,7 @@ public class ModelGenerator {
                 return schemaString.substring(1, schemaString.length() - 1);
             }
         }
-        throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_102, null,
+        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
                 Constants.MESSAGE_MISSING_FIELD_SCHEMA_STRING);
     }
 
@@ -148,7 +146,7 @@ public class ModelGenerator {
      */
     public static Schema getDecodedSchema(String schemaString) throws SchemaFileGenerationException {
         if (schemaString == null || schemaString.isBlank() || schemaString.isEmpty()) {
-            throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_102, null,
+            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
                     Constants.MESSAGE_INVALID_SCHEMA_STRING);
         }
         byte[] decodedString = Base64.getDecoder().decode(schemaString.getBytes(StandardCharsets.UTF_8));
@@ -157,7 +155,7 @@ public class ModelGenerator {
             ObjectInputStream inputStream = new ObjectInputStream(byteStream);
             return (Schema) inputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_102, null,
+            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
                     Constants.MESSAGE_CANNOT_READ_SCHEMA_STRING);
         }
     }
@@ -172,7 +170,7 @@ public class ModelGenerator {
                 return annotationNode.annotValue().get();
             }
         }
-        throw new SchemaFileGenerationException(DiagnosticMessages.SDL_SCHEMA_102, null,
+        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
                 Constants.MESSAGE_MISSING_SERVICE_CONFIG);
     }
 

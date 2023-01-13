@@ -3,12 +3,11 @@ package io.ballerina.graphqlmodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import io.ballerina.graphqlmodelgenerator.core.ModelGenerator;
 import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticUtil;
 import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.GraphqlModel;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessages;
+import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessage;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.projects.Project;
@@ -28,7 +27,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
-@JsonSegment("GraphqlDesignService")
+@JsonSegment("graphqlDesignService")
 public class GraphqlModelGeneratorService implements ExtendedLanguageServerService {
 
     private WorkspaceManager workspaceManager;
@@ -54,7 +53,6 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
             try {
                 project = getCurrentProject(filePath);
                 PackageCompilation compilation = getPackageCompilation(project);
-                System.out.println("===compilation completed");
 
                 ModelGenerator modelGenerator = new ModelGenerator();
                 GraphqlModel generatedModel = modelGenerator.getGraphqlModel(project,request.getLineRange());
@@ -62,18 +60,24 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
                 JsonElement graphqlModelJson = gson.toJsonTree(generatedModel);
                 response.setGraphqlDesignModel(graphqlModelJson);
 
-            } catch (WorkspaceDocumentException e) {
+            } catch (WorkspaceDocumentException | EventSyncException | SchemaFileGenerationException | IOException  e) {
                 e.printStackTrace();
-            } catch (EventSyncException e) {
+                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
+                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message, request.getFilePath()));
+            } catch (Exception e){
                 e.printStackTrace();
-                String msg = "Operation 'GraphqlDesignService/getGraphqlModel' failed!";
-                DiagnosticMessages message = DiagnosticMessages.SDL_SCHEMA_100;
-                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message,request.getFilePath()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SchemaFileGenerationException e) {
-                e.printStackTrace();
+                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
+                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message, request.getFilePath()));
             }
+//            } catch (EventSyncException e) {
+//                e.printStackTrace();
+//                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
+//                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message,request.getFilePath()));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (SchemaFileGenerationException e) {
+//                e.printStackTrace();
+//            }
             return response;
         });
     }

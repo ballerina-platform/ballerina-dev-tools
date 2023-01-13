@@ -3,15 +3,13 @@ package io.ballerina.graphqlmodelgenerator.core.model;
 import java.util.Map;
 
 public class GraphqlModel {
-    private final boolean hasCompilationErrors;
     private final Service graphqlService;
     // Service, records, interfaces, enums
     private final Map<String, ObjectComponent> objects;
     private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
 
-    public GraphqlModel(boolean hasCompilationErrors, Service graphqlService, Map<String, ObjectComponent> objects, Map<String, EnumComponent> enums, Map<String, UnionComponent> unions) {
-        this.hasCompilationErrors = hasCompilationErrors;
+    public GraphqlModel(Service graphqlService, Map<String, ObjectComponent> objects, Map<String, EnumComponent> enums, Map<String, UnionComponent> unions) {
         this.graphqlService = graphqlService;
         this.objects = objects;
         this.enums = enums;

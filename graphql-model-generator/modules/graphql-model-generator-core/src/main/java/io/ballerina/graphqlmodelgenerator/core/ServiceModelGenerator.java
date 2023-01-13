@@ -1,9 +1,13 @@
 package io.ballerina.graphqlmodelgenerator.core;
 
+import io.ballerina.compiler.syntax.tree.NodeLocation;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
+import io.ballerina.stdlib.graphql.commons.types.LinePosition;
+import io.ballerina.stdlib.graphql.commons.types.Position;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
 import io.ballerina.stdlib.graphql.commons.utils.SdlSchemaStringGenerator;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +17,14 @@ public class ServiceModelGenerator {
     private final String serviceName;
     private final List<ResourceFunction> resourceFunctions;
     private final List<RemoteFunction> remoteFunctions;
+    private final LineRange servicePosition;
 
-    public ServiceModelGenerator(Schema schema, String serviceName){
+    public ServiceModelGenerator(Schema schema, String serviceName, LineRange servicePosition){
         this.schemaObj = schema;
         this.serviceName = serviceName;
         this.resourceFunctions = (schema.getQueryType() != null) ? new ArrayList<>() : null;
         this.remoteFunctions = (schema.getMutationType() != null) ? new ArrayList<>() : null;
+        this.servicePosition = servicePosition;
     }
 
     public Service generate(){
@@ -61,7 +67,10 @@ public class ServiceModelGenerator {
                 remoteFunctions.add(remoteFunction);
             });
         }
-       return new Service("graphql",serviceName,resourceFunctions,remoteFunctions);
+        Position nodePosition = new Position(servicePosition.filePath(),
+                new LinePosition(servicePosition.startLine().line(), servicePosition.startLine().offset()),
+                new LinePosition(servicePosition.endLine().line(), servicePosition.endLine().offset()));
+       return new Service(serviceName, nodePosition, resourceFunctions, remoteFunctions);
 
     }
 }

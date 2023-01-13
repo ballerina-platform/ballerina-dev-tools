@@ -21,12 +21,15 @@ apply plugin: "com.github.johnrengelman.shadow"
 
 description = 'LS extension for graphl design diagram generation'
 
-configurations.all {
-    resolutionStrategy.preferProjectModules()
-}
+//configurations.all {
+//    resolutionStrategy.preferProjectModules()
+//}
 
 configurations {
     balTools
+    dist {
+        transitive true
+    }
 }
 
 dependencies {
@@ -43,6 +46,7 @@ dependencies {
     testImplementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
     testImplementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
     testImplementation "org.testng:testng:${testngVersion}"
+    dist "io.ballerina.stdlib:graphql-commons:${stdlibGraphqlVersion}"
 
     balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false

@@ -20,12 +20,15 @@ apply from: "$rootDir/gradle/javaProject.gradle"
 
 description = 'Model generator core for graphql design diagram generation'
 
-configurations.all {
-    resolutionStrategy.preferProjectModules()
-}
+//configurations.all {
+//    resolutionStrategy.preferProjectModules()
+//}
 
 configurations {
     balTools
+    dist {
+        transitive true
+    }
 }
 
 dependencies {

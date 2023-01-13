@@ -4,25 +4,22 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 
 public class GraphqlDesignServiceRequest {
-    private LineRange lineRange;
+    private String filePath;
+    private LinePosition startLine;
+    private LinePosition endLine;
 
-    public GraphqlDesignServiceRequest(LineRange lineRange) {
-        this.lineRange = lineRange;
-    }
-
-    public LineRange getLineRange() {
-        return lineRange;
+    public GraphqlDesignServiceRequest(String filePath, LinePosition startLine, LinePosition endLine) {
+        this.filePath = filePath;
+        this.startLine = startLine;
+        this.endLine = endLine;
     }
 
     public String getFilePath() {
-        return this.lineRange.filePath();
+        return filePath;
     }
 
-    public LinePosition getStartPosition() {
-        return this.lineRange.startLine();
-    }
-
-    public LinePosition getEndPosition() {
-        return this.lineRange.endLine();
+    public LineRange getLineRange(){
+        LineRange lineRange = LineRange.from(filePath,startLine,endLine);
+        return lineRange;
     }
 }

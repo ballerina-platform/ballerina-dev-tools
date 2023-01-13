@@ -1,16 +1,18 @@
 package io.ballerina.graphqlmodelgenerator.core.model;
 
+import io.ballerina.stdlib.graphql.commons.types.Position;
+
 import java.util.List;
 
 public class Service {
-    private final String serviceType;
     private final String serviceName;
+    private final Position position;
     private final List<ResourceFunction> resourceFunctions;
     private final List<RemoteFunction> remoteFunctions;
 
-    public Service(String serviceType, String serviceName, List<ResourceFunction> resourceFunctions, List<RemoteFunction> remoteFunctions) {
-        this.serviceType = serviceType;
+    public Service(String serviceName, Position position, List<ResourceFunction> resourceFunctions, List<RemoteFunction> remoteFunctions) {
         this.serviceName = serviceName;
+        this.position = position;
         this.resourceFunctions = resourceFunctions;
         this.remoteFunctions = remoteFunctions;
     }
@@ -21,5 +23,13 @@ public class Service {
 
     public List<RemoteFunction> getRemoteFunctions() {
         return remoteFunctions;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }
