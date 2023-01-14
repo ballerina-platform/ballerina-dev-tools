@@ -15,14 +15,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-
+apply plugin: "com.github.johnrengelman.shadow"
 apply from: "$rootDir/gradle/javaProject.gradle"
 
 description = 'Model generator core for graphql design diagram generation'
 
-//configurations.all {
-//    resolutionStrategy.preferProjectModules()
-//}
+configurations.all {
+    resolutionStrategy.preferProjectModules()
+}
 
 configurations {
     balTools
@@ -103,10 +103,18 @@ test {
     }
 }
 
+shadowJar {
+    configurations = [project.configurations.runtimeClasspath]
+    dependencies {
+        exclude('META-INF/*.SF')
+        exclude('META-INF/*.DSA')
+        exclude('META-INF/*.RSA')
+    }
+}
+
 ext.moduleName = 'io.ballerina.graphqlmodelgenerator.core'
 
 compileJava {
-    inputs.property("moduleName", moduleName)
     doFirst {
         options.compilerArgs = [
                 '--module-path', classpath.asPath,
@@ -114,3 +122,7 @@ compileJava {
         classpath = files()
     }
 }
+
+unpackStdLibs.dependsOn jBallerinaPack
+copyStdlibs.dependsOn unpackStdLibs
+shadowJar.dependsOn copyStdlibs
