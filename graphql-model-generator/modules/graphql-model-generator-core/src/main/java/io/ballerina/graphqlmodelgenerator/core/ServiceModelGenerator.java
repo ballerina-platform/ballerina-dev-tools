@@ -1,12 +1,8 @@
 package io.ballerina.graphqlmodelgenerator.core;
 
-import io.ballerina.compiler.syntax.tree.NodeLocation;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
-import io.ballerina.stdlib.graphql.commons.types.LinePosition;
-import io.ballerina.stdlib.graphql.commons.types.Position;
-import io.ballerina.stdlib.graphql.commons.types.Schema;
-import io.ballerina.stdlib.graphql.commons.utils.SdlSchemaStringGenerator;
+import io.ballerina.stdlib.graphql.commons.types.*;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
@@ -42,12 +38,19 @@ public class ServiceModelGenerator {
                     Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
                             inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
                     params.add(param);
+                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                        if (inputObj != null){
+                            links.add(new Interaction(inputObj));
+                        }
+                    }
                 });
                 ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns, params, links);
                 resourceFunctions.add(resourceFunction);
             });
         }
-        // TODO: ADD parameters
+        // Mutation
         if (schemaObj.getMutationType() != null){
             schemaObj.getMutationType().getFields().forEach(field -> {
                 List<String> returns = new ArrayList<>();
@@ -62,6 +65,13 @@ public class ServiceModelGenerator {
                     Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
                             inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
                     params.add(param);
+                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                        if (inputObj != null){
+                            links.add(new Interaction(inputObj));
+                        }
+                    }
                 });
                 RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, params, links);
                 remoteFunctions.add(remoteFunction);

@@ -55,29 +55,14 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
                 PackageCompilation compilation = getPackageCompilation(project);
 
                 ModelGenerator modelGenerator = new ModelGenerator();
-                GraphqlModel generatedModel = modelGenerator.getGraphqlModel(project,request.getLineRange());
+                GraphqlModel generatedModel = modelGenerator.getGraphqlModel(project, request.getLineRange());
                 Gson gson = new GsonBuilder().serializeNulls().create();
                 JsonElement graphqlModelJson = gson.toJsonTree(generatedModel);
                 response.setGraphqlDesignModel(graphqlModelJson);
-
-            } catch (WorkspaceDocumentException | EventSyncException | SchemaFileGenerationException | IOException  e) {
-                e.printStackTrace();
-                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
-                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message, request.getFilePath()));
-            } catch (Exception e){
-                e.printStackTrace();
-                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
-                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message, request.getFilePath()));
+            } catch (SchemaFileGenerationException | IOException | WorkspaceDocumentException |  EventSyncException e){
+                response.setGeneratorCompleted(false);
+                response.setErrorMsg(e.getMessage());
             }
-//            } catch (EventSyncException e) {
-//                e.printStackTrace();
-//                DiagnosticMessage message = DiagnosticMessage.SDL_SCHEMA_100;
-//                response.setDiagnostic(DiagnosticUtil.createDiagnostic(message,request.getFilePath()));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (SchemaFileGenerationException e) {
-//                e.printStackTrace();
-//            }
             return response;
         });
     }

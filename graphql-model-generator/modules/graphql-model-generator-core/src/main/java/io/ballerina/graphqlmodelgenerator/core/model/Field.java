@@ -22,4 +22,43 @@ public class Field {
         this.interactions = interactions;
         this.parameters = parameters;
     }
+
+    public Field(String name, List<String> type, String description, List<Interaction> interactions) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.interactions = interactions;
+        this.isDeprecated = false;
+        this.deprecationReason = null;
+        this.parameters = null;
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getType() {
+        return type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDeprecated() {
+        return isDeprecated;
+    }
+
+    public String getDeprecationReason() {
+        return deprecationReason;
+    }
+
+    public List<Interaction> getInteractions() {
+        return interactions;
+    }
+
+    public List<Param> getParameters() {
+        return parameters;
+    }
 }

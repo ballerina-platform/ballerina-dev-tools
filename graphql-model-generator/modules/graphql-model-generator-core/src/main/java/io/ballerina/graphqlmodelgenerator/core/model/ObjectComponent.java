@@ -18,4 +18,20 @@ public class ObjectComponent {
         this.position = position;
         this.fields = fields;
     }
+
+    public ObjectKind getType() {
+        return type;
+    }
+
+    public boolean isInputObject() {
+        return isInputObject;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
 }

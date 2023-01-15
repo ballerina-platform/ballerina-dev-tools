@@ -3,6 +3,7 @@ package io.ballerina.graphqlmodelgenerator.core;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.model.EnumComponent;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
+import io.ballerina.stdlib.graphql.commons.types.ObjectKind;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
 import io.ballerina.stdlib.graphql.commons.types.Type;
 import io.ballerina.stdlib.graphql.commons.types.TypeKind;
@@ -12,12 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.ballerina.graphqlmodelgenerator.core.model.DefaultIntrospectionType.isReservedType;
+
 public class InteractedComponentModelGenerator {
     private final Schema schemaObj;
     private final Map<String, ObjectComponent> objects;
     private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
-    private List<Interaction> linkedComponents;
 
     public Map<String, EnumComponent> getEnums() {
         return enums;
@@ -31,9 +33,8 @@ public class InteractedComponentModelGenerator {
         return objects;
     }
 
-    public InteractedComponentModelGenerator(Schema schema, List<Interaction> linkedComponents){
+    public InteractedComponentModelGenerator(Schema schema){
         this.schemaObj = schema;
-        this.linkedComponents = linkedComponents;
         this.objects = isComponentPresent(TypeKind.OBJECT) || isComponentPresent(TypeKind.INPUT_OBJECT) ? new HashMap<>() : null;
         this.enums = isComponentPresent(TypeKind.ENUM) ? new HashMap<>() : null;
         this.unions = isComponentPresent(TypeKind.UNION) ? new HashMap<>() : null;
@@ -42,31 +43,42 @@ public class InteractedComponentModelGenerator {
 
     public void generate(){
         for (var entry: schemaObj.getTypes().entrySet()){
-            linkedComponents.forEach(component -> {
-                if (component.getComponentName().equals(entry.getKey())) {
-                    if (entry.getValue().getKind() == TypeKind.OBJECT || entry.getValue().getKind() == TypeKind.INPUT_OBJECT ){
-                        this.objects.put(entry.getValue().getName(), generateObjectComponent(entry.getValue()));
-                    } else if (entry.getValue().getKind() == TypeKind.ENUM) {
-                        this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
-                    } else if (entry.getValue().getKind() == TypeKind.UNION) {
-                        this.unions.put(entry.getValue().getName(), generateUnionComponent(entry.getValue()));
-                    }
+            if ((entry.getValue().getKind() == TypeKind.OBJECT || entry.getValue().getKind() == TypeKind.INPUT_OBJECT ||
+                    entry.getValue().getKind() == TypeKind.ENUM || entry.getValue().getKind() == TypeKind.UNION) &&
+           !isReservedType(entry.getKey())) {
+                if (entry.getValue().getKind() == TypeKind.OBJECT || entry.getValue().getKind() == TypeKind.INPUT_OBJECT ){
+                    this.objects.put(entry.getValue().getName(), generateObjectComponent(entry.getValue()));
+                } else if (entry.getValue().getKind() == TypeKind.ENUM) {
+                    this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
+                } else if (entry.getValue().getKind() == TypeKind.UNION) {
+                    this.unions.put(entry.getValue().getName(), generateUnionComponent(entry.getValue()));
                 }
-            });
+            }
         }
     }
 
     private ObjectComponent generateObjectComponent(Type objType) {
         List<Field> fields = new ArrayList<>();
-        objType.getFields().forEach((field) -> {
-            List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
-            List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-            Field objField = new Field(field.getName(),returnTypes,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
-            fields.add(objField);
+        if (objType.getKind() == TypeKind.OBJECT){
+            objType.getFields().forEach((field) -> {
+                List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
+                List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
+                Field objField = new Field(field.getName(),returnTypes,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
+                fields.add(objField);
 
-        });
+            });
+        } else {
+            objType.getInputFields().forEach((field) -> {
+                List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
+                List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
+                Field objField = new Field(field.getName(),returnTypes,field.getDescription(),interactionList);
+                fields.add(objField);
 
-        ObjectComponent objectComponent = new ObjectComponent(objType.getObjectKind(),
+            });
+        }
+
+
+        ObjectComponent objectComponent = new ObjectComponent(objType.getKind() == TypeKind.INPUT_OBJECT ? ObjectKind.RECORD : objType.getObjectKind(),
                 objType.getKind() == TypeKind.INPUT_OBJECT, objType.getPosition(), fields);
         return objectComponent;
     }

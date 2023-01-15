@@ -49,6 +49,16 @@ public class ModelGenerationUtils {
         }
     }
 
+    public static Type getType(Type type) {
+        if (type.getKind().equals(TypeKind.NON_NULL)) {
+            return getType(type.getOfType());
+        } else if (type.getKind().equals(TypeKind.LIST)) {
+            return getType(type.getOfType());
+        } else {
+            return type;
+        }
+    }
+
     /**
      * Get service base path from the given service declaration node.
      */
@@ -67,9 +77,24 @@ public class ModelGenerationUtils {
         return fieldTypes;
     }
 
+    public static List<String> getFormattedFieldTypeList(InputValue inputValue) {
+        List<String> fieldTypes = new ArrayList<>();
+        fieldTypes.add(ModelGenerationUtils.getFormattedFieldType(inputValue.getType()));
+        return fieldTypes;
+    }
+
     public static List<Interaction> getInteractionList(Field field){
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());
+        if (link != null){
+            links.add(new Interaction(link));
+        }
+        return links;
+    }
+
+    public static List<Interaction> getInteractionList(InputValue inputValue){
+        List<Interaction> links = new ArrayList<>();
+        String link = ModelGenerationUtils.getFieldType(inputValue.getType());
         if (link != null){
             links.add(new Interaction(link));
         }

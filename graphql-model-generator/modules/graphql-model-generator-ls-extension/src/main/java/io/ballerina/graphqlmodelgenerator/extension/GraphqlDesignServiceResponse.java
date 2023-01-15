@@ -1,18 +1,26 @@
 package io.ballerina.graphqlmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.GraphqlModelDiagnostic;
 
 public class GraphqlDesignServiceResponse {
     private JsonElement graphqlDesignModel;
-    private GraphqlModelDiagnostic diagnostic;
+    private boolean isGeneratorCompleted;
+    private String errorMsg;
 
-    public GraphqlModelDiagnostic getDiagnostic() {
-        return diagnostic;
+    public boolean isGeneratorCompleted() {
+        return isGeneratorCompleted;
     }
 
-    public void setDiagnostic(GraphqlModelDiagnostic diagnostic) {
-        this.diagnostic = diagnostic;
+    public void setGeneratorCompleted(boolean generatorCompleted) {
+        isGeneratorCompleted = generatorCompleted;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 
     public JsonElement getGraphqlDesignModel() {

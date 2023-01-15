@@ -62,29 +62,10 @@ public class ModelGenerator {
         ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName, nodeLocation);
         Service graphqlService = serviceModelGenerator.generate();
 
-        List<Interaction> linkedComponents = getLinkedComponents(graphqlService);
-        InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj, linkedComponents);
+        InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj);
         componentModelGenerator.generate();
 
         return new GraphqlModel(graphqlService,componentModelGenerator.getObjects(),componentModelGenerator.getEnums(),componentModelGenerator.getUnions());
-    }
-
-    private List<Interaction> getLinkedComponents(Service graphqlService){
-        List<Interaction> linkedComponents = new ArrayList<>();
-        graphqlService.getResourceFunctions().forEach(func -> {
-            func.getInteractions().forEach(item -> {
-                linkedComponents.add(item);
-            });
-        });
-        if (graphqlService.getRemoteFunctions() != null ){
-            graphqlService.getRemoteFunctions().forEach(func -> {
-                func.getInteractions().forEach(item -> {
-                    linkedComponents.add(item);
-                });
-            });
-        }
-
-        return linkedComponents;
     }
 
 
