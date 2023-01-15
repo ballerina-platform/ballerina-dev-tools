@@ -26,8 +26,8 @@ public class ServiceModelGenerator {
     public Service generate(){
         if (schemaObj.getQueryType() != null){
             schemaObj.getQueryType().getFields().forEach(field -> {
-                List<String> returns = new ArrayList<>();
-                returns.add(ModelGenerationUtils.getFormattedFieldType(field.getType()));
+                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
+
                 List<Interaction> links = new ArrayList<>();
                 String link = ModelGenerationUtils.getFieldType(field.getType());
                 if (link != null){
@@ -53,8 +53,8 @@ public class ServiceModelGenerator {
         // Mutation
         if (schemaObj.getMutationType() != null){
             schemaObj.getMutationType().getFields().forEach(field -> {
-                List<String> returns = new ArrayList<>();
-                returns.add(ModelGenerationUtils.getFormattedFieldType(field.getType()));
+                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
+
                 List<Interaction> links = new ArrayList<>();
                 String link = ModelGenerationUtils.getFieldType(field.getType());
                 if (link != null){

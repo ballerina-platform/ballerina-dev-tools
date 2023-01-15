@@ -5,7 +5,7 @@ import java.util.List;
 // remote/ resource/ record field
 public class Field {
     private final String name;
-    private final List<String> type; // return type
+    private final String type; // return type
     // private final String fieldKind; // TODO: check if we can identify the resource/ remote type
     private final String description;
     private final boolean isDeprecated;
@@ -13,7 +13,7 @@ public class Field {
     private final List<Interaction> interactions; //
     private final List<Param> parameters;
 
-    public Field(String name, List<String> type, String description, boolean isDeprecated, String deprecationReason, List<Interaction> interactions, List<Param> parameters) {
+    public Field(String name, String type, String description, boolean isDeprecated, String deprecationReason, List<Interaction> interactions, List<Param> parameters) {
         this.name = name;
         this.type = type;
         this.description = description;
@@ -23,7 +23,7 @@ public class Field {
         this.parameters = parameters;
     }
 
-    public Field(String name, List<String> type, String description, List<Interaction> interactions) {
+    public Field(String name, String type, String description, List<Interaction> interactions) {
         this.name = name;
         this.type = type;
         this.description = description;
@@ -38,7 +38,7 @@ public class Field {
         return name;
     }
 
-    public List<String> getType() {
+    public String getType() {
         return type;
     }
 

@@ -71,18 +71,6 @@ public class ModelGenerationUtils {
         return (currentServiceName.toString().trim());
     }
 
-    public static List<String> getFormattedFieldTypeList(Field field) {
-        List<String> fieldTypes = new ArrayList<>();
-        fieldTypes.add(ModelGenerationUtils.getFormattedFieldType(field.getType()));
-        return fieldTypes;
-    }
-
-    public static List<String> getFormattedFieldTypeList(InputValue inputValue) {
-        List<String> fieldTypes = new ArrayList<>();
-        fieldTypes.add(ModelGenerationUtils.getFormattedFieldType(inputValue.getType()));
-        return fieldTypes;
-    }
-
     public static List<Interaction> getInteractionList(Field field){
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());

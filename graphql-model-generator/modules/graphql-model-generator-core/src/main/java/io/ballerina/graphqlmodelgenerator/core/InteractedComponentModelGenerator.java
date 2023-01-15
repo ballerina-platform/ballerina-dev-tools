@@ -61,17 +61,17 @@ public class InteractedComponentModelGenerator {
         List<Field> fields = new ArrayList<>();
         if (objType.getKind() == TypeKind.OBJECT){
             objType.getFields().forEach((field) -> {
-                List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
+                String returnType = ModelGenerationUtils.getFormattedFieldType(field.getType());
                 List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-                Field objField = new Field(field.getName(),returnTypes,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
+                Field objField = new Field(field.getName(),returnType,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
                 fields.add(objField);
 
             });
         } else {
             objType.getInputFields().forEach((field) -> {
-                List<String> returnTypes = ModelGenerationUtils.getFormattedFieldTypeList(field);
+                String returnType = ModelGenerationUtils.getFormattedFieldType(field.getType());
                 List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-                Field objField = new Field(field.getName(),returnTypes,field.getDescription(),interactionList);
+                Field objField = new Field(field.getName(),returnType,field.getDescription(),interactionList);
                 fields.add(objField);
 
             });

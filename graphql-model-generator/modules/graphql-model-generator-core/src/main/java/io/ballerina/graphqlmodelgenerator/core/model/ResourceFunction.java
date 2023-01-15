@@ -5,7 +5,7 @@ import java.util.List;
 public class ResourceFunction {
     private final String identifier;
     private final boolean subscription;
-    private final List<String> returns;
+    private final String returns;
     private List<Param> parameters;
     private List<Interaction> interactions;
 
@@ -17,7 +17,7 @@ public class ResourceFunction {
         return subscription;
     }
 
-    public List<String> getReturns() {
+    public String getReturns() {
         return returns;
     }
 
@@ -25,14 +25,14 @@ public class ResourceFunction {
         return interactions;
     }
 
-    public ResourceFunction(String identifier, boolean subscription, List<String> returns, List<Param> parameters) {
+    public ResourceFunction(String identifier, boolean subscription, String returns, List<Param> parameters) {
         this.identifier = identifier;
         this.subscription = subscription;
         this.returns = returns;
         this.parameters = parameters;
     }
 
-    public ResourceFunction(String identifier, boolean subscription, List<String> returns,  List<Param> parameters, List<Interaction> interactions) {
+    public ResourceFunction(String identifier, boolean subscription, String returns,  List<Param> parameters, List<Interaction> interactions) {
         this.identifier = identifier;
         this.subscription = subscription;
         this.returns = returns;
