@@ -4,15 +4,15 @@ import com.google.gson.JsonElement;
 
 public class GraphqlDesignServiceResponse {
     private JsonElement graphqlDesignModel;
-    private boolean isGeneratorCompleted;
+    private boolean isIncompleteModel;
     private String errorMsg;
 
-    public boolean isGeneratorCompleted() {
-        return isGeneratorCompleted;
+    public boolean isIncompleteModel() {
+        return isIncompleteModel;
     }
 
-    public void setGeneratorCompleted(boolean generatorCompleted) {
-        isGeneratorCompleted = generatorCompleted;
+    public void setIncompleteModel(boolean incompleteModel) {
+        isIncompleteModel = incompleteModel;
     }
 
     public String getErrorMsg() {

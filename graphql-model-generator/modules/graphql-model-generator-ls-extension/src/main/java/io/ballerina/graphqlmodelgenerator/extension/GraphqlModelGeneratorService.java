@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.graphqlmodelgenerator.core.ModelGenerator;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticUtil;
 import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.GraphqlModel;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessage;
 import io.ballerina.projects.DiagnosticResult;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.projects.Project;
@@ -60,7 +58,7 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
                 JsonElement graphqlModelJson = gson.toJsonTree(generatedModel);
                 response.setGraphqlDesignModel(graphqlModelJson);
             } catch (SchemaFileGenerationException | IOException | WorkspaceDocumentException |  EventSyncException e){
-                response.setGeneratorCompleted(false);
+                response.setIncompleteModel(true);
                 response.setErrorMsg(e.getMessage());
             }
             return response;

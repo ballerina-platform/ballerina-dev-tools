@@ -105,7 +105,7 @@ public class InteractedComponentModelGenerator {
     private boolean isComponentPresent(TypeKind typeKind){
         boolean isFound = false;
         for (var entry: schemaObj.getTypes().entrySet()) {
-            if (entry.getValue().getKind() == typeKind){
+            if (entry.getValue().getKind() == typeKind && !isReservedType(entry.getValue().getName())){
                 isFound = true;
                 break;
             }
