@@ -272,7 +272,7 @@
               "in": "path",
               "isRequired": true,
               "elementLocation": {
-                "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+                "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 6,
                   "offset": 34
@@ -292,7 +292,7 @@
               "in": "query",
               "isRequired": true,
               "elementLocation": {
-                "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+                "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 6,
                   "offset": 56
@@ -309,7 +309,7 @@
           ],
           "interactions": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
             "startPosition": {
               "line": 6,
               "offset": 4
@@ -336,7 +336,7 @@
               "in": "body",
               "isRequired": true,
               "elementLocation": {
-                "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+                "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 19,
                   "offset": 38
@@ -354,7 +354,7 @@
           ],
           "interactions": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
             "startPosition": {
               "line": 19,
               "offset": 4
@@ -370,7 +370,7 @@
         "id": "002",
         "label": "",
         "elementLocation": {
-          "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+          "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
           "startPosition": {
             "line": 2,
             "offset": 0
@@ -384,7 +384,7 @@
       "remoteFunctions": [],
       "dependencies": [],
       "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/seat_allocation_api.bal",
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
         "startPosition": {
           "line": 2,
           "offset": 0
@@ -416,7 +416,7 @@
               "in": "path",
               "isRequired": true,
               "elementLocation": {
-                "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+                "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
                 "startPosition": {
                   "line": 16,
                   "offset": 31
@@ -435,7 +435,7 @@
               "in": "path",
               "isRequired": true,
               "elementLocation": {
-                "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+                "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
                 "startPosition": {
                   "line": 16,
                   "offset": 53
@@ -453,7 +453,7 @@
           ],
           "interactions": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 16,
               "offset": 4
@@ -469,7 +469,7 @@
         "id": "003",
         "label": "",
         "elementLocation": {
-          "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+          "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
           "startPosition": {
             "line": 9,
             "offset": 0
@@ -483,7 +483,7 @@
       "remoteFunctions": [],
       "dependencies": [],
       "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
         "startPosition": {
           "line": 9,
           "offset": 0
@@ -506,7 +506,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 8,
               "offset": 11
@@ -525,7 +525,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 9,
               "offset": 11
@@ -544,7 +544,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 10,
               "offset": 8
@@ -559,7 +559,7 @@
       "inclusions": [],
       "isAnonymous": false,
       "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
         "startPosition": {
           "line": 7,
           "offset": 12
@@ -981,7 +981,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 1,
               "offset": 20
@@ -1000,7 +1000,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 2,
               "offset": 20
@@ -1019,7 +1019,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 3,
               "offset": 8
@@ -1038,7 +1038,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 4,
               "offset": 8
@@ -1053,7 +1053,7 @@
       "inclusions": [],
       "isAnonymous": false,
       "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/seat_allocation_api/types.bal",
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
         "startPosition": {
           "line": 0,
           "offset": 12
@@ -1074,7 +1074,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 4,
               "offset": 11
@@ -1093,7 +1093,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 5,
               "offset": 11
@@ -1112,7 +1112,7 @@
           "defaultValue": "",
           "associations": [],
           "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 6,
               "offset": 10
@@ -1127,7 +1127,7 @@
       "inclusions": [],
       "isAnonymous": false,
       "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/fares_api/fares_api.bal",
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
         "startPosition": {
           "line": 3,
           "offset": 12
