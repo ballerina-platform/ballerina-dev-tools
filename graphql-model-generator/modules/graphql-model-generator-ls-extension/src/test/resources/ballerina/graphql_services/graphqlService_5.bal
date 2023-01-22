@@ -3,7 +3,7 @@ import ballerina/graphql;
 # This enum represents weekdays
 public enum Weekday {
     # Sunday is a holiday
-    SUNDAY,
+    SUNDAY = "holiday",
     MONDAY,
     TUESDAY,
     WEDNESDAY,

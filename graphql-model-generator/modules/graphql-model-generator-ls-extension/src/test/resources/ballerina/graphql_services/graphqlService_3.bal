@@ -6,6 +6,7 @@ import ballerina/graphql;
 # + age - age of the person
 # + address - Addres of the person
 type Person record {
+    # Name field with default value
     string name = "Walter";
     int age;
     Address address;

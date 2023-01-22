@@ -1,6 +1,6 @@
 import ballerina/graphql;
 
-// Service attached to a GraphQL listener exposes a GraphQL service on the provided port.
+# Service attached to a GraphQL listener exposes a GraphQL service on the provided port.
 service /graphql2 on new graphql:Listener(4001) {
 
      // Define a `string` array in the service.
@@ -11,12 +11,12 @@ service /graphql2 on new graphql:Listener(4001) {
         self.names = ["Walter White", "Jesse Pinkman", "Skyler White"];
     }
 
-    // Returning the `Animal` type from a GraphQL resolver will idenitify it as an interface
+    # Returning the `Animal` type from a GraphQL resolver will idenitify it as an interface
     resource function get animals() returns Elephant[] {
         return [new Elephant()];
     }
 
-    resource function get animalType(string typeName = "test") returns Panda|Elephant {
+    resource function get animalType(string typeName = "test") returns SearchResult {
         return new Elephant();
     }
 
@@ -32,10 +32,12 @@ public type Animal distinct service object {
     resource function get name() returns string;
 };
 
-// Another class implementing the `Mammal` class
+# Another class implementing the `Mammal` class
 public distinct service class Elephant {
     *Animal;
 
+    # Resource function of get name
+    # + returns - type string
     resource function get name() returns string {
         return "Elephas maximus maximus";
     }
@@ -57,7 +59,12 @@ public distinct service class Panda {
     }
 }
 
+# Represents a Lion record.
+# + age - The age
 type Lion record {|
-    string name;
+    string name = "lion name";
     int age;
 |};
+
+# Defines the `SearchResult` union type that includes the `Profile` and the `Address` types.
+type SearchResult Panda|Elephant;

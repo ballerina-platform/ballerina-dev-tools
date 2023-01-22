@@ -18,8 +18,8 @@ public class ServiceModelGenerator {
     public ServiceModelGenerator(Schema schema, String serviceName, LineRange servicePosition){
         this.schemaObj = schema;
         this.serviceName = serviceName;
-        this.resourceFunctions = (schema.getQueryType() != null) ? new ArrayList<>() : null;
-        this.remoteFunctions = (schema.getMutationType() != null) ? new ArrayList<>() : null;
+        this.resourceFunctions = new ArrayList<>();
+        this.remoteFunctions = new ArrayList<>();
         this.servicePosition = servicePosition;
     }
 
@@ -27,12 +27,7 @@ public class ServiceModelGenerator {
         if (schemaObj.getQueryType() != null){
             schemaObj.getQueryType().getFields().forEach(field -> {
                 String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
-
-                List<Interaction> links = new ArrayList<>();
-                String link = ModelGenerationUtils.getFieldType(field.getType());
-                if (link != null){
-                    links.add(new Interaction(link));
-                }
+                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
                 List<Param> params = new ArrayList<>();
                 field.getArgs().forEach(inputValue -> {
                     Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
@@ -46,7 +41,8 @@ public class ServiceModelGenerator {
                         }
                     }
                 });
-                ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns, params, links);
+                ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns,
+                        field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
                 resourceFunctions.add(resourceFunction);
             });
         }
@@ -54,12 +50,8 @@ public class ServiceModelGenerator {
         if (schemaObj.getMutationType() != null){
             schemaObj.getMutationType().getFields().forEach(field -> {
                 String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
+                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
 
-                List<Interaction> links = new ArrayList<>();
-                String link = ModelGenerationUtils.getFieldType(field.getType());
-                if (link != null){
-                    links.add(new Interaction(link));
-                }
                 List<Param> params = new ArrayList<>();
                 field.getArgs().forEach(inputValue -> {
                     Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
@@ -73,14 +65,42 @@ public class ServiceModelGenerator {
                         }
                     }
                 });
-                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, params, links);
+                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, field.getDescription(),
+                        field.isDeprecated(), field.getDeprecationReason(), params, links);
                 remoteFunctions.add(remoteFunction);
             });
         }
+
+        // Subscription
+        if (schemaObj.getSubscriptionType() != null){
+            schemaObj.getSubscriptionType().getFields().forEach(field -> {
+                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
+                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
+
+                List<Param> params = new ArrayList<>();
+                field.getArgs().forEach(inputValue -> {
+                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                    params.add(param);
+                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                        if (inputObj != null){
+                            links.add(new Interaction(inputObj));
+                        }
+                    }
+                });
+
+                ResourceFunction resourceFunction = new ResourceFunction(field.getName(),true,returns,
+                        field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
+                resourceFunctions.add(resourceFunction);
+            });
+        }
+
         Position nodePosition = new Position(servicePosition.filePath(),
                 new LinePosition(servicePosition.startLine().line(), servicePosition.startLine().offset()),
                 new LinePosition(servicePosition.endLine().line(), servicePosition.endLine().offset()));
-       return new Service(serviceName, nodePosition, resourceFunctions, remoteFunctions);
 
+       return new Service(serviceName, nodePosition, schemaObj.getDescription(), resourceFunctions, remoteFunctions);
     }
 }

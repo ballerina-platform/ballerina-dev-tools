@@ -4,16 +4,18 @@ import io.ballerina.stdlib.graphql.commons.types.Position;
 
 import java.util.List;
 
-public class UnionComponent {
+public class RecordComponent {
     private final String name;
     private final Position position;
     private final String description;
-    private final List<Interaction> possibleTypes;
+    private final List<RecordField> recordFields;
+    private final boolean isInputObject;
 
-    public UnionComponent(String name, Position position, String description, List<Interaction> possibleTypes) {
+    public RecordComponent(String name, Position position, String description, List<RecordField> recordFields, boolean isInputObject) {
         this.name = name;
         this.position = position;
         this.description = description;
-        this.possibleTypes = possibleTypes;
+        this.recordFields = recordFields;
+        this.isInputObject = isInputObject;
     }
 }

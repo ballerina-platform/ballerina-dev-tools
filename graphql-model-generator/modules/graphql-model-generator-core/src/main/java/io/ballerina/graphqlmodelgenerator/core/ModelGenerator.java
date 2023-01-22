@@ -65,7 +65,9 @@ public class ModelGenerator {
         InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj);
         componentModelGenerator.generate();
 
-        return new GraphqlModel(graphqlService,componentModelGenerator.getObjects(),componentModelGenerator.getEnums(),componentModelGenerator.getUnions());
+        return new GraphqlModel(graphqlService, componentModelGenerator.getRecords(),
+                componentModelGenerator.getServiceClasses(), componentModelGenerator.getEnums(),
+                componentModelGenerator.getUnions());
     }
 
 

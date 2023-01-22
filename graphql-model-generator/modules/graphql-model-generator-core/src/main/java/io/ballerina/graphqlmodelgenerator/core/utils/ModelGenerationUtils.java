@@ -5,6 +5,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
 import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
+import io.ballerina.graphqlmodelgenerator.core.model.Param;
 import io.ballerina.stdlib.graphql.commons.types.Field;
 import io.ballerina.stdlib.graphql.commons.types.InputValue;
 import io.ballerina.stdlib.graphql.commons.types.Type;
