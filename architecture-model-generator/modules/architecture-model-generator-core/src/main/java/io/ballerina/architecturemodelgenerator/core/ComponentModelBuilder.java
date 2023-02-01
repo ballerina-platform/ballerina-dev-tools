@@ -64,6 +64,7 @@ public class ComponentModelBuilder {
             entities.putAll(entityModelGenerator.generate());
         });
 
-        return new ComponentModel(packageId, services, entities, hasDiagnosticErrors.get());
+        return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, services, entities,
+                hasDiagnosticErrors.get());
     }
 }
