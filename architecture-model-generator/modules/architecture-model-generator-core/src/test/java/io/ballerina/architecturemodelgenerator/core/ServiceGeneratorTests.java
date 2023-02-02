@@ -41,11 +41,6 @@ public class ServiceGeneratorTests {
 
     @Test(description = "model generation for single module projects")
     public void testSingleModuleModelGeneration() throws IOException {
-//        CompileResult compileResult = BCompileUtil.compileAndCacheBala("ballerina/single_service_sample");
-//        if (compileResult.getErrorCount() != 0) {
-//            Arrays.stream(compileResult.getDiagnostics()).forEach(System.out::println);
-//            Assert.fail("Compilation contains error");
-//        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("single_service_sample"));
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("simple_service_sample.json"));
@@ -56,13 +51,13 @@ public class ServiceGeneratorTests {
         ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
-            String generatedService = gson.toJson(service)
+            String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\\\\\\\", "/");
-            String expectedService = gson.toJson(expectedModel.getServices().get(id))
-                    .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
-//                    .replaceAll("\"serviceType\":\".*?\"", "\"serviceType\":\"" + serviceType + "\"");
+                    .replaceAll("\\\\\\\\", "/"));
+            String expectedService = TestUtils.replaceStdLibVersionStrings(
+                    gson.toJson(expectedModel.getServices().get(id))
+                            .replaceAll("\\s+", "")
+                            .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
             Assert.assertEquals(generatedService, expectedService);
         });
     }
