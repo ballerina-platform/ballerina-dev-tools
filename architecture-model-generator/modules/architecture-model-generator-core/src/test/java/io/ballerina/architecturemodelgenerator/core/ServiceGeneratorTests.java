@@ -58,10 +58,12 @@ public class ServiceGeneratorTests {
         generatedModel.getServices().forEach((id, service) -> {
             String generatedService = gson.toJson(service)
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\\\\\\\", "/");
+                    .replaceAll("\\\\\\\\", "/")
+                    .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "");
             String expectedService = gson.toJson(expectedModel.getServices().get(id))
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
+                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
+                    .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "");
 //                    .replaceAll("\"serviceType\":\".*?\"", "\"serviceType\":\"" + serviceType + "\"");
             Assert.assertEquals(generatedService, expectedService);
         });
