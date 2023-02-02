@@ -71,14 +71,13 @@ public class ArchitectureModelGeneratorServiceTests {
         ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
-            String generatedService = gson.toJson(service)
+            String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                     .replaceAll("\\s+", "")
-                    .replaceAll("\\\\\\\\", "/")
-                    .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "");
-            String expectedService = gson.toJson(expectedModel.getServices().get(id))
-                    .replaceAll("\\s+", "")
-                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
-                    .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "");
+                    .replaceAll("\\\\\\\\", "/"));
+            String expectedService = TestUtils.replaceStdLibVersionStrings(
+                    gson.toJson(expectedModel.getServices().get(id))
+                            .replaceAll("\\s+", "")
+                            .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
             Assert.assertEquals(generatedService, expectedService);
         });
     }
@@ -110,18 +109,13 @@ public class ArchitectureModelGeneratorServiceTests {
             try {
                 ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath.toAbsolutePath());
                 generatedModel.getServices().forEach((id, service) -> {
-                    String generatedService = gson.toJson(service)
+                    String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                             .replaceAll("\\s+", "")
-                            .replaceAll("\\\\\\\\", "/")
-                            .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
-                            .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
-                            .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "");
-                    String expectedService = gson.toJson(expectedModel.getServices().get(id))
-                            .replaceAll("\\s+", "")
-                            .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
-                            .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
-                            .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
-                            .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "");
+                            .replaceAll("\\\\\\\\", "/"));
+                    String expectedService = TestUtils.replaceStdLibVersionStrings(
+                            gson.toJson(expectedModel.getServices().get(id))
+                                    .replaceAll("\\s+", "")
+                                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
                     Assert.assertEquals(generatedService, expectedService);
                 });
             } catch (IOException e) {
