@@ -31,17 +31,23 @@ import java.util.Map;
  */
 public class ComponentModel {
 
+    private final String version;
     private final PackageId packageId;
     private final boolean hasCompilationErrors;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
 
-    public ComponentModel(PackageId packageId, Map<String, Service> services, Map<String, Entity> entities,
-                          boolean hasCompilationErrors) {
+    public ComponentModel(String version, PackageId packageId, Map<String, Service> services,
+                          Map<String, Entity> entities, boolean hasCompilationErrors) {
+        this.version = version;
         this.packageId = packageId;
         this.services = services;
         this.entities = entities;
         this.hasCompilationErrors = hasCompilationErrors;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     public PackageId getPackageId() {
