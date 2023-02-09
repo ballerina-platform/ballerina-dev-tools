@@ -1,4 +1,6 @@
 import ballerina/http;
+import single_service_sample.model;
+import single_service_sample.'service;
 
 enum Time {
     morning,
@@ -19,6 +21,10 @@ service /greeting on new http:Listener(8080) {
         http:Client timeService = check new("https://localhost:9090");
         string greeting = check timeService->/["greeting"].get(param = time);
         return string `Hello ${name}. ${greeting}`;
+    }
+
+    resource isolated function get accounts() returns model:Account[] {
+        return new 'service:AccountService().getAccounts();
     }
 }
 
