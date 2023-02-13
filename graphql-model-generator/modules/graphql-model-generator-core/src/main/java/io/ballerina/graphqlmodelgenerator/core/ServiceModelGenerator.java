@@ -1,5 +1,6 @@
 package io.ballerina.graphqlmodelgenerator.core;
 
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.graphqlmodelgenerator.core.model.*;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.stdlib.graphql.commons.types.*;
@@ -14,13 +15,15 @@ public class ServiceModelGenerator {
     private final List<ResourceFunction> resourceFunctions;
     private final List<RemoteFunction> remoteFunctions;
     private final LineRange servicePosition;
+    private final SyntaxTree syntaxTree;
 
-    public ServiceModelGenerator(Schema schema, String serviceName, LineRange servicePosition){
+    public ServiceModelGenerator(Schema schema, String serviceName, LineRange servicePosition, SyntaxTree syntaxTree){
         this.schemaObj = schema;
         this.serviceName = serviceName;
         this.resourceFunctions = new ArrayList<>();
         this.remoteFunctions = new ArrayList<>();
         this.servicePosition = servicePosition;
+        this.syntaxTree = syntaxTree;
     }
 
     public Service generate(){
@@ -41,8 +44,9 @@ public class ServiceModelGenerator {
                         }
                     }
                 });
+                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
                 ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,returns,
-                        field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
+                        position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
                 resourceFunctions.add(resourceFunction);
             });
         }
@@ -65,7 +69,8 @@ public class ServiceModelGenerator {
                         }
                     }
                 });
-                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, field.getDescription(),
+                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
+                RemoteFunction remoteFunction = new RemoteFunction(field.getName(),returns, position, field.getDescription(),
                         field.isDeprecated(), field.getDeprecationReason(), params, links);
                 remoteFunctions.add(remoteFunction);
             });
@@ -90,9 +95,9 @@ public class ServiceModelGenerator {
                         }
                     }
                 });
-
+                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
                 ResourceFunction resourceFunction = new ResourceFunction(field.getName(),true,returns,
-                        field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
+                        position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, links);
                 resourceFunctions.add(resourceFunction);
             });
         }

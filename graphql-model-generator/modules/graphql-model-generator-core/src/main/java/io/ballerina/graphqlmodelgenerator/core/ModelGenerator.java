@@ -9,6 +9,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.graphqlmodelgenerator.core.exception.GraphqlModelGenerationException;
 import io.ballerina.graphqlmodelgenerator.core.model.GraphqlModel;
 import io.ballerina.graphqlmodelgenerator.core.model.Service;
+import io.ballerina.graphqlmodelgenerator.core.utils.CommonUtil;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.projects.*;
 import io.ballerina.projects.Module;
@@ -45,8 +46,8 @@ public class ModelGenerator {
         }
 
         SyntaxTree syntaxTree = doc.syntaxTree();
-        Range range = toRange(position);
-        NonTerminalNode node = findSTNode(range, syntaxTree);
+        Range range = CommonUtil.toRange(position);
+        NonTerminalNode node = CommonUtil.findSTNode(range, syntaxTree);
         if (node.kind() != SyntaxKind.SERVICE_DECLARATION && node.kind() != SyntaxKind.MODULE_VAR_DECL) {
             throw new GraphqlModelGenerationException(INVALID_NODE_MSG);
         }
@@ -64,14 +65,14 @@ public class ModelGenerator {
            serviceName =  moduleVarDclNode.typedBindingPattern().bindingPattern().toSourceCode();
         }
 
-        return constructGraphqlModel(schemaObject, serviceName, position);
+        return constructGraphqlModel(schemaObject, serviceName, position, syntaxTree);
     }
 
-    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName, LineRange nodeLocation) throws
-            GraphqlModelGenerationException {
+    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName, LineRange nodeLocation,
+                                              SyntaxTree syntaxTree) throws GraphqlModelGenerationException {
         try {
             ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName,
-                    nodeLocation);
+                    nodeLocation, syntaxTree);
             Service graphqlService = serviceModelGenerator.generate();
 
             InteractedComponentModelGenerator componentModelGenerator = new
@@ -88,25 +89,25 @@ public class ModelGenerator {
 
 
 
-    /**
-     * Convert the syntax-node line range into a lsp4j range.
-     *
-     * @param lineRange - line range
-     * @return {@link Range} converted range
-     */
-    public static Range toRange(LineRange lineRange) {
-        return new Range(toPosition(lineRange.startLine()), toPosition(lineRange.endLine()));
-    }
-
-    /**
-     * Converts syntax-node line position into a lsp4j position.
-     *
-     * @param linePosition - line position
-     * @return {@link Position} converted position
-     */
-    public static Position toPosition(LinePosition linePosition) {
-        return new Position(linePosition.line(), linePosition.offset());
-    }
+//    /**
+//     * Convert the syntax-node line range into a lsp4j range.
+//     *
+//     * @param lineRange - line range
+//     * @return {@link Range} converted range
+//     */
+//    public static Range toRange(LineRange lineRange) {
+//        return new Range(toPosition(lineRange.startLine()), toPosition(lineRange.endLine()));
+//    }
+//
+//    /**
+//     * Converts syntax-node line position into a lsp4j position.
+//     *
+//     * @param linePosition - line position
+//     * @return {@link Position} converted position
+//     */
+//    public static Position toPosition(LinePosition linePosition) {
+//        return new Position(linePosition.line(), linePosition.offset());
+//    }
 
 //    /**
 //     * Get encoded schema string from the given node.
@@ -189,13 +190,13 @@ public class ModelGenerator {
 //        return Constants.SERVICE_CONFIG_IDENTIFIER.equals(referenceNode.identifier().text());
 //    }
 
-    public static NonTerminalNode findSTNode(Range range, SyntaxTree syntaxTree) {
-        TextDocument textDocument = syntaxTree.textDocument();
-        Position rangeStart = range.getStart();
-        Position rangeEnd = range.getEnd();
-        int start = textDocument.textPositionFrom(LinePosition.from(rangeStart.getLine(), rangeStart.getCharacter()));
-        int end = textDocument.textPositionFrom(LinePosition.from(rangeEnd.getLine(), rangeEnd.getCharacter()));
-        return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
-    }
+//    public static NonTerminalNode findSTNode(Range range, SyntaxTree syntaxTree) {
+//        TextDocument textDocument = syntaxTree.textDocument();
+//        Position rangeStart = range.getStart();
+//        Position rangeEnd = range.getEnd();
+//        int start = textDocument.textPositionFrom(LinePosition.from(rangeStart.getLine(), rangeStart.getCharacter()));
+//        int end = textDocument.textPositionFrom(LinePosition.from(rangeEnd.getLine(), rangeEnd.getCharacter()));
+//        return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+//    }
 }
 

@@ -1,15 +1,11 @@
 package io.ballerina.graphqlmodelgenerator.core.utils;
 
 
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeList;
-import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
-import io.ballerina.graphqlmodelgenerator.core.model.Param;
-import io.ballerina.stdlib.graphql.commons.types.Field;
-import io.ballerina.stdlib.graphql.commons.types.InputValue;
-import io.ballerina.stdlib.graphql.commons.types.Type;
-import io.ballerina.stdlib.graphql.commons.types.TypeKind;
+import io.ballerina.stdlib.graphql.commons.types.*;
+import io.ballerina.tools.text.LineRange;
+import org.eclipse.lsp4j.Range;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +94,14 @@ public class ModelGenerationUtils {
         }
     }
 
-
+    public static Position findNodeRange(Position position, SyntaxTree syntaxTree) {
+        LineRange lineRange = CommonUtil.toLineRange(position);
+        Range range = CommonUtil.toRange(lineRange);
+        Node methodNode = CommonUtil.findSTNode(range, syntaxTree);
+        Position nodePosition = new Position(position.getFilePath(),
+                new LinePosition(methodNode.lineRange().startLine().line(), methodNode.lineRange().startLine().offset()),
+                new LinePosition(methodNode.lineRange().endLine().line(), methodNode.lineRange().endLine().offset()));
+        return  nodePosition;
+    }
 
 }
