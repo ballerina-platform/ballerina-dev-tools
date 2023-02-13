@@ -184,14 +184,14 @@ public class InteractedComponentModelGenerator {
         return unionComponent;
     }
 
-    private boolean isComponentPresent(TypeKind typeKind){
-        boolean isFound = false;
-        for (var entry: schemaObj.getTypes().entrySet()) {
-            if (entry.getValue().getKind() == typeKind && !isReservedType(entry.getValue().getName())){
-                isFound = true;
-                break;
-            }
-        }
-        return isFound;
-    }
+//    private boolean isComponentPresent(TypeKind typeKind){
+//        boolean isFound = false;
+//        for (var entry: schemaObj.getTypes().entrySet()) {
+//            if (entry.getValue().getKind() == typeKind && !isReservedType(entry.getValue().getName())){
+//                isFound = true;
+//                break;
+//            }
+//        }
+//        return isFound;
+//    }
 }

@@ -36,6 +36,7 @@ dependencies {
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
     implementation "io.ballerina.stdlib:graphql-commons:${stdlibGraphqlVersion}"
+    implementation "io.ballerina.stdlib:graphql-compiler-plugin:${stdlibGraphqlVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
     compileOnly "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
 

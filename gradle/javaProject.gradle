@@ -36,6 +36,7 @@ dependencies {
         // StdLib Dependencies
         implementation "io.ballerina.stdlib:http-native:${stdlibHttpVersion}"
         implementation "io.ballerina.stdlib:graphql-commons:${stdlibGraphqlVersion}"
+        implementation "io.ballerina.stdlib:graphql-compiler-plugin:${stdlibGraphqlVersion}"
 
         // Test Dependencies
         testImplementation "org.testng:testng:${testngVersion}"

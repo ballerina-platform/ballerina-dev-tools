@@ -45,7 +45,8 @@ dependencies {
 
     testImplementation "org.testng:testng:${testngVersion}"
     dist "io.ballerina.stdlib:graphql-commons:${stdlibGraphqlVersion}"
-    dist "com.graphql-java:graphql-java:${graphqlJavaVersion}"
+    dist "io.ballerina.stdlib:graphql-compiler-plugin:${stdlibGraphqlVersion}"
+    // dist "com.graphql-java:graphql-java:${graphqlJavaVersion}"
 
     balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false

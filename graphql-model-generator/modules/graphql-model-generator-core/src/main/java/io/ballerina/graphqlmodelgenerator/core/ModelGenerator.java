@@ -1,8 +1,14 @@
 package io.ballerina.graphqlmodelgenerator.core;
-import io.ballerina.compiler.syntax.tree.*;
-import io.ballerina.graphqlmodelgenerator.core.diagnostic.DiagnosticMessage;
-import io.ballerina.graphqlmodelgenerator.core.exception.SchemaFileGenerationException;
-import io.ballerina.graphqlmodelgenerator.core.model.*;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.graphqlmodelgenerator.core.exception.GraphqlModelGenerationException;
+import io.ballerina.graphqlmodelgenerator.core.model.GraphqlModel;
+import io.ballerina.graphqlmodelgenerator.core.model.Service;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.projects.*;
 import io.ballerina.projects.Module;
@@ -15,18 +21,15 @@ import io.ballerina.tools.text.TextRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.*;
 
-import static io.ballerina.stdlib.graphql.commons.utils.Utils.PACKAGE_NAME;
+import static io.ballerina.graphqlmodelgenerator.core.Constants.*;
+import static io.ballerina.stdlib.graphql.compiler.Utils.getSchemaObject;
 
 public class ModelGenerator {
 
-    public GraphqlModel getGraphqlModel(Project project, LineRange position) throws  SchemaFileGenerationException{
+    public GraphqlModel getGraphqlModel(Project project, LineRange position, SemanticModel semanticModel) throws
+            GraphqlModelGenerationException {
         Package packageName = project.currentPackage();
         DocumentId docId;
         Document doc;
@@ -41,33 +44,46 @@ public class ModelGenerator {
             doc = currentModule.document(docId);
         }
 
-        // TODO: check if the service is a graphql service
         SyntaxTree syntaxTree = doc.syntaxTree();
         Range range = toRange(position);
         NonTerminalNode node = findSTNode(range, syntaxTree);
-        if (node.kind() != SyntaxKind.SERVICE_DECLARATION) {
-            return null;
+        if (node.kind() != SyntaxKind.SERVICE_DECLARATION && node.kind() != SyntaxKind.MODULE_VAR_DECL) {
+            throw new GraphqlModelGenerationException(INVALID_NODE_MSG);
         }
 
-        ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
+        Schema schemaObject = getSchemaObject(node, semanticModel, project);
+        if (schemaObject.getTypes().isEmpty()){
+            throw new GraphqlModelGenerationException(EMPTY_SCHEMA_MSG);
+        }
+        String serviceName = "";
+        if (node instanceof ServiceDeclarationNode){
+            ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
+            serviceName = ModelGenerationUtils.getServiceBasePath(serviceDeclarationNode);
+        } else if (node instanceof ModuleVariableDeclarationNode){
+            ModuleVariableDeclarationNode moduleVarDclNode = (ModuleVariableDeclarationNode)node;
+           serviceName =  moduleVarDclNode.typedBindingPattern().bindingPattern().toSourceCode();
+        }
 
-        String schemaString = getSchemaString(serviceDeclarationNode);
-        Schema schemaObject = getDecodedSchema(schemaString);
-
-        String serviceName = ModelGenerationUtils.getServiceBasePath(serviceDeclarationNode);
         return constructGraphqlModel(schemaObject, serviceName, position);
     }
 
-    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName, LineRange nodeLocation) {
-        ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName, nodeLocation);
-        Service graphqlService = serviceModelGenerator.generate();
+    public GraphqlModel constructGraphqlModel(Schema schemaObj, String serviceName, LineRange nodeLocation) throws
+            GraphqlModelGenerationException {
+        try {
+            ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(schemaObj, serviceName,
+                    nodeLocation);
+            Service graphqlService = serviceModelGenerator.generate();
 
-        InteractedComponentModelGenerator componentModelGenerator = new InteractedComponentModelGenerator(schemaObj);
-        componentModelGenerator.generate();
+            InteractedComponentModelGenerator componentModelGenerator = new
+                    InteractedComponentModelGenerator(schemaObj);
+            componentModelGenerator.generate();
 
-        return new GraphqlModel(graphqlService, componentModelGenerator.getRecords(),
-                componentModelGenerator.getServiceClasses(), componentModelGenerator.getEnums(),
-                componentModelGenerator.getUnions());
+            return new GraphqlModel(graphqlService, componentModelGenerator.getRecords(),
+                    componentModelGenerator.getServiceClasses(), componentModelGenerator.getEnums(),
+                    componentModelGenerator.getUnions());
+        } catch (Exception e){
+            throw new GraphqlModelGenerationException(String.format(MODEL_GENERATION_ERROR_MSG, e.getMessage()));
+        }
     }
 
 
@@ -92,86 +108,86 @@ public class ModelGenerator {
         return new Position(linePosition.line(), linePosition.offset());
     }
 
-    /**
-     * Get encoded schema string from the given node.
-     */
-    public static String getSchemaString(ServiceDeclarationNode node) throws SchemaFileGenerationException {
-        if (node.metadata().isPresent()) {
-            if (!node.metadata().get().annotations().isEmpty()) {
-                MappingConstructorExpressionNode annotationValue = getAnnotationValue(node.metadata().get());
-                return getSchemaStringFieldFromValue(annotationValue);
-            }
-        }
-        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null, Constants.MESSAGE_MISSING_ANNOTATION);
-    }
+//    /**
+//     * Get encoded schema string from the given node.
+//     */
+//    public static String getSchemaString(ServiceDeclarationNode node) throws SchemaFileGenerationException {
+//        if (node.metadata().isPresent()) {
+//            if (!node.metadata().get().annotations().isEmpty()) {
+//                MappingConstructorExpressionNode annotationValue = getAnnotationValue(node.metadata().get());
+//                return getSchemaStringFieldFromValue(annotationValue);
+//            }
+//        }
+//        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null, Constants.MESSAGE_MISSING_ANNOTATION);
+//    }
 
-    /**
-     * Get schema string field from the given node.
-     */
-    private static String getSchemaStringFieldFromValue(MappingConstructorExpressionNode annotationValue)
-            throws SchemaFileGenerationException {
-        SeparatedNodeList<MappingFieldNode> existingFields = annotationValue.fields();
-        for (MappingFieldNode field : existingFields) {
-            if (field.children().get(0).toString().contains(Constants.SCHEMA_STRING_FIELD)) {
-                String schemaString = field.children().get(2).toString();
-                return schemaString.substring(1, schemaString.length() - 1);
-            }
-        }
-        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
-                Constants.MESSAGE_MISSING_FIELD_SCHEMA_STRING);
-    }
+//    /**
+//     * Get schema string field from the given node.
+//     */
+//    private static String getSchemaStringFieldFromValue(MappingConstructorExpressionNode annotationValue)
+//            throws SchemaFileGenerationException {
+//        SeparatedNodeList<MappingFieldNode> existingFields = annotationValue.fields();
+//        for (MappingFieldNode field : existingFields) {
+//            if (field.children().get(0).toString().contains(Constants.SCHEMA_STRING_FIELD)) {
+//                String schemaString = field.children().get(2).toString();
+//                return schemaString.substring(1, schemaString.length() - 1);
+//            }
+//        }
+//        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
+//                Constants.MESSAGE_MISSING_FIELD_SCHEMA_STRING);
+//    }
 
-    /**
-     * This method use for decode the encoded schema string.
-     *
-     * @param schemaString     encoded schema string
-     * @return GraphQL schema object
-     */
-    public static Schema getDecodedSchema(String schemaString) throws SchemaFileGenerationException {
-        if (schemaString == null || schemaString.isBlank() || schemaString.isEmpty()) {
-            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
-                    Constants.MESSAGE_INVALID_SCHEMA_STRING);
-        }
-        byte[] decodedString = Base64.getDecoder().decode(schemaString.getBytes(StandardCharsets.UTF_8));
-        try {
-            ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedString);
-            ObjectInputStream inputStream = new ObjectInputStream(byteStream);
-            return (Schema) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
-                    Constants.MESSAGE_CANNOT_READ_SCHEMA_STRING);
-        }
-    }
+//    /**
+//     * This method use for decode the encoded schema string.
+//     *
+//     * @param schemaString     encoded schema string
+//     * @return GraphQL schema object
+//     */
+//    public static Schema getDecodedSchema(String schemaString) throws SchemaFileGenerationException {
+//        if (schemaString == null || schemaString.isBlank() || schemaString.isEmpty()) {
+//            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
+//                    Constants.MESSAGE_INVALID_SCHEMA_STRING);
+//        }
+//        byte[] decodedString = Base64.getDecoder().decode(schemaString.getBytes(StandardCharsets.UTF_8));
+//        try {
+//            ByteArrayInputStream byteStream = new ByteArrayInputStream(decodedString);
+//            ObjectInputStream inputStream = new ObjectInputStream(byteStream);
+//            return (Schema) inputStream.readObject();
+//        } catch (IOException | ClassNotFoundException e) {
+//            throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
+//                    Constants.MESSAGE_CANNOT_READ_SCHEMA_STRING);
+//        }
+//    }
 
-    /**
-     * Get annotation value string from the given metadata node.
-     */
-    private static MappingConstructorExpressionNode getAnnotationValue(MetadataNode metadataNode)
-            throws SchemaFileGenerationException {
-        for (AnnotationNode annotationNode: metadataNode.annotations()) {
-            if (isGraphqlServiceConfig(annotationNode) && annotationNode.annotValue().isPresent()) {
-                return annotationNode.annotValue().get();
-            }
-        }
-        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
-                Constants.MESSAGE_MISSING_SERVICE_CONFIG);
-    }
+//    /**
+//     * Get annotation value string from the given metadata node.
+//     */
+//    private static MappingConstructorExpressionNode getAnnotationValue(MetadataNode metadataNode)
+//            throws SchemaFileGenerationException {
+//        for (AnnotationNode annotationNode: metadataNode.annotations()) {
+//            if (isGraphqlServiceConfig(annotationNode) && annotationNode.annotValue().isPresent()) {
+//                return annotationNode.annotValue().get();
+//            }
+//        }
+//        throw new SchemaFileGenerationException(DiagnosticMessage.SDL_SCHEMA_102, null,
+//                Constants.MESSAGE_MISSING_SERVICE_CONFIG);
+//    }
 
-    /**
-     * Check whether the given annotation is a GraphQL service config.
-     *
-     * @param annotationNode     annotation node
-     */
-    private static boolean isGraphqlServiceConfig(AnnotationNode annotationNode) {
-        if (annotationNode.annotReference().kind() != SyntaxKind.QUALIFIED_NAME_REFERENCE) {
-            return false;
-        }
-        QualifiedNameReferenceNode referenceNode = ((QualifiedNameReferenceNode) annotationNode.annotReference());
-        if (!PACKAGE_NAME.equals(referenceNode.modulePrefix().text())) {
-            return false;
-        }
-        return Constants.SERVICE_CONFIG_IDENTIFIER.equals(referenceNode.identifier().text());
-    }
+//    /**
+//     * Check whether the given annotation is a GraphQL service config.
+//     *
+//     * @param annotationNode     annotation node
+//     */
+//    private static boolean isGraphqlServiceConfig(AnnotationNode annotationNode) {
+//        if (annotationNode.annotReference().kind() != SyntaxKind.QUALIFIED_NAME_REFERENCE) {
+//            return false;
+//        }
+//        QualifiedNameReferenceNode referenceNode = ((QualifiedNameReferenceNode) annotationNode.annotReference());
+//        if (!PACKAGE_NAME.equals(referenceNode.modulePrefix().text())) {
+//            return false;
+//        }
+//        return Constants.SERVICE_CONFIG_IDENTIFIER.equals(referenceNode.identifier().text());
+//    }
 
     public static NonTerminalNode findSTNode(Range range, SyntaxTree syntaxTree) {
         TextDocument textDocument = syntaxTree.textDocument();
