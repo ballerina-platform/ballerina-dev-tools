@@ -26,6 +26,12 @@ service /greeting on new http:Listener(8080) {
     resource isolated function get accounts() returns model:Account[] {
         return new 'service:AccountService().getAccounts();
     }
+
+    resource function get weather() returns string|error {
+        recursiveFunction();
+        anotherFunc();
+        return 'service:anotherFunc();
+    }
 }
 
 @display {
@@ -50,4 +56,19 @@ service /time on new http:Listener(9090) {
         }
         
     }
+}
+
+
+function recursiveFunction() {
+    recursiveFunction();
+    circularDependentFunc();
+}
+
+function circularDependentFunc() {
+    recursiveFunction();
+}
+
+function anotherFunc() {
+    recursiveFunction();
+    circularDependentFunc();
 }
