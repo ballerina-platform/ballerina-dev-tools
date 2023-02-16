@@ -112,7 +112,49 @@
               "offset": 4
             },
             "endPosition": {
-              "line":27,
+              "line": 27,
+              "offset": 5
+            }
+          }
+        },
+        {
+          "identifier": "weather",
+          "resourceId": {
+            "serviceId": "001",
+            "path": "weather",
+            "action": "get"
+          },
+          "parameters": [],
+          "returns": ["string","error"],
+          "interactions": [
+            {
+              "resourceId": {
+                "serviceId": null,
+                "path": "getCurrentWeather",
+                "action": "get"
+              },
+              "connectorType": "",
+              "elementLocation": {
+                "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
+                "startPosition": {
+                  "line": 15,
+                  "offset": 11
+                },
+                "endPosition": {
+                  "line": 15,
+                  "offset": 48
+                }
+              }
+            }
+          ],
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
+            "startPosition": {
+              "line": 29,
+              "offset": 4
+            },
+            "endPosition": {
+              "line": 33,
               "offset": 5
             }
           }
@@ -142,7 +184,7 @@
           "offset": 0
         },
         "endPosition": {
-          "line": 28,
+          "line": 34,
           "offset": 1
         }
       }
@@ -170,11 +212,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
-                  "line": 35,
+                  "line": 41,
                   "offset": 35
                 },
                 "endPosition": {
-                  "line": 35,
+                  "line": 41,
                   "offset": 46
                 }
               }
@@ -187,11 +229,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
-              "line": 35,
+              "line": 41,
               "offset": 4
             },
             "endPosition": {
-              "line": 51,
+              "line": 57,
               "offset": 5
             }
           }
@@ -203,11 +245,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
           "startPosition": {
-            "line": 30,
+            "line": 36,
             "offset": 0
           },
           "endPosition": {
-            "line": 33,
+            "line": 39,
             "offset": 1
           }
         }
@@ -217,11 +259,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
-          "line": 30,
+          "line": 36,
           "offset": 0
         },
         "endPosition": {
-          "line": 52,
+          "line": 58,
           "offset": 1
         }
       }
