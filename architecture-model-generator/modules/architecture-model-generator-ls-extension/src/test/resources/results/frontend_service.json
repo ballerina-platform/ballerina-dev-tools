@@ -350,25 +350,6 @@
             },
             {
               "resourceId": {
-                "serviceId": "catalog",
-                "path": null,
-                "action": "GetProduct"
-              },
-              "connectorType": "test/frontend_service:0.1.0:ProductCatalogServiceClient",
-              "elementLocation": {
-                "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
-                "startPosition": {
-                  "line": 86,
-                  "offset": 33
-                },
-                "endPosition": {
-                  "line": 86,
-                  "offset": 63
-                }
-              }
-            },
-            {
-              "resourceId": {
                 "serviceId": "ads",
                 "path": null,
                 "action": "GetAds"
@@ -530,63 +511,6 @@
                 "endPosition": {
                   "line": 152,
                   "offset": 70
-                }
-              }
-            },
-            {
-              "resourceId": {
-                "serviceId": "currency",
-                "path": null,
-                "action": "Convert"
-              },
-              "connectorType": "test/frontend_service:0.1.0:CurrencyServiceClient",
-              "elementLocation": {
-                "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
-                "startPosition": {
-                  "line": 139,
-                  "offset": 31
-                },
-                "endPosition": {
-                  "line": 139,
-                  "offset": 60
-                }
-              }
-            },
-            {
-              "resourceId": {
-                "serviceId": "currency",
-                "path": null,
-                "action": "Convert"
-              },
-              "connectorType": "test/frontend_service:0.1.0:CurrencyServiceClient",
-              "elementLocation": {
-                "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
-                "startPosition": {
-                  "line": 144,
-                  "offset": 11
-                },
-                "endPosition": {
-                  "line": 144,
-                  "offset": 40
-                }
-              }
-            },
-            {
-              "resourceId": {
-                "serviceId": "catalog",
-                "path": null,
-                "action": "GetProduct"
-              },
-              "connectorType": "test/frontend_service:0.1.0:ProductCatalogServiceClient",
-              "elementLocation": {
-                "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
-                "startPosition": {
-                  "line": 86,
-                  "offset": 33
-                },
-                "endPosition": {
-                  "line": 86,
-                  "offset": 63
                 }
               }
             },

@@ -29,11 +29,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
-                  "line": 13,
+                  "line": 15,
                   "offset": 29
                 },
                 "endPosition": {
-                  "line": 13,
+                  "line": 15,
                   "offset": 40
                 }
               }
@@ -48,11 +48,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
-                  "line": 13,
+                  "line": 15,
                   "offset": 42
                 },
                 "endPosition": {
-                  "line": 13,
+                  "line": 15,
                   "offset": 53
                 }
               }
@@ -73,11 +73,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
-                  "line": 19,
+                  "line": 21,
                   "offset": 32
                 },
                 "endPosition": {
-                  "line": 19,
+                  "line": 21,
                   "offset": 76
                 }
               }
@@ -86,11 +86,75 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
-              "line": 13,
+              "line": 15,
               "offset": 4
             },
             "endPosition": {
-              "line": 21,
+              "line": 23,
+              "offset":5
+            }
+          }
+        },
+        {
+          "identifier": "accounts",
+          "resourceId": {
+            "serviceId": "001",
+            "path": "accounts",
+            "action": "get"
+          },
+          "parameters": [],
+          "returns": ["aneesha/single_service_sample:model:0.1.0:Account"],
+          "interactions": [],
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
+            "startPosition": {
+              "line": 25,
+              "offset": 4
+            },
+            "endPosition": {
+              "line": 27,
+              "offset": 5
+            }
+          }
+        },
+        {
+          "identifier": "weather",
+          "resourceId": {
+            "serviceId": "001",
+            "path": "weather",
+            "action": "get"
+          },
+          "parameters": [],
+          "returns": ["string","error"],
+          "interactions": [
+            {
+              "resourceId": {
+                "serviceId": null,
+                "path": "getCurrentWeather",
+                "action": "get"
+              },
+              "connectorType": "",
+              "elementLocation": {
+                "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
+                "startPosition": {
+                  "line": 15,
+                  "offset": 11
+                },
+                "endPosition": {
+                  "line": 15,
+                  "offset": 48
+                }
+              }
+            }
+          ],
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
+            "startPosition": {
+              "line": 29,
+              "offset": 4
+            },
+            "endPosition": {
+              "line": 33,
               "offset": 5
             }
           }
@@ -102,11 +166,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
           "startPosition": {
-            "line": 8,
+            "line": 10,
             "offset": 0
           },
           "endPosition": {
-            "line": 11,
+            "line": 13,
             "offset": 1
           }
         }
@@ -116,11 +180,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
-          "line": 8,
+          "line": 10,
           "offset": 0
         },
         "endPosition": {
-          "line": 22,
+          "line": 34,
           "offset": 1
         }
       }
@@ -148,11 +212,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
-                  "line": 29,
+                  "line": 41,
                   "offset": 35
                 },
                 "endPosition": {
-                  "line": 29,
+                  "line": 41,
                   "offset": 46
                 }
               }
@@ -165,11 +229,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
-              "line": 29,
+              "line": 41,
               "offset": 4
             },
             "endPosition": {
-              "line": 45,
+              "line": 57,
               "offset": 5
             }
           }
@@ -181,11 +245,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
           "startPosition": {
-            "line": 24,
+            "line": 36,
             "offset": 0
           },
           "endPosition": {
-            "line": 27,
+            "line": 39,
             "offset": 1
           }
         }
@@ -195,11 +259,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
-          "line": 24,
+          "line": 36,
           "offset": 0
         },
         "endPosition": {
-          "line": 46,
+          "line": 58,
           "offset": 1
         }
       }

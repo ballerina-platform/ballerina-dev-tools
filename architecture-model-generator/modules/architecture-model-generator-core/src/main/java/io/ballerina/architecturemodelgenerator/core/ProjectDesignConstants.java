@@ -51,6 +51,7 @@ public class ProjectDesignConstants {
         }
     }
 
+    public static final String MODEL_VERSION = "0.1.0";
     public static final String CAPABILITY_NAME = "multiServiceModelingService";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
@@ -59,10 +60,17 @@ public class ProjectDesignConstants {
     public static final String CLIENT_ANNOTATION = "choreo:Client";
     public static final String ID = "id";
     public static final String LABEL = "label";
+    public static final String MODULES = "modules";
     public static final String SERVICE_ID = "serviceId";
     public static final String ARRAY = "[]";
     public static final String LISTENER = ":Listener";
     public static final String CLIENT = ":Client";
+
+    // Entity Model Generator Related Consts
+    public static final String CONSTRAINT_KEYWORD = "constraint";
+    public static final String CONSTRAINT_ARRAY = "Array";
+    public static final String MIN_LENGTH_FIELD = "minLength";
+    public static final String MAX_LENGTH_FIELD = "maxLength";
 
     /**
      * Enum for cardinality types.
@@ -74,7 +82,8 @@ public class ProjectDesignConstants {
         ONE("1"),
         ONE_AND_ONLY_ONE("1-1"),
         ONE_OR_MANY("1-m"),
-        MANY("m");
+        MANY("m"),
+        CUSTOM();
 
         private final String cardinalityValue;
 
@@ -82,8 +91,16 @@ public class ProjectDesignConstants {
             this.cardinalityValue = cardinalityValue;
         }
 
+        CardinalityValue() {
+            this.cardinalityValue = "";
+        }
+
         public String getValue() {
             return this.cardinalityValue;
+        }
+
+        public String getCustomValue(String min, String max) {
+            return min + "-" + max;
         }
     }
 
