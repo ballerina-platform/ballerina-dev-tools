@@ -9,14 +9,16 @@ public class GraphqlModel {
     private final Map<String, ServiceClassComponent> serviceClasses;
     private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
+    private final Map<String, InterfaceComponent> interfaces;
 
     public GraphqlModel(Service graphqlService, Map<String, RecordComponent> records,
-                        Map<String, ServiceClassComponent> serviceClasses, Map<String, EnumComponent> enums, Map<String, UnionComponent> unions) {
+                        Map<String, ServiceClassComponent> serviceClasses, Map<String, EnumComponent> enums, Map<String, UnionComponent> unions, Map<String, InterfaceComponent> interfaces) {
         this.graphqlService = graphqlService;
         this.records = records;
         this.serviceClasses = serviceClasses;
         this.enums = enums;
         this.unions = unions;
+        this.interfaces = interfaces;
     }
 }
 

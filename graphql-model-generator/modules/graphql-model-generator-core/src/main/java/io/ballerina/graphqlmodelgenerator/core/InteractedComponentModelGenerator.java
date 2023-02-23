@@ -22,6 +22,8 @@ public class InteractedComponentModelGenerator {
     private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
 
+    private final Map<String, InterfaceComponent> interfaces;
+
     public Map<String, RecordComponent> getRecords() {
         return records;
     }
@@ -38,18 +40,24 @@ public class InteractedComponentModelGenerator {
         return unions;
     }
 
+    public Map<String, InterfaceComponent> getInterfaces() {
+        return interfaces;
+    }
+
     public InteractedComponentModelGenerator(Schema schema){
         this.schemaObj = schema;
         this.records = new HashMap<>();
         this.serviceClasses = new HashMap<>();
         this.enums = new HashMap<>();
         this.unions = new HashMap<>();
+        this.interfaces =  new HashMap<>();
     }
 
     public void generate(){
         for (var entry: schemaObj.getTypes().entrySet()){
             if ((entry.getValue().getKind() == TypeKind.OBJECT || entry.getValue().getKind() == TypeKind.INPUT_OBJECT ||
-                    entry.getValue().getKind() == TypeKind.ENUM || entry.getValue().getKind() == TypeKind.UNION) &&
+                    entry.getValue().getKind() == TypeKind.ENUM || entry.getValue().getKind() == TypeKind.UNION ||
+                    entry.getValue().getKind() == TypeKind.INTERFACE) &&
            !isReservedType(entry.getKey())) {
 
                 if (entry.getValue().getObjectKind() == ObjectKind.RECORD &&
@@ -62,9 +70,43 @@ public class InteractedComponentModelGenerator {
                     this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.UNION) {
                     this.unions.put(entry.getValue().getName(), generateUnionComponent(entry.getValue()));
+                } else if (entry.getValue().getKind() == TypeKind.INTERFACE) {
+                    this.interfaces.put(entry.getValue().getName(), generateInterfaceComponent(entry.getValue()));
                 }
             }
         }
+    }
+
+    private InterfaceComponent generateInterfaceComponent(Type objType) {
+        List<Interaction> possibleTypes = new ArrayList<>();
+        objType.getPossibleTypes().forEach(type -> {
+            possibleTypes.add(new Interaction(type.getName(), type.getPosition().getFilePath()));
+        });
+        List<ResourceFunction> resourceFunctions = new ArrayList<>();
+        objType.getFields().forEach(field -> {
+            String typeDesc = ModelGenerationUtils.getFormattedFieldType(field.getType());
+            List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
+            List<Param> params = new ArrayList<>();
+            field.getArgs().forEach(inputValue -> {
+                Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                        inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                params.add(param);
+                Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                    String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                    if (inputObj != null){
+                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                    }
+                }
+            });
+            ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false, typeDesc, null, field.getDescription(),
+                    field.isDeprecated(), field.getDeprecationReason(), params, interactionList);
+            resourceFunctions.add(resourceFunction);
+        });
+
+        InterfaceComponent interfaceComponent = new InterfaceComponent(objType.getName(),  objType.getPosition(), objType.getDescription(),
+             possibleTypes, resourceFunctions);
+        return interfaceComponent;
     }
 
     private ServiceClassComponent generateServiceClassComponent(Type objType) {

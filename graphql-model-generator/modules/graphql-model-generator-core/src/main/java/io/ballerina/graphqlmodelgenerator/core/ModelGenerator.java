@@ -1,6 +1,5 @@
 package io.ballerina.graphqlmodelgenerator.core;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
@@ -15,11 +14,7 @@ import io.ballerina.projects.*;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
-import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
-import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextRange;
-import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
 import java.nio.file.Path;
@@ -81,7 +76,7 @@ public class ModelGenerator {
 
             return new GraphqlModel(graphqlService, componentModelGenerator.getRecords(),
                     componentModelGenerator.getServiceClasses(), componentModelGenerator.getEnums(),
-                    componentModelGenerator.getUnions());
+                    componentModelGenerator.getUnions(), componentModelGenerator.getInterfaces());
         } catch (Exception e){
             throw new GraphqlModelGenerationException(String.format(MODEL_GENERATION_ERROR_MSG, e.getMessage()));
         }
