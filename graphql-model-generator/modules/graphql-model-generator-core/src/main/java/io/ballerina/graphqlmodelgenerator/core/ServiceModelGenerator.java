@@ -40,7 +40,7 @@ public class ServiceModelGenerator {
                     if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
                         String inputObj = ModelGenerationUtils.getFieldType(paramType);
                         if (inputObj != null){
-                            links.add(new Interaction(inputObj));
+                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
                         }
                     }
                 });
@@ -65,7 +65,7 @@ public class ServiceModelGenerator {
                     if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
                         String inputObj = ModelGenerationUtils.getFieldType(paramType);
                         if (inputObj != null){
-                            links.add(new Interaction(inputObj));
+                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
                         }
                     }
                 });
@@ -91,7 +91,7 @@ public class ServiceModelGenerator {
                     if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
                         String inputObj = ModelGenerationUtils.getFieldType(paramType);
                         if (inputObj != null){
-                            links.add(new Interaction(inputObj));
+                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
                         }
                     }
                 });

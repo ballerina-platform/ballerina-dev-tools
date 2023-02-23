@@ -82,7 +82,7 @@ public class InteractedComponentModelGenerator {
                 if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
                     String inputObj = ModelGenerationUtils.getFieldType(paramType);
                     if (inputObj != null){
-                        interactionList.add(new Interaction(inputObj));
+                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
                     }
                 }
             });
@@ -177,7 +177,7 @@ public class InteractedComponentModelGenerator {
     private UnionComponent generateUnionComponent(Type objType) {
         List<Interaction> possibleTypes = new ArrayList<>();
         objType.getPossibleTypes().forEach(type -> {
-            possibleTypes.add(new Interaction(type.getName()));
+            possibleTypes.add(new Interaction(type.getName(), type.getPosition().getFilePath()));
         });
         UnionComponent unionComponent = new UnionComponent(objType.getName(), objType.getPosition(),
                 objType.getDescription(), possibleTypes);

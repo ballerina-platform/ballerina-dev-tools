@@ -46,6 +46,22 @@ public class ModelGenerationUtils {
         }
     }
 
+    public static String getPathOfFieldType(Type type) {
+        if (type.getKind().equals(TypeKind.NON_NULL)) {
+            return getPathOfFieldType(type.getOfType());
+        } else if (type.getKind().equals(TypeKind.LIST)) {
+            return getPathOfFieldType(type.getOfType());
+        } else {
+            if (type.getKind().equals(TypeKind.SCALAR)){
+                return null;
+            } else {
+                return type.getPosition().getFilePath();
+            }
+
+        }
+    }
+
+
     public static Type getType(Type type) {
         if (type.getKind().equals(TypeKind.NON_NULL)) {
             return getType(type.getOfType());
@@ -72,7 +88,7 @@ public class ModelGenerationUtils {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());
         if (link != null){
-            links.add(new Interaction(link));
+            links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(field.getType())));
         }
         return links;
     }
@@ -81,7 +97,7 @@ public class ModelGenerationUtils {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(inputValue.getType());
         if (link != null){
-            links.add(new Interaction(link));
+            links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(inputValue.getType())));
         }
         return links;
     }
