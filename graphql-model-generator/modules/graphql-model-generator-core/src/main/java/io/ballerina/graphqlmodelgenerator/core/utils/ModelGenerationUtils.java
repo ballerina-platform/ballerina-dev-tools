@@ -55,7 +55,7 @@ public class ModelGenerationUtils {
             if (type.getKind().equals(TypeKind.SCALAR)){
                 return null;
             } else {
-                return type.getPosition().getFilePath();
+                return (type.getPosition() != null ? type.getPosition().getFilePath() : null);
             }
 
         }
@@ -88,7 +88,9 @@ public class ModelGenerationUtils {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());
         if (link != null){
-            links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(field.getType())));
+            if (!link.isBlank()){
+                links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(field.getType())));
+            }
         }
         return links;
     }

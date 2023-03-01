@@ -60,15 +60,14 @@ public class InteractedComponentModelGenerator {
                     entry.getValue().getKind() == TypeKind.INTERFACE) &&
            !isReservedType(entry.getKey())) {
 
-                if (entry.getValue().getObjectKind() == ObjectKind.RECORD &&
-                        (entry.getValue().getKind() == TypeKind.OBJECT ||
-                                entry.getValue().getKind() == TypeKind.INPUT_OBJECT)) {
+                if (entry.getValue().getObjectKind() == ObjectKind.RECORD ||
+                        entry.getValue().getKind() == TypeKind.INPUT_OBJECT) {
                     this.records.put(entry.getValue().getName(), generateRecordComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.OBJECT) {
                     this.serviceClasses.put(entry.getValue().getName(), generateServiceClassComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.ENUM) {
                     this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
-                } else if (entry.getValue().getKind() == TypeKind.UNION) {
+                } else if (entry.getValue().getKind() == TypeKind.UNION && !entry.getValue().getName().isBlank()) {
                     this.unions.put(entry.getValue().getName(), generateUnionComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.INTERFACE) {
                     this.interfaces.put(entry.getValue().getName(), generateInterfaceComponent(entry.getValue()));
@@ -166,46 +165,6 @@ public class InteractedComponentModelGenerator {
 
     }
 
-//    private ObjectComponent generateObjectComponent(Type objType) {
-//        if (objType.getObjectKind() == ObjectKind.RECORD) {
-//            List<RecordField> recordFields = new ArrayList<>();
-//            objType.getFields().forEach(field -> {
-//                String typeDesc = ModelGenerationUtils.getFormattedFieldType(field.getType());
-//                List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-//                RecordField recordField = new RecordField(field.getName(), typeDesc, "",
-//                        field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), interactionList);
-//                recordFields.add(recordField);
-//            });
-//
-//            RecordComponent recordComponent = new RecordComponent(objType.getName(), objType.getPosition(),
-//                    objType.getDescription(), recordFields, objType.getKind() == TypeKind.INPUT_OBJECT );
-//        }
-//
-//        List<Field> fields = new ArrayList<>();
-//        if (objType.getKind() == TypeKind.OBJECT){
-//            objType.getFields().forEach((field) -> {
-//                String returnType = ModelGenerationUtils.getFormattedFieldType(field.getType());
-//                List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-//                Field objField = new Field(field.getName(),returnType,field.getDescription(),field.isDeprecated(), field.getDeprecationReason(),interactionList,null);
-//                fields.add(objField);
-//
-//            });
-//        } else {
-//            objType.getInputFields().forEach((field) -> {
-//                String returnType = ModelGenerationUtils.getFormattedFieldType(field.getType());
-//                List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
-//                Field objField = new Field(field.getName(),returnType,field.getDescription(),interactionList);
-//                fields.add(objField);
-//
-//            });
-//        }
-//
-//
-//        ObjectComponent objectComponent = new ObjectComponent(objType.getKind() == TypeKind.INPUT_OBJECT ? ObjectKind.RECORD : objType.getObjectKind(),
-//                objType.getKind() == TypeKind.INPUT_OBJECT, objType.getPosition(), fields);
-//        return objectComponent;
-//    }
-
     private EnumComponent generateEnumComponent(Type objType) {
         List<EnumField> enumFields = new ArrayList<>();
         objType.getEnumValues().forEach(enumValue -> {
@@ -226,14 +185,4 @@ public class InteractedComponentModelGenerator {
         return unionComponent;
     }
 
-//    private boolean isComponentPresent(TypeKind typeKind){
-//        boolean isFound = false;
-//        for (var entry: schemaObj.getTypes().entrySet()) {
-//            if (entry.getValue().getKind() == typeKind && !isReservedType(entry.getValue().getName())){
-//                isFound = true;
-//                break;
-//            }
-//        }
-//        return isFound;
-//    }
 }
