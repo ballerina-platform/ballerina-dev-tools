@@ -1,9 +1,21 @@
 package io.ballerina.graphqlmodelgenerator.core;
 
-import io.ballerina.graphqlmodelgenerator.core.model.*;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.graphqlmodelgenerator.core.model.EnumComponent;
+import io.ballerina.graphqlmodelgenerator.core.model.EnumField;
+import io.ballerina.graphqlmodelgenerator.core.model.HierarchicalResourceComponent;
+import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
+import io.ballerina.graphqlmodelgenerator.core.model.InterfaceComponent;
+import io.ballerina.graphqlmodelgenerator.core.model.Param;
+import io.ballerina.graphqlmodelgenerator.core.model.RecordComponent;
+import io.ballerina.graphqlmodelgenerator.core.model.RecordField;
+import io.ballerina.graphqlmodelgenerator.core.model.ResourceFunction;
+import io.ballerina.graphqlmodelgenerator.core.model.ServiceClassComponent;
+import io.ballerina.graphqlmodelgenerator.core.model.ServiceClassField;
+import io.ballerina.graphqlmodelgenerator.core.model.UnionComponent;
 import io.ballerina.graphqlmodelgenerator.core.utils.ModelGenerationUtils;
 import io.ballerina.stdlib.graphql.commons.types.ObjectKind;
+import io.ballerina.stdlib.graphql.commons.types.Position;
 import io.ballerina.stdlib.graphql.commons.types.Schema;
 import io.ballerina.stdlib.graphql.commons.types.Type;
 import io.ballerina.stdlib.graphql.commons.types.TypeKind;
@@ -17,12 +29,13 @@ import static io.ballerina.graphqlmodelgenerator.core.model.DefaultIntrospection
 
 public class InteractedComponentModelGenerator {
     private final Schema schemaObj;
+    private final SyntaxTree syntaxTree;
     private final Map<String, RecordComponent> records;
     private final Map<String, ServiceClassComponent> serviceClasses;
     private final Map<String, EnumComponent> enums;
     private final Map<String, UnionComponent> unions;
-
     private final Map<String, InterfaceComponent> interfaces;
+    private final Map<String, HierarchicalResourceComponent> hierarchicalResources;
 
     public Map<String, RecordComponent> getRecords() {
         return records;
@@ -44,13 +57,19 @@ public class InteractedComponentModelGenerator {
         return interfaces;
     }
 
-    public InteractedComponentModelGenerator(Schema schema){
+    public Map<String, HierarchicalResourceComponent> getHierarchicalResources() {
+        return hierarchicalResources;
+    }
+
+    public InteractedComponentModelGenerator(Schema schema, SyntaxTree syntaxTree){
         this.schemaObj = schema;
+        this.syntaxTree = syntaxTree;
         this.records = new HashMap<>();
         this.serviceClasses = new HashMap<>();
         this.enums = new HashMap<>();
         this.unions = new HashMap<>();
         this.interfaces =  new HashMap<>();
+        this.hierarchicalResources = new HashMap<>();
     }
 
     public void generate(){
@@ -63,7 +82,8 @@ public class InteractedComponentModelGenerator {
                 if (entry.getValue().getObjectKind() == ObjectKind.RECORD ||
                         entry.getValue().getKind() == TypeKind.INPUT_OBJECT) {
                     this.records.put(entry.getValue().getName(), generateRecordComponent(entry.getValue()));
-                } else if (entry.getValue().getKind() == TypeKind.OBJECT) {
+                } else if (entry.getValue().getKind() == TypeKind.OBJECT &&
+                        entry.getValue().getObjectKind() == ObjectKind.CLASS) {
                     this.serviceClasses.put(entry.getValue().getName(), generateServiceClassComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.ENUM) {
                     this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
@@ -71,9 +91,40 @@ public class InteractedComponentModelGenerator {
                     this.unions.put(entry.getValue().getName(), generateUnionComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.INTERFACE) {
                     this.interfaces.put(entry.getValue().getName(), generateInterfaceComponent(entry.getValue()));
+                } else if (entry.getValue().getKind() == TypeKind.OBJECT) {
+                    this.hierarchicalResources.put(entry.getValue().getName(), generateHierarchicalResourceComponent(entry.getValue()));
                 }
             }
         }
+    }
+
+    private HierarchicalResourceComponent generateHierarchicalResourceComponent(Type objType) {
+        List<ResourceFunction> resourceFunctions = new ArrayList<>();
+        objType.getFields().forEach(field -> {
+            String typeDesc = ModelGenerationUtils.getFormattedFieldType(field.getType());
+            List<Interaction> interactionList = ModelGenerationUtils.getInteractionList(field);
+            List<Param> params = new ArrayList<>();
+            field.getArgs().forEach(inputValue -> {
+                Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                        inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                params.add(param);
+                Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                    String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                    if (inputObj != null){
+                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                    }
+                }
+            });
+            Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
+            ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,typeDesc,
+                    position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, interactionList);
+            resourceFunctions.add(resourceFunction);
+
+        });
+
+        HierarchicalResourceComponent hierarchicalResourceComponent = new HierarchicalResourceComponent(objType.getName(), resourceFunctions);
+        return hierarchicalResourceComponent;
     }
 
     private InterfaceComponent generateInterfaceComponent(Type objType) {

@@ -71,12 +71,13 @@ public class ModelGenerator {
             Service graphqlService = serviceModelGenerator.generate();
 
             InteractedComponentModelGenerator componentModelGenerator = new
-                    InteractedComponentModelGenerator(schemaObj);
+                    InteractedComponentModelGenerator(schemaObj, syntaxTree);
             componentModelGenerator.generate();
 
             return new GraphqlModel(graphqlService, componentModelGenerator.getRecords(),
                     componentModelGenerator.getServiceClasses(), componentModelGenerator.getEnums(),
-                    componentModelGenerator.getUnions(), componentModelGenerator.getInterfaces());
+                    componentModelGenerator.getUnions(), componentModelGenerator.getInterfaces(),
+                    componentModelGenerator.getHierarchicalResources());
         } catch (Exception e){
             throw new GraphqlModelGenerationException(String.format(MODEL_GENERATION_ERROR_MSG, e.getMessage()));
         }

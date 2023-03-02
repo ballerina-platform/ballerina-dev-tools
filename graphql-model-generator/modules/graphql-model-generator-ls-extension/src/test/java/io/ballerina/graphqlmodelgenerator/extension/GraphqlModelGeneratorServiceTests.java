@@ -19,7 +19,7 @@ public class GraphqlModelGeneratorServiceTests {
     private static final String RESPONSES = "responses";
     private static final String PROJECT_DESIGN_SERVICE = "graphqlDesignService/getGraphqlModel";
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test service with operations, outputs(enum,record,class), documentation and directives")
     public void testDifferentOutputsAndOperations() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "01_graphql_service.bal"));
@@ -35,7 +35,7 @@ public class GraphqlModelGeneratorServiceTests {
     }
 
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test service with input objects")
     public void testInputObjects() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "02_graphql_service.bal"));
@@ -50,7 +50,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("02_graphql_service.json"));
     }
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test service with interfaces")
     public void testServiceWithInterfaces() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "03_service_with_interfaces.bal"));
@@ -65,7 +65,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("03_service_with_interfaces.json"));
     }
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test service with union output")
     public void testServiceWithUnionOutput() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "04_service_with_union_outputs.bal"));
@@ -80,7 +80,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("04_service_with_union_output.json"));
     }
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test outputs from different files other than the service file")
     public void testObjectsFromDifferentFiles() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "05_outputs_from_different_file.bal"));
@@ -95,7 +95,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("05_outputs_from_different_file.json"));
     }
 
-    @Test(description = "test resource with record and service class as output")
+    @Test(description = "test graphql file uploads")
     public void testFileUploads() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "06_file_uploads.bal"));
@@ -108,6 +108,21 @@ public class GraphqlModelGeneratorServiceTests {
 
         Assert.assertEquals(getFormattedResponse(request, serviceEndpoint),
                 getExpectedResponse("06_file_uploads.json"));
+    }
+
+    @Test(description = "test resource paths with hierarchical paths")
+    public void testHierarchicalResourcePaths() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("graphql_services", "07_hierarchical_resource_paths.bal"));
+
+        Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
+        TestUtil.openDocument(serviceEndpoint, projectPath);
+
+        GraphqlDesignServiceRequest request = new GraphqlDesignServiceRequest(projectPath.toString(),
+                LinePosition.from(2, 0), LinePosition.from(17, 1));
+
+        Assert.assertEquals(getFormattedResponse(request, serviceEndpoint),
+                getExpectedResponse("07_hierarchical_resource_paths.json"));
     }
 
 

@@ -113,6 +113,9 @@ public class ModelGenerationUtils {
     }
 
     public static Position findNodeRange(Position position, SyntaxTree syntaxTree) {
+        if (position == null) {
+            return null;
+        }
         LineRange lineRange = CommonUtil.toLineRange(position);
         Range range = CommonUtil.toRange(lineRange);
         Node methodNode = CommonUtil.findSTNode(range, syntaxTree);
