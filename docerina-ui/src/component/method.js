@@ -65,37 +65,37 @@ const Method = (props) => {
                 {props.method.inclusionType != null && <p>Method included from <span data-tooltip="Type inclusion" data-position="top left">*</span>{getTypeLabel(props.method.inclusionType)}</p>}
             </div>
             {props.method.inclusionType == null &&
-            <>
-                {props.method.parameters.length > 0 &&
-                <div className="parameters">
-                    <h3 className="param-title">Parameters</h3>
-                    {props.method.parameters.map(item => (
-                        <div key={item.name} className="params-listing">
-                            <ul>
-                                <li>
-                                    <span className={item.isDeprecated ? "strike" : ""}>{item.name}</span>
-                                    <span className="type">  {getTypeLabel(item.type)} </span>
-                                    {item.defaultValue != "" && <span className="default"> (default {item.defaultValue})</span>}
-                                </li>
-                                {
-                                    item.isDeprecated == true &&
-                                    <div className="ui orange horizontal label">Deprecated</div>
-                                }
-                                <Markdown text={item.description} />
+                <>
+                    {props.method.parameters.length > 0 &&
+                        <div className="parameters">
+                            <h3 className="param-title">Parameters</h3>
+                            {props.method.parameters.map(item => (
+                                <div key={item.name} className="params-listing">
+                                    <ul>
+                                        <li>
+                                            <span className={item.isDeprecated ? "strike" : ""}>{item.name}</span>
+                                            <span className="type">  {getTypeLabel(item.type)} </span>
+                                            {item.defaultValue != "" && <span className="default"> (default {item.defaultValue})</span>}
+                                        </li>
+                                        {
+                                            item.isDeprecated == true &&
+                                            <div className="ui orange horizontal label">Deprecated</div>
+                                        }
+                                        <Markdown text={item.description} />
 
-                            </ul>
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-                }
+                    }
 
-                {props.method.returnParameters.length > 0 &&
-                <div className="returns-listing">
-                    <h3 className="type">Return Type</h3> (<span className="type">{getTypeLabel(props.method.returnParameters[0].type)}</span>)
-                    <Markdown text={props.method.returnParameters[0].description} />
-                </div>
-                }
-            </>
+                    {props.method.returnParameters.length > 0 &&
+                        <div className="returns-listing">
+                            <h3 className="type">Return Type</h3> (<span className="type">{getTypeLabel(props.method.returnParameters[0].type)}</span>)
+                            <Markdown text={props.method.returnParameters[0].description} />
+                        </div>
+                    }
+                </>
             }
         </div>
     );

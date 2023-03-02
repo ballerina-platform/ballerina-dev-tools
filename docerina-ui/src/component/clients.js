@@ -46,76 +46,76 @@ const Client = (props) => {
 
             <section className="construct-page">
                 {client != null &&
-                <section>
-                    <h1>Client: <span className={client.isDeprecated ? "strike clients" : "clients"}>{client.name}</span></h1>
-                    {
-                        client.isDeprecated == true &&
-                        <div className="ui orange horizontal label">Deprecated</div>
-                    }
-                    {
-                        client.isIsolated == true &&
-                        <div className="ui horizontal label">Isolated</div>
-                    }
-                    {
-                        client.isReadOnly == true &&
-                        <div className="ui horizontal label">Read Only</div>
-                    }
-                    <Markdown text={client.description} />
-                    <div className="constants">
-                        <div className="method-sum">
+                    <section>
+                        <h1>Client: <span className={client.isDeprecated ? "strike clients" : "clients"}>{client.name}</span></h1>
+                        {
+                            client.isDeprecated == true &&
+                            <div className="ui orange horizontal label">Deprecated</div>
+                        }
+                        {
+                            client.isIsolated == true &&
+                            <div className="ui horizontal label">Isolated</div>
+                        }
+                        {
+                            client.isReadOnly == true &&
+                            <div className="ui horizontal label">Read Only</div>
+                        }
+                        <Markdown text={client.description} />
+                        <div className="constants">
+                            <div className="method-sum">
 
-                            {client.initMethod != null && <InitMethod initMethod={client.initMethod} />}
+                                {client.initMethod != null && <InitMethod initMethod={client.initMethod} />}
 
-                            {client.remoteMethods != null && client.remoteMethods.length > 0 &&
-                            <section className="method-list">
-                                <h2>Remote Methods</h2>
-                                <div>
-                                    <MethodTable {...props} methods={client.remoteMethods} />
-                                </div>
-                            </section>
+                                {client.remoteMethods != null && client.remoteMethods.length > 0 &&
+                                    <section className="method-list">
+                                        <h2>Remote Methods</h2>
+                                        <div>
+                                            <MethodTable {...props} methods={client.remoteMethods} />
+                                        </div>
+                                    </section>
+                                }
+                                {client.resourceMethods != null && client.resourceMethods.length > 0 &&
+                                    <section className="method-list">
+                                        <h2>Resource Methods</h2>
+                                        <div>
+                                            <MethodTable {...props} methods={client.resourceMethods} />
+                                        </div>
+                                    </section>
+                                }
+                                {client.otherMethods != null && client.otherMethods.length > 0 &&
+                                    <section className="method-list">
+                                        <h2>Methods</h2>
+                                        <div className="method-list">
+                                            <MethodTable {...props} methods={client.otherMethods} />
+                                        </div>
+                                    </section>
+                                }
+                                {client.fields != null && client.fields.length > 0 &&
+                                    <section className="fields-list">
+                                        <h2>Fields</h2>
+                                        <div>
+                                            <Fields fields={client.fields} />
+                                        </div>
+                                    </section>
+                                }
+                            </div>
+                            {client.remoteMethods != null &&
+                                client.remoteMethods.map(item => (
+                                    <div key={item.name}><Method method={item} /></div>
+                                ))
                             }
-                            {client.resourceMethods != null && client.resourceMethods.length > 0 &&
-                            <section className="method-list">
-                                <h2>Resource Methods</h2>
-                                <div>
-                                    <MethodTable {...props} methods={client.resourceMethods} />
-                                </div>
-                            </section>
+                            {client.resourceMethods != null &&
+                                client.resourceMethods.map(item => (
+                                    <div key={item.name}><Method method={item} /></div>
+                                ))
                             }
-                            {client.otherMethods != null && client.otherMethods.length > 0 &&
-                            <section className="method-list">
-                                <h2>Methods</h2>
-                                <div className="method-list">
-                                    <MethodTable {...props} methods={client.otherMethods} />
-                                </div>
-                            </section>
-                            }
-                            {client.fields != null && client.fields.length > 0 &&
-                            <section className="fields-list">
-                                <h2>Fields</h2>
-                                <div>
-                                    <Fields fields={client.fields} />
-                                </div>
-                            </section>
+                            {client.otherMethods != null &&
+                                client.otherMethods.map(item => (
+                                    <div key={item.name}><Method method={item} /></div>
+                                ))
                             }
                         </div>
-                        {client.remoteMethods != null &&
-                        client.remoteMethods.map(item => (
-                            <div key={item.name}><Method method={item} /></div>
-                        ))
-                        }
-                        {client.resourceMethods != null &&
-                        client.resourceMethods.map(item => (
-                            <div key={item.name}><Method method={item} /></div>
-                        ))
-                        }
-                        {client.otherMethods != null &&
-                        client.otherMethods.map(item => (
-                            <div key={item.name}><Method method={item} /></div>
-                        ))
-                        }
-                    </div>
-                </section>
+                    </section>
                 }
             </section>
         </Layout>
