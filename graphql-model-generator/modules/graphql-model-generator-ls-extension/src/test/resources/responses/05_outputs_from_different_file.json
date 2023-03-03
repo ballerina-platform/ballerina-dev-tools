@@ -178,5 +178,6 @@
     }
   },
   "unions": {},
-  "interfaces": {}
+  "interfaces": {},
+  "hierarchicalResources": {}
 }

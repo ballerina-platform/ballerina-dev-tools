@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.graphqlmodelgenerator.extension;
 
 import com.google.gson.Gson;
@@ -24,6 +42,11 @@ import java.util.concurrent.CompletableFuture;
 import static io.ballerina.graphqlmodelgenerator.core.Constants.EMPTY_SEMANTIC_MODEL_MSG;
 import static io.ballerina.graphqlmodelgenerator.core.Constants.UNEXPECTED_ERROR_MSG;
 
+/**
+ * Ballerina LS extension for the GraphQL model generator service.
+ *
+ * @since 2201.5.0
+ */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("graphqlDesignService")
 public class GraphqlModelGeneratorService implements ExtendedLanguageServerService {
@@ -41,15 +64,14 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
     }
 
     @JsonRequest
-    public CompletableFuture<GraphqlDesignServiceResponse> getGraphqlModel
-            (GraphqlDesignServiceRequest request) {
+    public CompletableFuture<GraphqlDesignServiceResponse> getGraphqlModel(GraphqlDesignServiceRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             GraphqlDesignServiceResponse response = new GraphqlDesignServiceResponse();
             try {
                 Path filePath = Path.of(request.getFilePath());
                 Project project = getCurrentProject(filePath);
-                if (this.workspaceManager.semanticModel(filePath).isEmpty()){
+                if (this.workspaceManager.semanticModel(filePath).isEmpty()) {
                     throw new GraphqlModelGenerationException(EMPTY_SEMANTIC_MODEL_MSG);
                 }
                 SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).get();
@@ -60,10 +82,10 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
                 Gson gson = new GsonBuilder().serializeNulls().create();
                 JsonElement graphqlModelJson = gson.toJsonTree(generatedModel);
                 response.setGraphqlDesignModel(graphqlModelJson);
-            } catch (WorkspaceDocumentException |  EventSyncException | GraphqlModelGenerationException e){
+            } catch (WorkspaceDocumentException | EventSyncException | GraphqlModelGenerationException e) {
                 response.setIncompleteModel(true);
                 response.setErrorMsg(e.getMessage());
-            } catch (Exception e){
+            } catch (Exception e) {
                 response.setIncompleteModel(true);
                 response.setErrorMsg(String.format(UNEXPECTED_ERROR_MSG, e.getMessage()));
             }
@@ -71,26 +93,7 @@ public class GraphqlModelGeneratorService implements ExtendedLanguageServerServi
         });
     }
 
-//    private static PackageCompilation getPackageCompilation(Project project) throws IOException {
-//        DiagnosticResult diagnosticResult = project.currentPackage().runCodeGenAndModifyPlugins();
-//        boolean hasErrors = diagnosticResult
-//                .diagnostics().stream()
-//                .anyMatch(d -> DiagnosticSeverity.ERROR.equals(d.diagnosticInfo().severity()));
-//        if (!hasErrors) {
-//            PackageCompilation compilation = project.currentPackage().getCompilation();
-//            hasErrors = compilation.diagnosticResult()
-//                    .diagnostics().stream()
-//                    .anyMatch(d -> DiagnosticSeverity.ERROR.equals(d.diagnosticInfo().severity()));
-//            if (!hasErrors) {
-//                return compilation;
-//            }
-//        }
-//        throw new IOException();
-//    }
-
-    private Project getCurrentProject(Path path) throws WorkspaceDocumentException,
-            EventSyncException {
-
+    private Project getCurrentProject(Path path) throws WorkspaceDocumentException, EventSyncException {
         Optional<Project> project = workspaceManager.project(path);
         if (project.isEmpty()) {
             return workspaceManager.loadProject(path);

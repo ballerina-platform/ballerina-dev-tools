@@ -1,9 +1,34 @@
+/*
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.graphqlmodelgenerator.core.utils;
 
-
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.ServiceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.graphqlmodelgenerator.core.model.Interaction;
-import io.ballerina.stdlib.graphql.commons.types.*;
+import io.ballerina.stdlib.graphql.commons.types.Field;
+import io.ballerina.stdlib.graphql.commons.types.InputValue;
+import io.ballerina.stdlib.graphql.commons.types.LinePosition;
+import io.ballerina.stdlib.graphql.commons.types.Position;
+import io.ballerina.stdlib.graphql.commons.types.Type;
+import io.ballerina.stdlib.graphql.commons.types.TypeKind;
 import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.Range;
 
@@ -12,6 +37,11 @@ import java.util.List;
 
 import static io.ballerina.stdlib.graphql.commons.utils.Utils.removeEscapeCharacter;
 
+/**
+ * Represents the util functions which is required in generating the graphQL model.
+ *
+ * @since 2201.5.0
+ */
 public class ModelGenerationUtils {
     private static final String NON_NULL_FORMAT = "%s!";
     private static final String LIST_FORMAT = "[%s]";
@@ -37,12 +67,11 @@ public class ModelGenerationUtils {
         } else if (type.getKind().equals(TypeKind.LIST)) {
             return getFieldType(type.getOfType());
         } else {
-            if (type.getKind().equals(TypeKind.SCALAR)){
+            if (type.getKind().equals(TypeKind.SCALAR)) {
                 return null;
             } else {
                 return type.getName();
             }
-
         }
     }
 
@@ -52,12 +81,11 @@ public class ModelGenerationUtils {
         } else if (type.getKind().equals(TypeKind.LIST)) {
             return getPathOfFieldType(type.getOfType());
         } else {
-            if (type.getKind().equals(TypeKind.SCALAR)){
+            if (type.getKind().equals(TypeKind.SCALAR)) {
                 return null;
             } else {
                 return (type.getPosition() != null ? type.getPosition().getFilePath() : null);
             }
-
         }
     }
 
@@ -84,21 +112,21 @@ public class ModelGenerationUtils {
         return (currentServiceName.toString().trim());
     }
 
-    public static List<Interaction> getInteractionList(Field field){
+    public static List<Interaction> getInteractionList(Field field) {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());
-        if (link != null){
-            if (!link.isBlank()){
+        if (link != null) {
+            if (!link.isBlank()) {
                 links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(field.getType())));
             }
         }
         return links;
     }
 
-    public static List<Interaction> getInteractionList(InputValue inputValue){
+    public static List<Interaction> getInteractionList(InputValue inputValue) {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(inputValue.getType());
-        if (link != null){
+        if (link != null) {
             links.add(new Interaction(link, ModelGenerationUtils.getPathOfFieldType(inputValue.getType())));
         }
         return links;
@@ -119,10 +147,9 @@ public class ModelGenerationUtils {
         LineRange lineRange = CommonUtil.toLineRange(position);
         Range range = CommonUtil.toRange(lineRange);
         Node methodNode = CommonUtil.findSTNode(range, syntaxTree);
-        Position nodePosition = new Position(position.getFilePath(),
-                new LinePosition(methodNode.lineRange().startLine().line(), methodNode.lineRange().startLine().offset()),
+        return new Position(position.getFilePath(),
+                new LinePosition(methodNode.lineRange().startLine().line(),
+                        methodNode.lineRange().startLine().offset()),
                 new LinePosition(methodNode.lineRange().endLine().line(), methodNode.lineRange().endLine().offset()));
-        return  nodePosition;
     }
-
 }

@@ -166,5 +166,6 @@
   "serviceClasses": {},
   "enums": {},
   "unions": {},
-  "interfaces": {}
+  "interfaces": {},
+  "hierarchicalResources": {}
 }

@@ -208,5 +208,6 @@
       ]
     }
   },
-  "interfaces": {}
+  "interfaces": {},
+  "hierarchicalResources": {}
 }

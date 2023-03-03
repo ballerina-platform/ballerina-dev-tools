@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.graphqlmodelgenerator.core;
 
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
@@ -27,6 +45,11 @@ import java.util.Map;
 
 import static io.ballerina.graphqlmodelgenerator.core.model.DefaultIntrospectionType.isReservedType;
 
+/**
+ * Represents the model generator used for Interacted components of graphQL operations.
+ *
+ * @since 2201.5.0
+ */
 public class InteractedComponentModelGenerator {
     private final Schema schemaObj;
     private final SyntaxTree syntaxTree;
@@ -36,6 +59,17 @@ public class InteractedComponentModelGenerator {
     private final Map<String, UnionComponent> unions;
     private final Map<String, InterfaceComponent> interfaces;
     private final Map<String, HierarchicalResourceComponent> hierarchicalResources;
+
+    public InteractedComponentModelGenerator(Schema schema, SyntaxTree syntaxTree) {
+        this.schemaObj = schema;
+        this.syntaxTree = syntaxTree;
+        this.records = new HashMap<>();
+        this.serviceClasses = new HashMap<>();
+        this.enums = new HashMap<>();
+        this.unions = new HashMap<>();
+        this.interfaces = new HashMap<>();
+        this.hierarchicalResources = new HashMap<>();
+    }
 
     public Map<String, RecordComponent> getRecords() {
         return records;
@@ -61,30 +95,20 @@ public class InteractedComponentModelGenerator {
         return hierarchicalResources;
     }
 
-    public InteractedComponentModelGenerator(Schema schema, SyntaxTree syntaxTree){
-        this.schemaObj = schema;
-        this.syntaxTree = syntaxTree;
-        this.records = new HashMap<>();
-        this.serviceClasses = new HashMap<>();
-        this.enums = new HashMap<>();
-        this.unions = new HashMap<>();
-        this.interfaces =  new HashMap<>();
-        this.hierarchicalResources = new HashMap<>();
-    }
-
-    public void generate(){
-        for (var entry: schemaObj.getTypes().entrySet()){
+    public void generate() {
+        for (var entry : schemaObj.getTypes().entrySet()) {
             if ((entry.getValue().getKind() == TypeKind.OBJECT || entry.getValue().getKind() == TypeKind.INPUT_OBJECT ||
                     entry.getValue().getKind() == TypeKind.ENUM || entry.getValue().getKind() == TypeKind.UNION ||
                     entry.getValue().getKind() == TypeKind.INTERFACE) &&
-           !isReservedType(entry.getKey())) {
+                    !isReservedType(entry.getKey())) {
 
                 if (entry.getValue().getObjectKind() == ObjectKind.RECORD ||
                         entry.getValue().getKind() == TypeKind.INPUT_OBJECT) {
                     this.records.put(entry.getValue().getName(), generateRecordComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.OBJECT &&
                         entry.getValue().getObjectKind() == ObjectKind.CLASS) {
-                    this.serviceClasses.put(entry.getValue().getName(), generateServiceClassComponent(entry.getValue()));
+                    this.serviceClasses.put(entry.getValue().getName(),
+                            generateServiceClassComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.ENUM) {
                     this.enums.put(entry.getValue().getName(), generateEnumComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.UNION && !entry.getValue().getName().isBlank()) {
@@ -92,7 +116,8 @@ public class InteractedComponentModelGenerator {
                 } else if (entry.getValue().getKind() == TypeKind.INTERFACE) {
                     this.interfaces.put(entry.getValue().getName(), generateInterfaceComponent(entry.getValue()));
                 } else if (entry.getValue().getKind() == TypeKind.OBJECT) {
-                    this.hierarchicalResources.put(entry.getValue().getName(), generateHierarchicalResourceComponent(entry.getValue()));
+                    this.hierarchicalResources.put(entry.getValue().getName(),
+                            generateHierarchicalResourceComponent(entry.getValue()));
                 }
             }
         }
@@ -109,21 +134,24 @@ public class InteractedComponentModelGenerator {
                         inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
                 params.add(param);
                 Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
                     String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                    if (inputObj != null){
-                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                    if (inputObj != null) {
+                        interactionList.add(new Interaction(inputObj,
+                                ModelGenerationUtils.getPathOfFieldType(paramType)));
                     }
                 }
             });
             Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
-            ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false,typeDesc,
-                    position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, interactionList);
+            ResourceFunction resourceFunction = new ResourceFunction(field.getName(), false, typeDesc,
+                    position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params,
+                    interactionList);
             resourceFunctions.add(resourceFunction);
 
         });
 
-        HierarchicalResourceComponent hierarchicalResourceComponent = new HierarchicalResourceComponent(objType.getName(), resourceFunctions);
+        HierarchicalResourceComponent hierarchicalResourceComponent = new
+                HierarchicalResourceComponent(objType.getName(), resourceFunctions);
         return hierarchicalResourceComponent;
     }
 
@@ -142,20 +170,22 @@ public class InteractedComponentModelGenerator {
                         inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
                 params.add(param);
                 Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
                     String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                    if (inputObj != null){
-                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                    if (inputObj != null) {
+                        interactionList.add(new Interaction(inputObj,
+                                ModelGenerationUtils.getPathOfFieldType(paramType)));
                     }
                 }
             });
-            ResourceFunction resourceFunction = new ResourceFunction(field.getName(),false, typeDesc, null, field.getDescription(),
+            ResourceFunction resourceFunction = new ResourceFunction(field.getName(), false, typeDesc,
+                    null, field.getDescription(),
                     field.isDeprecated(), field.getDeprecationReason(), params, interactionList);
             resourceFunctions.add(resourceFunction);
         });
 
-        InterfaceComponent interfaceComponent = new InterfaceComponent(objType.getName(),  objType.getPosition(), objType.getDescription(),
-             possibleTypes, resourceFunctions);
+        InterfaceComponent interfaceComponent = new InterfaceComponent(objType.getName(), objType.getPosition(),
+                objType.getDescription(), possibleTypes, resourceFunctions);
         return interfaceComponent;
     }
 
@@ -171,20 +201,23 @@ public class InteractedComponentModelGenerator {
                         inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
                 params.add(param);
                 Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)){
+                if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
                     String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                    if (inputObj != null){
-                        interactionList.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                    if (inputObj != null) {
+                        interactionList.add(new Interaction(inputObj,
+                                ModelGenerationUtils.getPathOfFieldType(paramType)));
                     }
                 }
             });
 
-            ServiceClassField classField = new ServiceClassField(field.getName(),typeDesc,
-                    field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params, interactionList);
+            ServiceClassField classField = new ServiceClassField(field.getName(), typeDesc,
+                    field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params,
+                    interactionList);
             functions.add(classField);
 
         });
-        ServiceClassComponent classComponent = new ServiceClassComponent(objType.getName(), objType.getPosition(), objType.getDescription(), functions);
+        ServiceClassComponent classComponent = new ServiceClassComponent(objType.getName(), objType.getPosition(),
+                objType.getDescription(), functions);
         return classComponent;
     }
 
@@ -206,24 +239,23 @@ public class InteractedComponentModelGenerator {
                 RecordField recordField = new RecordField(field.getName(), typeDesc, field.getDefaultValue(),
                         field.getDescription(), false, null, interactionList);
                 recordFields.add(recordField);
-
             });
         }
 
         RecordComponent recordComponent = new RecordComponent(objType.getName(), objType.getPosition(),
-                objType.getDescription(), recordFields, objType.getKind() == TypeKind.INPUT_OBJECT );
+                objType.getDescription(), recordFields, objType.getKind() == TypeKind.INPUT_OBJECT);
         return recordComponent;
-
     }
 
     private EnumComponent generateEnumComponent(Type objType) {
         List<EnumField> enumFields = new ArrayList<>();
         objType.getEnumValues().forEach(enumValue -> {
-            enumFields.add(new EnumField(enumValue.getName(), enumValue.getDescription(), enumValue.isDeprecated(), enumValue.getDeprecationReason()));
+            enumFields.add(new EnumField(enumValue.getName(), enumValue.getDescription(), enumValue.isDeprecated(),
+                    enumValue.getDeprecationReason()));
         });
-        EnumComponent enumComponent = new EnumComponent(objType.getName(), objType.getPosition(), objType.getDescription(), enumFields);
+        EnumComponent enumComponent = new EnumComponent(objType.getName(), objType.getPosition(),
+                objType.getDescription(), enumFields);
         return enumComponent;
-
     }
 
     private UnionComponent generateUnionComponent(Type objType) {
@@ -235,5 +267,4 @@ public class InteractedComponentModelGenerator {
                 objType.getDescription(), possibleTypes);
         return unionComponent;
     }
-
 }
