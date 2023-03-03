@@ -150,9 +150,7 @@ public class InteractedComponentModelGenerator {
 
         });
 
-        HierarchicalResourceComponent hierarchicalResourceComponent = new
-                HierarchicalResourceComponent(objType.getName(), resourceFunctions);
-        return hierarchicalResourceComponent;
+        return new HierarchicalResourceComponent(objType.getName(), resourceFunctions);
     }
 
     private InterfaceComponent generateInterfaceComponent(Type objType) {
@@ -184,9 +182,8 @@ public class InteractedComponentModelGenerator {
             resourceFunctions.add(resourceFunction);
         });
 
-        InterfaceComponent interfaceComponent = new InterfaceComponent(objType.getName(), objType.getPosition(),
-                objType.getDescription(), possibleTypes, resourceFunctions);
-        return interfaceComponent;
+        return new InterfaceComponent(objType.getName(), objType.getPosition(), objType.getDescription(),
+                possibleTypes, resourceFunctions);
     }
 
     private ServiceClassComponent generateServiceClassComponent(Type objType) {
@@ -216,9 +213,8 @@ public class InteractedComponentModelGenerator {
             functions.add(classField);
 
         });
-        ServiceClassComponent classComponent = new ServiceClassComponent(objType.getName(), objType.getPosition(),
+        return new ServiceClassComponent(objType.getName(), objType.getPosition(),
                 objType.getDescription(), functions);
-        return classComponent;
     }
 
     private RecordComponent generateRecordComponent(Type objType) {
@@ -242,9 +238,8 @@ public class InteractedComponentModelGenerator {
             });
         }
 
-        RecordComponent recordComponent = new RecordComponent(objType.getName(), objType.getPosition(),
+        return new RecordComponent(objType.getName(), objType.getPosition(),
                 objType.getDescription(), recordFields, objType.getKind() == TypeKind.INPUT_OBJECT);
-        return recordComponent;
     }
 
     private EnumComponent generateEnumComponent(Type objType) {
@@ -253,9 +248,8 @@ public class InteractedComponentModelGenerator {
             enumFields.add(new EnumField(enumValue.getName(), enumValue.getDescription(), enumValue.isDeprecated(),
                     enumValue.getDeprecationReason()));
         });
-        EnumComponent enumComponent = new EnumComponent(objType.getName(), objType.getPosition(),
+        return new EnumComponent(objType.getName(), objType.getPosition(),
                 objType.getDescription(), enumFields);
-        return enumComponent;
     }
 
     private UnionComponent generateUnionComponent(Type objType) {
@@ -263,8 +257,7 @@ public class InteractedComponentModelGenerator {
         objType.getPossibleTypes().forEach(type -> {
             possibleTypes.add(new Interaction(type.getName(), type.getPosition().getFilePath()));
         });
-        UnionComponent unionComponent = new UnionComponent(objType.getName(), objType.getPosition(),
+        return new UnionComponent(objType.getName(), objType.getPosition(),
                 objType.getDescription(), possibleTypes);
-        return unionComponent;
     }
 }

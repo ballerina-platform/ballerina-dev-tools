@@ -82,10 +82,10 @@ public class ModelGenerator {
             throw new GraphqlModelGenerationException(EMPTY_SCHEMA_MSG);
         }
         String serviceName = "";
-        if (node instanceof ServiceDeclarationNode) {
+        if (node.kind() == SyntaxKind.SERVICE_DECLARATION) {
             ServiceDeclarationNode serviceDeclarationNode = (ServiceDeclarationNode) node;
             serviceName = ModelGenerationUtils.getServiceBasePath(serviceDeclarationNode);
-        } else if (node instanceof ModuleVariableDeclarationNode) {
+        } else if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
             ModuleVariableDeclarationNode moduleVarDclNode = (ModuleVariableDeclarationNode) node;
             serviceName = moduleVarDclNode.typedBindingPattern().bindingPattern().toSourceCode();
         }

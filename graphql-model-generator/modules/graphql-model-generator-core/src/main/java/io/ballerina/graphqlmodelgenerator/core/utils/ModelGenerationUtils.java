@@ -47,8 +47,13 @@ public class ModelGenerationUtils {
     private static final String LIST_FORMAT = "[%s]";
     private static final String ARGS_TYPE_FORMAT = "%s = %s";
 
+    /**
+     * Generate the field type in graphql sdl syntax.
+     */
     public static String getFormattedFieldType(Type type) {
-        if (type.getKind().equals(TypeKind.NON_NULL)) {
+        if (type.getOfType() == null) {
+            return type.getName();
+        } else if (type.getKind().equals(TypeKind.NON_NULL)) {
             return getFormattedString(NON_NULL_FORMAT, getFormattedFieldType(type.getOfType()));
         } else if (type.getKind().equals(TypeKind.LIST)) {
             return getFormattedString(LIST_FORMAT, getFormattedFieldType(type.getOfType()));
@@ -57,40 +62,58 @@ public class ModelGenerationUtils {
         }
     }
 
+    /**
+     * Format the given string to match the graphql sdl syntax.
+     */
     public static String getFormattedString(String format, String... args) {
         return String.format(format, (Object[]) args);
     }
 
+    /**
+     * Get the name of the given field type.
+     * This data is used when generating the interactions for a given component.
+     */
     public static String getFieldType(Type type) {
-        if (type.getKind().equals(TypeKind.NON_NULL)) {
+        if (type.getOfType() == null) {
+            if (type.getKind().equals(TypeKind.SCALAR)) {
+                return null;
+            }
+            return type.getName();
+        } else if (type.getKind().equals(TypeKind.NON_NULL)) {
             return getFieldType(type.getOfType());
         } else if (type.getKind().equals(TypeKind.LIST)) {
             return getFieldType(type.getOfType());
         } else {
-            if (type.getKind().equals(TypeKind.SCALAR)) {
-                return null;
-            } else {
-                return type.getName();
-            }
+            return type.getName();
         }
     }
 
+    /**
+     * Get the file path of the given field.
+     */
     public static String getPathOfFieldType(Type type) {
-        if (type.getKind().equals(TypeKind.NON_NULL)) {
-            return getPathOfFieldType(type.getOfType());
-        } else if (type.getKind().equals(TypeKind.LIST)) {
-            return getPathOfFieldType(type.getOfType());
-        } else {
+        if (type.getOfType() == null) {
             if (type.getKind().equals(TypeKind.SCALAR)) {
                 return null;
             } else {
                 return (type.getPosition() != null ? type.getPosition().getFilePath() : null);
             }
+        } else if (type.getKind().equals(TypeKind.NON_NULL)) {
+            return getPathOfFieldType(type.getOfType());
+        } else if (type.getKind().equals(TypeKind.LIST)) {
+            return getPathOfFieldType(type.getOfType());
         }
+        return null;
     }
 
 
+    /**
+     * Get the Type of the given parameter.
+     */
     public static Type getType(Type type) {
+        if (type.getOfType() == null) {
+            return type;
+        }
         if (type.getKind().equals(TypeKind.NON_NULL)) {
             return getType(type.getOfType());
         } else if (type.getKind().equals(TypeKind.LIST)) {
@@ -112,6 +135,10 @@ public class ModelGenerationUtils {
         return (currentServiceName.toString().trim());
     }
 
+    /**
+     * Get the interaction list for the given field.
+     * Here the fields represents remote/resource functions or other components represented in the graphQL model.
+     */
     public static List<Interaction> getInteractionList(Field field) {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(field.getType());
@@ -123,6 +150,9 @@ public class ModelGenerationUtils {
         return links;
     }
 
+    /**
+     * Get the list of interactions for the input value.
+     */
     public static List<Interaction> getInteractionList(InputValue inputValue) {
         List<Interaction> links = new ArrayList<>();
         String link = ModelGenerationUtils.getFieldType(inputValue.getType());
@@ -132,6 +162,9 @@ public class ModelGenerationUtils {
         return links;
     }
 
+    /**
+     * Generate the type of the inputValue in graphql sdl syntax.
+     */
     public static String createArgType(InputValue arg) {
         if (arg.getDefaultValue() == null) {
             return getFormattedFieldType(arg.getType());
@@ -140,6 +173,10 @@ public class ModelGenerationUtils {
         }
     }
 
+    /**
+     * Get the range of the node for the given position.
+     * This is used to find the node range for the resource and remote functions in graphQL service.
+     */
     public static Position findNodeRange(Position position, SyntaxTree syntaxTree) {
         if (position == null) {
             return null;

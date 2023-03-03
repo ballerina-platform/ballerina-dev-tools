@@ -57,89 +57,60 @@ public class ServiceModelGenerator {
         this.syntaxTree = syntaxTree;
     }
 
+    enum OperationKind {
+        QUERY,
+        MUTATION,
+        SUBSCRIPTION
+    }
+
     public Service generate() {
-        if (schemaObj.getQueryType() != null) {
-            schemaObj.getQueryType().getFields().forEach(field -> {
-                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
-                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
-                List<Param> params = new ArrayList<>();
-                field.getArgs().forEach(inputValue -> {
-                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
-                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
-                    params.add(param);
-                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
-                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                        if (inputObj != null) {
-                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
-                        }
-                    }
-                });
-                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
-                ResourceFunction resourceFunction = new ResourceFunction(field.getName(), false, returns,
-                        position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params,
-                        links);
-                resourceFunctions.add(resourceFunction);
-            });
-        }
-        // Mutation
-        if (schemaObj.getMutationType() != null) {
-            schemaObj.getMutationType().getFields().forEach(field -> {
-                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
-                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
-
-                List<Param> params = new ArrayList<>();
-                field.getArgs().forEach(inputValue -> {
-                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
-                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
-                    params.add(param);
-                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
-                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                        if (inputObj != null) {
-                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
-                        }
-                    }
-                });
-                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
-                RemoteFunction remoteFunction = new RemoteFunction(field.getName(), returns, position,
-                        field.getDescription(),
-                        field.isDeprecated(), field.getDeprecationReason(), params, links);
-                remoteFunctions.add(remoteFunction);
-            });
-        }
-
-        // Subscription
-        if (schemaObj.getSubscriptionType() != null) {
-            schemaObj.getSubscriptionType().getFields().forEach(field -> {
-                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
-                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
-
-                List<Param> params = new ArrayList<>();
-                field.getArgs().forEach(inputValue -> {
-                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
-                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
-                    params.add(param);
-                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
-                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
-                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
-                        if (inputObj != null) {
-                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
-                        }
-                    }
-                });
-                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
-                ResourceFunction resourceFunction = new ResourceFunction(field.getName(), true, returns,
-                        position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(), params,
-                        links);
-                resourceFunctions.add(resourceFunction);
-            });
-        }
+        generateGraphqlOperation(schemaObj.getQueryType(), OperationKind.QUERY);
+        generateGraphqlOperation(schemaObj.getMutationType(), OperationKind.MUTATION);
+        generateGraphqlOperation(schemaObj.getSubscriptionType(), OperationKind.SUBSCRIPTION);
 
         Position nodePosition = new Position(servicePosition.filePath(),
                 new LinePosition(servicePosition.startLine().line(), servicePosition.startLine().offset()),
                 new LinePosition(servicePosition.endLine().line(), servicePosition.endLine().offset()));
 
         return new Service(serviceName, nodePosition, schemaObj.getDescription(), resourceFunctions, remoteFunctions);
+    }
+
+    private void generateGraphqlOperation(Type operation, OperationKind operationKind) {
+        if (operation != null) {
+            operation.getFields().forEach(field -> {
+                String returns = ModelGenerationUtils.getFormattedFieldType(field.getType());
+                List<Interaction> links = ModelGenerationUtils.getInteractionList(field);
+                List<Param> params = new ArrayList<>();
+                field.getArgs().forEach(inputValue -> {
+                    Param param = new Param(ModelGenerationUtils.createArgType(inputValue),
+                            inputValue.getName(), inputValue.getDescription(), inputValue.getDefaultValue());
+                    params.add(param);
+                    Type paramType = ModelGenerationUtils.getType(inputValue.getType());
+                    if (paramType.getKind().equals(TypeKind.INPUT_OBJECT)) {
+                        String inputObj = ModelGenerationUtils.getFieldType(paramType);
+                        if (inputObj != null) {
+                            links.add(new Interaction(inputObj, ModelGenerationUtils.getPathOfFieldType(paramType)));
+                        }
+                    }
+                });
+                Position position = ModelGenerationUtils.findNodeRange(field.getPosition(), this.syntaxTree);
+                if (operationKind == OperationKind.QUERY) {
+                    ResourceFunction resourceFunction = new ResourceFunction(field.getName(), false, returns,
+                            position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(),
+                            params, links);
+                    resourceFunctions.add(resourceFunction);
+                } else if (operationKind == OperationKind.MUTATION) {
+                    RemoteFunction remoteFunction = new RemoteFunction(field.getName(), returns, position,
+                            field.getDescription(),
+                            field.isDeprecated(), field.getDeprecationReason(), params, links);
+                    remoteFunctions.add(remoteFunction);
+                } else if (operationKind == OperationKind.SUBSCRIPTION) {
+                    ResourceFunction resourceFunction = new ResourceFunction(field.getName(), true, returns,
+                            position, field.getDescription(), field.isDeprecated(), field.getDeprecationReason(),
+                            params, links);
+                    resourceFunctions.add(resourceFunction);
+                }
+            });
+        }
     }
 }

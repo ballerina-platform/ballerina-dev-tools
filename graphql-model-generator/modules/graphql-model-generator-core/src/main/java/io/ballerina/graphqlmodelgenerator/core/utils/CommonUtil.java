@@ -54,13 +54,18 @@ public class CommonUtil {
         return new Position(linePosition.line(), linePosition.offset());
     }
 
+    /**
+     * Convert graphQl commons Position to Ballerina LineRange.
+     */
     public static LineRange toLineRange(io.ballerina.stdlib.graphql.commons.types.Position position) {
-        LineRange lineRange = LineRange.from(position.getFilePath(),
+        return LineRange.from(position.getFilePath(),
                 LinePosition.from(position.getStartLine().getLine(), position.getStartLine().getOffset()),
                 LinePosition.from(position.getEndLine().getLine(), position.getEndLine().getOffset()));
-        return lineRange;
     }
 
+    /**
+     * Find the STNode within a range.
+     */
     public static NonTerminalNode findSTNode(Range range, SyntaxTree syntaxTree) {
         TextDocument textDocument = syntaxTree.textDocument();
         Position rangeStart = range.getStart();
