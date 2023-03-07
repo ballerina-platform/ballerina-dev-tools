@@ -20,7 +20,7 @@ under the License.
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="graphql-model-test-suite">
-    <test name="get-model-test" parallel="false">
+    <test name="graphql-model-test" parallel="false">
         <classes>
             <class name="io.ballerina.graphqlmodelgenerator.extension.GraphqlModelGeneratorServiceTests"/>
         </classes>
