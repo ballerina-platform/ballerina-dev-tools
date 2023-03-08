@@ -68,8 +68,8 @@ subprojects {
         /* Standard libraries */
         ballerinaStdLibs "io.ballerina.stdlib:observe-ballerina:${observeVersion}"
         ballerinaStdLibs "io.ballerina:observe-ballerina:${observeInternalVersion}"
-        ballerinaStdLibs "io.ballerina.stdlib:grpc-ballerina:${stdlibGrpcVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:http-ballerina:${stdlibHttpVersion}"
+        ballerinaStdLibs "io.ballerina.stdlib:grpc-ballerina:${stdlibGrpcVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:graphql-ballerina:${stdlibGraphqlVersion}"
     }
 }
