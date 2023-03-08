@@ -151,7 +151,7 @@ public class GraphqlModelGeneratorServiceTests {
     private String getExpectedResponse(String fileName) throws IOException {
         return Files.readString(RES_DIR.resolve(RESPONSES).resolve(Path.of(fileName)))
                 .replaceAll("\\s+", "")
-                .replaceAll("\\{srcPath}", RES_DIR.toString());
+                .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"));
     }
 
     private String getFormattedResponse(GraphqlDesignServiceRequest request, Endpoint serviceEndpoint)
