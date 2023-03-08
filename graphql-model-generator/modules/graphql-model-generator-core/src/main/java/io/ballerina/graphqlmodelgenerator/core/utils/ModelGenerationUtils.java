@@ -34,8 +34,9 @@ import org.eclipse.lsp4j.Range;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static io.ballerina.stdlib.graphql.commons.utils.Utils.removeEscapeCharacter;
 
 /**
  * Represents the util functions which is required in generating the graphQL model.
@@ -46,6 +47,9 @@ public class ModelGenerationUtils {
     private static final String NON_NULL_FORMAT = "%s!";
     private static final String LIST_FORMAT = "[%s]";
     private static final String ARGS_TYPE_FORMAT = "%s = %s";
+    private static final String UNICODE_REGEX = "\\\\(\\\\*)u\\{([a-fA-F0-9]+)\\}";
+    private static final Pattern UNICODE_PATTERN = Pattern.compile(UNICODE_REGEX);
+    private static final String SINGLE_QUOTE_CHARACTER = "'";
 
     /**
      * Generate the field type in graphql sdl syntax.
@@ -188,5 +192,54 @@ public class ModelGenerationUtils {
                 new LinePosition(methodNode.lineRange().startLine().line(),
                         methodNode.lineRange().startLine().offset()),
                 new LinePosition(methodNode.lineRange().endLine().line(), methodNode.lineRange().endLine().offset()));
+    }
+
+    /**
+     * Remove the escape character from the given identifier.
+     */
+    private static String removeEscapeCharacter(String identifier) {
+        if (identifier == null) {
+            return null;
+        }
+
+        Matcher matcher = UNICODE_PATTERN.matcher(identifier);
+        StringBuffer buffer = new StringBuffer(identifier.length());
+        while (matcher.find()) {
+            String leadingSlashes = matcher.group(1);
+            if (isEscapedNumericEscape(leadingSlashes)) {
+                // e.g. \\u{61}, \\\\u{61}
+                continue;
+            }
+
+            int codePoint = Integer.parseInt(matcher.group(2), 16);
+            char[] chars = Character.toChars(codePoint);
+            String ch = String.valueOf(chars);
+
+            if (ch.equals("\\")) {
+                // Ballerina string unescaping is done in two stages.
+                // 1. unicode code point unescaping (doing separately as [2] does not support code points > 0xFFFF)
+                // 2. java unescaping
+                // Replacing unicode code point of backslash at [1] would compromise [2]. Therefore, special case it.
+                matcher.appendReplacement(buffer, Matcher.quoteReplacement(leadingSlashes + "\\u005C"));
+            } else {
+                matcher.appendReplacement(buffer, Matcher.quoteReplacement(leadingSlashes + ch));
+            }
+        }
+        matcher.appendTail(buffer);
+        String value = String.valueOf(buffer);
+
+        if (value.startsWith(SINGLE_QUOTE_CHARACTER)) {
+            return value.substring(1);
+        }
+        return value;
+    }
+
+    private static boolean isEscapedNumericEscape(String leadingSlashes) {
+        return !isEven(leadingSlashes.length());
+    }
+
+    private static boolean isEven(int n) {
+        // (n & 1) is 0 when n is even.
+        return (n & 1) == 0;
     }
 }
