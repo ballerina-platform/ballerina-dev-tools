@@ -74,6 +74,14 @@ const Client = (props) => {
                                         </div>
                                     </section>
                                 }
+                                {client.resourceMethods != null && client.resourceMethods.length > 0 &&
+                                <section className="method-list">
+                                    <h2>Resource Methods</h2>
+                                    <div>
+                                        <MethodTable {...props} methods={client.resourceMethods} />
+                                    </div>
+                                </section>
+                                }
                                 {client.otherMethods != null && client.otherMethods.length > 0 &&
                                     <section className="method-list">
                                         <h2>Methods</h2>
@@ -95,6 +103,11 @@ const Client = (props) => {
                                 client.remoteMethods.map(item => (
                                     <div key={item.name}><Method method={item} /></div>
                                 ))
+                            }
+                            {client.resourceMethods != null &&
+                            client.resourceMethods.map(item => (
+                                <div key={item.name}><Method method={item} /></div>
+                            ))
                             }
                             {client.otherMethods != null &&
                                 client.otherMethods.map(item => (

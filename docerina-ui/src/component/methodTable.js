@@ -28,9 +28,17 @@ const MethodTable = (props) => {
             <table className="ui very basic table">
                 <tbody>
                     {props.methods.map(item => (
-                        <tr key={item.name}>
-                            <td className={item.isDeprecated ? "module-title strike" : "module-title"} title={item.name}>
-                                <Link to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/${props.pageType}/${props.match.params.constructName}#${item.name}`}>{item.name}</Link>
+                        <tr key={item.isResource ?
+                            item.accessor + '-' + item.resourcePath.replace(/[^\w\s]/gi, '-')
+                            : item.name}>
+                            <td className={item.isDeprecated ? "module-title strike" : "module-title"} title={item.isResource ?
+                                item.accessor + '-' + item.resourcePath.replace(/[^\w\s]/gi, '-')
+                                : item.name}>
+                                <Link to={`/${props.module.orgName}/${props.module.id}/${props.module.version}/${props.pageType}/${props.match.params.constructName}#${item.isResource ?
+                                    item.accessor + '-' + item.resourcePath.replace(/[^\w\s]/gi, '-')
+                                    : item.name}`}>{item.isResource ?
+                                    <><i>{item.accessor}</i> {item.resourcePath}</>
+                                    : item.name}</Link>
                             </td>
                             <td className="module-desc">
                                 {
