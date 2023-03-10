@@ -24,13 +24,21 @@ import { Link } from '../Router'
 const Method = (props) => {
     return (
         <div className="method-content construct-page">
-            <div className="main-method-title" id={props.method.name} title={props.method.name}>
+            <div className="main-method-title" id={props.method.isResource ?
+                props.method.accessor + '-' + props.method.resourcePath.replace(/[^\w\s]/gi, '-')
+                : props.method.name} title={props.method.isResource ?
+                props.method.accessor + '-' + props.method.resourcePath.replace(/[^\w\s]/gi, '-')
+                : props.method.name}>
 
-                <h2 className={props.method.isDeprecated ? "strike" : ""}> {props.method.name} </h2>
+                <h2 className={props.method.isDeprecated ? "strike" : ""}> {props.method.isResource ?
+                    <><i>{props.method.accessor}</i> {props.method.resourcePath}</>
+                    : props.method.name} </h2>
             </div>
             <div>
                 <pre className="method-signature">
-                    <code className="break-spaces"><span className="token keyword">function</span> {props.method.name}(
+                    <code className="break-spaces"><span className="token keyword">function</span> {props.method.isResource ?
+                        <><i>{props.method.accessor}</i> {props.method.resourcePath}</>
+                        : props.method.name}(
             {props.method.parameters.length > 0 && props.method.parameters.map(param => { return [getTypeLabel(param.type), " " + param.name]; }).reduce((prev, curr) => [prev, ', ', curr])})
             {props.method.returnParameters.length > 0 && <span> <span className="token keyword">returns</span> {getTypeLabel(props.method.returnParameters[0].type)}</span>}
                     </code>
@@ -48,6 +56,10 @@ const Method = (props) => {
                 {
                     props.method.isRemote == true &&
                     <div className="ui horizontal label">Remote Function</div>
+                }
+                {
+                    props.method.isResource == true &&
+                    <div className="ui horizontal label">Resource Function</div>
                 }
                 <Markdown text={props.method.description} />
                 {props.method.inclusionType != null && <p>Method included from <span data-tooltip="Type inclusion" data-position="top left">*</span>{getTypeLabel(props.method.inclusionType)}</p>}
