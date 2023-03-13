@@ -1,5 +1,4 @@
 import ballerina/grpc;
-import ballerina/log;
 
 configurable string datastore = "";
 configurable string redisHost = "";
@@ -20,10 +19,8 @@ service "CartService" on ep {
 
     function init() returns error? {
         if datastore == "redis" {
-            log:printInfo("Redis datastore is selected");
             self.store = check new RedisStore();
         } else {
-            log:printInfo("In memory datastore used as redis config is not given");
             self.store = new InMemoryStore();
         }
     }

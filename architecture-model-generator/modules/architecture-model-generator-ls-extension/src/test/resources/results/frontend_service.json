@@ -55,11 +55,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 64,
+                  "line": 63,
                   "offset": 68
                 },
                 "endPosition": {
-                  "line": 64,
+                  "line": 63,
                   "offset": 110
                 }
               }
@@ -74,11 +74,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 98,
+                  "line": 95,
                   "offset": 27
                 },
                 "endPosition": {
-                  "line": 98,
+                  "line": 95,
                   "offset": 51
                 }
               }
@@ -140,11 +140,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 73,
+                  "line": 71,
                   "offset": 47
                 },
                 "endPosition": {
-                  "line": 73,
+                  "line": 71,
                   "offset": 78
                 }
               }
@@ -159,11 +159,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 60
                 }
               }
@@ -178,11 +178,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 11
                 },
                 "endPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 40
                 }
               }
@@ -197,11 +197,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 180,
+                  "line": 172,
                   "offset": 32
                 },
                 "endPosition": {
-                  "line": 180,
+                  "line": 172,
                   "offset": 57
                 }
               }
@@ -282,11 +282,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 63
                 }
               }
@@ -301,11 +301,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 60
                 }
               }
@@ -320,11 +320,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 11
                 },
                 "endPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 40
                 }
               }
@@ -339,11 +339,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 61
                 },
                 "endPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 102
                 }
               }
@@ -358,11 +358,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 180,
+                  "line": 172,
                   "offset": 32
                 },
                 "endPosition": {
-                  "line": 180,
+                  "line": 172,
                   "offset": 57
                 }
               }
@@ -448,11 +448,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 98,
+                  "line": 95,
                   "offset": 27
                 },
                 "endPosition": {
-                  "line": 98,
+                  "line": 95,
                   "offset": 51
                 }
               }
@@ -467,11 +467,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 61
                 },
                 "endPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 102
                 }
               }
@@ -486,11 +486,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 63
                 }
               }
@@ -505,11 +505,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 152,
+                  "line": 146,
                   "offset": 40
                 },
                 "endPosition": {
-                  "line": 152,
+                  "line": 146,
                   "offset": 70
                 }
               }
@@ -524,11 +524,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 60
                 }
               }
@@ -543,11 +543,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 11
                 },
                 "endPosition": {
-                  "line": 144,
+                  "line": 138,
                   "offset": 40
                 }
               }
@@ -629,11 +629,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 63
                 }
               }
@@ -648,11 +648,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 126,
+                  "line": 122,
                   "offset": 28
                 },
                 "endPosition": {
-                  "line": 126,
+                  "line": 122,
                   "offset": 52
                 }
               }
@@ -714,11 +714,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 110,
+                  "line": 107,
                   "offset": 28
                 },
                 "endPosition": {
-                  "line": 110,
+                  "line": 107,
                   "offset": 54
                 }
               }
@@ -799,11 +799,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 194,
+                  "line": 185,
                   "offset": 50
                 },
                 "endPosition": {
-                  "line": 194,
+                  "line": 185,
                   "offset": 81
                 }
               }
@@ -818,11 +818,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 61
                 },
                 "endPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 102
                 }
               }
@@ -837,11 +837,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 86,
+                  "line": 83,
                   "offset": 63
                 }
               }
