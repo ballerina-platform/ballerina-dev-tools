@@ -15,7 +15,6 @@
 // under the License.
 
 import ballerina/grpc;
-import ballerina/log;
 import ballerina/random;
 
 configurable string currencyHost = "localhost";
@@ -64,7 +63,6 @@ final CheckoutServiceClient checkoutClient = check new ("http://" + checkoutHost
 isolated function getSupportedCurrencies() returns string[]|error {
     GetSupportedCurrenciesResponse|grpc:Error supportedCurrencies = currencyClient->GetSupportedCurrencies({});
     if supportedCurrencies is grpc:Error {
-        log:printError("failed to call getSupportedCurrencies from currency service", 'error = supportedCurrencies);
         return supportedCurrencies;
     }
     return supportedCurrencies.currency_codes;
@@ -74,7 +72,6 @@ isolated function getProducts() returns Product[]|error {
     ListProductsResponse|grpc:Error products = catalogClient->ListProducts({});
 
     if products is grpc:Error {
-        log:printError("failed to call listProducts from catalog service", 'error = products);
         return products;
     }
     return products.products;
@@ -87,7 +84,7 @@ isolated function getProduct(string prodId) returns Product|error {
     Product|grpc:Error product = catalogClient->GetProduct(req);
 
     if product is grpc:Error {
-        log:printError("failed to call getProduct from catalog service", 'error = product);
+        // log error
     }
     return product;
 }
@@ -99,7 +96,7 @@ isolated function getCart(string userId) returns Cart|error {
     Cart|grpc:Error cart = cartClient->GetCart(req);
 
     if cart is grpc:Error {
-        log:printError("failed to call getCart from cart service", 'error = cart);
+        // log error
     }
     return cart;
 }
@@ -111,7 +108,6 @@ isolated function emptyCart(string userId) returns error? {
     Empty|grpc:Error cart = cartClient->EmptyCart(req);
 
     if cart is grpc:Error {
-        log:printError("failed to call emptyCart from cart service", 'error = cart);
         return cart;
     }
 }
@@ -127,7 +123,6 @@ isolated function insertCart(string userId, string productId, int quantity) retu
     Empty|grpc:Error cart = cartClient->AddItem(req);
 
     if cart is grpc:Error {
-        log:printError("failed to call addItem from cart service", 'error = cart);
         return cart;
     }
 }
@@ -139,7 +134,6 @@ isolated function convertCurrency(Money usd, string userCurrency) returns Money|
     };
     Money|grpc:Error convert = currencyClient->Convert(req1);
     if convert is grpc:Error {
-        log:printError("failed to call convert from currency service", 'error = convert);
         return convert;
     }
     return currencyClient->Convert(req1);
@@ -152,7 +146,6 @@ isolated function getShippingQuote(CartItem[] items, string currency) returns Mo
     };
     GetQuoteResponse|grpc:Error quote = shippingClient->GetQuote(req1);
     if quote is grpc:Error {
-        log:printError("failed to call getQuote from shipping service", 'error = quote);
         return quote;
     }
     return check convertCurrency(quote.cost_usd, currency);
@@ -165,7 +158,6 @@ isolated function getRecommendations(string userId, string[] productIds) returns
     };
     ListRecommendationsResponse|grpc:Error recommendations = recommandClient->ListRecommendations(req);
     if recommendations is grpc:Error {
-        log:printError("failed to call listRecommnadation from recommandation service", 'error = recommendations);
         return recommendations;
     }
 
@@ -180,7 +172,6 @@ isolated function getAd(string[] ctxKeys) returns Ad[]|error {
     };
     AdResponse|grpc:Error ads = adClient->GetAds(request);
     if ads is grpc:Error {
-        log:printError("failed to call getAds from ads service", 'error = ads);
         return ads;
     }
     return ads.ads;
@@ -194,7 +185,6 @@ isolated function chooseAd(string[] ctxKeys) returns Ad|error {
 isolated function checkoutCart(PlaceOrderRequest req) returns OrderResult|error {
     PlaceOrderResponse|error placeOrderResponse = checkoutClient->PlaceOrder(req);
     if placeOrderResponse is error {
-        log:printError("failed to call placeOrder from checkout service", 'error = placeOrderResponse);
         return placeOrderResponse;
     }
     return placeOrderResponse.'order;

@@ -27,6 +27,7 @@ import io.ballerina.architecturemodelgenerator.core.ProjectComponentResponse;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -50,6 +51,12 @@ public class ArchitectureModelGeneratorServiceTests {
     private static final String RESULTS = "results";
     private static final String PROJECT_DESIGN_SERVICE = "projectDesignService/getProjectComponentModels";
     Gson gson = new GsonBuilder().serializeNulls().create();
+    private Endpoint serviceEndpoint;
+
+    @BeforeClass
+    public void startLanguageServer() {
+        this.serviceEndpoint = TestUtil.initializeLanguageSever();
+    }
 
     @Test(description = "test model generation for multi-module project")
     public void testMultiModuleProject() throws IOException, ExecutionException, InterruptedException {
@@ -57,7 +64,6 @@ public class ArchitectureModelGeneratorServiceTests {
                 Path.of("reservation_api", "reservation_service.bal"));
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("reservation_api_model.json"));
 
-        Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
         ProjectComponentRequest request = new ProjectComponentRequest();
@@ -93,8 +99,6 @@ public class ArchitectureModelGeneratorServiceTests {
 
         Path project3 = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("microservice_grpc/frontend", "service.bal").toString());
-
-        Endpoint serviceEndpoint = TestUtil.initializeLanguageSever();
 
         ProjectComponentRequest request = new ProjectComponentRequest();
         request.setDocumentUris(List.of(project1.toString(), project2.toString(), project3.toString()));

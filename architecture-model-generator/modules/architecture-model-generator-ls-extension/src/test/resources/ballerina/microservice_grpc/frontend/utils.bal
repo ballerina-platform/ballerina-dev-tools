@@ -15,7 +15,6 @@
 // under the License.
 
 import ballerina/http;
-import ballerina/log;
 import ballerina/regex;
 
 isolated function getUserIdFromCookie(string cookieStr) returns http:Cookie|http:Unauthorized {
@@ -47,7 +46,7 @@ isolated function parseCookieHeader(string cookieStringValue) returns http:Cooki
             }
             cookiesInRequest.push(cookie);
         } else {
-            log:printError("Invalid cookie: " + item + ", which must be in the format as [{name}=].");
+            // log error
         }
     }
     return cookiesInRequest;

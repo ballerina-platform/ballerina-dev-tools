@@ -29,11 +29,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 17,
+                  "line": 16,
                   "offset": 39
                 },
                 "endPosition": {
-                  "line": 17,
+                  "line": 16,
                   "offset": 72
                 }
               }
@@ -54,11 +54,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 28,
+                  "line": 26,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 28,
+                  "line": 26,
                   "offset": 104
                 }
               }
@@ -73,11 +73,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 39,
+                  "line": 37,
                   "offset": 51
                 },
                 "endPosition": {
-                  "line": 39,
+                  "line": 37,
                   "offset": 107
                 }
               }
@@ -92,11 +92,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 46,
+                  "line": 44,
                   "offset": 36
                 },
                 "endPosition": {
-                  "line": 46,
+                  "line": 44,
                   "offset": 86
                 }
               }
@@ -105,11 +105,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 17,
+              "line": 16,
               "offset": 4
             },
             "endPosition": {
-              "line": 55,
+              "line": 51,
               "offset": 5
             }
           }
@@ -132,11 +132,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 57,
+                  "line": 53,
                   "offset": 38
                 },
                 "endPosition": {
-                  "line": 57,
+                  "line": 53,
                   "offset": 57
                 }
               }
@@ -151,11 +151,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 57,
+                  "line": 53,
                   "offset": 58
                 },
                 "endPosition": {
-                  "line": 57,
+                  "line": 53,
                   "offset": 69
                 }
               }
@@ -170,11 +170,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 57,
+              "line": 53,
               "offset": 4
             },
             "endPosition": {
-              "line": 59,
+              "line": 55,
               "offset": 5
             }
           }
@@ -197,11 +197,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 61,
+                  "line": 57,
                   "offset": 34
                 },
                 "endPosition": {
-                  "line": 61,
+                  "line": 57,
                   "offset": 50
                 }
               }
@@ -212,11 +212,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 61,
+              "line": 57,
               "offset": 4
             },
             "endPosition": {
-              "line": 63,
+              "line": 59,
               "offset": 5
             }
           }
@@ -228,11 +228,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
           "startPosition": {
-            "line": 12,
+            "line": 11,
             "offset": 0
           },
           "endPosition": {
-            "line": 15,
+            "line": 14,
             "offset": 1
           }
         }
@@ -242,11 +242,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
         "startPosition": {
-          "line": 12,
+          "line": 11,
           "offset": 0
         },
         "endPosition": {
-          "line": 64,
+          "line": 60,
           "offset": 1
         }
       }

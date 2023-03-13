@@ -1,5 +1,3 @@
-import ballerina/log;
-
 function addReservation(SeatAllocation seatAllocation) returns SeatAllocation|error {
 
     Flight? inventory = find(seatAllocation.flightNumber, seatAllocation.flightDate);
@@ -16,7 +14,6 @@ function addReservation(SeatAllocation seatAllocation) returns SeatAllocation|er
 }
 
 function find(string flightNumber, string flightDate) returns Flight? {
-    log:printInfo("Flight Date : " + flightDate);
     return flightInventory[flightNumber, flightDate];
 }
 

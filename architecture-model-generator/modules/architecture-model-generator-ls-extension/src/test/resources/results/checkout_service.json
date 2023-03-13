@@ -17,11 +17,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
           "startPosition": {
-            "line": 13,
+            "line": 12,
             "offset": 0
           },
           "endPosition": {
-            "line": 16,
+            "line": 15,
             "offset": 1
           }
         }
@@ -39,11 +39,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 59,
+                  "line": 58,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 59,
+                  "line": 58,
                   "offset": 54
                 }
               }
@@ -64,11 +64,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 98,
+                  "line": 96,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 98,
+                  "line": 96,
                   "offset": 60
                 }
               }
@@ -83,11 +83,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 110,
+                  "line": 107,
                   "offset": 41
                 },
                 "endPosition": {
-                  "line": 110,
+                  "line": 107,
                   "offset": 76
                 }
               }
@@ -102,11 +102,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 121,
+                  "line": 117,
                   "offset": 37
                 },
                 "endPosition": {
-                  "line": 121,
+                  "line": 117,
                   "offset": 71
                 }
               }
@@ -121,11 +121,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 152,
+                  "line": 146,
                   "offset": 35
                 },
                 "endPosition": {
-                  "line": 152,
+                  "line": 146,
                   "offset": 69
                 }
               }
@@ -140,11 +140,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 157,
+                  "line": 150,
                   "offset": 15
                 },
                 "endPosition": {
-                  "line": 157,
+                  "line": 150,
                   "offset": 49
                 }
               }
@@ -159,11 +159,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 55
                 },
                 "endPosition": {
-                  "line": 139,
+                  "line": 134,
                   "offset": 89
                 }
               }
@@ -178,11 +178,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 51
                 },
                 "endPosition": {
-                  "line": 165,
+                  "line": 158,
                   "offset": 82
                 }
               }
@@ -197,11 +197,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 175,
+                  "line": 167,
                   "offset": 70
                 },
                 "endPosition": {
-                  "line": 175,
+                  "line": 167,
                   "offset": 105
                 }
               }
@@ -216,11 +216,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 187,
+                  "line": 178,
                   "offset": 37
                 },
                 "endPosition": {
-                  "line": 187,
+                  "line": 178,
                   "offset": 68
                 }
               }
@@ -235,11 +235,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
-                  "line": 199,
+                  "line": 189,
                   "offset": 49
                 },
                 "endPosition": {
-                  "line": 199,
+                  "line": 189,
                   "offset": 93
                 }
               }
@@ -248,11 +248,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
             "startPosition": {
-              "line": 59,
+              "line": 58,
               "offset": 4
             },
             "endPosition": {
-              "line": 94,
+              "line": 92,
               "offset": 5
             }
           }
@@ -262,11 +262,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
         "startPosition": {
-          "line": 13,
+          "line": 12,
           "offset": 0
         },
         "endPosition": {
-          "line": 205,
+          "line": 194,
           "offset": 1
         }
       }
