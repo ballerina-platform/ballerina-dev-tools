@@ -17,11 +17,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
           "startPosition": {
-            "line": 8,
+            "line": 7,
             "offset": 0
           },
           "endPosition": {
-            "line": 11,
+            "line": 10,
             "offset": 1
           }
         }
@@ -39,11 +39,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
-                  "line": 30,
+                  "line": 27,
                   "offset": 28
                 },
                 "endPosition": {
-                  "line": 30,
+                  "line": 27,
                   "offset": 48
                 }
               }
@@ -57,11 +57,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
-              "line": 30,
+              "line": 27,
               "offset": 4
             },
             "endPosition": {
-              "line": 38,
+              "line": 35,
               "offset": 5
             }
           }
@@ -78,11 +78,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
-                  "line": 39,
+                  "line": 36,
                   "offset": 28
                 },
                 "endPosition": {
-                  "line": 39,
+                  "line": 36,
                   "offset": 48
                 }
               }
@@ -96,11 +96,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
-              "line": 39,
+              "line": 36,
               "offset": 4
             },
             "endPosition": {
-              "line": 44,
+              "line": 41,
               "offset": 5
             }
           }
@@ -117,11 +117,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
-                  "line": 45,
+                  "line": 42,
                   "offset": 30
                 },
                 "endPosition": {
-                  "line": 45,
+                  "line": 42,
                   "offset": 52
                 }
               }
@@ -135,11 +135,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
-              "line": 45,
+              "line": 42,
               "offset": 4
             },
             "endPosition": {
-              "line": 53,
+              "line": 50,
               "offset": 5
             }
           }
@@ -149,11 +149,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
         "startPosition": {
-          "line": 8,
+          "line": 7,
           "offset": 0
         },
         "endPosition": {
-          "line": 54,
+          "line": 51,
           "offset": 1
         }
       }

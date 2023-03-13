@@ -1,5 +1,4 @@
 import ballerina/http;
-import ballerina/log;
 import reservation_api.seat_allocation_api as seat;
 import reservation_api.fares_api as fares;
 
@@ -16,7 +15,6 @@ listener http:Listener httpListener  = new http:Listener(9090);
 }
 service /reservations/my on httpListener {
     resource function post reservation(@http:Payload Reservation payload) returns error|ConfirmedReservation {
-        log:printInfo("Making a new Reservation: " + payload.toJsonString());
 
         @display {
             label: "",
@@ -46,8 +44,6 @@ service /reservations/my on httpListener {
             http:Client fare_client = check new (seatFareAPIUrl);
             fares:Fare fare = check fare_client->/fare/[flightNumber]/[flightDate].get;
             float totalFare = fare.rate * payload.seats;
-
-            log:printInfo("Seat Allocation Details : " + allocation.toString() + "\n\n" + " Total Fare : " + totalFare.toString());
 
             ConfirmedReservation saved = saveReservation(payload, totalFare);
             return saved;
