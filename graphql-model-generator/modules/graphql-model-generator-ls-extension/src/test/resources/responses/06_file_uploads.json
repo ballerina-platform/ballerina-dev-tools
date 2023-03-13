@@ -1,0 +1,75 @@
+{
+  "graphqlService": {
+    "serviceName": "/fileUpload",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/06_file_uploads.bal",
+      "startLine": {
+        "line": 2,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 13,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "getUploadedFileNames",
+        "subscription": false,
+        "returns": "[String!]!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/06_file_uploads.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": []
+      }
+    ],
+    "remoteFunctions": [
+      {
+        "identifier": "fileUpload",
+        "returns": "String!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/06_file_uploads.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [
+          {
+            "type": "Upload!",
+            "name": "file",
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "interactions": []
+      }
+    ]
+  },
+  "records": {},
+  "serviceClasses": {},
+  "enums": {},
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {}
+}

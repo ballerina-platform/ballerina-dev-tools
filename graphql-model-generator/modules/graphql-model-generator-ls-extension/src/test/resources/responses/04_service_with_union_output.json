@@ -1,0 +1,213 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+      "startLine": {
+        "line": 48,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 57,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "search",
+        "subscription": false,
+        "returns": "[SearchResult!]!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+          "startLine": {
+            "line": 50,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 52,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [
+          {
+            "type": "String!",
+            "name": "keyword",
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "interactions": [
+          {
+            "componentName": "SearchResult",
+            "path": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal"
+          }
+        ]
+      }
+    ],
+    "remoteFunctions": [
+      {
+        "identifier": "searchDetails",
+        "returns": "PersonalProfile_OfficeAddress!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+          "startLine": {
+            "line": 54,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 56,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [
+          {
+            "type": "String!",
+            "name": "keyword",
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "interactions": [
+          {
+            "componentName": "PersonalProfile_OfficeAddress",
+            "path": null
+          }
+        ]
+      }
+    ]
+  },
+  "records": {},
+  "serviceClasses": {
+    "OfficeAddress": {
+      "serviceName": "OfficeAddress",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+        "startLine": {
+          "line": 24,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 24,
+          "offset": 36
+        }
+      },
+      "description": null,
+      "functions": [
+        {
+          "identifier": "number",
+          "returnType": "Int!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "street",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "city",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    },
+    "PersonalProfile": {
+      "serviceName": "PersonalProfile",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 5,
+          "offset": 38
+        }
+      },
+      "description": null,
+      "functions": [
+        {
+          "identifier": "name",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "age",
+          "returnType": "Int!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  },
+  "enums": {},
+  "unions": {
+    "PersonalProfile_OfficeAddress": {
+      "name": "PersonalProfile_OfficeAddress",
+      "position": null,
+      "description": "auto-generated union type from Ballerina",
+      "possibleTypes": [
+        {
+          "componentName": "PersonalProfile",
+          "path": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal"
+        },
+        {
+          "componentName": "OfficeAddress",
+          "path": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal"
+        }
+      ]
+    },
+    "SearchResult": {
+      "name": "SearchResult",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 3,
+          "offset": 17
+        }
+      },
+      "description": "auto-generated union type from Ballerina",
+      "possibleTypes": [
+        {
+          "componentName": "PersonalProfile",
+          "path": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal"
+        },
+        {
+          "componentName": "OfficeAddress",
+          "path": "{srcPath}/ballerina/graphql_services/04_service_with_union_outputs.bal"
+        }
+      ]
+    }
+  },
+  "interfaces": {},
+  "hierarchicalResources": {}
+}

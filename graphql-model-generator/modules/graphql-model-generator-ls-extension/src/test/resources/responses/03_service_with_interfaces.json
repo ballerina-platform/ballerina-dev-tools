@@ -1,0 +1,181 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal",
+      "startLine": {
+        "line": 52,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 59,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "bio",
+        "subscription": false,
+        "returns": "Bio!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal",
+          "startLine": {
+            "line": 56,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 58,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "Bio",
+            "path": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal"
+          }
+        ]
+      }
+    ],
+    "remoteFunctions": []
+  },
+  "records": {},
+  "serviceClasses": {
+    "HighSchoolTeacher": {
+      "serviceName": "HighSchoolTeacher",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal",
+        "startLine": {
+          "line": 20,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 40
+        }
+      },
+      "description": null,
+      "functions": [
+        {
+          "identifier": "name",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "school",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "subject",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  },
+  "enums": {},
+  "unions": {},
+  "interfaces": {
+    "Teacher": {
+      "name": "Teacher",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal",
+        "startLine": {
+          "line": 10,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 12
+        }
+      },
+      "description": null,
+      "possibleTypes": [
+        {
+          "componentName": "HighSchoolTeacher",
+          "path": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal"
+        }
+      ],
+      "resourceFunctions": [
+        {
+          "identifier": "school",
+          "subscription": false,
+          "returns": "String!",
+          "position": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "name",
+          "subscription": false,
+          "returns": "String!",
+          "position": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    },
+    "Bio": {
+      "name": "Bio",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal",
+        "startLine": {
+          "line": 3,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 3,
+          "offset": 8
+        }
+      },
+      "description": null,
+      "possibleTypes": [
+        {
+          "componentName": "Teacher",
+          "path": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal"
+        },
+        {
+          "componentName": "HighSchoolTeacher",
+          "path": "{srcPath}/ballerina/graphql_services/03_service_with_interfaces.bal"
+        }
+      ],
+      "resourceFunctions": [
+        {
+          "identifier": "name",
+          "subscription": false,
+          "returns": "String!",
+          "position": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  },
+  "hierarchicalResources": {}
+}

@@ -1,0 +1,183 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/05_outputs_from_different_file.bal",
+      "startLine": {
+        "line": 4,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 13,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "day",
+        "subscription": false,
+        "returns": "Weekday!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/05_outputs_from_different_file.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "Weekday",
+            "path": "{srcPath}/ballerina/graphql_services/modules/utils/graphqlService_1.bal"
+          }
+        ]
+      },
+      {
+        "identifier": "profile",
+        "subscription": false,
+        "returns": "Profile!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/05_outputs_from_different_file.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "Profile",
+            "path": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal"
+          }
+        ]
+      }
+    ],
+    "remoteFunctions": []
+  },
+  "records": {},
+  "serviceClasses": {
+    "Profile": {
+      "serviceName": "Profile",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 14
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 21
+        }
+      },
+      "description": null,
+      "functions": [
+        {
+          "identifier": "name",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "age",
+          "returnType": "Int!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "isAdult",
+          "returnType": "Boolean!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  },
+  "enums": {
+    "Weekday": {
+      "name": "Weekday",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/modules/utils/graphqlService_1.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 12
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 19
+        }
+      },
+      "description": null,
+      "enumFields": [
+        {
+          "name": "SATURDAY",
+          "description": "Saturday is a holiday",
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "FRIDAY",
+          "description": "Friday is not a holiday",
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "THURSDAY",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "WEDNESDAY",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "TUESDAY",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "MONDAY",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "SUNDAY",
+          "description": "Sunday is a holiday",
+          "isDeprecated": false,
+          "deprecationReason": null
+        }
+      ]
+    }
+  },
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {}
+}

@@ -1,0 +1,300 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+      "startLine": {
+        "line": 50,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 89,
+        "offset": 1
+      }
+    },
+    "description": "Sample GraphQL service",
+    "resourceFunctions": [
+      {
+        "identifier": "profile",
+        "subscription": false,
+        "returns": "Profile!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+          "startLine": {
+            "line": 59,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 63,
+            "offset": 5
+          }
+        },
+        "description": "The resource maps to a output object type Profile",
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "Profile",
+            "path": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal"
+          }
+        ]
+      },
+      {
+        "identifier": "address",
+        "subscription": false,
+        "returns": "Address!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+          "startLine": {
+            "line": 65,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 71,
+            "offset": 5
+          }
+        },
+        "description": "",
+        "isDeprecated": true,
+        "deprecationReason": "The `address` field is deprecated.",
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "Address",
+            "path": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal"
+          }
+        ]
+      },
+      {
+        "identifier": "names",
+        "subscription": true,
+        "returns": "String!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+          "startLine": {
+            "line": 86,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 88,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": []
+      }
+    ],
+    "remoteFunctions": [
+      {
+        "identifier": "getTeam",
+        "returns": "Team!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+          "startLine": {
+            "line": 73,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 84,
+            "offset": 5
+          }
+        },
+        "description": "The remote functions outputs Team",
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [
+          {
+            "type": "Int!",
+            "name": "teamId",
+            "description": "The team ID",
+            "defaultValue": null
+          }
+        ],
+        "interactions": [
+          {
+            "componentName": "Team",
+            "path": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal"
+          }
+        ]
+      }
+    ]
+  },
+  "records": {
+    "Address": {
+      "name": "Address",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+        "startLine": {
+          "line": 28,
+          "offset": 12
+        },
+        "endLine": {
+          "line": 28,
+          "offset": 19
+        }
+      },
+      "description": "Address description\n",
+      "recordFields": [
+        {
+          "name": "number",
+          "type": "String!",
+          "defaultValue": null,
+          "description": "number",
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        },
+        {
+          "name": "street",
+          "type": "Street!",
+          "defaultValue": null,
+          "description": "street of Address",
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": [
+            {
+              "componentName": "Street",
+              "path": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal"
+            }
+          ]
+        },
+        {
+          "name": "city",
+          "type": "String!",
+          "defaultValue": null,
+          "description": "provided city",
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        }
+      ],
+      "isInputObject": false
+    },
+    "Street": {
+      "name": "Street",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 12
+        },
+        "endLine": {
+          "line": 34,
+          "offset": 18
+        }
+      },
+      "description": null,
+      "recordFields": [
+        {
+          "name": "mainStreet",
+          "type": "String!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        },
+        {
+          "name": "subStreet",
+          "type": "String!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        }
+      ],
+      "isInputObject": false
+    }
+  },
+  "serviceClasses": {
+    "Profile": {
+      "serviceName": "Profile",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 14
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 21
+        }
+      },
+      "description": null,
+      "functions": [
+        {
+          "identifier": "name",
+          "returnType": "String!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "age",
+          "returnType": "Int!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "isAdult",
+          "returnType": "Boolean!",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  },
+  "enums": {
+    "Team": {
+      "name": "Team",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/01_graphql_service.bal",
+        "startLine": {
+          "line": 40,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 40,
+          "offset": 9
+        }
+      },
+      "description": "Team enum",
+      "enumFields": [
+        {
+          "name": "SALES",
+          "description": "",
+          "isDeprecated": true,
+          "deprecationReason": "The `SALES` is deprecated."
+        },
+        {
+          "name": "MARKETING",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        },
+        {
+          "name": "ENGINEERING",
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null
+        }
+      ]
+    }
+  },
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {}
+}

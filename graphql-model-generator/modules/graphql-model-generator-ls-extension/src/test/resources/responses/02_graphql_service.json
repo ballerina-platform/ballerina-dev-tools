@@ -1,0 +1,171 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal",
+      "startLine": {
+        "line": 14,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 25,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "profiles",
+        "subscription": false,
+        "returns": "[OldProfile!]!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal",
+          "startLine": {
+            "line": 22,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 24,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "OldProfile",
+            "path": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal"
+          }
+        ]
+      }
+    ],
+    "remoteFunctions": [
+      {
+        "identifier": "addProfile",
+        "returns": "OldProfile!",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [
+          {
+            "type": "NewProfile!",
+            "name": "newProfile",
+            "description": null,
+            "defaultValue": null
+          }
+        ],
+        "interactions": [
+          {
+            "componentName": "OldProfile",
+            "path": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal"
+          },
+          {
+            "componentName": "NewProfile",
+            "path": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal"
+          }
+        ]
+      }
+    ]
+  },
+  "records": {
+    "OldProfile": {
+      "name": "OldProfile",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal",
+        "startLine": {
+          "line": 7,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 7,
+          "offset": 15
+        }
+      },
+      "description": null,
+      "recordFields": [
+        {
+          "name": "id",
+          "type": "Int!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        },
+        {
+          "name": "name",
+          "type": "String!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        },
+        {
+          "name": "age",
+          "type": "Int!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        }
+      ],
+      "isInputObject": false
+    },
+    "NewProfile": {
+      "name": "NewProfile",
+      "position": {
+        "filePath": "{srcPath}/ballerina/graphql_services/02_graphql_service.bal",
+        "startLine": {
+          "line": 2,
+          "offset": 5
+        },
+        "endLine": {
+          "line": 2,
+          "offset": 15
+        }
+      },
+      "description": null,
+      "recordFields": [
+        {
+          "name": "name",
+          "type": "String!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        },
+        {
+          "name": "age",
+          "type": "Int!",
+          "defaultValue": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "interactions": []
+        }
+      ],
+      "isInputObject": true
+    }
+  },
+  "serviceClasses": {},
+  "enums": {},
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {}
+}

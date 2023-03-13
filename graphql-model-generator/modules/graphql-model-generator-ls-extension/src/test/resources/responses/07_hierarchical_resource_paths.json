@@ -1,0 +1,139 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/07_hierarchical_resource_paths.bal",
+      "startLine": {
+        "line": 2,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 17,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "profile",
+        "subscription": false,
+        "returns": "profile!",
+        "position": null,
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": [
+          {
+            "componentName": "profile",
+            "path": null
+          }
+        ]
+      }
+    ],
+    "remoteFunctions": []
+  },
+  "records": {},
+  "serviceClasses": {},
+  "enums": {},
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {
+    "profile": {
+      "name": "profile",
+      "hierarchicalResources": [
+        {
+          "identifier": "quote",
+          "subscription": false,
+          "returns": "String!",
+          "position": {
+            "filePath": "{srcPath}/ballerina/graphql_services/07_hierarchical_resource_paths.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 5
+            }
+          },
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        },
+        {
+          "identifier": "name",
+          "subscription": false,
+          "returns": "name!",
+          "position": null,
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": [
+            {
+              "componentName": "name",
+              "path": null
+            }
+          ]
+        }
+      ]
+    },
+    "name": {
+      "name": "name",
+      "hierarchicalResources": [
+        {
+          "identifier": "first",
+          "subscription": false,
+          "returns": "String!",
+          "position": {
+            "filePath": "{srcPath}/ballerina/graphql_services/07_hierarchical_resource_paths.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 5
+            }
+          },
+          "description": "",
+          "isDeprecated": true,
+          "deprecationReason": "",
+          "parameters": [
+            {
+              "type": "Int!",
+              "name": "a",
+              "description": null,
+              "defaultValue": null
+            }
+          ],
+          "interactions": []
+        },
+        {
+          "identifier": "last",
+          "subscription": false,
+          "returns": "String!",
+          "position": {
+            "filePath": "{srcPath}/ballerina/graphql_services/07_hierarchical_resource_paths.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 5
+            }
+          },
+          "description": null,
+          "isDeprecated": false,
+          "deprecationReason": null,
+          "parameters": [],
+          "interactions": []
+        }
+      ]
+    }
+  }
+}

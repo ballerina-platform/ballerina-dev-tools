@@ -1,0 +1,47 @@
+{
+  "graphqlService": {
+    "serviceName": "/graphql",
+    "position": {
+      "filePath": "{srcPath}/ballerina/graphql_services/08_resource_with_invalid_return.bal",
+      "startLine": {
+        "line": 2,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 7,
+        "offset": 1
+      }
+    },
+    "description": null,
+    "resourceFunctions": [
+      {
+        "identifier": "greeting",
+        "subscription": false,
+        "returns": "",
+        "position": {
+          "filePath": "{srcPath}/ballerina/graphql_services/08_resource_with_invalid_return.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 5
+          }
+        },
+        "description": null,
+        "isDeprecated": false,
+        "deprecationReason": null,
+        "parameters": [],
+        "interactions": []
+      }
+    ],
+    "remoteFunctions": []
+  },
+  "records": {},
+  "serviceClasses": {},
+  "enums": {},
+  "unions": {},
+  "interfaces": {},
+  "hierarchicalResources": {}
+}
