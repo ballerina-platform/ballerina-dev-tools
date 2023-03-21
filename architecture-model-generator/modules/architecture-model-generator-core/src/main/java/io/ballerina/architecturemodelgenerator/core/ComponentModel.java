@@ -18,12 +18,10 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,16 +37,18 @@ public class ComponentModel {
     private final List<ComponentModelingDiagnostics> diagnostics;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
+    private final EntryPoint entryPoint;
 
-    public ComponentModel(String version, PackageId packageId, boolean hasCompilationErrors,
-                          List<ComponentModelingDiagnostics> diagnostics, Map<String, Service> services,
-                          Map<String, Entity> entities) {
+    public ComponentModel(String version, PackageId packageId, List<ComponentModelingDiagnostics> diagnostics,
+                          Map<String, Service> services, Map<String, Entity> entities, EntryPoint entryPoint,
+                          boolean hasCompilationErrors) {
         this.version = version;
         this.packageId = packageId;
-        this.hasCompilationErrors = hasCompilationErrors;
         this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
+        this.entryPoint = entryPoint;
+        this.hasCompilationErrors = hasCompilationErrors;
     }
 
     public String getVersion() {
@@ -56,12 +56,7 @@ public class ComponentModel {
     }
 
     public PackageId getPackageId() {
-
         return packageId;
-    }
-
-    public boolean hasCompilationErrors() {
-        return hasCompilationErrors;
     }
 
     public List<ComponentModelingDiagnostics> getDiagnostics() {
@@ -69,13 +64,19 @@ public class ComponentModel {
     }
 
     public Map<String, Service> getServices() {
-
         return services;
     }
 
     public Map<String, Entity> getEntities() {
-
         return entities;
+    }
+
+    public EntryPoint getEntryPoint() {
+        return entryPoint;
+    }
+
+    public boolean hasCompilationErrors() {
+        return hasCompilationErrors;
     }
 
     /**
@@ -88,7 +89,6 @@ public class ComponentModel {
         private final String version;
 
         public PackageId(Package currentPackage) {
-
             this.name = currentPackage.packageName().value();
             this.org = currentPackage.packageOrg().value();
             this.version = currentPackage.packageVersion().value().toString();
@@ -105,6 +105,5 @@ public class ComponentModel {
         public String getVersion() {
             return version;
         }
-
     }
 }

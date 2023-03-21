@@ -19,9 +19,6 @@
 package io.ballerina.architecturemodelgenerator.core;
 
 import io.ballerina.architecturemodelgenerator.core.ComponentModel.PackageId;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
@@ -29,9 +26,7 @@ import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -51,6 +46,7 @@ public class ComponentModelBuilder {
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
         List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        AtomicReference<EntryPoint> entryPoint = new AtomicReference<>();
         PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
 
@@ -84,9 +80,13 @@ public class ComponentModelBuilder {
                 );
                 diagnostics.add(diagnostic);
             }
+
+            EntryPointModelGenerator entryPointModelGenerator = new EntryPointModelGenerator(currentPackageCompilation,
+                    module);
+            entryPoint.set(entryPointModelGenerator.generate());
         });
 
-        return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, hasDiagnosticErrors.get(),
-                diagnostics, services, entities);
+        return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,
+                entryPoint.get(), hasDiagnosticErrors.get());
     }
 }

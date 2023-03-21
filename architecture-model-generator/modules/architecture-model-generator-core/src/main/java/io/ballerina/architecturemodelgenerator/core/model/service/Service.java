@@ -18,7 +18,6 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -35,12 +34,12 @@ public class Service extends ModelElement {
     private final String serviceId;
     private final String serviceType;
     private final List<Resource> resources;
-    private final ServiceAnnotation annotation;
+    private final DisplayAnnotation annotation;
     private final List<RemoteFunction> remoteFunctions;
     private final List<Dependency> dependencies;
 
     public Service(String path, String serviceId, String serviceType, List<Resource> resources,
-                   ServiceAnnotation annotation, List<RemoteFunction> remoteFunctions, List<Dependency> dependencies,
+                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<Dependency> dependencies,
                    ElementLocation elementLocation, List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
         this.path = path;
@@ -68,7 +67,7 @@ public class Service extends ModelElement {
         return resources;
     }
 
-    public ServiceAnnotation getAnnotation() {
+    public DisplayAnnotation getAnnotation() {
         return annotation;
     }
 
