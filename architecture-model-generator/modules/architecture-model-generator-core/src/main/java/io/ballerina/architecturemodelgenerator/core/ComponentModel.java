@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
@@ -32,23 +33,36 @@ import java.util.Map;
  */
 public class ComponentModel {
 
+    private final String version;
     private final PackageId packageId;
     private final boolean hasCompilationErrors;
+    private final List<ComponentModelingDiagnostics> diagnostics;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
     private final FunctionEntryPoint functionEntryPoint;
 
-    public ComponentModel(PackageId packageId, Map<String, Service> services, Map<String, Entity> entities,
+    public ComponentModel(String version, PackageId packageId, List<ComponentModelingDiagnostics> diagnostics,
+                          Map<String, Service> services, Map<String, Entity> entities,
                           FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
+        this.version = version;
         this.packageId = packageId;
+        this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
         this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
     }
 
+    public String getVersion() {
+        return version;
+    }
+
     public PackageId getPackageId() {
         return packageId;
+    }
+
+    public List<ComponentModelingDiagnostics> getDiagnostics() {
+        return diagnostics;
     }
 
     public Map<String, Service> getServices() {
@@ -59,12 +73,12 @@ public class ComponentModel {
         return entities;
     }
 
-    public boolean hasCompilationErrors() {
-        return hasCompilationErrors;
-    }
-
     public FunctionEntryPoint getFunctionEntryPoint() {
         return functionEntryPoint;
+    }
+
+    public boolean hasCompilationErrors() {
+        return hasCompilationErrors;
     }
 
     /**
@@ -77,7 +91,6 @@ public class ComponentModel {
         private final String version;
 
         public PackageId(Package currentPackage) {
-
             this.name = currentPackage.packageName().value();
             this.org = currentPackage.packageOrg().value();
             this.version = currentPackage.packageVersion().value().toString();
@@ -94,6 +107,5 @@ public class ComponentModel {
         public String getVersion() {
             return version;
         }
-
     }
 }

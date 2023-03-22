@@ -36,7 +36,8 @@
                   "line": 15,
                   "offset": 40
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "type": [
@@ -55,7 +56,8 @@
                   "line": 15,
                   "offset": 53
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -80,7 +82,8 @@
                   "line": 21,
                   "offset": 76
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "elementLocation": {
@@ -93,7 +96,8 @@
               "line": 23,
               "offset":5
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "identifier": "accounts",
@@ -115,7 +119,8 @@
               "line": 27,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "identifier": "weather",
@@ -144,7 +149,8 @@
                   "line": 15,
                   "offset": 48
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "elementLocation": {
@@ -157,7 +163,8 @@
               "line": 33,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "annotation": {
@@ -173,7 +180,8 @@
             "line": 13,
             "offset": 1
           }
-        }
+        },
+        "diagnostics": []
       },
       "remoteFunctions": [],
       "dependencies": [],
@@ -187,7 +195,8 @@
           "line": 34,
           "offset": 1
         }
-      }
+      },
+      "diagnostics": []
     },
     "002": {
       "path": "time",
@@ -219,7 +228,8 @@
                   "line": 41,
                   "offset": 46
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -236,7 +246,8 @@
               "line": 57,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "annotation": {
@@ -252,7 +263,8 @@
             "line": 39,
             "offset": 1
           }
-        }
+        },
+        "diagnostics": []
       },
       "remoteFunctions": [],
       "dependencies": [],
@@ -266,7 +278,8 @@
           "line": 58,
           "offset": 1
         }
-      }
+      },
+      "diagnostics": []
     }
   },
   "entities": {}

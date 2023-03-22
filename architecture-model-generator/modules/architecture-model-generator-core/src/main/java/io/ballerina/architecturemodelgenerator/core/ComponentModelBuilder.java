@@ -19,6 +19,9 @@
 package io.ballerina.architecturemodelgenerator.core;
 
 import io.ballerina.architecturemodelgenerator.core.ComponentModel.PackageId;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.FunctionEntryPointModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
@@ -31,7 +34,6 @@ import io.ballerina.projects.PackageCompilation;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Construct component model fpr project with multiple service.
@@ -48,6 +50,7 @@ public class ComponentModelBuilder {
         Map<String, Service> services = new HashMap<>();
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
+        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
         PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
@@ -58,22 +61,37 @@ public class ComponentModelBuilder {
             if (currentPackageCompilation.diagnosticResult().hasErrors() && !hasDiagnosticErrors.get()) {
                 hasDiagnosticErrors.set(true);
             }
-            // todo : Check project diagnostics
-            ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(currentPackageCompilation, module);
-            EntityModelGenerator entityModelGenerator = new EntityModelGenerator(currentPackageCompilation, module);
-            FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
-                    new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
 
-            functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+            ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(currentPackageCompilation, module);
             try {
                 services.putAll(serviceModelGenerator.generate());
+            } catch (Exception e) {
+                DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.SERVICES,
+                        e.getMessage());
+                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                        message.getCode(), message.getDescription(), message.getSeverity(), null, null
+                );
+                diagnostics.add(diagnostic);
+            }
+
+            EntityModelGenerator entityModelGenerator = new EntityModelGenerator(currentPackageCompilation, module);
+            try {
                 entities.putAll(entityModelGenerator.generate());
             } catch (Exception e) {
-                // Handle exception
-                hasDiagnosticErrors.set(true);
+                DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.ENTITIES,
+                        e.getMessage());
+                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                        message.getCode(), message.getDescription(), message.getSeverity(), null, null
+                );
+                diagnostics.add(diagnostic);
             }
+
+            FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
+                    new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
+            functionEntryPoint.set(functionEntryPointModelGenerator.generate());
         });
 
-        return new ComponentModel(packageId, services, entities, functionEntryPoint.get(), hasDiagnosticErrors.get());
+        return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,
+                functionEntryPoint.get(), hasDiagnosticErrors.get());
     }
 }
