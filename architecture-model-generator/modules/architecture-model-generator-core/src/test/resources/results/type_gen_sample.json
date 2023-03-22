@@ -26,7 +26,8 @@
               "line":3,
               "offset":26
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"name",
@@ -45,7 +46,8 @@
               "line":4,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"contactNo",
@@ -64,7 +66,8 @@
               "line":5,
               "offset":20
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"email",
@@ -83,7 +86,8 @@
               "line":6,
               "offset":16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"profile",
@@ -110,7 +114,8 @@
               "line":7,
               "offset":19
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -127,7 +132,8 @@
           "line":2,
           "offset":16
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Job":{
       "attributes":[
@@ -148,7 +154,8 @@
               "line":45,
               "offset":18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"jobType",
@@ -167,7 +174,8 @@
               "line":46,
               "offset":18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -184,7 +192,8 @@
           "line":44,
           "offset":15
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentCoursesInstructors":{
       "attributes":[
@@ -205,7 +214,8 @@
               "line":85,
               "offset":23
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -222,7 +232,8 @@
           "line":86,
           "offset":23
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:School":{
       "attributes":[
@@ -243,7 +254,8 @@
               "line":100,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"classRooms",
@@ -270,7 +282,8 @@
               "line":101,
               "offset":26
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"students",
@@ -297,7 +310,8 @@
               "line":105,
               "offset":24
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"tutors",
@@ -324,7 +338,8 @@
               "line":112,
               "offset":16
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -341,7 +356,8 @@
           "line":99,
           "offset":18
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:AnuualSub":{
       "attributes":[
@@ -362,7 +378,8 @@
               "line":29,
               "offset":10
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"\u0027limit",
@@ -381,7 +398,8 @@
               "line":30,
               "offset":14
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"fee",
@@ -400,7 +418,8 @@
               "line":31,
               "offset":13
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -417,7 +436,8 @@
           "line":28,
           "offset":14
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentParentAddress":{
       "attributes":[
@@ -438,7 +458,8 @@
               "line":70,
               "offset":18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"street",
@@ -457,7 +478,8 @@
               "line":71,
               "offset":25
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -474,7 +496,8 @@
           "line":72,
           "offset":17
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:ClassRoom":{
       "attributes":[
@@ -495,7 +518,8 @@
               "line":91,
               "offset":20
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"students",
@@ -522,7 +546,8 @@
               "line":96,
               "offset":22
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -539,7 +564,8 @@
           "line":90,
           "offset":21
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:MonthlySub":{
       "attributes":[
@@ -560,7 +586,8 @@
               "line":35,
               "offset":10
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"fee",
@@ -579,7 +606,8 @@
               "line":36,
               "offset":13
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -596,7 +624,8 @@
           "line":34,
           "offset":15
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:SchoolTutors":{
       "attributes":[
@@ -617,7 +646,8 @@
               "line":111,
               "offset":19
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -634,7 +664,8 @@
           "line":112,
           "offset":16
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentParent":{
       "attributes":[
@@ -655,7 +686,8 @@
               "line":67,
               "offset":25
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"age",
@@ -674,7 +706,8 @@
               "line":68,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"address",
@@ -701,7 +734,8 @@
               "line":72,
               "offset":17
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"job",
@@ -728,7 +762,8 @@
               "line":73,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -745,7 +780,8 @@
           "line":74,
           "offset":12
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Kid":{
       "attributes":[
@@ -766,7 +802,8 @@
               "line":12,
               "offset":16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"guardian",
@@ -793,7 +830,8 @@
               "line":13,
               "offset":18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -810,7 +848,8 @@
           "line":10,
           "offset":15
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Address":{
       "attributes":[
@@ -831,7 +870,8 @@
               "line":40,
               "offset":10
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"street",
@@ -850,7 +890,8 @@
               "line":41,
               "offset":17
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -867,7 +908,8 @@
           "line":39,
           "offset":19
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:PersonAddress":{
       "attributes":[
@@ -888,7 +930,8 @@
               "line":54,
               "offset":14
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"street",
@@ -907,7 +950,8 @@
               "line":55,
               "offset":21
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -924,7 +968,8 @@
           "line":56,
           "offset":13
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Profile":{
       "attributes":[
@@ -945,7 +990,8 @@
               "line":23,
               "offset":22
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"username",
@@ -964,7 +1010,8 @@
               "line":24,
               "offset":19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"subscription",
@@ -998,7 +1045,8 @@
               "line":25,
               "offset":37
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1015,7 +1063,8 @@
           "line":22,
           "offset":19
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Student":{
       "attributes":[
@@ -1036,7 +1085,8 @@
               "line":61,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"address",
@@ -1063,7 +1113,8 @@
               "line":65,
               "offset":13
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"parent",
@@ -1090,7 +1141,8 @@
               "line":74,
               "offset":12
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"courses",
@@ -1117,7 +1169,8 @@
               "line":87,
               "offset":15
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1134,7 +1187,8 @@
           "line":60,
           "offset":19
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentAddress":{
       "attributes":[
@@ -1155,7 +1209,8 @@
               "line":63,
               "offset":14
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"street",
@@ -1174,7 +1229,8 @@
               "line":64,
               "offset":21
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1191,7 +1247,8 @@
           "line":65,
           "offset":13
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentCourses":{
       "attributes":[
@@ -1212,7 +1269,8 @@
               "line":79,
               "offset":20
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"courseName",
@@ -1231,7 +1289,8 @@
               "line":80,
               "offset":25
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"lecturer",
@@ -1258,7 +1317,8 @@
               "line":83,
               "offset":18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"instructors",
@@ -1285,7 +1345,8 @@
               "line":86,
               "offset":23
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1302,7 +1363,8 @@
           "line":87,
           "offset":15
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Adult":{
       "attributes":[
@@ -1323,7 +1385,8 @@
               "line":18,
               "offset":21
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"officeContactNo",
@@ -1342,7 +1405,8 @@
               "line":19,
               "offset":26
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1359,7 +1423,8 @@
           "line":16,
           "offset":17
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:StudentCoursesLecturer":{
       "attributes":[
@@ -1380,7 +1445,8 @@
               "line":82,
               "offset":23
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1397,7 +1463,8 @@
           "line":83,
           "offset":18
         }
-      }
+      },
+      "diagnostics": []
     },
     "aneesha/type_gen_simple:0.1.0:Person":{
       "attributes":[
@@ -1418,7 +1485,8 @@
               "line":51,
               "offset":21
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"age",
@@ -1437,7 +1505,8 @@
               "line":52,
               "offset":11
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"address",
@@ -1464,7 +1533,8 @@
               "line":56,
               "offset":13
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name":"job",
@@ -1491,7 +1561,8 @@
               "line":57,
               "offset":11
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions":[
@@ -1508,7 +1579,8 @@
           "line":50,
           "offset":18
         }
-      }
+      },
+      "diagnostics": []
     }
   }
 }
