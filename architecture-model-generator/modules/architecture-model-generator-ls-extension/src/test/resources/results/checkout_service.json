@@ -1,15 +1,17 @@
 {
+  "version": "0.1.0",
   "packageId": {
     "name": "checkout_service",
     "org": "test",
     "version": "0.1.0"
   },
-  "hasCompilationErrors": true,
+  "hasCompilationErrors": false,
+  "diagnostics": [],
   "services": {
     "checkout": {
       "path": "CheckoutService",
       "serviceId": "checkout",
-      "serviceType": "ballerina/grpc:1.5.0",
+      "serviceType": "ballerina/grpc:1.6.1",
       "resources": [],
       "annotation": {
         "id": "checkout",
@@ -24,7 +26,8 @@
             "line": 15,
             "offset": 1
           }
-        }
+        },
+        "diagnostics": []
       },
       "remoteFunctions": [
         {
@@ -46,7 +49,8 @@
                   "line": 58,
                   "offset": 54
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -71,7 +75,8 @@
                   "line": 96,
                   "offset": 60
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -90,7 +95,8 @@
                   "line": 107,
                   "offset": 76
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -109,7 +115,8 @@
                   "line": 117,
                   "offset": 71
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -128,7 +135,8 @@
                   "line": 146,
                   "offset": 69
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -147,7 +155,8 @@
                   "line": 150,
                   "offset": 49
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -166,7 +175,8 @@
                   "line": 134,
                   "offset": 89
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -185,7 +195,8 @@
                   "line": 158,
                   "offset": 82
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -204,7 +215,8 @@
                   "line": 167,
                   "offset": 105
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -223,7 +235,8 @@
                   "line": 178,
                   "offset": 68
                 }
-              }
+              },
+              "diagnostics": []
             },
             {
               "resourceId": {
@@ -242,7 +255,8 @@
                   "line": 189,
                   "offset": 93
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "elementLocation": {
@@ -255,7 +269,8 @@
               "line": 92,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "dependencies": [],
@@ -269,7 +284,8 @@
           "line": 194,
           "offset": 1
         }
-      }
+      },
+      "diagnostics": []
     }
   },
   "entities": {
@@ -286,7 +302,7 @@
               "associate": "test/checkout_service:0.1.0:Product",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -300,7 +316,8 @@
               "line": 634,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -315,7 +332,8 @@
           "line": 633,
           "offset": 32
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextShipOrderRequest": {
       "attributes": [
@@ -344,11 +362,12 @@
               "line": 465,
               "offset": 28
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -363,7 +382,8 @@
               "line": 466,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -378,12 +398,13 @@
           "line": 464,
           "offset": 35
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:CurrencyConversionRequest": {
       "attributes": [
         {
-          "name": "'from",
+          "name": "\u0027from",
           "type": "test/checkout_service:0.1.0:Money",
           "optional": false,
           "nillable": false,
@@ -407,7 +428,8 @@
               "line": 629,
               "offset": 15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "to_code",
@@ -426,7 +448,8 @@
               "line": 630,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -441,7 +464,8 @@
           "line": 628,
           "offset": 37
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Money": {
       "attributes": [
@@ -462,7 +486,8 @@
               "line": 584,
               "offset": 24
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "units",
@@ -481,7 +506,8 @@
               "line": 585,
               "offset": 13
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "nanos",
@@ -500,7 +526,8 @@
               "line": 586,
               "offset": 13
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -515,7 +542,8 @@
           "line": 583,
           "offset": 17
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:EmptyCartRequest": {
       "attributes": [
@@ -536,7 +564,8 @@
               "line": 650,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -551,7 +580,8 @@
           "line": 649,
           "offset": 28
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextGetCartRequest": {
       "attributes": [
@@ -580,11 +610,12 @@
               "line": 420,
               "offset": 26
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -599,7 +630,8 @@
               "line": 421,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -614,7 +646,8 @@
           "line": 419,
           "offset": 33
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextCart": {
       "attributes": [
@@ -643,11 +676,12 @@
               "line": 425,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -662,7 +696,8 @@
               "line": 426,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -677,7 +712,8 @@
           "line": 424,
           "offset": 23
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Empty": {
       "attributes": [],
@@ -693,7 +729,8 @@
           "line": 691,
           "offset": 17
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:GetQuoteRequest": {
       "attributes": [
@@ -722,7 +759,8 @@
               "line": 624,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "items",
@@ -735,7 +773,7 @@
               "associate": "test/checkout_service:0.1.0:CartItem",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -749,7 +787,8 @@
               "line": 625,
               "offset": 20
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -764,7 +803,8 @@
           "line": 623,
           "offset": 27
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:GetQuoteResponse": {
       "attributes": [
@@ -793,7 +833,8 @@
               "line": 642,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -808,7 +849,8 @@
           "line": 641,
           "offset": 28
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ListRecommendationsResponse": {
       "attributes": [
@@ -829,7 +871,8 @@
               "line": 646,
               "offset": 24
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -844,7 +887,8 @@
           "line": 645,
           "offset": 39
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextPlaceOrderResponse": {
       "attributes": [
@@ -873,11 +917,12 @@
               "line": 520,
               "offset": 30
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -892,7 +937,8 @@
               "line": 521,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -907,7 +953,8 @@
           "line": 519,
           "offset": 37
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:SearchProductsResponse": {
       "attributes": [
@@ -922,7 +969,7 @@
               "associate": "test/checkout_service:0.1.0:Product",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -936,7 +983,8 @@
               "line": 540,
               "offset": 21
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -951,7 +999,8 @@
           "line": 539,
           "offset": 34
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextChargeRequest": {
       "attributes": [
@@ -980,11 +1029,12 @@
               "line": 500,
               "offset": 25
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -999,7 +1049,8 @@
               "line": 501,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1014,7 +1065,8 @@
           "line": 499,
           "offset": 32
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextAdResponse": {
       "attributes": [
@@ -1043,11 +1095,12 @@
               "line": 530,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1062,7 +1115,8 @@
               "line": 531,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1077,7 +1131,8 @@
           "line": 529,
           "offset": 29
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ShipOrderResponse": {
       "attributes": [
@@ -1098,7 +1153,8 @@
               "line": 663,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1113,7 +1169,8 @@
           "line": 662,
           "offset": 29
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ShipOrderRequest": {
       "attributes": [
@@ -1142,7 +1199,8 @@
               "line": 535,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "items",
@@ -1155,7 +1213,7 @@
               "associate": "test/checkout_service:0.1.0:CartItem",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -1169,7 +1227,8 @@
               "line": 536,
               "offset": 20
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1184,7 +1243,8 @@
           "line": 534,
           "offset": 28
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:SendOrderConfirmationRequest": {
       "attributes": [
@@ -1205,10 +1265,11 @@
               "line": 575,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
-          "name": "'order",
+          "name": "\u0027order",
           "type": "test/checkout_service:0.1.0:OrderResult",
           "optional": false,
           "nillable": false,
@@ -1232,7 +1293,8 @@
               "line": 576,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1247,7 +1309,8 @@
           "line": 574,
           "offset": 40
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextListRecommendationsResponse": {
       "attributes": [
@@ -1276,11 +1339,12 @@
               "line": 430,
               "offset": 39
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1295,7 +1359,8 @@
               "line": 431,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1310,7 +1375,8 @@
           "line": 429,
           "offset": 46
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextGetQuoteRequest": {
       "attributes": [
@@ -1339,11 +1405,12 @@
               "line": 475,
               "offset": 27
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1358,7 +1425,8 @@
               "line": 476,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1373,7 +1441,8 @@
           "line": 474,
           "offset": 34
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:OrderItem": {
       "attributes": [
@@ -1402,7 +1471,8 @@
               "line": 667,
               "offset": 17
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "cost",
@@ -1429,7 +1499,8 @@
               "line": 668,
               "offset": 14
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1444,7 +1515,8 @@
           "line": 666,
           "offset": 21
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ChargeResponse": {
       "attributes": [
@@ -1465,7 +1537,8 @@
               "line": 688,
               "offset": 25
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1480,7 +1553,8 @@
           "line": 687,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:AdResponse": {
       "attributes": [
@@ -1495,7 +1569,7 @@
               "associate": "test/checkout_service:0.1.0:Ad",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -1509,7 +1583,8 @@
               "line": 598,
               "offset": 12
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1524,7 +1599,8 @@
           "line": 597,
           "offset": 22
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextAddItemRequest": {
       "attributes": [
@@ -1553,11 +1629,12 @@
               "line": 410,
               "offset": 26
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1572,7 +1649,8 @@
               "line": 411,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1587,7 +1665,8 @@
           "line": 409,
           "offset": 33
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextGetSupportedCurrenciesResponse": {
       "attributes": [
@@ -1616,11 +1695,12 @@
               "line": 495,
               "offset": 42
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1635,7 +1715,8 @@
               "line": 496,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1650,7 +1731,8 @@
           "line": 494,
           "offset": 49
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Product": {
       "attributes": [
@@ -1671,7 +1753,8 @@
               "line": 561,
               "offset": 13
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "name",
@@ -1690,7 +1773,8 @@
               "line": 562,
               "offset": 15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "description",
@@ -1709,7 +1793,8 @@
               "line": 563,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "picture",
@@ -1728,7 +1813,8 @@
               "line": 564,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "price_usd",
@@ -1755,7 +1841,8 @@
               "line": 565,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "categories",
@@ -1774,7 +1861,8 @@
               "line": 566,
               "offset": 23
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1789,7 +1877,8 @@
           "line": 560,
           "offset": 19
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextEmpty": {
       "attributes": [
@@ -1818,11 +1907,12 @@
               "line": 415,
               "offset": 17
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1837,7 +1927,8 @@
               "line": 416,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1852,7 +1943,8 @@
           "line": 414,
           "offset": 24
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ChargeRequest": {
       "attributes": [
@@ -1881,7 +1973,8 @@
               "line": 619,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "credit_card",
@@ -1908,7 +2001,8 @@
               "line": 620,
               "offset": 30
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1923,7 +2017,8 @@
           "line": 618,
           "offset": 25
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextSearchProductsRequest": {
       "attributes": [
@@ -1952,11 +2047,12 @@
               "line": 440,
               "offset": 33
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -1971,7 +2067,8 @@
               "line": 441,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -1986,7 +2083,8 @@
           "line": 439,
           "offset": 40
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextGetProductRequest": {
       "attributes": [
@@ -2015,11 +2113,12 @@
               "line": 450,
               "offset": 29
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2034,7 +2133,8 @@
               "line": 451,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2049,7 +2149,8 @@
           "line": 449,
           "offset": 36
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:CreditCardInfo": {
       "attributes": [
@@ -2070,7 +2171,8 @@
               "line": 602,
               "offset": 29
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "credit_card_cvv",
@@ -2089,7 +2191,8 @@
               "line": 603,
               "offset": 23
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "credit_card_expiration_year",
@@ -2108,7 +2211,8 @@
               "line": 604,
               "offset": 35
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "credit_card_expiration_month",
@@ -2127,7 +2231,8 @@
               "line": 605,
               "offset": 36
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2142,7 +2247,8 @@
           "line": 601,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Address": {
       "attributes": [
@@ -2163,7 +2269,8 @@
               "line": 549,
               "offset": 25
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "city",
@@ -2182,7 +2289,8 @@
               "line": 550,
               "offset": 15
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "state",
@@ -2201,7 +2309,8 @@
               "line": 551,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "country",
@@ -2220,7 +2329,8 @@
               "line": 552,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "zip_code",
@@ -2239,7 +2349,8 @@
               "line": 553,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2254,7 +2365,8 @@
           "line": 548,
           "offset": 19
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextGetQuoteResponse": {
       "attributes": [
@@ -2283,11 +2395,12 @@
               "line": 480,
               "offset": 28
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2302,7 +2415,8 @@
               "line": 481,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2317,7 +2431,8 @@
           "line": 479,
           "offset": 35
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:CartItem": {
       "attributes": [
@@ -2338,7 +2453,8 @@
               "line": 570,
               "offset": 21
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "quantity",
@@ -2357,7 +2473,8 @@
               "line": 571,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2372,7 +2489,8 @@
           "line": 569,
           "offset": 20
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextListProductsResponse": {
       "attributes": [
@@ -2401,11 +2519,12 @@
               "line": 455,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2420,7 +2539,8 @@
               "line": 456,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2435,7 +2555,8 @@
           "line": 454,
           "offset": 39
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:AdRequest": {
       "attributes": [
@@ -2456,7 +2577,8 @@
               "line": 590,
               "offset": 25
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2471,7 +2593,8 @@
           "line": 589,
           "offset": 21
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ListRecommendationsRequest": {
       "attributes": [
@@ -2492,7 +2615,8 @@
               "line": 609,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "product_ids",
@@ -2511,7 +2635,8 @@
               "line": 610,
               "offset": 24
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2526,7 +2651,8 @@
           "line": 608,
           "offset": 38
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:OrderResult": {
       "attributes": [
@@ -2547,7 +2673,8 @@
               "line": 680,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "shipping_tracking_id",
@@ -2566,7 +2693,8 @@
               "line": 681,
               "offset": 31
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "shipping_cost",
@@ -2593,7 +2721,8 @@
               "line": 682,
               "offset": 23
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "shipping_address",
@@ -2620,7 +2749,8 @@
               "line": 683,
               "offset": 28
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "items",
@@ -2633,7 +2763,7 @@
               "associate": "test/checkout_service:0.1.0:OrderItem",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -2647,7 +2777,8 @@
               "line": 684,
               "offset": 21
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2662,7 +2793,8 @@
           "line": 679,
           "offset": 23
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextShipOrderResponse": {
       "attributes": [
@@ -2691,11 +2823,12 @@
               "line": 470,
               "offset": 29
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2710,7 +2843,8 @@
               "line": 471,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2725,7 +2859,8 @@
           "line": 469,
           "offset": 36
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:SearchProductsRequest": {
       "attributes": [
@@ -2746,7 +2881,8 @@
               "line": 659,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2761,7 +2897,8 @@
           "line": 658,
           "offset": 33
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextPlaceOrderRequest": {
       "attributes": [
@@ -2790,11 +2927,12 @@
               "line": 515,
               "offset": 29
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2809,7 +2947,8 @@
               "line": 516,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2824,7 +2963,8 @@
           "line": 514,
           "offset": 36
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextSendOrderConfirmationRequest": {
       "attributes": [
@@ -2853,11 +2993,12 @@
               "line": 510,
               "offset": 40
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -2872,7 +3013,8 @@
               "line": 511,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2887,7 +3029,8 @@
           "line": 509,
           "offset": 47
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:GetProductRequest": {
       "attributes": [
@@ -2908,7 +3051,8 @@
               "line": 557,
               "offset": 13
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2923,7 +3067,8 @@
           "line": 556,
           "offset": 29
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:GetSupportedCurrenciesResponse": {
       "attributes": [
@@ -2944,7 +3089,8 @@
               "line": 638,
               "offset": 27
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -2959,7 +3105,8 @@
           "line": 637,
           "offset": 42
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextChargeResponse": {
       "attributes": [
@@ -2988,11 +3135,12 @@
               "line": 505,
               "offset": 26
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3007,7 +3155,8 @@
               "line": 506,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3022,7 +3171,8 @@
           "line": 504,
           "offset": 33
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextListRecommendationsRequest": {
       "attributes": [
@@ -3051,11 +3201,12 @@
               "line": 435,
               "offset": 38
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3070,7 +3221,8 @@
               "line": 436,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3085,7 +3237,8 @@
           "line": 434,
           "offset": 45
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Cart": {
       "attributes": [
@@ -3106,7 +3259,8 @@
               "line": 614,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "items",
@@ -3119,7 +3273,7 @@
               "associate": "test/checkout_service:0.1.0:CartItem",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -3133,7 +3287,8 @@
               "line": 615,
               "offset": 20
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3148,7 +3303,8 @@
           "line": 613,
           "offset": 16
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:AddItemRequest": {
       "attributes": [
@@ -3169,7 +3325,8 @@
               "line": 654,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "item",
@@ -3196,7 +3353,8 @@
               "line": 655,
               "offset": 17
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3211,7 +3369,8 @@
           "line": 653,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextCurrencyConversionRequest": {
       "attributes": [
@@ -3240,11 +3399,12 @@
               "line": 490,
               "offset": 37
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3259,7 +3419,8 @@
               "line": 491,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3274,12 +3435,13 @@
           "line": 489,
           "offset": 44
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:PlaceOrderResponse": {
       "attributes": [
         {
-          "name": "'order",
+          "name": "\u0027order",
           "type": "test/checkout_service:0.1.0:OrderResult",
           "optional": false,
           "nillable": false,
@@ -3303,7 +3465,8 @@
               "line": 580,
               "offset": 22
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3318,7 +3481,8 @@
           "line": 579,
           "offset": 30
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextAdRequest": {
       "attributes": [
@@ -3347,11 +3511,12 @@
               "line": 525,
               "offset": 21
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3366,7 +3531,8 @@
               "line": 526,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3381,7 +3547,8 @@
           "line": 524,
           "offset": 28
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextMoney": {
       "attributes": [
@@ -3410,11 +3577,12 @@
               "line": 485,
               "offset": 17
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3429,7 +3597,8 @@
               "line": 486,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3444,7 +3613,8 @@
           "line": 484,
           "offset": 24
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextProduct": {
       "attributes": [
@@ -3473,11 +3643,12 @@
               "line": 460,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3492,7 +3663,8 @@
               "line": 461,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3507,7 +3679,8 @@
           "line": 459,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:Ad": {
       "attributes": [
@@ -3528,7 +3701,8 @@
               "line": 544,
               "offset": 23
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "text",
@@ -3547,7 +3721,8 @@
               "line": 545,
               "offset": 15
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3562,7 +3737,8 @@
           "line": 543,
           "offset": 14
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextSearchProductsResponse": {
       "attributes": [
@@ -3591,11 +3767,12 @@
               "line": 445,
               "offset": 34
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3610,7 +3787,8 @@
               "line": 446,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3625,7 +3803,8 @@
           "line": 444,
           "offset": 41
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:PlaceOrderRequest": {
       "attributes": [
@@ -3646,7 +3825,8 @@
               "line": 672,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "user_currency",
@@ -3665,7 +3845,8 @@
               "line": 673,
               "offset": 24
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "address",
@@ -3692,7 +3873,8 @@
               "line": 674,
               "offset": 19
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "email",
@@ -3711,7 +3893,8 @@
               "line": 675,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "credit_card",
@@ -3738,7 +3921,8 @@
               "line": 676,
               "offset": 30
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3753,7 +3937,8 @@
           "line": 671,
           "offset": 29
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:GetCartRequest": {
       "attributes": [
@@ -3774,7 +3959,8 @@
               "line": 594,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3789,7 +3975,8 @@
           "line": 593,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/checkout_service:0.1.0:ContextEmptyCartRequest": {
       "attributes": [
@@ -3818,11 +4005,12 @@
               "line": 405,
               "offset": 28
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "headers",
-          "type": "map<string|string[]>",
+          "type": "map\u003cstring|string[]\u003e",
           "optional": false,
           "nillable": false,
           "defaultValue": "",
@@ -3837,7 +4025,8 @@
               "line": 406,
               "offset": 32
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -3852,7 +4041,8 @@
           "line": 404,
           "offset": 35
         }
-      }
+      },
+      "diagnostics": []
     }
   }
 }

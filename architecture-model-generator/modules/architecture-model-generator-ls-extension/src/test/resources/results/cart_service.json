@@ -1,15 +1,17 @@
 {
+  "version": "0.1.0",
   "packageId": {
     "name": "cart_service",
     "org": "test",
     "version": "0.1.0"
   },
   "hasCompilationErrors": false,
+  "diagnostics": [],
   "services": {
     "cart": {
       "path": "CartService",
       "serviceId": "cart",
-      "serviceType": "ballerina/grpc:1.5.0",
+      "serviceType": "ballerina/grpc:1.6.1",
       "resources": [],
       "annotation": {
         "id": "cart",
@@ -24,7 +26,8 @@
             "line": 10,
             "offset": 1
           }
-        }
+        },
+        "diagnostics": []
       },
       "remoteFunctions": [
         {
@@ -46,7 +49,8 @@
                   "line": 27,
                   "offset": 48
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -64,7 +68,8 @@
               "line": 35,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "GetCart",
@@ -85,7 +90,8 @@
                   "line": 36,
                   "offset": 48
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -103,7 +109,8 @@
               "line": 41,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "EmptyCart",
@@ -124,7 +131,8 @@
                   "line": 42,
                   "offset": 52
                 }
-              }
+              },
+              "diagnostics": []
             }
           ],
           "returns": [
@@ -142,7 +150,8 @@
               "line": 50,
               "offset": 5
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "dependencies": [],
@@ -156,7 +165,8 @@
           "line": 51,
           "offset": 1
         }
-      }
+      },
+      "diagnostics": []
     }
   },
   "entities": {
@@ -179,7 +189,8 @@
               "line": 26,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -194,7 +205,8 @@
           "line": 25,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/cart_service:0.1.0:Empty": {
       "attributes": [],
@@ -210,7 +222,8 @@
           "line": 22,
           "offset": 17
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/cart_service:0.1.0:Cart": {
       "attributes": [
@@ -231,7 +244,8 @@
               "line": 2,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "items",
@@ -244,7 +258,7 @@
               "associate": "test/cart_service:0.1.0:CartItem",
               "cardinality": {
                 "self": "1-1",
-                "associate": "1-m"
+                "associate": "0-m"
               }
             }
           ],
@@ -258,7 +272,8 @@
               "line": 3,
               "offset": 20
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -273,7 +288,8 @@
           "line": 1,
           "offset": 16
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/cart_service:0.1.0:AddItemRequest": {
       "attributes": [
@@ -294,7 +310,8 @@
               "line": 7,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "item",
@@ -321,7 +338,8 @@
               "line": 8,
               "offset": 17
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -336,7 +354,8 @@
           "line": 6,
           "offset": 26
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/cart_service:0.1.0:EmptyCartRequest": {
       "attributes": [
@@ -357,7 +376,8 @@
               "line": 30,
               "offset": 18
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -372,7 +392,8 @@
           "line": 29,
           "offset": 28
         }
-      }
+      },
+      "diagnostics": []
     },
     "test/cart_service:0.1.0:CartItem": {
       "attributes": [
@@ -393,7 +414,8 @@
               "line": 12,
               "offset": 21
             }
-          }
+          },
+          "diagnostics": []
         },
         {
           "name": "quantity",
@@ -412,7 +434,8 @@
               "line": 13,
               "offset": 16
             }
-          }
+          },
+          "diagnostics": []
         }
       ],
       "inclusions": [],
@@ -427,7 +450,8 @@
           "line": 11,
           "offset": 20
         }
-      }
+      },
+      "diagnostics": []
     }
   }
 }

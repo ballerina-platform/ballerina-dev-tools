@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -36,8 +37,9 @@ public class RemoteFunction extends ModelElement {
     private final List<Interaction> interactions;
 
     public RemoteFunction(String name, List<FunctionParameter> parameters, List<String> returns,
-                          List<Interaction> interactions, ElementLocation elementLocation) {
-        super(elementLocation);
+                          List<Interaction> interactions, ElementLocation elementLocation,
+                          List<ComponentModelingDiagnostics> diagnostics) {
+        super(elementLocation, diagnostics);
         this.name = name;
         this.parameters = parameters;
         this.returns = returns;

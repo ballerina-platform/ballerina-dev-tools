@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.entity;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -36,9 +37,9 @@ public class Entity extends ModelElement {
 
     // todo : send the location
 
-    public Entity(List<Attribute> attributes, List<String> inclusions, ElementLocation elementLocation,
-                  boolean isAnonymous) {
-        super(elementLocation);
+    public Entity(List<Attribute> attributes, List<String> inclusions, boolean isAnonymous,
+                  ElementLocation elementLocation, List<ComponentModelingDiagnostics> diagnostics) {
+        super(elementLocation, diagnostics);
         this.attributes = attributes;
         this.inclusions = inclusions;
         this.isAnonymous = isAnonymous;
