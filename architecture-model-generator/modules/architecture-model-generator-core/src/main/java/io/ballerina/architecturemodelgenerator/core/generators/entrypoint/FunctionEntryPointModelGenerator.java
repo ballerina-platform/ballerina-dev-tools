@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.generators.entrypoint;
 
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
-import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionNodeVisitor;
+import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionEntryPointVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
@@ -33,9 +33,9 @@ import java.nio.file.Path;
  *
  * @since 2201.4.0
  */
-public class EntryPointModelGenerator extends ModelGenerator {
+public class FunctionEntryPointModelGenerator extends ModelGenerator {
 
-    public EntryPointModelGenerator(PackageCompilation packageCompilation, Module module) {
+    public FunctionEntryPointModelGenerator(PackageCompilation packageCompilation, Module module) {
         super(packageCompilation, module);
     }
 
@@ -44,10 +44,10 @@ public class EntryPointModelGenerator extends ModelGenerator {
         for (DocumentId documentId :getModule().documentIds()) {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             Path filePath = getModuleRootPath().resolve(syntaxTree.filePath());
-            FunctionNodeVisitor functionNodeVisitor = new FunctionNodeVisitor(
+            FunctionEntryPointVisitor functionEntryPointVisitor = new FunctionEntryPointVisitor(
                     getPackageCompilation(), getSemanticModel(), getModule().packageInstance(), filePath);
-            syntaxTree.rootNode().accept(functionNodeVisitor);
-            FunctionEntryPoint entryPointVisited = functionNodeVisitor.getFunctionEntryPoint();
+            syntaxTree.rootNode().accept(functionEntryPointVisitor);
+            FunctionEntryPoint entryPointVisited = functionEntryPointVisitor.getFunctionEntryPoint();
             if (entryPointVisited != null) {
                 entryPoint = entryPointVisited;
             }

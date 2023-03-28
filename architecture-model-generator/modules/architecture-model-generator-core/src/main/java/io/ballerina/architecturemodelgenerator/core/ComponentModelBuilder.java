@@ -23,7 +23,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelin
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
-import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.EntryPointModelGenerator;
+import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.FunctionEntryPointModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
@@ -89,9 +89,9 @@ public class ComponentModelBuilder {
                 diagnostics.add(diagnostic);
             }
 
-            EntryPointModelGenerator entryPointModelGenerator = new EntryPointModelGenerator(currentPackageCompilation,
-                    module);
-            functionEntryPoint.set(entryPointModelGenerator.generate());
+            FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
+                    new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
+            functionEntryPoint.set(functionEntryPointModelGenerator.generate());
         });
 
         return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,
