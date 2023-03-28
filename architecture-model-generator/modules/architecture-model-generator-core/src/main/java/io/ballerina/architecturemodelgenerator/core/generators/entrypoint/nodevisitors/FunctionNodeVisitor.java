@@ -43,6 +43,7 @@ import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,8 +98,8 @@ public class FunctionNodeVisitor extends NodeVisitor {
                     new ActionNodeVisitor(packageCompilation, semanticModel, currentPackage, filePath.toString());
             functionDefinitionNode.accept(actionNodeVisitor);
 
-            functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes, actionNodeVisitor.getInteractionList(), annotation,
-                    elementLocation, Collections.emptyList());
+            functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
+                    actionNodeVisitor.getInteractionList(), annotation, elementLocation, Collections.emptyList());
         }
     }
 

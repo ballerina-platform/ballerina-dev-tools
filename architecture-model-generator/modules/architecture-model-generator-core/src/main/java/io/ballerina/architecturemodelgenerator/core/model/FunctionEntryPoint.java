@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Interaction;
