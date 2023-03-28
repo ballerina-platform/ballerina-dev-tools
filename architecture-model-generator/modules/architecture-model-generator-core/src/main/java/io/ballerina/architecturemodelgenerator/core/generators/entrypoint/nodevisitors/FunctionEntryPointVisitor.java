@@ -56,7 +56,7 @@ import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorU
  *
  * @since 2201.2.2
  */
-public class FunctionNodeVisitor extends NodeVisitor {
+public class FunctionEntryPointVisitor extends NodeVisitor {
 
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
@@ -64,7 +64,7 @@ public class FunctionNodeVisitor extends NodeVisitor {
     private FunctionEntryPoint functionEntryPoint = null;
     private final Path filePath;
 
-    public FunctionNodeVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
+    public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
                                Package currentPackage, Path filePath) {
         this.packageCompilation = packageCompilation;
         this.semanticModel = semanticModel;

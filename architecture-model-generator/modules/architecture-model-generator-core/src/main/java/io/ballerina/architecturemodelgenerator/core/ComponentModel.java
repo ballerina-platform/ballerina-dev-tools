@@ -63,7 +63,7 @@ public class ComponentModel {
         return hasCompilationErrors;
     }
 
-    public FunctionEntryPoint getEntryPoint() {
+    public FunctionEntryPoint getFunctionEntryPoint() {
         return functionEntryPoint;
     }
 
