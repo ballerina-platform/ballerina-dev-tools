@@ -18,13 +18,11 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.EntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,17 +38,17 @@ public class ComponentModel {
     private final List<ComponentModelingDiagnostics> diagnostics;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
-    private final EntryPoint entryPoint;
+    private final FunctionEntryPoint functionEntryPoint;
 
     public ComponentModel(String version, PackageId packageId, List<ComponentModelingDiagnostics> diagnostics,
-                          Map<String, Service> services, Map<String, Entity> entities, EntryPoint entryPoint,
-                          boolean hasCompilationErrors) {
+                          Map<String, Service> services, Map<String, Entity> entities,
+                          FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
         this.version = version;
         this.packageId = packageId;
         this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
-        this.entryPoint = entryPoint;
+        this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
     }
 
@@ -74,8 +72,8 @@ public class ComponentModel {
         return entities;
     }
 
-    public EntryPoint getEntryPoint() {
-        return entryPoint;
+    public FunctionEntryPoint getFunctionEntryPoint() {
+        return functionEntryPoint;
     }
 
     public boolean hasCompilationErrors() {

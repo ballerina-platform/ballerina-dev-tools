@@ -18,7 +18,6 @@
 
 package io.ballerina.architecturemodelgenerator.core.model;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Interaction;
@@ -28,16 +27,16 @@ import java.util.List;
 /**
  * Represents EntryPoint related information.
  *
- * @since 2201.2.2
+ * @since 2201.4.2
  */
-public class EntryPoint extends ModelElement {
+public class FunctionEntryPoint extends ModelElement {
 
     private final List<FunctionParameter> parameters;
     private final List<String> returns;
     private final List<Interaction> interactions;
     private final DisplayAnnotation annotation;
 
-    public EntryPoint(List<FunctionParameter> parameters, List<String> returns, List<Interaction> interactions,
+    public FunctionEntryPoint(List<FunctionParameter> parameters, List<String> returns, List<Interaction> interactions,
                       DisplayAnnotation annotation, ElementLocation elementLocation,
                       List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
