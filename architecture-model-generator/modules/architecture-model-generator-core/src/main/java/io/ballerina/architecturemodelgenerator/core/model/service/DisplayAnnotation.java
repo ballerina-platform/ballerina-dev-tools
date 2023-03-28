@@ -18,8 +18,11 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+
+import java.util.List;
 
 /**
  * Represents display annotation.
