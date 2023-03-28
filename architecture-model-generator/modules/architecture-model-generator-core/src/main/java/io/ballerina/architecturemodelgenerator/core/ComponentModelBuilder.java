@@ -22,7 +22,7 @@ import io.ballerina.architecturemodelgenerator.core.ComponentModel.PackageId;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.EntryPointModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
-import io.ballerina.architecturemodelgenerator.core.model.EntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
@@ -48,7 +48,7 @@ public class ComponentModelBuilder {
         Map<String, Service> services = new HashMap<>();
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
-        AtomicReference<EntryPoint> entryPoint = new AtomicReference<>();
+        AtomicReference<FunctionEntryPoint> entryPoint = new AtomicReference<>();
         PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
 

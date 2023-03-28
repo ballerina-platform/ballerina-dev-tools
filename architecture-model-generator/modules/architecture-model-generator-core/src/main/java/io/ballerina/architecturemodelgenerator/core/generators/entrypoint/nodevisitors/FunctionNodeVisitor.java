@@ -20,7 +20,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodev
 
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
-import io.ballerina.architecturemodelgenerator.core.model.EntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
 import io.ballerina.compiler.api.SemanticModel;
@@ -61,7 +61,7 @@ public class FunctionNodeVisitor extends NodeVisitor {
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
     private final Package currentPackage;
-    private EntryPoint entryPoint = null;
+    private FunctionEntryPoint functionEntryPoint = null;
     private final Path filePath;
 
     public FunctionNodeVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
@@ -72,8 +72,8 @@ public class FunctionNodeVisitor extends NodeVisitor {
         this.filePath = filePath;
     }
 
-    public EntryPoint getEntryPoint() {
-        return entryPoint;
+    public FunctionEntryPoint getFunctionEntryPoint() {
+        return functionEntryPoint;
     }
 
     @Override
@@ -97,8 +97,8 @@ public class FunctionNodeVisitor extends NodeVisitor {
                     new ActionNodeVisitor(packageCompilation, semanticModel, currentPackage, filePath.toString());
             functionDefinitionNode.accept(actionNodeVisitor);
 
-            entryPoint = new EntryPoint(funcParamList, returnTypes, actionNodeVisitor.getInteractionList(), annotation,
-                    elementLocation);
+            functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
+                    actionNodeVisitor.getInteractionList(), annotation, elementLocation);
         }
     }
 

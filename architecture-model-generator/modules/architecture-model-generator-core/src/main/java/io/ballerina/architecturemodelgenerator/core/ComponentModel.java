@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
-import io.ballerina.architecturemodelgenerator.core.model.EntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
@@ -36,29 +36,26 @@ public class ComponentModel {
     private final boolean hasCompilationErrors;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
-    private final EntryPoint entryPoint;
+    private final FunctionEntryPoint functionEntryPoint;
 
-    public ComponentModel(PackageId packageId, Map<String, Service> services,
-                          Map<String, Entity> entities, EntryPoint entryPoint, boolean hasCompilationErrors) {
+    public ComponentModel(PackageId packageId, Map<String, Service> services, Map<String, Entity> entities,
+                          FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
         this.packageId = packageId;
         this.services = services;
         this.entities = entities;
-        this.entryPoint = entryPoint;
+        this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
     }
 
     public PackageId getPackageId() {
-
         return packageId;
     }
 
     public Map<String, Service> getServices() {
-
         return services;
     }
 
     public Map<String, Entity> getEntities() {
-
         return entities;
     }
 
@@ -66,8 +63,8 @@ public class ComponentModel {
         return hasCompilationErrors;
     }
 
-    public EntryPoint getEntryPoint() {
-        return entryPoint;
+    public FunctionEntryPoint getEntryPoint() {
+        return functionEntryPoint;
     }
 
     /**
