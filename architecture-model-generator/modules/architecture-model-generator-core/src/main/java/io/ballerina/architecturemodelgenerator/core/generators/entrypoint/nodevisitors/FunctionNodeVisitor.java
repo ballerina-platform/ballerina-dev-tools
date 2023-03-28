@@ -99,7 +99,7 @@ public class FunctionNodeVisitor extends NodeVisitor {
             functionDefinitionNode.accept(actionNodeVisitor);
 
             entryPoint = new EntryPoint(funcParamList, returnTypes, actionNodeVisitor.getInteractionList(), annotation,
-                    elementLocation);
+                    elementLocation, Collections.emptyList());
         }
     }
 
