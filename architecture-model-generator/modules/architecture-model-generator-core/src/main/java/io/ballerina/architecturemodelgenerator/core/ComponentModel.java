@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
+import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
@@ -31,23 +32,19 @@ import java.util.Map;
  */
 public class ComponentModel {
 
-    private final String version;
     private final PackageId packageId;
     private final boolean hasCompilationErrors;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
+    private final FunctionEntryPoint functionEntryPoint;
 
-    public ComponentModel(String version, PackageId packageId, Map<String, Service> services,
-                          Map<String, Entity> entities, boolean hasCompilationErrors) {
-        this.version = version;
+    public ComponentModel(PackageId packageId, Map<String, Service> services, Map<String, Entity> entities,
+                          FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
         this.packageId = packageId;
         this.services = services;
         this.entities = entities;
+        this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
-    }
-
-    public String getVersion() {
-        return version;
     }
 
     public PackageId getPackageId() {
@@ -66,6 +63,10 @@ public class ComponentModel {
         return hasCompilationErrors;
     }
 
+    public FunctionEntryPoint getFunctionEntryPoint() {
+        return functionEntryPoint;
+    }
+
     /**
      * Represent current package information.
      */
@@ -76,6 +77,7 @@ public class ComponentModel {
         private final String version;
 
         public PackageId(Package currentPackage) {
+
             this.name = currentPackage.packageName().value();
             this.org = currentPackage.packageOrg().value();
             this.version = currentPackage.packageVersion().value().toString();
@@ -92,5 +94,6 @@ public class ComponentModel {
         public String getVersion() {
             return version;
         }
+
     }
 }
