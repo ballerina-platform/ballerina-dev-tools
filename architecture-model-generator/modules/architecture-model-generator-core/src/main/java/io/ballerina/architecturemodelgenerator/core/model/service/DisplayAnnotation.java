@@ -29,18 +29,18 @@ import java.util.List;
  *
  * @since 2201.2.2
  */
-public class ServiceAnnotation extends ModelElement {
+public class DisplayAnnotation extends ModelElement {
 
     private final String id;
     private final String label;
 
-    public ServiceAnnotation() {
+    public DisplayAnnotation() {
         super(null, null);
         this.id = "";
         this.label = "";
     }
 
-    public ServiceAnnotation(String id, String label, ElementLocation elementLocation,
+    public DisplayAnnotation(String id, String label, ElementLocation elementLocation,
                              List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
         this.id = id;

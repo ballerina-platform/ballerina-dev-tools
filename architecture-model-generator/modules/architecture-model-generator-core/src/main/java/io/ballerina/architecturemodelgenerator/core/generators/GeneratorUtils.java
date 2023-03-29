@@ -18,13 +18,18 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators;
 
+import io.ballerina.architecturemodelgenerator.core.ComponentModel;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
-import io.ballerina.architecturemodelgenerator.core.model.service.ServiceAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.AnnotationSymbol;
+import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.values.ConstantValue;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -37,12 +42,14 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.projects.Package;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -70,7 +77,7 @@ public class GeneratorUtils {
 
     }
 
-    public static ServiceAnnotation getServiceAnnotation(NodeList<AnnotationNode> annotationNodes, String filePath) {
+    public static DisplayAnnotation getServiceAnnotation(NodeList<AnnotationNode> annotationNodes, String filePath) {
 
         String id = UUID.randomUUID().toString();
         String label = "";
@@ -103,10 +110,10 @@ public class GeneratorUtils {
             break;
         }
 
-        return new ServiceAnnotation(id, label, elementLocation, Collections.emptyList());
+        return new DisplayAnnotation(id, label, elementLocation, Collections.emptyList());
     }
 
-    public static ServiceAnnotation getServiceAnnotation(Annotatable annotableSymbol, String filePath) {
+    public static DisplayAnnotation getServiceAnnotation(Annotatable annotableSymbol, String filePath) {
 
         String id = null;
         String label = "";
@@ -137,7 +144,7 @@ public class GeneratorUtils {
             }
         }
 
-        return new ServiceAnnotation(id, label, elementLocation, Collections.emptyList());
+        return new DisplayAnnotation(id, label, elementLocation, Collections.emptyList());
     }
 
     public static String getClientModuleName(Node clientNode, SemanticModel semanticModel) {
@@ -168,5 +175,57 @@ public class GeneratorUtils {
         int start = textDocument.textPositionFrom(lineRange.startLine());
         int end = textDocument.textPositionFrom(lineRange.endLine());
         return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+    }
+
+    // Type extraction related methods
+    public static List<String> getReferencedType(TypeSymbol typeSymbol, Package currentPackage) {
+        List<String> paramTypes = new LinkedList<>();
+        TypeDescKind typeDescKind = typeSymbol.typeKind();
+        switch (typeDescKind) {
+            case TYPE_REFERENCE:
+                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+                paramTypes.add(getReferenceEntityName(typeReferenceTypeSymbol, currentPackage).trim());
+                break;
+            case UNION:
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                List<TypeSymbol> memberTypeDescriptors = unionTypeSymbol.memberTypeDescriptors();
+                for (TypeSymbol memberTypeDescriptor : memberTypeDescriptors) {
+                    paramTypes.addAll(getReferencedType(memberTypeDescriptor, currentPackage));
+                }
+                break;
+            case ARRAY:
+                ArrayTypeSymbol arrayTypeSymbol = (ArrayTypeSymbol) typeSymbol;
+                if (arrayTypeSymbol.memberTypeDescriptor().typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
+                    paramTypes.add(getReferenceEntityName(
+                            (TypeReferenceTypeSymbol) arrayTypeSymbol.memberTypeDescriptor(), currentPackage).trim());
+                } else {
+                    paramTypes.add(arrayTypeSymbol.signature().trim());
+                }
+                break;
+            case NIL:
+                paramTypes.add("null");
+                break;
+            default:
+                paramTypes.add(typeDescKind.getName());
+        }
+        return paramTypes;
+    }
+
+    private static String getReferenceEntityName(TypeReferenceTypeSymbol typeReferenceTypeSymbol,
+                                                 Package currentPackage) {
+        ComponentModel.PackageId packageId = new ComponentModel.PackageId(currentPackage);
+        String currentPackageName = String.format
+                ("%s/%s:%s", packageId.getOrg(), packageId.getName(), packageId.getVersion());
+        String referenceType = typeReferenceTypeSymbol.signature();
+        if (typeReferenceTypeSymbol.getModule().isPresent() &&
+                !referenceType.split(":")[0].equals(currentPackageName.split(":")[0])) {
+            String orgName = typeReferenceTypeSymbol.getModule().get().id().orgName();
+            String packageName = typeReferenceTypeSymbol.getModule().get().id().packageName();
+            String modulePrefix = typeReferenceTypeSymbol.getModule().get().id().modulePrefix();
+            String recordName = typeReferenceTypeSymbol.getName().get();
+            String version = typeReferenceTypeSymbol.getModule().get().id().version();
+            referenceType = String.format("%s/%s:%s:%s:%s", orgName, packageName, modulePrefix, version, recordName);
+        }
+        return referenceType;
     }
 }

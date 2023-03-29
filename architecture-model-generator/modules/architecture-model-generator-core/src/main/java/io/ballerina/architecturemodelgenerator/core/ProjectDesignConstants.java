@@ -51,7 +51,7 @@ public class ProjectDesignConstants {
         }
     }
 
-    public static final String MODEL_VERSION = "0.1.0";
+    public static final String MODEL_VERSION = "0.2.0";
     public static final String CAPABILITY_NAME = "multiServiceModelingService";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
@@ -65,6 +65,7 @@ public class ProjectDesignConstants {
     public static final String ARRAY = "[]";
     public static final String LISTENER = ":Listener";
     public static final String CLIENT = ":Client";
+    public static final String MAIN = "main";
 
     // Entity Model Generator Related Consts
     public static final String CONSTRAINT_KEYWORD = "constraint";
