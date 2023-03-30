@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Interaction;
@@ -36,9 +37,10 @@ public class FunctionEntryPoint extends ModelElement {
     private final List<Interaction> interactions;
     private final DisplayAnnotation annotation;
 
-    public FunctionEntryPoint(List<FunctionParameter> parameters, List<String> returns,
-                      List<Interaction> interactions, DisplayAnnotation annotation, ElementLocation elementLocation) {
-        super(elementLocation);
+    public FunctionEntryPoint(List<FunctionParameter> parameters, List<String> returns, List<Interaction> interactions,
+                      DisplayAnnotation annotation, ElementLocation elementLocation,
+                      List<ComponentModelingDiagnostics> diagnostics) {
+        super(elementLocation, diagnostics);
         this.parameters = parameters;
         this.returns = returns;
         this.annotation = annotation;

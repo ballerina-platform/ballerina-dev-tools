@@ -24,6 +24,7 @@ import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 
+import java.util.List;
 import java.util.Map;
 
 /**

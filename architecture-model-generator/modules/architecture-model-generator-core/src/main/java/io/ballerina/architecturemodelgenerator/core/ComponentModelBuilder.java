@@ -31,9 +31,12 @@ import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Construct component model fpr project with multiple service.

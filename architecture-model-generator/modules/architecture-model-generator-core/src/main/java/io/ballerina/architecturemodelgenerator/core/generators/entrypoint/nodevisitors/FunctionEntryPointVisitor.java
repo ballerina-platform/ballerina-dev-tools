@@ -43,6 +43,7 @@ import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,7 +99,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
             functionDefinitionNode.accept(actionNodeVisitor);
 
             functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
-                    actionNodeVisitor.getInteractionList(), annotation, elementLocation);
+                    actionNodeVisitor.getInteractionList(), annotation, elementLocation, Collections.emptyList());
         }
     }
 
@@ -148,7 +149,8 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                         break;
                     // res params
                 }
-                functionParameters.add(new FunctionParameter(paramTypes, paramName, isRequired, elementLocation));
+                functionParameters.add(new FunctionParameter(paramTypes, paramName, isRequired, elementLocation,
+                        Collections.emptyList()));
             }
         }
     }
