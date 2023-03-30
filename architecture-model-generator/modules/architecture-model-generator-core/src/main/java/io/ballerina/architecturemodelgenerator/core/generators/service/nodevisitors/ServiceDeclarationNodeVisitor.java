@@ -18,6 +18,9 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
@@ -49,6 +52,7 @@ import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -98,7 +102,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             NodeList<AnnotationNode> annotationNodes = metadataNode.get().annotations();
             serviceAnnotation = GeneratorUtils.getServiceAnnotation(annotationNodes, this.filePath.toString());
         } else {
-            serviceAnnotation = new DisplayAnnotation(UUID.randomUUID().toString(), "", null);
+            serviceAnnotation = new DisplayAnnotation(UUID.randomUUID().toString(), "", null, null);
         }
 
         String serviceName = serviceNameBuilder.toString().startsWith(FORWARD_SLASH) ?
@@ -107,12 +111,22 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         ServiceMemberFunctionNodeVisitor serviceMemberFunctionNodeVisitor =
                 new ServiceMemberFunctionNodeVisitor(serviceAnnotation.getId(), packageCompilation,
                         semanticModel, syntaxTree, currentPackage, filePath.toString());
-        serviceDeclarationNode.accept(serviceMemberFunctionNodeVisitor);
+        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        try {
+            serviceDeclarationNode.accept(serviceMemberFunctionNodeVisitor);
+        } catch (Exception e) {
+            DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.SERVICE, e.getMessage());
+            ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                    message.getCode(), message.getDescription(), message.getSeverity(), null, null
+            );
+            diagnostics.add(diagnostic);
+        }
         services.add(new Service(serviceName.trim(), serviceAnnotation.getId(),
                 getServiceType(serviceDeclarationNode), serviceMemberFunctionNodeVisitor.getResources(),
                 serviceAnnotation, serviceMemberFunctionNodeVisitor.getRemoteFunctions(),
                 serviceMemberFunctionNodeVisitor.getDependencies(),
-                GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange())));
+                GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange()),
+                diagnostics));
     }
 
     private String getServiceType(ServiceDeclarationNode serviceDeclarationNode) {

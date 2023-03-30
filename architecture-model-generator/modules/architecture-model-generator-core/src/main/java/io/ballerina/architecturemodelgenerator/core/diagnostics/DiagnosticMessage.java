@@ -61,4 +61,9 @@ public class DiagnosticMessage {
                 "package for the path: %s. %nMessage : %s %nStackTrace : %s", projectPath, message, stacktrace),
                 DiagnosticSeverity.ERROR);
     }
+
+    public static DiagnosticMessage failedToGenerate(DiagnosticNode diagnosticNode, String message) {
+        return new DiagnosticMessage("003", String.format("Unexpected error occurred while generating " +
+                diagnosticNode.toString() + ". Message : %s", message), DiagnosticSeverity.ERROR);
+    }
 }

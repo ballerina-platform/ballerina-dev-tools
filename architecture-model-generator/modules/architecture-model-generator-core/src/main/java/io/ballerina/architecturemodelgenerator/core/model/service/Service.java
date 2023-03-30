@@ -18,6 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -40,8 +41,8 @@ public class Service extends ModelElement {
 
     public Service(String path, String serviceId, String serviceType, List<Resource> resources,
                    DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<Dependency> dependencies,
-                   ElementLocation elementLocation) {
-        super(elementLocation);
+                   ElementLocation elementLocation, List<ComponentModelingDiagnostics> diagnostics) {
+        super(elementLocation, diagnostics);
         this.path = path;
         this.serviceId = serviceId;
         this.serviceType = serviceType;
