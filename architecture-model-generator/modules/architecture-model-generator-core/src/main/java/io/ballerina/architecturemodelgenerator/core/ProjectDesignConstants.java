@@ -73,6 +73,9 @@ public class ProjectDesignConstants {
     public static final String MIN_LENGTH_FIELD = "minLength";
     public static final String MAX_LENGTH_FIELD = "maxLength";
 
+    // REST Methods
+    public static final String GET_KEYWORD = "get";
+
     /**
      * Enum for cardinality types.
      */
