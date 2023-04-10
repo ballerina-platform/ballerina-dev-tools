@@ -24,10 +24,21 @@ package io.ballerina.architecturemodelgenerator.extension;
  * @since 2201.3.4
  */
 public class TestUtils {
+
+    public static final String SKIP_TEST_ENV_VAR = "SKIP_ARCHITECTURE_MODEL_GENERATOR_TESTS";
+
     public static String replaceStdLibVersionStrings(String source) {
         return source
                 .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
                 .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
                 .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "");
+    }
+
+    public static boolean isTestsSkipped() {
+        String skipTest = System.getenv(SKIP_TEST_ENV_VAR);
+        if (skipTest == null) {
+            return false;
+        }
+        return skipTest.equals("true");
     }
 }

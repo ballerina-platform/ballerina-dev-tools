@@ -27,7 +27,9 @@ import io.ballerina.architecturemodelgenerator.core.ProjectComponentResponse;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -50,12 +52,20 @@ public class ArchitectureModelGeneratorServiceTests {
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
     private static final String PROJECT_DESIGN_SERVICE = "projectDesignService/getProjectComponentModels";
+    private final boolean isTestsSkipped = TestUtils.isTestsSkipped();
     Gson gson = new GsonBuilder().serializeNulls().create();
     private Endpoint serviceEndpoint;
 
     @BeforeClass
     public void startLanguageServer() {
         this.serviceEndpoint = TestUtil.initializeLanguageSever();
+    }
+
+    @BeforeMethod
+    public void checkEnv() {
+        if (!isTestsSkipped) {
+            throw new SkipException("Skipping tests.");
+        }
     }
 
     @Test(description = "test model generation for multi-module project")

@@ -37,6 +37,9 @@ import java.util.stream.Stream;
  * @since 2201.3.1
  */
 public class TestUtils {
+
+    private static final String SKIP_TEST_ENV_VAR = "SKIP_ARCHITECTURE_MODEL_GENERATOR_TESTS";
+
     public static Project loadBuildProject(Path projectPath, boolean isSingleFileProject) {
         BuildOptions buildOptions = BuildOptions.builder().setOffline(true).setConfigSchemaGen(true).build();
         if (isSingleFileProject) {
@@ -59,5 +62,13 @@ public class TestUtils {
                 .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
                 .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
                 .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "");
+    }
+
+    public static boolean isTestsSkipped() {
+        String skipTest = System.getenv(SKIP_TEST_ENV_VAR);
+        if (skipTest == null) {
+            return false;
+        }
+        return skipTest.equals("true");
     }
 }

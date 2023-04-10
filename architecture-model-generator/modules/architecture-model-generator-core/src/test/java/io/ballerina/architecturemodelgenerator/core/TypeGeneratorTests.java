@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ballerina.projects.Project;
 import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -37,7 +39,15 @@ public class TypeGeneratorTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
+    private final boolean isTestsSkipped = TestUtils.isTestsSkipped();
     Gson gson = new GsonBuilder().serializeNulls().create();
+
+    @BeforeMethod
+    public void checkEnv() {
+        if (isTestsSkipped) {
+            throw new SkipException("Skipping tests.");
+        }
+    }
 
     @Test(description = "simple type model generation")
     public void testSimpleTypeModelGeneration() throws IOException {
