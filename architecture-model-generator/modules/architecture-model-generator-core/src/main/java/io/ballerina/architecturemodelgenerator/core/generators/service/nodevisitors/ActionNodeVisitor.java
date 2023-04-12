@@ -66,6 +66,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.FORWARD_SLASH;
+import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.GET_KEYWORD;
 import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.TYPE_MAP;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
@@ -131,7 +132,9 @@ public class ActionNodeVisitor extends NodeVisitor {
             } else if (clientResourceAccessActionNode.expression().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
                 clientNode = (QualifiedNameReferenceNode) clientResourceAccessActionNode.expression();
             }
-            resourceMethod = String.valueOf(clientResourceAccessActionNode.methodName().get().name().text());
+            resourceMethod = clientResourceAccessActionNode.methodName().isPresent() ?
+                    String.valueOf(clientResourceAccessActionNode.methodName().get().name().text()) :
+                    GET_KEYWORD;
             resourcePath = getResourcePath(clientResourceAccessActionNode.resourceAccessPath());
 
             Optional<Symbol> clientSymbol = semanticModel.symbol(clientNode);

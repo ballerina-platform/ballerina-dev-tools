@@ -7,6 +7,12 @@ configurable string seatFareAPIUrl = "http://localhost:9090";
 
 table<ConfirmedReservation> key(id) reservationInventory = table [];
 
+@display {
+    label: "Weather",
+    id: "weather"
+}
+final http:Client weatherClient = check new ("http://localhost:9092/api/weather");
+
 listener http:Listener httpListener  = new http:Listener(9090);
 
 @display {
@@ -55,8 +61,8 @@ service /reservations/my on httpListener {
         return reservationInventory[reservationId];
     }
 
-    resource function get weather/[string country] () {
-
+    resource function get weather/[string country]() returns string|error {
+        return weatherClient->/getCurrentWeather;
     }
 }
 

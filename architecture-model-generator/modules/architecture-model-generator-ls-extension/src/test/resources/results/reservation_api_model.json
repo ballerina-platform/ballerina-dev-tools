@@ -6,6 +6,68 @@
   },
   "hasCompilationErrors": true,
   "services": {
+    "weather": {
+      "path": "api/weather",
+      "serviceId": "weather",
+      "serviceType": "ballerina/http:2.7.0",
+      "resources": [
+        {
+          "identifier": "getCurrentWeather",
+          "resourceId": {
+            "serviceId": "weather",
+            "path": "getCurrentWeather",
+            "action": "get"
+          },
+          "parameters": [],
+          "returns": [
+            "string"
+          ],
+          "interactions": [],
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
+            "startPosition": {
+              "line": 9,
+              "offset": 4
+            },
+            "endPosition": {
+              "line": 11,
+              "offset": 5
+            }
+          },
+          "diagnostics": []
+        }
+      ],
+      "annotation": {
+        "id": "weather",
+        "label": "",
+        "elementLocation": {
+          "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
+          "startPosition": {
+            "line": 4,
+            "offset": 0
+          },
+          "endPosition": {
+            "line": 7,
+            "offset": 1
+          }
+        },
+        "diagnostics": []
+      },
+      "remoteFunctions": [],
+      "dependencies": [],
+      "elementLocation": {
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
+        "startPosition": {
+          "line": 4,
+          "offset": 0
+        },
+        "endPosition": {
+          "line": 12,
+          "offset": 1
+        }
+      },
+      "diagnostics": []
+    },
     "001": {
       "path": "reservations/my",
       "serviceId": "001",
@@ -29,11 +91,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 16,
+                  "line": 22,
                   "offset": 39
                 },
                 "endPosition": {
-                  "line": 16,
+                  "line": 22,
                   "offset": 72
                 }
               },
@@ -55,11 +117,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 26,
+                  "line": 32,
                   "offset": 33
                 },
                 "endPosition": {
-                  "line": 26,
+                  "line": 32,
                   "offset": 104
                 }
               },
@@ -75,11 +137,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 37,
+                  "line": 43,
                   "offset": 51
                 },
                 "endPosition": {
-                  "line": 37,
+                  "line": 43,
                   "offset": 107
                 }
               },
@@ -95,11 +157,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 44,
+                  "line": 50,
                   "offset": 36
                 },
                 "endPosition": {
-                  "line": 44,
+                  "line": 50,
                   "offset": 86
                 }
               },
@@ -109,11 +171,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 16,
+              "line": 22,
               "offset": 4
             },
             "endPosition": {
-              "line": 51,
+              "line": 57,
               "offset": 5
             }
           },
@@ -137,11 +199,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 53,
+                  "line": 59,
                   "offset": 38
                 },
                 "endPosition": {
-                  "line": 53,
+                  "line": 59,
                   "offset": 57
                 }
               },
@@ -157,11 +219,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 53,
+                  "line": 59,
                   "offset": 58
                 },
                 "endPosition": {
-                  "line": 53,
+                  "line": 59,
                   "offset": 69
                 }
               },
@@ -177,11 +239,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 53,
+              "line": 59,
               "offset": 4
             },
             "endPosition": {
-              "line": 55,
+              "line": 61,
               "offset": 5
             }
           },
@@ -205,27 +267,48 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
-                  "line": 57,
+                  "line": 63,
                   "offset": 34
                 },
                 "endPosition": {
-                  "line": 57,
+                  "line": 63,
                   "offset": 50
                 }
               },
               "diagnostics": []
             }
           ],
-          "returns": [],
-          "interactions": [],
+          "returns": ["string","error"],
+          "interactions": [
+            {
+              "resourceId": {
+                "serviceId": "weather",
+                "path": "getCurrentWeather",
+                "action": "get"
+              },
+              "connectorType": "ballerina/http:2.5.1",
+              "elementLocation": {
+                "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
+                "startPosition": {
+                  "line": 64,
+                  "offset": 15
+                },
+                "endPosition": {
+                  "line": 64,
+                  "offset": 48
+                }
+              },
+              "diagnostics": []
+            }
+          ],
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
-              "line": 57,
+              "line": 63,
               "offset": 4
             },
             "endPosition": {
-              "line": 59,
+              "line": 65,
               "offset": 5
             }
           },
@@ -238,11 +321,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
           "startPosition": {
-            "line": 11,
+            "line": 17,
             "offset": 0
           },
           "endPosition": {
-            "line": 14,
+            "line": 20,
             "offset": 1
           }
         },
@@ -253,11 +336,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
         "startPosition": {
-          "line": 11,
+          "line": 17,
           "offset": 0
         },
         "endPosition": {
-          "line": 60,
+          "line": 66,
           "offset": 1
         }
       },
