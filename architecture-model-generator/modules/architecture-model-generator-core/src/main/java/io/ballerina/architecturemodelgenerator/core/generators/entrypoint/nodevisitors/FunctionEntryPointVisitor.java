@@ -218,6 +218,9 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 .stream().map(Location::lineRange).collect(Collectors.toList());
         for (LineRange lineRange : moduleVarDeclNodeRefs) {
             Node referredNode = findNode(syntaxTree, lineRange);
+            if (referredNode == null) {
+                continue;
+            }
             while (!referredNode.kind().equals(SyntaxKind.MODULE_PART)) {
                 if (referredNode.kind().equals(SyntaxKind.REMOTE_METHOD_CALL_ACTION) ||
                         referredNode.kind().equals(SyntaxKind.CLIENT_RESOURCE_ACCESS_ACTION)) {

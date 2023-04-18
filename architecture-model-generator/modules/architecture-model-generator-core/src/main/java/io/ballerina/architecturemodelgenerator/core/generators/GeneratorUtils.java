@@ -174,11 +174,14 @@ public class GeneratorUtils {
         if (lineRange == null) {
             return null;
         }
-
-        TextDocument textDocument = syntaxTree.textDocument();
-        int start = textDocument.textPositionFrom(lineRange.startLine());
-        int end = textDocument.textPositionFrom(lineRange.endLine());
-        return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+        try {
+            TextDocument textDocument = syntaxTree.textDocument();
+            int start = textDocument.textPositionFrom(lineRange.startLine());
+            int end = textDocument.textPositionFrom(lineRange.endLine());
+            return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     // Type extraction related methods
