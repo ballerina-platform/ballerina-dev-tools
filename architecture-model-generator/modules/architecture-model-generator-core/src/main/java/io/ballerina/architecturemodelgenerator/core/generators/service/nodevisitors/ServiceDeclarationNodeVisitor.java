@@ -22,7 +22,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelin
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
-import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;

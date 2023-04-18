@@ -20,36 +20,52 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodev
 
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
-import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.DefaultableParameterNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.FunctionSignatureNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
+import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LineRange;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.MAIN;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.findNode;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredClassSymbol;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredNode;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
 
 /**
@@ -61,20 +77,28 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
 
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
+    private final SyntaxTree syntaxTree;
     private final Package currentPackage;
     private FunctionEntryPoint functionEntryPoint = null;
+    private List<Dependency> dependencies = new LinkedList<>();
     private final Path filePath;
 
     public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
-                               Package currentPackage, Path filePath) {
+                                     SyntaxTree syntaxTree, Package currentPackage, Path filePath) {
+
         this.packageCompilation = packageCompilation;
         this.semanticModel = semanticModel;
+        this.syntaxTree = syntaxTree;
         this.currentPackage = currentPackage;
         this.filePath = filePath;
     }
 
     public FunctionEntryPoint getFunctionEntryPoint() {
         return functionEntryPoint;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
     }
 
     @Override
@@ -99,7 +123,8 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
             functionDefinitionNode.accept(actionNodeVisitor);
 
             functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
-                    actionNodeVisitor.getInteractionList(), annotation, elementLocation, Collections.emptyList());
+                    actionNodeVisitor.getInteractionList(), annotation, Collections.emptyList(),
+                    elementLocation, Collections.emptyList());
         }
     }
 
@@ -153,5 +178,54 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                         Collections.emptyList()));
             }
         }
+    }
+
+    @Override
+    public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
+        if (hasInvocationReferences(moduleVariableDeclarationNode)) {
+            return;
+        }
+        Node fieldTypeName = getReferredNode(moduleVariableDeclarationNode.typedBindingPattern().typeDescriptor());
+        if (fieldTypeName != null) {
+            Optional<Symbol> fieldTypeNameSymbol = semanticModel.symbol(fieldTypeName);
+            if (fieldTypeNameSymbol.isPresent()) {
+                ClassSymbol referredClassSymbol = getReferredClassSymbol((TypeSymbol) fieldTypeNameSymbol.get());
+                if (referredClassSymbol != null) {
+                    boolean isClientClass = referredClassSymbol.qualifiers().stream()
+                            .anyMatch(qualifier -> qualifier.equals(Qualifier.CLIENT));
+                    if (isClientClass) {
+                        String serviceId = moduleVariableDeclarationNode.metadata().isPresent() ?
+                                getServiceAnnotation(moduleVariableDeclarationNode.metadata().get().annotations(),
+                                        filePath.toString()).getId() :
+                                UUID.randomUUID().toString();
+                        Dependency dependency = new Dependency(serviceId,
+                                getClientModuleName(referredClassSymbol),
+                                getElementLocation(filePath.toString(), moduleVariableDeclarationNode.lineRange()),
+                                Collections.emptyList());
+                        dependencies.add(dependency);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean hasInvocationReferences(ModuleVariableDeclarationNode moduleVarDeclNode) {
+        Optional<Symbol> moduleVarDeclNodeSymbol = semanticModel.symbol(moduleVarDeclNode);
+        if (moduleVarDeclNodeSymbol.isEmpty()) {
+            return false;
+        }
+        List<LineRange> moduleVarDeclNodeRefs = semanticModel.references(moduleVarDeclNodeSymbol.get())
+                .stream().map(Location::lineRange).collect(Collectors.toList());
+        for (LineRange lineRange : moduleVarDeclNodeRefs) {
+            Node referredNode = findNode(syntaxTree, lineRange);
+            while (!referredNode.kind().equals(SyntaxKind.MODULE_PART)) {
+                if (referredNode.kind().equals(SyntaxKind.REMOTE_METHOD_CALL_ACTION) ||
+                        referredNode.kind().equals(SyntaxKind.CLIENT_RESOURCE_ACCESS_ACTION)) {
+                    return true;
+                }
+                referredNode = referredNode.parent();
+            }
+        }
+        return false;
     }
 }

@@ -20,13 +20,16 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint;
 
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionEntryPointVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Build entry point model based on a given Ballerina package.
@@ -41,16 +44,21 @@ public class FunctionEntryPointModelGenerator extends ModelGenerator {
 
     public FunctionEntryPoint generate() {
         FunctionEntryPoint entryPoint = null;
+        List<Dependency> dependencies = new LinkedList<>();
         for (DocumentId documentId :getModule().documentIds()) {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             Path filePath = getModuleRootPath().resolve(syntaxTree.filePath());
             FunctionEntryPointVisitor functionEntryPointVisitor = new FunctionEntryPointVisitor(
-                    getPackageCompilation(), getSemanticModel(), getModule().packageInstance(), filePath);
+                    getPackageCompilation(), getSemanticModel(), syntaxTree, getModule().packageInstance(), filePath);
             syntaxTree.rootNode().accept(functionEntryPointVisitor);
             FunctionEntryPoint entryPointVisited = functionEntryPointVisitor.getFunctionEntryPoint();
+            dependencies.addAll(functionEntryPointVisitor.getDependencies());
             if (entryPointVisited != null) {
                 entryPoint = entryPointVisited;
             }
+        }
+        if (entryPoint != null) {
+            entryPoint.setDependencies(dependencies);
         }
         return entryPoint;
     }
