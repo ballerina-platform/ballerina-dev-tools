@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import io.ballerina.architecturemodelgenerator.core.ComponentModel;
 import io.ballerina.architecturemodelgenerator.core.ProjectComponentRequest;
 import io.ballerina.architecturemodelgenerator.core.ProjectComponentResponse;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
@@ -76,6 +77,7 @@ public class ArchitectureModelGeneratorServiceTests {
         ComponentModel generatedModel = gson.fromJson(generatedJson, ComponentModel.class);
         ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath);
 
+        // Services
         generatedModel.getServices().forEach((id, service) -> {
             String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                     .replaceAll("\\s+", "")
@@ -86,6 +88,18 @@ public class ArchitectureModelGeneratorServiceTests {
                             .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
             Assert.assertEquals(generatedService, expectedService);
         });
+
+        // Main Entry Point
+        FunctionEntryPoint generatedFuncEntryPoint = generatedModel.getFunctionEntryPoint();
+        String generatedFuncEntryPointStr = TestUtils.replaceStdLibVersionStrings(gson.toJson(generatedFuncEntryPoint)
+                .replaceAll("\\s+", "")
+                .replaceAll("\\\\\\\\", "/"));
+        String expectedFuncEntryPointStr = TestUtils.replaceStdLibVersionStrings(
+                gson.toJson(expectedModel.getFunctionEntryPoint())
+                        .replaceAll("\\s+", "")
+                        .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
+        Assert.assertEquals(generatedFuncEntryPointStr, expectedFuncEntryPointStr);
+
     }
 
     @Test(description = "test model generation for multiple projects with grpc and http services")

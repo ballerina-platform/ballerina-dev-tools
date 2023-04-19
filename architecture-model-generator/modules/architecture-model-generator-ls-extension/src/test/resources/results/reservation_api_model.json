@@ -1279,5 +1279,70 @@
       },
       "diagnostics": []
     }
+  },
+  "functionEntryPoint": {
+    "parameters": [],
+    "returns": [
+      "error",
+      "null"
+    ],
+    "interactions": [
+      {
+        "resourceId": {
+          "serviceId": "001",
+          "path": "reservation",
+          "action": "post"
+        },
+        "connectorType": "ballerina/http:2.7.0",
+        "elementLocation": {
+          "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
+          "startPosition": {
+            "line": 22,
+            "offset": 46
+          },
+          "endPosition": {
+            "line": 22,
+            "offset": 100
+          }
+        },
+        "diagnostics": []
+      }
+    ],
+    "annotation": {
+      "id": null,
+      "label": "",
+      "elementLocation": null,
+      "diagnostics": []
+    },
+    "dependencies": [
+      {
+        "serviceId": "002",
+        "connectorType": "ballerina/http:2.7.0",
+        "elementLocation": {
+          "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
+          "startPosition": {
+            "line": 4,
+            "offset": 4
+          },
+          "endPosition": {
+            "line": 8,
+            "offset": 74
+          }
+        },
+        "diagnostics": []
+      }
+    ],
+    "elementLocation": {
+      "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
+      "startPosition": {
+        "line": 3,
+        "offset": 0
+      },
+      "endPosition": {
+        "line": 24,
+        "offset": 1
+      }
+    },
+    "diagnostics": []
   }
 }

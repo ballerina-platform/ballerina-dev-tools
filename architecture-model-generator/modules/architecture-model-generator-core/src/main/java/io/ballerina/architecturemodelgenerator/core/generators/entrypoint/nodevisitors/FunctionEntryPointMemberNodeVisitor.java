@@ -49,7 +49,7 @@ import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorU
 /**
  * Build entry point model based on a given Ballerina package.
  *
- * @since 2201.4.2
+ * @since 2201.5.1
  */
 public class FunctionEntryPointMemberNodeVisitor extends NodeVisitor {
 
