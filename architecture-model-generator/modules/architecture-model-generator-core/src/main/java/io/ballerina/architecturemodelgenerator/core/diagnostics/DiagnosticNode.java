@@ -27,6 +27,7 @@ public enum DiagnosticNode {
     SERVICES("services"),
     ENTITIES("entities"),
     SERVICE("service"),
+    MAIN_ENTRY_POINT("main entry point"),
     RESOURCE("resource"),
     REMOTE_FUNCTION("remote function"),
     INTERACTION("interaction");

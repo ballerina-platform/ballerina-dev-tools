@@ -91,7 +91,10 @@ public class ComponentModelBuilder {
 
             FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
                     new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
-            functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+            FunctionEntryPoint generatedFunctionEntryPoint = functionEntryPointModelGenerator.generate();
+            if (generatedFunctionEntryPoint != null) {
+                functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+            }
         });
 
         return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,

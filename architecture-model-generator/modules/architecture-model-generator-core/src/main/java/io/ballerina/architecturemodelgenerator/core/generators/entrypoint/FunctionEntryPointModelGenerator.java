@@ -50,7 +50,6 @@ public class FunctionEntryPointModelGenerator extends ModelGenerator {
             FunctionEntryPoint entryPointVisited = functionEntryPointVisitor.getFunctionEntryPoint();
             if (entryPointVisited != null) {
                 entryPoint = entryPointVisited;
-                entryPoint.setDependencies(functionEntryPointVisitor.getDependencies());
             }
         }
         return entryPoint;
