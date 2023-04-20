@@ -19,8 +19,8 @@
 package io.ballerina.architecturemodelgenerator.core;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 

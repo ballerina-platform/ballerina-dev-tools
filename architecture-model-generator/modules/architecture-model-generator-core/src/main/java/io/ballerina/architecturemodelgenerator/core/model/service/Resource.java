@@ -21,6 +21,7 @@ package io.ballerina.architecturemodelgenerator.core.model.service;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
 
 import java.util.List;
 

@@ -16,42 +16,37 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.model.service;
+package io.ballerina.architecturemodelgenerator.core.model.common;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
 
 import java.util.List;
 
 /**
- * Represents display annotation.
+ * Represent interaction with another service.
  *
  * @since 2201.2.2
  */
-public class DisplayAnnotation extends ModelElement {
+public class Interaction extends ModelElement {
 
-    private final String id;
-    private final String label;
+    private final ResourceId resourceId;
+    private final String connectorType;
 
-    public DisplayAnnotation() {
-        super(null, null);
-        this.id = "";
-        this.label = "";
-    }
-
-    public DisplayAnnotation(String id, String label, ElementLocation elementLocation,
-                             List<ComponentModelingDiagnostics> diagnostics) {
+    public Interaction(ResourceId resourceId, String connectorType, ElementLocation elementLocation,
+                       List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
-        this.id = id;
-        this.label = label;
+        this.resourceId = resourceId;
+        this.connectorType = connectorType;
     }
 
-    public String getId() {
-        return id;
+    public ResourceId getResourceId() {
+        return resourceId;
     }
 
-    public String getLabel() {
-        return label;
+    public String getConnectorType() {
+        return connectorType;
     }
 }

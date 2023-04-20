@@ -25,8 +25,8 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.FunctionEntryPointModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
@@ -91,7 +91,10 @@ public class ComponentModelBuilder {
 
             FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
                     new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
-            functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+            FunctionEntryPoint generatedFunctionEntryPoint = functionEntryPointModelGenerator.generate();
+            if (generatedFunctionEntryPoint != null) {
+                functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+            }
         });
 
         return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,

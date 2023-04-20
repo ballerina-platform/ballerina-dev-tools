@@ -20,12 +20,14 @@ package io.ballerina.architecturemodelgenerator.core.generators;
 
 import io.ballerina.architecturemodelgenerator.core.ComponentModel;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
-import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.AnnotationAttachmentSymbol;
 import io.ballerina.compiler.api.symbols.AnnotationSymbol;
 import io.ballerina.compiler.api.symbols.ArrayTypeSymbol;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -38,10 +40,12 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ParenthesisedTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
 import io.ballerina.projects.Package;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -170,11 +174,14 @@ public class GeneratorUtils {
         if (lineRange == null) {
             return null;
         }
-
-        TextDocument textDocument = syntaxTree.textDocument();
-        int start = textDocument.textPositionFrom(lineRange.startLine());
-        int end = textDocument.textPositionFrom(lineRange.endLine());
-        return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+        try {
+            TextDocument textDocument = syntaxTree.textDocument();
+            int start = textDocument.textPositionFrom(lineRange.startLine());
+            int end = textDocument.textPositionFrom(lineRange.endLine());
+            return ((ModulePartNode) syntaxTree.rootNode()).findNode(TextRange.from(start, end - start), true);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     // Type extraction related methods
@@ -227,5 +234,44 @@ public class GeneratorUtils {
             referenceType = String.format("%s/%s:%s:%s:%s", orgName, packageName, modulePrefix, version, recordName);
         }
         return referenceType;
+    }
+
+    // Dependency related methods
+    public static Node getReferredNode(Node typeName) {
+        Node qualifiedNameRefNode = null;
+        if (typeName.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
+                typeName.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE)) {
+            qualifiedNameRefNode = typeName;
+        } else if (typeName instanceof UnionTypeDescriptorNode) {
+            Node leftTypeDescNode = getReferredNode(((UnionTypeDescriptorNode) typeName).leftTypeDesc());
+            Node rightTypeDescNode = getReferredNode(((UnionTypeDescriptorNode) typeName).rightTypeDesc());
+            if (leftTypeDescNode != null && (leftTypeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
+                    leftTypeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
+                qualifiedNameRefNode = leftTypeDescNode;
+            }
+            if (rightTypeDescNode != null && (rightTypeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
+                    rightTypeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
+                qualifiedNameRefNode = rightTypeDescNode;
+            }
+        } else if (typeName instanceof ParenthesisedTypeDescriptorNode) {
+            Node typeDescNode = getReferredNode(((ParenthesisedTypeDescriptorNode) typeName).typedesc());
+            if (typeDescNode != null && (typeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
+                    typeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
+                qualifiedNameRefNode = typeDescNode;
+            }
+        }
+        return qualifiedNameRefNode;
+    }
+
+    public static ClassSymbol getReferredClassSymbol(TypeSymbol symbol) {
+        ClassSymbol classSymbol = null;
+        if (symbol.kind().equals(SymbolKind.CLASS)) {
+            classSymbol = (ClassSymbol) symbol;
+        } else if (symbol.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
+            TypeReferenceTypeSymbol typeRefTypeSymbol = (TypeReferenceTypeSymbol) symbol;
+            TypeSymbol typeDescTypeSymbol = typeRefTypeSymbol.typeDescriptor();
+            classSymbol = getReferredClassSymbol(typeDescTypeSymbol);
+        }
+        return classSymbol;
     }
 }

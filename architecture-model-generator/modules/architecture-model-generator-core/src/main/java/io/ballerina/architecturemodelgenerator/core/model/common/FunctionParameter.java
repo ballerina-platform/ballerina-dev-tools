@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.model.service;
+package io.ballerina.architecturemodelgenerator.core.model.common;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
@@ -25,27 +25,33 @@ import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import java.util.List;
 
 /**
- * Represent interaction with another service.
+ * Represent a parameter of a Ballerina Object Method.
  *
  * @since 2201.2.2
  */
-public class Interaction extends ModelElement {
+public class FunctionParameter extends ModelElement {
 
-    private final ResourceId resourceId;
-    private final String connectorType;
+    private final List<String> type;
+    private final String name;
+    private final boolean isRequired;
 
-    public Interaction(ResourceId resourceId, String connectorType, ElementLocation elementLocation,
-                       List<ComponentModelingDiagnostics> diagnostics) {
+    public FunctionParameter(List<String> type, String name, boolean isRequired, ElementLocation elementLocation,
+                             List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
-        this.resourceId = resourceId;
-        this.connectorType = connectorType;
+        this.type = type;
+        this.name = name;
+        this.isRequired = isRequired;
     }
 
-    public ResourceId getResourceId() {
-        return resourceId;
+    public List<String> getType() {
+        return type;
     }
 
-    public String getConnectorType() {
-        return connectorType;
+    public String getName() {
+        return name;
+    }
+
+    public boolean isRequired() {
+        return isRequired;
     }
 }
