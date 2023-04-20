@@ -20,7 +20,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint;
 
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionEntryPointVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -45,7 +45,7 @@ public class FunctionEntryPointModelGenerator extends ModelGenerator {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             Path filePath = getModuleRootPath().resolve(syntaxTree.filePath());
             FunctionEntryPointVisitor functionEntryPointVisitor = new FunctionEntryPointVisitor(
-                    getPackageCompilation(), getSemanticModel(), getModule().packageInstance(), filePath);
+                    getPackageCompilation(), getSemanticModel(), syntaxTree, getModule().packageInstance(), filePath);
             syntaxTree.rootNode().accept(functionEntryPointVisitor);
             FunctionEntryPoint entryPointVisited = functionEntryPointVisitor.getFunctionEntryPoint();
             if (entryPointVisited != null) {

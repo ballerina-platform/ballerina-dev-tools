@@ -23,8 +23,8 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelin
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
-import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.RemoteFunction;
 import io.ballerina.architecturemodelgenerator.core.model.service.Resource;
 import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
@@ -37,8 +37,6 @@ import io.ballerina.compiler.api.symbols.PathParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AnnotationNode;
 import io.ballerina.compiler.syntax.tree.ConstantDeclarationNode;
@@ -50,14 +48,12 @@ import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.ParameterNode;
-import io.ballerina.compiler.syntax.tree.ParenthesisedTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ResourcePathParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.compiler.syntax.tree.UnionTypeDescriptorNode;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.tools.diagnostics.Location;
@@ -75,6 +71,8 @@ import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorU
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredClassSymbol;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredNode;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
 
 /**
@@ -330,44 +328,6 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     @Override
     public void visit(ConstantDeclarationNode constantDeclarationNode) {
 
-    }
-
-    private Node getReferredNode(Node typeName) {
-        Node qualifiedNameRefNode = null;
-        if (typeName.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
-                typeName.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE)) {
-            qualifiedNameRefNode = typeName;
-        } else if (typeName.kind().equals(SyntaxKind.UNION_TYPE_DESC)) {
-            Node leftTypeDescNode = getReferredNode(((UnionTypeDescriptorNode) typeName).leftTypeDesc());
-            Node rightTypeDescNode = getReferredNode(((UnionTypeDescriptorNode) typeName).rightTypeDesc());
-            if (leftTypeDescNode != null && (leftTypeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
-                    leftTypeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
-                qualifiedNameRefNode = leftTypeDescNode;
-            }
-            if (rightTypeDescNode != null && (rightTypeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
-                    rightTypeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
-                qualifiedNameRefNode = rightTypeDescNode;
-            }
-        } else if (typeName.kind().equals(SyntaxKind.PARENTHESISED_TYPE_DESC)) {
-            Node typeDescNode = getReferredNode(((ParenthesisedTypeDescriptorNode) typeName).typedesc());
-            if (typeDescNode != null && (typeDescNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE) ||
-                    typeDescNode.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE))) {
-                qualifiedNameRefNode = typeDescNode;
-            }
-        }
-        return qualifiedNameRefNode;
-    }
-
-    private ClassSymbol getReferredClassSymbol(TypeSymbol symbol) {
-        ClassSymbol classSymbol = null;
-        if (symbol.kind().equals(SymbolKind.CLASS)) {
-            classSymbol = (ClassSymbol) symbol;
-        } else if (symbol.typeKind().equals(TypeDescKind.TYPE_REFERENCE)) {
-            TypeReferenceTypeSymbol typeRefTypeSymbol = (TypeReferenceTypeSymbol) symbol;
-            TypeSymbol typeDescTypeSymbol = typeRefTypeSymbol.typeDescriptor();
-            classSymbol = getReferredClassSymbol(typeDescTypeSymbol);
-        }
-        return classSymbol;
     }
 
     private boolean hasInvocationReferences(ObjectFieldNode clientDeclarationNode) {

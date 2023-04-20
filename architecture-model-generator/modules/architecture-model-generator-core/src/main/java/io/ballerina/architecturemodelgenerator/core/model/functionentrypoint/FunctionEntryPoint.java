@@ -16,12 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.model;
+package io.ballerina.architecturemodelgenerator.core.model.functionentrypoint;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
-import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
-import io.ballerina.architecturemodelgenerator.core.model.service.Interaction;
+import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
+import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 
 import java.util.List;
 
@@ -36,15 +39,17 @@ public class FunctionEntryPoint extends ModelElement {
     private final List<String> returns;
     private final List<Interaction> interactions;
     private final DisplayAnnotation annotation;
+    private List<Dependency> dependencies;
 
     public FunctionEntryPoint(List<FunctionParameter> parameters, List<String> returns, List<Interaction> interactions,
-                      DisplayAnnotation annotation, ElementLocation elementLocation,
+                      DisplayAnnotation annotation, List<Dependency> dependencies, ElementLocation elementLocation,
                       List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
         this.parameters = parameters;
         this.returns = returns;
         this.annotation = annotation;
         this.interactions = interactions;
+        this.dependencies = dependencies;
     }
 
     public List<FunctionParameter> getParameters() {
@@ -61,5 +66,13 @@ public class FunctionEntryPoint extends ModelElement {
 
     public DisplayAnnotation getAnnotation() {
         return annotation;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<Dependency> dependencies) {
+        this.dependencies = dependencies;
     }
 }

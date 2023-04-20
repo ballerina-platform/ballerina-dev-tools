@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.model.service;
+package io.ballerina.architecturemodelgenerator.core.model.common;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
@@ -25,33 +25,33 @@ import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import java.util.List;
 
 /**
- * Represent a parameter of a Ballerina Object Method.
+ * Represents display annotation.
  *
  * @since 2201.2.2
  */
-public class FunctionParameter extends ModelElement {
+public class DisplayAnnotation extends ModelElement {
 
-    private final List<String> type;
-    private final String name;
-    private final boolean isRequired;
+    private final String id;
+    private final String label;
 
-    public FunctionParameter(List<String> type, String name, boolean isRequired, ElementLocation elementLocation,
+    public DisplayAnnotation() {
+        super(null, null);
+        this.id = "";
+        this.label = "";
+    }
+
+    public DisplayAnnotation(String id, String label, ElementLocation elementLocation,
                              List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
-        this.type = type;
-        this.name = name;
-        this.isRequired = isRequired;
+        this.id = id;
+        this.label = label;
     }
 
-    public List<String> getType() {
-        return type;
+    public String getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public boolean isRequired() {
-        return isRequired;
+    public String getLabel() {
+        return label;
     }
 }

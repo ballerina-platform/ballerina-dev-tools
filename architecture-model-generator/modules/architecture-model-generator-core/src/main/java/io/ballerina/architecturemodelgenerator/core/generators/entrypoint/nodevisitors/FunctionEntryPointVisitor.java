@@ -18,11 +18,14 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors;
 
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
-import io.ballerina.architecturemodelgenerator.core.model.FunctionEntryPoint;
-import io.ballerina.architecturemodelgenerator.core.model.service.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.service.FunctionParameter;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
+import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -38,6 +41,7 @@ import io.ballerina.compiler.syntax.tree.ParameterNode;
 import io.ballerina.compiler.syntax.tree.RequiredParameterNode;
 import io.ballerina.compiler.syntax.tree.ReturnTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 
@@ -61,14 +65,17 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
 
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
+    private final SyntaxTree syntaxTree;
     private final Package currentPackage;
     private FunctionEntryPoint functionEntryPoint = null;
     private final Path filePath;
 
     public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
-                               Package currentPackage, Path filePath) {
+                                     SyntaxTree syntaxTree, Package currentPackage, Path filePath) {
+
         this.packageCompilation = packageCompilation;
         this.semanticModel = semanticModel;
+        this.syntaxTree = syntaxTree;
         this.currentPackage = currentPackage;
         this.filePath = filePath;
     }
@@ -96,10 +103,24 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
 
             ActionNodeVisitor actionNodeVisitor =
                     new ActionNodeVisitor(packageCompilation, semanticModel, currentPackage, filePath.toString());
-            functionDefinitionNode.accept(actionNodeVisitor);
+            FunctionEntryPointMemberNodeVisitor functionEntryPointMemberNodeVisitor =
+                    new FunctionEntryPointMemberNodeVisitor(semanticModel, syntaxTree, filePath);
+            List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+            try {
+                functionDefinitionNode.accept(actionNodeVisitor);
+                functionDefinitionNode.accept(functionEntryPointMemberNodeVisitor);
+            } catch (Exception e) {
+                DiagnosticMessage message =
+                        DiagnosticMessage.failedToGenerate(DiagnosticNode.MAIN_ENTRY_POINT, e.getMessage());
+                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                        message.getCode(), message.getDescription(), message.getSeverity(), null, null
+                );
+                diagnostics.add(diagnostic);
+            }
 
             functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
-                    actionNodeVisitor.getInteractionList(), annotation, elementLocation, Collections.emptyList());
+                    actionNodeVisitor.getInteractionList(), annotation,
+                    functionEntryPointMemberNodeVisitor.getDependencies(), elementLocation, diagnostics);
         }
     }
 

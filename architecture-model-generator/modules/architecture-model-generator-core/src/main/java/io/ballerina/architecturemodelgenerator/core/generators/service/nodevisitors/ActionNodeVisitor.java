@@ -21,7 +21,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisi
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
-import io.ballerina.architecturemodelgenerator.core.model.service.Interaction;
+import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
 import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
