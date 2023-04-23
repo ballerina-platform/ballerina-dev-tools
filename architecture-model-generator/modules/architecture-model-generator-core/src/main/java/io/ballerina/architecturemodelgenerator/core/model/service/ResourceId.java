@@ -26,17 +26,23 @@ package io.ballerina.architecturemodelgenerator.core.model.service;
 public class ResourceId {
 
     private final String serviceId;
+    private final String serviceLabel;
     private final String path;
     private final String action;
 
-    public ResourceId(String serviceId, String action, String path) {
+    public ResourceId(String serviceId, String serviceLabel, String action, String path) {
         this.serviceId = serviceId;
+        this.serviceLabel = serviceLabel;
         this.action = action;
         this.path = path;
     }
 
     public String getServiceId() {
         return serviceId;
+    }
+
+    public String getServiceLabel() {
+        return serviceLabel;
     }
 
     public String getPath() {
