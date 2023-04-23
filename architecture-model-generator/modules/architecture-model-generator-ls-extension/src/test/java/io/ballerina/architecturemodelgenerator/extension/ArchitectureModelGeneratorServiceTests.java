@@ -93,11 +93,13 @@ public class ArchitectureModelGeneratorServiceTests {
         FunctionEntryPoint generatedFuncEntryPoint = generatedModel.getFunctionEntryPoint();
         String generatedFuncEntryPointStr = TestUtils.replaceStdLibVersionStrings(gson.toJson(generatedFuncEntryPoint)
                 .replaceAll("\\s+", "")
-                .replaceAll("\\\\\\\\", "/"));
+                .replaceAll("\\\\\\\\", "/")
+                .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
         String expectedFuncEntryPointStr = TestUtils.replaceStdLibVersionStrings(
                 gson.toJson(expectedModel.getFunctionEntryPoint())
                         .replaceAll("\\s+", "")
-                        .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
+                        .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
+                        .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
         Assert.assertEquals(generatedFuncEntryPointStr, expectedFuncEntryPointStr);
 
     }
@@ -129,11 +131,13 @@ public class ArchitectureModelGeneratorServiceTests {
                 generatedModel.getServices().forEach((id, service) -> {
                     String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                             .replaceAll("\\s+", "")
-                            .replaceAll("\\\\\\\\", "/"));
+                            .replaceAll("\\\\\\\\", "/")
+                            .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
                     String expectedService = TestUtils.replaceStdLibVersionStrings(
                             gson.toJson(expectedModel.getServices().get(id))
                                     .replaceAll("\\s+", "")
-                                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
+                                    .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
+                                    .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
                     Assert.assertEquals(generatedService, expectedService);
                 });
             } catch (IOException e) {
