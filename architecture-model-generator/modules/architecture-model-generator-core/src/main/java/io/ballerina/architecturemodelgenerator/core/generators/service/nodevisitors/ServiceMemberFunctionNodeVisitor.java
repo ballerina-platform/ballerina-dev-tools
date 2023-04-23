@@ -23,6 +23,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelin
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.RemoteFunction;
@@ -64,7 +65,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.findNode;
@@ -82,6 +82,7 @@ import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorU
  */
 public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     private final String serviceId;
+    private final String serviceLabel;
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
     private final SyntaxTree syntaxTree;
@@ -91,10 +92,11 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     private final List<Dependency> dependencies = new LinkedList<>();
     private final String filePath;
 
-    public ServiceMemberFunctionNodeVisitor(String serviceId, PackageCompilation packageCompilation,
-                                            SemanticModel semanticModel, SyntaxTree syntaxTree,
-                                            Package currentPackage, String filePath) {
+    public ServiceMemberFunctionNodeVisitor(String serviceId, String serviceLabel,
+                                            PackageCompilation packageCompilation, SemanticModel semanticModel,
+                                            SyntaxTree syntaxTree, Package currentPackage, String filePath) {
         this.serviceId = serviceId;
+        this.serviceLabel = serviceLabel;
         this.packageCompilation = packageCompilation;
         this.semanticModel = semanticModel;
         this.syntaxTree = syntaxTree;
@@ -158,7 +160,7 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                     diagnostics.add(diagnostic);
                 }
 
-                ResourceId resourceId = new ResourceId(this.serviceId, method, resourcePath);
+                ResourceId resourceId = new ResourceId(this.serviceId, this.serviceLabel, method, resourcePath);
                 Resource resource = new Resource(identifierBuilder.toString().trim(),
                         resourceId, resourceParameterList, returnTypes,
                         actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
@@ -312,10 +314,16 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                     boolean isClientClass = referredClassSymbol.qualifiers().stream()
                             .anyMatch(qualifier -> qualifier.equals(Qualifier.CLIENT));
                     if (isClientClass) {
-                        String serviceId = objectFieldNode.metadata().isPresent() ?
-                                getServiceAnnotation(objectFieldNode.metadata().get().annotations(), filePath).getId() :
-                                UUID.randomUUID().toString();
-                        Dependency dependency = new Dependency(serviceId,
+                        String serviceId = Integer.toString(objectFieldNode.hashCode());
+                        String serviceLabel = "";
+                        if (objectFieldNode.metadata().isPresent()) {
+                            DisplayAnnotation displayAnnotation =
+                                    getServiceAnnotation(objectFieldNode.metadata().get().annotations(), filePath);
+                            serviceId = displayAnnotation.getId() != null ? displayAnnotation.getId() :
+                                    Integer.toString(objectFieldNode.hashCode());
+                            serviceLabel = displayAnnotation.getLabel();
+                        }
+                        Dependency dependency = new Dependency(serviceId, serviceLabel,
                                 getClientModuleName(referredClassSymbol),
                                 getElementLocation(filePath, objectFieldNode.lineRange()), Collections.emptyList());
                         dependencies.add(dependency);
