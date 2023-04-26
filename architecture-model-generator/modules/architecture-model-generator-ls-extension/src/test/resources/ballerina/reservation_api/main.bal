@@ -1,6 +1,10 @@
 import ballerina/io;
 import ballerina/http;
 
+@display {
+    label: "Reservation EP",
+    id: "MainEP"
+}
 public function main() returns error? {
     @display {
         label: "",
