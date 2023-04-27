@@ -130,8 +130,8 @@ public class GeneratorUtils {
                 AnnotationSymbol annotSymbol = annotSymbols.get(i);
                 AnnotationAttachmentSymbol annotAttachmentSymbol = annotAttachmentSymbols.get(i);
                 String annotName = annotSymbol.getName().orElse("");
-                elementLocation = annotSymbol.getLocation().isPresent() ?
-                        getElementLocation(filePath, annotSymbol.getLocation().get().lineRange()) : null;
+                elementLocation = annotAttachmentSymbol.getLocation().isPresent() ?
+                        getElementLocation(filePath, annotAttachmentSymbol.getLocation().get().lineRange()) : null;
                 if (!annotName.equals(DISPLAY_ANNOTATION) || annotAttachmentSymbol.attachmentValue().isEmpty() ||
                         !(annotAttachmentSymbol.attachmentValue().get().value() instanceof LinkedHashMap) ||
                         !annotAttachmentSymbol.isConstAnnotation()) {
