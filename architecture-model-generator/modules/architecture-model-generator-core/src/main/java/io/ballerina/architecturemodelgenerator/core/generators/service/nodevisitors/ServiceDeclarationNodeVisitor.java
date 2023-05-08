@@ -109,8 +109,8 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
                 serviceNameBuilder.substring(1) : serviceNameBuilder.toString();
 
         ServiceMemberFunctionNodeVisitor serviceMemberFunctionNodeVisitor =
-                new ServiceMemberFunctionNodeVisitor(serviceAnnotation.getId(), packageCompilation,
-                        semanticModel, syntaxTree, currentPackage, filePath.toString());
+                new ServiceMemberFunctionNodeVisitor(serviceAnnotation.getId(), serviceAnnotation.getLabel(),
+                        packageCompilation, semanticModel, syntaxTree, currentPackage, filePath.toString());
         List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
         try {
             serviceDeclarationNode.accept(serviceMemberFunctionNodeVisitor);

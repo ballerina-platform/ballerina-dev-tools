@@ -31,17 +31,23 @@ import java.util.List;
  */
 public class Dependency extends ModelElement {
     private final String serviceId;
+    private final String serviceLabel;
     private final String connectorType;
 
-    public Dependency(String serviceId, String connectorType, ElementLocation elementLocation,
+    public Dependency(String serviceId, String serviceLabel, String connectorType, ElementLocation elementLocation,
                       List<ComponentModelingDiagnostics> diagnostics) {
         super(elementLocation, diagnostics);
         this.serviceId = serviceId;
+        this.serviceLabel = serviceLabel;
         this.connectorType = connectorType;
     }
 
     public String getServiceId() {
         return serviceId;
+    }
+
+    public String getServiceLabel() {
+        return serviceLabel;
     }
 
     public String getConnectorType() {

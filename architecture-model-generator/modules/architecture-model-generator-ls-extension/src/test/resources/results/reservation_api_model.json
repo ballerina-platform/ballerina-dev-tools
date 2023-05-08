@@ -15,6 +15,7 @@
           "identifier": "getCurrentWeather",
           "resourceId": {
             "serviceId": "weather",
+            "serviceLabel": "",
             "path": "getCurrentWeather",
             "action": "get"
           },
@@ -77,6 +78,7 @@
           "identifier": "reservation",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "",
             "path": "reservation",
             "action": "post"
           },
@@ -110,6 +112,7 @@
             {
               "resourceId": {
                 "serviceId": "002",
+                "serviceLabel": "",
                 "path": "flights/[string]",
                 "action": "get"
               },
@@ -130,6 +133,7 @@
             {
               "resourceId": {
                 "serviceId": "002",
+                "serviceLabel": "",
                 "path": "my/flights",
                 "action": "post"
               },
@@ -150,6 +154,7 @@
             {
               "resourceId": {
                 "serviceId": "003",
+                "serviceLabel": "",
                 "path": "fare/[string]/[string]",
                 "action": "get"
               },
@@ -185,6 +190,7 @@
           "identifier": "reservation/[int]",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "",
             "path": "reservation/[int reservationId]",
             "action": "get"
           },
@@ -253,6 +259,7 @@
           "identifier": "weather/[string]",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "",
             "path": "weather/[string country]",
             "action": "get"
           },
@@ -283,6 +290,7 @@
             {
               "resourceId": {
                 "serviceId": "weather",
+                "serviceLabel": "Weather",
                 "path": "getCurrentWeather",
                 "action": "get"
               },
@@ -355,6 +363,7 @@
           "identifier": "flights/[string]",
           "resourceId": {
             "serviceId": "002",
+            "serviceLabel": "",
             "path": "flights/[string flightNumber]",
             "action": "get"
           },
@@ -422,6 +431,7 @@
           "identifier": "my/flights",
           "resourceId": {
             "serviceId": "002",
+            "serviceLabel": "",
             "path": "my/flights",
             "action": "post"
           },
@@ -506,6 +516,7 @@
           "identifier": "fare/[string]/[string]",
           "resourceId": {
             "serviceId": "003",
+            "serviceLabel": "",
             "path": "fare/[string flightNumber]/[string flightDate]",
             "action": "get"
           },
@@ -1290,6 +1301,7 @@
       {
         "resourceId": {
           "serviceId": "001",
+          "serviceLabel": "",
           "path": "reservation",
           "action": "post"
         },
@@ -1317,6 +1329,7 @@
     "dependencies": [
       {
         "serviceId": "002",
+        "serviceLabel": "",
         "connectorType": "ballerina/http:2.7.0",
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/main.bal",

@@ -15,6 +15,7 @@
           "identifier": ".",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "greeting-service",
             "path": ".",
             "action": "get"
           },
@@ -68,6 +69,7 @@
             {
               "resourceId": {
                 "serviceId": "002",
+                "serviceLabel": "time-service",
                 "path": "[string]",
                 "action": "get"
               },
@@ -103,6 +105,7 @@
           "identifier": "accounts",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "greeting-service",
             "path": "accounts",
             "action": "get"
           },
@@ -126,6 +129,7 @@
           "identifier": "weather",
           "resourceId": {
             "serviceId": "001",
+            "serviceLabel": "greeting-service",
             "path": "weather",
             "action": "get"
           },
@@ -134,7 +138,8 @@
           "interactions": [
             {
               "resourceId": {
-                "serviceId": null,
+                "serviceId": "-149610787",
+                "serviceLabel": "",
                 "path": "getCurrentWeather",
                 "action": "get"
               },
@@ -207,6 +212,7 @@
           "identifier": "greeting",
           "resourceId": {
             "serviceId": "002",
+            "serviceLabel": "time-service",
             "path": "greeting",
             "action": "get"
           },
