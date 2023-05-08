@@ -1309,11 +1309,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
           "startPosition": {
-            "line": 22,
+            "line": 26,
             "offset": 46
           },
           "endPosition": {
-            "line": 22,
+            "line": 26,
             "offset": 100
           }
         },
@@ -1321,9 +1321,18 @@
       }
     ],
     "annotation": {
-      "id": null,
-      "label": "",
-      "elementLocation": null,
+      "id": "MainEP",
+      "label": "Reservation EP",
+      "elementLocation": {
+        "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
+        "startPosition": {
+          "line": 3,
+          "offset": 0
+        },
+        "endPosition": {
+          "line": 6,
+          "offset": 1}
+      },
       "diagnostics": []
     },
     "dependencies": [
@@ -1334,11 +1343,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
           "startPosition": {
-            "line": 4,
+            "line": 8,
             "offset": 4
           },
           "endPosition": {
-            "line": 8,
+            "line": 12,
             "offset": 74
           }
         },
@@ -1352,7 +1361,7 @@
         "offset": 0
       },
       "endPosition": {
-        "line": 24,
+        "line": 28,
         "offset": 1
       }
     },
