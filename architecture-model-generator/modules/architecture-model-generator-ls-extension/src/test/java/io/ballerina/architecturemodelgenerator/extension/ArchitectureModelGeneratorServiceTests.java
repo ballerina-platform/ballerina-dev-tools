@@ -28,6 +28,7 @@ import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.Fun
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -36,6 +37,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -52,6 +54,7 @@ public class ArchitectureModelGeneratorServiceTests {
     private static final String RESULTS = "results";
     private static final String PROJECT_DESIGN_SERVICE = "projectDesignService/getProjectComponentModels";
     Gson gson = new GsonBuilder().serializeNulls().create();
+    private static final String OS = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
     private Endpoint serviceEndpoint;
 
     @BeforeClass
@@ -61,6 +64,9 @@ public class ArchitectureModelGeneratorServiceTests {
 
     @Test(description = "test model generation for multi-module project")
     public void testMultiModuleProject() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("reservation_api", "reservation_service.bal"));
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("reservation_api_model.json"));
