@@ -68,7 +68,7 @@ public class ServiceModelGenerator {
         generateGraphqlOperation(schemaObj.getMutationType(), OperationKind.MUTATION);
         generateGraphqlOperation(schemaObj.getSubscriptionType(), OperationKind.SUBSCRIPTION);
 
-        Position nodePosition = new Position(servicePosition.filePath(),
+        Position nodePosition = new Position(servicePosition.fileName(),
                 new LinePosition(servicePosition.startLine().line(), servicePosition.startLine().offset()),
                 new LinePosition(servicePosition.endLine().line(), servicePosition.endLine().offset()));
 
