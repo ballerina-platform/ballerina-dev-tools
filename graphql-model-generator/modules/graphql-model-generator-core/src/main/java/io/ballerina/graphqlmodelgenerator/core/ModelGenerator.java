@@ -60,7 +60,7 @@ public class ModelGenerator {
         DocumentId docId;
         Document doc;
         if (project.kind().equals(ProjectKind.BUILD_PROJECT)) {
-            Path filePath = Path.of(position.filePath());
+            Path filePath = Path.of(position.fileName());
             docId = project.documentId(filePath);
             ModuleId moduleId = docId.moduleId();
             doc = project.currentPackage().module(moduleId).document(docId);
