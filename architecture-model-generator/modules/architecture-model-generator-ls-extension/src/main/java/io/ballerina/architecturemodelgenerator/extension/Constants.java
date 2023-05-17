@@ -16,25 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension.architecture;
-
-import java.util.ArrayList;
-import java.util.List;
+package io.ballerina.architecturemodelgenerator.extension;
 
 /**
- * Request for Solution Architecture model generation.
+ * Lang Server Extension Constants.
  *
- * @since 2201.2.2
+ * @since 2201.6.0
  */
-public class ArchitectureModelRequest {
+public class Constants {
 
-    private List<String> documentUris = new ArrayList<>();
-
-    public List<String> getDocumentUris() {
-        return documentUris;
-    }
-
-    public void setDocumentUris(List<String> documentUris) {
-        this.documentUris = documentUris;
-    }
+    public static final String CAPABILITY_NAME = "multiServiceModelingService";
+    public static final String PERSIST_MODEL_GEN_CAPABILITY_NAME = "persistModelGeneratorService";
 }

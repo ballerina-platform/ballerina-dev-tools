@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -18,11 +18,10 @@
 
 package io.ballerina.architecturemodelgenerator.extension;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.architecturemodelgenerator.extension.persist.PersistERModelRequest;
 import io.ballerina.architecturemodelgenerator.extension.persist.PersistERModelResponse;
 import org.ballerinalang.langserver.util.TestUtil;
@@ -32,11 +31,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -45,7 +42,7 @@ import java.util.stream.Stream;
 /**
  * Test Persist ER Model generation.
  *
- * @since 2201.3.1
+ * @since 2201.6.0
  */
 public class PersistERModelGeneratorTests {
 
@@ -75,25 +72,23 @@ public class PersistERModelGeneratorTests {
         PersistERModelResponse response = (PersistERModelResponse) result.get();
 
         JsonObject generatedJsonObject = response.getPersistERModels();
-        Type entityMapType = new TypeToken<Map<String, Entity>>() { }.getType();
-        Map<String, Entity> generatedModel = gson.fromJson(generatedJsonObject, entityMapType);
-        Map<String, Entity> expectedModel = getEntityModels(expectedJsonPath);
+        ArchitectureModel generatedModel = gson.fromJson(generatedJsonObject, ArchitectureModel.class);
+        ArchitectureModel expectedModel = getEntityModels(expectedJsonPath);
 
-        String generatedERModelString = TestUtils.replaceStdLibVersionStrings(gson.toJson(generatedModel)
+        String generatedERModelString = TestUtils.replaceStdLibVersionStrings(gson.toJson(generatedModel.getEntities())
                 .replaceAll("\\s+", "")
                 .replaceAll("\\\\\\\\", "/"));
-        String expectedERModelString = TestUtils.replaceStdLibVersionStrings(gson.toJson(expectedModel)
+        String expectedERModelString = TestUtils.replaceStdLibVersionStrings(gson.toJson(expectedModel.getEntities())
                 .replaceAll("\\s+", "")
                 .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/")));
         Assert.assertEquals(generatedERModelString, expectedERModelString);
     }
 
-    public static Map<String, Entity> getEntityModels(Path expectedFilePath) throws IOException {
+    public static ArchitectureModel getEntityModels(Path expectedFilePath) throws IOException {
         Stream<String> lines = Files.lines(expectedFilePath);
         String content = lines.collect(Collectors.joining(System.lineSeparator()));
         lines.close();
         Gson gson = new GsonBuilder().serializeNulls().create();
-        Type entityMapType = new TypeToken<Map<String, Entity>>() { }.getType();
-        return gson.fromJson(content, entityMapType);
+        return gson.fromJson(content, ArchitectureModel.class);
     }
 }

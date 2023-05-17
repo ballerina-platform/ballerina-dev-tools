@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -51,9 +51,7 @@ public class Constants {
         }
     }
 
-    public static final String MODEL_VERSION = "0.3.0";
-    public static final String CAPABILITY_NAME = "multiServiceModelingService";
-    public static final String PERSIST_MODEL_GEN_CAPABILITY_NAME = "persistModelGeneratorService";
+    public static final String MODEL_VERSION = "0.3.1";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
     public static final String SERVICE_ANNOTATION = "choreo:Service";
