@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.entity;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -37,10 +37,11 @@ public class Attribute extends ModelElement {
     private final boolean nillable;
     private final String defaultValue;
     private final List<Association> associations; // can have multiple association when union is found
+    private final boolean isReadOnly;
 
     public Attribute(String name, String type, boolean optional, boolean nillable, String defaultValue,
-                     List<Association> associations, ElementLocation elementLocation,
-                     List<ComponentModelingDiagnostics> diagnostics) {
+                     List<Association> associations, boolean isReadOnly, ElementLocation elementLocation,
+                     List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.name = name;
         this.type = type;
@@ -48,6 +49,7 @@ public class Attribute extends ModelElement {
         this.nillable = nillable;
         this.defaultValue = defaultValue;
         this.associations = associations;
+        this.isReadOnly = isReadOnly;
     }
 
     public String getName() {
@@ -74,4 +76,7 @@ public class Attribute extends ModelElement {
         return associations;
     }
 
+    public boolean getIsReadOnly() {
+        return isReadOnly;
+    }
 }

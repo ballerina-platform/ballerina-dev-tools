@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
@@ -40,7 +40,7 @@ public class Resource extends ModelElement {
 
     public Resource(String identifier, ResourceId resourceId, List<ResourceParameter> parameters, List<String> returns,
                     List<Interaction> interactions, ElementLocation elementLocation,
-                    List<ComponentModelingDiagnostics> diagnostics) {
+                    List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.identifier = identifier;
         this.resourceId = resourceId;

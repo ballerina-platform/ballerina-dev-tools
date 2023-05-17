@@ -16,18 +16,17 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.ComponentModel;
-import io.ballerina.architecturemodelgenerator.core.ComponentModelBuilder;
-import io.ballerina.architecturemodelgenerator.core.ProjectComponentRequest;
-import io.ballerina.architecturemodelgenerator.core.ProjectComponentResponse;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelException;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModelBuilder;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelException;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticUtils;
+import io.ballerina.architecturemodelgenerator.extension.Utils;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -68,35 +67,35 @@ public class ArchitectureModelGeneratorService implements ExtendedLanguageServer
     }
 
     @JsonRequest
-    public CompletableFuture<ProjectComponentResponse> getProjectComponentModels
-            (ProjectComponentRequest request) {
+    public CompletableFuture<ArchitectureModelResponse> getProjectComponentModels
+            (ArchitectureModelRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
-            ProjectComponentResponse response = new ProjectComponentResponse();
+            ArchitectureModelResponse response = new ArchitectureModelResponse();
             Map<String, JsonObject> componentModelMap = new HashMap<>();
             for (String documentUri : request.getDocumentUris()) {
                 Path path = Path.of(documentUri);
                 try {
                     Project project = getCurrentProject(path);
                     if (!Utils.modelAlreadyExists(componentModelMap, project.currentPackage())) {
-                        ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-                        ComponentModel projectModel = componentModelBuilder
+                        ArchitectureModelBuilder architectureModelBuilder = new ArchitectureModelBuilder();
+                        ArchitectureModel projectModel = architectureModelBuilder
                                 .constructComponentModel(project.currentPackage());
                         Gson gson = new GsonBuilder().serializeNulls().create();
                         JsonObject componentModelJson = (JsonObject) gson.toJsonTree(projectModel);
                         componentModelMap.put(Utils.getQualifiedPackageName(
                                 projectModel.getPackageId()), componentModelJson);
                     }
-                } catch (ComponentModelException | WorkspaceDocumentException | EventSyncException e) {
+                } catch (ArchitectureModelException | WorkspaceDocumentException | EventSyncException e) {
                     // todo : Improve error messages
-                    DiagnosticMessage message = DiagnosticMessage.componentModellingService001(documentUri);
+                    DiagnosticMessage message = DiagnosticMessage.ballerinaProjectNotFound(documentUri);
                     response.addDiagnostics
-                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response));
+                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response.getDiagnostics()));
                 } catch (Exception e) {
-                    DiagnosticMessage message = DiagnosticMessage.componentModellingService002(
+                    DiagnosticMessage message = DiagnosticMessage.failedToResolveBallerinaPackage(
                             e.getMessage(), Arrays.toString(e.getStackTrace()), documentUri);
                     response.addDiagnostics
-                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response));
+                            (DiagnosticUtils.getDiagnosticResponse(List.of(message), response.getDiagnostics()));
                 }
             }
             response.setComponentModels(componentModelMap);
@@ -104,7 +103,7 @@ public class ArchitectureModelGeneratorService implements ExtendedLanguageServer
         });
     }
 
-    private Project getCurrentProject(Path path) throws ComponentModelException, WorkspaceDocumentException,
+    private Project getCurrentProject(Path path) throws ArchitectureModelException, WorkspaceDocumentException,
             EventSyncException {
 
         Optional<Project> project = workspaceManager.project(path);

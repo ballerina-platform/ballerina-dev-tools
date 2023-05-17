@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 Inc. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,20 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.diagnostics;
+package io.ballerina.architecturemodelgenerator.extension.persist;
 
 /**
- * Exception for component model generation.
+ * Request for Persist ER Model.
  *
- * @since 2201.2.2
+ * @since 2201.6.0
  */
-public class ComponentModelException extends Exception {
+public class PersistERModelRequest {
 
-    public ComponentModelException(String message, Throwable e) {
-        super(message, e);
+    private String documentUri;
+
+    public String getDocumentUri() {
+        return documentUri;
     }
 
-    public ComponentModelException(String message) {
-        super(message);
+    public void setDocumentUri(String documentUri) {
+        this.documentUri = documentUri;
     }
 }

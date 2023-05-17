@@ -46,9 +46,9 @@ public class TypeGeneratorTests {
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("type_gen_sample.json"));
 
         Project project = TestUtils.loadBuildProject(projectPath, false);
-        ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-        ComponentModel generatedModel = componentModelBuilder.constructComponentModel(project.currentPackage());
-        ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
+        ArchitectureModelBuilder architectureModelBuilder = new ArchitectureModelBuilder();
+        ArchitectureModel generatedModel = architectureModelBuilder.constructComponentModel(project.currentPackage());
+        ArchitectureModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
         String generatedEntities = gson.toJson(generatedModel.getEntities())
                 .replaceAll("\\s+", "")

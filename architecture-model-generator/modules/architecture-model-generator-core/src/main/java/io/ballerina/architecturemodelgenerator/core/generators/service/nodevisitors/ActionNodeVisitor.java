@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
@@ -66,9 +66,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.FORWARD_SLASH;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.GET_KEYWORD;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.TYPE_MAP;
+import static io.ballerina.architecturemodelgenerator.core.Constants.FORWARD_SLASH;
+import static io.ballerina.architecturemodelgenerator.core.Constants.GET_KEYWORD;
+import static io.ballerina.architecturemodelgenerator.core.Constants.TYPE_MAP;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
@@ -120,7 +120,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         String serviceId = null;
         String serviceLabel = null;
 
-        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
             if (clientResourceAccessActionNode.expression().kind().equals(SyntaxKind.FIELD_ACCESS)) {
                 NameReferenceNode fieldName = ((FieldAccessExpressionNode)
@@ -149,7 +149,7 @@ public class ActionNodeVisitor extends NodeVisitor {
             }
         } catch (Exception e) {
             DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.INTERACTION, e.getMessage());
-            ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+            ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                     message.getCode(), message.getDescription(), message.getSeverity(), null, null
             );
             diagnostics.add(diagnostic);
@@ -170,7 +170,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         String serviceId = null;
         String serviceLabel = null;
 
-        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
             if (remoteMethodCallActionNode.expression().kind().equals(SyntaxKind.FIELD_ACCESS)) {
                 NameReferenceNode fieldName = ((FieldAccessExpressionNode)
@@ -199,7 +199,7 @@ public class ActionNodeVisitor extends NodeVisitor {
             }
         } catch (Exception e) {
             DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.INTERACTION, e.getMessage());
-            ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+            ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                     message.getCode(), message.getDescription(), message.getSeverity(), null, null
             );
             diagnostics.add(diagnostic);

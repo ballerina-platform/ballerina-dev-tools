@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators;
 
-import io.ballerina.architecturemodelgenerator.core.ComponentModel;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.compiler.api.SemanticModel;
@@ -58,10 +58,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.CLIENT;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.DISPLAY_ANNOTATION;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.ID;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.LABEL;
+import static io.ballerina.architecturemodelgenerator.core.Constants.CLIENT;
+import static io.ballerina.architecturemodelgenerator.core.Constants.DISPLAY_ANNOTATION;
+import static io.ballerina.architecturemodelgenerator.core.Constants.ID;
+import static io.ballerina.architecturemodelgenerator.core.Constants.LABEL;
 
 /**
  * Provide utils functions for component model generating.
@@ -220,7 +220,7 @@ public class GeneratorUtils {
 
     private static String getReferenceEntityName(TypeReferenceTypeSymbol typeReferenceTypeSymbol,
                                                  Package currentPackage) {
-        ComponentModel.PackageId packageId = new ComponentModel.PackageId(currentPackage);
+        ArchitectureModel.PackageId packageId = new ArchitectureModel.PackageId(currentPackage);
         String currentPackageName = String.format
                 ("%s/%s:%s", packageId.getOrg(), packageId.getName(), packageId.getVersion());
         String referenceType = typeReferenceTypeSymbol.signature();

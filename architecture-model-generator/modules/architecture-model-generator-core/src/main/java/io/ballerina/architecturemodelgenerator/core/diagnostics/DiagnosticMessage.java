@@ -50,12 +50,12 @@ public class DiagnosticMessage {
         return severity;
     }
 
-    public static DiagnosticMessage componentModellingService001(String projectPath) {
+    public static DiagnosticMessage ballerinaProjectNotFound(String projectPath) {
         return new DiagnosticMessage("001", String.format("Ballerina project not found in the path : %s",
                 projectPath), DiagnosticSeverity.ERROR);
     }
 
-    public static DiagnosticMessage componentModellingService002(String projectPath, String message,
+    public static DiagnosticMessage failedToResolveBallerinaPackage(String projectPath, String message,
                                                                  String stacktrace) {
         return new DiagnosticMessage("002", String.format("Unexpected error occurred while resolving Ballerina " +
                 "package for the path: %s. %nMessage : %s %nStackTrace : %s", projectPath, message, stacktrace),

@@ -16,22 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
-import org.ballerinalang.langserver.commons.registration.BallerinaServerCapability;
+import io.ballerina.architecturemodelgenerator.core.Constants;
+import org.ballerinalang.langserver.commons.registration.BallerinaClientCapability;
 
 /**
- * Server capabilities for the solution architecture modeling service.
+ * Client capabilities for the solution architecture modeling service.
  *
  * @since 2201.2.2
  */
-public class ArchitectureModelGeneratorServerCapabilities extends BallerinaServerCapability {
+public class ArchitectureModelGeneratorClientCapabilities extends BallerinaClientCapability {
 
     private boolean getMultiServiceModel;
 
-    public ArchitectureModelGeneratorServerCapabilities() {
-        super(ProjectDesignConstants.CAPABILITY_NAME);
+    public ArchitectureModelGeneratorClientCapabilities() {
+        super(Constants.CAPABILITY_NAME);
     }
 
     public boolean isGetMultiServiceModel() {

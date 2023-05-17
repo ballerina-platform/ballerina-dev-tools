@@ -21,10 +21,10 @@ package io.ballerina.architecturemodelgenerator.extension;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.ComponentModel;
-import io.ballerina.architecturemodelgenerator.core.ProjectComponentRequest;
-import io.ballerina.architecturemodelgenerator.core.ProjectComponentResponse;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.extension.architecture.ArchitectureModelRequest;
+import io.ballerina.architecturemodelgenerator.extension.architecture.ArchitectureModelResponse;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
@@ -67,15 +67,15 @@ public class ArchitectureModelGeneratorServiceTests {
 
         TestUtil.openDocument(serviceEndpoint, projectPath);
 
-        ProjectComponentRequest request = new ProjectComponentRequest();
+        ArchitectureModelRequest request = new ArchitectureModelRequest();
         request.setDocumentUris(List.of(projectPath.toString()));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
-        ProjectComponentResponse response = (ProjectComponentResponse) result.get();
+        ArchitectureModelResponse response = (ArchitectureModelResponse) result.get();
 
         JsonObject generatedJson = response.getComponentModels().get("test/reservation_api:0.1.0");
-        ComponentModel generatedModel = gson.fromJson(generatedJson, ComponentModel.class);
-        ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath);
+        ArchitectureModel generatedModel = gson.fromJson(generatedJson, ArchitectureModel.class);
+        ArchitectureModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath);
 
         // Services
         generatedModel.getServices().forEach((id, service) -> {
@@ -116,18 +116,18 @@ public class ArchitectureModelGeneratorServiceTests {
         Path project3 = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("microservice_grpc/frontend", "service.bal").toString());
 
-        ProjectComponentRequest request = new ProjectComponentRequest();
+        ArchitectureModelRequest request = new ArchitectureModelRequest();
         request.setDocumentUris(List.of(project1.toString(), project2.toString(), project3.toString()));
 
         CompletableFuture<?> result = serviceEndpoint.request(PROJECT_DESIGN_SERVICE, request);
-        ProjectComponentResponse response = (ProjectComponentResponse) result.get();
+        ArchitectureModelResponse response = (ArchitectureModelResponse) result.get();
 
         response.getComponentModels().forEach((key, value) -> {
             String jsonFileName = key.split("/")[1].split(":")[0] + ".json";
             Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of(jsonFileName));
-            ComponentModel generatedModel = gson.fromJson(value, ComponentModel.class);
+            ArchitectureModel generatedModel = gson.fromJson(value, ArchitectureModel.class);
             try {
-                ComponentModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath.toAbsolutePath());
+                ArchitectureModel expectedModel = getComponentFromGivenJsonFile(expectedJsonPath.toAbsolutePath());
                 generatedModel.getServices().forEach((id, service) -> {
                     String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                             .replaceAll("\\s+", "")
@@ -146,11 +146,11 @@ public class ArchitectureModelGeneratorServiceTests {
         });
     }
 
-    public static ComponentModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
+    public static ArchitectureModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
         Stream<String> lines = Files.lines(expectedFilePath);
         String content = lines.collect(Collectors.joining(System.lineSeparator()));
         lines.close();
         Gson gson = new GsonBuilder().serializeNulls().create();
-        return gson.fromJson(content, ComponentModel.class);
+        return gson.fromJson(content, ArchitectureModel.class);
     }
 }

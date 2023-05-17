@@ -18,8 +18,8 @@ package io.ballerina.architecturemodelgenerator.plugin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.ballerina.architecturemodelgenerator.core.ComponentModel;
-import io.ballerina.architecturemodelgenerator.core.ComponentModelBuilder;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModelBuilder;
 import io.ballerina.architecturemodelgenerator.plugin.diagnostic.DiagnosticMessage;
 import io.ballerina.projects.BuildOptions;
 import io.ballerina.projects.Project;
@@ -53,8 +53,8 @@ public class CompilationAnalysisTask implements AnalysisTask<CompilationAnalysis
         BuildOptions buildOptions = project.buildOptions();
         if (buildOptions.exportComponentModel()) {
             Path outPath = project.targetDir();
-            ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-            ComponentModel projectModel = componentModelBuilder
+            ArchitectureModelBuilder architectureModelBuilder = new ArchitectureModelBuilder();
+            ArchitectureModel projectModel = architectureModelBuilder
                     .constructComponentModel(compilationAnalysisContext.currentPackage(),
                             compilationAnalysisContext.compilation());
             Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();

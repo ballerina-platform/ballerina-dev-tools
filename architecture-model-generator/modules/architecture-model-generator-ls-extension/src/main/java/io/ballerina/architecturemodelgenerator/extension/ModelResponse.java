@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 Inc. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,32 +16,34 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.model;
+package io.ballerina.architecturemodelgenerator.extension;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 
 import java.util.List;
 
 /**
- * Represents the abstract model for a component model item.
+ * Response class for Architecture Model Responses.
  *
- * @since 2201.3.1
+ * @since 2201.6.0
  */
-public abstract class ModelElement {
+public abstract class ModelResponse {
 
-    private final ElementLocation elementLocation;
-    private final List<ArchitectureModelDiagnostic> diagnostics;
+    private List<ArchitectureModelDiagnostic> diagnostics;
 
-    public ModelElement(ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
-        this.elementLocation = elementLocation;
+    protected ModelResponse(List<ArchitectureModelDiagnostic> diagnostics) {
         this.diagnostics = diagnostics;
-    }
-
-    public ElementLocation getElementLocation() {
-        return elementLocation;
     }
 
     public List<ArchitectureModelDiagnostic> getDiagnostics() {
         return diagnostics;
+    }
+
+    public void setDiagnostics(List<ArchitectureModelDiagnostic> diagnostics) {
+        this.diagnostics = diagnostics;
+    }
+
+    public void addDiagnostics(List<ArchitectureModelDiagnostic> architectureModelDiagnostics) {
+        this.diagnostics.addAll(architectureModelDiagnostics);
     }
 }

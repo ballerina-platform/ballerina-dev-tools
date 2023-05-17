@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
@@ -51,7 +51,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.MAIN;
+import static io.ballerina.architecturemodelgenerator.core.Constants.MAIN;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
@@ -105,14 +105,14 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                     new ActionNodeVisitor(packageCompilation, semanticModel, currentPackage, filePath.toString());
             FunctionEntryPointMemberNodeVisitor functionEntryPointMemberNodeVisitor =
                     new FunctionEntryPointMemberNodeVisitor(semanticModel, syntaxTree, filePath);
-            List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+            List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
             try {
                 functionDefinitionNode.accept(actionNodeVisitor);
                 functionDefinitionNode.accept(functionEntryPointMemberNodeVisitor);
             } catch (Exception e) {
                 DiagnosticMessage message =
                         DiagnosticMessage.failedToGenerate(DiagnosticNode.MAIN_ENTRY_POINT, e.getMessage());
-                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                         message.getCode(), message.getDescription(), message.getSeverity(), null, null
                 );
                 diagnostics.add(diagnostic);

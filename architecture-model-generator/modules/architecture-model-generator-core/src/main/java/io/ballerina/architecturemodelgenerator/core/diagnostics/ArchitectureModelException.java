@@ -18,22 +18,18 @@
 
 package io.ballerina.architecturemodelgenerator.core.diagnostics;
 
-import java.util.List;
-
 /**
- * Provides util functions for diagnostics.
+ * Exception for architecture model generation.
  *
  * @since 2201.2.2
  */
-public class DiagnosticUtils {
+public class ArchitectureModelException extends Exception {
 
-    public static List<ArchitectureModelDiagnostic> getDiagnosticResponse(
-            List<DiagnosticMessage> diagnosticMessages, List<ArchitectureModelDiagnostic> diagnostics) {
-        for (DiagnosticMessage message : diagnosticMessages) {
-            ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
-                    message.getCode(), message.getDescription(), message.getSeverity(), null, null);
-            diagnostics.add(diagnostic);
-        }
-        return diagnostics;
+    public ArchitectureModelException(String message, Throwable e) {
+        super(message, e);
+    }
+
+    public ArchitectureModelException(String message) {
+        super(message);
     }
 }

@@ -1,1 +1,2 @@
-io.ballerina.architecturemodelgenerator.extension.ArchitectureModelGeneratorService
+io.ballerina.architecturemodelgenerator.extension.architecture.ArchitectureModelGeneratorService
+io.ballerina.architecturemodelgenerator.extension.persist.PersistERModelGeneratorService

@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
@@ -35,7 +35,7 @@ public class Dependency extends ModelElement {
     private final String connectorType;
 
     public Dependency(String serviceId, String serviceLabel, String connectorType, ElementLocation elementLocation,
-                      List<ComponentModelingDiagnostics> diagnostics) {
+                      List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.serviceId = serviceId;
         this.serviceLabel = serviceLabel;

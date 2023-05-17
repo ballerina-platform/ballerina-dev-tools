@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
@@ -58,8 +58,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.FORWARD_SLASH;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.LISTENER;
+import static io.ballerina.architecturemodelgenerator.core.Constants.FORWARD_SLASH;
+import static io.ballerina.architecturemodelgenerator.core.Constants.LISTENER;
 
 /**
  * Visitor class for ServiceDeclaration nodes.
@@ -111,12 +111,12 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         ServiceMemberFunctionNodeVisitor serviceMemberFunctionNodeVisitor =
                 new ServiceMemberFunctionNodeVisitor(serviceAnnotation.getId(), serviceAnnotation.getLabel(),
                         packageCompilation, semanticModel, syntaxTree, currentPackage, filePath.toString());
-        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
             serviceDeclarationNode.accept(serviceMemberFunctionNodeVisitor);
         } catch (Exception e) {
             DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.SERVICE, e.getMessage());
-            ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+            ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                     message.getCode(), message.getDescription(), message.getSeverity(), null, null
             );
             diagnostics.add(diagnostic);

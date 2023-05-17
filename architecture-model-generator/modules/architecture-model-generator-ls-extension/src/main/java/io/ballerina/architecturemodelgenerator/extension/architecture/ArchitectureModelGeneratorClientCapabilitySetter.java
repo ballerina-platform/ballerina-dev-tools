@@ -16,9 +16,9 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
+import io.ballerina.architecturemodelgenerator.core.Constants;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter;
 
@@ -33,7 +33,7 @@ public class ArchitectureModelGeneratorClientCapabilitySetter extends
 
     @Override
     public String getCapabilityName() {
-        return ProjectDesignConstants.CAPABILITY_NAME;
+        return Constants.CAPABILITY_NAME;
     }
 
     @Override

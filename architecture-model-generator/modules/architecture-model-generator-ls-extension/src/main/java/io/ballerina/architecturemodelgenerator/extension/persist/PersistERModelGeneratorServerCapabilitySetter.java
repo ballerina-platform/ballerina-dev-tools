@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 Inc. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,38 +16,38 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.persist;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
+import io.ballerina.architecturemodelgenerator.core.Constants;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.registration.BallerinaServerCapabilitySetter;
 
 import java.util.Optional;
 
 /**
- * Capability setter for the {@link ArchitectureModelGeneratorService}.
+ * Capability setter for the {@link PersistERModelGeneratorService}.
  *
- * @since 2201.2.2
+ * @since 2201.6.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaServerCapabilitySetter")
-public class ArchitectureModelGeneratorServerCapabilitySetter extends
-        BallerinaServerCapabilitySetter<ArchitectureModelGeneratorServerCapabilities> {
+public class PersistERModelGeneratorServerCapabilitySetter extends
+        BallerinaServerCapabilitySetter<PersistERModelGeneratorServerCapabilities> {
 
     @Override
-    public Optional<ArchitectureModelGeneratorServerCapabilities> build() {
+    public Optional<PersistERModelGeneratorServerCapabilities> build() {
 
-        ArchitectureModelGeneratorServerCapabilities capabilities = new ArchitectureModelGeneratorServerCapabilities();
-        capabilities.setGetMultiServiceModel(true);
+        PersistERModelGeneratorServerCapabilities capabilities = new PersistERModelGeneratorServerCapabilities();
+        capabilities.setGetPersistERModel(true);
         return Optional.of(capabilities);
     }
 
     @Override
     public String getCapabilityName() {
-        return ProjectDesignConstants.CAPABILITY_NAME;
+        return Constants.PERSIST_MODEL_GEN_CAPABILITY_NAME;
     }
 
     @Override
-    public Class<ArchitectureModelGeneratorServerCapabilities> getCapability() {
-        return ArchitectureModelGeneratorServerCapabilities.class;
+    public Class<PersistERModelGeneratorServerCapabilities> getCapability() {
+        return PersistERModelGeneratorServerCapabilities.class;
     }
 }

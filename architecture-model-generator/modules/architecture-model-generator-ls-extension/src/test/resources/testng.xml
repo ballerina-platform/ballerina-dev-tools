@@ -23,6 +23,7 @@ under the License.
     <test name="get-model-test" parallel="false">
         <classes>
             <class name="io.ballerina.architecturemodelgenerator.extension.ArchitectureModelGeneratorServiceTests"/>
+            <class name="io.ballerina.architecturemodelgenerator.extension.PersistERModelGeneratorTests"/>
         </classes>
     </test>
 </suite>

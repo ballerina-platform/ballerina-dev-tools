@@ -1,0 +1,6 @@
+[association.entities]
+host = "localhost"
+port = 3308
+user = "root"
+password = "Test123#"
+database = "rainier_db"

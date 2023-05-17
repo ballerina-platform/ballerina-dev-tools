@@ -46,9 +46,9 @@ public class ServiceGeneratorTests {
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("simple_service_sample.json"));
 
         Project project = TestUtils.loadBuildProject(projectPath, false);
-        ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-        ComponentModel generatedModel = componentModelBuilder.constructComponentModel(project.currentPackage());
-        ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
+        ArchitectureModelBuilder architectureModelBuilder = new ArchitectureModelBuilder();
+        ArchitectureModel generatedModel = architectureModelBuilder.constructComponentModel(project.currentPackage());
+        ArchitectureModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
             String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)

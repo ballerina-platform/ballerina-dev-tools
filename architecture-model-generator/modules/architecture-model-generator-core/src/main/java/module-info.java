@@ -24,4 +24,10 @@ module io.ballerina.architecturemodelgenerator {
 
     exports io.ballerina.architecturemodelgenerator.core;
     exports io.ballerina.architecturemodelgenerator.core.diagnostics;
+    exports io.ballerina.architecturemodelgenerator.core.model;
+    exports io.ballerina.architecturemodelgenerator.core.model.common;
+    exports io.ballerina.architecturemodelgenerator.core.model.entity;
+    exports io.ballerina.architecturemodelgenerator.core.model.service;
+    exports io.ballerina.architecturemodelgenerator.core.model.functionentrypoint;
+    exports io.ballerina.architecturemodelgenerator.core.generators.entity;
 }

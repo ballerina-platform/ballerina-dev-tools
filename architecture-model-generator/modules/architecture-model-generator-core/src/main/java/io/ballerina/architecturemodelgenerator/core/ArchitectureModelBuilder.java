@@ -18,8 +18,8 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
-import io.ballerina.architecturemodelgenerator.core.ComponentModel.PackageId;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel.PackageId;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
@@ -43,17 +43,17 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @since 2201.2.2
  */
-public class ComponentModelBuilder {
+public class ArchitectureModelBuilder {
 
-    public ComponentModel constructComponentModel(Package currentPackage) {
+    public ArchitectureModel constructComponentModel(Package currentPackage) {
         return constructComponentModel(currentPackage, null);
     }
 
-    public ComponentModel constructComponentModel(Package currentPackage, PackageCompilation packageCompilation) {
+    public ArchitectureModel constructComponentModel(Package currentPackage, PackageCompilation packageCompilation) {
         Map<String, Service> services = new HashMap<>();
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
-        List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+        List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
         PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
@@ -71,7 +71,7 @@ public class ComponentModelBuilder {
             } catch (Exception e) {
                 DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.SERVICES,
                         e.getMessage());
-                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                         message.getCode(), message.getDescription(), message.getSeverity(), null, null
                 );
                 diagnostics.add(diagnostic);
@@ -83,7 +83,7 @@ public class ComponentModelBuilder {
             } catch (Exception e) {
                 DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.ENTITIES,
                         e.getMessage());
-                ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                         message.getCode(), message.getDescription(), message.getSeverity(), null, null
                 );
                 diagnostics.add(diagnostic);
@@ -97,7 +97,7 @@ public class ComponentModelBuilder {
             }
         });
 
-        return new ComponentModel(ProjectDesignConstants.MODEL_VERSION, packageId, diagnostics, services, entities,
+        return new ArchitectureModel(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
                 functionEntryPoint.get(), hasDiagnosticErrors.get());
     }
 }

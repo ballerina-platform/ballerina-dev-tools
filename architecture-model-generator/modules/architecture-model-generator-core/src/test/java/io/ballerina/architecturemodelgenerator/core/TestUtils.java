@@ -46,12 +46,12 @@ public class TestUtils {
         }
     }
 
-    public static ComponentModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
+    public static ArchitectureModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
         Stream<String> lines = Files.lines(expectedFilePath);
         String content = lines.collect(Collectors.joining(System.lineSeparator()));
         lines.close();
         Gson gson = new GsonBuilder().serializeNulls().create();
-        return gson.fromJson(content, ComponentModel.class);
+        return gson.fromJson(content, ArchitectureModel.class);
     }
 
     public static String replaceStdLibVersionStrings(String source) {

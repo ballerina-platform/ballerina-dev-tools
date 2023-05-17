@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 Inc. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,26 +16,27 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.extension.ModelResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Response format for component model request.
+ * Response format for architecture model request.
  *
  * @since 2201.2.2
  */
-public class ProjectComponentResponse {
+public class ArchitectureModelResponse extends ModelResponse {
 
     private Map<String, JsonObject> componentModels = new HashMap<>();
 
-    private List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+    public ArchitectureModelResponse() {
+        super(new ArrayList<>());
+    }
 
     public Map<String, JsonObject> getComponentModels() {
         return componentModels;
@@ -45,19 +46,7 @@ public class ProjectComponentResponse {
         this.componentModels = componentModels;
     }
 
-    public List<ComponentModelingDiagnostics> getDiagnostics() {
-        return diagnostics;
-    }
-
-    public void setDiagnostics(List<ComponentModelingDiagnostics> diagnostics) {
-        this.diagnostics = diagnostics;
-    }
-
-    public void addcomponentModel(String key, JsonObject jsonObject) {
+    public void addComponentModel(String key, JsonObject jsonObject) {
         componentModels.put(key, jsonObject);
-    }
-
-    public void addDiagnostics(List<ComponentModelingDiagnostics> componentModelingDiagnostics) {
-        this.diagnostics.addAll(componentModelingDiagnostics);
     }
 }

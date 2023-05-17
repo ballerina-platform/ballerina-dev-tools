@@ -29,7 +29,7 @@ import java.util.Map;
  *
  * @since 2201.2.2
  */
-public class ProjectDesignConstants {
+public class Constants {
 
     /**
      * Enum to select the type of the parameter.
@@ -53,6 +53,7 @@ public class ProjectDesignConstants {
 
     public static final String MODEL_VERSION = "0.3.0";
     public static final String CAPABILITY_NAME = "multiServiceModelingService";
+    public static final String PERSIST_MODEL_GEN_CAPABILITY_NAME = "persistModelGeneratorService";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
     public static final String SERVICE_ANNOTATION = "choreo:Service";

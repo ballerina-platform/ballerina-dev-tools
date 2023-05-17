@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.common;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
@@ -36,7 +36,7 @@ public class Interaction extends ModelElement {
     private final String connectorType;
 
     public Interaction(ResourceId resourceId, String connectorType, ElementLocation elementLocation,
-                       List<ComponentModelingDiagnostics> diagnostics) {
+                       List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.resourceId = resourceId;
         this.connectorType = connectorType;

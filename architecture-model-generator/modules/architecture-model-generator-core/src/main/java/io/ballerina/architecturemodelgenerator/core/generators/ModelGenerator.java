@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
+import io.ballerina.architecturemodelgenerator.core.Constants;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
@@ -42,7 +42,7 @@ public abstract class ModelGenerator {
         this.module = module;
         Path moduleRootPath = module.project().sourceRoot().toAbsolutePath();
         if (module.moduleName().moduleNamePart() != null) {
-            moduleRootPath = moduleRootPath.resolve(ProjectDesignConstants.MODULES)
+            moduleRootPath = moduleRootPath.resolve(Constants.MODULES)
                     .resolve(module.moduleName().moduleNamePart());
         }
         this.moduleRootPath = moduleRootPath;

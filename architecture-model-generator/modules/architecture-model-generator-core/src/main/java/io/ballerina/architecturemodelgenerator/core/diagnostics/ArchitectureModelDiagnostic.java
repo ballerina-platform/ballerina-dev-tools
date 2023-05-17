@@ -29,11 +29,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Diagnostic class for the ProjectDesignService.
+ * Diagnostic class for the Architecture Model Generator Service.
  *
  * @since 2201.2.2
  */
-public class ComponentModelingDiagnostics extends Diagnostic {
+public class ArchitectureModelDiagnostic extends Diagnostic {
 
     private final DiagnosticInfo diagnosticInfo;
     private final Location location;
@@ -41,7 +41,7 @@ public class ComponentModelingDiagnostics extends Diagnostic {
     private final String message;
     private final String severity;
 
-    public ComponentModelingDiagnostics(String code, String message, DiagnosticSeverity severity,
+    public ArchitectureModelDiagnostic(String code, String message, DiagnosticSeverity severity,
                                         Location location, Object[] args) {
 
         this.diagnosticInfo = new DiagnosticInfo(code, message, severity);

@@ -18,8 +18,8 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.ParameterIn;
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.Constants.ParameterIn;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
@@ -148,13 +148,13 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
 
                 ActionNodeVisitor actionNodeVisitor =
                         new ActionNodeVisitor(packageCompilation, semanticModel, currentPackage, filePath);
-                List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+                List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
                 try {
                     functionDefinitionNode.accept(actionNodeVisitor);
                 } catch (Exception e) {
                     DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.RESOURCE,
                             e.getMessage());
-                    ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                    ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                             message.getCode(), message.getDescription(), message.getSeverity(), null, null
                     );
                     diagnostics.add(diagnostic);
@@ -180,13 +180,13 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
 
                     ActionNodeVisitor actionNodeVisitor = new ActionNodeVisitor(
                             packageCompilation, semanticModel, currentPackage, filePath);
-                    List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
+                    List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
                     try {
                         functionDefinitionNode.accept(actionNodeVisitor);
                     } catch (Exception e) {
                         DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.REMOTE_FUNCTION,
                                 e.getMessage());
-                        ComponentModelingDiagnostics diagnostic = new ComponentModelingDiagnostics(
+                        ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
                                 message.getCode(), message.getDescription(), message.getSeverity(), null, null
                         );
                         diagnostics.add(diagnostic);
