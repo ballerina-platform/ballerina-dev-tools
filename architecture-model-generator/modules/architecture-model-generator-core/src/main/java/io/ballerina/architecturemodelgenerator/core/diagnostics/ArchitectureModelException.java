@@ -16,12 +16,20 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.ProjectDesignService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.architecturemodelgenerator;
+package io.ballerina.architecturemodelgenerator.core.diagnostics;
+
+/**
+ * Exception for architecture model generation.
+ *
+ * @since 2201.2.2
+ */
+public class ArchitectureModelException extends Exception {
+
+    public ArchitectureModelException(String message, Throwable e) {
+        super(message, e);
+    }
+
+    public ArchitectureModelException(String message) {
+        super(message);
+    }
 }

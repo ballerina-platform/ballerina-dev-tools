@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -46,9 +46,9 @@ public class ServiceGeneratorTests {
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("simple_service_sample.json"));
 
         Project project = TestUtils.loadBuildProject(projectPath, false);
-        ComponentModelBuilder componentModelBuilder = new ComponentModelBuilder();
-        ComponentModel generatedModel = componentModelBuilder.constructComponentModel(project.currentPackage());
-        ComponentModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
+        ArchitectureModelBuilder architectureModelBuilder = new ArchitectureModelBuilder();
+        ArchitectureModel generatedModel = architectureModelBuilder.constructComponentModel(project.currentPackage());
+        ArchitectureModel expectedModel = TestUtils.getComponentFromGivenJsonFile(expectedJsonPath);
 
         generatedModel.getServices().forEach((id, service) -> {
             String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)

@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.ComponentModel;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.projects.Package;
 
 import java.util.Map;
@@ -31,13 +31,13 @@ import java.util.Map;
  */
 public class Utils {
 
-    public static String getQualifiedPackageName(ComponentModel.PackageId packageId) {
+    public static String getQualifiedPackageName(ArchitectureModel.PackageId packageId) {
         return String.format("%s/%s:%s", packageId.getOrg(),
                 packageId.getName(), packageId.getVersion());
     }
 
     public static boolean modelAlreadyExists(Map<String, JsonObject> componentModelMap, Package currentPackage) {
-        ComponentModel.PackageId packageId = new ComponentModel.PackageId(currentPackage);
+        ArchitectureModel.PackageId packageId = new ArchitectureModel.PackageId(currentPackage);
         return componentModelMap.containsKey(getQualifiedPackageName(packageId));
     }
 }

@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -16,9 +16,9 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
+import io.ballerina.architecturemodelgenerator.extension.Constants;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.registration.BallerinaServerCapabilitySetter;
 
@@ -43,7 +43,7 @@ public class ArchitectureModelGeneratorServerCapabilitySetter extends
 
     @Override
     public String getCapabilityName() {
-        return ProjectDesignConstants.CAPABILITY_NAME;
+        return Constants.CAPABILITY_NAME;
     }
 
     @Override

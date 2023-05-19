@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -50,12 +50,12 @@ public class DiagnosticMessage {
         return severity;
     }
 
-    public static DiagnosticMessage componentModellingService001(String projectPath) {
+    public static DiagnosticMessage ballerinaProjectNotFound(String projectPath) {
         return new DiagnosticMessage("001", String.format("Ballerina project not found in the path : %s",
                 projectPath), DiagnosticSeverity.ERROR);
     }
 
-    public static DiagnosticMessage componentModellingService002(String projectPath, String message,
+    public static DiagnosticMessage failedToResolveBallerinaPackage(String projectPath, String message,
                                                                  String stacktrace) {
         return new DiagnosticMessage("002", String.format("Unexpected error occurred while resolving Ballerina " +
                 "package for the path: %s. %nMessage : %s %nStackTrace : %s", projectPath, message, stacktrace),

@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
+import io.ballerina.architecturemodelgenerator.core.Constants;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
@@ -42,7 +42,7 @@ public abstract class ModelGenerator {
         this.module = module;
         Path moduleRootPath = module.project().sourceRoot().toAbsolutePath();
         if (module.moduleName().moduleNamePart() != null) {
-            moduleRootPath = moduleRootPath.resolve(ProjectDesignConstants.MODULES)
+            moduleRootPath = moduleRootPath.resolve(Constants.MODULES)
                     .resolve(module.moduleName().moduleNamePart());
         }
         this.moduleRootPath = moduleRootPath;

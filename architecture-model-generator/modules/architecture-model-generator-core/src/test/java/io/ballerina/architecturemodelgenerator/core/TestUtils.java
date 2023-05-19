@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -46,12 +46,12 @@ public class TestUtils {
         }
     }
 
-    public static ComponentModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
+    public static ArchitectureModel getComponentFromGivenJsonFile(Path expectedFilePath) throws IOException {
         Stream<String> lines = Files.lines(expectedFilePath);
         String content = lines.collect(Collectors.joining(System.lineSeparator()));
         lines.close();
         Gson gson = new GsonBuilder().serializeNulls().create();
-        return gson.fromJson(content, ComponentModel.class);
+        return gson.fromJson(content, ArchitectureModel.class);
     }
 
     public static String replaceStdLibVersionStrings(String source) {

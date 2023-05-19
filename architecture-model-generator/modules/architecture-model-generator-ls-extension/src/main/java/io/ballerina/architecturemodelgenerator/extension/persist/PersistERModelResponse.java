@@ -16,29 +16,31 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.diagnostics;
+package io.ballerina.architecturemodelgenerator.extension.persist;
+
+import com.google.gson.JsonObject;
+import io.ballerina.architecturemodelgenerator.extension.ModelResponse;
+
+import java.util.ArrayList;
 
 /**
- * Diagnostic node which represents the node at which diagnostics is generated.
+ * Response for Persist ER Model.
  *
- * @since 0.11.0
+ * @since 2201.6.0
  */
-public enum DiagnosticNode {
-    SERVICES("services"),
-    ENTITIES("entities"),
-    SERVICE("service"),
-    MAIN_ENTRY_POINT("main entry point"),
-    RESOURCE("resource"),
-    REMOTE_FUNCTION("remote function"),
-    INTERACTION("interaction");
+public class PersistERModelResponse extends ModelResponse {
 
-    private final String nodeType;
-    DiagnosticNode(String nodeType) {
-        this.nodeType = nodeType;
+    private JsonObject persistERModel = new JsonObject();
+
+    public PersistERModelResponse() {
+        super(new ArrayList<>());
     }
 
-    @Override
-    public String toString() {
-        return nodeType;
+    public JsonObject getPersistERModels() {
+        return persistERModel;
+    }
+
+    public void setPersistERModels(JsonObject persistERModel) {
+        this.persistERModel = persistERModel;
     }
 }

@@ -84,6 +84,9 @@ subprojects {
         ballerinaStdLibs "io.ballerina.stdlib:grpc-ballerina:${stdlibGrpcVersion}"
         ballerinaStdLibs "io.ballerina:observe-ballerina:${observeInternalVersion}"
         ballerinaStdLibs "io.ballerina.stdlib:observe-ballerina:${observeVersion}"
+
+        /* Ballerina Persist Tool */
+        ballerinaStdLibs "io.ballerina:persist-tools:${persistToolVersion}"
     }
 }
 

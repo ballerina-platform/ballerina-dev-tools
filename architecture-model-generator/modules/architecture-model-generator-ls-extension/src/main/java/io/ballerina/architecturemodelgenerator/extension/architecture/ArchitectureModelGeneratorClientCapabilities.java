@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -16,22 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.extension;
+package io.ballerina.architecturemodelgenerator.extension.architecture;
 
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants;
-import org.ballerinalang.langserver.commons.registration.BallerinaServerCapability;
+import io.ballerina.architecturemodelgenerator.extension.Constants;
+import org.ballerinalang.langserver.commons.registration.BallerinaClientCapability;
 
 /**
- * Server capabilities for the solution architecture modeling service.
+ * Client capabilities for the solution architecture modeling service.
  *
  * @since 2201.2.2
  */
-public class ArchitectureModelGeneratorServerCapabilities extends BallerinaServerCapability {
+public class ArchitectureModelGeneratorClientCapabilities extends BallerinaClientCapability {
 
     private boolean getMultiServiceModel;
 
-    public ArchitectureModelGeneratorServerCapabilities() {
-        super(ProjectDesignConstants.CAPABILITY_NAME);
+    public ArchitectureModelGeneratorClientCapabilities() {
+        super(Constants.CAPABILITY_NAME);
     }
 
     public boolean isGetMultiServiceModel() {

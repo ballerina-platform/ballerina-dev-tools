@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -29,11 +29,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Diagnostic class for the ProjectDesignService.
+ * Diagnostic class for the Architecture Model Generator Service.
  *
  * @since 2201.2.2
  */
-public class ComponentModelingDiagnostics extends Diagnostic {
+public class ArchitectureModelDiagnostic extends Diagnostic {
 
     private final DiagnosticInfo diagnosticInfo;
     private final Location location;
@@ -41,7 +41,7 @@ public class ComponentModelingDiagnostics extends Diagnostic {
     private final String message;
     private final String severity;
 
-    public ComponentModelingDiagnostics(String code, String message, DiagnosticSeverity severity,
+    public ArchitectureModelDiagnostic(String code, String message, DiagnosticSeverity severity,
                                         Location location, Object[] args) {
 
         this.diagnosticInfo = new DiagnosticInfo(code, message, severity);

@@ -1,7 +1,7 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -16,20 +16,15 @@
  *  under the License.
  */
 
-package io.ballerina.architecturemodelgenerator.core.diagnostics;
+package io.ballerina.architecturemodelgenerator.extension;
 
 /**
- * Exception for component model generation.
+ * Lang Server Extension Constants.
  *
- * @since 2201.2.2
+ * @since 2201.6.0
  */
-public class ComponentModelException extends Exception {
+public class Constants {
 
-    public ComponentModelException(String message, Throwable e) {
-        super(message, e);
-    }
-
-    public ComponentModelException(String message) {
-        super(message);
-    }
+    public static final String CAPABILITY_NAME = "multiServiceModelingService";
+    public static final String PERSIST_MODEL_GEN_CAPABILITY_NAME = "persistModelGeneratorService";
 }

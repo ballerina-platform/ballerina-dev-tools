@@ -1,12 +1,18 @@
 {
-  "packageId": {
-    "name": "single_service_sample",
-    "org": "aneesha",
-    "version": "0.1.0"
+  "version":"0.3.0",
+  "packageId":{
+    "name":"type_gen_simple",
+    "org":"aneesha",
+    "version":"0.1.0"
   },
-  "hasCompilationErrors": true,
-  "services": {},
-  "entities": {
+  "hasCompilationErrors":false,
+  "diagnostics":[
+
+  ],
+  "services":{
+
+  },
+  "entities":{
     "aneesha/type_gen_simple:0.1.0:User":{
       "attributes":[
         {
@@ -15,7 +21,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":true,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -27,7 +36,9 @@
               "offset":26
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"name",
@@ -35,7 +46,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -47,7 +61,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"contactNo",
@@ -55,7 +71,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -67,7 +86,9 @@
               "offset":20
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"email",
@@ -75,7 +96,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -87,7 +111,9 @@
               "offset":16
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"profile",
@@ -104,6 +130,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -115,7 +142,9 @@
               "offset":19
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -133,7 +162,9 @@
           "offset":16
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Job":{
       "attributes":[
@@ -143,7 +174,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -155,7 +189,9 @@
               "offset":18
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"jobType",
@@ -163,7 +199,10 @@
           "optional":true,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -175,7 +214,9 @@
               "offset":18
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -193,7 +234,9 @@
           "offset":15
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentCoursesInstructors":{
       "attributes":[
@@ -203,7 +246,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -215,7 +261,9 @@
               "offset":23
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -233,7 +281,9 @@
           "offset":23
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:School":{
       "attributes":[
@@ -243,7 +293,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -255,7 +308,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"classRooms",
@@ -272,6 +327,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -283,7 +339,9 @@
               "offset":26
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"students",
@@ -300,6 +358,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -311,7 +370,9 @@
               "offset":24
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"tutors",
@@ -328,6 +389,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -339,7 +401,9 @@
               "offset":16
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -357,7 +421,9 @@
           "offset":18
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:AnuualSub":{
       "attributes":[
@@ -367,7 +433,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -379,7 +448,9 @@
               "offset":10
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"\u0027limit",
@@ -387,7 +458,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -399,7 +473,9 @@
               "offset":14
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"fee",
@@ -407,7 +483,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -419,7 +498,9 @@
               "offset":13
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -437,7 +518,9 @@
           "offset":14
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentParentAddress":{
       "attributes":[
@@ -447,7 +530,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -459,7 +545,9 @@
               "offset":18
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"street",
@@ -467,7 +555,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -479,7 +570,9 @@
               "offset":25
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -497,7 +590,9 @@
           "offset":17
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:ClassRoom":{
       "attributes":[
@@ -507,7 +602,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -519,7 +617,9 @@
               "offset":20
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"students",
@@ -536,6 +636,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -547,7 +648,9 @@
               "offset":22
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -565,7 +668,9 @@
           "offset":21
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:MonthlySub":{
       "attributes":[
@@ -575,7 +680,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -587,7 +695,9 @@
               "offset":10
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"fee",
@@ -595,7 +705,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -607,7 +720,9 @@
               "offset":13
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -625,7 +740,9 @@
           "offset":15
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:SchoolTutors":{
       "attributes":[
@@ -635,7 +752,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -647,7 +767,9 @@
               "offset":19
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -665,7 +787,9 @@
           "offset":16
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentParent":{
       "attributes":[
@@ -675,7 +799,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -687,7 +814,9 @@
               "offset":25
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"age",
@@ -695,7 +824,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -707,7 +839,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"address",
@@ -724,6 +858,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -735,7 +870,9 @@
               "offset":17
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"job",
@@ -752,6 +889,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -763,7 +901,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -781,7 +921,9 @@
           "offset":12
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Kid":{
       "attributes":[
@@ -791,7 +933,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -803,7 +948,9 @@
               "offset":16
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"guardian",
@@ -820,6 +967,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -831,7 +979,9 @@
               "offset":18
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -849,7 +999,9 @@
           "offset":15
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Address":{
       "attributes":[
@@ -859,7 +1011,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -871,7 +1026,9 @@
               "offset":10
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"street",
@@ -879,7 +1036,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -891,7 +1051,9 @@
               "offset":17
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -909,7 +1071,9 @@
           "offset":19
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:PersonAddress":{
       "attributes":[
@@ -919,7 +1083,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -931,7 +1098,9 @@
               "offset":14
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"street",
@@ -939,7 +1108,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -951,7 +1123,9 @@
               "offset":21
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -969,7 +1143,9 @@
           "offset":13
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Profile":{
       "attributes":[
@@ -979,7 +1155,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":true,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -991,7 +1170,9 @@
               "offset":22
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"username",
@@ -999,7 +1180,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1011,7 +1195,9 @@
               "offset":19
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"subscription",
@@ -1035,6 +1221,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1046,7 +1233,9 @@
               "offset":37
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1064,7 +1253,9 @@
           "offset":19
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Student":{
       "attributes":[
@@ -1074,7 +1265,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1086,7 +1280,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"address",
@@ -1103,6 +1299,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1114,7 +1311,9 @@
               "offset":13
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"parent",
@@ -1131,6 +1330,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1142,7 +1342,9 @@
               "offset":12
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"courses",
@@ -1159,6 +1361,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1170,7 +1373,9 @@
               "offset":15
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1188,7 +1393,9 @@
           "offset":19
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentAddress":{
       "attributes":[
@@ -1198,7 +1405,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1210,7 +1420,9 @@
               "offset":14
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"street",
@@ -1218,7 +1430,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1230,7 +1445,9 @@
               "offset":21
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1248,7 +1465,9 @@
           "offset":13
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentCourses":{
       "attributes":[
@@ -1258,7 +1477,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1270,7 +1492,9 @@
               "offset":20
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"courseName",
@@ -1278,7 +1502,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1290,7 +1517,9 @@
               "offset":25
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"lecturer",
@@ -1307,6 +1536,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1318,7 +1548,9 @@
               "offset":18
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"instructors",
@@ -1335,6 +1567,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1346,7 +1579,9 @@
               "offset":23
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1364,7 +1599,9 @@
           "offset":15
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Adult":{
       "attributes":[
@@ -1374,7 +1611,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1386,7 +1626,9 @@
               "offset":21
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"officeContactNo",
@@ -1394,7 +1636,10 @@
           "optional":true,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1406,7 +1651,9 @@
               "offset":26
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1424,7 +1671,9 @@
           "offset":17
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:StudentCoursesLecturer":{
       "attributes":[
@@ -1434,7 +1683,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1446,7 +1698,9 @@
               "offset":23
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1464,7 +1718,9 @@
           "offset":18
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     },
     "aneesha/type_gen_simple:0.1.0:Person":{
       "attributes":[
@@ -1474,7 +1730,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1486,7 +1745,9 @@
               "offset":21
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"age",
@@ -1494,7 +1755,10 @@
           "optional":false,
           "nillable":false,
           "defaultValue":"",
-          "associations":[],
+          "associations":[
+
+          ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1506,7 +1770,9 @@
               "offset":11
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"address",
@@ -1523,6 +1789,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1534,7 +1801,9 @@
               "offset":13
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         },
         {
           "name":"job",
@@ -1551,6 +1820,7 @@
               }
             }
           ],
+          "isReadOnly":false,
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/type_gen_simple/types.bal",
             "startPosition":{
@@ -1562,7 +1832,9 @@
               "offset":11
             }
           },
-          "diagnostics": []
+          "diagnostics":[
+
+          ]
         }
       ],
       "inclusions":[
@@ -1580,7 +1852,45 @@
           "offset":18
         }
       },
-      "diagnostics": []
+      "diagnostics":[
+
+      ]
     }
+  },
+  "functionEntryPoint":{
+    "parameters":[
+
+    ],
+    "returns":[
+
+    ],
+    "interactions":[
+
+    ],
+    "annotation":{
+      "id":null,
+      "label":"",
+      "elementLocation":null,
+      "diagnostics":[
+
+      ]
+    },
+    "dependencies":[
+
+    ],
+    "elementLocation":{
+      "filePath":"{srcPath}/ballerina/type_gen_simple/main.bal",
+      "startPosition":{
+        "line":2,
+        "offset":0
+      },
+      "endPosition":{
+        "line":4,
+        "offset":1
+      }
+    },
+    "diagnostics":[
+
+    ]
   }
 }

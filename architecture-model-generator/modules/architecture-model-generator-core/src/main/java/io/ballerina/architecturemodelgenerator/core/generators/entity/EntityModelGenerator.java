@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -18,8 +18,8 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.entity;
 
-import io.ballerina.architecturemodelgenerator.core.ComponentModel.PackageId;
-import io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.CardinalityValue;
+import io.ballerina.architecturemodelgenerator.core.ArchitectureModel.PackageId;
+import io.ballerina.architecturemodelgenerator.core.Constants.CardinalityValue;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.nodevisitors.TypeDefinitionNodeVisitor;
@@ -54,6 +54,7 @@ import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.tools.text.LineRange;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -64,13 +65,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.ARRAY;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.COLON;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.CONSTRAINT_ARRAY;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.CONSTRAINT_KEYWORD;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.FORWARD_SLASH;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.MAX_LENGTH_FIELD;
-import static io.ballerina.architecturemodelgenerator.core.ProjectDesignConstants.MIN_LENGTH_FIELD;
+import static io.ballerina.architecturemodelgenerator.core.Constants.ARRAY;
+import static io.ballerina.architecturemodelgenerator.core.Constants.COLON;
+import static io.ballerina.architecturemodelgenerator.core.Constants.CONSTRAINT_ARRAY;
+import static io.ballerina.architecturemodelgenerator.core.Constants.CONSTRAINT_KEYWORD;
+import static io.ballerina.architecturemodelgenerator.core.Constants.FORWARD_SLASH;
+import static io.ballerina.architecturemodelgenerator.core.Constants.MAX_LENGTH_FIELD;
+import static io.ballerina.architecturemodelgenerator.core.Constants.MIN_LENGTH_FIELD;
 
 /**
  * Build entity model to represent relationship between records.
@@ -144,6 +145,7 @@ public class EntityModelGenerator extends ModelGenerator {
         boolean nillable = isNillable(recordFieldSymbol.typeDescriptor());
         String inlineRecordName = entityName + fieldName.substring(0, 1).toUpperCase(Locale.ROOT) +
                 fieldName.substring(1);
+        boolean isReadOnly = recordFieldNode.readonlyKeyword().isPresent();
 
         if (fieldTypeDescKind.equals(TypeDescKind.RECORD)) {
             RecordTypeSymbol inlineRecordTypeSymbol = (RecordTypeSymbol) fieldTypeSymbol;
@@ -178,7 +180,7 @@ public class EntityModelGenerator extends ModelGenerator {
             associations = getAssociations(fieldTypeSymbol, recordFieldNode, entityName, optional, nillable);
         }
         // todo: address when union types has anonymous records
-        return new Attribute(fieldName, fieldType, optional, nillable, defaultValue, associations,
+        return new Attribute(fieldName, fieldType, optional, nillable, defaultValue, associations, isReadOnly,
                 getElementLocation(recordFieldSymbol), Collections.emptyList());
     }
 
@@ -422,7 +424,12 @@ public class EntityModelGenerator extends ModelGenerator {
         ElementLocation elementLocation = null;
         if (symbol.getLocation().isPresent()) {
             LineRange typeLineRange = symbol.getLocation().get().lineRange();
-            String filePath = getModuleRootPath().resolve(typeLineRange.filePath()).toAbsolutePath().toString();
+            String filePath;
+            if (Files.isDirectory(getModuleRootPath())) {
+                filePath = getModuleRootPath().resolve(typeLineRange.filePath()).toAbsolutePath().toString();
+            } else {
+                filePath = getModuleRootPath().toString();
+            }
             elementLocation = GeneratorUtils.getElementLocation(filePath, typeLineRange);
         }
         return elementLocation;

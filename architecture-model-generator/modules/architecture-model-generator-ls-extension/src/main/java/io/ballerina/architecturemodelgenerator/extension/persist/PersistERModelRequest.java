@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -16,12 +16,22 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.ProjectDesignService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.architecturemodelgenerator;
+package io.ballerina.architecturemodelgenerator.extension.persist;
+
+/**
+ * Request for Persist ER Model.
+ *
+ * @since 2201.6.0
+ */
+public class PersistERModelRequest {
+
+    private String documentUri;
+
+    public String getDocumentUri() {
+        return documentUri;
+    }
+
+    public void setDocumentUri(String documentUri) {
+        this.documentUri = documentUri;
+    }
 }

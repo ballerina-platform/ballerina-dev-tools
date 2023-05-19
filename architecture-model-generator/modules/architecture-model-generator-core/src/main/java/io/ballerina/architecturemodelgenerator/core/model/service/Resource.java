@@ -1,7 +1,7 @@
 /*
  *  Copyright (c) 2022, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -18,7 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
-import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
@@ -40,7 +40,7 @@ public class Resource extends ModelElement {
 
     public Resource(String identifier, ResourceId resourceId, List<ResourceParameter> parameters, List<String> returns,
                     List<Interaction> interactions, ElementLocation elementLocation,
-                    List<ComponentModelingDiagnostics> diagnostics) {
+                    List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.identifier = identifier;
         this.resourceId = resourceId;
