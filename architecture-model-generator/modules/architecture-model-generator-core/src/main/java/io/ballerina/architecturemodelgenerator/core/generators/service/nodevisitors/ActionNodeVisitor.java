@@ -21,6 +21,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.service.nodevisi
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ComponentModelingDiagnostics;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
+import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
 import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
 import io.ballerina.compiler.api.ModuleID;
@@ -117,6 +118,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         String resourceMethod = null;
         String resourcePath = null;
         String serviceId = null;
+        String serviceLabel = null;
 
         List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
         try {
@@ -140,7 +142,10 @@ public class ActionNodeVisitor extends NodeVisitor {
             Optional<Symbol> clientSymbol = semanticModel.symbol(clientNode);
             if (clientSymbol.isPresent()) {
                 Annotatable annotatableSymbol = (Annotatable) clientSymbol.get();
-                serviceId = getServiceAnnotation(annotatableSymbol, filePath).getId();
+                DisplayAnnotation serviceAnnotation = getServiceAnnotation(annotatableSymbol, filePath);
+                serviceId = serviceAnnotation.getId() != null ? serviceAnnotation.getId() :
+                        Integer.toString(clientSymbol.hashCode());
+                serviceLabel = getServiceAnnotation(annotatableSymbol, filePath).getLabel();
             }
         } catch (Exception e) {
             DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.INTERACTION, e.getMessage());
@@ -151,7 +156,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         }
 
         Interaction interaction = new Interaction(
-                new ResourceId(serviceId, resourceMethod, resourcePath),
+                new ResourceId(serviceId, serviceLabel, resourceMethod, resourcePath),
                 getClientModuleName(clientNode, semanticModel), getElementLocation(filePath,
                 clientResourceAccessActionNode.lineRange()), diagnostics);
         interactionList.add(interaction);
@@ -163,6 +168,7 @@ public class ActionNodeVisitor extends NodeVisitor {
 
         String resourceMethod = null;
         String serviceId = null;
+        String serviceLabel = null;
 
         List<ComponentModelingDiagnostics> diagnostics = new ArrayList<>();
         try {
@@ -185,7 +191,10 @@ public class ActionNodeVisitor extends NodeVisitor {
                 Optional<Symbol> clientSymbol = semanticModel.symbol(clientNode);
                 if (clientSymbol.isPresent()) {
                     Annotatable annotatableSymbol = (Annotatable) clientSymbol.get();
-                    serviceId = getServiceAnnotation(annotatableSymbol, filePath).getId();
+                    DisplayAnnotation serviceAnnotation = getServiceAnnotation(annotatableSymbol, filePath);
+                    serviceId = serviceAnnotation.getId() != null ? serviceAnnotation.getId() :
+                            Integer.toString(clientSymbol.hashCode());
+                    serviceLabel = getServiceAnnotation(annotatableSymbol, filePath).getLabel();
                 }
             }
         } catch (Exception e) {
@@ -197,7 +206,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         }
 
         if (clientNode != null) {
-            Interaction interaction = new Interaction(new ResourceId(serviceId,
+            Interaction interaction = new Interaction(new ResourceId(serviceId, serviceLabel,
                     resourceMethod, null), getClientModuleName(clientNode, semanticModel),
                     getElementLocation(filePath, remoteMethodCallActionNode.lineRange()), diagnostics);
             interactionList.add(interaction);
