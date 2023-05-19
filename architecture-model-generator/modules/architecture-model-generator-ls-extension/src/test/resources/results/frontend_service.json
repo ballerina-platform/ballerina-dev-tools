@@ -17,6 +17,7 @@
           "identifier": "metadata",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "metadata",
             "action": "get"
           },
@@ -51,6 +52,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetSupportedCurrencies"
               },
@@ -71,6 +73,7 @@
             {
               "resourceId": {
                 "serviceId": "cart",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetCart"
               },
@@ -106,6 +109,7 @@
           "identifier": ".",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": ".",
             "action": "get"
           },
@@ -140,6 +144,7 @@
             {
               "resourceId": {
                 "serviceId": "catalog",
+                "serviceLabel": "",
                 "path": null,
                 "action": "ListProducts"
               },
@@ -160,6 +165,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -180,6 +186,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -200,6 +207,7 @@
             {
               "resourceId": {
                 "serviceId": "ads",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetAds"
               },
@@ -235,6 +243,7 @@
           "identifier": "product/[string]",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "product/[string id]",
             "action": "get"
           },
@@ -289,6 +298,7 @@
             {
               "resourceId": {
                 "serviceId": "catalog",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetProduct"
               },
@@ -309,6 +319,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -329,6 +340,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -349,6 +361,7 @@
             {
               "resourceId": {
                 "serviceId": "recommendation",
+                "serviceLabel": "",
                 "path": null,
                 "action": "ListRecommendations"
               },
@@ -369,6 +382,7 @@
             {
               "resourceId": {
                 "serviceId": "ads",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetAds"
               },
@@ -404,6 +418,7 @@
           "identifier": "setCurrency",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "setCurrency",
             "action": "post"
           },
@@ -429,6 +444,7 @@
           "identifier": "cart",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "cart",
             "action": "get"
           },
@@ -463,6 +479,7 @@
             {
               "resourceId": {
                 "serviceId": "cart",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetCart"
               },
@@ -483,6 +500,7 @@
             {
               "resourceId": {
                 "serviceId": "recommendation",
+                "serviceLabel": "",
                 "path": null,
                 "action": "ListRecommendations"
               },
@@ -503,6 +521,7 @@
             {
               "resourceId": {
                 "serviceId": "catalog",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetProduct"
               },
@@ -523,6 +542,7 @@
             {
               "resourceId": {
                 "serviceId": "shipping",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetQuote"
               },
@@ -543,6 +563,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -563,6 +584,7 @@
             {
               "resourceId": {
                 "serviceId": "currency",
+                "serviceLabel": "",
                 "path": null,
                 "action": "Convert"
               },
@@ -598,6 +620,7 @@
           "identifier": "cart",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "cart",
             "action": "post"
           },
@@ -653,6 +676,7 @@
             {
               "resourceId": {
                 "serviceId": "catalog",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetProduct"
               },
@@ -673,6 +697,7 @@
             {
               "resourceId": {
                 "serviceId": "cart",
+                "serviceLabel": "",
                 "path": null,
                 "action": "AddItem"
               },
@@ -708,6 +733,7 @@
           "identifier": "cart/empty",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "cart/empty",
             "action": "post"
           },
@@ -742,6 +768,7 @@
             {
               "resourceId": {
                 "serviceId": "cart",
+                "serviceLabel": "",
                 "path": null,
                 "action": "EmptyCart"
               },
@@ -777,6 +804,7 @@
           "identifier": "cart/checkout",
           "resourceId": {
             "serviceId": "frontend",
+            "serviceLabel": "Frontend",
             "path": "cart/checkout",
             "action": "post"
           },
@@ -831,6 +859,7 @@
             {
               "resourceId": {
                 "serviceId": "checkout",
+                "serviceLabel": "",
                 "path": null,
                 "action": "PlaceOrder"
               },
@@ -851,6 +880,7 @@
             {
               "resourceId": {
                 "serviceId": "recommendation",
+                "serviceLabel": "",
                 "path": null,
                 "action": "ListRecommendations"
               },
@@ -871,6 +901,7 @@
             {
               "resourceId": {
                 "serviceId": "catalog",
+                "serviceLabel": "",
                 "path": null,
                 "action": "GetProduct"
               },

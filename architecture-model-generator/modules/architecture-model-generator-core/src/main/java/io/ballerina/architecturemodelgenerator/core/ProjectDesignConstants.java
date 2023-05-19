@@ -51,7 +51,7 @@ public class ProjectDesignConstants {
         }
     }
 
-    public static final String MODEL_VERSION = "0.2.0";
+    public static final String MODEL_VERSION = "0.3.0";
     public static final String CAPABILITY_NAME = "multiServiceModelingService";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
