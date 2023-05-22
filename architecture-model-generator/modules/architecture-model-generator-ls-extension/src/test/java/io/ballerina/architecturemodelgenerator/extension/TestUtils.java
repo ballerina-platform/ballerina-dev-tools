@@ -28,6 +28,7 @@ public class TestUtils {
         return source
                 .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
                 .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
-                .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "");
+                .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "")
+                .replaceAll("ballerina/time:[0-9].[0-9].[0-9]", "");
     }
 }
