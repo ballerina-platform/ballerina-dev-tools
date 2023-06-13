@@ -8,129 +8,7 @@
   "services":{
 
   },
-  "entities":{
-    "$anon/.:0.0.0:OrderItem":{
-      "attributes":[
-        {
-          "name":"orderId",
-          "type":"string",
-          "optional":false,
-          "nillable":false,
-          "defaultValue":"",
-          "associations":[
-
-          ],
-          "isReadOnly":true,
-          "elementLocation":{
-            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-            "startPosition":{
-              "line":50,
-              "offset":20
-            },
-            "endPosition":{
-              "line":50,
-              "offset":27
-            }
-          },
-          "diagnostics":[
-
-          ]
-        },
-        {
-          "name":"itemId",
-          "type":"string",
-          "optional":false,
-          "nillable":false,
-          "defaultValue":"",
-          "associations":[
-
-          ],
-          "isReadOnly":true,
-          "elementLocation":{
-            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-            "startPosition":{
-              "line":51,
-              "offset":20
-            },
-            "endPosition":{
-              "line":51,
-              "offset":26
-            }
-          },
-          "diagnostics":[
-
-          ]
-        },
-        {
-          "name":"quantity",
-          "type":"int",
-          "optional":false,
-          "nillable":false,
-          "defaultValue":"",
-          "associations":[
-
-          ],
-          "isReadOnly":false,
-          "elementLocation":{
-            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-            "startPosition":{
-              "line":52,
-              "offset":8
-            },
-            "endPosition":{
-              "line":52,
-              "offset":16
-            }
-          },
-          "diagnostics":[
-
-          ]
-        },
-        {
-          "name":"notes",
-          "type":"string",
-          "optional":false,
-          "nillable":false,
-          "defaultValue":"",
-          "associations":[
-
-          ],
-          "isReadOnly":false,
-          "elementLocation":{
-            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-            "startPosition":{
-              "line":53,
-              "offset":11
-            },
-            "endPosition":{
-              "line":53,
-              "offset":16
-            }
-          },
-          "diagnostics":[
-
-          ]
-        }
-      ],
-      "inclusions":[
-
-      ],
-      "isAnonymous":false,
-      "elementLocation":{
-        "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-        "startPosition":{
-          "line":49,
-          "offset":5
-        },
-        "endPosition":{
-          "line":49,
-          "offset":14
-        }
-      },
-      "diagnostics":[
-
-      ]
-    },
+  "entities": {
     "$anon/.:0.0.0:Workspace":{
       "attributes":[
         {
@@ -265,10 +143,10 @@
 
       ]
     },
-    "$anon/.:0.0.0:Department":{
+    "$anon/.:0.0.0:OrderItem":{
       "attributes":[
         {
-          "name":"deptNo",
+          "name":"orderId",
           "type":"string",
           "optional":false,
           "nillable":false,
@@ -280,11 +158,36 @@
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
-              "line":31,
+              "line":50,
               "offset":20
             },
             "endPosition":{
-              "line":31,
+              "line":50,
+              "offset":27
+            }
+          },
+          "diagnostics":[
+
+          ]
+        },
+        {
+          "name":"itemId",
+          "type":"string",
+          "optional":false,
+          "nillable":false,
+          "defaultValue":"",
+          "associations":[
+
+          ],
+          "isReadOnly":true,
+          "elementLocation":{
+            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+            "startPosition":{
+              "line":51,
+              "offset":20
+            },
+            "endPosition":{
+              "line":51,
               "offset":26
             }
           },
@@ -293,7 +196,32 @@
           ]
         },
         {
-          "name":"deptName",
+          "name":"quantity",
+          "type":"int",
+          "optional":false,
+          "nillable":false,
+          "defaultValue":"",
+          "associations":[
+
+          ],
+          "isReadOnly":false,
+          "elementLocation":{
+            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+            "startPosition":{
+              "line":52,
+              "offset":8
+            },
+            "endPosition":{
+              "line":52,
+              "offset":16
+            }
+          },
+          "diagnostics":[
+
+          ]
+        },
+        {
+          "name":"notes",
           "type":"string",
           "optional":false,
           "nillable":false,
@@ -305,43 +233,12 @@
           "elementLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
-              "line":32,
+              "line":53,
               "offset":11
             },
             "endPosition":{
-              "line":32,
-              "offset":19
-            }
-          },
-          "diagnostics":[
-
-          ]
-        },
-        {
-          "name":"employees",
-          "type":"Employee[]",
-          "optional":false,
-          "nillable":false,
-          "defaultValue":"",
-          "associations":[
-            {
-              "associate":"$anon/.:0.0.0:Employee",
-              "cardinality":{
-                "self":"1-1",
-                "associate":"0-m"
-              }
-            }
-          ],
-          "isReadOnly":false,
-          "elementLocation":{
-            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
-            "startPosition":{
-              "line":34,
-              "offset":15
-            },
-            "endPosition":{
-              "line":34,
-              "offset":24
+              "line":53,
+              "offset":16
             }
           },
           "diagnostics":[
@@ -356,12 +253,12 @@
       "elementLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
-          "line":30,
+          "line":49,
           "offset":5
         },
         "endPosition":{
-          "line":30,
-          "offset":15
+          "line":49,
+          "offset":14
         }
       },
       "diagnostics":[
@@ -447,13 +344,13 @@
         },
         {
           "name":"birthDate",
-          "type":"ballerina/time:2.2.4:Date",
+          "type":":Date",
           "optional":false,
           "nillable":false,
           "defaultValue":"",
           "associations":[
             {
-              "associate":"ballerina/time:2.2.4:Date",
+              "associate":":Date",
               "cardinality":{
                 "self":"1-1",
                 "associate":"1-1"
@@ -503,13 +400,13 @@
         },
         {
           "name":"hireDate",
-          "type":"ballerina/time:2.2.4:Date",
+          "type":":Date",
           "optional":false,
           "nillable":false,
           "defaultValue":"",
           "associations":[
             {
-              "associate":"ballerina/time:2.2.4:Date",
+              "associate":":Date",
               "cardinality":{
                 "self":"1-1",
                 "associate":"1-1"
@@ -608,6 +505,109 @@
         "endPosition":{
           "line":37,
           "offset":13
+        }
+      },
+      "diagnostics":[
+
+      ]
+    },
+    "$anon/.:0.0.0:Department":{
+      "attributes":[
+        {
+          "name":"deptNo",
+          "type":"string",
+          "optional":false,
+          "nillable":false,
+          "defaultValue":"",
+          "associations":[
+
+          ],
+          "isReadOnly":true,
+          "elementLocation":{
+            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+            "startPosition":{
+              "line":31,
+              "offset":20
+            },
+            "endPosition":{
+              "line":31,
+              "offset":26
+            }
+          },
+          "diagnostics":[
+
+          ]
+        },
+        {
+          "name":"deptName",
+          "type":"string",
+          "optional":false,
+          "nillable":false,
+          "defaultValue":"",
+          "associations":[
+
+          ],
+          "isReadOnly":false,
+          "elementLocation":{
+            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+            "startPosition":{
+              "line":32,
+              "offset":11
+            },
+            "endPosition":{
+              "line":32,
+              "offset":19
+            }
+          },
+          "diagnostics":[
+
+          ]
+        },
+        {
+          "name":"employees",
+          "type":"Employee[]",
+          "optional":false,
+          "nillable":false,
+          "defaultValue":"",
+          "associations":[
+            {
+              "associate":"$anon/.:0.0.0:Employee",
+              "cardinality":{
+                "self":"1-1",
+                "associate":"0-m"
+              }
+            }
+          ],
+          "isReadOnly":false,
+          "elementLocation":{
+            "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+            "startPosition":{
+              "line":34,
+              "offset":15
+            },
+            "endPosition":{
+              "line":34,
+              "offset":24
+            }
+          },
+          "diagnostics":[
+
+          ]
+        }
+      ],
+      "inclusions":[
+
+      ],
+      "isAnonymous":false,
+      "elementLocation":{
+        "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
+        "startPosition":{
+          "line":30,
+          "offset":5
+        },
+        "endPosition":{
+          "line":30,
+          "offset":15
         }
       },
       "diagnostics":[
@@ -742,7 +742,7 @@
           ]
         },
         {
-          "name":"'type",
+          "name":"\u0027type",
           "type":"string",
           "optional":false,
           "nillable":false,
