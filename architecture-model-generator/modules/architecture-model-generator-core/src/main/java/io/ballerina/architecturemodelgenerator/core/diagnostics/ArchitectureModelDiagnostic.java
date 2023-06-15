@@ -45,7 +45,8 @@ public class ArchitectureModelDiagnostic extends Diagnostic {
                                        Location location, Object[] args) {
 
         this.diagnosticInfo = new DiagnosticInfo(code, message, severity);
-        this.location = new ArchitectureModelDiagnosticLocation(location.lineRange(), location.textRange());
+        this.location = location == null ? null :
+                new ArchitectureModelDiagnosticLocation(location.lineRange(), location.textRange());
         this.properties = Collections.emptyList();
         this.message = MessageFormat.format(message, args);
         this.severity = severity.name();
