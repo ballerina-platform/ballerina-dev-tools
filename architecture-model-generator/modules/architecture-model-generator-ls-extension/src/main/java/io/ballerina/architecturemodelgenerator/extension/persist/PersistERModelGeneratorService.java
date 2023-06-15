@@ -23,11 +23,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.architecturemodelgenerator.core.Constants;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelException;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticUtils;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.EntityModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
+import io.ballerina.projects.PackageCompilation;
 import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -39,6 +41,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -78,11 +81,24 @@ public class PersistERModelGeneratorService implements ExtendedLanguageServerSer
             Map<String, Entity> entities = new HashMap<>();
             try {
                 Project project = getCurrentProject(path);
+                PackageCompilation currentPackageCompilation = project.currentPackage().getCompilation();
                 EntityModelGenerator entityModelGenerator =
-                        new EntityModelGenerator(project.currentPackage().getCompilation(),
+                        new EntityModelGenerator(currentPackageCompilation,
                                 project.currentPackage().getDefaultModule());
 
                 entities = entityModelGenerator.generate();
+                if (currentPackageCompilation.diagnosticResult().hasErrors()) {
+                    hasDiagnosticErrors.set(true);
+                    List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
+                    currentPackageCompilation.diagnosticResult().errors().forEach(diagnostic -> {
+                        ArchitectureModelDiagnostic architectureModelDiagnostic =
+                                new ArchitectureModelDiagnostic(diagnostic.diagnosticInfo().code(),
+                                        diagnostic.diagnosticInfo().messageFormat(),
+                                        diagnostic.diagnosticInfo().severity(), diagnostic.location(), null);
+                        diagnostics.add(architectureModelDiagnostic);
+                    });
+                    response.addDiagnostics(diagnostics);
+                }
             } catch (ArchitectureModelException | WorkspaceDocumentException | EventSyncException e) {
                 // todo : Improve error messages
                 hasDiagnosticErrors.set(true);
