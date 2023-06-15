@@ -36,16 +36,16 @@ import java.util.List;
 public class ArchitectureModelDiagnostic extends Diagnostic {
 
     private final DiagnosticInfo diagnosticInfo;
-    private final Location location;
+    private final ArchitectureModelDiagnosticLocation location;
     private final List<DiagnosticProperty<?>> properties;
     private final String message;
     private final String severity;
 
     public ArchitectureModelDiagnostic(String code, String message, DiagnosticSeverity severity,
-                                        Location location, Object[] args) {
+                                       Location location, Object[] args) {
 
         this.diagnosticInfo = new DiagnosticInfo(code, message, severity);
-        this.location = location;
+        this.location = new ArchitectureModelDiagnosticLocation(location.lineRange(), location.textRange());
         this.properties = Collections.emptyList();
         this.message = MessageFormat.format(message, args);
         this.severity = severity.name();
