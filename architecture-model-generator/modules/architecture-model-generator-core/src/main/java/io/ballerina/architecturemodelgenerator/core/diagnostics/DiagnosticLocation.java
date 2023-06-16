@@ -27,12 +27,12 @@ import io.ballerina.tools.text.TextRange;
  *
  * @since 2201.7.0
  */
-public class ArchitectureModelDiagnosticLocation implements Location {
+public class DiagnosticLocation implements Location {
 
     private final LineRange lineRange;
     private final TextRange textRange;
 
-    public ArchitectureModelDiagnosticLocation(LineRange lineRange, TextRange textRange) {
+    public DiagnosticLocation(LineRange lineRange, TextRange textRange) {
         this.lineRange = lineRange;
         this.textRange = textRange;
     }

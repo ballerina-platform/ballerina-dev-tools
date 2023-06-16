@@ -36,7 +36,7 @@ import java.util.List;
 public class ArchitectureModelDiagnostic extends Diagnostic {
 
     private final DiagnosticInfo diagnosticInfo;
-    private final ArchitectureModelDiagnosticLocation location;
+    private final DiagnosticLocation location;
     private final List<DiagnosticProperty<?>> properties;
     private final String message;
     private final String severity;
@@ -46,7 +46,7 @@ public class ArchitectureModelDiagnostic extends Diagnostic {
 
         this.diagnosticInfo = new DiagnosticInfo(code, message, severity);
         this.location = location == null ? null :
-                new ArchitectureModelDiagnosticLocation(location.lineRange(), location.textRange());
+                new DiagnosticLocation(location.lineRange(), location.textRange());
         this.properties = Collections.emptyList();
         this.message = MessageFormat.format(message, args);
         this.severity = severity.name();
