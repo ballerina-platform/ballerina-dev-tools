@@ -92,7 +92,7 @@ public class EntityModelGenerator extends ModelGenerator {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             TypeDefinitionNodeVisitor typeDefNodeVisitor = new TypeDefinitionNodeVisitor();
             syntaxTree.rootNode().accept(typeDefNodeVisitor);
-            recordTypeDescNodes = typeDefNodeVisitor.getRecordTypeDescNodes();
+            typeDefNodeVisitor.getRecordTypeDescNodes().forEach(recordTypeDescNodes::putIfAbsent);
         }
 
         List<Symbol> symbols = getSemanticModel().moduleSymbols();
