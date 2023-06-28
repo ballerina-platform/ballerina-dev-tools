@@ -21,6 +21,7 @@ package io.ballerina.architecturemodelgenerator.core.model.service;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 
 import java.util.List;
 
@@ -30,24 +31,18 @@ import java.util.List;
  * @since 2201.4.0
  */
 public class Dependency extends ModelElement {
-    private final String serviceId;
-    private final String serviceLabel;
+    private final EntryPointID entryPointID;
     private final String connectorType;
 
-    public Dependency(String serviceId, String serviceLabel, String connectorType, ElementLocation elementLocation,
+    public Dependency(EntryPointID entryPointID, String connectorType, ElementLocation elementLocation,
                       List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
-        this.serviceId = serviceId;
-        this.serviceLabel = serviceLabel;
+        this.entryPointID = entryPointID;
         this.connectorType = connectorType;
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public String getServiceLabel() {
-        return serviceLabel;
+    public EntryPointID getEntryPointID() {
+        return entryPointID;
     }
 
     public String getConnectorType() {

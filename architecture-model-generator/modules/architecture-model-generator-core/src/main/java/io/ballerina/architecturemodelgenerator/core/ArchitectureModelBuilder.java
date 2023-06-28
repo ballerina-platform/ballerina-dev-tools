@@ -55,6 +55,7 @@ public class ArchitectureModelBuilder {
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
+        List<Dependency> allDependencies = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
         PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
@@ -68,7 +69,9 @@ public class ArchitectureModelBuilder {
 
             ServiceModelGenerator serviceModelGenerator = new ServiceModelGenerator(currentPackageCompilation, module);
             try {
-                services.putAll(serviceModelGenerator.generate());
+                serviceModelGenerator.generate();
+                services.putAll(serviceModelGenerator.getServices());
+                allDependencies.addAll(serviceModelGenerator.getDependencies());
             } catch (Exception e) {
                 DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.SERVICES,
                         e.getMessage());
@@ -97,13 +100,6 @@ public class ArchitectureModelBuilder {
                 functionEntryPoint.set(functionEntryPointModelGenerator.generate());
             }
         });
-
-        List<Dependency> allDependencies = new ArrayList<>();
-
-        for (Service service : services.values()) {
-            List<Dependency> dependencies = service.getDependencies();
-            allDependencies.addAll(dependencies);
-        }
 
         return new ArchitectureModel(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
                 functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
