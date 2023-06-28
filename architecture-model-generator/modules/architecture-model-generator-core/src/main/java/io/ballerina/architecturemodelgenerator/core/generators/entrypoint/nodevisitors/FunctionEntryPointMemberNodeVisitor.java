@@ -19,6 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors;
 
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
@@ -88,7 +89,8 @@ public class FunctionEntryPointMemberNodeVisitor extends NodeVisitor {
                         String serviceId = displayAnnotation.getId() != null ? displayAnnotation.getId() :
                                 Integer.toString(variableDeclarationNode.hashCode());
                         String serviceLabel = displayAnnotation.getLabel();
-                        Dependency dependency = new Dependency(serviceId, serviceLabel,
+                        EntryPointID entryPointID = new EntryPointID(serviceId, serviceLabel);
+                        Dependency dependency = new Dependency(entryPointID,
                                 getClientModuleName(referredClassSymbol),
                                 getElementLocation(filePath.toString(), variableDeclarationNode.lineRange()),
                                 Collections.emptyList());

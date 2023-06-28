@@ -20,6 +20,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.service;
 
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ServiceDeclarationNodeVisitor;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
@@ -28,6 +29,8 @@ import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,12 +40,22 @@ import java.util.Map;
  */
 public class ServiceModelGenerator extends ModelGenerator {
 
+    private final Map<String, Service> services = new HashMap<>();
+    private final List<Dependency> dependencies = new LinkedList<>();
+
     public ServiceModelGenerator(PackageCompilation packageCompilation, Module module) {
         super(packageCompilation, module);
     }
 
-    public Map<String, Service> generate() {
-        Map<String, Service> services = new HashMap<>();
+    public Map<String, Service> getServices() {
+        return services;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
+    }
+
+    public void generate() {
         for (DocumentId documentId :getModule().documentIds()) {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             Path filePath = getModuleRootPath().resolve(syntaxTree.filePath());
@@ -50,9 +63,9 @@ public class ServiceModelGenerator extends ModelGenerator {
                     getPackageCompilation(), getSemanticModel(), syntaxTree, getModule().packageInstance(), filePath);
             syntaxTree.rootNode().accept(serviceNodeVisitor);
             serviceNodeVisitor.getServices().forEach(service -> {
-                services.put(service.getServiceId(), service);
+                services.put(service.getServiceId().getId(), service);
             });
+            dependencies.addAll(serviceNodeVisitor.getDependencies());
         }
-        return services;
     }
 }

@@ -24,6 +24,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessag
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.RemoteFunction;
@@ -323,7 +324,8 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                                     Integer.toString(objectFieldNode.hashCode());
                             serviceLabel = displayAnnotation.getLabel();
                         }
-                        Dependency dependency = new Dependency(serviceId, serviceLabel,
+                        EntryPointID entryPointID = new EntryPointID(serviceId, serviceLabel);
+                        Dependency dependency = new Dependency(entryPointID,
                                 getClientModuleName(referredClassSymbol),
                                 getElementLocation(filePath, objectFieldNode.lineRange()), Collections.emptyList());
                         dependencies.add(dependency);

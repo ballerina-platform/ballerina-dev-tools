@@ -22,6 +22,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureMode
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 
 import java.util.List;
 
@@ -33,15 +34,15 @@ import java.util.List;
 public class Service extends ModelElement {
 
     private final String path;
-    private final String serviceId;
+    private final EntryPointID serviceId;
     private final String serviceType;
     private final List<Resource> resources;
     private final DisplayAnnotation annotation;
     private final List<RemoteFunction> remoteFunctions;
-    private final List<Dependency> dependencies;
+    private final List<EntryPointID> dependencyIDs;
 
-    public Service(String path, String serviceId, String serviceType, List<Resource> resources,
-                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<Dependency> dependencies,
+    public Service(String path, EntryPointID serviceId, String serviceType, List<Resource> resources,
+                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<EntryPointID> dependencyIDs,
                    ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.path = path;
@@ -50,14 +51,14 @@ public class Service extends ModelElement {
         this.resources = resources;
         this.annotation = annotation;
         this.remoteFunctions = remoteFunctions;
-        this.dependencies = dependencies;
+        this.dependencyIDs = dependencyIDs;
     }
 
     public String getPath() {
         return path;
     }
 
-    public String getServiceId() {
+    public EntryPointID getServiceId() {
         return serviceId;
     }
 
@@ -77,7 +78,7 @@ public class Service extends ModelElement {
         return remoteFunctions;
     }
 
-    public List<Dependency> getDependencies() {
-        return dependencies;
+    public List<EntryPointID> getDependencyIDs() {
+        return dependencyIDs;
     }
 }
