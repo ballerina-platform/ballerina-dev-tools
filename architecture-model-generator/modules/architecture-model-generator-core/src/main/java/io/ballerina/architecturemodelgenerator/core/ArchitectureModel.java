@@ -21,6 +21,7 @@ package io.ballerina.architecturemodelgenerator.core;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 
@@ -42,9 +43,12 @@ public class ArchitectureModel {
     private final Map<String, Entity> entities;
     private final FunctionEntryPoint functionEntryPoint;
 
+    private final List<Dependency> dependencies;
+
     public ArchitectureModel(String version, PackageId packageId, List<ArchitectureModelDiagnostic> diagnostics,
                              Map<String, Service> services, Map<String, Entity> entities,
-                             FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
+                             FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors,
+                             List<Dependency> dependencies) {
         this.version = version;
         this.packageId = packageId;
         this.diagnostics = diagnostics;
@@ -52,6 +56,7 @@ public class ArchitectureModel {
         this.entities = entities;
         this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
+        this.dependencies = dependencies;
     }
 
     public String getVersion() {
@@ -80,6 +85,10 @@ public class ArchitectureModel {
 
     public boolean hasCompilationErrors() {
         return hasCompilationErrors;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
     }
 
     /**

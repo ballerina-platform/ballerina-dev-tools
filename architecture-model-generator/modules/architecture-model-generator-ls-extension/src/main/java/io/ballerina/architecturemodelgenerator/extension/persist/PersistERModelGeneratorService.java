@@ -114,7 +114,7 @@ public class PersistERModelGeneratorService implements ExtendedLanguageServerSer
             }
 
             ArchitectureModel architectureModel = new ArchitectureModel(Constants.MODEL_VERSION, null,
-                    response.getDiagnostics(), new HashMap<>(), entities, null, hasDiagnosticErrors.get());
+                    response.getDiagnostics(), new HashMap<>(), entities, null, hasDiagnosticErrors.get(), null);
             Gson gson = new GsonBuilder().serializeNulls().create();
             JsonObject persistERModel = (JsonObject) gson.toJsonTree(architectureModel);
 
