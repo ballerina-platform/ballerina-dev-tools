@@ -27,6 +27,7 @@ import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.Functi
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
@@ -97,7 +98,14 @@ public class ArchitectureModelBuilder {
             }
         });
 
+        List<Dependency> allDependencies = new ArrayList<>();
+
+        for (Service service : services.values()) {
+            List<Dependency> dependencies = service.getDependencies();
+            allDependencies.addAll(dependencies);
+        }
+
         return new ArchitectureModel(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
-                functionEntryPoint.get(), hasDiagnosticErrors.get());
+                functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
     }
 }
