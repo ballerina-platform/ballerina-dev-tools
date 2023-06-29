@@ -18,6 +18,7 @@ public type Adult record {
     *User;
     string occupation;
     string officeContactNo?;
+    string personalContactNo = "";
 };
 
 public type Profile record {
