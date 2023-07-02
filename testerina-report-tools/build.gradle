@@ -55,6 +55,6 @@ task createTesterinaReportToolsZip(type: Zip) {
     include '**/static/css/*.css'
     include '**/static/js/*.js'
     exclude '**/static/js/runtime-*.js'
-    archiveName 'testerina-report-tools-' + project.version + '.zip'
-    destinationDir(file("$project.rootDir/build/tests/"))
+    archiveFileName = 'testerina-report-tools-' + project.version + '.zip'
+    destinationDirectory = file("$project.rootDir/build/tests/")
 }

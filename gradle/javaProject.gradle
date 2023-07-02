@@ -77,7 +77,7 @@ spotbugsMain {
     effort = "max"
     reportLevel = "low"
     reportsDir = file("$project.buildDir/reports/spotbugs")
-    def excludeFile = file("spotbugs-exclude.xml")
+    def excludeFile = file("${rootDir}/spotbugs-exclude.xml")
     if (excludeFile.exists()) {
         it.excludeFilter = excludeFile
     }
@@ -109,7 +109,7 @@ test {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.required = true
     }
 }
 
