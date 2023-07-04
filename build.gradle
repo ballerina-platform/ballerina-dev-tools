@@ -108,6 +108,7 @@ task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-core:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:build")
+    dependsOn(":generatePomFileForMavenJavaPublication")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
