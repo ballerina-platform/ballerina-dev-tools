@@ -139,8 +139,8 @@ task createArtifactZip(type: Zip) {
     dependsOn(":docerina-ui:createDocerinaUiZip")
     dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
     from "build"
-    archiveName 'ballerina-dev-tools-' + project.version + '.zip'
-    destinationDir(file("dist"))
+    archiveFileName = 'ballerina-dev-tools-' + project.version + '.zip'
+    destinationDirectory = file("dist")
 }
 
 publishing {
