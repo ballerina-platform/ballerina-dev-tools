@@ -20,6 +20,9 @@ package io.ballerina.architecturemodelgenerator.core.generators.entity;
 
 import io.ballerina.architecturemodelgenerator.core.ArchitectureModel.PackageId;
 import io.ballerina.architecturemodelgenerator.core.Constants.CardinalityValue;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
+import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.nodevisitors.TypeDefinitionNodeVisitor;
@@ -43,8 +46,11 @@ import io.ballerina.compiler.syntax.tree.ArrayTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
 import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RecordFieldNode;
+import io.ballerina.compiler.syntax.tree.RecordFieldWithDefaultValueNode;
 import io.ballerina.compiler.syntax.tree.RecordTypeDescriptorNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -118,21 +124,37 @@ public class EntityModelGenerator extends ModelGenerator {
         List<String> inclusionList = new ArrayList<>();
         Map<String, RecordFieldSymbol> recordFieldSymbolMap =
                 getOriginalFieldMap(recordTypeSymbol, inclusionList, entityName);
+        List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         for (RecordFieldSymbol recordFieldSymbol : recordFieldSymbolMap.values()) {
-            RecordFieldNode recordFieldNode = null;
+            Node recordFieldNode = null;
             if (recordFieldSymbol.getName().isPresent() && recordNode != null) {
-                recordFieldNode = (RecordFieldNode) recordNode.fields().stream().filter(node ->
-                                node.kind().equals(SyntaxKind.RECORD_FIELD) &&
-                                        ((RecordFieldNode) node).fieldName().text()
-                                                .equals(recordFieldSymbol.getName().get()))
-                        .findFirst().orElse(null);
+                recordFieldNode = recordNode.fields().stream().filter(node -> {
+                    if (node.kind().equals(SyntaxKind.RECORD_FIELD) &&
+                            ((RecordFieldNode) node).fieldName().text().equals(recordFieldSymbol.getName().get())) {
+                        return true;
+                    } else {
+                        return node.kind().equals(SyntaxKind.RECORD_FIELD_WITH_DEFAULT_VALUE) &&
+                                ((RecordFieldWithDefaultValueNode) node).fieldName().text()
+                                        .equals(recordFieldSymbol.getName().get());
+                    }
+                }).findFirst().orElse(null);
             }
-            attributeList.add(getAttribute(recordFieldSymbol, recordFieldNode, entityName));
+
+            if (recordFieldNode == null) {
+                DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.ENTITIES,
+                        "Could not find the field named " + recordFieldSymbol.getName().get() + ".");
+                ArchitectureModelDiagnostic diagnostic = new ArchitectureModelDiagnostic(
+                        message.getCode(), message.getDescription(), message.getSeverity(), null, null
+                );
+                diagnostics.add(diagnostic);
+            } else {
+                attributeList.add(getAttribute(recordFieldSymbol, recordFieldNode, entityName));
+            }
         }
-        return new Entity(attributeList, inclusionList, isAnonymous, elementLocation, Collections.emptyList());
+        return new Entity(attributeList, inclusionList, isAnonymous, elementLocation, diagnostics);
     }
 
-    private Attribute getAttribute(RecordFieldSymbol recordFieldSymbol, RecordFieldNode recordFieldNode,
+    private Attribute getAttribute(RecordFieldSymbol recordFieldSymbol, Node recordFieldNode,
                                    String entityName) {
         TypeDescKind fieldTypeDescKind = recordFieldSymbol.typeDescriptor().typeKind();
         TypeSymbol fieldTypeSymbol = recordFieldSymbol.typeDescriptor();
@@ -145,12 +167,17 @@ public class EntityModelGenerator extends ModelGenerator {
         boolean nillable = isNillable(recordFieldSymbol.typeDescriptor());
         String inlineRecordName = entityName + fieldName.substring(0, 1).toUpperCase(Locale.ROOT) +
                 fieldName.substring(1);
-        boolean isReadOnly = recordFieldNode.readonlyKeyword().isPresent();
+        boolean isReadOnly = recordFieldNode.kind().equals(SyntaxKind.RECORD_FIELD) ?
+                ((RecordFieldNode) recordFieldNode).readonlyKeyword().isPresent() :
+                ((RecordFieldWithDefaultValueNode) recordFieldNode).readonlyKeyword().isPresent();
 
+        Node typeName = recordFieldNode.kind().equals(SyntaxKind.RECORD_FIELD) ?
+                ((RecordFieldNode) recordFieldNode).typeName() :
+                ((RecordFieldWithDefaultValueNode) recordFieldNode).typeName();
         if (fieldTypeDescKind.equals(TypeDescKind.RECORD)) {
             RecordTypeSymbol inlineRecordTypeSymbol = (RecordTypeSymbol) fieldTypeSymbol;
             fieldType = TypeDescKind.RECORD.getName();
-            RecordTypeDescriptorNode recordTypeDescNode = (RecordTypeDescriptorNode) recordFieldNode.typeName();
+            RecordTypeDescriptorNode recordTypeDescNode = (RecordTypeDescriptorNode) typeName;
             this.types.put(inlineRecordName, getType(inlineRecordTypeSymbol, recordTypeDescNode, inlineRecordName,
                     getElementLocation(recordFieldSymbol), true));
             String associateCardinality = optional ? CardinalityValue.ZERO_OR_ONE.getValue() :
@@ -162,10 +189,10 @@ public class EntityModelGenerator extends ModelGenerator {
                 getInlineRecordTypeSymbol((ArrayTypeSymbol) fieldTypeSymbol).isPresent()) {
             RecordTypeSymbol inlineRecordTypeSymbol =
                     getInlineRecordTypeSymbol((ArrayTypeSymbol) fieldTypeSymbol).get();
-            int arraySize = ((ArrayTypeDescriptorNode) recordFieldNode.typeName()).dimensions().size();
+            int arraySize = ((ArrayTypeDescriptorNode) typeName).dimensions().size();
             fieldType = TypeDescKind.RECORD.getName() + ARRAY.repeat(arraySize);
             RecordTypeDescriptorNode recordTypeDescNode =
-                    (RecordTypeDescriptorNode) ((ArrayTypeDescriptorNode) recordFieldNode.typeName()).memberTypeDesc();
+                    (RecordTypeDescriptorNode) ((ArrayTypeDescriptorNode) typeName).memberTypeDesc();
             this.types.put(inlineRecordName, getType(inlineRecordTypeSymbol, recordTypeDescNode, inlineRecordName,
                     getElementLocation(recordFieldSymbol), true));
             List<String> associateCardinalities = getArrayAssociateCardinalities(recordFieldNode);
@@ -288,10 +315,14 @@ public class EntityModelGenerator extends ModelGenerator {
         }
     }
 
-    private List<String> getArrayAssociateCardinalities(RecordFieldNode recordFieldNode) {
+    private List<String> getArrayAssociateCardinalities(Node recordFieldNode) {
+        Optional<MetadataNode> metadata = recordFieldNode.kind().equals(SyntaxKind.RECORD_FIELD) ?
+                ((RecordFieldNode) recordFieldNode).metadata() :
+                ((RecordFieldWithDefaultValueNode) recordFieldNode).metadata();
+
         List<String> associateCardinalities = new LinkedList<>();
-        if (recordFieldNode != null && recordFieldNode.metadata().isPresent()) {
-            for (AnnotationNode annotationNode : recordFieldNode.metadata().get().annotations()) {
+        if (metadata.isPresent()) {
+            for (AnnotationNode annotationNode : metadata.get().annotations()) {
                 if (annotationNode.annotReference().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
                     QualifiedNameReferenceNode annotRef =  (QualifiedNameReferenceNode) annotationNode.annotReference();
                     if (annotRef.modulePrefix().text().equals(CONSTRAINT_KEYWORD) &&
@@ -386,7 +417,7 @@ public class EntityModelGenerator extends ModelGenerator {
         return referenceType;
     }
 
-    private List<Association> getAssociations(TypeSymbol fieldTypeDescriptor, RecordFieldNode recordFieldNode,
+    private List<Association> getAssociations(TypeSymbol fieldTypeDescriptor, Node recordFieldNode,
                                               String entityName, boolean optional, boolean isNillable) {
 
         List<Association> associations = new ArrayList<>();
