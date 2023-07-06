@@ -4,11 +4,15 @@
     "org": "aneesha",
     "version": "0.1.0"
   },
-  "hasCompilationErrors": true,
+  "hasCompilationErrors": false,
+  "diagnostics": [],
   "services": {
     "001": {
       "path": "greeting",
-      "serviceId": "001",
+      "serviceId": {
+        "id": "001",
+        "label": "greeting-service"
+      },
       "serviceType": "ballerina/http:2.5.1",
       "resources": [
         {
@@ -138,12 +142,12 @@
           "interactions": [
             {
               "resourceId": {
-                "serviceId": "-149610787",
+                "serviceId": "208316816",
                 "serviceLabel": "",
                 "path": "getCurrentWeather",
                 "action": "get"
               },
-              "connectorType": "",
+              "connectorType": "ballerina/http:2.8.1",
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
@@ -189,7 +193,7 @@
         "diagnostics": []
       },
       "remoteFunctions": [],
-      "dependencies": [],
+      "dependencyIDs": [],
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
@@ -205,7 +209,10 @@
     },
     "002": {
       "path": "time",
-      "serviceId": "002",
+      "serviceId": {
+        "id": "002",
+        "label": "time-service"
+      },
       "serviceType": "ballerina/http:2.5.1",
       "resources": [
         {
@@ -273,7 +280,7 @@
         "diagnostics": []
       },
       "remoteFunctions": [],
-      "dependencies": [],
+      "dependencyIDs": [],
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
@@ -288,5 +295,89 @@
       "diagnostics": []
     }
   },
-  "entities": {}
+  "entities": {
+    "aneesha/single_service_sample:model:0.1.0:Account": {
+      "attributes": [
+        {
+          "name": "AccountId",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": true,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 1,
+              "offset": 20
+            },
+            "endPosition": {
+              "line": 1,
+              "offset": 29
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "optional": true,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 2,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 2,
+              "offset": 17
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "Currency",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 3,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 3,
+              "offset": 19
+            }
+          },
+          "diagnostics": []
+        }
+      ],
+      "inclusions": [],
+      "isAnonymous": false,
+      "elementLocation": {
+        "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+        "startPosition": {
+          "line": 0,
+          "offset": 12
+        },
+        "endPosition": {
+          "line": 0,
+          "offset": 19
+        }
+      },
+      "diagnostics": []
+    }
+  },
+  "functionEntryPoint": null,
+  "dependencies": []
 }
