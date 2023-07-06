@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.3.1",
   "packageId": {
     "name": "cart_service",
     "org": "test",
@@ -10,8 +10,11 @@
   "services": {
     "cart": {
       "path": "CartService",
-      "serviceId": "cart",
-      "serviceType": "ballerina/grpc:1.6.1",
+      "serviceId": {
+        "id": "cart",
+        "label": "Cart"
+      },
+      "serviceType": "ballerina/grpc:1.8.1",
       "resources": [],
       "annotation": {
         "id": "cart",
@@ -154,7 +157,7 @@
           "diagnostics": []
         }
       ],
-      "dependencies": [],
+      "dependencyIDs": [],
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
         "startPosition": {
@@ -179,6 +182,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -234,6 +238,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -262,6 +267,7 @@
               }
             }
           ],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -300,6 +306,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -328,6 +335,7 @@
               }
             }
           ],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -366,6 +374,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -404,6 +413,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -424,6 +434,7 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
+          "isReadOnly": false,
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
@@ -453,5 +464,7 @@
       },
       "diagnostics": []
     }
-  }
+  },
+  "functionEntryPoint": null,
+  "dependencies": []
 }
