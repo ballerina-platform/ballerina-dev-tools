@@ -51,7 +51,7 @@ public class Constants {
         }
     }
 
-    public static final String MODEL_VERSION = "0.3.1";
+    public static final String MODEL_VERSION = "0.4.0";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
     public static final String SERVICE_ANNOTATION = "choreo:Service";
