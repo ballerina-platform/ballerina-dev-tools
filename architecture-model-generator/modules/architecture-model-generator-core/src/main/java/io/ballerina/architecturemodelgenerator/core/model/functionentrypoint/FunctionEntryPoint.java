@@ -22,9 +22,9 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureMode
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 
 import java.util.List;
 
@@ -39,17 +39,17 @@ public class FunctionEntryPoint extends ModelElement {
     private final List<String> returns;
     private final List<Interaction> interactions;
     private final DisplayAnnotation annotation;
-    private List<Dependency> dependencies;
+    private List<EntryPointID> dependencyIDs;
 
     public FunctionEntryPoint(List<FunctionParameter> parameters, List<String> returns, List<Interaction> interactions,
-                      DisplayAnnotation annotation, List<Dependency> dependencies, ElementLocation elementLocation,
+                      DisplayAnnotation annotation, List<EntryPointID> dependencyIDs, ElementLocation elementLocation,
                       List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.parameters = parameters;
         this.returns = returns;
         this.annotation = annotation;
         this.interactions = interactions;
-        this.dependencies = dependencies;
+        this.dependencyIDs = dependencyIDs;
     }
 
     public List<FunctionParameter> getParameters() {
@@ -68,11 +68,11 @@ public class FunctionEntryPoint extends ModelElement {
         return annotation;
     }
 
-    public List<Dependency> getDependencies() {
-        return dependencies;
+    public void setDependencyIDs(List<EntryPointID> dependencyIDs) {
+        this.dependencyIDs = dependencyIDs;
     }
 
-    public void setDependencies(List<Dependency> dependencies) {
-        this.dependencies = dependencies;
+    public List<EntryPointID> getDependencyIDs() {
+        return dependencyIDs;
     }
 }

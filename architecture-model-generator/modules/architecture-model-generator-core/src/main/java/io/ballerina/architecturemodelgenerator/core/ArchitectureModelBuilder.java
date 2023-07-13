@@ -95,9 +95,11 @@ public class ArchitectureModelBuilder {
 
             FunctionEntryPointModelGenerator functionEntryPointModelGenerator =
                     new FunctionEntryPointModelGenerator(currentPackageCompilation, module);
-            FunctionEntryPoint generatedFunctionEntryPoint = functionEntryPointModelGenerator.generate();
+            functionEntryPointModelGenerator.generate();
+            FunctionEntryPoint generatedFunctionEntryPoint = functionEntryPointModelGenerator.getFunctionEntryPoint();
             if (generatedFunctionEntryPoint != null) {
-                functionEntryPoint.set(functionEntryPointModelGenerator.generate());
+                functionEntryPoint.set(generatedFunctionEntryPoint);
+                allDependencies.addAll(functionEntryPointModelGenerator.getDependencies());
             }
         });
 
