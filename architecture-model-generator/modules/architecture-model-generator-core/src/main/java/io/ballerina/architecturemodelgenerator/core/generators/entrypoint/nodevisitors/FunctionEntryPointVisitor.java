@@ -24,8 +24,10 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
+import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -48,6 +50,7 @@ import io.ballerina.projects.PackageCompilation;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +71,8 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
     private final SyntaxTree syntaxTree;
     private final Package currentPackage;
     private FunctionEntryPoint functionEntryPoint = null;
+
+    private final List<Dependency> dependencies = new LinkedList<>();
     private final Path filePath;
 
     public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
@@ -82,6 +87,10 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
 
     public FunctionEntryPoint getFunctionEntryPoint() {
         return functionEntryPoint;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
     }
 
     @Override
@@ -118,9 +127,16 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 diagnostics.add(diagnostic);
             }
 
+            List<EntryPointID> dependencyIDs = new ArrayList<>();
+
+            for (Dependency dependency : functionEntryPointMemberNodeVisitor.getDependencies()) {
+                dependencyIDs.add(dependency.getEntryPointID());
+            }
+
             functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
                     actionNodeVisitor.getInteractionList(), annotation,
-                    functionEntryPointMemberNodeVisitor.getDependencies(), elementLocation, diagnostics);
+                    dependencyIDs, elementLocation, diagnostics);
+            dependencies.addAll(functionEntryPointMemberNodeVisitor.getDependencies());
         }
     }
 
