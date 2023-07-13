@@ -10,10 +10,8 @@
   "services": {
     "cart": {
       "path": "CartService",
-      "serviceId": {
-        "id": "cart",
-        "label": "Cart"
-      },
+      "serviceId": "cart",
+      "label": "Cart",
       "serviceType": "ballerina/grpc:1.8.1",
       "resources": [],
       "annotation": {

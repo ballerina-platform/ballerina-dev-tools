@@ -10,10 +10,8 @@
   "services": {
     "checkout": {
       "path": "CheckoutService",
-      "serviceId": {
-        "id": "checkout",
-        "label": ""
-      },
+      "serviceId": "checkout",
+      "label": "",
       "serviceType": "ballerina/grpc:1.8.1",
       "resources": [],
       "annotation": {
