@@ -1,4 +1,5 @@
 {
+  "version": "0.4.0",
   "packageId": {
     "name": "single_service_sample",
     "org": "aneesha",
@@ -9,11 +10,9 @@
   "services": {
     "001": {
       "path": "greeting",
-      "serviceId": {
-        "id": "001",
-        "label": "greeting-service"
-      },
-      "serviceType": "ballerina/http:2.5.1",
+      "serviceId": "001",
+      "label": "greeting-service",
+      "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": ".",
@@ -77,7 +76,7 @@
                 "path": "[string]",
                 "action": "get"
               },
-              "connectorType": "ballerina/http:2.5.1",
+              "connectorType": "ballerina/http:2.8.1",
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
@@ -100,7 +99,7 @@
             },
             "endPosition": {
               "line": 23,
-              "offset":5
+              "offset": 5
             }
           },
           "diagnostics": []
@@ -114,7 +113,9 @@
             "action": "get"
           },
           "parameters": [],
-          "returns": ["aneesha/single_service_sample:model:0.1.0:Account"],
+          "returns": [
+            "aneesha/single_service_sample:model:0.1.0:Account"
+          ],
           "interactions": [],
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
@@ -138,11 +139,14 @@
             "action": "get"
           },
           "parameters": [],
-          "returns": ["string","error"],
+          "returns": [
+            "string",
+            "error"
+          ],
           "interactions": [
             {
               "resourceId": {
-                "serviceId": "208316816",
+                "serviceId": "-437328910",
                 "serviceLabel": "",
                 "path": "getCurrentWeather",
                 "action": "get"
@@ -209,11 +213,9 @@
     },
     "002": {
       "path": "time",
-      "serviceId": {
-        "id": "002",
-        "label": "time-service"
-      },
-      "serviceType": "ballerina/http:2.5.1",
+      "serviceId": "002",
+      "label": "time-service",
+      "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": "greeting",

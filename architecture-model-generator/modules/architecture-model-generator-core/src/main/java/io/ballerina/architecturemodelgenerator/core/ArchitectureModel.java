@@ -31,6 +31,7 @@ import java.util.Map;
 /**
  * Represents intermediate model to represent multi-service projects.
  *
+ * @param <T> the type parameter for the model
  * @since 2201.2.2
  */
 public class ArchitectureModel<T> {

@@ -10,10 +10,8 @@
   "services": {
     "frontend": {
       "path": "",
-      "serviceId": {
-        "id": "frontend",
-        "label": "Frontend"
-      },
+      "serviceId": "frontend",
+      "label": "Frontend",
       "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
