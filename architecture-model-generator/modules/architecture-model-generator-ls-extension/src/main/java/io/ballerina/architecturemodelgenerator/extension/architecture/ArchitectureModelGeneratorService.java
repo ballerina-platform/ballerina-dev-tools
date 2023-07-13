@@ -84,7 +84,7 @@ public class ArchitectureModelGeneratorService implements ExtendedLanguageServer
                         Gson gson = new GsonBuilder().serializeNulls().create();
                         JsonObject componentModelJson = (JsonObject) gson.toJsonTree(projectModel);
                         componentModelMap.put(Utils.getQualifiedPackageName(
-                                projectModel.getPackageId()), componentModelJson);
+                                (ArchitectureModel.PackageId) projectModel.getPackageId()), componentModelJson);
                     }
                 } catch (ArchitectureModelException | WorkspaceDocumentException | EventSyncException e) {
                     // todo : Improve error messages

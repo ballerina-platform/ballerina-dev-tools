@@ -33,10 +33,10 @@ import java.util.Map;
  *
  * @since 2201.2.2
  */
-public class ArchitectureModel {
+public class ArchitectureModel<T> {
 
     private final String version;
-    private final PackageId packageId;
+    private final T packageId;
     private final boolean hasCompilationErrors;
     private final List<ArchitectureModelDiagnostic> diagnostics;
     private final Map<String, Service> services;
@@ -45,7 +45,7 @@ public class ArchitectureModel {
 
     private final List<Dependency> dependencies;
 
-    public ArchitectureModel(String version, PackageId packageId, List<ArchitectureModelDiagnostic> diagnostics,
+    public ArchitectureModel(String version, T packageId, List<ArchitectureModelDiagnostic> diagnostics,
                              Map<String, Service> services, Map<String, Entity> entities,
                              FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors,
                              List<Dependency> dependencies) {
@@ -63,7 +63,7 @@ public class ArchitectureModel {
         return version;
     }
 
-    public PackageId getPackageId() {
+    public T getPackageId() {
         return packageId;
     }
 
