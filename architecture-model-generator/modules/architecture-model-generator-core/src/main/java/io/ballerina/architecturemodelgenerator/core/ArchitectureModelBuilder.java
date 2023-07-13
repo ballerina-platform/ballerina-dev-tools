@@ -103,7 +103,7 @@ public class ArchitectureModelBuilder {
             }
         });
 
-        return new ArchitectureModel(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
+        return new ArchitectureModel<>(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
                 functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
     }
 }
