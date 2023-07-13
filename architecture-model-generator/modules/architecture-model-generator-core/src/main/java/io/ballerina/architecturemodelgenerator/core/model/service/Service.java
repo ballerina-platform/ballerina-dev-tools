@@ -22,7 +22,6 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureMode
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 
 import java.util.List;
 
@@ -34,19 +33,21 @@ import java.util.List;
 public class Service extends ModelElement {
 
     private final String path;
-    private final EntryPointID serviceId;
+    private final String serviceId;
+    private final String label;
     private final String serviceType;
     private final List<Resource> resources;
     private final DisplayAnnotation annotation;
     private final List<RemoteFunction> remoteFunctions;
-    private final List<EntryPointID> dependencyIDs;
+    private final List<String> dependencyIDs;
 
-    public Service(String path, EntryPointID serviceId, String serviceType, List<Resource> resources,
-                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<EntryPointID> dependencyIDs,
+    public Service(String path, String serviceId, String label, String serviceType, List<Resource> resources,
+                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<String> dependencyIDs,
                    ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.path = path;
         this.serviceId = serviceId;
+        this.label = label;
         this.serviceType = serviceType;
         this.resources = resources;
         this.annotation = annotation;
@@ -58,8 +59,12 @@ public class Service extends ModelElement {
         return path;
     }
 
-    public EntryPointID getServiceId() {
+    public String getServiceId() {
         return serviceId;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public String getServiceType() {
@@ -78,7 +83,7 @@ public class Service extends ModelElement {
         return remoteFunctions;
     }
 
-    public List<EntryPointID> getDependencyIDs() {
+    public List<String> getDependencyIDs() {
         return dependencyIDs;
     }
 }
