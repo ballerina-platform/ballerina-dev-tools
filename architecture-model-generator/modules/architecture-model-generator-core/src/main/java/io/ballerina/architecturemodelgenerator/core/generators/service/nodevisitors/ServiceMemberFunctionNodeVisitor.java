@@ -24,7 +24,6 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessag
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.RemoteFunction;
@@ -316,16 +315,13 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                             .anyMatch(qualifier -> qualifier.equals(Qualifier.CLIENT));
                     if (isClientClass) {
                         String serviceId = Integer.toString(objectFieldNode.hashCode());
-                        String serviceLabel = "";
                         if (objectFieldNode.metadata().isPresent()) {
                             DisplayAnnotation displayAnnotation =
                                     getServiceAnnotation(objectFieldNode.metadata().get().annotations(), filePath);
                             serviceId = displayAnnotation.getId() != null ? displayAnnotation.getId() :
                                     Integer.toString(objectFieldNode.hashCode());
-                            serviceLabel = displayAnnotation.getLabel();
                         }
-                        EntryPointID entryPointID = new EntryPointID(serviceId, serviceLabel);
-                        Dependency dependency = new Dependency(entryPointID,
+                        Dependency dependency = new Dependency(serviceId,
                                 getClientModuleName(referredClassSymbol),
                                 getElementLocation(filePath, objectFieldNode.lineRange()), Collections.emptyList());
                         dependencies.add(dependency);

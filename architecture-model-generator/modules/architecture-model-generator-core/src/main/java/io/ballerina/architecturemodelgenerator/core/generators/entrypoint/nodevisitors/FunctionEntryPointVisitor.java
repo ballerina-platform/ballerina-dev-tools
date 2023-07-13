@@ -24,7 +24,6 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
@@ -127,13 +126,15 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 diagnostics.add(diagnostic);
             }
 
-            List<EntryPointID> dependencyIDs = new ArrayList<>();
+            String functionId = annotation != null ? annotation.getId() : functionDefinitionNode.functionName().text();
+            String label = annotation != null ? annotation.getLabel() : null;
 
+            List<String> dependencyIDs = new ArrayList<>();
             for (Dependency dependency : functionEntryPointMemberNodeVisitor.getDependencies()) {
                 dependencyIDs.add(dependency.getEntryPointID());
             }
 
-            functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
+            functionEntryPoint = new FunctionEntryPoint(functionId, label, funcParamList, returnTypes,
                     actionNodeVisitor.getInteractionList(), annotation,
                     dependencyIDs, elementLocation, diagnostics);
             dependencies.addAll(functionEntryPointMemberNodeVisitor.getDependencies());

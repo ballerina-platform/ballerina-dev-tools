@@ -23,7 +23,6 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessag
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.common.EntryPointID;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.compiler.api.SemanticModel;
@@ -128,14 +127,13 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             );
             diagnostics.add(diagnostic);
         }
-        EntryPointID serviceID = new EntryPointID(serviceAnnotation.getId(), serviceAnnotation.getLabel());
-        List<EntryPointID> dependencyIDs = new ArrayList<>();
 
+        List<String> dependencyIDs = new ArrayList<>();
         for (Dependency dependency : serviceMemberFunctionNodeVisitor.getDependencies()) {
             dependencyIDs.add(dependency.getEntryPointID());
         }
 
-        services.add(new Service(serviceName.trim(), serviceID,
+        services.add(new Service(serviceName.trim(), serviceAnnotation.getId(), serviceAnnotation.getLabel(),
                 getServiceType(serviceDeclarationNode), serviceMemberFunctionNodeVisitor.getResources(),
                 serviceAnnotation, serviceMemberFunctionNodeVisitor.getRemoteFunctions(), dependencyIDs,
                 GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange()),

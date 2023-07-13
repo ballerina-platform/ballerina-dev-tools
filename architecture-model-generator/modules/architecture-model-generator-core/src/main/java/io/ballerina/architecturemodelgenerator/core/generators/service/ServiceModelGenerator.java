@@ -63,7 +63,7 @@ public class ServiceModelGenerator extends ModelGenerator {
                     getPackageCompilation(), getSemanticModel(), syntaxTree, getModule().packageInstance(), filePath);
             syntaxTree.rootNode().accept(serviceNodeVisitor);
             serviceNodeVisitor.getServices().forEach(service -> {
-                services.put(service.getServiceId().getId(), service);
+                services.put(service.getServiceId(), service);
             });
             dependencies.addAll(serviceNodeVisitor.getDependencies());
         }
