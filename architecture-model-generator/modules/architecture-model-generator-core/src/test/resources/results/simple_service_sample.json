@@ -9,7 +9,6 @@
   "diagnostics": [],
   "services": {
     "001": {
-      "path": "greeting",
       "serviceId": "001",
       "label": "greeting-service",
       "serviceType": "ballerina/http:2.8.1",
@@ -146,7 +145,7 @@
           "interactions": [
             {
               "resourceId": {
-                "serviceId": "-437328910",
+                "serviceId": "1934985684",
                 "serviceLabel": "",
                 "path": "getCurrentWeather",
                 "action": "get"
@@ -212,7 +211,6 @@
       "diagnostics": []
     },
     "002": {
-      "path": "time",
       "serviceId": "002",
       "label": "time-service",
       "serviceType": "ballerina/http:2.8.1",
