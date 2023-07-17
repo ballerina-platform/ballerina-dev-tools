@@ -71,6 +71,7 @@ public class Constants {
     public static final String CONSTRAINT_ARRAY = "Array";
     public static final String MIN_LENGTH_FIELD = "minLength";
     public static final String MAX_LENGTH_FIELD = "maxLength";
+    public static final String DEFAULT_SERVICE_BASE_PATH = "_defaultBasePath";
 
     // REST Methods
     public static final String GET_KEYWORD = "get";

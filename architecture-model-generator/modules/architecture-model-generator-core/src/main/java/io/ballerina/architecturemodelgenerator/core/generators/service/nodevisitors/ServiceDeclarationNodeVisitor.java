@@ -58,7 +58,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import static io.ballerina.architecturemodelgenerator.core.Constants.DEFAULT_SERVICE_BASE_PATH;
 import static io.ballerina.architecturemodelgenerator.core.Constants.FORWARD_SLASH;
 import static io.ballerina.architecturemodelgenerator.core.Constants.LISTENER;
 
@@ -75,6 +77,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
     private final List<Service> services = new LinkedList<>();
     private final List<Dependency> dependencies = new LinkedList<>();
     private final Path filePath;
+    private List<String> servicePaths = new ArrayList<>();
 
     public ServiceDeclarationNodeVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
                                          SyntaxTree syntaxTree, Package currentPackage, Path filePath) {
@@ -97,7 +100,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
     public void visit(ServiceDeclarationNode serviceDeclarationNode) {
 
         StringBuilder serviceNameBuilder = new StringBuilder();
-        DisplayAnnotation serviceAnnotation;
+        DisplayAnnotation serviceAnnotation = new DisplayAnnotation();
         NodeList<Node> serviceNameNodes = serviceDeclarationNode.absoluteResourcePath();
         for (Node serviceNameNode : serviceNameNodes) {
             serviceNameBuilder.append(serviceNameNode.toString().replace("\"", ""));
@@ -107,9 +110,9 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         if (metadataNode.isPresent()) {
             NodeList<AnnotationNode> annotationNodes = metadataNode.get().annotations();
             serviceAnnotation = GeneratorUtils.getServiceAnnotation(annotationNodes, this.filePath.toString());
-        } else {
-            serviceAnnotation = new DisplayAnnotation(UUID.randomUUID().toString(), "", null, null);
         }
+        String serviceId = generateServiceId(serviceAnnotation, serviceNameNodes);
+        String serviceLabel = generateServiceLabel(serviceAnnotation, serviceNameNodes);
 
         String serviceName = serviceNameBuilder.toString().startsWith(FORWARD_SLASH) ?
                 serviceNameBuilder.substring(1) : serviceNameBuilder.toString();
@@ -133,9 +136,9 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             dependencyIDs.add(dependency.getEntryPointID());
         }
 
-        services.add(new Service(serviceName.trim(), serviceAnnotation.getId(), serviceAnnotation.getLabel(),
-                getServiceType(serviceDeclarationNode), serviceMemberFunctionNodeVisitor.getResources(),
-                serviceAnnotation, serviceMemberFunctionNodeVisitor.getRemoteFunctions(), dependencyIDs,
+        services.add(new Service(serviceName.trim(), serviceId, serviceLabel, getServiceType(serviceDeclarationNode),
+                serviceMemberFunctionNodeVisitor.getResources(), serviceAnnotation,
+                serviceMemberFunctionNodeVisitor.getRemoteFunctions(), dependencyIDs,
                 GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange()),
                 diagnostics));
         dependencies.addAll(serviceMemberFunctionNodeVisitor.getDependencies());
@@ -168,6 +171,67 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             }
         }
         return serviceType;
+    }
+
+    private boolean isValidUUID(String uuidString) {
+        try {
+            @SuppressWarnings("unused")
+            UUID uuid = UUID.fromString(uuidString);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    private String generateServiceId(DisplayAnnotation annotation, NodeList<Node> serviceNameNodes) {
+        String servicePath = getServicePath(serviceNameNodes);
+        if (servicePath.isBlank() || servicePath.equals(FORWARD_SLASH)) {
+            servicePath = DEFAULT_SERVICE_BASE_PATH;
+        }
+
+        String indexedServicePath = servicePath;
+        if (servicePaths.contains(servicePath)) {
+            int index = getServicePathIndex(servicePath);
+            indexedServicePath = servicePath + (index + 1);
+        }
+        String serviceId = currentPackage.descriptor().org().value() + ":" + currentPackage.descriptor().name().value()
+                + ":" + indexedServicePath.replace(FORWARD_SLASH, "_");
+        servicePaths.add(servicePath);
+
+        return annotation.getId().isEmpty() ? serviceId : annotation.getId();
+    }
+
+    private String generateServiceLabel(DisplayAnnotation annotation, NodeList<Node> serviceNameNodes) {
+        String label = annotation.getLabel();
+        if (label.isEmpty() || isValidUUID(label)) {
+            String servicePath = servicePaths.remove(servicePaths.size() - 1);
+            int index = getServicePathIndex(servicePath);
+            servicePaths.add(servicePath);
+            String rawServicePath = getServicePath(serviceNameNodes);
+            if (rawServicePath.isBlank() || rawServicePath.equals(FORWARD_SLASH)) {
+                return currentPackage.descriptor().name() + " Component" + ( index > 0 ? index + 1 : "");
+            }
+            return rawServicePath + ( index > 0 ? index + 1 : "");
+        }
+
+        return label;
+    }
+
+    private String getServicePath(NodeList<Node> serviceNameNodes) {
+        StringBuilder servicePathBuilder = new StringBuilder();
+        for (Node serviceNameNode : serviceNameNodes) {
+            servicePathBuilder.append(serviceNameNode.toString().replace("\"", ""));
+        }
+        return servicePathBuilder.toString().startsWith(FORWARD_SLASH)
+                ? servicePathBuilder.substring(1).trim()
+                : servicePathBuilder.toString().trim();
+    }
+
+    private int getServicePathIndex(String servicePath) {
+        List<String> filteredServicePaths = servicePaths.stream()
+                .filter(path -> path.equals(servicePath))
+                .collect(Collectors.toList());
+        return filteredServicePaths.size();
     }
 
     @Override
