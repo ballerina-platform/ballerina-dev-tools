@@ -32,7 +32,6 @@ import java.util.List;
  */
 public class Service extends ModelElement {
 
-    private final String path;
     private final String serviceId;
     private final String label;
     private final String serviceType;
@@ -41,11 +40,10 @@ public class Service extends ModelElement {
     private final List<RemoteFunction> remoteFunctions;
     private final List<String> dependencyIDs;
 
-    public Service(String path, String serviceId, String label, String serviceType, List<Resource> resources,
+    public Service(String serviceId, String label, String serviceType, List<Resource> resources,
                    DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<String> dependencyIDs,
                    ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
-        this.path = path;
         this.serviceId = serviceId;
         this.label = label;
         this.serviceType = serviceType;
@@ -53,10 +51,6 @@ public class Service extends ModelElement {
         this.annotation = annotation;
         this.remoteFunctions = remoteFunctions;
         this.dependencyIDs = dependencyIDs;
-    }
-
-    public String getPath() {
-        return path;
     }
 
     public String getServiceId() {
