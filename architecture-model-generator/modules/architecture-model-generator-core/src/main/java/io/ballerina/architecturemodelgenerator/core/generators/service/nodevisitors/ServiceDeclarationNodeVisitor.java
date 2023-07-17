@@ -99,12 +99,8 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
     @Override
     public void visit(ServiceDeclarationNode serviceDeclarationNode) {
 
-        StringBuilder serviceNameBuilder = new StringBuilder();
         DisplayAnnotation serviceAnnotation = new DisplayAnnotation();
         NodeList<Node> serviceNameNodes = serviceDeclarationNode.absoluteResourcePath();
-        for (Node serviceNameNode : serviceNameNodes) {
-            serviceNameBuilder.append(serviceNameNode.toString().replace("\"", ""));
-        }
 
         Optional<MetadataNode> metadataNode = serviceDeclarationNode.metadata();
         if (metadataNode.isPresent()) {
@@ -114,12 +110,9 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         String serviceId = generateServiceId(serviceAnnotation, serviceNameNodes);
         String serviceLabel = generateServiceLabel(serviceAnnotation, serviceNameNodes);
 
-        String serviceName = serviceNameBuilder.toString().startsWith(FORWARD_SLASH) ?
-                serviceNameBuilder.substring(1) : serviceNameBuilder.toString();
-
         ServiceMemberFunctionNodeVisitor serviceMemberFunctionNodeVisitor =
-                new ServiceMemberFunctionNodeVisitor(serviceAnnotation.getId(), serviceAnnotation.getLabel(),
-                        packageCompilation, semanticModel, syntaxTree, currentPackage, filePath.toString());
+                new ServiceMemberFunctionNodeVisitor(serviceId, serviceLabel, packageCompilation, semanticModel,
+                        syntaxTree, currentPackage, filePath.toString());
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
             serviceDeclarationNode.accept(serviceMemberFunctionNodeVisitor);
@@ -136,7 +129,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             dependencyIDs.add(dependency.getEntryPointID());
         }
 
-        services.add(new Service(serviceName.trim(), serviceId, serviceLabel, getServiceType(serviceDeclarationNode),
+        services.add(new Service(serviceId, serviceLabel, getServiceType(serviceDeclarationNode),
                 serviceMemberFunctionNodeVisitor.getResources(), serviceAnnotation,
                 serviceMemberFunctionNodeVisitor.getRemoteFunctions(), dependencyIDs,
                 GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange()),
@@ -209,9 +202,9 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
             servicePaths.add(servicePath);
             String rawServicePath = getServicePath(serviceNameNodes);
             if (rawServicePath.isBlank() || rawServicePath.equals(FORWARD_SLASH)) {
-                return currentPackage.descriptor().name() + " Component" + ( index > 0 ? index + 1 : "");
+                return currentPackage.descriptor().name() + " Component" + (index > 0 ? index + 1 : "");
             }
-            return rawServicePath + ( index > 0 ? index + 1 : "");
+            return rawServicePath + (index > 0 ? index + 1 : "");
         }
 
         return label;
