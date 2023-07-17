@@ -9,7 +9,6 @@
   "diagnostics": [],
   "services": {
     "cart": {
-      "path": "CartService",
       "serviceId": "cart",
       "label": "Cart",
       "serviceType": "ballerina/grpc:1.8.1",

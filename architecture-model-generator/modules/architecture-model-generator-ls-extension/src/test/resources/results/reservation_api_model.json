@@ -9,16 +9,15 @@
   "diagnostics": [],
   "services": {
     "weather": {
-      "path": "api/weather",
       "serviceId": "weather",
-      "label": "",
+      "label": "api/weather",
       "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": "getCurrentWeather",
           "resourceId": {
             "serviceId": "weather",
-            "serviceLabel": "",
+            "serviceLabel": "api/weather",
             "path": "getCurrentWeather",
             "action": "get"
           },
@@ -73,16 +72,15 @@
       "diagnostics": []
     },
     "001": {
-      "path": "reservations/my",
       "serviceId": "001",
-      "label": "",
+      "label": "reservations/my",
       "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": "reservation",
           "resourceId": {
             "serviceId": "001",
-            "serviceLabel": "",
+            "serviceLabel": "reservations/my",
             "path": "reservation",
             "action": "post"
           },
@@ -194,7 +192,7 @@
           "identifier": "reservation/[int]",
           "resourceId": {
             "serviceId": "001",
-            "serviceLabel": "",
+            "serviceLabel": "reservations/my",
             "path": "reservation/[int reservationId]",
             "action": "get"
           },
@@ -263,7 +261,7 @@
           "identifier": "weather/[string]",
           "resourceId": {
             "serviceId": "001",
-            "serviceLabel": "",
+            "serviceLabel": "reservations/my",
             "path": "weather/[string country]",
             "action": "get"
           },
@@ -362,16 +360,15 @@
       "diagnostics": []
     },
     "002": {
-      "path": "allocation",
       "serviceId": "002",
-      "label": "",
+      "label": "allocation",
       "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": "flights/[string]",
           "resourceId": {
             "serviceId": "002",
-            "serviceLabel": "",
+            "serviceLabel": "allocation",
             "path": "flights/[string flightNumber]",
             "action": "get"
           },
@@ -439,7 +436,7 @@
           "identifier": "my/flights",
           "resourceId": {
             "serviceId": "002",
-            "serviceLabel": "",
+            "serviceLabel": "allocation",
             "path": "my/flights",
             "action": "post"
           },
@@ -516,16 +513,15 @@
       "diagnostics": []
     },
     "003": {
-      "path": "fares",
       "serviceId": "003",
-      "label": "",
+      "label": "fares",
       "serviceType": "ballerina/http:2.8.1",
       "resources": [
         {
           "identifier": "fare/[string]/[string]",
           "resourceId": {
             "serviceId": "003",
-            "serviceLabel": "",
+            "serviceLabel": "fares",
             "path": "fare/[string flightNumber]/[string flightDate]",
             "action": "get"
           },
@@ -929,87 +925,6 @@
       },
       "diagnostics": []
     },
-    "test/reservation_api:fares_api:0.1.0:Fare": {
-      "attributes": [
-        {
-          "name": "flightNo",
-          "type": "string",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": false,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
-            "startPosition": {
-              "line": 4,
-              "offset": 11
-            },
-            "endPosition": {
-              "line": 4,
-              "offset": 19
-            }
-          },
-          "diagnostics": []
-        },
-        {
-          "name": "flightDate",
-          "type": "string",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": false,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
-            "startPosition": {
-              "line": 5,
-              "offset": 11
-            },
-            "endPosition": {
-              "line": 5,
-              "offset": 21
-            }
-          },
-          "diagnostics": []
-        },
-        {
-          "name": "rate",
-          "type": "float",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": false,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
-            "startPosition": {
-              "line": 6,
-              "offset": 10
-            },
-            "endPosition": {
-              "line": 6,
-              "offset": 14
-            }
-          },
-          "diagnostics": []
-        }
-      ],
-      "inclusions": [],
-      "isAnonymous": false,
-      "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
-        "startPosition": {
-          "line": 3,
-          "offset": 12
-        },
-        "endPosition": {
-          "line": 3,
-          "offset": 16
-        }
-      },
-      "diagnostics": []
-    },
     "test/reservation_api:0.1.0:ConfirmedReservation": {
       "attributes": [
         {
@@ -1323,6 +1238,87 @@
         "endPosition": {
           "line": 0,
           "offset": 18
+        }
+      },
+      "diagnostics": []
+    },
+    "test/reservation_api:fares_api:0.1.0:Fare": {
+      "attributes": [
+        {
+          "name": "flightNo",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
+            "startPosition": {
+              "line": 4,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 4,
+              "offset": 19
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "flightDate",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
+            "startPosition": {
+              "line": 5,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 5,
+              "offset": 21
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "rate",
+          "type": "float",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "elementLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
+            "startPosition": {
+              "line": 6,
+              "offset": 10
+            },
+            "endPosition": {
+              "line": 6,
+              "offset": 14
+            }
+          },
+          "diagnostics": []
+        }
+      ],
+      "inclusions": [],
+      "isAnonymous": false,
+      "elementLocation": {
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
+        "startPosition": {
+          "line": 3,
+          "offset": 12
+        },
+        "endPosition": {
+          "line": 3,
+          "offset": 16
         }
       },
       "diagnostics": []

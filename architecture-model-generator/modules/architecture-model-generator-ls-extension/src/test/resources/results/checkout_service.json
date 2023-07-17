@@ -9,9 +9,8 @@
   "diagnostics": [],
   "services": {
     "checkout": {
-      "path": "CheckoutService",
       "serviceId": "checkout",
-      "label": "",
+      "label": "CheckoutService",
       "serviceType": "ballerina/grpc:1.8.1",
       "resources": [],
       "annotation": {

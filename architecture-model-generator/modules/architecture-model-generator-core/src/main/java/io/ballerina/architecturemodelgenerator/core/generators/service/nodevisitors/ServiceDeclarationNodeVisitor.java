@@ -168,8 +168,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
 
     private boolean isValidUUID(String uuidString) {
         try {
-            @SuppressWarnings("unused")
-            UUID uuid = UUID.fromString(uuidString);
+            UUID.fromString(uuidString);
             return true;
         } catch (IllegalArgumentException e) {
             return false;

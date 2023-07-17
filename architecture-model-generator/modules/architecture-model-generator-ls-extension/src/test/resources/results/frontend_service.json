@@ -9,7 +9,6 @@
   "diagnostics": [],
   "services": {
     "frontend": {
-      "path": "",
       "serviceId": "frontend",
       "label": "Frontend",
       "serviceType": "ballerina/http:2.8.1",
