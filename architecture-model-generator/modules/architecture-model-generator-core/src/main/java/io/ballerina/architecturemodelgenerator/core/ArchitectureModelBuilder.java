@@ -18,7 +18,6 @@
 
 package io.ballerina.architecturemodelgenerator.core;
 
-import io.ballerina.architecturemodelgenerator.core.ArchitectureModel.PackageId;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
@@ -57,7 +56,6 @@ public class ArchitectureModelBuilder {
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         List<Dependency> allDependencies = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
-        PackageId packageId = new PackageId(currentPackage);
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
 
         currentPackage.modules().forEach(module -> {
@@ -103,7 +101,7 @@ public class ArchitectureModelBuilder {
             }
         });
 
-        return new ArchitectureModel<>(Constants.MODEL_VERSION, packageId, diagnostics, services, entities,
-                functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
+        return new ArchitectureModel(Constants.MODEL_VERSION, currentPackage.packageName().value(), diagnostics,
+                services, entities, functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
     }
 }

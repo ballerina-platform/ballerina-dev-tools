@@ -23,7 +23,6 @@ import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
 import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
-import io.ballerina.projects.Package;
 
 import java.util.List;
 import java.util.Map;
@@ -31,13 +30,12 @@ import java.util.Map;
 /**
  * Represents intermediate model to represent multi-service projects.
  *
- * @param <T> the type parameter for the model
  * @since 2201.2.2
  */
-public class ArchitectureModel<T> {
+public class ArchitectureModel {
 
     private final String version;
-    private final T packageId;
+    private final String id;
     private final boolean hasCompilationErrors;
     private final List<ArchitectureModelDiagnostic> diagnostics;
     private final Map<String, Service> services;
@@ -46,12 +44,12 @@ public class ArchitectureModel<T> {
 
     private final List<Dependency> dependencies;
 
-    public ArchitectureModel(String version, T packageId, List<ArchitectureModelDiagnostic> diagnostics,
+    public ArchitectureModel(String version, String id, List<ArchitectureModelDiagnostic> diagnostics,
                              Map<String, Service> services, Map<String, Entity> entities,
                              FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors,
                              List<Dependency> dependencies) {
         this.version = version;
-        this.packageId = packageId;
+        this.id = id;
         this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
@@ -64,8 +62,8 @@ public class ArchitectureModel<T> {
         return version;
     }
 
-    public T getPackageId() {
-        return packageId;
+    public String getId() {
+        return id;
     }
 
     public List<ArchitectureModelDiagnostic> getDiagnostics() {
@@ -90,33 +88,5 @@ public class ArchitectureModel<T> {
 
     public List<Dependency> getDependencies() {
         return dependencies;
-    }
-
-    /**
-     * Represent current package information.
-     */
-    public static class PackageId {
-
-        private final String name;
-        private final String org;
-        private final String version;
-
-        public PackageId(Package currentPackage) {
-            this.name = currentPackage.packageName().value();
-            this.org = currentPackage.packageOrg().value();
-            this.version = currentPackage.packageVersion().value().toString();
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getOrg() {
-            return org;
-        }
-
-        public String getVersion() {
-            return version;
-        }
     }
 }

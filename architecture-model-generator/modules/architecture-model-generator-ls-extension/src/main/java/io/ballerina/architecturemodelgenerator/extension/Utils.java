@@ -19,7 +19,6 @@
 package io.ballerina.architecturemodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
 import io.ballerina.projects.Package;
 
 import java.util.Map;
@@ -31,13 +30,7 @@ import java.util.Map;
  */
 public class Utils {
 
-    public static String getQualifiedPackageName(ArchitectureModel.PackageId packageId) {
-        return String.format("%s/%s:%s", packageId.getOrg(),
-                packageId.getName(), packageId.getVersion());
-    }
-
     public static boolean modelAlreadyExists(Map<String, JsonObject> componentModelMap, Package currentPackage) {
-        ArchitectureModel.PackageId packageId = new ArchitectureModel.PackageId(currentPackage);
-        return componentModelMap.containsKey(getQualifiedPackageName(packageId));
+        return componentModelMap.containsKey(currentPackage.packageName().value());
     }
 }

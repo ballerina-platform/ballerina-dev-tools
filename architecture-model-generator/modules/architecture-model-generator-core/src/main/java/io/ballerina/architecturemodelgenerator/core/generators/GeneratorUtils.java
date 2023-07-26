@@ -220,9 +220,8 @@ public class GeneratorUtils {
 
     private static String getReferenceEntityName(TypeReferenceTypeSymbol typeReferenceTypeSymbol,
                                                  Package currentPackage) {
-        ArchitectureModel.PackageId packageId = new ArchitectureModel.PackageId(currentPackage);
-        String currentPackageName = String.format
-                ("%s/%s:%s", packageId.getOrg(), packageId.getName(), packageId.getVersion());
+        String currentPackageName = String.format("%s/%s:%s", currentPackage.packageOrg().value(),
+                currentPackage.packageName().value(), currentPackage.packageVersion().value());
         String referenceType = typeReferenceTypeSymbol.signature();
         if (typeReferenceTypeSymbol.getModule().isPresent() &&
                 !referenceType.split(":")[0].equals(currentPackageName.split(":")[0])) {
