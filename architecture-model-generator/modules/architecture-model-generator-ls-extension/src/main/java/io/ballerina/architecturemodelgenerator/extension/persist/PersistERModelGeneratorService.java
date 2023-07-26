@@ -113,7 +113,7 @@ public class PersistERModelGeneratorService implements ExtendedLanguageServerSer
                         (DiagnosticUtils.getDiagnosticResponse(List.of(message), response.getDiagnostics()));
             }
 
-            ArchitectureModel architectureModel = new ArchitectureModel(Constants.MODEL_VERSION, null,
+            ArchitectureModel architectureModel = new ArchitectureModel(Constants.MODEL_VERSION, null, null, null,
                     response.getDiagnostics(), new HashMap<>(), entities, null, hasDiagnosticErrors.get(), null);
             Gson gson = new GsonBuilder().serializeNulls().create();
             JsonObject persistERModel = (JsonObject) gson.toJsonTree(architectureModel);
