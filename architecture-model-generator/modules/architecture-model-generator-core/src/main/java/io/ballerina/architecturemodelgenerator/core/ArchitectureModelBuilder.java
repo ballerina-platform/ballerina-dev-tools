@@ -57,6 +57,9 @@ public class ArchitectureModelBuilder {
         List<Dependency> allDependencies = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
+        String packageOrg = currentPackage.packageOrg().value();
+        String packageName = currentPackage.packageName().value();
+        String packageVersion = currentPackage.packageVersion().value().toString();
 
         currentPackage.modules().forEach(module -> {
             PackageCompilation currentPackageCompilation = packageCompilation == null ?
@@ -101,7 +104,7 @@ public class ArchitectureModelBuilder {
             }
         });
 
-        return new ArchitectureModel(Constants.MODEL_VERSION, currentPackage.packageName().value(), diagnostics,
+        return new ArchitectureModel(Constants.MODEL_VERSION, packageName, packageOrg, packageVersion, diagnostics,
                 services, entities, functionEntryPoint.get(), hasDiagnosticErrors.get(), allDependencies);
     }
 }

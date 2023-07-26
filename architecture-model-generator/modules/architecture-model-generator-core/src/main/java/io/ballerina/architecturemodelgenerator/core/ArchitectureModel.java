@@ -34,8 +34,10 @@ import java.util.Map;
  */
 public class ArchitectureModel {
 
-    private final String version;
+    private final String modelVersion;
     private final String id;
+    private final String orgName;
+    private final String version;
     private final boolean hasCompilationErrors;
     private final List<ArchitectureModelDiagnostic> diagnostics;
     private final Map<String, Service> services;
@@ -44,12 +46,14 @@ public class ArchitectureModel {
 
     private final List<Dependency> dependencies;
 
-    public ArchitectureModel(String version, String id, List<ArchitectureModelDiagnostic> diagnostics,
-                             Map<String, Service> services, Map<String, Entity> entities,
-                             FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors,
-                             List<Dependency> dependencies) {
-        this.version = version;
+    public ArchitectureModel(String modelVersion, String id, String orgName, String version,
+                             List<ArchitectureModelDiagnostic> diagnostics, Map<String, Service> services,
+                             Map<String, Entity> entities, FunctionEntryPoint functionEntryPoint,
+                             boolean hasCompilationErrors, List<Dependency> dependencies) {
+        this.modelVersion = modelVersion;
         this.id = id;
+        this.orgName = orgName;
+        this.version = version;
         this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
@@ -58,12 +62,20 @@ public class ArchitectureModel {
         this.dependencies = dependencies;
     }
 
-    public String getVersion() {
-        return version;
+    public String getModelVersion() {
+        return modelVersion;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     public List<ArchitectureModelDiagnostic> getDiagnostics() {
