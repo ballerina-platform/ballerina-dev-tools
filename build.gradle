@@ -133,6 +133,7 @@ task copyArtifactZip {
         }
     }
     outputs.dir artifactLibParent
+    doNotTrackState("build needs to run every time")
 }
 
 task createArtifactZip(type: Zip) {
@@ -142,6 +143,7 @@ task createArtifactZip(type: Zip) {
     from "build"
     archiveFileName = 'ballerina-dev-tools-' + project.version + '.zip'
     destinationDirectory = file("dist")
+    doNotTrackState("build needs to run every time")
 }
 
 publishing {
