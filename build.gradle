@@ -190,5 +190,6 @@ task clean {
     delete "dist"
 }
 
+build.doNotTrackState("build needs to run every time")
 publishToMavenLocal.dependsOn build
 publish.dependsOn build
