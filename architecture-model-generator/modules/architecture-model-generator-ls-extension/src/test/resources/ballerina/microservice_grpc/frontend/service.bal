@@ -43,20 +43,21 @@ service class AuthInterceptor {
     }
 }
 
-AuthInterceptor authInterceptor = new;
-
 @http:ServiceConfig {
     cors: {
         allowOrigins: ["http://localhost:3000"],
         allowCredentials: true
-    },
-    interceptors: [authInterceptor]
+    }
 }
 @display {
     label: "Frontend",
     id: "frontend"
 }
-service / on ep {
+service http:InterceptableService / on ep {
+
+    public function createInterceptors() returns AuthInterceptor {
+        return new AuthInterceptor();
+    }
 
     resource function get metadata(@http:Header {name: "Cookie"} string cookieHeader)
                 returns MetadataResponse|http:Unauthorized|error {
