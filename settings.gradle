@@ -29,6 +29,8 @@ include(':architecture-model-generator:architecture-model-generator-plugin')
 include(':architecture-model-generator:architecture-model-generator-ls-extension')
 include(':graphql-model-generator:graphql-model-generator-core')
 include(':graphql-model-generator:graphql-model-generator-ls-extension')
+include(':sequence-diagram-model-generator:sequence-diagram-model-generator-core')
+include(':sequence-diagram-model-generator:sequence-diagram-model-generator-ls-extension')
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(':docerina-ui').projectDir = file('docerina-ui')
@@ -38,6 +40,8 @@ project(':architecture-model-generator:architecture-model-generator-plugin').pro
 project(':architecture-model-generator:architecture-model-generator-ls-extension').projectDir = file('architecture-model-generator/modules/architecture-model-generator-ls-extension')
 project(':graphql-model-generator:graphql-model-generator-core').projectDir = file('graphql-model-generator/modules/graphql-model-generator-core')
 project(':graphql-model-generator:graphql-model-generator-ls-extension').projectDir = file('graphql-model-generator/modules/graphql-model-generator-ls-extension')
+project(':sequence-diagram-model-generator:sequence-diagram-model-generator-core').projectDir = file('sequence-diagram-model-generator/modules/sequence-diagram-model-generator-core')
+project(':sequence-diagram-model-generator:sequence-diagram-model-generator-ls-extension').projectDir = file('sequence-diagram-model-generator/modules/sequence-diagram-model-generator-ls-extension')
 
 gradleEnterprise {
     buildScan {
