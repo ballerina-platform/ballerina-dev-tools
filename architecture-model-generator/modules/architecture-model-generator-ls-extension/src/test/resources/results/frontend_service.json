@@ -11,7 +11,7 @@
     "frontend": {
       "path": "",
       "serviceId": "frontend",
-      "serviceType": "ballerina/http:2.6.0",
+      "serviceType": "",
       "resources": [
         {
           "identifier": "metadata",
@@ -32,11 +32,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 60,
+                  "line": 61,
                   "offset": 35
                 },
                 "endPosition": {
-                  "line": 60,
+                  "line": 61,
                   "offset": 84
                 }
               },
@@ -45,7 +45,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:MetadataResponse",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -95,11 +95,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 60,
+              "line": 61,
               "offset": 4
             },
             "endPosition": {
-              "line": 80,
+              "line": 81,
               "offset": 5
             }
           },
@@ -124,11 +124,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 82,
+                  "line": 83,
                   "offset": 28
                 },
                 "endPosition": {
-                  "line": 82,
+                  "line": 83,
                   "offset": 77
                 }
               },
@@ -137,7 +137,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:HomeResponse",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -229,11 +229,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 82,
+              "line": 83,
               "offset": 4
             },
             "endPosition": {
-              "line": 105,
+              "line": 106,
               "offset": 5
             }
           },
@@ -258,11 +258,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 107,
+                  "line": 108,
                   "offset": 34
                 },
                 "endPosition": {
-                  "line": 107,
+                  "line": 108,
                   "offset": 45
                 }
               },
@@ -278,11 +278,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 107,
+                  "line": 108,
                   "offset": 46
                 },
                 "endPosition": {
-                  "line": 107,
+                  "line": 108,
                   "offset": 95
                 }
               },
@@ -291,7 +291,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:ProductResponse",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -404,11 +404,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 107,
+              "line": 108,
               "offset": 4
             },
             "endPosition": {
-              "line": 129,
+              "line": 130,
               "offset": 5
             }
           },
@@ -430,11 +430,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 131,
+              "line": 132,
               "offset": 4
             },
             "endPosition": {
-              "line": 133,
+              "line": 134,
               "offset": 5
             }
           },
@@ -459,11 +459,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 135,
+                  "line": 136,
                   "offset": 31
                 },
                 "endPosition": {
-                  "line": 135,
+                  "line": 136,
                   "offset": 80
                 }
               },
@@ -472,7 +472,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:CartResponse",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -606,11 +606,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 135,
+              "line": 136,
               "offset": 4
             },
             "endPosition": {
-              "line": 181,
+              "line": 182,
               "offset": 5
             }
           },
@@ -635,11 +635,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 188,
+                  "line": 189,
                   "offset": 32
                 },
                 "endPosition": {
-                  "line": 188,
+                  "line": 189,
                   "offset": 66
                 }
               },
@@ -655,11 +655,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 188,
+                  "line": 189,
                   "offset": 68
                 },
                 "endPosition": {
-                  "line": 188,
+                  "line": 189,
                   "offset": 117
                 }
               },
@@ -667,9 +667,9 @@
             }
           ],
           "returns": [
-            "ballerina/http:http:2.6.0:Ok",
-            "ballerina/http:http:2.6.0:Unauthorized",
-            "ballerina/http:http:2.6.0:BadRequest",
+            ":Ok",
+            ":Unauthorized",
+            ":BadRequest",
             "error"
           ],
           "interactions": [
@@ -719,11 +719,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 188,
+              "line": 189,
               "offset": 4
             },
             "endPosition": {
-              "line": 210,
+              "line": 211,
               "offset": 5
             }
           },
@@ -748,11 +748,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 212,
+                  "line": 213,
                   "offset": 38
                 },
                 "endPosition": {
-                  "line": 212,
+                  "line": 213,
                   "offset": 87
                 }
               },
@@ -760,8 +760,8 @@
             }
           ],
           "returns": [
-            "ballerina/http:http:2.6.0:Ok",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Ok",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -790,11 +790,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 212,
+              "line": 213,
               "offset": 4
             },
             "endPosition": {
-              "line": 226,
+              "line": 227,
               "offset": 5
             }
           },
@@ -819,11 +819,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 228,
+                  "line": 229,
                   "offset": 41
                 },
                 "endPosition": {
-                  "line": 228,
+                  "line": 229,
                   "offset": 74
                 }
               },
@@ -839,11 +839,11 @@
               "elementLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
                 "startPosition": {
-                  "line": 228,
+                  "line": 229,
                   "offset": 76
                 },
                 "endPosition": {
-                  "line": 228,
+                  "line": 229,
                   "offset": 125
                 }
               },
@@ -852,7 +852,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:CheckoutResponse",
-            "ballerina/http:http:2.6.0:Unauthorized",
+            ":Unauthorized",
             "error"
           ],
           "interactions": [
@@ -923,11 +923,11 @@
           "elementLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
             "startPosition": {
-              "line": 228,
+              "line": 229,
               "offset": 4
             },
             "endPosition": {
-              "line": 272,
+              "line": 273,
               "offset": 5
             }
           },
@@ -940,11 +940,11 @@
         "elementLocation": {
           "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
           "startPosition": {
-            "line": 54,
+            "line": 51,
             "offset": 0
           },
           "endPosition": {
-            "line": 57,
+            "line": 54,
             "offset": 1
           }
         },
@@ -955,11 +955,11 @@
       "elementLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/frontend/service.bal",
         "startPosition": {
-          "line": 47,
+          "line": 45,
           "offset": 0
         },
         "endPosition": {
-          "line": 273,
+          "line": 274,
           "offset": 1
         }
       },
