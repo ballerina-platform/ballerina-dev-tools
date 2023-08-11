@@ -29,16 +29,16 @@ import java.util.List;
  */
 public abstract class ModelElement {
 
-    private final ElementLocation elementLocation;
+    private final SourceLocation sourceLocation;
     private final List<ArchitectureModelDiagnostic> diagnostics;
 
-    public ModelElement(ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
-        this.elementLocation = elementLocation;
+    public ModelElement(SourceLocation sourceLocation, List<ArchitectureModelDiagnostic> diagnostics) {
+        this.sourceLocation = sourceLocation;
         this.diagnostics = diagnostics;
     }
 
-    public ElementLocation getElementLocation() {
-        return elementLocation;
+    public SourceLocation getSourceLocation() {
+        return sourceLocation;
     }
 
     public List<ArchitectureModelDiagnostic> getDiagnostics() {

@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.model.entity;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class Attribute extends ModelElement {
     private final boolean isReadOnly;
 
     public Attribute(String name, String type, boolean optional, boolean nillable, String defaultValue,
-                     List<Association> associations, boolean isReadOnly, ElementLocation elementLocation,
+                     List<Association> associations, boolean isReadOnly, SourceLocation elementLocation,
                      List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.name = name;

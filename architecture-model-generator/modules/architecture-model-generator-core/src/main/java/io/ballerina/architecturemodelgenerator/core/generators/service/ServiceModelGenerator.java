@@ -20,7 +20,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.service;
 
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ServiceDeclarationNodeVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
@@ -41,7 +41,7 @@ import java.util.Map;
 public class ServiceModelGenerator extends ModelGenerator {
 
     private final Map<String, Service> services = new HashMap<>();
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
 
     public ServiceModelGenerator(PackageCompilation packageCompilation, Module module) {
         super(packageCompilation, module);
@@ -51,7 +51,7 @@ public class ServiceModelGenerator extends ModelGenerator {
         return services;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 
@@ -63,7 +63,7 @@ public class ServiceModelGenerator extends ModelGenerator {
                     getPackageCompilation(), getSemanticModel(), syntaxTree, getModule().packageInstance(), filePath);
             syntaxTree.rootNode().accept(serviceNodeVisitor);
             serviceNodeVisitor.getServices().forEach(service -> {
-                services.put(service.getServiceId(), service);
+                services.put(service.getId(), service);
             });
             dependencies.addAll(serviceNodeVisitor.getDependencies());
         }

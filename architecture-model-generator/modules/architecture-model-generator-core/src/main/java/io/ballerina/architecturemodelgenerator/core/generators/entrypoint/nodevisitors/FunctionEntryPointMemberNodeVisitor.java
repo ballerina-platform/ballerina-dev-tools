@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors;
 
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.findNode;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
-import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getSourceLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredClassSymbol;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredNode;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
@@ -56,7 +56,7 @@ public class FunctionEntryPointMemberNodeVisitor extends NodeVisitor {
 
     private final SemanticModel semanticModel;
     private final SyntaxTree syntaxTree;
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
     private final Path filePath;
 
     public FunctionEntryPointMemberNodeVisitor(SemanticModel semanticModel, SyntaxTree syntaxTree, Path filePath) {
@@ -65,7 +65,7 @@ public class FunctionEntryPointMemberNodeVisitor extends NodeVisitor {
         this.filePath = filePath;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 
@@ -87,9 +87,9 @@ public class FunctionEntryPointMemberNodeVisitor extends NodeVisitor {
                                 getServiceAnnotation(variableDeclarationNode.annotations(), filePath.toString());
                         String serviceId = displayAnnotation.getId() != null ? displayAnnotation.getId() :
                                 Integer.toString(variableDeclarationNode.hashCode());
-                        Dependency dependency = new Dependency(serviceId,
+                        Connection dependency = new Connection(serviceId,
                                 getClientModuleName(referredClassSymbol),
-                                getElementLocation(filePath.toString(), variableDeclarationNode.lineRange()),
+                                getSourceLocation(filePath.toString(), variableDeclarationNode.lineRange()),
                                 Collections.emptyList());
                         dependencies.add(dependency);
                     }

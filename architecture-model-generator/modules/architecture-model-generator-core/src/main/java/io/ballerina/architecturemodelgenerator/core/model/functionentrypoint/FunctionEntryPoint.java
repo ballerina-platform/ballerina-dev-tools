@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.model.functionentrypoint;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
@@ -34,29 +34,29 @@ import java.util.List;
  */
 public class FunctionEntryPoint extends ModelElement {
 
-    private final String functionID;
+    private final String id;
     private final String label;
     private final List<FunctionParameter> parameters;
     private final List<String> returns;
     private final List<Interaction> interactions;
     private final DisplayAnnotation annotation;
-    private List<String> dependencyIDs;
+    private List<String> dependencies;
 
     public FunctionEntryPoint(String functionID, String label, List<FunctionParameter> parameters, List<String> returns,
-                      List<Interaction> interactions, DisplayAnnotation annotation, List<String> dependencyIDs,
-                      ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
+                              List<Interaction> interactions, DisplayAnnotation annotation, List<String> dependencyIDs,
+                              SourceLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
-        this.functionID = functionID;
+        this.id = functionID;
         this.label = label;
         this.parameters = parameters;
         this.returns = returns;
         this.annotation = annotation;
         this.interactions = interactions;
-        this.dependencyIDs = dependencyIDs;
+        this.dependencies = dependencyIDs;
     }
 
-    public String getFunctionID() {
-        return functionID;
+    public String getId() {
+        return id;
     }
 
     public String getLabel() {
@@ -79,11 +79,11 @@ public class FunctionEntryPoint extends ModelElement {
         return annotation;
     }
 
-    public void setDependencyIDs(List<String> dependencyIDs) {
-        this.dependencyIDs = dependencyIDs;
+    public void setDependencies(List<String> dependencies) {
+        this.dependencies = dependencies;
     }
 
-    public List<String> getDependencyIDs() {
-        return dependencyIDs;
+    public List<String> getDependencies() {
+        return dependencies;
     }
 }

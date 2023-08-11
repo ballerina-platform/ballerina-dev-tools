@@ -21,7 +21,7 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionEntryPointVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -40,13 +40,13 @@ public class FunctionEntryPointModelGenerator extends ModelGenerator {
 
     public FunctionEntryPoint functionEntryPoint = null;
 
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
 
     public FunctionEntryPoint getFunctionEntryPoint() {
         return functionEntryPoint;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 

@@ -22,11 +22,11 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureMode
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static io.ballerina.architecturemodelgenerator.core.Constants.MAIN;
-import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getSourceLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
 
@@ -71,7 +71,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
     private final Package currentPackage;
     private FunctionEntryPoint functionEntryPoint = null;
 
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
     private final Path filePath;
 
     public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
@@ -88,7 +88,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
         return functionEntryPoint;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 
@@ -102,7 +102,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 annotation = getServiceAnnotation(annotatableSymbol, filePath.toString());
             }
 
-            ElementLocation elementLocation = getElementLocation(filePath.toString(),
+            SourceLocation elementLocation = getSourceLocation(filePath.toString(),
                     functionDefinitionNode.lineRange());
             List<FunctionParameter> funcParamList = new ArrayList<>();
 
@@ -130,8 +130,8 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
             String label = annotation != null ? annotation.getLabel() : null;
 
             List<String> dependencyIDs = new ArrayList<>();
-            for (Dependency dependency : functionEntryPointMemberNodeVisitor.getDependencies()) {
-                dependencyIDs.add(dependency.getEntryPointID());
+            for (Connection dependency : functionEntryPointMemberNodeVisitor.getDependencies()) {
+                dependencyIDs.add(dependency.getId());
             }
 
             functionEntryPoint = new FunctionEntryPoint(functionId, label, funcParamList, returnTypes,
@@ -162,7 +162,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                                List<FunctionParameter> functionParameters) {
         SeparatedNodeList<ParameterNode> parameterNodes = functionSignatureNode.parameters();
         for (ParameterNode parameterNode : parameterNodes) {
-            ElementLocation elementLocation = getElementLocation(this.filePath.toString(),
+            SourceLocation elementLocation = getSourceLocation(this.filePath.toString(),
                     parameterNode.lineRange());
             Optional<Symbol> symbol = semanticModel.symbol(parameterNode);
             if (symbol.isPresent() && symbol.get().kind().equals(SymbolKind.PARAMETER)) {
