@@ -26,7 +26,7 @@ import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.Functi
 import io.ballerina.architecturemodelgenerator.core.generators.service.ServiceModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
@@ -54,7 +54,7 @@ public class ArchitectureModelBuilder {
         // todo: Change to TypeDefinition
         Map<String, Entity> entities = new HashMap<>();
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
-        List<Dependency> allDependencies = new ArrayList<>();
+        List<Connection> allDependencies = new ArrayList<>();
         AtomicReference<FunctionEntryPoint> functionEntryPoint = new AtomicReference<>();
         AtomicBoolean hasDiagnosticErrors = new AtomicBoolean(false);
         String packageOrg = currentPackage.packageOrg().value();

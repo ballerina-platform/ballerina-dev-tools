@@ -23,20 +23,20 @@ package io.ballerina.architecturemodelgenerator.core.model;
  *
  * @since 2201.3.1
  */
-public class ElementLocation {
+public class SourceLocation {
 
     private final String filePath;
     private final LinePosition startPosition;
     private final LinePosition endPosition;
 
-    private ElementLocation(String filePath, LinePosition startPosition, LinePosition endPosition) {
+    private SourceLocation(String filePath, LinePosition startPosition, LinePosition endPosition) {
         this.filePath = filePath;
         this.startPosition = startPosition;
         this.endPosition = endPosition;
     }
 
-    public static ElementLocation from(String filePath, LinePosition startLine, LinePosition endLine) {
-        return new ElementLocation(filePath, startLine, endLine);
+    public static SourceLocation from(String filePath, LinePosition startLine, LinePosition endLine) {
+        return new SourceLocation(filePath, startLine, endLine);
     }
 
     public String getFilePath() {

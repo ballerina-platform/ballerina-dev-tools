@@ -25,7 +25,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.nodevisitors.TypeDefinitionNodeVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Association;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Attribute;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
@@ -119,7 +119,7 @@ public class EntityModelGenerator extends ModelGenerator {
     }
 
     private Entity getType(RecordTypeSymbol recordTypeSymbol, RecordTypeDescriptorNode recordNode,
-                           String entityName, ElementLocation elementLocation, boolean isAnonymous) {
+                           String entityName, SourceLocation elementLocation, boolean isAnonymous) {
         List<Attribute> attributeList = new ArrayList<>();
         List<String> inclusionList = new ArrayList<>();
         Map<String, RecordFieldSymbol> recordFieldSymbolMap =
@@ -451,8 +451,8 @@ public class EntityModelGenerator extends ModelGenerator {
         return associations;
     }
 
-    private ElementLocation getElementLocation(Symbol symbol) {
-        ElementLocation elementLocation = null;
+    private SourceLocation getElementLocation(Symbol symbol) {
+        SourceLocation elementLocation = null;
         if (symbol.getLocation().isPresent()) {
             LineRange typeLineRange = symbol.getLocation().get().lineRange();
             String filePath;
@@ -461,7 +461,7 @@ public class EntityModelGenerator extends ModelGenerator {
             } else {
                 filePath = getModuleRootPath().toString();
             }
-            elementLocation = GeneratorUtils.getElementLocation(filePath, typeLineRange);
+            elementLocation = GeneratorUtils.getSourceLocation(filePath, typeLineRange);
         }
         return elementLocation;
     }

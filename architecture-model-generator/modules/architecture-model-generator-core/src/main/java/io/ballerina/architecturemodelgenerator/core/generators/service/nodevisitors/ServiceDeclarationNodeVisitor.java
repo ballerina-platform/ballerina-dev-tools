@@ -23,7 +23,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessag
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -75,7 +75,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
     private final SyntaxTree syntaxTree;
     private final Package currentPackage;
     private final List<Service> services = new LinkedList<>();
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
     private final Path filePath;
     private List<String> servicePaths = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         return services;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 
@@ -125,14 +125,14 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         }
 
         List<String> dependencyIDs = new ArrayList<>();
-        for (Dependency dependency : serviceMemberFunctionNodeVisitor.getDependencies()) {
-            dependencyIDs.add(dependency.getEntryPointID());
+        for (Connection dependency : serviceMemberFunctionNodeVisitor.getDependencies()) {
+            dependencyIDs.add(dependency.getId());
         }
 
         services.add(new Service(serviceId, serviceLabel, getServiceType(serviceDeclarationNode),
-                serviceMemberFunctionNodeVisitor.getResources(), serviceAnnotation,
-                serviceMemberFunctionNodeVisitor.getRemoteFunctions(), dependencyIDs,
-                GeneratorUtils.getElementLocation(filePath.toString(), serviceDeclarationNode.lineRange()),
+                serviceMemberFunctionNodeVisitor.getResourceFunctions(),
+                serviceMemberFunctionNodeVisitor.getRemoteFunctions(), serviceAnnotation, dependencyIDs,
+                GeneratorUtils.getSourceLocation(filePath.toString(), serviceDeclarationNode.lineRange()),
                 diagnostics));
         dependencies.addAll(serviceMemberFunctionNodeVisitor.getDependencies());
     }

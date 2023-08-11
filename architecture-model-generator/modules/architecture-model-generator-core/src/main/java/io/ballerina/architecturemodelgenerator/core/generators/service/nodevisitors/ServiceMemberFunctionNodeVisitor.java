@@ -22,13 +22,12 @@ import io.ballerina.architecturemodelgenerator.core.Constants.ParameterIn;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
-import io.ballerina.architecturemodelgenerator.core.model.service.Dependency;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.architecturemodelgenerator.core.model.service.RemoteFunction;
-import io.ballerina.architecturemodelgenerator.core.model.service.Resource;
-import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
+import io.ballerina.architecturemodelgenerator.core.model.service.ResourceFunction;
 import io.ballerina.architecturemodelgenerator.core.model.service.ResourceParameter;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
@@ -69,7 +68,7 @@ import java.util.stream.Collectors;
 
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.findNode;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
-import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getSourceLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredClassSymbol;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferredNode;
@@ -87,9 +86,9 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final SyntaxTree syntaxTree;
     private final Package currentPackage;
-    private List<Resource> resources = new LinkedList<>();
+    private List<ResourceFunction> resourceFunctions = new LinkedList<>();
     private List<RemoteFunction> remoteFunctions = new LinkedList<>();
-    private final List<Dependency> dependencies = new LinkedList<>();
+    private final List<Connection> dependencies = new LinkedList<>();
     private final String filePath;
 
     public ServiceMemberFunctionNodeVisitor(String serviceId, String serviceLabel,
@@ -104,21 +103,21 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
         this.filePath = filePath;
     }
 
-    public List<Resource> getResources() {
-        return resources;
+    public List<ResourceFunction> getResourceFunctions() {
+        return resourceFunctions;
     }
 
     public List<RemoteFunction> getRemoteFunctions() {
         return remoteFunctions;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<Connection> getDependencies() {
         return dependencies;
     }
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
-        ElementLocation elementLocation = getElementLocation(filePath,
+        SourceLocation elementLocation = getSourceLocation(filePath,
                 functionDefinitionNode.lineRange());
         SyntaxKind kind = functionDefinitionNode.kind();
         switch (kind) {
@@ -141,6 +140,7 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
 
                 String resourcePath = resourcePathBuilder.toString().trim();
                 String method = functionDefinitionNode.functionName().text().trim();
+                String resourceId = String.format("%s:%s:%s", serviceId, resourcePath, method);
 
                 getParameters(functionDefinitionNode.functionSignature(), true,
                         resourceParameterList, null);
@@ -160,11 +160,9 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                     diagnostics.add(diagnostic);
                 }
 
-                ResourceId resourceId = new ResourceId(this.serviceId, this.serviceLabel, method, resourcePath);
-                Resource resource = new Resource(identifierBuilder.toString().trim(),
-                        resourceId, resourceParameterList, returnTypes,
-                        actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
-                resources.add(resource);
+                ResourceFunction resource = new ResourceFunction(resourceId, resourcePath, resourceParameterList,
+                        returnTypes, actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
+                resourceFunctions.add(resource);
 
                 break;
             }
@@ -192,8 +190,9 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                         diagnostics.add(diagnostic);
                     }
 
-                    RemoteFunction remoteFunction = new RemoteFunction(name, parameterList, returnTypes,
-                            actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
+                    String remoteFunctionId = String.format("%s:%s", serviceId, name);
+                    RemoteFunction remoteFunction = new RemoteFunction(remoteFunctionId, name, parameterList,
+                            returnTypes,actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
                     remoteFunctions.add(remoteFunction);
                 }
                 break;
@@ -202,7 +201,7 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     }
 
     private ResourceParameter getPathParameter(ResourcePathParameterNode resourcePathParameterNode) {
-        ElementLocation elementLocation = getElementLocation(this.filePath,
+        SourceLocation elementLocation = getSourceLocation(this.filePath,
                 resourcePathParameterNode.lineRange());
         String name = resourcePathParameterNode.paramName().get().text();
         List<String> paramTypes = new LinkedList<>();
@@ -220,7 +219,7 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
 
         SeparatedNodeList<ParameterNode> parameterNodes = functionSignatureNode.parameters();
         for (ParameterNode parameterNode : parameterNodes) {
-            ElementLocation elementLocation = getElementLocation(this.filePath,
+            SourceLocation elementLocation = getSourceLocation(this.filePath,
                     parameterNode.lineRange());
             Optional<Symbol> symbol = semanticModel.symbol(parameterNode);
             if (symbol.isPresent() && symbol.get().kind().equals(SymbolKind.PARAMETER)) {
@@ -321,9 +320,9 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                             serviceId = displayAnnotation.getId() != null ? displayAnnotation.getId() :
                                     Integer.toString(objectFieldNode.hashCode());
                         }
-                        Dependency dependency = new Dependency(serviceId,
+                        Connection dependency = new Connection(serviceId,
                                 getClientModuleName(referredClassSymbol),
-                                getElementLocation(filePath, objectFieldNode.lineRange()), Collections.emptyList());
+                                getSourceLocation(filePath, objectFieldNode.lineRange()), Collections.emptyList());
                         dependencies.add(dependency);
                     }
                 }

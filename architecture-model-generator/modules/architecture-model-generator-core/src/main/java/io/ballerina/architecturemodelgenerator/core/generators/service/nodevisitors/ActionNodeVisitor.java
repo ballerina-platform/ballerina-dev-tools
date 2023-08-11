@@ -23,7 +23,6 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessag
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
-import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
@@ -70,7 +69,7 @@ import static io.ballerina.architecturemodelgenerator.core.Constants.FORWARD_SLA
 import static io.ballerina.architecturemodelgenerator.core.Constants.GET_KEYWORD;
 import static io.ballerina.architecturemodelgenerator.core.Constants.TYPE_MAP;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getClientModuleName;
-import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getSourceLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
 
 /**
@@ -118,7 +117,6 @@ public class ActionNodeVisitor extends NodeVisitor {
         String resourceMethod = null;
         String resourcePath = null;
         String serviceId = null;
-        String serviceLabel = null;
 
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
@@ -145,7 +143,6 @@ public class ActionNodeVisitor extends NodeVisitor {
                 DisplayAnnotation serviceAnnotation = getServiceAnnotation(annotatableSymbol, filePath);
                 serviceId = serviceAnnotation.getId() != null ? serviceAnnotation.getId() :
                         Integer.toString(clientSymbol.hashCode());
-                serviceLabel = getServiceAnnotation(annotatableSymbol, filePath).getLabel();
             }
         } catch (Exception e) {
             DiagnosticMessage message = DiagnosticMessage.failedToGenerate(DiagnosticNode.INTERACTION, e.getMessage());
@@ -155,9 +152,9 @@ public class ActionNodeVisitor extends NodeVisitor {
             diagnostics.add(diagnostic);
         }
 
-        Interaction interaction = new Interaction(
-                new ResourceId(serviceId, serviceLabel, resourceMethod, resourcePath),
-                getClientModuleName(clientNode, semanticModel), getElementLocation(filePath,
+        String resourceFunctionId = String.format("%s:%s:%s", serviceId, resourcePath, resourceMethod);
+        Interaction interaction = new Interaction(resourceFunctionId,
+                getClientModuleName(clientNode, semanticModel), getSourceLocation(filePath,
                 clientResourceAccessActionNode.lineRange()), diagnostics);
         interactionList.add(interaction);
     }
@@ -168,7 +165,6 @@ public class ActionNodeVisitor extends NodeVisitor {
 
         String resourceMethod = null;
         String serviceId = null;
-        String serviceLabel = null;
 
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {
@@ -194,7 +190,6 @@ public class ActionNodeVisitor extends NodeVisitor {
                     DisplayAnnotation serviceAnnotation = getServiceAnnotation(annotatableSymbol, filePath);
                     serviceId = serviceAnnotation.getId() != null ? serviceAnnotation.getId() :
                             Integer.toString(clientSymbol.hashCode());
-                    serviceLabel = getServiceAnnotation(annotatableSymbol, filePath).getLabel();
                 }
             }
         } catch (Exception e) {
@@ -205,10 +200,10 @@ public class ActionNodeVisitor extends NodeVisitor {
             diagnostics.add(diagnostic);
         }
 
+        String remoteFunctionId = String.format("%s:%s", serviceId, resourceMethod);
         if (clientNode != null) {
-            Interaction interaction = new Interaction(new ResourceId(serviceId, serviceLabel,
-                    resourceMethod, null), getClientModuleName(clientNode, semanticModel),
-                    getElementLocation(filePath, remoteMethodCallActionNode.lineRange()), diagnostics);
+            Interaction interaction = new Interaction(remoteFunctionId, getClientModuleName(clientNode, semanticModel),
+                    getSourceLocation(filePath, remoteMethodCallActionNode.lineRange()), diagnostics);
             interactionList.add(interaction);
         }
     }

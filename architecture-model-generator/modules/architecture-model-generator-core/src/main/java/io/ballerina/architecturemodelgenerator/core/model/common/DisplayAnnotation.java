@@ -19,7 +19,7 @@
 package io.ballerina.architecturemodelgenerator.core.model.common;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class DisplayAnnotation extends ModelElement {
         this.label = "";
     }
 
-    public DisplayAnnotation(String id, String label, ElementLocation elementLocation,
+    public DisplayAnnotation(String id, String label, SourceLocation elementLocation,
                              List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.id = id;
