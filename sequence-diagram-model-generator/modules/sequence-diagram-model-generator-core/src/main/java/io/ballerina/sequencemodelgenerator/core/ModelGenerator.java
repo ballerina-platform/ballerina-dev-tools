@@ -41,7 +41,7 @@ public class ModelGenerator {
 
 
 
-        SequenceModel sequenceModel = new SequenceModel(workerNodeVisitor.getParticipants(), workerNodeVisitor.getInteractions());
+        SequenceModel sequenceModel = new SequenceModel(workerNodeVisitor.getParticipants());
 
 
         return sequenceModel;

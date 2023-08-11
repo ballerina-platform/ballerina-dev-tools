@@ -7,55 +7,50 @@ import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.model.*;
-import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public class SubParticipantNodeVisitor extends NodeVisitor {
+public class ConditionalSubParticipantNodeVisitor extends NodeVisitor {
+    private String statementType;
+    private String condition;
+
     private final String sourceId;
     private final SemanticModel semanticModel;
     private final Package currentPackage;
     private List<Participant> participants;
-//    private List<Interaction> interactions;
 
     private Set<NameReferenceNode> visitedFunctionNames;
 
     private String currentParticipant;
 
-    private StatementWithBody currentStatement;
+    private final StatementWithBody currentStatement;
+
+
+    private final String modulePrefix =null;
 
     public Set<NameReferenceNode> getVisitedFunctionNames() {
         return visitedFunctionNames;
-    }
-
-    public String getCurrentParticipant() {
-        return currentParticipant;
     }
 
     public void setCurrentParticipant(String currentParticipant) {
         this.currentParticipant = currentParticipant;
     }
 
-    public SubParticipantNodeVisitor(String sourceId, SemanticModel semanticModel, Package currentPackage, List<Participant> participants, Set<NameReferenceNode> visitedFunctionNames, StatementWithBody currentStatement) {
+    public ConditionalSubParticipantNodeVisitor(String statementType, String condition, String sourceId, SemanticModel semanticModel, Package currentPackage, List<Participant> participants, Set<NameReferenceNode> visitedFunctionNames, String currentParticipant, StatementWithBody currentStatement) {
+        this.statementType = statementType;
+        this.condition = condition;
         this.sourceId = sourceId;
         this.semanticModel = semanticModel;
         this.currentPackage = currentPackage;
         this.participants = participants;
         this.visitedFunctionNames = visitedFunctionNames;
+        this.currentParticipant = currentParticipant;
         this.currentStatement = currentStatement;
     }
 
-    public SubParticipantNodeVisitor(String sourceId, SemanticModel semanticModel, Package currentPackage, List<Participant> participants, Set<NameReferenceNode> visitedFunctionNames) {
-        this.sourceId = sourceId;
-        this.semanticModel = semanticModel;
-        this.currentPackage = currentPackage;
-        this.participants = participants;
-//        this.interactions = interactions;
-        this.visitedFunctionNames = visitedFunctionNames;
-    }
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
@@ -73,44 +68,22 @@ public class SubParticipantNodeVisitor extends NodeVisitor {
 
                 //trying to fix interaction order
                 ActionStatement actionStatement = new ActionStatement(this.sourceId, participant.getId(), null, null);
-                Participant currentParticipant = ModelGeneratorUtils.getParticipantByID(this.sourceId, participants);
+                this.currentStatement.addToConditionalStatements(actionStatement);
 
 
-                if (currentStatement != null) {
-                    currentStatement.addToConditionalStatements(actionStatement);
-                } else if (currentParticipant != null) {
-                    currentParticipant.addStatement(actionStatement);
-                }
-//                if (currentParticipant != null ) {
-//                    currentParticipant.addStatement(actionStatement);
-//                }
 
-                ActionNodeVisitor actionNodeVisitor = new ActionNodeVisitor(semanticModel, functionID, currentPackage, participants, visitedFunctionNames, null);
+                ActionNodeVisitor actionNodeVisitor = new ActionNodeVisitor(semanticModel, functionID, currentPackage, participants, visitedFunctionNames, currentStatement);
                 functionDefinitionNode.accept(actionNodeVisitor);
-
-//                if (currentStatement != null) {
-//                    ActionNodeVisitor actionNodeVisitor = new ActionNodeVisitor(semanticModel, functionID, currentPackage, participants, visitedFunctionNames, null);
-//                    functionDefinitionNode.accept(actionNodeVisitor);
-//                } else {
-//                    ActionNodeVisitor actionNodeVisitor = new ActionNodeVisitor(semanticModel, functionID, currentPackage, participants, visitedFunctionNames, null);
-//                    functionDefinitionNode.accept(actionNodeVisitor);
-//                }
-
-
-
             } else {
                 Participant participant = getParticipantInList(functionDefinitionNode.functionName().text().trim(), packageName);
                 setCurrentParticipant(participant.getId());
                 ActionStatement actionStatement = new ActionStatement(this.sourceId, participant.getId(), null, null);
-                if (currentStatement != null) {
-                    currentStatement.addToConditionalStatements(actionStatement);
-                } else if (currentParticipant != null) {
-                    participant.addStatement(actionStatement);
-                }
+                this.currentStatement.addToConditionalStatements(actionStatement);
             }
 
         }
     }
+
 
     private boolean isParticipantInList(String name, String pkgName) {
         for (Participant item : participants) {

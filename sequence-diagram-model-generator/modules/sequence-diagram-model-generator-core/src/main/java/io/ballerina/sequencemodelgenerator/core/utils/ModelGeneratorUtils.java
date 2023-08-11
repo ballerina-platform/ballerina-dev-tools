@@ -5,6 +5,9 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.sequencemodelgenerator.core.model.Participant;
+
+import java.util.List;
 
 import static io.ballerina.sequencemodelgenerator.core.model.Constants.TYPE_MAP;
 public class ModelGeneratorUtils {
@@ -52,5 +55,14 @@ public class ModelGeneratorUtils {
 
     public static String getQualifiedNameRefNodeFuncNameText(QualifiedNameReferenceNode nameNode) {
         return nameNode.modulePrefix().text() + ((Token) nameNode.colon()).text() + nameNode.identifier().text();
+    }
+
+    public static Participant getParticipantByID(String id, List<Participant> participants) {
+        for (Participant participant : participants) {
+            if (participant.getId().equals(id)) {
+                return participant;
+            }
+        }
+        return null;
     }
 }

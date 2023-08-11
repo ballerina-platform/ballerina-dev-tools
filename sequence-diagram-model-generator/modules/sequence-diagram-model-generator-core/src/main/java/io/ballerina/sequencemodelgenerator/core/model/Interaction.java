@@ -1,6 +1,6 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
-public class Interaction {
+public class Interaction  {
     private String sourceId;
     private String targetId;
 

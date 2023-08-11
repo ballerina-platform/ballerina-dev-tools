@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public class EntryNodeVisitor extends NodeVisitor  {
     private List<Participant> participants = new LinkedList<>();
-    private List<Interaction> interactions = new LinkedList<>();
+//    private List<Interaction> interactions = new LinkedList<>();
 
 
     private final SemanticModel semanticModel;
@@ -31,9 +31,9 @@ public class EntryNodeVisitor extends NodeVisitor  {
         return participants;
     }
 
-    public List<Interaction> getInteractions() {
-        return interactions;
-    }
+//    public List<Interaction> getInteractions() {
+//        return interactions;
+//    }
 
     public void setCurrentParticipant(String currentParticipant) {
         this.currentParticipant = currentParticipant;
@@ -84,7 +84,7 @@ public class EntryNodeVisitor extends NodeVisitor  {
 
 
                     ActionNodeVisitor actionNodeVisitor =
-                            new ActionNodeVisitor(semanticModel, uuid, currentPackage, participants, interactions);
+                            new ActionNodeVisitor(semanticModel, uuid, currentPackage, participants);
                     WorkerMemberNodeVisitor workerMemberNodeVisitor = new WorkerMemberNodeVisitor(semanticModel, uuid, participants);
 
                     try {
@@ -111,12 +111,12 @@ public class EntryNodeVisitor extends NodeVisitor  {
 
 
                     ActionNodeVisitor actionNodeVisitor =
-                            new ActionNodeVisitor(semanticModel, uuid, currentPackage, participants, interactions);
-//                    WorkerMemberNodeVisitor workerMemberNodeVisitor = new WorkerMemberNodeVisitor(semanticModel, uuid, participants);
+                            new ActionNodeVisitor(semanticModel, uuid, currentPackage, participants);
+                    WorkerMemberNodeVisitor workerMemberNodeVisitor = new WorkerMemberNodeVisitor(semanticModel, uuid, participants);
 
                     try {
                         functionDefinitionNode.accept(actionNodeVisitor);
-//                        functionDefinitionNode.accept(workerMemberNodeVisitor);
+                        functionDefinitionNode.accept(workerMemberNodeVisitor);
                     } catch (Exception e) {
                         System.out.printf("Error in visiting functionDefinitionNode: %s\n", e.getMessage());
                     }
