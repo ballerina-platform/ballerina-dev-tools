@@ -20,6 +20,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: 17.0.7
       - name: Build with Gradle
         env:
@@ -42,6 +43,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: 17.0.7
       - name: Build with Gradle
         env:
