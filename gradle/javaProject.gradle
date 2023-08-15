@@ -42,7 +42,7 @@ dependencies {
         testImplementation "org.testng:testng:${testngVersion}"
     }
 }
-
+sourceCompatibility = JavaVersion.VERSION_11
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
