@@ -15,7 +15,7 @@
         "bootstrap-css-only": "^4.4.1",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
-        "react-scripts": "3.4.0",
+        "react-scripts": "4.0.3",
         "react-syntax-highlighter": "^12.2.1",
         "typescript": "^4.9.4"
     },
