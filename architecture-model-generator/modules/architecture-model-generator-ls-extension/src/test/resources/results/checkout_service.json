@@ -1,36 +1,19 @@
 {
-  "version": "0.4.0",
-  "packageId": {
-    "name": "checkout_service",
-    "org": "test",
-    "version": "0.1.0"
-  },
+  "modelVersion": "0.4.0",
+  "id": "checkout_service",
+  "orgName": "test",
+  "version": "0.1.0",
   "hasCompilationErrors": false,
   "diagnostics": [],
   "services": {
     "checkout": {
-      "serviceId": "checkout",
+      "id": "checkout",
       "label": "CheckoutService",
-      "serviceType": "ballerina/grpc:1.8.1",
-      "resources": [],
-      "annotation": {
-        "id": "checkout",
-        "label": "",
-        "elementLocation": {
-          "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
-          "startPosition": {
-            "line": 12,
-            "offset": 0
-          },
-          "endPosition": {
-            "line": 15,
-            "offset": 1
-          }
-        },
-        "diagnostics": []
-      },
+      "type": "ballerina/grpc:1.8.1",
+      "resourceFunctions": [],
       "remoteFunctions": [
         {
+          "id": "checkout:PlaceOrder",
           "name": "PlaceOrder",
           "parameters": [
             {
@@ -39,7 +22,7 @@
               ],
               "name": "value",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 58,
@@ -59,14 +42,9 @@
           ],
           "interactions": [
             {
-              "resourceId": {
-                "serviceId": "cart",
-                "serviceLabel": "",
-                "path": null,
-                "action": "GetCart"
-              },
-              "connectorType": "test/checkout_service:0.1.0:CartServiceClient",
-              "elementLocation": {
+              "id": "cart:GetCart",
+              "type": "test/checkout_service:0.1.0:CartServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 96,
@@ -80,14 +58,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "catalog",
-                "serviceLabel": "",
-                "path": null,
-                "action": "GetProduct"
-              },
-              "connectorType": "test/checkout_service:0.1.0:ProductCatalogServiceClient",
-              "elementLocation": {
+              "id": "catalog:GetProduct",
+              "type": "test/checkout_service:0.1.0:ProductCatalogServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 107,
@@ -101,14 +74,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "currency",
-                "serviceLabel": "",
-                "path": null,
-                "action": "Convert"
-              },
-              "connectorType": "test/checkout_service:0.1.0:CurrencyServiceClient",
-              "elementLocation": {
+              "id": "currency:Convert",
+              "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 117,
@@ -122,14 +90,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "currency",
-                "serviceLabel": "",
-                "path": null,
-                "action": "Convert"
-              },
-              "connectorType": "test/checkout_service:0.1.0:CurrencyServiceClient",
-              "elementLocation": {
+              "id": "currency:Convert",
+              "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 146,
@@ -143,14 +106,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "currency",
-                "serviceLabel": "",
-                "path": null,
-                "action": "Convert"
-              },
-              "connectorType": "test/checkout_service:0.1.0:CurrencyServiceClient",
-              "elementLocation": {
+              "id": "currency:Convert",
+              "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 150,
@@ -164,14 +122,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "shipping",
-                "serviceLabel": "",
-                "path": null,
-                "action": "GetQuote"
-              },
-              "connectorType": "test/checkout_service:0.1.0:ShippingServiceClient",
-              "elementLocation": {
+              "id": "shipping:GetQuote",
+              "type": "test/checkout_service:0.1.0:ShippingServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 134,
@@ -185,14 +138,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "payment",
-                "serviceLabel": "",
-                "path": null,
-                "action": "Charge"
-              },
-              "connectorType": "test/checkout_service:0.1.0:PaymentServiceClient",
-              "elementLocation": {
+              "id": "payment:Charge",
+              "type": "test/checkout_service:0.1.0:PaymentServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 158,
@@ -206,14 +154,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "shipping",
-                "serviceLabel": "",
-                "path": null,
-                "action": "ShipOrder"
-              },
-              "connectorType": "test/checkout_service:0.1.0:ShippingServiceClient",
-              "elementLocation": {
+              "id": "shipping:ShipOrder",
+              "type": "test/checkout_service:0.1.0:ShippingServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 167,
@@ -227,14 +170,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "cart",
-                "serviceLabel": "",
-                "path": null,
-                "action": "EmptyCart"
-              },
-              "connectorType": "test/checkout_service:0.1.0:CartServiceClient",
-              "elementLocation": {
+              "id": "cart:EmptyCart",
+              "type": "test/checkout_service:0.1.0:CartServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 178,
@@ -248,14 +186,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "email",
-                "serviceLabel": "",
-                "path": null,
-                "action": "SendOrderConfirmation"
-              },
-              "connectorType": "test/checkout_service:0.1.0:EmailServiceClient",
-              "elementLocation": {
+              "id": "email:SendOrderConfirmation",
+              "type": "test/checkout_service:0.1.0:EmailServiceClient",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
                   "line": 189,
@@ -269,7 +202,7 @@
               "diagnostics": []
             }
           ],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
             "startPosition": {
               "line": 58,
@@ -283,8 +216,24 @@
           "diagnostics": []
         }
       ],
-      "dependencyIDs": [],
-      "elementLocation": {
+      "annotation": {
+        "id": "checkout",
+        "label": "",
+        "sourceLocation": {
+          "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
+          "startPosition": {
+            "line": 12,
+            "offset": 0
+          },
+          "endPosition": {
+            "line": 15,
+            "offset": 1
+          }
+        },
+        "diagnostics": []
+      },
+      "dependencies": [],
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
         "startPosition": {
           "line": 12,
@@ -317,7 +266,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 634,
@@ -333,7 +282,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 633,
@@ -364,7 +313,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 465,
@@ -385,7 +334,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 466,
@@ -401,7 +350,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 464,
@@ -432,7 +381,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 629,
@@ -453,7 +402,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 630,
@@ -469,7 +418,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 628,
@@ -492,7 +441,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 584,
@@ -513,7 +462,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 585,
@@ -534,7 +483,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 586,
@@ -550,7 +499,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 583,
@@ -573,7 +522,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 650,
@@ -589,7 +538,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 649,
@@ -620,7 +569,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 420,
@@ -641,7 +590,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 421,
@@ -657,7 +606,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 419,
@@ -688,7 +637,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 425,
@@ -709,7 +658,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 426,
@@ -725,7 +674,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 424,
@@ -742,7 +691,7 @@
       "attributes": [],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 691,
@@ -773,7 +722,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 624,
@@ -802,7 +751,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 625,
@@ -818,7 +767,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 623,
@@ -849,7 +798,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 642,
@@ -865,7 +814,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 641,
@@ -888,7 +837,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 646,
@@ -904,7 +853,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 645,
@@ -935,7 +884,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 520,
@@ -956,7 +905,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 521,
@@ -972,7 +921,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 519,
@@ -1003,7 +952,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 540,
@@ -1019,7 +968,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 539,
@@ -1050,7 +999,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 500,
@@ -1071,7 +1020,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 501,
@@ -1087,7 +1036,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 499,
@@ -1118,7 +1067,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 530,
@@ -1139,7 +1088,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 531,
@@ -1155,7 +1104,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 529,
@@ -1178,7 +1127,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 663,
@@ -1194,7 +1143,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 662,
@@ -1225,7 +1174,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 535,
@@ -1254,7 +1203,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 536,
@@ -1270,7 +1219,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 534,
@@ -1293,7 +1242,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 575,
@@ -1322,7 +1271,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 576,
@@ -1338,7 +1287,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 574,
@@ -1369,7 +1318,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 430,
@@ -1390,7 +1339,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 431,
@@ -1406,7 +1355,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 429,
@@ -1437,7 +1386,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 475,
@@ -1458,7 +1407,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 476,
@@ -1474,7 +1423,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 474,
@@ -1505,7 +1454,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 667,
@@ -1534,7 +1483,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 668,
@@ -1550,7 +1499,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 666,
@@ -1573,7 +1522,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 688,
@@ -1589,7 +1538,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 687,
@@ -1620,7 +1569,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 598,
@@ -1636,7 +1585,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 597,
@@ -1667,7 +1616,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 410,
@@ -1688,7 +1637,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 411,
@@ -1704,7 +1653,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 409,
@@ -1735,7 +1684,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 495,
@@ -1756,7 +1705,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 496,
@@ -1772,7 +1721,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 494,
@@ -1795,7 +1744,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 561,
@@ -1816,7 +1765,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 562,
@@ -1837,7 +1786,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 563,
@@ -1858,7 +1807,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 564,
@@ -1887,7 +1836,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 565,
@@ -1908,7 +1857,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 566,
@@ -1924,7 +1873,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 560,
@@ -1955,7 +1904,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 415,
@@ -1976,7 +1925,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 416,
@@ -1992,7 +1941,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 414,
@@ -2023,7 +1972,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 619,
@@ -2052,7 +2001,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 620,
@@ -2068,7 +2017,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 618,
@@ -2099,7 +2048,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 440,
@@ -2120,7 +2069,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 441,
@@ -2136,7 +2085,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 439,
@@ -2167,7 +2116,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 450,
@@ -2188,7 +2137,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 451,
@@ -2204,7 +2153,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 449,
@@ -2227,7 +2176,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 602,
@@ -2248,7 +2197,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 603,
@@ -2269,7 +2218,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 604,
@@ -2290,7 +2239,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 605,
@@ -2306,7 +2255,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 601,
@@ -2329,7 +2278,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 549,
@@ -2350,7 +2299,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 550,
@@ -2371,7 +2320,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 551,
@@ -2392,7 +2341,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 552,
@@ -2413,7 +2362,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 553,
@@ -2429,7 +2378,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 548,
@@ -2460,7 +2409,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 480,
@@ -2481,7 +2430,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 481,
@@ -2497,7 +2446,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 479,
@@ -2520,7 +2469,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 570,
@@ -2541,7 +2490,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 571,
@@ -2557,7 +2506,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 569,
@@ -2588,7 +2537,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 455,
@@ -2609,7 +2558,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 456,
@@ -2625,7 +2574,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 454,
@@ -2648,7 +2597,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 590,
@@ -2664,7 +2613,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 589,
@@ -2687,7 +2636,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 609,
@@ -2708,7 +2657,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 610,
@@ -2724,7 +2673,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 608,
@@ -2747,7 +2696,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 680,
@@ -2768,7 +2717,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 681,
@@ -2797,7 +2746,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 682,
@@ -2826,7 +2775,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 683,
@@ -2855,7 +2804,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 684,
@@ -2871,7 +2820,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 679,
@@ -2902,7 +2851,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 470,
@@ -2923,7 +2872,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 471,
@@ -2939,7 +2888,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 469,
@@ -2962,7 +2911,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 659,
@@ -2978,7 +2927,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 658,
@@ -3009,7 +2958,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 515,
@@ -3030,7 +2979,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 516,
@@ -3046,7 +2995,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 514,
@@ -3077,7 +3026,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 510,
@@ -3098,7 +3047,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 511,
@@ -3114,7 +3063,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 509,
@@ -3137,7 +3086,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 557,
@@ -3153,7 +3102,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 556,
@@ -3176,7 +3125,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 638,
@@ -3192,7 +3141,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 637,
@@ -3223,7 +3172,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 505,
@@ -3244,7 +3193,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 506,
@@ -3260,7 +3209,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 504,
@@ -3291,7 +3240,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 435,
@@ -3312,7 +3261,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 436,
@@ -3328,7 +3277,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 434,
@@ -3351,7 +3300,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 614,
@@ -3380,7 +3329,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 615,
@@ -3396,7 +3345,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 613,
@@ -3419,7 +3368,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 654,
@@ -3448,7 +3397,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 655,
@@ -3464,7 +3413,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 653,
@@ -3495,7 +3444,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 490,
@@ -3516,7 +3465,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 491,
@@ -3532,7 +3481,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 489,
@@ -3563,7 +3512,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 580,
@@ -3579,7 +3528,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 579,
@@ -3610,7 +3559,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 525,
@@ -3631,7 +3580,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 526,
@@ -3647,7 +3596,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 524,
@@ -3678,7 +3627,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 485,
@@ -3699,7 +3648,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 486,
@@ -3715,7 +3664,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 484,
@@ -3746,7 +3695,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 460,
@@ -3767,7 +3716,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 461,
@@ -3783,7 +3732,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 459,
@@ -3806,7 +3755,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 544,
@@ -3827,7 +3776,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 545,
@@ -3843,7 +3792,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 543,
@@ -3874,7 +3823,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 445,
@@ -3895,7 +3844,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 446,
@@ -3911,7 +3860,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 444,
@@ -3934,7 +3883,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 672,
@@ -3955,7 +3904,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 673,
@@ -3984,7 +3933,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 674,
@@ -4005,7 +3954,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 675,
@@ -4034,7 +3983,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 676,
@@ -4050,7 +3999,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 671,
@@ -4073,7 +4022,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 594,
@@ -4089,7 +4038,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 593,
@@ -4120,7 +4069,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 405,
@@ -4141,7 +4090,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
             "startPosition": {
               "line": 406,
@@ -4157,7 +4106,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/clients.bal",
         "startPosition": {
           "line": 404,
@@ -4172,5 +4121,5 @@
     }
   },
   "functionEntryPoint": null,
-  "dependencies": []
+  "connections": []
 }
