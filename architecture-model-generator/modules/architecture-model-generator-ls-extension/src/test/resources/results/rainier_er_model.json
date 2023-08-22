@@ -21,7 +21,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":57,
@@ -46,7 +46,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":58,
@@ -77,7 +77,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":60,
@@ -108,7 +108,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":61,
@@ -128,7 +128,7 @@
 
       ],
       "isAnonymous":false,
-      "elementLocation":{
+      "sourceLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
           "line":56,
@@ -155,7 +155,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":50,
@@ -180,7 +180,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":51,
@@ -205,7 +205,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":52,
@@ -230,7 +230,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":53,
@@ -250,7 +250,7 @@
 
       ],
       "isAnonymous":false,
-      "elementLocation":{
+      "sourceLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
           "line":49,
@@ -277,7 +277,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":38,
@@ -302,7 +302,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":39,
@@ -327,7 +327,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":40,
@@ -358,7 +358,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":41,
@@ -383,7 +383,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":42,
@@ -414,7 +414,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":43,
@@ -445,7 +445,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":45,
@@ -476,7 +476,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":46,
@@ -496,7 +496,7 @@
 
       ],
       "isAnonymous":false,
-      "elementLocation":{
+      "sourceLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
           "line":37,
@@ -523,7 +523,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":31,
@@ -548,7 +548,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":32,
@@ -579,7 +579,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":34,
@@ -599,7 +599,7 @@
 
       ],
       "isAnonymous":false,
-      "elementLocation":{
+      "sourceLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
           "line":30,
@@ -626,7 +626,7 @@
 
           ],
           "isReadOnly":true,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":20,
@@ -651,7 +651,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":21,
@@ -676,7 +676,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":22,
@@ -701,7 +701,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":23,
@@ -726,7 +726,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":24,
@@ -751,7 +751,7 @@
 
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":25,
@@ -782,7 +782,7 @@
             }
           ],
           "isReadOnly":false,
-          "elementLocation":{
+          "sourceLocation":{
             "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
             "startPosition":{
               "line":27,
@@ -802,7 +802,7 @@
 
       ],
       "isAnonymous":false,
-      "elementLocation":{
+      "sourceLocation":{
         "filePath":"{srcPath}/ballerina/rainier/persist/rainier.bal",
         "startPosition":{
           "line":19,
@@ -818,5 +818,6 @@
       ]
     }
   },
-  "functionEntryPoint":null
+  "functionEntryPoint":null,
+  "connections": []
 }

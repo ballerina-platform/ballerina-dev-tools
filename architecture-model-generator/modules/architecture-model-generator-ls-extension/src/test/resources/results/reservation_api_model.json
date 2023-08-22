@@ -1,32 +1,25 @@
 {
-  "version": "0.4.0",
-  "packageId": {
-    "name": "reservation_api",
-    "org": "test",
-    "version": "0.1.0"
-  },
+  "modelVersion": "0.4.0",
+  "id": "reservation_api",
+  "orgName": "test",
+  "version": "0.1.0",
   "hasCompilationErrors": false,
   "diagnostics": [],
   "services": {
     "weather": {
-      "serviceId": "weather",
+      "id": "weather",
       "label": "api/weather",
-      "serviceType": "ballerina/http:2.8.1",
-      "resources": [
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": "getCurrentWeather",
-          "resourceId": {
-            "serviceId": "weather",
-            "serviceLabel": "api/weather",
-            "path": "getCurrentWeather",
-            "action": "get"
-          },
+          "id": "weather:getCurrentWeather:get",
+          "path": "getCurrentWeather",
           "parameters": [],
           "returns": [
             "string"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
             "startPosition": {
               "line": 9,
@@ -40,10 +33,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "weather",
         "label": "",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
           "startPosition": {
             "line": 4,
@@ -56,9 +50,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
-      "dependencyIDs": [],
-      "elementLocation": {
+      "dependencies": [],
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/modules/weather_api/weather_api.bal",
         "startPosition": {
           "line": 4,
@@ -72,18 +65,13 @@
       "diagnostics": []
     },
     "001": {
-      "serviceId": "001",
+      "id": "001",
       "label": "reservations/my",
-      "serviceType": "ballerina/http:2.8.1",
-      "resources": [
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": "reservation",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "reservations/my",
-            "path": "reservation",
-            "action": "post"
-          },
+          "id": "001:reservation:post",
+          "path": "reservation",
           "parameters": [
             {
               "type": [
@@ -92,7 +80,7 @@
               "name": "payload",
               "in": "body",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 22,
@@ -112,14 +100,9 @@
           ],
           "interactions": [
             {
-              "resourceId": {
-                "serviceId": "002",
-                "serviceLabel": "",
-                "path": "flights/[string]",
-                "action": "get"
-              },
-              "connectorType": "ballerina/http:2.8.1",
-              "elementLocation": {
+              "id": "002:flights/[string]:get",
+              "type": "ballerina/http:2.8.1",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 32,
@@ -133,14 +116,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "002",
-                "serviceLabel": "",
-                "path": "my/flights",
-                "action": "post"
-              },
-              "connectorType": "ballerina/http:2.8.1",
-              "elementLocation": {
+              "id": "002:my/flights:post",
+              "type": "ballerina/http:2.8.1",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 43,
@@ -154,14 +132,9 @@
               "diagnostics": []
             },
             {
-              "resourceId": {
-                "serviceId": "003",
-                "serviceLabel": "",
-                "path": "fare/[string]/[string]",
-                "action": "get"
-              },
-              "connectorType": "ballerina/http:2.8.1",
-              "elementLocation": {
+              "id": "003:fare/[string]/[string]:get",
+              "type": "ballerina/http:2.8.1",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 50,
@@ -175,7 +148,7 @@
               "diagnostics": []
             }
           ],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
               "line": 22,
@@ -189,13 +162,8 @@
           "diagnostics": []
         },
         {
-          "identifier": "reservation/[int]",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "reservations/my",
-            "path": "reservation/[int reservationId]",
-            "action": "get"
-          },
+          "id": "001:reservation/[int reservationId]:get",
+          "path": "reservation/[int reservationId]",
           "parameters": [
             {
               "type": [
@@ -204,7 +172,7 @@
               "name": "reservationId",
               "in": "path",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 59,
@@ -224,7 +192,7 @@
               "name": "name",
               "in": "query",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 59,
@@ -244,7 +212,7 @@
             "null"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
               "line": 59,
@@ -258,13 +226,8 @@
           "diagnostics": []
         },
         {
-          "identifier": "weather/[string]",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "reservations/my",
-            "path": "weather/[string country]",
-            "action": "get"
-          },
+          "id": "001:weather/[string country]:get",
+          "path": "weather/[string country]",
           "parameters": [
             {
               "type": [
@@ -273,7 +236,7 @@
               "name": "country",
               "in": "path",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 63,
@@ -293,14 +256,9 @@
           ],
           "interactions": [
             {
-              "resourceId": {
-                "serviceId": "weather",
-                "serviceLabel": "Weather",
-                "path": "getCurrentWeather",
-                "action": "get"
-              },
-              "connectorType": "ballerina/http:2.8.1",
-              "elementLocation": {
+              "id": "weather:getCurrentWeather:get",
+              "type": "ballerina/http:2.8.1",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
                   "line": 64,
@@ -314,7 +272,7 @@
               "diagnostics": []
             }
           ],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
             "startPosition": {
               "line": 63,
@@ -328,10 +286,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "001",
         "label": "",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
           "startPosition": {
             "line": 17,
@@ -344,9 +303,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
-      "dependencyIDs": [],
-      "elementLocation": {
+      "dependencies": [],
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
         "startPosition": {
           "line": 17,
@@ -360,18 +318,13 @@
       "diagnostics": []
     },
     "002": {
-      "serviceId": "002",
+      "id": "002",
       "label": "allocation",
-      "serviceType": "ballerina/http:2.8.1",
-      "resources": [
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": "flights/[string]",
-          "resourceId": {
-            "serviceId": "002",
-            "serviceLabel": "allocation",
-            "path": "flights/[string flightNumber]",
-            "action": "get"
-          },
+          "id": "002:flights/[string flightNumber]:get",
+          "path": "flights/[string flightNumber]",
           "parameters": [
             {
               "type": [
@@ -380,7 +333,7 @@
               "name": "flightNumber",
               "in": "path",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 6,
@@ -401,7 +354,7 @@
               "name": "flightDate",
               "in": "query",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 6,
@@ -419,7 +372,7 @@
             "test/reservation_api:seat_allocation_api:0.1.0:Flight"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
             "startPosition": {
               "line": 6,
@@ -433,13 +386,8 @@
           "diagnostics": []
         },
         {
-          "identifier": "my/flights",
-          "resourceId": {
-            "serviceId": "002",
-            "serviceLabel": "allocation",
-            "path": "my/flights",
-            "action": "post"
-          },
+          "id": "002:my/flights:post",
+          "path": "my/flights",
           "parameters": [
             {
               "type": [
@@ -448,7 +396,7 @@
               "name": "payload",
               "in": "body",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
                 "startPosition": {
                   "line": 19,
@@ -467,7 +415,7 @@
             "error"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
             "startPosition": {
               "line": 19,
@@ -481,10 +429,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "002",
         "label": "",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
           "startPosition": {
             "line": 2,
@@ -497,9 +446,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
-      "dependencyIDs": [],
-      "elementLocation": {
+      "dependencies": [],
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/seat_allocation_api.bal",
         "startPosition": {
           "line": 2,
@@ -513,18 +461,13 @@
       "diagnostics": []
     },
     "003": {
-      "serviceId": "003",
+      "id": "003",
       "label": "fares",
-      "serviceType": "ballerina/http:2.8.1",
-      "resources": [
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": "fare/[string]/[string]",
-          "resourceId": {
-            "serviceId": "003",
-            "serviceLabel": "fares",
-            "path": "fare/[string flightNumber]/[string flightDate]",
-            "action": "get"
-          },
+          "id": "003:fare/[string flightNumber]/[string flightDate]:get",
+          "path": "fare/[string flightNumber]/[string flightDate]",
           "parameters": [
             {
               "type": [
@@ -533,7 +476,7 @@
               "name": "flightNumber",
               "in": "path",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
                 "startPosition": {
                   "line": 16,
@@ -553,7 +496,7 @@
               "name": "flightDate",
               "in": "path",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
                 "startPosition": {
                   "line": 16,
@@ -572,7 +515,7 @@
             "error"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 16,
@@ -586,10 +529,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "003",
         "label": "",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
           "startPosition": {
             "line": 9,
@@ -602,9 +546,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
-      "dependencyIDs": [],
-      "elementLocation": {
+      "dependencies": [],
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
         "startPosition": {
           "line": 9,
@@ -629,7 +572,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 8,
@@ -650,7 +593,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 9,
@@ -671,7 +614,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
             "startPosition": {
               "line": 10,
@@ -687,7 +630,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
         "startPosition": {
           "line": 7,
@@ -710,7 +653,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": true,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 1,
@@ -731,7 +674,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": true,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 2,
@@ -752,7 +695,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 3,
@@ -773,7 +716,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 4,
@@ -789,7 +732,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
         "startPosition": {
           "line": 0,
@@ -812,7 +755,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 8,
@@ -833,7 +776,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 9,
@@ -854,7 +797,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 10,
@@ -875,7 +818,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 11,
@@ -896,7 +839,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 12,
@@ -912,7 +855,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
         "startPosition": {
           "line": 7,
@@ -921,6 +864,108 @@
         "endPosition": {
           "line": 7,
           "offset": 23
+        }
+      },
+      "diagnostics": []
+    },
+    "test/reservation_api:seat_allocation_api:0.1.0:Flight": {
+      "attributes": [
+        {
+          "name": "flightNumber",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": true,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
+            "startPosition": {
+              "line": 1,
+              "offset": 20
+            },
+            "endPosition": {
+              "line": 1,
+              "offset": 32
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "flightDate",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": true,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
+            "startPosition": {
+              "line": 2,
+              "offset": 20
+            },
+            "endPosition": {
+              "line": 2,
+              "offset": 30
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "available",
+          "type": "int",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
+            "startPosition": {
+              "line": 3,
+              "offset": 8
+            },
+            "endPosition": {
+              "line": 3,
+              "offset": 17
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "totalCapacity",
+          "type": "int",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
+            "startPosition": {
+              "line": 4,
+              "offset": 8
+            },
+            "endPosition": {
+              "line": 4,
+              "offset": 21
+            }
+          },
+          "diagnostics": []
+        }
+      ],
+      "inclusions": [],
+      "isAnonymous": false,
+      "sourceLocation": {
+        "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
+        "startPosition": {
+          "line": 0,
+          "offset": 12
+        },
+        "endPosition": {
+          "line": 0,
+          "offset": 18
         }
       },
       "diagnostics": []
@@ -935,7 +980,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": true,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 18,
@@ -956,7 +1001,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 19,
@@ -977,7 +1022,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 20,
@@ -998,7 +1043,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 21,
@@ -1019,7 +1064,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 22,
@@ -1040,7 +1085,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 23,
@@ -1061,7 +1106,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 24,
@@ -1082,7 +1127,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 25,
@@ -1111,7 +1156,7 @@
             }
           ],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
             "startPosition": {
               "line": 26,
@@ -1127,7 +1172,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/types.bal",
         "startPosition": {
           "line": 17,
@@ -1136,108 +1181,6 @@
         "endPosition": {
           "line": 17,
           "offset": 25
-        }
-      },
-      "diagnostics": []
-    },
-    "test/reservation_api:seat_allocation_api:0.1.0:Flight": {
-      "attributes": [
-        {
-          "name": "flightNumber",
-          "type": "string",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": true,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
-            "startPosition": {
-              "line": 1,
-              "offset": 20
-            },
-            "endPosition": {
-              "line": 1,
-              "offset": 32
-            }
-          },
-          "diagnostics": []
-        },
-        {
-          "name": "flightDate",
-          "type": "string",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": true,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
-            "startPosition": {
-              "line": 2,
-              "offset": 20
-            },
-            "endPosition": {
-              "line": 2,
-              "offset": 30
-            }
-          },
-          "diagnostics": []
-        },
-        {
-          "name": "available",
-          "type": "int",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": false,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
-            "startPosition": {
-              "line": 3,
-              "offset": 8
-            },
-            "endPosition": {
-              "line": 3,
-              "offset": 17
-            }
-          },
-          "diagnostics": []
-        },
-        {
-          "name": "totalCapacity",
-          "type": "int",
-          "optional": false,
-          "nillable": false,
-          "defaultValue": "",
-          "associations": [],
-          "isReadOnly": false,
-          "elementLocation": {
-            "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
-            "startPosition": {
-              "line": 4,
-              "offset": 8
-            },
-            "endPosition": {
-              "line": 4,
-              "offset": 21
-            }
-          },
-          "diagnostics": []
-        }
-      ],
-      "inclusions": [],
-      "isAnonymous": false,
-      "elementLocation": {
-        "filePath": "{srcPath}/ballerina/reservation_api/modules/seat_allocation_api/types.bal",
-        "startPosition": {
-          "line": 0,
-          "offset": 12
-        },
-        "endPosition": {
-          "line": 0,
-          "offset": 18
         }
       },
       "diagnostics": []
@@ -1252,7 +1195,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 4,
@@ -1273,7 +1216,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 5,
@@ -1294,7 +1237,7 @@
           "defaultValue": "",
           "associations": [],
           "isReadOnly": false,
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
             "startPosition": {
               "line": 6,
@@ -1310,7 +1253,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/modules/fares_api/fares_api.bal",
         "startPosition": {
           "line": 3,
@@ -1325,7 +1268,7 @@
     }
   },
   "functionEntryPoint": {
-    "functionID": "MainEP",
+    "id": "MainEP",
     "label": "Reservation EP",
     "parameters": [],
     "returns": [
@@ -1334,14 +1277,9 @@
     ],
     "interactions": [
       {
-        "resourceId": {
-          "serviceId": "001",
-          "serviceLabel": "",
-          "path": "reservation",
-          "action": "post"
-        },
-        "connectorType": "ballerina/http:2.8.1",
-        "elementLocation": {
+        "id": "001:reservation:post",
+        "type": "ballerina/http:2.8.1",
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
           "startPosition": {
             "line": 26,
@@ -1358,7 +1296,7 @@
     "annotation": {
       "id": "MainEP",
       "label": "Reservation EP",
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
         "startPosition": {
           "line": 3,
@@ -1371,10 +1309,10 @@
       },
       "diagnostics": []
     },
-    "dependencyIDs": [
+    "dependencies": [
       "002"
     ],
-    "elementLocation": {
+    "sourceLocation": {
       "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
       "startPosition": {
         "line": 3,
@@ -1387,11 +1325,11 @@
     },
     "diagnostics": []
   },
-  "dependencies": [
+  "connections": [
     {
-      "entryPointID": "002",
-      "connectorType": "ballerina/http:2.8.1",
-      "elementLocation": {
+      "id": "002",
+      "type": "ballerina/http:2.8.1",
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
         "startPosition": {
           "line": 8,

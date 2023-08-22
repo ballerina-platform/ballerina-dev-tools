@@ -66,7 +66,7 @@ public class ArchitectureModel {
     }
 
     public String getId() {
-        return id;
+        return String.format("%s/%s:%s", orgName, id, version);
     }
 
     public String getOrgName() {
