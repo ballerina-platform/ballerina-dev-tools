@@ -10,10 +10,7 @@ import io.ballerina.sequencemodelgenerator.core.model.*;
 import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
 import io.ballerina.tools.diagnostics.Location;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getQualifiedNameRefNodeFuncNameText;
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getRawType;
@@ -52,11 +49,6 @@ public class ActionVisitor extends NodeVisitor {
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
         NameReferenceNode clientNode = null;
-
-        String resourceMethod = null;
-        String resourcePath = null;
-        String serviceId = null;
-        String serviceLabel = null;
 
         try {
             if (clientResourceAccessActionNode.expression().kind().equals(SyntaxKind.FIELD_ACCESS)) {
@@ -100,6 +92,56 @@ public class ActionVisitor extends NodeVisitor {
                 }
             }
         }
+    }
+
+    @Override
+    public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
+        NameReferenceNode clientNode = null;
+
+        try {
+            if (remoteMethodCallActionNode.expression().kind().equals(SyntaxKind.FIELD_ACCESS)) {
+                NameReferenceNode fieldName = ((FieldAccessExpressionNode)
+                        remoteMethodCallActionNode.expression()).fieldName();
+                if (fieldName.kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE)) {
+                    clientNode = fieldName;
+                }
+
+            } else if (remoteMethodCallActionNode.expression().kind().equals(SyntaxKind.SIMPLE_NAME_REFERENCE)) {
+                clientNode = (SimpleNameReferenceNode) remoteMethodCallActionNode.expression();
+            } else if (remoteMethodCallActionNode.expression().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
+                clientNode = (QualifiedNameReferenceNode) remoteMethodCallActionNode.expression();
+            }
+
+            if (clientNode != null) {
+                Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(clientNode);
+
+                if (typeSymbol.isPresent()) {
+                    TypeSymbol rawType = getRawType(typeSymbol.get());
+                    if (rawType.typeKind() == TypeDescKind.OBJECT) {
+                        ObjectTypeSymbol objectTypeSymbol = (ObjectTypeSymbol) rawType;
+                        boolean isEndpoint = objectTypeSymbol.qualifiers()
+                                .contains(Qualifier.CLIENT);
+                        if (isEndpoint) {
+                            String clientID = UUID.randomUUID().toString();
+                            Participant participant = new Participant(clientID, clientNode.toString(),
+                                    ParticipantKind.ENDPOINT, objectTypeSymbol.getModule().get().id().toString(), objectTypeSymbol.signature());
+                            this.visitorContext.addToParticipants(participant);
+
+                            ActionStatement actionStatement = new ActionStatement(this.visitorContext.getCurrentParticipant().getId(), clientID, clientNode.toString());
+                            if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
+                            } else {
+                                this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error occurred while visiting remote method call action node" + e.getMessage());
+        }
+
+
     }
 
     private void findInteractions(NameReferenceNode nameNode, Symbol methodSymbol) {
