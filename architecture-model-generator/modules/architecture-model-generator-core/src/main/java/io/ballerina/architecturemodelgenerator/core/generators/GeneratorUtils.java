@@ -82,7 +82,7 @@ public class GeneratorUtils {
 
     public static DisplayAnnotation getServiceAnnotation(NodeList<AnnotationNode> annotationNodes, String filePath) {
 
-        String id = UUID.randomUUID().toString();
+        String id = "";
         String label = "";
         SourceLocation elementLocation = null;
         for (AnnotationNode annotationNode : annotationNodes) {

@@ -43,7 +43,7 @@ public class ArchitectureModel {
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
     private final FunctionEntryPoint functionEntryPoint;
-    private final List<Connection> dependencies;
+    private final List<Connection> connections;
 
     public ArchitectureModel(String modelVersion, String id, String orgName, String version,
                              List<ArchitectureModelDiagnostic> diagnostics, Map<String, Service> services,
@@ -58,7 +58,7 @@ public class ArchitectureModel {
         this.entities = entities;
         this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
-        this.dependencies = dependencies;
+        this.connections = dependencies;
     }
 
     public String getModelVersion() {
@@ -97,7 +97,7 @@ public class ArchitectureModel {
         return hasCompilationErrors;
     }
 
-    public List<Connection> getDependencies() {
-        return dependencies;
+    public List<Connection> getConnections() {
+        return connections;
     }
 }
