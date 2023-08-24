@@ -64,6 +64,7 @@
             {
               "id": "002:[string]:get",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "002",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
@@ -124,6 +125,7 @@
             {
               "id": "-459379229:getCurrentWeather:get",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "-459379229",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {

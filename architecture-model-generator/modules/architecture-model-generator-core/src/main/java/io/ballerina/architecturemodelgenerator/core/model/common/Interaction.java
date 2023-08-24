@@ -33,12 +33,14 @@ public class Interaction extends ModelElement {
 
     private final String id;
     private final String type;
+    private final String serviceId;
 
-    public Interaction(String id, String connectorType, SourceLocation elementLocation,
+    public Interaction(String id, String connectorType, SourceLocation elementLocation, String serviceId,
                        List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
         this.id = id;
         this.type = connectorType;
+        this.serviceId = serviceId;
     }
 
     public String getId() {
@@ -47,5 +49,9 @@ public class Interaction extends ModelElement {
 
     public String getType() {
         return type;
+    }
+
+    public String getServiceId() {
+        return serviceId;
     }
 }

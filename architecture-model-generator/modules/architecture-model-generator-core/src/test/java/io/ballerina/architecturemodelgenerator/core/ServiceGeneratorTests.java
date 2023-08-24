@@ -54,12 +54,14 @@ public class ServiceGeneratorTests {
             String generatedService = TestUtils.replaceStdLibVersionStrings(gson.toJson(service)
                     .replaceAll("\\s+", "")
                     .replaceAll("\\\\\\\\", "/")
-                    .replaceAll("\"id\":\"-?\\d*:", "\"id\":\"000:"));
+                    .replaceAll("\"id\":\"-?\\d*:", "\"id\":\"000:")
+                    .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
             String expectedService = TestUtils.replaceStdLibVersionStrings(
                     gson.toJson(expectedModel.getServices().get(id))
                             .replaceAll("\\s+", "")
                             .replaceAll("\\{srcPath}", RES_DIR.toString().replaceAll("\\\\", "/"))
-                            .replaceAll("\"id\":\"-?\\d*:", "\"id\":\"000:"));
+                            .replaceAll("\"id\":\"-?\\d*:", "\"id\":\"000:")
+                            .replaceAll("\"serviceId\": ?\"-?\\d*\"", "\"serviceId\": null"));
             Assert.assertEquals(generatedService, expectedService);
         });
     }
