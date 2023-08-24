@@ -155,7 +155,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         String resourceFunctionId = String.format("%s:%s:%s", serviceId, resourcePath, resourceMethod);
         Interaction interaction = new Interaction(resourceFunctionId,
                 getClientModuleName(clientNode, semanticModel), getSourceLocation(filePath,
-                clientResourceAccessActionNode.lineRange()), diagnostics);
+                clientResourceAccessActionNode.lineRange()), serviceId, diagnostics);
         interactionList.add(interaction);
     }
 
@@ -203,7 +203,7 @@ public class ActionNodeVisitor extends NodeVisitor {
         String remoteFunctionId = String.format("%s:%s", serviceId, resourceMethod);
         if (clientNode != null) {
             Interaction interaction = new Interaction(remoteFunctionId, getClientModuleName(clientNode, semanticModel),
-                    getSourceLocation(filePath, remoteMethodCallActionNode.lineRange()), diagnostics);
+                    getSourceLocation(filePath, remoteMethodCallActionNode.lineRange()), serviceId, diagnostics);
             interactionList.add(interaction);
         }
     }

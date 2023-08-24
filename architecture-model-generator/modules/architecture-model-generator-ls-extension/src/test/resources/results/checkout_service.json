@@ -44,6 +44,7 @@
             {
               "id": "cart:GetCart",
               "type": "test/checkout_service:0.1.0:CartServiceClient",
+              "serviceId": "cart",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -60,6 +61,7 @@
             {
               "id": "catalog:GetProduct",
               "type": "test/checkout_service:0.1.0:ProductCatalogServiceClient",
+              "serviceId": "catalog",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -76,6 +78,7 @@
             {
               "id": "currency:Convert",
               "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "serviceId": "currency",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -92,6 +95,7 @@
             {
               "id": "currency:Convert",
               "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "serviceId": "currency",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -108,6 +112,7 @@
             {
               "id": "currency:Convert",
               "type": "test/checkout_service:0.1.0:CurrencyServiceClient",
+              "serviceId": "currency",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -124,6 +129,7 @@
             {
               "id": "shipping:GetQuote",
               "type": "test/checkout_service:0.1.0:ShippingServiceClient",
+              "serviceId": "shipping",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -140,6 +146,7 @@
             {
               "id": "payment:Charge",
               "type": "test/checkout_service:0.1.0:PaymentServiceClient",
+              "serviceId": "payment",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -156,6 +163,7 @@
             {
               "id": "shipping:ShipOrder",
               "type": "test/checkout_service:0.1.0:ShippingServiceClient",
+              "serviceId": "shipping",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -172,6 +180,7 @@
             {
               "id": "cart:EmptyCart",
               "type": "test/checkout_service:0.1.0:CartServiceClient",
+              "serviceId": "cart",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {
@@ -188,6 +197,7 @@
             {
               "id": "email:SendOrderConfirmation",
               "type": "test/checkout_service:0.1.0:EmailServiceClient",
+              "serviceId": "email",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/checkout/checkout_service.bal",
                 "startPosition": {

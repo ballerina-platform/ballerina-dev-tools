@@ -102,6 +102,7 @@
             {
               "id": "002:flights/[string]:get",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "002",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
@@ -118,6 +119,7 @@
             {
               "id": "002:my/flights:post",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "002",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
@@ -134,6 +136,7 @@
             {
               "id": "003:fare/[string]/[string]:get",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "003",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
@@ -258,6 +261,7 @@
             {
               "id": "weather:getCurrentWeather:get",
               "type": "ballerina/http:2.8.1",
+              "serviceId": "weather",
               "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/reservation_api/reservation_service.bal",
                 "startPosition": {
@@ -1279,6 +1283,7 @@
       {
         "id": "001:reservation:post",
         "type": "ballerina/http:2.8.1",
+        "serviceId": "001",
         "sourceLocation": {
           "filePath": "{srcPath}/ballerina/reservation_api/main.bal",
           "startPosition": {
