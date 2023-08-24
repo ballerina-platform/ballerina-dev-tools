@@ -369,12 +369,13 @@ public class EntityModelGenerator extends ModelGenerator {
         Package pkg = getModule().packageInstance();
         String entityName;
         String[] nameSpits = moduleQualifiedName.split(COLON);
-        if (pkg.packageName().value().equals(nameSpits[0])) { // check whether the referenced type is from the same module
+        if (pkg.packageName().value().equals(nameSpits[0])) {
+            // The referenced type is from the same module
             entityName = pkg.packageOrg().value() + FORWARD_SLASH + pkg.packageName().value() + COLON +
                     pkg.packageVersion().value() + COLON + nameSpits[1];
         } else {
             entityName = pkg.packageOrg().value() + FORWARD_SLASH + pkg.packageName().value() + COLON + nameSpits[0] +
-                    COLON + pkg.packageVersion().value()+ COLON + nameSpits[1];
+                    COLON + pkg.packageVersion().value() + COLON + nameSpits[1];
         }
         return entityName;
     }

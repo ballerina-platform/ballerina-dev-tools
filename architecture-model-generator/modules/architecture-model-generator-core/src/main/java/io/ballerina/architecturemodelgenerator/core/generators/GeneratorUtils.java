@@ -55,7 +55,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static io.ballerina.architecturemodelgenerator.core.Constants.CLIENT;
 import static io.ballerina.architecturemodelgenerator.core.Constants.DISPLAY_ANNOTATION;

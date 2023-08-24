@@ -111,7 +111,7 @@ public class ServiceDeclarationNodeVisitor extends NodeVisitor {
         String serviceLabel = generateServiceLabel(serviceAnnotation, serviceNameNodes);
 
         ServiceMemberFunctionNodeVisitor serviceMemberFunctionNodeVisitor =
-                new ServiceMemberFunctionNodeVisitor(serviceId, serviceLabel, packageCompilation, semanticModel,
+                new ServiceMemberFunctionNodeVisitor(serviceId, packageCompilation, semanticModel,
                         syntaxTree, currentPackage, filePath.toString());
         List<ArchitectureModelDiagnostic> diagnostics = new ArrayList<>();
         try {

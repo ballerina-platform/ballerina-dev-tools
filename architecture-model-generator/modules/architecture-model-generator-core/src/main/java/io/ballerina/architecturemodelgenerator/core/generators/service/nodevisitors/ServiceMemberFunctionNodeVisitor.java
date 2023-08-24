@@ -81,7 +81,6 @@ import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorU
  */
 public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     private final String serviceId;
-    private final String serviceLabel;
     private final PackageCompilation packageCompilation;
     private final SemanticModel semanticModel;
     private final SyntaxTree syntaxTree;
@@ -91,11 +90,10 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
     private final List<Connection> dependencies = new LinkedList<>();
     private final String filePath;
 
-    public ServiceMemberFunctionNodeVisitor(String serviceId, String serviceLabel,
-                                            PackageCompilation packageCompilation, SemanticModel semanticModel,
-                                            SyntaxTree syntaxTree, Package currentPackage, String filePath) {
+    public ServiceMemberFunctionNodeVisitor(String serviceId, PackageCompilation packageCompilation,
+                                            SemanticModel semanticModel, SyntaxTree syntaxTree,
+                                            Package currentPackage, String filePath) {
         this.serviceId = serviceId;
-        this.serviceLabel = serviceLabel;
         this.packageCompilation = packageCompilation;
         this.semanticModel = semanticModel;
         this.syntaxTree = syntaxTree;
@@ -122,7 +120,6 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
         SyntaxKind kind = functionDefinitionNode.kind();
         switch (kind) {
             case RESOURCE_ACCESSOR_DEFINITION: {
-                StringBuilder identifierBuilder = new StringBuilder();
                 StringBuilder resourcePathBuilder = new StringBuilder();
                 List<ResourceParameter> resourceParameterList = new ArrayList<>();
                 NodeList<Node> relativeResourcePaths = functionDefinitionNode.relativeResourcePath();
@@ -130,10 +127,6 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
                     if (path instanceof ResourcePathParameterNode) {
                         ResourcePathParameterNode pathParam = (ResourcePathParameterNode) path;
                         resourceParameterList.add(getPathParameter(pathParam));
-                        identifierBuilder.append(String.format("[%s]",
-                                pathParam.typeDescriptor().toSourceCode().trim()));
-                    } else {
-                        identifierBuilder.append(path);
                     }
                     resourcePathBuilder.append(path);
                 }
@@ -192,7 +185,7 @@ public class ServiceMemberFunctionNodeVisitor extends NodeVisitor {
 
                     String remoteFunctionId = String.format("%s:%s", serviceId, name);
                     RemoteFunction remoteFunction = new RemoteFunction(remoteFunctionId, name, parameterList,
-                            returnTypes,actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
+                            returnTypes, actionNodeVisitor.getInteractionList(), elementLocation, diagnostics);
                     remoteFunctions.add(remoteFunction);
                 }
                 break;
