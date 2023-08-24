@@ -11,7 +11,7 @@
     "frontend": {
       "path": "",
       "serviceId": "frontend",
-      "serviceType": "",
+      "serviceType": "ballerina/http:2.9.1",
       "resources": [
         {
           "identifier": "metadata",
@@ -45,7 +45,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:MetadataResponse",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
@@ -137,7 +137,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:HomeResponse",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
@@ -291,7 +291,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:ProductResponse",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
@@ -472,7 +472,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:CartResponse",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
@@ -667,9 +667,9 @@
             }
           ],
           "returns": [
-            ":Ok",
-            ":Unauthorized",
-            ":BadRequest",
+            "ballerina/http:http:2.9.1:Ok",
+            "ballerina/http:http:2.9.1:Unauthorized",
+            "ballerina/http:http:2.9.1:BadRequest",
             "error"
           ],
           "interactions": [
@@ -760,8 +760,8 @@
             }
           ],
           "returns": [
-            ":Ok",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Ok",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
@@ -852,7 +852,7 @@
           ],
           "returns": [
             "test/frontend_service:0.1.0:CheckoutResponse",
-            ":Unauthorized",
+            "ballerina/http:http:2.9.1:Unauthorized",
             "error"
           ],
           "interactions": [
