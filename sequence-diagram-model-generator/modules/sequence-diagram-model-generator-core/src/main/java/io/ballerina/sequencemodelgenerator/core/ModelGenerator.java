@@ -8,7 +8,8 @@ import io.ballerina.projects.*;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceModel;
-import io.ballerina.sequencemodelgenerator.core.visitors.EntryNodeVisitor;
+import io.ballerina.sequencemodelgenerator.core.visitors.RootNodeVisitor;
+import io.ballerina.sequencemodelgenerator.core.visitors.VisitorContext;
 import io.ballerina.tools.text.LineRange;
 
 import java.nio.file.Path;
@@ -35,13 +36,17 @@ public class ModelGenerator {
         SyntaxTree syntaxTree = doc.syntaxTree();
         NonTerminalNode node = findNode(syntaxTree, position);
         Optional<Symbol> clientSymbol = semanticModel.symbol(node);
-        EntryNodeVisitor workerNodeVisitor = new EntryNodeVisitor(semanticModel, packageName);
+//        EntryNodeVisitor workerNodeVisitor = new EntryNodeVisitor(semanticModel, packageName);
+//        node.accept(workerNodeVisitor);
+//        workerNodeVisitor.getParticipants();
+        VisitorContext visitorContext = new VisitorContext();
+        RootNodeVisitor workerNodeVisitor = new RootNodeVisitor(semanticModel, packageName, visitorContext);
         node.accept(workerNodeVisitor);
-        workerNodeVisitor.getParticipants();
+        workerNodeVisitor.getVisitorContext().getParticipants();
 
 
 
-        SequenceModel sequenceModel = new SequenceModel(workerNodeVisitor.getParticipants());
+        SequenceModel sequenceModel = new SequenceModel(workerNodeVisitor.getVisitorContext().getParticipants());
 
 
         return sequenceModel;

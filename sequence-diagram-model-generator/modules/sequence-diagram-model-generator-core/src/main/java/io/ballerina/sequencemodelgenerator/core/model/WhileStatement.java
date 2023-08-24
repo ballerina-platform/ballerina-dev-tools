@@ -2,11 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import java.util.List;
 
-public class WhileStatement extends StatementWithBody{
+public class WhileStatement extends DiagramElementWithChildren{
     private String condition;
 
-    public WhileStatement(List<Statement> statements, String condition) {
-        super("WHILE", statements);
+    public WhileStatement(String condition) {
+        super("WhileStatement");
         this.condition = condition;
     }
 }

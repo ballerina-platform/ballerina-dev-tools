@@ -92,7 +92,11 @@ public class ActionVisitor extends NodeVisitor {
                     this.visitorContext.addToParticipants(participant);
 
                     ActionStatement actionStatement = new ActionStatement(this.visitorContext.getCurrentParticipant().getId(), clientID, clientNode.toString());
-                    this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+                    if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                        this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
+                    } else {
+                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+                    }
                 }
             }
         }
@@ -104,7 +108,11 @@ public class ActionVisitor extends NodeVisitor {
             // todo make it support for multiple packages
             ActionStatement actionStatement = new ActionStatement(visitorContext.getCurrentParticipant().getId(),
                     participant.getId(), nameNode.toString());
-            visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+            if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
+            } else {
+                visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+            }
 
         } else {
 
@@ -125,12 +133,22 @@ public class ActionVisitor extends NodeVisitor {
 
                                 try {
                                     ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
+                                    // TODO accept this
                                     node.accept(actionVisitor);
                                     visitorContext.addToVisitedFunctionNames(nameNode);
                                     if (!actionVisitor.visitorContext.getCurrentParticipant().equals(visitorContext.getCurrentParticipant())) {
                                         ActionStatement actionStatement = new ActionStatement(visitorContext.getCurrentParticipant().getId(),
                                                 actionVisitor.visitorContext.getCurrentParticipant().getId(), nameNode.toString());
-                                        visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+
+//                                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+
+
+                                        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                                            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
+//                                            this.visitorContext.getCurrentParticipant().addChildDiagramElements(this.visitorContext.getDiagramElementWithChildren());
+                                        } else {
+                                            visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
+                                        }
                                     }
                                 } catch (Exception e) {
                                     System.out.println("Error is visiting sub participant for currentStatement");
@@ -159,18 +177,84 @@ public class ActionVisitor extends NodeVisitor {
                 setVisitorContext(visitorContext);
                 ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
                 functionDefinitionNode.functionBody().accept(actionVisitor);
+
+
+
+
+//                participant.addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
             }
 
         }
     }
 
+    @Override
+    public void visit(IfElseStatementNode ifElseStatementNode) {
+        IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString());
+        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                this.visitorContext.getParticipants(), ifStatement, this.visitorContext.getVisitedFunctionNames());
+//        setVisitorContext(visitorContext);
+        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
+        ifElseStatementNode.ifBody().accept(actionVisitor);
+
+        if (ifElseStatementNode.elseBody().isPresent()) {
+            ElseStatement elseStatement = new ElseStatement();
+            VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                    this.visitorContext.getParticipants(), elseStatement, this.visitorContext.getVisitedFunctionNames());
+//            setVisitorContext(visitorContext1);
+            ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
+            // TODO try with the same actionVisitor
+            ifElseStatementNode.elseBody().get().accept(actionVisitor1);
+            ifStatement.setElseStatement(actionVisitor1.visitorContext.getDiagramElementWithChildren());
+//            setVisitorContext(visitorContext);
+        }
+
+
+        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+            if (this.visitorContext.getDiagramElementWithChildren() instanceof ElseStatement) {
+                ElseStatement elseStatement = (ElseStatement) this.visitorContext.getDiagramElementWithChildren();
+                elseStatement.addChildDiagramElements(ifStatement);
+            } else {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(ifStatement);
+            }
+        } else {
+            this.visitorContext.getCurrentParticipant().addChildDiagramElements(ifStatement);
+        }
+//        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
+
+    }
+
 //    @Override
-//    public void visit(IfElseStatementNode ifElseStatementNode) {
-//        IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString());
-//        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), ifStatement,
-//                this.visitorContext.getParticipants(), this.visitorContext.getVisitedFunctionNames());
+//    public void visit(ElseBlockNode elseBlockNode) {
+////        ElseStatement elseStatement = new ElseStatement();
+////        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+////                this.visitorContext.getParticipants(), this.visitorContext.getDiagramElementWithChildren(), this.visitorContext.getVisitedFunctionNames());
+////        setVisitorContext(visitorContext);
 //        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
+//        elseBlockNode.elseBody().accept(actionVisitor);
+//
 //    }
+
+    @Override
+    public void visit(WhileStatementNode whileStatementNode) {
+        WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString());
+        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                this.visitorContext.getParticipants(), whileStatement, this.visitorContext.getVisitedFunctionNames());
+//        setVisitorContext(visitorContext);
+        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
+        whileStatementNode.whileBody().accept(actionVisitor);
+        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
+    }
+
+    @Override
+    public void visit(ForEachStatementNode forEachStatementNode) {
+        ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString());
+        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                this.visitorContext.getParticipants(), forEachStatement, this.visitorContext.getVisitedFunctionNames());
+//        setVisitorContext(visitorContext);
+        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
+        forEachStatementNode.blockStatement().accept(actionVisitor);
+        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
+    }
 
 
     private boolean isNodeVisited(NameReferenceNode functionName) {

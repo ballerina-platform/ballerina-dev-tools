@@ -1,38 +1,39 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
 import java.util.List;
-import java.util.Objects;
 
-public class Participant {
+public class Participant extends DiagramElementWithChildren {
     private String id;
     private String name;
-    private ParticipantKind kind;
+    private ParticipantKind participantKind;
     private String packageName;
     private String type; // not clear
 
-    private List<Statement> statements;
 
-    public List<Statement> getStatements() {
-        return statements;
-    }
+//    private List<Statement> statements;
+//
+//    public List<Statement> getStatements() {
+//        return statements;
+//    }
+//
+//    public void addStatement(Statement statement) {
+//        if (this.statements == null) {
+//            this.statements = new java.util.ArrayList<>();
+//            this.statements.add(statement);
+//        } else {
+//            this.statements.add(statement);
+//        }
+//    }
 
-    public void addStatement(Statement statement) {
-        if (this.statements == null) {
-            this.statements = new java.util.ArrayList<>();
-            this.statements.add(statement);
-        } else {
-            this.statements.add(statement);
-        }
-    }
-
-    public void setStatements(List<Statement> statements) {
-        this.statements = statements;
-    }
+//    public void setStatements(List<Statement> statements) {
+//        this.statements = statements;
+//    }
 
     public Participant(String id, String name, ParticipantKind kind, String packageName, String type) {
+        super("Participant");
         this.id = id;
         this.name = name;
-        this.kind = kind;
+        this.participantKind = kind;
         this.packageName = packageName;
         this.type = type;
     }
@@ -42,9 +43,10 @@ public class Participant {
     }
 
     public Participant(String id, String name, ParticipantKind kind, String packageName) {
+        super("Participant");
         this.id = id;
         this.name = name;
-        this.kind = kind;
+        this.participantKind = kind;
         this.packageName = packageName;
     }
 
@@ -52,8 +54,8 @@ public class Participant {
         return id;
     }
 
-    public ParticipantKind getKind() {
-        return kind;
+    public ParticipantKind getParticipantKind() {
+        return participantKind;
     }
 
     public String getName() {
@@ -65,10 +67,9 @@ public class Participant {
         return "Participant{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", kind=" + kind +
+                ", kind=" + participantKind +
                 ", packageName='" + packageName + '\'' +
                 ", type='" + type + '\'' +
-                ", statements=" + statements +
                 '}';
     }
 }

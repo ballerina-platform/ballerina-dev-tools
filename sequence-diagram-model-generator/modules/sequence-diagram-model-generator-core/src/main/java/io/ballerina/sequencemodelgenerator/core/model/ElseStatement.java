@@ -2,9 +2,9 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import java.util.List;
 
-public class ElseStatement extends StatementWithBody{
+public class ElseStatement extends DiagramElementWithChildren{
 
-    public ElseStatement( List<Statement> statements) {
-        super("ELSE", statements);
+    public ElseStatement() {
+        super("ElseStatement");
     }
 }

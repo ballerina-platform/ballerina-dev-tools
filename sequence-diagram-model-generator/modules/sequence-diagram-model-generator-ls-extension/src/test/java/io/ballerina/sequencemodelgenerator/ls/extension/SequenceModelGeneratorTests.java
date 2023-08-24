@@ -67,13 +67,40 @@ public class SequenceModelGeneratorTests {
 
     }
 
+
+    @Test(description = "test seqeunce")
+    public void testSequenceModelNewModel() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("sequence_services", "newSequence.bal"));
+
+        SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
+                LinePosition.from(2, 0), LinePosition.from(8, 1));
+
+        CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
+        SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
+
+
+    }
+
+    @Test(description = "test seqeunce")
+    public void testSequenceModelNewModel2() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("sequence_services", "whileForEach.bal"));
+
+        SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
+                LinePosition.from(2, 0), LinePosition.from(7, 1));
+
+        CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
+        SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
+    }
+
     @Test(description = "test sequence flow control")
     public void testSequenceModelFlowControl() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("sequence_services", "flow_control.bal"));
 
         SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
-                LinePosition.from(9, 0), LinePosition.from(26, 1));
+                LinePosition.from(9, 0), LinePosition.from(17, 1));
 
         CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
         SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
@@ -85,7 +112,7 @@ public class SequenceModelGeneratorTests {
                 Path.of("sequence_services", "elseElseIfbody.bal"));
 
         SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
-                LinePosition.from(6, 0), LinePosition.from(18, 1));
+                LinePosition.from(6, 0), LinePosition.from(14, 1));
 
         CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
         SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();

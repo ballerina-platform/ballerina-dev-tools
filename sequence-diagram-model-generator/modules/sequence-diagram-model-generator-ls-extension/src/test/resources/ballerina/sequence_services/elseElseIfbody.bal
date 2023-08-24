@@ -8,10 +8,6 @@ function testA1() returns string {
     string test = testB1();
     if (condition1) {
         string test2 = testC1();
-    } else if (condition2) {
-        string test4 = testD1();
-    } else if (condition3){
-        string test5 = testE1();
     } else {
         string test6 = testF1();
     }

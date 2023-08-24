@@ -43,7 +43,7 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
                 Path filePath = Path.of(request.getFilePath());
                 Project project = getCurrentProject(filePath);
                 if (this.workspaceManager.semanticModel(filePath).isEmpty()) {
-                    System.out.println("empty semantic model");
+//                    System.out.println("empty semantic model");
                 }
                 SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).get();
                 ModelGenerator modelGenerator = new ModelGenerator();
@@ -56,7 +56,7 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
             } catch (Exception e) {
 //                response.setIncompleteModel(true);
 //                response.setErrorMsg(String.format(UNEXPECTED_ERROR_MSG, e.getMessage()));
-                System.out.println(e);
+//                System.out.println(e);
             }
 
 

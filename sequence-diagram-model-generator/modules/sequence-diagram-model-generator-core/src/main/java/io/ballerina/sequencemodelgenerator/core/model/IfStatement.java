@@ -3,30 +3,41 @@ package io.ballerina.sequencemodelgenerator.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfStatement extends StatementWithBody {
+public class IfStatement extends DiagramElementWithChildren {
     private String condition;
-    private ElseStatement elseStatement;
-    private List<ElseIfStatement> elseIfStatements;
+    private DiagramElementWithChildren elseStatement; // this can be either else or elseiF
+//    private List<ElseIfStatement> elseIfStatements;
 
-    public IfStatement(List<Statement> statements, String condition) {
-        super("IF", statements);
+    public IfStatement(String condition) {
+        super("IfStatement");
         this.condition = condition;
     }
 
-    public void setElseStatement(ElseStatement elseStatement) {
+    public DiagramElementWithChildren getElseStatement() {
+        return elseStatement;
+    }
+
+    public void setElseStatement(DiagramElementWithChildren elseStatement) {
         this.elseStatement = elseStatement;
     }
 
-    public void setElseIfStatements(List<ElseIfStatement> elseIfStatements) {
-        this.elseIfStatements = elseIfStatements;
-    }
+//    public void setElseStatement(ElseStatement elseStatement) {
+//        this.elseStatement = elseStatement;
+//    }
 
-    public void appendToElseIfStatement(ElseIfStatement elseIfStatement) {
-        if (this.elseIfStatements == null) {
-            this.elseIfStatements = new ArrayList<>();
-            this.elseIfStatements.add(elseIfStatement);
-        } else {
-            this.elseIfStatements.add(elseIfStatement);
-        }
-    }
+
+
+
+//    public void setElseIfStatements(List<ElseIfStatement> elseIfStatements) {
+//        this.elseIfStatements = elseIfStatements;
+//    }
+//
+//    public void appendToElseIfStatement(StatementWithBody elseStatement) {
+//        if (this.elseStatement == null) {
+//            this.elseStatement = new ArrayList<>();
+//            this.elseStatement.add(elseStatement);
+//        } else {
+//            this.elseIfStatements.add(elseIfStatement);
+//        }
+//    }
 }

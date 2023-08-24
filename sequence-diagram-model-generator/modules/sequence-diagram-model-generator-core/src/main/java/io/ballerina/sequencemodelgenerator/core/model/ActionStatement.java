@@ -1,17 +1,12 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
-public class ActionStatement extends Statement{
-    private String sourceId;
-    private String targetId;
+public class ActionStatement extends Interaction {
 
     private String actionName;
-    private String varName;
 
-    public ActionStatement(String sourceId, String targetId, String actionName, String varName) {
-        super("ActionStatement");
-        this.sourceId = sourceId;
-        this.targetId = targetId;
+
+    public ActionStatement(String sourceId, String targetId, String actionName) {
+        super(sourceId, targetId);
         this.actionName = actionName;
-        this.varName = varName;
     }
 }

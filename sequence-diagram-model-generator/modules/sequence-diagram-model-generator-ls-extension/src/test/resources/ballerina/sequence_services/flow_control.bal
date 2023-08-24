@@ -9,24 +9,18 @@ boolean condition6 = true;
 
 function testA() returns string {
     string test = testB();
+    http:Client diseaseEpB = check new ("https://disease.sh/v3");
+    Country[] countries = check diseaseEpB->/covid\-19/countries;
     if (condition1) {
-        string test2 = testD();
-        if (condition2) {
-            string test3 = testE();
-            if (condition3) {
-                if(condition5) {
-                    string test4 = testG();
-                }
-            }
-        }
-        if (condition4) {
-            string test4 = testF();
-        }
+        string test = testG();
     }
     return "";
 }
 
 function testB() returns string {
+    if (condition1) {
+        string test = testG();
+    }
     string return3 = testC();
 
     return "";
