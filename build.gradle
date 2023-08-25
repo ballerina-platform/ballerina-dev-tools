@@ -108,6 +108,7 @@ task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-core:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:build")
+    dependsOn(":generatePomFileForMavenJavaPublication")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
@@ -132,6 +133,7 @@ task copyArtifactZip {
         }
     }
     outputs.dir artifactLibParent
+    doNotTrackState("build needs to run every time")
 }
 
 task createArtifactZip(type: Zip) {
@@ -139,8 +141,9 @@ task createArtifactZip(type: Zip) {
     dependsOn(":docerina-ui:createDocerinaUiZip")
     dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
     from "build"
-    archiveName 'ballerina-dev-tools-' + project.version + '.zip'
-    destinationDir(file("dist"))
+    archiveFileName = 'ballerina-dev-tools-' + project.version + '.zip'
+    destinationDirectory = file("dist")
+    doNotTrackState("build needs to run every time")
 }
 
 publishing {
@@ -189,5 +192,6 @@ task clean {
     delete "dist"
 }
 
+build.doNotTrackState("build needs to run every time")
 publishToMavenLocal.dependsOn build
 publish.dependsOn build

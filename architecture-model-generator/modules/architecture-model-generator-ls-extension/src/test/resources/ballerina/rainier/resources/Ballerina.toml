@@ -14,10 +14,10 @@ user = "root"
 password = "Test123#"
 database = "rainier_db"
 
-[[platform.java11.repository]]
+[[platform.java17.repository]]
 id="wso2-nexus"
 url = "https://maven.wso2.org/nexus/content/groups/public/"
 
-[[platform.java11.repository]]
+[[platform.java17.repository]]
 id="wso2-nexus-snapshot"
 url = "https://maven.wso2.org/nexus/content/repositories/snapshots/"
