@@ -88,11 +88,36 @@ public class SequenceModelGeneratorTests {
                 Path.of("sequence_services", "whileForEach.bal"));
 
         SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
-                LinePosition.from(2, 0), LinePosition.from(7, 1));
+                LinePosition.from(2, 0), LinePosition.from(11, 1));
 
         CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
         SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
     }
+
+    @Test(description = "test seqeunce")
+    public void testSequenceHealthSvc() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("sequence_services", "hospitalSvc.bal"));
+
+        SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
+                LinePosition.from(291, 4), LinePosition.from(302, 5));
+
+        CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
+        SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
+    }
+
+    @Test(description = "test seqeunce")
+    public void testSequenceGSheetSvc() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("sequence_services", "gsheet.bal"));
+
+        SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
+                LinePosition.from(16, 0), LinePosition.from(34, 5));
+
+        CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
+        SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
+    }
+
 
     @Test(description = "test sequence flow control")
     public void testSequenceModelFlowControl() throws IOException, ExecutionException, InterruptedException {

@@ -63,7 +63,7 @@ public class RootNodeVisitor extends NodeVisitor {
                     // workerNodeMember
 
                     try {
-                        functionDefinitionNode.accept(actionVisitor);
+                        functionDefinitionNode.functionBody().accept(actionVisitor);
 //                        functionDefinitionNode.accept(workerMemberNodeVisitor);
                     } catch (Exception e) {
                         System.out.printf("Error in visiting functionDefinitionNode: %s\n", e.getMessage());

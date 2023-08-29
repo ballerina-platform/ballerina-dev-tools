@@ -1,9 +1,13 @@
 import ballerina/http;
 
 function testA() returns string{
-       string test = testC();
-       //string test2 = testB();
-        string test3 = testK();
+    while(true) {
+    string s = testB()
+    string[] names = ["Bob", "Jo", "Ann", "Tom"];
+        foreach string name in names {
+          string g =  testE();
+        }
+        }
     return "";
 }
 
@@ -70,6 +74,9 @@ function testK() returns string{
 }
 
 function testL() returns string{
+    while(true) {
+        string test = testK();
+    }
     return "";
 }
 
