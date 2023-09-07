@@ -3,10 +3,10 @@ package io.ballerina.sequencemodelgenerator.core.model;
 import java.util.List;
 
 public class Participant extends DiagramElementWithChildren {
-    private String id;
-    private String name;
-    private ParticipantKind participantKind;
-    private String packageName;
+    private final String id;
+    private final String name;
+    private final ParticipantKind participantKind;
+    private final String packageName;
     private String type; // not clear
 
 
@@ -30,7 +30,7 @@ public class Participant extends DiagramElementWithChildren {
 //    }
 
     public Participant(String id, String name, ParticipantKind kind, String packageName, String type) {
-        super("Participant");
+        super("Participant", false);
         this.id = id;
         this.name = name;
         this.participantKind = kind;
@@ -43,7 +43,7 @@ public class Participant extends DiagramElementWithChildren {
     }
 
     public Participant(String id, String name, ParticipantKind kind, String packageName) {
-        super("Participant");
+        super("Participant", false);
         this.id = id;
         this.name = name;
         this.participantKind = kind;

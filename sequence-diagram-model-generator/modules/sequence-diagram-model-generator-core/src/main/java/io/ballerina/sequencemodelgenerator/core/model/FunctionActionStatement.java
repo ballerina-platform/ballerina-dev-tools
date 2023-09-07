@@ -5,8 +5,8 @@ public class FunctionActionStatement extends Interaction {
     private String functionName;
 
 
-    public FunctionActionStatement(String sourceId, String targetId, String functionName) {
-        super(sourceId, targetId, "FunctionInteraction");
+    public FunctionActionStatement(String sourceId, String targetId, String functionName, boolean isHiddenInSequenceDiagram) {
+        super(sourceId, targetId, "FunctionInteraction", isHiddenInSequenceDiagram);
         this.functionName = functionName;
     }
 

@@ -17,13 +17,17 @@ import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils
 public class ActionVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Package currentPackage;
-
     private VisitorContext visitorContext;
-
     private final String modulePrefix = null;
 
-    public void setVisitorContext(VisitorContext visitorContext) {
-        this.visitorContext = visitorContext;
+    private boolean isHiddenVariableStmt = false;
+
+    public void setHiddenVariableStmt(boolean hiddenVariableStmt) {
+        isHiddenVariableStmt = hiddenVariableStmt;
+    }
+
+    public boolean isHiddenVariableStmt() {
+        return isHiddenVariableStmt;
     }
 
     public ActionVisitor(SemanticModel semanticModel, Package currentPackage, VisitorContext visitorContext) {
@@ -37,13 +41,98 @@ public class ActionVisitor extends NodeVisitor {
         if ((functionCallExpressionNode.functionName() instanceof SimpleNameReferenceNode ||
                 functionCallExpressionNode.functionName() instanceof QualifiedNameReferenceNode)) {
 
-            // this is for the visitedFunction definitions based on functionCalls
-//            visitorContext.addToVisitedFunctionNames(functionCallExpressionNode.functionName());
             Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode.functionName());
-            symbol.ifPresent(value -> findInteractions(functionCallExpressionNode.functionName(), value));
+            boolean isHidden = this.isHiddenVariableStmt();
+//            if (isCommentPresentInParentNode(functionCallExpressionNode.parent())) {
+//                if (functionCallExpressionNode.parent().kind().equals(SyntaxKind.CALL_STATEMENT)) {
+//                    isHidden = isHiddenInSequenceFlagPresent(functionCallExpressionNode.parent());
+//                } else {
+//                    isHidden = false;
+//                }
+//            } else {
+//                isHidden = this.isHiddenVariableStmt();
+//            }
 
+
+//            ParentStatementFindingVisitor parentStatementFindingVisitor = new ParentStatementFindingVisitor();
+//            parentStatementFindingVisitor.analyze(functionCallExpressionNode);
+//            Node parentStatement = parentStatementFindingVisitor.getParentStatement();
+//            if (functionCallExpressionNode.parent().kind().equals(SyntaxKind.CALL_STATEMENT)) {
+//                isHidden = isHiddenInSequenceFlagPresent(functionCallExpressionNode.parent());
+//            } else {
+//                isHidden = this.isHiddenVariableStmt();
+//            }
+//
+
+            symbol.ifPresent(value -> findInteractions(functionCallExpressionNode.functionName(), value, isHidden));
         }
     }
+
+
+    @Override
+    public void visit(ExpressionStatementNode expressionStatementNode) {
+        if (isStatementBlockCommentPresent(expressionStatementNode)) {
+            generateStatementBlock(expressionStatementNode);
+        }
+        if (!expressionStatementNode.expression().isMissing()) {
+            boolean isHidden = isHiddenInSequenceFlagPresent(expressionStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            expressionStatementNode.expression().accept(this);
+        }
+    }
+
+
+
+//    @Override
+//    public void visit(CheckExpressionNode checkExpressionNode) {
+//        if (isStatementBlockCommentPresent(checkExpressionNode)) {
+//            generateStatementBlock(checkExpressionNode);
+//        }
+//        if (!checkExpressionNode.expression().isMissing()) {
+//            boolean isHidden = isHiddenInSequenceFlagPresent(checkExpressionNode);
+//            this.setHiddenVariableStmt(isHidden);
+//            checkExpressionNode.expression().accept(this);
+//        }
+//    }
+
+
+    @Override
+    public void visit(VariableDeclarationNode variableDeclarationNode) {
+        if (isStatementBlockCommentPresent(variableDeclarationNode)) {
+            generateStatementBlock(variableDeclarationNode);
+        }
+        if (variableDeclarationNode.initializer().isPresent()) {
+            boolean isHidden = isHiddenInSequenceFlagPresent(variableDeclarationNode);
+            this.setHiddenVariableStmt(isHidden);
+            variableDeclarationNode.initializer().get().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(CompoundAssignmentStatementNode compoundAssignmentStatementNode) {
+        if (isStatementBlockCommentPresent(compoundAssignmentStatementNode)) {
+            generateStatementBlock(compoundAssignmentStatementNode);
+        }
+        if (!compoundAssignmentStatementNode.rhsExpression().isMissing()) {
+            boolean isHidden = isHiddenInSequenceFlagPresent(compoundAssignmentStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            compoundAssignmentStatementNode.rhsExpression().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(ReturnStatementNode returnStatementNode) {
+        if (isStatementBlockCommentPresent(returnStatementNode)) {
+            generateStatementBlock(returnStatementNode);
+        }
+        if (returnStatementNode.expression().isPresent()) {
+            boolean isHidden = isHiddenInSequenceFlagPresent(returnStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            returnStatementNode.expression().get().accept(this);
+        }
+    }
+
+
 
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
@@ -61,8 +150,6 @@ public class ActionVisitor extends NodeVisitor {
             } else if (clientResourceAccessActionNode.expression().kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
                 clientNode = (QualifiedNameReferenceNode) clientResourceAccessActionNode.expression();
             }
-
-
         } catch (Exception e) {
             // Diagnostic message is logged in the visit() method
         }
@@ -75,32 +162,39 @@ public class ActionVisitor extends NodeVisitor {
                 ObjectTypeSymbol objectTypeSymbol = (ObjectTypeSymbol) rawType;
                 boolean isEndpoint = objectTypeSymbol.qualifiers()
                         .contains(Qualifier.CLIENT);
-                if (isEndpoint) {
-                    String clientID = UUID.randomUUID().toString();
+                if (isEndpoint && clientNode != null && objectTypeSymbol.getModule().isPresent()) {
+                    // generate endpoint participant FQN
+                    String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim().replace(":", "_");
+                    String clientID = clientPkgName + "_" + objectTypeSymbol.signature().trim() + "_" + clientNode.toString().trim();
                     SeparatedNodeList<Node> resourceAccessPath = clientResourceAccessActionNode.resourceAccessPath();
                     // iterate over the resourceAccessPath and create resourcePath by concatenating all the strings in SeparatedNodeList
                     String resourceName = "";
 
                     for (Node node : resourceAccessPath) {
-                        if(node.kind().equals(SyntaxKind.IDENTIFIER_TOKEN)) {
+                        if (node.kind().equals(SyntaxKind.IDENTIFIER_TOKEN)) {
                             if (!resourceName.isEmpty()) {
                                 resourceName = resourceName.concat("/");
                             }
-                            resourceName = resourceName.concat(((Token) node).text());
+                            resourceName = resourceName.concat(((Token) node).text()).trim();
                         }
                     }
-
-                    //  TODO Check for duplicate participants
-                    Participant participant = new Participant(clientID, clientNode.toString(),
-                            ParticipantKind.ENDPOINT, objectTypeSymbol.getModule().get().id().toString(), objectTypeSymbol.signature());
-                    this.visitorContext.addToParticipants(participant);
-                    String methodName = "get";
-                    if (clientResourceAccessActionNode.methodName().isPresent()) {
-                        methodName = clientResourceAccessActionNode.methodName().get().toString();
+                    // TODO: rename the clientiDI as endpointID
+                    if (!isEndpointPresent(clientID)) {
+                        Participant participant = new Participant(clientID, clientNode.toString().trim(),
+                                ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim());
+                        this.visitorContext.addToParticipants(participant);
                     }
 
+                    String methodName = "get";
+                    if (clientResourceAccessActionNode.methodName().isPresent()) {
+                        methodName = clientResourceAccessActionNode.methodName().get().toString().trim();
+                    }
+
+//                    boolean isHidden = isHiddenInSequenceFlagPresent(clientResourceAccessActionNode);
+                    boolean isHidden = this.isHiddenVariableStmt();
                     EndpointActionStatement actionStatement = new EndpointActionStatement(
-                            this.visitorContext.getCurrentParticipant().getId(), clientID, clientNode.toString(),methodName, resourceName);
+                            this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
+                            methodName, resourceName, isHidden);
                     if (this.visitorContext.getDiagramElementWithChildren() != null) {
                         this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                     } else {
@@ -138,28 +232,30 @@ public class ActionVisitor extends NodeVisitor {
                         ObjectTypeSymbol objectTypeSymbol = (ObjectTypeSymbol) rawType;
                         boolean isEndpoint = objectTypeSymbol.qualifiers()
                                 .contains(Qualifier.CLIENT);
-                        if (isEndpoint) {
-                            String clientID = UUID.randomUUID().toString();
-                            Participant participant = new Participant(clientID, clientNode.toString(),
-                                    ParticipantKind.ENDPOINT, objectTypeSymbol.getModule().get().id().toString(), objectTypeSymbol.signature());
-                            this.visitorContext.addToParticipants(participant);
+                        if (isEndpoint && objectTypeSymbol.getModule().isPresent()) {
+                            String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim().replace(":", "_");
+                            String clientID = clientPkgName + "_" + objectTypeSymbol.signature().trim() + "_" + clientNode.toString().trim();
 
+                            if (!isEndpointPresent(clientID)) {
+                                Participant participant = new Participant(clientID, clientNode.toString().trim(),
+                                        ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim());
+                                this.visitorContext.addToParticipants(participant);
+                            }
 
                             SeparatedNodeList<FunctionArgumentNode> resourceAccessPath = remoteMethodCallActionNode.arguments();
                             // iterate over the resourceAccessPath and create resourcePath by concatenating all the strings in SeparatedNodeList
                             String resourceName = "";
-
                             for (Node node : resourceAccessPath) {
-                                if(node.kind().equals(SyntaxKind.POSITIONAL_ARG)) {
+                                if (node.kind().equals(SyntaxKind.POSITIONAL_ARG)) {
                                     resourceName = resourceName.concat(node.toSourceCode());
                                 }
                             }
 
-
-
+                            // boolean isHidden = isHiddenInSequenceFlagPresent(remoteMethodCallActionNode);
+                            boolean isHidden = this.isHiddenVariableStmt();
                             EndpointActionStatement actionStatement = new EndpointActionStatement(
-                                    this.visitorContext.getCurrentParticipant().getId(), clientID, clientNode.toString(),
-                                    remoteMethodCallActionNode.methodName().toString(), removeDoubleQuotes(resourceName));
+                                    this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
+                                    remoteMethodCallActionNode.methodName().toString().trim(), removeDoubleQuotes(resourceName), isHidden);
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                             } else {
@@ -170,27 +266,25 @@ public class ActionVisitor extends NodeVisitor {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error occurred while visiting remote method call action node" + e.getMessage());
+            // System.out.println("Error occurred while visiting remote method call action node" + e.getMessage());
         }
 
 
     }
 
-    private void findInteractions(NameReferenceNode nameNode, Symbol methodSymbol) {
+    private void findInteractions(NameReferenceNode nameNode, Symbol methodSymbol, boolean isHidden) {
         if (isNodeVisited(nameNode)) {
-            Participant participant = getParticipantInList(nameNode.toString().trim(), this.currentPackage.packageName().toString());
-            // todo make it support for multiple packages
-            FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId(),
-                    participant.getId(), nameNode.toString().trim());
-            if (this.visitorContext.getDiagramElementWithChildren() != null) {
-                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(functionActionStatement);
-            } else {
-                visitorContext.getCurrentParticipant().addChildDiagramElements(functionActionStatement);
+            Participant participant = getParticipantInList(nameNode.toString().trim(), this.currentPackage.packageName().toString().trim());
+            if (participant != null) {
+                FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                        participant.getId().trim(), nameNode.toString().trim(), isHidden);
+                if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                    this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(functionActionStatement);
+                } else {
+                    visitorContext.getCurrentParticipant().addChildDiagramElements(functionActionStatement);
+                }
             }
-
         } else {
-
-
             Optional<Location> location = methodSymbol.getLocation();
             Optional<ModuleSymbol> optionalModuleSymbol = methodSymbol.getModule();
             if (optionalModuleSymbol.isPresent()) {
@@ -206,31 +300,35 @@ public class ActionVisitor extends NodeVisitor {
                                         .findNode(location.get().textRange());
 
                                 try {
-                                    ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
-                                    // TODO accept this
+                                    SemanticModel nextSemanticModel = currentPackage.getCompilation().getSemanticModel(module.moduleId());
+                                    ActionVisitor actionVisitor = new ActionVisitor(nextSemanticModel, currentPackage, visitorContext);
                                     node.accept(actionVisitor);
                                     visitorContext.addToVisitedFunctionNames(nameNode);
 
-                                    // get targetParticipant
-                                    // TODO get the module participant delails
-                                    Participant targetParticipant = getParticipantInList(nameNode.toString().trim(), this.currentPackage.packageName().toString());
+                                    Participant targetParticipant = null;
+                                    String functionName = null;
+                                    if (nameNode.kind().equals(SyntaxKind.QUALIFIED_NAME_REFERENCE)) {
+                                        targetParticipant = getParticipantInList(((QualifiedNameReferenceNode) nameNode).identifier().toString().trim(), this.currentPackage.packageName().toString());
+                                        functionName = ((QualifiedNameReferenceNode) nameNode).identifier().toString().trim();
+                                    } else {
+                                        targetParticipant = getParticipantInList(((SimpleNameReferenceNode) nameNode).name().text().trim(), this.currentPackage.packageName().toString());
+                                        functionName = ((SimpleNameReferenceNode) nameNode).name().text().trim();
+                                    }
 
-//                                    if (!actionVisitor.visitorContext.getCurrentParticipant().equals(visitorContext.getCurrentParticipant())) {
-                                        FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId(),
-                                                targetParticipant.getId(), nameNode.toString().trim());
+                                    if (targetParticipant != null) {
 
-//                                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionStatement);
 
+                                        FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                                                targetParticipant.getId().trim(), functionName, isHidden);
 
                                         if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                             this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(functionActionStatement);
-//                                            this.visitorContext.getCurrentParticipant().addChildDiagramElements(this.visitorContext.getDiagramElementWithChildren());
                                         } else {
                                             visitorContext.getCurrentParticipant().addChildDiagramElements(functionActionStatement);
                                         }
-                                   // }
+                                    }
                                 } catch (Exception e) {
-                                    System.out.println("Error is visiting sub participant for currentStatement");
+                                    // System.out.println("Error is visiting sub participant for currentStatement");
                                 }
 
                             }
@@ -245,112 +343,115 @@ public class ActionVisitor extends NodeVisitor {
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
         if (typeSymbol.isPresent()) {
-            String packageName = typeSymbol.get().getModule().get().id().packageName();
+            String packageName = typeSymbol.get().getModule().get().id().packageName().trim();
             if (!isParticipantInList(functionDefinitionNode.functionName().text().trim(), packageName)) {
-                String functionID = UUID.randomUUID().toString();
+//                String functionID = UUID.randomUUID().toString(); // TODO: move to FQN
+                String moduleID = typeSymbol.get().getModule().get().id().toString().trim().replace(":", "_");
+                String functionID = moduleID + "_" + functionDefinitionNode.functionName().text().trim();
                 Participant participant = new Participant(functionID,
                         functionDefinitionNode.functionName().text().trim(), ParticipantKind.WORKER, packageName);
                 VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), participant,
                         this.visitorContext.getParticipants(), this.visitorContext.getVisitedFunctionNames());
                 visitorContext.addToParticipants(participant);
-//              setVisitorContext(visitorContext);
                 ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
                 functionDefinitionNode.functionBody().accept(actionVisitor);
-
-
-
-
-//                participant.addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
             }
-
         }
     }
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString());
+        if (isStatementBlockCommentPresent(ifElseStatementNode)) {
+            generateStatementBlock(ifElseStatementNode);
+        }
+        boolean isHidden = isHiddenInSequenceFlagPresent(ifElseStatementNode);
+        IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString(), isHidden);
+
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), ifStatement, this.visitorContext.getVisitedFunctionNames());
-//        setVisitorContext(visitorContext);
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
         ifElseStatementNode.ifBody().accept(actionVisitor);
 
         if (ifElseStatementNode.elseBody().isPresent()) {
-            ElseStatement elseStatement = new ElseStatement();
+            ElseStatement elseStatement = new ElseStatement(isHidden);
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), elseStatement, this.visitorContext.getVisitedFunctionNames());
-//            setVisitorContext(visitorContext1);
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
-            // TODO try with the same actionVisitor
+
             ifElseStatementNode.elseBody().get().accept(actionVisitor1);
             ifStatement.setElseStatement(actionVisitor1.visitorContext.getDiagramElementWithChildren());
-//            setVisitorContext(visitorContext);
         }
-
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
             if (this.visitorContext.getDiagramElementWithChildren() instanceof ElseStatement) {
                 ElseStatement elseStatement = (ElseStatement) this.visitorContext.getDiagramElementWithChildren();
                 elseStatement.addChildDiagramElements(ifStatement);
             } else {
-                if (ifStatement.getChildElements() != null || ifStatement.getElseStatement() != null) {
+                // Adding ifStatement if the body of statement has interactions
+                if (ifStatement.getChildElements() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getChildElements() != null)) {
                     this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(ifStatement);
                 }
             }
         } else {
-            if (ifStatement.getChildElements() != null || ifStatement.getElseStatement() != null) {
+            if (ifStatement.getChildElements() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getChildElements() != null)) {
                 this.visitorContext.getCurrentParticipant().addChildDiagramElements(ifStatement);
             }
         }
-//        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
-
     }
-
-//    @Override
-//    public void visit(ElseBlockNode elseBlockNode) {
-////        ElseStatement elseStatement = new ElseStatement();
-////        VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
-////                this.visitorContext.getParticipants(), this.visitorContext.getDiagramElementWithChildren(), this.visitorContext.getVisitedFunctionNames());
-////        setVisitorContext(visitorContext);
-//        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
-//        elseBlockNode.elseBody().accept(actionVisitor);
-//
-//    }
-
     @Override
     public void visit(WhileStatementNode whileStatementNode) {
-        WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString());
+        if (isStatementBlockCommentPresent(whileStatementNode)) {
+            generateStatementBlock(whileStatementNode);
+        }
+        boolean isHidden = isHiddenInSequenceFlagPresent(whileStatementNode);
+        WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString(), isHidden);
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), whileStatement, this.visitorContext.getVisitedFunctionNames());
-//        setVisitorContext(visitorContext);
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
         whileStatementNode.whileBody().accept(actionVisitor);
-        if (this.visitorContext.getDiagramElementWithChildren() != null && this.visitorContext.getDiagramElementWithChildren().getChildElements() != null) {
-            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
-        } else {
+
+        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+            // if the while statement is inside another statement block
+            if (whileStatement.getChildElements() != null) {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(whileStatement);
+            }
+        } else if (whileStatement.getChildElements() != null) {
+            // Above check is to avoid adding statements without interactions to the participant
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(whileStatement);
         }
     }
 
+
+
+
+
     @Override
     public void visit(ForEachStatementNode forEachStatementNode) {
-        ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString());
+        if (isStatementBlockCommentPresent(forEachStatementNode)) {
+            generateStatementBlock(forEachStatementNode);
+        }
+        boolean isHidden = isHiddenInSequenceFlagPresent(forEachStatementNode);
+        ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString(), isHidden);
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), forEachStatement, this.visitorContext.getVisitedFunctionNames());
-//        setVisitorContext(visitorContext);
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
         forEachStatementNode.blockStatement().accept(actionVisitor);
-        if (this.visitorContext.getDiagramElementWithChildren() != null && this.visitorContext.getDiagramElementWithChildren().getChildElements() != null) {
-            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
-        } else {
+        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+            if (forEachStatement.getChildElements() != null) {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(forEachStatement);
+            }
+        } else if (forEachStatement.getChildElements() != null) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(forEachStatement);
         }
-//        this.visitorContext.getCurrentParticipant().addChildDiagramElements(actionVisitor.visitorContext.getDiagramElementWithChildren());
     }
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        LockStatement lockStatement = new LockStatement();
+        if (isStatementBlockCommentPresent(lockStatementNode)) {
+            generateStatementBlock(lockStatementNode);
+        }
+        boolean isHidden = isHiddenInSequenceFlagPresent(lockStatementNode);
+        LockStatement lockStatement = new LockStatement(isHidden);
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), lockStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -358,7 +459,7 @@ public class ActionVisitor extends NodeVisitor {
 
         if (lockStatementNode.onFailClause().isPresent()) {
             OnFailStatement onFailStatement = new OnFailStatement(lockStatementNode.onFailClause().get().typeDescriptor().toString(),
-                    lockStatementNode.onFailClause().get().failErrorName().toString());
+                    lockStatementNode.onFailClause().get().failErrorName().toString(), isHidden);
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -366,24 +467,32 @@ public class ActionVisitor extends NodeVisitor {
             lockStatement.setOnFailStatement(onFailStatement);
         }
 
-        if (lockStatement.getChildElements() != null) {
+        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+            if (lockStatement.getChildElements() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getChildElements() != null)) {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(lockStatement);
+            }
+        } else if (lockStatement.getChildElements() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getChildElements() != null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(lockStatement);
         }
-
-
     }
 
     @Override
     public void visit(DoStatementNode doStatementNode) {
-        DoStatement doStatement = new DoStatement();
+        if (isStatementBlockCommentPresent(doStatementNode)) {
+            generateStatementBlock(doStatementNode);
+        }
+        boolean isHidden = isHiddenInSequenceFlagPresent(doStatementNode);
+        DoStatement doStatement = new DoStatement(isHidden);
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), doStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
         doStatementNode.blockStatement().accept(actionVisitor);
 
         if (doStatementNode.onFailClause().isPresent()) {
-            OnFailStatement onFailStatement = new OnFailStatement(doStatementNode.onFailClause().get().typeDescriptor().toString(),
-                    doStatementNode.onFailClause().get().failErrorName().toString());
+            OnFailStatement onFailStatement = new OnFailStatement(
+                    doStatementNode.onFailClause().get().typeDescriptor().isPresent() ? doStatementNode.onFailClause().get().typeDescriptor().get().toString() : "",
+                    doStatementNode.onFailClause().get().failErrorName().isPresent() ? doStatementNode.onFailClause().get().failErrorName().get().toString() : "",
+                    isHidden);
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -391,28 +500,196 @@ public class ActionVisitor extends NodeVisitor {
             doStatement.setOnFailStatement(onFailStatement);
         }
 
-        if (doStatement.getChildElements() != null) {
+        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+            if (doStatement.getChildElements() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getChildElements()!= null)) {
+                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(doStatement);
+            }
+        } else if (doStatement.getChildElements() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getChildElements()!= null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(doStatement);
         }
     }
 
+//    @Override
+//    public void visit(Token token) {
+//        if (token.containsLeadingMinutiae()) {
+//            token.leadingMinutiae().forEach(minutiae -> {
+//                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+//                    if (minutiae.text().contains("@statementBlock-Start:")) {
+//                        StatementBlock statementBlock = new StatementBlock();
+//                        statementBlock.setStartLocation(minutiae.parentToken().location().lineRange());
+//                        statementBlock.setStatementBlockText(extractBlockComment(minutiae.text()));
+////                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//                        this.visitorContext.addStatementBlock(statementBlock); // pop the last statement
+//                    }
+//                    if (minutiae.text().contains("@statementBlock-End")) {
+//                        StatementBlock statementBlock = this.visitorContext.getLastAddedStatementBlock();
+//                        statementBlock.setEndLocation(minutiae.parentToken().location().lineRange());
+//                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//                    }
+//                }
+//            });
+//        }
+//
+////        if (token.containsTrailingMinutiae()) {
+////            token.trailingMinutiae().forEach(minutiae -> {
+////                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+////                    if (minutiae.text().contains("@statementBlock-End")) {
+////                        StatementBlock statementBlock = this.visitorContext.getLastAddedStatementBlock();
+////                        statementBlock.setEndLocation(minutiae.parentToken().location().lineRange());
+////                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+////                    }
+////                }
+////            });
+////        }
+//    }
+
+
+//    @Override
+//    public void visit(AnnotationNode annotationNode){
+//        if (annotationNode.annotValue().isPresent()) {
+//            if(annotationNode.annotValue().get().fields().get(0).toString().contains("StatementBlock")){
+//                StatementBlock statementBlock = new StatementBlock();
+//                statementBlock.setLocation(annotationNode.location().lineRange());
+//                statementBlock.setStatementBlockText(extractAnnotationData(annotationNode.annotValue().get().fields().get(1).toString()));
+//                this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//            }
+//
+//        }
+//    }
+
+
+    public boolean isStatementBlockCommentPresent(Node node) {
+        if (!node.leadingMinutiae().isEmpty()) {
+            for (Minutiae minutiae : node.leadingMinutiae()) {
+                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+                    if (minutiae.text().contains("@sq-comment:")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isCommentPresentInParentNode(Node node) {
+        if (node.parent() != null) {
+            if (!node.parent().leadingMinutiae().isEmpty()) {
+                for (Minutiae minutiae : node.parent().leadingMinutiae()) {
+                    if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+                            return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isHiddenInSequenceFlagPresent(Node node) {
+        if (!node.leadingMinutiae().isEmpty()) {
+            for (Minutiae minutiae : node.leadingMinutiae()) {
+                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+                    if (minutiae.text().contains("@sq-ignore")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void generateStatementBlock(Node token) {
+        if (!token.leadingMinutiae().isEmpty()) {
+            token.leadingMinutiae().forEach(minutiae -> {
+                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+                    if (minutiae.text().contains("@sq-comment:")) {
+
+                        // Split the input string into individual lines using the newline character as the delimiter
+                        String[] lines = minutiae.text().split("\\n");
+
+                        // Iterate through the lines and process each one
+                        for (String line : lines) {
+                            StatementBlock statementBlock = new StatementBlock();
+                            statementBlock.setLocation(minutiae.parentToken().location().lineRange()); // TODO : Fix the correct location
+                            statementBlock.setStatementBlockText(extractBlockComment(line));
+                            if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(statementBlock);
+                            } else {
+                                this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+                            }
+                        }
+//                        StatementBlock statementBlock = new StatementBlock();
+//                        statementBlock.setLocation(minutiae.parentToken().location().lineRange());
+//                        statementBlock.setStatementBlockText(extractBlockComment(minutiae.text()));
+//                        if (this.visitorContext.getDiagramElementWithChildren() != null) {
+//                            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(statementBlock);
+//                        } else {
+//                            this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//                        }
+//                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+                    }
+//                    if (minutiae.text().contains("@statementBlock-End")) {
+//                        StatementBlock statementBlock = this.visitorContext.getLastAddedStatementBlock();
+//                        statementBlock.setEndLocation(minutiae.parentToken().location().lineRange());
+//                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//                    }
+                }
+            });
+        }
+
+//        if (!token.trailingMinutiae().isEmpty()) {
+//            token.trailingMinutiae().forEach(minutiae -> {
+//                if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
+//                    if (minutiae.text().contains("@statementBlock-End")) {
+//                        StatementBlock statementBlock = this.visitorContext.getLastAddedStatementBlock();
+//                        statementBlock.setEndLocation(minutiae.parentToken().location().lineRange());
+//                        this.visitorContext.getCurrentParticipant().addChildDiagramElements(statementBlock);
+//                    }
+//                }
+//            });
+//        }
+    }
+
+    // TODO : check the node visited logic
+//    private boolean isNodeVisited(NameReferenceNode functionName) {
+//        return visitorContext.getVisitedFunctionNames().stream().anyMatch(nameNode -> {
+//            if (functionName instanceof SimpleNameReferenceNode) {
+//                if ((nameNode instanceof QualifiedNameReferenceNode && modulePrefix != null)) {
+//                    return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
+//                            .equals(modulePrefix + ":" + ((SimpleNameReferenceNode) functionName).name().text());
+//                } else if (nameNode instanceof SimpleNameReferenceNode) {
+//                    return ((SimpleNameReferenceNode) nameNode).name().text()
+//                            .equals(((SimpleNameReferenceNode) functionName).name().text());
+//                }
+//            } else if (functionName instanceof QualifiedNameReferenceNode) {
+//                return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
+//                        .equals(getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) functionName));
+//            }
+//            return false;
+//        });
+//    }
 
     private boolean isNodeVisited(NameReferenceNode functionName) {
-        return visitorContext.getVisitedFunctionNames().stream().anyMatch(nameNode -> {
-            if (functionName instanceof SimpleNameReferenceNode) {
-                if ((nameNode instanceof QualifiedNameReferenceNode && modulePrefix != null)) {
-                    return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
-                            .equals(modulePrefix + ":" + ((SimpleNameReferenceNode) functionName).name().text());
-                } else if (nameNode instanceof SimpleNameReferenceNode) {
+        if (functionName instanceof SimpleNameReferenceNode) {
+            return visitorContext.getVisitedFunctionNames().stream().anyMatch(nameNode -> {
+                if (nameNode instanceof SimpleNameReferenceNode) {
                     return ((SimpleNameReferenceNode) nameNode).name().text()
                             .equals(((SimpleNameReferenceNode) functionName).name().text());
+                } else if (nameNode instanceof QualifiedNameReferenceNode && modulePrefix != null) {
+                    return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
+                            .equals(modulePrefix + ":" + ((SimpleNameReferenceNode) functionName).name().text());
                 }
-            } else if (functionName instanceof QualifiedNameReferenceNode) {
-                return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
-                        .equals(getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) functionName));
-            }
-            return false;
-        });
+                return false;
+            });
+        } else if (functionName instanceof QualifiedNameReferenceNode) {
+            return visitorContext.getVisitedFunctionNames().stream().anyMatch(nameNode -> {
+                if (nameNode instanceof QualifiedNameReferenceNode) {
+                    return getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) nameNode)
+                            .equals(getQualifiedNameRefNodeFuncNameText((QualifiedNameReferenceNode) functionName));
+                }
+                return false;
+            });
+        }
+        return false;
     }
 
     private boolean isParticipantInList(String name, String pkgName) {
@@ -435,10 +712,43 @@ public class ActionVisitor extends NodeVisitor {
         return null; // Return false if no match is found
     }
 
+    private boolean isEndpointPresent(String clientID) {
+        for (Participant endpoint : visitorContext.getParticipants()) {
+            if (endpoint.getParticipantKind().toString().equals("ENDPOINT")) {
+                if (endpoint.getId().equals(clientID.trim())) {
+                    return true; // Return true when the conditions are met
+                }
+            }
+        }
+        return false; // Return false if no match is found
+    }
+
     private static String removeDoubleQuotes(String input) {
         if (input.startsWith("\"") && input.endsWith("\"")) {
             return input.substring(1, input.length() - 1);
         }
-        return input;
+        return input.trim();
+    }
+
+    private String extractBlockComment(String input) {
+        String prefix = "@sq-comment:";
+        int startIndex = input.indexOf(prefix);
+
+        if (startIndex != -1) {
+            String extracted = input.substring(startIndex + prefix.length()).trim();
+            return extracted;
+        }
+        return null;
+    }
+
+    private String extractAnnotationData(String input) {
+        String prefix = "description:";
+        int startIndex = input.indexOf(prefix);
+
+        if (startIndex != -1) {
+            String extracted = input.substring(startIndex + prefix.length()).trim();
+            return removeDoubleQuotes(extracted);
+        }
+        return null;
     }
 }

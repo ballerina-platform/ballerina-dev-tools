@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ElseStatement extends DiagramElementWithChildren{
 
-    public ElseStatement() {
-        super("ElseStatement");
+    public ElseStatement(boolean isHidden) {
+        super("ElseStatement", isHidden);
     }
 }

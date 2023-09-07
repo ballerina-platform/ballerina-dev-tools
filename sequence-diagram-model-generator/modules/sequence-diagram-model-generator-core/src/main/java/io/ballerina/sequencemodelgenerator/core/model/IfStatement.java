@@ -8,8 +8,8 @@ public class IfStatement extends DiagramElementWithChildren {
     private DiagramElementWithChildren elseStatement; // this can be either else or elseiF
 //    private List<ElseIfStatement> elseIfStatements;
 
-    public IfStatement(String condition) {
-        super("IfStatement");
+    public IfStatement(String condition, boolean isHidden) {
+        super("IfStatement", isHidden);
         this.condition = condition;
     }
 

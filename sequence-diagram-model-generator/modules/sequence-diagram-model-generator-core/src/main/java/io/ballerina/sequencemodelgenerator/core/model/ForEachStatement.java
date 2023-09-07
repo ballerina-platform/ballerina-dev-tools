@@ -5,8 +5,8 @@ import java.util.List;
 public class ForEachStatement extends DiagramElementWithChildren{
     private String condition;
 
-    public ForEachStatement(String condition) {
-        super("ForEachStatement");
+    public ForEachStatement(String condition, boolean isHidden) {
+        super("ForEachStatement", isHidden);
         this.condition = condition;
     }
 }

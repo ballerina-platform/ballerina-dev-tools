@@ -3,6 +3,7 @@ package io.ballerina.sequencemodelgenerator.core.visitors;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.sequencemodelgenerator.core.model.DiagramElementWithChildren;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
+import io.ballerina.sequencemodelgenerator.core.model.StatementBlock;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,6 +22,25 @@ public class VisitorContext {
     }
 
     private Set<NameReferenceNode> visitedFunctionNames;
+
+//    private List<StatementBlock> statementBlocks;
+//
+//    public void addStatementBlock(StatementBlock statementBlock) {
+//        if (this.statementBlocks == null) {
+//            this.statementBlocks = new ArrayList<>();
+//            this.statementBlocks.add(statementBlock);
+//        } else {
+//            this.statementBlocks.add(statementBlock);
+//        }
+//    }
+//
+//    public StatementBlock getLastAddedStatementBlock() {
+//        if (this.statementBlocks == null) {
+//            return null;
+//        } else {
+//            return this.statementBlocks.get(this.statementBlocks.size() - 1);
+//        }
+//    }
 
     public VisitorContext() {
         this.rootParticipant = null;

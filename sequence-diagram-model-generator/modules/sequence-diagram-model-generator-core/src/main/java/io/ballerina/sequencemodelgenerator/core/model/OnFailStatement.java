@@ -4,8 +4,8 @@ public class OnFailStatement extends DiagramElementWithChildren{
     private String type;
     private String name;
 
-        public OnFailStatement(String type, String name) {
-            super("OnFailStatement");
+        public OnFailStatement(String type, String name, boolean isHidden) {
+            super("OnFailStatement", isHidden);
             this.type = type;
             this.name = name;
         }

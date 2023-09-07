@@ -4,6 +4,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.projects.Package;
+import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ParticipantKind;
 
@@ -13,7 +14,6 @@ import java.util.UUID;
 public class RootNodeVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Package currentPackage;
-
     private final VisitorContext visitorContext;
 
     public RootNodeVisitor(SemanticModel semanticModel, Package currentPackage, VisitorContext visitorContext) {
@@ -29,73 +29,100 @@ public class RootNodeVisitor extends NodeVisitor {
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         SyntaxKind kind = functionDefinitionNode.kind();
-        switch (kind) {
-            case RESOURCE_ACCESSOR_DEFINITION: {
-                StringBuilder identifierBuilder = new StringBuilder();
-                StringBuilder resourcePathBuilder = new StringBuilder();
-                NodeList<Node> relativeResourcePaths = functionDefinitionNode.relativeResourcePath();
-                for (Node path : relativeResourcePaths) {
-                    if (path instanceof ResourcePathParameterNode) {
-                        ResourcePathParameterNode pathParam = (ResourcePathParameterNode) path;
+        try {
 
-                        identifierBuilder.append(String.format("[%s]",
-                                pathParam.typeDescriptor().toSourceCode().trim()));
-                    } else {
-                        identifierBuilder.append(path);
+            switch (kind) {
+                case RESOURCE_ACCESSOR_DEFINITION: {
+                    StringBuilder identifierBuilder = new StringBuilder();
+                    StringBuilder resourcePathBuilder = new StringBuilder();
+                    NodeList<Node> relativeResourcePaths = functionDefinitionNode.relativeResourcePath();
+                    for (Node path : relativeResourcePaths) {
+                        if (path instanceof ResourcePathParameterNode) {
+                            ResourcePathParameterNode pathParam = (ResourcePathParameterNode) path;
+                            identifierBuilder.append(String.format("[%s]",
+                                    pathParam.typeDescriptor().toSourceCode().trim()));
+                        } else {
+                            identifierBuilder.append(path);
+                        }
+                        resourcePathBuilder.append(path);
                     }
-                    resourcePathBuilder.append(path);
+
+                    // Name of the resource
+                    String resourcePath = resourcePathBuilder.toString().trim();
+                    Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
+                    if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
+                        String packageName = typeSymbol.get().getModule().get().id().packageName();
+
+//                        String uuid = UUID.randomUUID().toString(); // TODO: Generate FQN
+                        String moduleID = typeSymbol.get().getModule().get().id().toString().replace(":", "_");
+                        String functionID = moduleID + "_" + functionDefinitionNode.functionName().text().trim();
+                        Participant participant = new Participant(functionID,
+                                resourcePath, ParticipantKind.WORKER, packageName, null);
+                        this.visitorContext.setCurrentParticipant(participant);
+                        this.visitorContext.setRootParticipant(participant);
+                        this.visitorContext.addToParticipants(participant);
+
+                        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                        // Provide support module level endpoints
+
+                        try {
+                            functionDefinitionNode.functionBody().accept(actionVisitor);
+                        } catch (Exception e) {
+                            throw new SequenceModelGenerationException("Error in visiting functionDefinitionNode: " + e.getMessage());
+                        }
+                    } // TODO: else throw exception
+                    break;
                 }
+                case FUNCTION_DEFINITION: {
+                    Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
+                    if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
+                        String packageName = typeSymbol.get().getModule().get().id().packageName();
 
-                // Name of the resource
-                String resourcePath = resourcePathBuilder.toString().trim();
-                Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
-                if (typeSymbol.isPresent()) {
-                    String packageName = typeSymbol.get().getModule().get().id().packageName();
+//                        String uuid = UUID.randomUUID().toString(); // ToDO: Generate FQN
+                        String moduleID = typeSymbol.get().getModule().get().id().toString().replace(":", "_");
+                        String functionID = moduleID + "_" + functionDefinitionNode.functionName().text().trim();
+                        Participant participant = new Participant(functionID,
+                                functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, null);
+                        this.visitorContext.setCurrentParticipant(participant);
+                        this.visitorContext.setRootParticipant(participant);
+                        this.visitorContext.addToParticipants(participant);
 
-                    String uuid = UUID.randomUUID().toString();
-                    Participant participant = new Participant(uuid,
-                            resourcePath, ParticipantKind.WORKER, packageName, null);
-                    this.visitorContext.setCurrentParticipant(participant);
-                    this.visitorContext.setRootParticipant(participant);
-                    this.visitorContext.addToParticipants(participant);
+                        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                        // add worked node memeber
 
-                    ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
-                    // workerNodeMember
+                        try {
+                            functionDefinitionNode.functionBody().accept(actionVisitor);
+                        } catch (Exception e) {
+                            throw new SequenceModelGenerationException("Error in visiting functionDefinitionNode: " + e.getMessage());
+                        }
+                    } // TODO: else throw exception
+                    break;
+                } case OBJECT_METHOD_DEFINITION: {
+                    Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
+                    if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
+                        String packageName = typeSymbol.get().getModule().get().id().packageName();
+                        String moduleID = typeSymbol.get().getModule().get().id().toString().replace(":", "_");
+                        String functionID = moduleID + "_" + functionDefinitionNode.functionName().text().trim();
+                        Participant participant = new Participant(functionID,
+                                functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, null);
+                        this.visitorContext.setCurrentParticipant(participant);
+                        this.visitorContext.setRootParticipant(participant);
+                        this.visitorContext.addToParticipants(participant);
 
-                    try {
-                        functionDefinitionNode.functionBody().accept(actionVisitor);
-//                        functionDefinitionNode.accept(workerMemberNodeVisitor);
-                    } catch (Exception e) {
-                        System.out.printf("Error in visiting functionDefinitionNode: %s\n", e.getMessage());
+                        ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                        // add worked node memeber
+
+                        try {
+                            functionDefinitionNode.functionBody().accept(actionVisitor);
+                        } catch (Exception e) {
+                            throw new SequenceModelGenerationException("Error in visiting functionDefinitionNode: " + e.getMessage());
+                        }
                     }
                 }
-                break;
             }
-            case FUNCTION_DEFINITION: {
-                Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
-                if (typeSymbol.isPresent()) {
-                    String packageName = typeSymbol.get().getModule().get().id().packageName();
-
-                    String uuid = UUID.randomUUID().toString();
-                    Participant participant = new Participant(uuid,
-                            functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, null);
-                    this.visitorContext.setCurrentParticipant(participant);
-                    this.visitorContext.setRootParticipant(participant);
-                    this.visitorContext.addToParticipants(participant);
-
-                    ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
-                    // add worked node memeber
-
-                    try {
-                        functionDefinitionNode.functionBody().accept(actionVisitor);
-//                    functionDefinitionNode.accept(workerMemberNodeVisitor);
-                    } catch (Exception e) {
-                        System.out.printf("Error in visiting functionDefinitionNode: %s\n", e.getMessage());
-                    }
-
-                }
-                break;
-            }
+        } catch (Exception e) {
+            // System.out.printf("Error in visiting functionDefinitionNode: %s\n", e.getMessage());
+            // TODO : ADD exception to visitor context
         }
     }
 }

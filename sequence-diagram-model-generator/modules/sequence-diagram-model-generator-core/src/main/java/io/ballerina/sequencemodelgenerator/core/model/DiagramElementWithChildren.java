@@ -1,29 +1,23 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DiagramElementWithChildren extends DiagramElement{
-    private List<DiagramElement> childElements;
+    private DiagramElementBody childElements;
 
-    public DiagramElementWithChildren(String kind) {
-        super(kind);
+    public DiagramElementWithChildren(String kind, boolean isHidden) {
+        super(kind, isHidden);
     }
 
-    public List<DiagramElement> getChildElements() {
+    public DiagramElementBody getChildElements() {
         return childElements;
     }
 
     public void addChildDiagramElements(DiagramElement diagramElement) {
         if (this.childElements == null) {
-            this.childElements = new ArrayList<>();
-            this.childElements.add(diagramElement);
+            this.childElements = new DiagramElementBody(this.getKind()+"Body", this.isHidden());
+            this.childElements.addChildDiagramElement(diagramElement);
         } else {
-            this.childElements.add(diagramElement);
+            this.childElements.addChildDiagramElement(diagramElement);
         }
     }
 
-    public void setChildElements(List<DiagramElement> childElements) {
-        this.childElements = childElements;
-    }
 }
