@@ -1,6 +1,6 @@
 {
     "name": "@ballerina/docs-ui",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "The react app used to display API Docs.",
     "main": "index.js",
     "scripts": {
