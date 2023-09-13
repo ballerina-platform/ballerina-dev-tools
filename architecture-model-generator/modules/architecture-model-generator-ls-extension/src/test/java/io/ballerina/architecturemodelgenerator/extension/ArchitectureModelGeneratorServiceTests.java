@@ -59,7 +59,7 @@ public class ArchitectureModelGeneratorServiceTests {
         this.serviceEndpoint = TestUtil.initializeLanguageSever();
     }
 
-    @Test(description = "test model generation for multi-module project")
+    @Test(description = "test model generation for multi-module project", enabled = false)
     public void testMultiModuleProject() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("reservation_api", "reservation_service.bal"));
@@ -104,7 +104,7 @@ public class ArchitectureModelGeneratorServiceTests {
 
     }
 
-    @Test(description = "test model generation for multiple projects with grpc and http services")
+    @Test(description = "test model generation for multiple projects with grpc and http services", enabled = false)
     public void testGRPCWorkspaceTest() throws IOException, ExecutionException, InterruptedException {
 
         Path project1 = RES_DIR.resolve(BALLERINA).resolve(

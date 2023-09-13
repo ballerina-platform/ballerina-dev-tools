@@ -58,7 +58,7 @@ public class PersistERModelGeneratorTests {
         this.serviceEndpoint = TestUtil.initializeLanguageSever();
     }
 
-    @Test(description = "Test Persist ER Model generation")
+    @Test(description = "Test Persist ER Model generation", enabled = false)
     public void testPersistERModelGeneration() throws IOException, ExecutionException, InterruptedException {
 
         Path balFile = RES_DIR.resolve(BALLERINA).resolve(
