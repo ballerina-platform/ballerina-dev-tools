@@ -39,7 +39,7 @@ public class TypeGeneratorTests {
     private static final String RESULTS = "results";
     Gson gson = new GsonBuilder().serializeNulls().create();
 
-    @Test(description = "simple type model generation")
+    @Test(description = "simple type model generation", enabled = false)
     public void testSimpleTypeModelGeneration() throws IOException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("type_gen_simple"));

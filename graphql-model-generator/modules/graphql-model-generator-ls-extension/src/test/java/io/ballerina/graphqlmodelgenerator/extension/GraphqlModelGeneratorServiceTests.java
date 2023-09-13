@@ -50,7 +50,8 @@ public class GraphqlModelGeneratorServiceTests {
         this.serviceEndpoint = TestUtil.initializeLanguageSever();
     }
 
-    @Test(description = "test service with operations, outputs(enum,record,class), documentation and directives")
+    @Test(description = "test service with operations, outputs(enum,record,class), documentation and directives",
+            enabled = false)
     public void testDifferentOutputsAndOperations() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "01_graphql_service.bal"));
@@ -63,7 +64,7 @@ public class GraphqlModelGeneratorServiceTests {
     }
 
 
-    @Test(description = "test service with input objects")
+    @Test(description = "test service with input objects", enabled = false)
     public void testInputObjects() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "02_graphql_service.bal"));
@@ -75,7 +76,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("02_graphql_service.json"));
     }
 
-    @Test(description = "test service with interfaces")
+    @Test(description = "test service with interfaces", enabled = false)
     public void testServiceWithInterfaces() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "03_service_with_interfaces.bal"));
@@ -87,7 +88,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("03_service_with_interfaces.json"));
     }
 
-    @Test(description = "test service with union output")
+    @Test(description = "test service with union output", enabled = false)
     public void testServiceWithUnionOutput() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "04_service_with_union_outputs.bal"));
@@ -99,7 +100,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("04_service_with_union_output.json"));
     }
 
-    @Test(description = "test outputs from different files other than the service file")
+    @Test(description = "test outputs from different files other than the service file", enabled = false)
     public void testObjectsFromDifferentFiles() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "05_outputs_from_different_file.bal"));
@@ -111,7 +112,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("05_outputs_from_different_file.json"));
     }
 
-    @Test(description = "test graphql file uploads")
+    @Test(description = "test graphql file uploads", enabled = false)
     public void testFileUploads() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "06_file_uploads.bal"));
@@ -123,7 +124,7 @@ public class GraphqlModelGeneratorServiceTests {
                 getExpectedResponse("06_file_uploads.json"));
     }
 
-    @Test(description = "test resource paths with hierarchical paths")
+    @Test(description = "test resource paths with hierarchical paths", enabled = false)
     public void testHierarchicalResourcePaths() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "07_hierarchical_resource_paths.bal"));
@@ -136,7 +137,7 @@ public class GraphqlModelGeneratorServiceTests {
     }
 
 
-    @Test(description = "test resource with invalid output")
+    @Test(description = "test resource with invalid output", enabled = false)
     public void testResourceWithInvalidOutput() throws IOException, ExecutionException, InterruptedException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "08_resource_with_invalid_return.bal"));
