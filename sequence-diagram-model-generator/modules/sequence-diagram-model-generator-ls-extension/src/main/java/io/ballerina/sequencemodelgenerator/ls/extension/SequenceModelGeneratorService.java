@@ -20,8 +20,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import static io.ballerina.sequencemodelgenerator.core.Constants.EMPTY_SEMANTIC_MODEL_MSG;
-import static io.ballerina.sequencemodelgenerator.core.Constants.UNEXPECTED_ERROR_MSG;
+import static io.ballerina.sequencemodelgenerator.core.Constants.*;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("sequenceModelGeneratorService")
@@ -54,12 +53,12 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
                     SequenceModel sequenceModel = modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
                     Gson gson = new GsonBuilder().serializeNulls().create();
                     JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
-                    // System.out.println(sequenceModelJson);
+                    System.out.println(sequenceModelJson);
                     response.setSequenceDiagramModel(sequenceModelJson);
                 }
                 // TODO: Handle specific exceptions
             } catch (Exception e) {
-                ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true, String.format(UNEXPECTED_ERROR_MSG, e.getMessage()));
+                ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true, String.format(ISSUE_IN_MODEL_GENERATION, e.getMessage()));
                 response.setModelDiagnostic(modelDiagnostic);
             }
             return response;

@@ -21,7 +21,7 @@ public class VisitorContext {
         return diagramElementWithChildren;
     }
 
-    private Set<NameReferenceNode> visitedFunctionNames;
+    private List<String> visitedFunctionNames;
 
 //    private List<StatementBlock> statementBlocks;
 //
@@ -46,17 +46,17 @@ public class VisitorContext {
         this.rootParticipant = null;
         this.currentParticipant = null;
         this.participants = new ArrayList<>();
-        this.visitedFunctionNames = new HashSet<>();
+        this.visitedFunctionNames = new ArrayList<>();
     }
 
-    public VisitorContext(Participant rootParticipant, Participant participant, List<Participant> participants, Set<NameReferenceNode> visitedFunctionNames) {
+    public VisitorContext(Participant rootParticipant, Participant participant, List<Participant> participants, List<String> visitedFunctionNames) {
         this.rootParticipant = rootParticipant;
         this.currentParticipant = participant;
         this.participants = participants;
         this.visitedFunctionNames = visitedFunctionNames;
     }
 
-    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants, DiagramElementWithChildren diagramElementWithChildren, Set<NameReferenceNode> visitedFunctionNames) {
+    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants, DiagramElementWithChildren diagramElementWithChildren, List<String> visitedFunctionNames) {
         this.rootParticipant = rootParticipant;
         this.currentParticipant = currentParticipant;
         this.participants = participants;
@@ -92,15 +92,15 @@ public class VisitorContext {
         this.participants.add(participant);
     }
 
-    public Set<NameReferenceNode> getVisitedFunctionNames() {
+    public List<String> getVisitedFunctionNames() {
         return visitedFunctionNames;
     }
 
-    public void setVisitedFunctionNames(Set<NameReferenceNode> visitedFunctionNames) {
+    public void setVisitedFunctionNames(List<String> visitedFunctionNames) {
         this.visitedFunctionNames = visitedFunctionNames;
     }
 
-    public void addToVisitedFunctionNames(NameReferenceNode nameReferenceNode) {
+    public void addToVisitedFunctionNames(String nameReferenceNode) {
         this.visitedFunctionNames.add(nameReferenceNode);
     }
 }
