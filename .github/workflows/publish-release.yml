@@ -38,8 +38,8 @@ jobs:
           packageUser: ${{ secrets.BALLERINA_BOT_USERNAME }}
           packagePAT: ${{ secrets.BALLERINA_BOT_TOKEN }}
         run: |
-          ./gradlew release -Prelease.useAutomaticVersion=true
-          ./gradlew -Pversion=${VERSION} publish
+          ./gradlew release -Prelease.useAutomaticVersion=true -x :docerina-ui:npmTestDocerinaUI
+          ./gradlew -Pversion=${VERSION} -x :docerina-ui:npmTestDocerinaUI
       - name: Create Github release from the release tag
         run: |
           curl --request POST 'https://api.github.com/repos/ballerina-platform/ballerina-dev-tools/releases' \
