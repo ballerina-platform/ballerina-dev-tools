@@ -6,34 +6,55 @@ import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.BreakStatementNode;
+import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionStatementNode;
+import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
+import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
+import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
+import io.ballerina.compiler.syntax.tree.MatchClauseNode;
+import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
+import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
+import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
+import io.ballerina.compiler.syntax.tree.XMLNamespaceDeclarationNode;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.model.DoStatement;
@@ -42,7 +63,9 @@ import io.ballerina.sequencemodelgenerator.core.model.EndpointActionStatement;
 import io.ballerina.sequencemodelgenerator.core.model.ForEachStatement;
 import io.ballerina.sequencemodelgenerator.core.model.FunctionActionStatement;
 import io.ballerina.sequencemodelgenerator.core.model.IfStatement;
+import io.ballerina.sequencemodelgenerator.core.model.Interaction;
 import io.ballerina.sequencemodelgenerator.core.model.LockStatement;
+import io.ballerina.sequencemodelgenerator.core.model.MethodActionStatement;
 import io.ballerina.sequencemodelgenerator.core.model.OnFailStatement;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ParticipantKind;
@@ -77,6 +100,11 @@ public class ActionVisitor extends NodeVisitor {
         this.visitorContext = visitorContext;
     }
 
+    // TODO:
+//    action-stmt
+//   | destructuring-assignment-stmt
+//   | retry-transaction-stmt
+
     @Override
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
         if ((functionCallExpressionNode.functionName() instanceof SimpleNameReferenceNode ||
@@ -84,7 +112,25 @@ public class ActionVisitor extends NodeVisitor {
 
             Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode.functionName());
             boolean isHidden = this.isHiddenVariableStmt();
-                symbol.ifPresent(value -> findInteractions(functionCallExpressionNode.functionName(), value, isHidden));
+                functionCallExpressionNode.arguments().forEach(functionArgumentNode -> {
+                    if (semanticModel.symbol(functionArgumentNode).isPresent()) {
+                        if (semanticModel.symbol(functionArgumentNode).get().kind().equals(SymbolKind.FUNCTION)) {
+                            functionArgumentNode.accept(this);
+                        }
+                    }
+                });
+                symbol.ifPresent(value -> findInteractions(functionCallExpressionNode.functionName(), value, isHidden, null));
+        }
+    }
+
+    @Override
+    public void visit(MethodCallExpressionNode methodCallExpressionNode) {
+        if ((methodCallExpressionNode.methodName() instanceof SimpleNameReferenceNode ||
+                methodCallExpressionNode.methodName() instanceof QualifiedNameReferenceNode)) {
+
+            Optional<Symbol> symbol = semanticModel.symbol(methodCallExpressionNode.methodName());
+            boolean isHidden = this.isHiddenVariableStmt();
+            symbol.ifPresent(value -> findInteractions(methodCallExpressionNode.methodName(), value, isHidden, methodCallExpressionNode.expression()));
         }
     }
 
@@ -100,6 +146,21 @@ public class ActionVisitor extends NodeVisitor {
             expressionStatementNode.expression().accept(this);
         }
     }
+
+   @Override
+   public void visit(BlockStatementNode blockStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(blockStatementNode)) {
+            generateStatementBlock(blockStatementNode);
+        }
+        if (!blockStatementNode.statements().isEmpty()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(blockStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            for (StatementNode statementNode : blockStatementNode.statements()) {
+                statementNode.accept(this);
+            }
+        }
+   }
+
 
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
@@ -136,6 +197,144 @@ public class ActionVisitor extends NodeVisitor {
             returnStatementNode.expression().get().accept(this);
         }
     }
+
+
+
+    @Override
+    public void visit(AssignmentStatementNode assignmentStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(assignmentStatementNode)) {
+            generateStatementBlock(assignmentStatementNode);
+        }
+        if (!assignmentStatementNode.expression().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(assignmentStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            assignmentStatementNode.expression().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(BreakStatementNode breakStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(breakStatementNode)) {
+            generateStatementBlock(breakStatementNode);
+        }
+    }
+
+    @Override
+    public void visit(ContinueStatementNode continueStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(continueStatementNode)) {
+            generateStatementBlock(continueStatementNode);
+        }
+    }
+
+    @Override
+    public void visit(PanicStatementNode panicStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(panicStatementNode)) {
+            generateStatementBlock(panicStatementNode);
+        }
+        if (!panicStatementNode.expression().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(panicStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            panicStatementNode.expression().accept(this);
+        }
+    }
+
+
+    @Override
+    public void visit(ForkStatementNode forkStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(forkStatementNode)) {
+            generateStatementBlock(forkStatementNode);
+        }
+        if (!forkStatementNode.namedWorkerDeclarations().isEmpty()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(forkStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            for (NamedWorkerDeclarationNode namedWorkerDeclarationNode : forkStatementNode.namedWorkerDeclarations()) {
+                namedWorkerDeclarationNode.accept(this);
+            }
+        }
+    }
+
+    @Override
+    public void visit(LocalTypeDefinitionStatementNode localTypeDefinitionStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(localTypeDefinitionStatementNode)) {
+            generateStatementBlock(localTypeDefinitionStatementNode);
+        }
+    }
+
+    @Override
+    public void visit(MatchStatementNode matchStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(matchStatementNode)) {
+            generateStatementBlock(matchStatementNode);
+        }
+        if (!matchStatementNode.condition().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(matchStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            matchStatementNode.condition().accept(this);
+        }
+        if (!matchStatementNode.matchClauses().isEmpty()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(matchStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            for (MatchClauseNode matchClauseNode : matchStatementNode.matchClauses()) {
+                matchClauseNode.accept(this);
+            }
+        }
+    }
+
+    @Override
+    public void visit(RetryStatementNode retryStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(retryStatementNode)) {
+            generateStatementBlock(retryStatementNode);
+        }
+        if (!retryStatementNode.retryBody().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(retryStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            retryStatementNode.retryBody().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(XMLNamespaceDeclarationNode xmlNamespaceDeclarationNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(xmlNamespaceDeclarationNode)) {
+            generateStatementBlock(xmlNamespaceDeclarationNode);
+        }
+    }
+
+    @Override
+    public void visit(TransactionStatementNode transactionStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(transactionStatementNode)) {
+            generateStatementBlock(transactionStatementNode);
+        }
+        if (!transactionStatementNode.blockStatement().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(transactionStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            transactionStatementNode.blockStatement().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(RollbackStatementNode rollbackStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(rollbackStatementNode)) {
+            generateStatementBlock(rollbackStatementNode);
+        }
+        if(rollbackStatementNode.expression().isPresent()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(rollbackStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            rollbackStatementNode.expression().get().accept(this);
+        }
+    }
+
+    @Override
+    public void visit(FailStatementNode failStatementNode) {
+        if (ModelGeneratorUtils.isStatementBlockCommentPresent(failStatementNode)) {
+            generateStatementBlock(failStatementNode);
+        }
+        if(!failStatementNode.expression().isMissing()) {
+            boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(failStatementNode);
+            this.setHiddenVariableStmt(isHidden);
+            failStatementNode.expression().accept(this);
+        }
+    }
+
+
 
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
@@ -269,10 +468,10 @@ public class ActionVisitor extends NodeVisitor {
             }
     }
 
-    private void findInteractions(NameReferenceNode nameNode, Symbol methodSymbol, boolean isHidden) {
-        if (isNodeVisited(nameNode)) {
+    private void findInteractions(NameReferenceNode nameNode, Symbol methodSymbol, boolean isHidden, ExpressionNode expression) {
+        if (isNodeVisited(nameNode, expression)) {
             if (semanticModel.symbol(nameNode).isPresent() && semanticModel.symbol(nameNode).get().getModule().isPresent()) {
-                String functionName = "";
+                String functionName = null;
                 if (nameNode instanceof QualifiedNameReferenceNode) {
                     functionName = ((QualifiedNameReferenceNode) nameNode).identifier().text().trim();
                 } else if (nameNode instanceof SimpleNameReferenceNode) {
@@ -280,17 +479,31 @@ public class ActionVisitor extends NodeVisitor {
                 }
                 Optional<Symbol> symbol = semanticModel.symbol(nameNode);
                 if (symbol.isPresent()) {
-                    String referenceNodeID = ModelGeneratorUtils.generateReferenceID(symbol.get(),functionName);
+                    String referenceNodeID;
+                    if (expression != null && semanticModel.typeOf(expression).isPresent() && functionName != null) {
+                        referenceNodeID = ModelGeneratorUtils.generateReferenceIDForMethods(semanticModel.typeOf(expression).get().signature(), functionName);
+                    } else {
+                        referenceNodeID = ModelGeneratorUtils.generateReferenceID(symbol.get(), functionName);
+                    }
+//                    String referenceNodeID = ModelGeneratorUtils.generateReferenceID(symbol.get(),functionName);
                     if (referenceNodeID != null) {
                         Participant participant = getParticipantByID(referenceNodeID);
                         if (participant != null) {
-                            // Todo: maeke functioNAme include module prefix
-                            FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                    participant.getId().trim(), functionName, isHidden);
-                            if (this.visitorContext.getDiagramElementWithChildren() != null) {
-                                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(functionActionStatement);
+                            Interaction interaction;
+                            if (expression != null) {
+                                interaction = new MethodActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                                        participant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden);
                             } else {
-                                visitorContext.getCurrentParticipant().addChildDiagramElements(functionActionStatement);
+                                interaction = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                                        participant.getId().trim(), functionName, isHidden);
+                            }
+                            // Todo: make functionName include module prefix
+//                            FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+//                                    participant.getId().trim(), functionName, isHidden);
+                            if (this.visitorContext.getDiagramElementWithChildren() != null) {
+                                this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(interaction);
+                            } else {
+                                visitorContext.getCurrentParticipant().addChildDiagramElements(interaction);
                             }
                         }
                     }
@@ -330,7 +543,11 @@ public class ActionVisitor extends NodeVisitor {
                                     Participant targetParticipant = null;
                                     String referenceModuleID;
                                     if (semanticModel.symbol(nameNode).isPresent() && semanticModel.symbol(nameNode).get().getModule().isPresent()) {
-                                        referenceModuleID = ModelGeneratorUtils.generateReferenceID(semanticModel.symbol(nameNode).get(), functionName);
+                                        if (expression != null && semanticModel.typeOf(expression).isPresent() && functionName != null) {
+                                            referenceModuleID = ModelGeneratorUtils.generateReferenceIDForMethods(semanticModel.typeOf(expression).get().signature(), functionName);
+                                        } else {
+                                            referenceModuleID = ModelGeneratorUtils.generateReferenceID(semanticModel.symbol(nameNode).get(), functionName);
+                                        }
                                         if (referenceModuleID != null) {
                                             visitorContext.addToVisitedFunctionNames(referenceModuleID);
                                             targetParticipant = getParticipantByID(referenceModuleID);
@@ -338,13 +555,21 @@ public class ActionVisitor extends NodeVisitor {
                                     }
 
                                     if (targetParticipant != null) {
-                                        FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                                targetParticipant.getId().trim(), functionName, isHidden);
+                                        Interaction interaction;
+                                        if (expression != null) {
+                                            interaction = new MethodActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                                                    targetParticipant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden);
+                                        } else {
+                                            interaction = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+                                                    targetParticipant.getId().trim(), functionName, isHidden);
+                                        }
+//                                        FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
+//                                                targetParticipant.getId().trim(), functionName, isHidden);
 
                                         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-                                            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(functionActionStatement);
+                                            this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(interaction);
                                         } else {
-                                            visitorContext.getCurrentParticipant().addChildDiagramElements(functionActionStatement);
+                                            visitorContext.getCurrentParticipant().addChildDiagramElements(interaction);
                                         }
                                     }
                             }
@@ -359,9 +584,17 @@ public class ActionVisitor extends NodeVisitor {
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
             Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
             if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
+                String functionID = null;
                 String packageName = typeSymbol.get().getModule().get().id().packageName().trim();
-                String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                if (typeSymbol.get().kind().equals(SymbolKind.METHOD)) {
+                    if (functionDefinitionNode.parent().kind().equals(SyntaxKind.CLASS_DEFINITION)) {
+                        ClassDefinitionNode classDefinitionNode = (ClassDefinitionNode) functionDefinitionNode.parent();
+                        functionID = ModelGeneratorUtils.generateMethodID(typeSymbol.get(), classDefinitionNode.className().text().trim(), functionDefinitionNode);
 
+                    }
+                } else {
+                    functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                }
                 if (functionID != null && !ModelGeneratorUtils.isInParticipantList(functionID, visitorContext.getParticipants())) {
                     Participant participant = new Participant(functionID,
                             functionDefinitionNode.functionName().text().trim(), ParticipantKind.WORKER, packageName);
@@ -382,8 +615,10 @@ public class ActionVisitor extends NodeVisitor {
                 generateStatementBlock(ifElseStatementNode);
             }
             boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(ifElseStatementNode);
+            if (!ifElseStatementNode.condition().isMissing()) {
+                ifElseStatementNode.condition().accept(this);
+            }
             IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString(), isHidden);
-
             VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), ifStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -422,11 +657,28 @@ public class ActionVisitor extends NodeVisitor {
                 generateStatementBlock(whileStatementNode);
             }
             boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(whileStatementNode);
+            if (!whileStatementNode.condition().isMissing()) {
+                whileStatementNode.condition().accept(this);
+            }
             WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString(), isHidden);
             VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), whileStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
             whileStatementNode.whileBody().accept(actionVisitor);
+
+        if (whileStatementNode.onFailClause().isPresent()) {
+            OnFailClauseNode onFailClauseNode = whileStatementNode.onFailClause().get();
+            OnFailStatement onFailStatement = new OnFailStatement(
+                    onFailClauseNode.typeDescriptor().isPresent() ?
+                            onFailClauseNode.typeDescriptor().get().toString() : "",
+                    onFailClauseNode.failErrorName().isPresent() ?
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
+            VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+            ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
+            whileStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
+            whileStatement.setOnFailStatement(onFailStatement);
+        }
 
             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                 // if the while statement is inside another statement block
@@ -445,11 +697,29 @@ public class ActionVisitor extends NodeVisitor {
             generateStatementBlock(forEachStatementNode);
         }
         boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(forEachStatementNode);
+        if (!forEachStatementNode.actionOrExpressionNode().isMissing()) {
+            forEachStatementNode.actionOrExpressionNode().accept(this);
+        }
         ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString(), isHidden);
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), forEachStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
         forEachStatementNode.blockStatement().accept(actionVisitor);
+
+        if (forEachStatementNode.onFailClause().isPresent()) {
+            OnFailClauseNode onFailClauseNode = forEachStatementNode.onFailClause().get();
+            OnFailStatement onFailStatement = new OnFailStatement(
+                    onFailClauseNode.typeDescriptor().isPresent() ?
+                            onFailClauseNode.typeDescriptor().get().toString() : "",
+                    onFailClauseNode.failErrorName().isPresent() ?
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
+            VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
+                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+            ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
+            forEachStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
+            forEachStatement.setOnFailStatement(onFailStatement);
+        }
+
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
             if (forEachStatement.getChildElements() != null) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(forEachStatement);
@@ -472,8 +742,12 @@ public class ActionVisitor extends NodeVisitor {
         lockStatementNode.blockStatement().accept(actionVisitor);
 
         if (lockStatementNode.onFailClause().isPresent()) {
-            OnFailStatement onFailStatement = new OnFailStatement(lockStatementNode.onFailClause().get().typeDescriptor().toString(),
-                    lockStatementNode.onFailClause().get().failErrorName().toString(), isHidden);
+            OnFailClauseNode onFailClauseNode = lockStatementNode.onFailClause().get();
+            OnFailStatement onFailStatement = new OnFailStatement(
+                    onFailClauseNode.typeDescriptor().isPresent() ?
+                            onFailClauseNode.typeDescriptor().get().toString() : "",
+                    onFailClauseNode.failErrorName().isPresent() ?
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -550,18 +824,28 @@ public class ActionVisitor extends NodeVisitor {
         }
     }
 
-    private boolean isNodeVisited(NameReferenceNode functionReferenceNode) {
+    private boolean isNodeVisited(NameReferenceNode functionReferenceNode, ExpressionNode expression) {
         if (semanticModel.symbol(functionReferenceNode).isPresent() && semanticModel.symbol(functionReferenceNode).get().getModule().isPresent()) {
-            String functionName = "";
+            String functionName = null;
             if (functionReferenceNode instanceof QualifiedNameReferenceNode) {
                 functionName = ((QualifiedNameReferenceNode) functionReferenceNode).identifier().text().trim();
             } else if (functionReferenceNode instanceof SimpleNameReferenceNode) {
                 functionName = ((SimpleNameReferenceNode) functionReferenceNode).name().text().trim();
             }
-            String nameNodeModuleID = semanticModel.symbol(functionReferenceNode).get().getModule().get().id().toString().trim().replace(":", "_") + "_" + functionName;
+            String nameNodeModuleID;
+            if (expression != null && semanticModel.typeOf(expression).isPresent() && functionName != null) {
+                nameNodeModuleID = ModelGeneratorUtils.generateReferenceIDForMethods(semanticModel.typeOf(expression).get().signature(), functionName);
+            } else {
+                nameNodeModuleID = ModelGeneratorUtils.generateReferenceID(semanticModel.symbol(functionReferenceNode).get(), functionName);
+            }
+//            String nameNodeModuleID = semanticModel.symbol(functionReferenceNode).get().getModule().get().id().toString().trim().replace(":", "_") + "_" + functionName;
+            if (nameNodeModuleID != null) {
+                return this.visitorContext.getVisitedFunctionNames().contains(nameNodeModuleID);
+            } else {
+                return false;
+            }
 
-
-            return this.visitorContext.getVisitedFunctionNames().contains(nameNodeModuleID);
+//            return this.visitorContext.getVisitedFunctionNames().contains(nameNodeModuleID);
         }
         return false;
     }

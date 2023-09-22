@@ -89,6 +89,15 @@ public class ModelGeneratorUtils {
         return moduleID + "_" + functionName;
     }
 
+    public static String generateMethodID(Symbol symbol,String className, FunctionDefinitionNode functionDefinitionNode) {
+        String moduleID = generateModuleIDFromSymbol(symbol);
+        if (moduleID == null) {
+            return null;
+        }
+        String functionName = functionDefinitionNode.functionName().text().trim();
+        return moduleID + "_" + className + "_" + functionName;
+    }
+
     public static String generateEndpointID(ObjectTypeSymbol objectTypeSymbol, NameReferenceNode nameReferenceNode) {
         if (objectTypeSymbol.getModule().isPresent()) {
             String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim().replace(":", "_");
@@ -102,6 +111,12 @@ public class ModelGeneratorUtils {
         if (moduleID == null) {
             return null;
         }
+        return moduleID + "_" + functionName.trim();
+    }
+
+    public static String generateReferenceIDForMethods(String methodSignature, String functionName) {
+        String moduleID = methodSignature.trim().replace(":", "_");
+
         return moduleID + "_" + functionName.trim();
     }
 
