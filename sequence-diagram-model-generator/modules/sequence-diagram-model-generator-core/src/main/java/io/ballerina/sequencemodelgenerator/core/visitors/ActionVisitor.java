@@ -57,20 +57,7 @@ import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.compiler.syntax.tree.XMLNamespaceDeclarationNode;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Package;
-import io.ballerina.sequencemodelgenerator.core.model.DoStatement;
-import io.ballerina.sequencemodelgenerator.core.model.ElseStatement;
-import io.ballerina.sequencemodelgenerator.core.model.EndpointActionStatement;
-import io.ballerina.sequencemodelgenerator.core.model.ForEachStatement;
-import io.ballerina.sequencemodelgenerator.core.model.FunctionActionStatement;
-import io.ballerina.sequencemodelgenerator.core.model.IfStatement;
-import io.ballerina.sequencemodelgenerator.core.model.Interaction;
-import io.ballerina.sequencemodelgenerator.core.model.LockStatement;
-import io.ballerina.sequencemodelgenerator.core.model.MethodActionStatement;
-import io.ballerina.sequencemodelgenerator.core.model.OnFailStatement;
-import io.ballerina.sequencemodelgenerator.core.model.Participant;
-import io.ballerina.sequencemodelgenerator.core.model.ParticipantKind;
-import io.ballerina.sequencemodelgenerator.core.model.StatementBlock;
-import io.ballerina.sequencemodelgenerator.core.model.WhileStatement;
+import io.ballerina.sequencemodelgenerator.core.model.*;
 import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
 import io.ballerina.tools.diagnostics.Location;
 
@@ -289,6 +276,7 @@ public class ActionVisitor extends NodeVisitor {
             this.setHiddenVariableStmt(isHidden);
             retryStatementNode.retryBody().accept(this);
         }
+        // TODO: check if the retry statement has on fail statement node, if so generate a retry statement type
     }
 
     @Override
@@ -336,6 +324,8 @@ public class ActionVisitor extends NodeVisitor {
 
 
 
+    //self.httpEp->/users/names.get();
+    // calls the resource functions of the client
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
         NameReferenceNode clientNode = null;
@@ -365,15 +355,26 @@ public class ActionVisitor extends NodeVisitor {
                             // TODO: recheck the logic on creating resource access path
                             SeparatedNodeList<Node> resourceAccessPath = clientResourceAccessActionNode.resourceAccessPath();
                             // iterate over the resourceAccessPath and create resourcePath by concatenating all the strings in SeparatedNodeList
-                            String resourceName = "";
+                            String resourcePath = "";
 
                             for (Node node : resourceAccessPath) {
                                 if (node.kind().equals(SyntaxKind.IDENTIFIER_TOKEN)) {
-                                    if (!resourceName.isEmpty()) {
-                                        resourceName = resourceName.concat("/");
-                                    }
-                                    resourceName = resourceName.concat(((Token) node).text()).trim();
+                                    resourcePath = resourcePath.concat("/");
+//                                    if (!resourcePath.isEmpty()) {
+//                                        resourcePath = resourcePath.concat("/");
+//                                    }
+
+                                    resourcePath = resourcePath.concat(((Token) node).text()).trim();
+                                } else if (node.kind().equals(SyntaxKind.COMPUTED_RESOURCE_ACCESS_SEGMENT)) {
+                                    resourcePath = resourcePath.concat("/");
+//                                    if (!resourcePath.isEmpty()) {
+//                                        resourcePath = resourcePath.concat("/");
+//                                    }
+                                    resourcePath = resourcePath.concat(node.toSourceCode().trim());
                                 }
+                            }
+                            if (resourcePath.isEmpty()) {
+                                resourcePath = "/";
                             }
 
                             String clientPkgName = ModelGeneratorUtils.generateModuleIDFromSymbol(objectTypeSymbol);
@@ -393,7 +394,7 @@ public class ActionVisitor extends NodeVisitor {
                             boolean isHidden = this.isHiddenVariableStmt();
                             EndpointActionStatement actionStatement = new EndpointActionStatement(
                                     this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
-                                    methodName, resourceName, isHidden);
+                                    methodName, resourcePath, isHidden, Constants.ActionType.RESOURCE_ACTION);
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                             } else {
@@ -406,6 +407,9 @@ public class ActionVisitor extends NodeVisitor {
     }
 
 
+    // self.sheetsEp->createSpreadsheet(name = "");
+    // calls the remote function of the client
+    // remote calls doesnt have path params
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
         NameReferenceNode clientNode = null;
@@ -443,20 +447,20 @@ public class ActionVisitor extends NodeVisitor {
                                 this.visitorContext.addToParticipants(participant);
                             }
 
-                            SeparatedNodeList<FunctionArgumentNode> resourceAccessPath = remoteMethodCallActionNode.arguments();
+//                            SeparatedNodeList<FunctionArgumentNode> resourceAccessPath = remoteMethodCallActionNode.arguments();
                             // iterate over the resourceAccessPath and create resourcePath by concatenating all the strings in SeparatedNodeList
-                            String resourceName = "";
-                            for (Node node : resourceAccessPath) {
-                                if (node.kind().equals(SyntaxKind.POSITIONAL_ARG)) {
-                                    resourceName = resourceName.concat(node.toSourceCode());
-                                }
-                            }
+//                            String resourceName = "";
+//                            for (Node node : resourceAccessPath) {
+//                                if (node.kind().equals(SyntaxKind.POSITIONAL_ARG)) {
+//                                    resourceName = resourceName.concat(node.toSourceCode());
+//                                }
+//                            }
 
                             // boolean isHidden = isHiddenInSequenceFlagPresent(remoteMethodCallActionNode);
                             boolean isHidden = this.isHiddenVariableStmt();
                             EndpointActionStatement actionStatement = new EndpointActionStatement(
                                     this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
-                                    remoteMethodCallActionNode.methodName().toString().trim(), ModelGeneratorUtils.removeDoubleQuotes(resourceName), isHidden);
+                                    remoteMethodCallActionNode.methodName().toString().trim(), null, isHidden, Constants.ActionType.REMOTE_ACTION);
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                             } else {

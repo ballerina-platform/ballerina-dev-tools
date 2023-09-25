@@ -18,4 +18,10 @@ public class Constants {
         typeMap.put(SyntaxKind.DECIMAL_INTEGER_LITERAL_TOKEN, "float");
         TYPE_MAP = Collections.unmodifiableMap(typeMap);
     }
+
+
+    public enum ActionType {
+        RESOURCE_ACTION,
+        REMOTE_ACTION,
+    }
 }
