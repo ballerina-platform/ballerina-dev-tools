@@ -53,7 +53,7 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
                     SequenceModel sequenceModel = modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
                     Gson gson = new GsonBuilder().serializeNulls().create();
                     JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
-                    System.out.println(sequenceModelJson);
+                    // System.out.println(sequenceModelJson);
                     response.setSequenceDiagramModel(sequenceModelJson);
                 }
                 // TODO: Handle specific exceptions

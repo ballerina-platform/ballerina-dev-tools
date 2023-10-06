@@ -50,6 +50,6 @@ public class ModelGenerator {
         if (workerNodeVisitor.getModelGenerationException() != null) {
             throw workerNodeVisitor.getModelGenerationException();
         }
-        return new SequenceModel(workerNodeVisitor.getVisitorContext().getParticipants());
+        return new SequenceModel(workerNodeVisitor.getVisitorContext().getParticipants(),position);
     }
 }

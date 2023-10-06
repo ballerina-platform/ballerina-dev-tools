@@ -1,14 +1,15 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
+import io.ballerina.tools.text.LineRange;
+
 import java.util.List;
 
 public class ForEachStatement extends DiagramElementWithChildren{
     private String condition;
     private OnFailStatement onFailStatement;
-    private boolean hasInteractions;
 
-    public ForEachStatement(String condition, boolean isHidden) {
-        super("ForEachStatement", isHidden);
+    public ForEachStatement(String condition, boolean isHidden, LineRange location) {
+        super("ForEachStatement", isHidden, location);
         this.condition = condition;
     }
 
@@ -20,7 +21,4 @@ public class ForEachStatement extends DiagramElementWithChildren{
         this.onFailStatement = onFailStatement;
     }
 
-    public void setHasInteractions(boolean hasInteractions) {
-        this.hasInteractions = hasInteractions;
-    }
 }

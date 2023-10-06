@@ -1,11 +1,12 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
+import io.ballerina.tools.text.LineRange;
+
 public class LockStatement extends DiagramElementWithChildren{
     private OnFailStatement onFailStatement;
-    private boolean hasInteractions;
 
-    public LockStatement(boolean isHidden) {
-        super("LockStatement", isHidden);
+    public LockStatement(boolean isHidden, LineRange location) {
+        super("LockStatement", isHidden, location);
     }
 
     public void setOnFailStatement(OnFailStatement onFailStatement) {
@@ -14,9 +15,5 @@ public class LockStatement extends DiagramElementWithChildren{
 
     public OnFailStatement getOnFailStatement() {
         return onFailStatement;
-    }
-
-    public void setHasInteractions(boolean hasInteractions) {
-        this.hasInteractions = hasInteractions;
     }
 }

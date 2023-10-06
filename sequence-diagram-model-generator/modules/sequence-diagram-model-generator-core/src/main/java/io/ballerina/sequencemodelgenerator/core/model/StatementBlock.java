@@ -3,7 +3,6 @@ package io.ballerina.sequencemodelgenerator.core.model;
 import io.ballerina.tools.text.LineRange;
 
 public class StatementBlock extends DiagramElementWithChildren{
-    private LineRange location;
 
     private String statementBlockText;
 
@@ -11,11 +10,8 @@ public class StatementBlock extends DiagramElementWithChildren{
         this.statementBlockText = statementBlockText;
     }
 
-    public StatementBlock() {
-        super("StatementBlock", false);
+    public StatementBlock(LineRange location) {
+        super("StatementBlock", false, location);
     }
 
-    public void setLocation(LineRange location) {
-        this.location = location;
-    }
 }

@@ -1,15 +1,15 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
+import io.ballerina.tools.text.LineRange;
+
 import java.util.List;
 
 public class WhileStatement extends DiagramElementWithChildren{
     private final String condition;
     private OnFailStatement onFailStatement;
 
-    private boolean hasInteractions;
-
-    public WhileStatement(String condition, boolean isHidden) {
-        super("WhileStatement", isHidden);
+    public WhileStatement(String condition, boolean isHidden, LineRange location) {
+        super("WhileStatement", isHidden, location);
         this.condition = condition;
     }
 
@@ -23,9 +23,5 @@ public class WhileStatement extends DiagramElementWithChildren{
 
     public void setOnFailStatement(OnFailStatement onFailStatement) {
         this.onFailStatement = onFailStatement;
-    }
-
-    public void setHasInteractions(boolean hasInteractions) {
-        this.hasInteractions = hasInteractions;
     }
 }

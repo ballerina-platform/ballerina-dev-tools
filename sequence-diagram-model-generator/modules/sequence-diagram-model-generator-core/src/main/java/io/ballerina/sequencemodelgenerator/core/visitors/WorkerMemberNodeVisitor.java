@@ -45,7 +45,7 @@ public class WorkerMemberNodeVisitor extends NodeVisitor {
                                 referredClassSymbol.getModule().get().id().toString())) {
                             String clientID = UUID.randomUUID().toString();
                             Participant participant = new Participant(clientID, variableDeclarationNode.typedBindingPattern().bindingPattern().toString(),
-                                    ParticipantKind.ENDPOINT,referredClassSymbol.getModule().get().id().toString(),referredClassSymbol.signature());
+                                    ParticipantKind.ENDPOINT,referredClassSymbol.getModule().get().id().toString(),referredClassSymbol.signature(), variableDeclarationNode.lineRange());
                             participants.add(participant);
 
                         }

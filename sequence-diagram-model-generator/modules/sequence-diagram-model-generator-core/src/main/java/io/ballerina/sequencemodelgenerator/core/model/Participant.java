@@ -1,5 +1,7 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
+import io.ballerina.tools.text.LineRange;
+
 import java.util.List;
 
 public class Participant extends DiagramElementWithChildren {
@@ -29,8 +31,8 @@ public class Participant extends DiagramElementWithChildren {
 //        this.statements = statements;
 //    }
 
-    public Participant(String id, String name, ParticipantKind kind, String packageName, String type) {
-        super("Participant", false);
+    public Participant(String id, String name, ParticipantKind kind, String packageName, String type, LineRange location) {
+        super("Participant", false, location);
         this.id = id;
         this.name = name;
         this.participantKind = kind;
@@ -42,8 +44,8 @@ public class Participant extends DiagramElementWithChildren {
         return packageName;
     }
 
-    public Participant(String id, String name, ParticipantKind kind, String packageName) {
-        super("Participant", false);
+    public Participant(String id, String name, ParticipantKind kind, String packageName, LineRange location) {
+        super("Participant", false, location);
         this.id = id;
         this.name = name;
         this.participantKind = kind;

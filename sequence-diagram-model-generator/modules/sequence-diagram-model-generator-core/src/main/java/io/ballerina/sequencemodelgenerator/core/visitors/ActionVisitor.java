@@ -23,7 +23,6 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
-import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
@@ -381,7 +380,8 @@ public class ActionVisitor extends NodeVisitor {
 
                             if (!isEndpointPresent(clientID) && clientPkgName != null) {
                                 Participant participant = new Participant(clientID, clientNode.toString().trim(),
-                                        ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim());
+                                        ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim(),
+                                        objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null);
                                 this.visitorContext.addToParticipants(participant);
                             }
 
@@ -394,7 +394,7 @@ public class ActionVisitor extends NodeVisitor {
                             boolean isHidden = this.isHiddenVariableStmt();
                             EndpointActionStatement actionStatement = new EndpointActionStatement(
                                     this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
-                                    methodName, resourcePath, isHidden, Constants.ActionType.RESOURCE_ACTION);
+                                    methodName, resourcePath, isHidden, Constants.ActionType.RESOURCE_ACTION, clientResourceAccessActionNode.lineRange());
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                             } else {
@@ -443,7 +443,8 @@ public class ActionVisitor extends NodeVisitor {
                             String clientPkgName = ModelGeneratorUtils.generateModuleIDFromSymbol(objectTypeSymbol);
                             if (!isEndpointPresent(clientID) && clientPkgName != null) {
                                 Participant participant = new Participant(clientID, clientNode.toString().trim(),
-                                        ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim());
+                                        ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim(),
+                                        objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null);
                                 this.visitorContext.addToParticipants(participant);
                             }
 
@@ -460,7 +461,8 @@ public class ActionVisitor extends NodeVisitor {
                             boolean isHidden = this.isHiddenVariableStmt();
                             EndpointActionStatement actionStatement = new EndpointActionStatement(
                                     this.visitorContext.getCurrentParticipant().getId().trim(), clientID, clientNode.toString().trim(),
-                                    remoteMethodCallActionNode.methodName().toString().trim(), null, isHidden, Constants.ActionType.REMOTE_ACTION);
+                                    remoteMethodCallActionNode.methodName().toString().trim(), null, isHidden,
+                                    Constants.ActionType.REMOTE_ACTION, remoteMethodCallActionNode.lineRange());
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(actionStatement);
                             } else {
@@ -496,10 +498,10 @@ public class ActionVisitor extends NodeVisitor {
                             Interaction interaction;
                             if (expression != null) {
                                 interaction = new MethodActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                        participant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden);
+                                        participant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden, nameNode.lineRange());
                             } else {
                                 interaction = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                        participant.getId().trim(), functionName, isHidden);
+                                        participant.getId().trim(), functionName, isHidden, nameNode.lineRange());
                             }
                             // Todo: make functionName include module prefix
 //                            FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
@@ -562,10 +564,10 @@ public class ActionVisitor extends NodeVisitor {
                                         Interaction interaction;
                                         if (expression != null) {
                                             interaction = new MethodActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                                    targetParticipant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden);
+                                                    targetParticipant.getId().trim(), functionName, expression.toSourceCode().trim(), isHidden, nameNode.lineRange());
                                         } else {
                                             interaction = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
-                                                    targetParticipant.getId().trim(), functionName, isHidden);
+                                                    targetParticipant.getId().trim(), functionName, isHidden, nameNode.lineRange());
                                         }
 //                                        FunctionActionStatement functionActionStatement = new FunctionActionStatement(visitorContext.getCurrentParticipant().getId().trim(),
 //                                                targetParticipant.getId().trim(), functionName, isHidden);
@@ -601,7 +603,7 @@ public class ActionVisitor extends NodeVisitor {
                 }
                 if (functionID != null && !ModelGeneratorUtils.isInParticipantList(functionID, visitorContext.getParticipants())) {
                     Participant participant = new Participant(functionID,
-                            functionDefinitionNode.functionName().text().trim(), ParticipantKind.WORKER, packageName);
+                            functionDefinitionNode.functionName().text().trim(), ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
                     VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), participant,
                             this.visitorContext.getParticipants(), this.visitorContext.getVisitedFunctionNames());
                     visitorContext.addToParticipants(participant);
@@ -622,14 +624,14 @@ public class ActionVisitor extends NodeVisitor {
             if (!ifElseStatementNode.condition().isMissing()) {
                 ifElseStatementNode.condition().accept(this);
             }
-            IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString(), isHidden);
+            IfStatement ifStatement = new IfStatement(ifElseStatementNode.condition().toString(), isHidden, ifElseStatementNode.lineRange());
             VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), ifStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
             ifElseStatementNode.ifBody().accept(actionVisitor);
 
             if (ifElseStatementNode.elseBody().isPresent()) {
-                ElseStatement elseStatement = new ElseStatement(isHidden);
+                ElseStatement elseStatement = new ElseStatement(isHidden, ifElseStatementNode.lineRange());
                 VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                         this.visitorContext.getParticipants(), elseStatement, this.visitorContext.getVisitedFunctionNames());
                 ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -664,7 +666,7 @@ public class ActionVisitor extends NodeVisitor {
             if (!whileStatementNode.condition().isMissing()) {
                 whileStatementNode.condition().accept(this);
             }
-            WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString(), isHidden);
+            WhileStatement whileStatement = new WhileStatement(whileStatementNode.condition().toString(), isHidden, whileStatementNode.lineRange());
             VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), whileStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -676,7 +678,7 @@ public class ActionVisitor extends NodeVisitor {
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden, whileStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -704,7 +706,7 @@ public class ActionVisitor extends NodeVisitor {
         if (!forEachStatementNode.actionOrExpressionNode().isMissing()) {
             forEachStatementNode.actionOrExpressionNode().accept(this);
         }
-        ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString(), isHidden);
+        ForEachStatement forEachStatement = new ForEachStatement(forEachStatementNode.actionOrExpressionNode().toString(), isHidden, forEachStatementNode.lineRange());
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), forEachStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -716,7 +718,7 @@ public class ActionVisitor extends NodeVisitor {
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden, forEachStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -739,7 +741,7 @@ public class ActionVisitor extends NodeVisitor {
             generateStatementBlock(lockStatementNode);
         }
         boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(lockStatementNode);
-        LockStatement lockStatement = new LockStatement(isHidden);
+        LockStatement lockStatement = new LockStatement(isHidden, lockStatementNode.lineRange());
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), lockStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -751,7 +753,7 @@ public class ActionVisitor extends NodeVisitor {
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden);
+                            onFailClauseNode.failErrorName().get().toString() : "" , isHidden, lockStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -774,7 +776,7 @@ public class ActionVisitor extends NodeVisitor {
             generateStatementBlock(doStatementNode);
         }
         boolean isHidden = ModelGeneratorUtils.isHiddenInSequenceFlagPresent(doStatementNode);
-        DoStatement doStatement = new DoStatement(isHidden);
+        DoStatement doStatement = new DoStatement(isHidden, doStatementNode.lineRange());
         VisitorContext visitorContext = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                 this.visitorContext.getParticipants(), doStatement, this.visitorContext.getVisitedFunctionNames());
         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
@@ -784,7 +786,7 @@ public class ActionVisitor extends NodeVisitor {
             OnFailStatement onFailStatement = new OnFailStatement(
                     doStatementNode.onFailClause().get().typeDescriptor().isPresent() ? doStatementNode.onFailClause().get().typeDescriptor().get().toString() : "",
                     doStatementNode.onFailClause().get().failErrorName().isPresent() ? doStatementNode.onFailClause().get().failErrorName().get().toString() : "",
-                    isHidden);
+                    isHidden, doStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
                     this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
@@ -813,8 +815,7 @@ public class ActionVisitor extends NodeVisitor {
 
                         // Iterate through the lines and process each one
                         for (String line : lines) {
-                            StatementBlock statementBlock = new StatementBlock();
-                            statementBlock.setLocation(minutiae.parentToken().location().lineRange()); // TODO : Fix the correct location
+                            StatementBlock statementBlock = new StatementBlock(minutiae.lineRange());
                             statementBlock.setStatementBlockText(ModelGeneratorUtils.extractBlockComment(line));
                             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(statementBlock);
