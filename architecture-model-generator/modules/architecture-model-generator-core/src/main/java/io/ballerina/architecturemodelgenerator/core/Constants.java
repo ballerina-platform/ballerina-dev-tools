@@ -51,7 +51,7 @@ public class Constants {
         }
     }
 
-    public static final String MODEL_VERSION = "0.3.1";
+    public static final String MODEL_VERSION = "0.4.0";
     public static final String COLON = ":";
     public static final String FORWARD_SLASH = "/";
     public static final String SERVICE_ANNOTATION = "choreo:Service";
@@ -71,6 +71,7 @@ public class Constants {
     public static final String CONSTRAINT_ARRAY = "Array";
     public static final String MIN_LENGTH_FIELD = "minLength";
     public static final String MAX_LENGTH_FIELD = "maxLength";
+    public static final String DEFAULT_SERVICE_BASE_PATH = "_defaultBasePath";
 
     // REST Methods
     public static final String GET_KEYWORD = "get";

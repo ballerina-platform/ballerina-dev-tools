@@ -22,10 +22,11 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureMode
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.service.nodevisitors.ActionNodeVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -48,11 +49,12 @@ import io.ballerina.projects.PackageCompilation;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import static io.ballerina.architecturemodelgenerator.core.Constants.MAIN;
-import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getElementLocation;
+import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getSourceLocation;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getReferencedType;
 import static io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils.getServiceAnnotation;
 
@@ -68,6 +70,8 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
     private final SyntaxTree syntaxTree;
     private final Package currentPackage;
     private FunctionEntryPoint functionEntryPoint = null;
+
+    private final List<Connection> dependencies = new LinkedList<>();
     private final Path filePath;
 
     public FunctionEntryPointVisitor(PackageCompilation packageCompilation, SemanticModel semanticModel,
@@ -84,6 +88,10 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
         return functionEntryPoint;
     }
 
+    public List<Connection> getDependencies() {
+        return dependencies;
+    }
+
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         if (functionDefinitionNode.functionName().text().equals(MAIN)) {
@@ -94,7 +102,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 annotation = getServiceAnnotation(annotatableSymbol, filePath.toString());
             }
 
-            ElementLocation elementLocation = getElementLocation(filePath.toString(),
+            SourceLocation elementLocation = getSourceLocation(filePath.toString(),
                     functionDefinitionNode.lineRange());
             List<FunctionParameter> funcParamList = new ArrayList<>();
 
@@ -118,9 +126,18 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                 diagnostics.add(diagnostic);
             }
 
-            functionEntryPoint = new FunctionEntryPoint(funcParamList, returnTypes,
+            String functionId = annotation != null ? annotation.getId() : functionDefinitionNode.functionName().text();
+            String label = annotation != null ? annotation.getLabel() : null;
+
+            List<String> dependencyIDs = new ArrayList<>();
+            for (Connection dependency : functionEntryPointMemberNodeVisitor.getDependencies()) {
+                dependencyIDs.add(dependency.getId());
+            }
+
+            functionEntryPoint = new FunctionEntryPoint(functionId, label, funcParamList, returnTypes,
                     actionNodeVisitor.getInteractionList(), annotation,
-                    functionEntryPointMemberNodeVisitor.getDependencies(), elementLocation, diagnostics);
+                    dependencyIDs, elementLocation, diagnostics);
+            dependencies.addAll(functionEntryPointMemberNodeVisitor.getDependencies());
         }
     }
 
@@ -145,7 +162,7 @@ public class FunctionEntryPointVisitor extends NodeVisitor {
                                List<FunctionParameter> functionParameters) {
         SeparatedNodeList<ParameterNode> parameterNodes = functionSignatureNode.parameters();
         for (ParameterNode parameterNode : parameterNodes) {
-            ElementLocation elementLocation = getElementLocation(this.filePath.toString(),
+            SourceLocation elementLocation = getSourceLocation(this.filePath.toString(),
                     parameterNode.lineRange());
             Optional<Symbol> symbol = semanticModel.symbol(parameterNode);
             if (symbol.isPresent() && symbol.get().kind().equals(SymbolKind.PARAMETER)) {

@@ -1,24 +1,19 @@
 {
-  "packageId": {
-    "name": "single_service_sample",
-    "org": "aneesha",
-    "version": "0.1.0"
-  },
-  "hasCompilationErrors": true,
+  "modelVersion": "0.4.0",
+  "id": "single_service_sample",
+  "orgName": "aneesha",
+  "version": "0.1.0",
+  "hasCompilationErrors": false,
+  "diagnostics": [],
   "services": {
     "001": {
-      "path": "greeting",
-      "serviceId": "001",
-      "serviceType": "ballerina/http:2.5.1",
-      "resources": [
+      "id": "001",
+      "label": "greeting-service",
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": ".",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "greeting-service",
-            "path": ".",
-            "action": "get"
-          },
+          "id": "001:.:get",
+          "path": ".",
           "parameters": [
             {
               "type": [
@@ -27,7 +22,7 @@
               "name": "name",
               "in": "query",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
                   "line": 15,
@@ -47,7 +42,7 @@
               "name": "time",
               "in": "query",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
                   "line": 15,
@@ -67,14 +62,10 @@
           ],
           "interactions": [
             {
-              "resourceId": {
-                "serviceId": "002",
-                "serviceLabel": "time-service",
-                "path": "[string]",
-                "action": "get"
-              },
-              "connectorType": "ballerina/http:2.5.1",
-              "elementLocation": {
+              "id": "002:[string]:get",
+              "type": "ballerina/http:2.8.1",
+              "serviceId": "002",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
                   "line": 21,
@@ -88,7 +79,7 @@
               "diagnostics": []
             }
           ],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
               "line": 15,
@@ -96,23 +87,20 @@
             },
             "endPosition": {
               "line": 23,
-              "offset":5
+              "offset": 5
             }
           },
           "diagnostics": []
         },
         {
-          "identifier": "accounts",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "greeting-service",
-            "path": "accounts",
-            "action": "get"
-          },
+          "id": "001:accounts:get",
+          "path": "accounts",
           "parameters": [],
-          "returns": ["aneesha/single_service_sample:model:0.1.0:Account"],
+          "returns": [
+            "aneesha/single_service_sample:model:0.1.0:Account"
+          ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
               "line": 25,
@@ -126,25 +114,19 @@
           "diagnostics": []
         },
         {
-          "identifier": "weather",
-          "resourceId": {
-            "serviceId": "001",
-            "serviceLabel": "greeting-service",
-            "path": "weather",
-            "action": "get"
-          },
+          "id": "001:weather:get",
+          "path": "weather",
           "parameters": [],
-          "returns": ["string","error"],
+          "returns": [
+            "string",
+            "error"
+          ],
           "interactions": [
             {
-              "resourceId": {
-                "serviceId": "-149610787",
-                "serviceLabel": "",
-                "path": "getCurrentWeather",
-                "action": "get"
-              },
-              "connectorType": "",
-              "elementLocation": {
+              "id": "-459379229:getCurrentWeather:get",
+              "type": "ballerina/http:2.8.1",
+              "serviceId": "-459379229",
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
                   "line": 15,
@@ -158,7 +140,7 @@
               "diagnostics": []
             }
           ],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
               "line": 29,
@@ -172,10 +154,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "001",
         "label": "greeting-service",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
           "startPosition": {
             "line": 10,
@@ -188,9 +171,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
       "dependencies": [],
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
           "line": 10,
@@ -204,18 +186,13 @@
       "diagnostics": []
     },
     "002": {
-      "path": "time",
-      "serviceId": "002",
-      "serviceType": "ballerina/http:2.5.1",
-      "resources": [
+      "id": "002",
+      "label": "time-service",
+      "type": "ballerina/http:2.8.1",
+      "resourceFunctions": [
         {
-          "identifier": "greeting",
-          "resourceId": {
-            "serviceId": "002",
-            "serviceLabel": "time-service",
-            "path": "greeting",
-            "action": "get"
-          },
+          "id": "002:greeting:get",
+          "path": "greeting",
           "parameters": [
             {
               "type": [
@@ -224,7 +201,7 @@
               "name": "time",
               "in": "query",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
                 "startPosition": {
                   "line": 41,
@@ -242,7 +219,7 @@
             "string"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
             "startPosition": {
               "line": 41,
@@ -256,10 +233,11 @@
           "diagnostics": []
         }
       ],
+      "remoteFunctions": [],
       "annotation": {
         "id": "002",
         "label": "time-service",
-        "elementLocation": {
+        "sourceLocation": {
           "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
           "startPosition": {
             "line": 36,
@@ -272,9 +250,8 @@
         },
         "diagnostics": []
       },
-      "remoteFunctions": [],
       "dependencies": [],
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/single_service_sample/main.bal",
         "startPosition": {
           "line": 36,
@@ -288,5 +265,89 @@
       "diagnostics": []
     }
   },
-  "entities": {}
+  "entities": {
+    "aneesha/single_service_sample:model:0.1.0:Account": {
+      "attributes": [
+        {
+          "name": "AccountId",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": true,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 1,
+              "offset": 20
+            },
+            "endPosition": {
+              "line": 1,
+              "offset": 29
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "Status",
+          "type": "string",
+          "optional": true,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 2,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 2,
+              "offset": 17
+            }
+          },
+          "diagnostics": []
+        },
+        {
+          "name": "Currency",
+          "type": "string",
+          "optional": false,
+          "nillable": false,
+          "defaultValue": "",
+          "associations": [],
+          "isReadOnly": false,
+          "sourceLocation": {
+            "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+            "startPosition": {
+              "line": 3,
+              "offset": 11
+            },
+            "endPosition": {
+              "line": 3,
+              "offset": 19
+            }
+          },
+          "diagnostics": []
+        }
+      ],
+      "inclusions": [],
+      "isAnonymous": false,
+      "sourceLocation": {
+        "filePath": "{srcPath}/ballerina/single_service_sample/modules/model/AccountModel.bal",
+        "startPosition": {
+          "line": 0,
+          "offset": 12
+        },
+        "endPosition": {
+          "line": 0,
+          "offset": 19
+        }
+      },
+      "diagnostics": []
+    }
+  },
+  "functionEntryPoint": null,
+  "connections": []
 }

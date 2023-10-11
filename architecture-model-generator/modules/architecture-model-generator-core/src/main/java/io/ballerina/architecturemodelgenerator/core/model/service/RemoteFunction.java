@@ -19,8 +19,8 @@
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.FunctionParameter;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
 
@@ -33,19 +33,25 @@ import java.util.List;
  */
 public class RemoteFunction extends ModelElement {
 
+    private final String id;
     private final String name;
     private final List<FunctionParameter> parameters;
     private final List<String> returns;
     private final List<Interaction> interactions;
 
-    public RemoteFunction(String name, List<FunctionParameter> parameters, List<String> returns,
-                          List<Interaction> interactions, ElementLocation elementLocation,
+    public RemoteFunction(String identifier, String name, List<FunctionParameter> parameters, List<String> returns,
+                          List<Interaction> interactions, SourceLocation elementLocation,
                           List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
+        this.id = identifier;
         this.name = name;
         this.parameters = parameters;
         this.returns = returns;
         this.interactions = interactions;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

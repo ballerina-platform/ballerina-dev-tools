@@ -19,9 +19,8 @@
 package io.ballerina.architecturemodelgenerator.core.model.common;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
-import io.ballerina.architecturemodelgenerator.core.model.service.ResourceId;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 
 import java.util.List;
 
@@ -32,21 +31,27 @@ import java.util.List;
  */
 public class Interaction extends ModelElement {
 
-    private final ResourceId resourceId;
-    private final String connectorType;
+    private final String id;
+    private final String type;
+    private final String serviceId;
 
-    public Interaction(ResourceId resourceId, String connectorType, ElementLocation elementLocation,
+    public Interaction(String id, String connectorType, SourceLocation elementLocation, String serviceId,
                        List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
-        this.resourceId = resourceId;
-        this.connectorType = connectorType;
+        this.id = id;
+        this.type = connectorType;
+        this.serviceId = serviceId;
     }
 
-    public ResourceId getResourceId() {
-        return resourceId;
+    public String getId() {
+        return id;
     }
 
-    public String getConnectorType() {
-        return connectorType;
+    public String getType() {
+        return type;
+    }
+
+    public String getServiceId() {
+        return serviceId;
     }
 }

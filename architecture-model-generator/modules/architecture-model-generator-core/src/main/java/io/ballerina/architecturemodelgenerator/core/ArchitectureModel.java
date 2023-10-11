@@ -21,8 +21,8 @@ package io.ballerina.architecturemodelgenerator.core;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.architecturemodelgenerator.core.model.service.Service;
-import io.ballerina.projects.Package;
 
 import java.util.List;
 import java.util.Map;
@@ -34,32 +34,47 @@ import java.util.Map;
  */
 public class ArchitectureModel {
 
+    private final String modelVersion;
+    private final String id;
+    private final String orgName;
     private final String version;
-    private final PackageId packageId;
     private final boolean hasCompilationErrors;
     private final List<ArchitectureModelDiagnostic> diagnostics;
     private final Map<String, Service> services;
     private final Map<String, Entity> entities;
     private final FunctionEntryPoint functionEntryPoint;
+    private final List<Connection> connections;
 
-    public ArchitectureModel(String version, PackageId packageId, List<ArchitectureModelDiagnostic> diagnostics,
-                             Map<String, Service> services, Map<String, Entity> entities,
-                             FunctionEntryPoint functionEntryPoint, boolean hasCompilationErrors) {
+    public ArchitectureModel(String modelVersion, String id, String orgName, String version,
+                             List<ArchitectureModelDiagnostic> diagnostics, Map<String, Service> services,
+                             Map<String, Entity> entities, FunctionEntryPoint functionEntryPoint,
+                             boolean hasCompilationErrors, List<Connection> connections) {
+        this.modelVersion = modelVersion;
+        this.id = id;
+        this.orgName = orgName;
         this.version = version;
-        this.packageId = packageId;
         this.diagnostics = diagnostics;
         this.services = services;
         this.entities = entities;
         this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
+        this.connections = connections;
+    }
+
+    public String getModelVersion() {
+        return modelVersion;
+    }
+
+    public String getId() {
+        return String.format("%s/%s:%s", orgName, id, version);
+    }
+
+    public String getOrgName() {
+        return orgName;
     }
 
     public String getVersion() {
         return version;
-    }
-
-    public PackageId getPackageId() {
-        return packageId;
     }
 
     public List<ArchitectureModelDiagnostic> getDiagnostics() {
@@ -82,31 +97,7 @@ public class ArchitectureModel {
         return hasCompilationErrors;
     }
 
-    /**
-     * Represent current package information.
-     */
-    public static class PackageId {
-
-        private final String name;
-        private final String org;
-        private final String version;
-
-        public PackageId(Package currentPackage) {
-            this.name = currentPackage.packageName().value();
-            this.org = currentPackage.packageOrg().value();
-            this.version = currentPackage.packageVersion().value().toString();
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getOrg() {
-            return org;
-        }
-
-        public String getVersion() {
-            return version;
-        }
+    public List<Connection> getConnections() {
+        return connections;
     }
 }

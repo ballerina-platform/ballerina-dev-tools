@@ -21,12 +21,15 @@ package io.ballerina.architecturemodelgenerator.core.generators.entrypoint;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entrypoint.nodevisitors.FunctionEntryPointVisitor;
 import io.ballerina.architecturemodelgenerator.core.model.functionentrypoint.FunctionEntryPoint;
+import io.ballerina.architecturemodelgenerator.core.model.service.Connection;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.PackageCompilation;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Build entry point model based on a given Ballerina package.
@@ -35,12 +38,23 @@ import java.nio.file.Path;
  */
 public class FunctionEntryPointModelGenerator extends ModelGenerator {
 
+    public FunctionEntryPoint functionEntryPoint = null;
+
+    private final List<Connection> dependencies = new LinkedList<>();
+
+    public FunctionEntryPoint getFunctionEntryPoint() {
+        return functionEntryPoint;
+    }
+
+    public List<Connection> getDependencies() {
+        return dependencies;
+    }
+
     public FunctionEntryPointModelGenerator(PackageCompilation packageCompilation, Module module) {
         super(packageCompilation, module);
     }
 
-    public FunctionEntryPoint generate() {
-        FunctionEntryPoint entryPoint = null;
+    public void generate() {
         for (DocumentId documentId :getModule().documentIds()) {
             SyntaxTree syntaxTree = getModule().document(documentId).syntaxTree();
             Path filePath = getModuleRootPath().resolve(syntaxTree.filePath());
@@ -49,9 +63,9 @@ public class FunctionEntryPointModelGenerator extends ModelGenerator {
             syntaxTree.rootNode().accept(functionEntryPointVisitor);
             FunctionEntryPoint entryPointVisited = functionEntryPointVisitor.getFunctionEntryPoint();
             if (entryPointVisited != null) {
-                entryPoint = entryPointVisited;
+                functionEntryPoint = entryPointVisited;
+                dependencies.addAll(functionEntryPointVisitor.getDependencies());
             }
         }
-        return entryPoint;
     }
 }

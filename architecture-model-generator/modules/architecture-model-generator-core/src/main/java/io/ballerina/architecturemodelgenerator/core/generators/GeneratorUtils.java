@@ -18,8 +18,7 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators;
 
-import io.ballerina.architecturemodelgenerator.core.ArchitectureModel;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Annotatable;
@@ -56,7 +55,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static io.ballerina.architecturemodelgenerator.core.Constants.CLIENT;
 import static io.ballerina.architecturemodelgenerator.core.Constants.DISPLAY_ANNOTATION;
@@ -70,29 +68,29 @@ import static io.ballerina.architecturemodelgenerator.core.Constants.LABEL;
  */
 public class GeneratorUtils {
 
-    public static ElementLocation getElementLocation(String filePath, LineRange lineRange) {
+    public static SourceLocation getSourceLocation(String filePath, LineRange lineRange) {
 
-        ElementLocation.LinePosition startPosition = ElementLocation.LinePosition.from(
+        SourceLocation.LinePosition startPosition = SourceLocation.LinePosition.from(
                 lineRange.startLine().line(), lineRange.startLine().offset());
-        ElementLocation.LinePosition endLinePosition = ElementLocation.LinePosition.from(
+        SourceLocation.LinePosition endLinePosition = SourceLocation.LinePosition.from(
                 lineRange.endLine().line(), lineRange.endLine().offset()
         );
-        return ElementLocation.from(filePath, startPosition, endLinePosition);
+        return SourceLocation.from(filePath, startPosition, endLinePosition);
 
     }
 
     public static DisplayAnnotation getServiceAnnotation(NodeList<AnnotationNode> annotationNodes, String filePath) {
 
-        String id = UUID.randomUUID().toString();
+        String id = "";
         String label = "";
-        ElementLocation elementLocation = null;
+        SourceLocation elementLocation = null;
         for (AnnotationNode annotationNode : annotationNodes) {
             String annotationName = annotationNode.annotReference().toString().trim();
             if (!(annotationName.equals(DISPLAY_ANNOTATION) && annotationNode.annotValue().isPresent())) {
                 continue;
             }
             SeparatedNodeList<MappingFieldNode> fields = annotationNode.annotValue().get().fields();
-            elementLocation = getElementLocation(filePath, annotationNode.lineRange());
+            elementLocation = getSourceLocation(filePath, annotationNode.lineRange());
             for (MappingFieldNode mappingFieldNode : fields) {
                 if (mappingFieldNode.kind() != SyntaxKind.SPECIFIC_FIELD) {
                     continue;
@@ -121,7 +119,7 @@ public class GeneratorUtils {
 
         String id = null;
         String label = "";
-        ElementLocation elementLocation = null;
+        SourceLocation elementLocation = null;
 
         List<AnnotationSymbol> annotSymbols = annotableSymbol.annotations();
         List<AnnotationAttachmentSymbol> annotAttachmentSymbols = annotableSymbol.annotAttachments();
@@ -131,7 +129,7 @@ public class GeneratorUtils {
                 AnnotationAttachmentSymbol annotAttachmentSymbol = annotAttachmentSymbols.get(i);
                 String annotName = annotSymbol.getName().orElse("");
                 elementLocation = annotAttachmentSymbol.getLocation().isPresent() ?
-                        getElementLocation(filePath, annotAttachmentSymbol.getLocation().get().lineRange()) : null;
+                        getSourceLocation(filePath, annotAttachmentSymbol.getLocation().get().lineRange()) : null;
                 if (!annotName.equals(DISPLAY_ANNOTATION) || annotAttachmentSymbol.attachmentValue().isEmpty() ||
                         !(annotAttachmentSymbol.attachmentValue().get().value() instanceof LinkedHashMap) ||
                         !annotAttachmentSymbol.isConstAnnotation()) {
@@ -220,9 +218,8 @@ public class GeneratorUtils {
 
     private static String getReferenceEntityName(TypeReferenceTypeSymbol typeReferenceTypeSymbol,
                                                  Package currentPackage) {
-        ArchitectureModel.PackageId packageId = new ArchitectureModel.PackageId(currentPackage);
-        String currentPackageName = String.format
-                ("%s/%s:%s", packageId.getOrg(), packageId.getName(), packageId.getVersion());
+        String currentPackageName = String.format("%s/%s:%s", currentPackage.packageOrg().value(),
+                currentPackage.packageName().value(), currentPackage.packageVersion().value());
         String referenceType = typeReferenceTypeSymbol.signature();
         if (typeReferenceTypeSymbol.getModule().isPresent() &&
                 !referenceType.split(":")[0].equals(currentPackageName.split(":")[0])) {
