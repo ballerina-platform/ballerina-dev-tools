@@ -48,7 +48,7 @@ public class ArchitectureModel {
     public ArchitectureModel(String modelVersion, String id, String orgName, String version,
                              List<ArchitectureModelDiagnostic> diagnostics, Map<String, Service> services,
                              Map<String, Entity> entities, FunctionEntryPoint functionEntryPoint,
-                             boolean hasCompilationErrors, List<Connection> dependencies) {
+                             boolean hasCompilationErrors, List<Connection> connections) {
         this.modelVersion = modelVersion;
         this.id = id;
         this.orgName = orgName;
@@ -58,7 +58,7 @@ public class ArchitectureModel {
         this.entities = entities;
         this.functionEntryPoint = functionEntryPoint;
         this.hasCompilationErrors = hasCompilationErrors;
-        this.connections = dependencies;
+        this.connections = connections;
     }
 
     public String getModelVersion() {
