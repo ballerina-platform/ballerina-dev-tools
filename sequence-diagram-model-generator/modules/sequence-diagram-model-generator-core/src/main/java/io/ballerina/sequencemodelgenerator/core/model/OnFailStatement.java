@@ -2,7 +2,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-public class OnFailStatement extends DiagramElementWithChildren{
+public class OnFailStatement extends DElement {
     private String type;
     private String name;
 

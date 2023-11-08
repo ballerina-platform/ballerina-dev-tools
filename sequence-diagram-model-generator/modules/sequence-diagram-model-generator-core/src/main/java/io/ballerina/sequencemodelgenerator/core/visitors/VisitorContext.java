@@ -1,23 +1,19 @@
 package io.ballerina.sequencemodelgenerator.core.visitors;
 
-import io.ballerina.compiler.syntax.tree.NameReferenceNode;
-import io.ballerina.sequencemodelgenerator.core.model.DiagramElementWithChildren;
+import io.ballerina.sequencemodelgenerator.core.model.DElement;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
-import io.ballerina.sequencemodelgenerator.core.model.StatementBlock;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class VisitorContext {
     private Participant rootParticipant;
     private Participant currentParticipant;
     private List<Participant> participants;
 
-    private DiagramElementWithChildren diagramElementWithChildren;
+    private DElement diagramElementWithChildren;
 
-    public DiagramElementWithChildren getDiagramElementWithChildren() {
+    public DElement getDiagramElementWithChildren() {
         return diagramElementWithChildren;
     }
 
@@ -56,7 +52,7 @@ public class VisitorContext {
         this.visitedFunctionNames = visitedFunctionNames;
     }
 
-    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants, DiagramElementWithChildren diagramElementWithChildren, List<String> visitedFunctionNames) {
+    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants, DElement diagramElementWithChildren, List<String> visitedFunctionNames) {
         this.rootParticipant = rootParticipant;
         this.currentParticipant = currentParticipant;
         this.participants = participants;

@@ -2,9 +2,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
-
-public class ForEachStatement extends DiagramElementWithChildren{
+public class ForEachStatement extends DElement {
     private String condition;
     private OnFailStatement onFailStatement;
 

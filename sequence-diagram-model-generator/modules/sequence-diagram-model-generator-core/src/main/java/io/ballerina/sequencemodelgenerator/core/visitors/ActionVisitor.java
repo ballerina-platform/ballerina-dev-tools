@@ -359,17 +359,13 @@ public class ActionVisitor extends NodeVisitor {
                             for (Node node : resourceAccessPath) {
                                 if (node.kind().equals(SyntaxKind.IDENTIFIER_TOKEN)) {
                                     resourcePath = resourcePath.concat("/");
-//                                    if (!resourcePath.isEmpty()) {
-//                                        resourcePath = resourcePath.concat("/");
-//                                    }
-
-                                    resourcePath = resourcePath.concat(((Token) node).text()).trim();
+                                    // Removing escape character from resourcePath
+                                    String replaced = ((Token) node).text().trim().replaceAll("\\\\-", "-");
+                                    resourcePath = resourcePath.concat(replaced).trim();
                                 } else if (node.kind().equals(SyntaxKind.COMPUTED_RESOURCE_ACCESS_SEGMENT)) {
                                     resourcePath = resourcePath.concat("/");
-//                                    if (!resourcePath.isEmpty()) {
-//                                        resourcePath = resourcePath.concat("/");
-//                                    }
-                                    resourcePath = resourcePath.concat(node.toSourceCode().trim());
+                                    String replaced = node.toSourceCode().trim().replaceAll("\\\\-", "-");
+                                    resourcePath = resourcePath.concat(replaced);
                                 }
                             }
                             if (resourcePath.isEmpty()) {
@@ -646,12 +642,12 @@ public class ActionVisitor extends NodeVisitor {
                     elseStatement.addChildDiagramElements(ifStatement);
                 } else {
                     // Adding ifStatement if the body of statement has interactions
-                    if (ifStatement.getChildElements() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getChildElements() != null)) {
+                    if (ifStatement.getElementBody() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getElementBody() != null)) {
                         this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(ifStatement);
                     }
                 }
             } else {
-                if (ifStatement.getChildElements() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getChildElements() != null)) {
+                if (ifStatement.getElementBody() != null || (ifStatement.getElseStatement() != null && ifStatement.getElseStatement().getElementBody() != null)) {
                     this.visitorContext.getCurrentParticipant().addChildDiagramElements(ifStatement);
                 }
             }
@@ -688,10 +684,10 @@ public class ActionVisitor extends NodeVisitor {
 
             if (this.visitorContext.getDiagramElementWithChildren() != null) {
                 // if the while statement is inside another statement block
-                if (whileStatement.getChildElements() != null) {
+                if (whileStatement.getElementBody() != null) {
                     this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(whileStatement);
                 }
-            } else if (whileStatement.getChildElements() != null) {
+            } else if (whileStatement.getElementBody() != null) {
                 // Above check is to avoid adding statements without interactions to the participant
                 this.visitorContext.getCurrentParticipant().addChildDiagramElements(whileStatement);
             }
@@ -727,10 +723,10 @@ public class ActionVisitor extends NodeVisitor {
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (forEachStatement.getChildElements() != null) {
+            if (forEachStatement.getElementBody() != null) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(forEachStatement);
             }
-        } else if (forEachStatement.getChildElements() != null) {
+        } else if (forEachStatement.getElementBody() != null) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(forEachStatement);
         }
     }
@@ -762,10 +758,10 @@ public class ActionVisitor extends NodeVisitor {
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (lockStatement.getChildElements() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getChildElements() != null)) {
+            if (lockStatement.getElementBody() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getElementBody() != null)) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(lockStatement);
             }
-        } else if (lockStatement.getChildElements() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getChildElements() != null)) {
+        } else if (lockStatement.getElementBody() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getElementBody() != null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(lockStatement);
         }
     }
@@ -795,10 +791,10 @@ public class ActionVisitor extends NodeVisitor {
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (doStatement.getChildElements() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getChildElements() != null)) {
+            if (doStatement.getElementBody() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getElementBody() != null)) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(doStatement);
             }
-        } else if (doStatement.getChildElements() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getChildElements() != null)) {
+        } else if (doStatement.getElementBody() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getElementBody() != null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(doStatement);
         }
     }

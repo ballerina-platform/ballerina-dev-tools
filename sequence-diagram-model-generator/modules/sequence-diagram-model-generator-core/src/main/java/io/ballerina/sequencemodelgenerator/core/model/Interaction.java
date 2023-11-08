@@ -2,7 +2,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-public class Interaction extends DiagramElement {
+public class Interaction extends DNode {
     private final String sourceId;
     private final String targetId;
 

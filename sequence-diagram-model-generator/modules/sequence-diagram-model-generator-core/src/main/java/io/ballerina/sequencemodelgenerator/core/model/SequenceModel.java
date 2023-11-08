@@ -4,7 +4,7 @@ import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
 
-public class SequenceModel extends DiagramElement {
+public class SequenceModel extends DNode {
     List<Participant> participants;
 
     public SequenceModel(List<Participant> participants, LineRange location) {

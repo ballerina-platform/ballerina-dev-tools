@@ -2,23 +2,20 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class IfStatement extends DiagramElementWithChildren {
+public class IfStatement extends DElement {
     private String condition;
-    private DiagramElementWithChildren elseStatement; // this can be either else or elseiF
+    private DElement elseStatement; // this can be either else or elseiF
 
     public IfStatement(String condition, boolean isHidden, LineRange location) {
         super("IfStatement", isHidden, location);
         this.condition = condition;
     }
 
-    public DiagramElementWithChildren getElseStatement() {
+    public DElement getElseStatement() {
         return elseStatement;
     }
 
-    public void setElseStatement(DiagramElementWithChildren elseStatement) {
+    public void setElseStatement(DElement elseStatement) {
         this.elseStatement = elseStatement;
     }
 }

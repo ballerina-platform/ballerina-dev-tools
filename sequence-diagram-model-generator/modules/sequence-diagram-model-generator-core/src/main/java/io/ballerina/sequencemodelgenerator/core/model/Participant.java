@@ -2,9 +2,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
-
-public class Participant extends DiagramElementWithChildren {
+public class Participant extends DElement {
     private final String id;
     private final String name;
     private final ParticipantKind participantKind;

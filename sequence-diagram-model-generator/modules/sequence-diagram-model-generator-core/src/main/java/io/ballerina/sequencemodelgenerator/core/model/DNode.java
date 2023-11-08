@@ -2,18 +2,18 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
-public class DiagramElement {
+public class DNode {
     private final String kind;
     private boolean isHidden;
     private LineRange location;
 
-    public DiagramElement(String kind, boolean isHidden, LineRange location) {
+    public DNode(String kind, boolean isHidden, LineRange location) {
         this.kind = kind;
         this.isHidden = isHidden;
         this.location = location;
     }
 
-    public DiagramElement(String kind) {
+    public DNode(String kind) {
         this.kind = kind;
     }
 
