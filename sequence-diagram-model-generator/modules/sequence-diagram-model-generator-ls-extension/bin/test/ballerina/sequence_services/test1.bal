@@ -1,36 +1,32 @@
+import sequence_services.testModule;
+
 boolean condition1 = true;
-boolean condition2 = true;
-boolean condition3 = true;
-boolean condition4 = true;
-boolean condition5 = true;
+boolean condition2 = false;
 
 function testA1() returns string {
     string test = testB1();
     if (condition1) {
         string test2 = testC1();
     } else {
-        string test6 = testF1();
+        string test3 = testF1();
+        string test4 = testE1();
+        testModule:hello();
     }
     return "";
-}
+}   
 
 function testB1() returns string {
-    while (condition4) {
-        string test3 = testA1();
+    while (condition2) {
+        string test5 = testA1();
     }
     string[] names = ["Bob", "Jo", "Ann", "Tom"];
-    // Loop through a list.
     foreach string name in names {
-        string test = testH1();
+        string test6 = testH1();
     }
     return "";
 }
 
 function testC1() returns string {
-    return "";
-}
-
-function testD1() returns string {
     return "";
 }
 
@@ -45,3 +41,5 @@ function testF1() returns string {
 function testH1() returns string {
     return "";
 }
+
+

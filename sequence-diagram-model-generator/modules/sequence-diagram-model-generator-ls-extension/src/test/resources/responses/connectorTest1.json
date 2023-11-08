@@ -1,0 +1,206 @@
+{
+  "participants": [
+    {
+      "id": "test/sequence_services_0.1.0_get",
+      "name": "greeting",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "type": null,
+      "elementBody": {
+        "childElements": [
+          {
+            "actionName": "sheetsEp",
+            "actionPath": null,
+            "methodName": "createSpreadsheet",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get",
+            "targetId": "ballerinax/googleapis.sheets_3.4.0_Client_sheetsEp",
+            "interactionType": "EndpointInteraction",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest.bal",
+              "startLine": {
+                "line": 39,
+                "offset": 61
+              },
+              "endLine": {
+                "line": 39,
+                "offset": 104
+              }
+            }
+          },
+          {
+            "actionName": "sheetsEp",
+            "actionPath": null,
+            "methodName": "createSpreadsheet",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get",
+            "targetId": "ballerinax/googleapis.sheets_3.4.0_Client_sheetsEp",
+            "interactionType": "EndpointInteraction",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest.bal",
+              "startLine": {
+                "line": 42,
+                "offset": 62
+              },
+              "endLine": {
+                "line": 42,
+                "offset": 105
+              }
+            }
+          },
+          {
+            "actionName": "sheetsEp",
+            "actionPath": null,
+            "methodName": "createSpreadsheet",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get",
+            "targetId": "ballerinax/googleapis.sheets_3.4.0_Client_sheetsEp",
+            "interactionType": "EndpointInteraction",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest.bal",
+              "startLine": {
+                "line": 45,
+                "offset": 18
+              },
+              "endLine": {
+                "line": 45,
+                "offset": 61
+              }
+            }
+          },
+          {
+            "actionName": "sheetsEp",
+            "actionPath": null,
+            "methodName": "setCell",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get",
+            "targetId": "ballerinax/googleapis.sheets_3.4.0_Client_sheetsEp",
+            "interactionType": "EndpointInteraction",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest.bal",
+              "startLine": {
+                "line": 48,
+                "offset": 14
+              },
+              "endLine": {
+                "line": 48,
+                "offset": 100
+              }
+            }
+          },
+          {
+            "actionName": "diseaseEpB",
+            "actionPath": "/covid-19/countries",
+            "methodName": "get",
+            "actionType": "RESOURCE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get",
+            "targetId": "ballerina/http_2.9.2_Client_diseaseEpB",
+            "interactionType": "EndpointInteraction",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest.bal",
+              "startLine": {
+                "line": 52,
+                "offset": 36
+              },
+              "endLine": {
+                "line": 52,
+                "offset": 68
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "connectorTest.bal",
+          "startLine": {
+            "line": 34,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 56,
+            "offset": 5
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "connectorTest.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 56,
+          "offset": 5
+        }
+      }
+    },
+    {
+      "id": "ballerinax/googleapis.sheets_3.4.0_Client_sheetsEp",
+      "name": "sheetsEp",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerinax/googleapis.sheets_3.4.0",
+      "type": "Client",
+      "elementBody": null,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "client.bal",
+        "startLine": {
+          "line": 24,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 1626,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.2_Client_diseaseEpB",
+      "name": "diseaseEpB",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.2",
+      "type": "Client",
+      "elementBody": null,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 480,
+          "offset": 1
+        }
+      }
+    }
+  ],
+  "kind": "Sequence",
+  "isHidden": false,
+  "location": {
+    "fileName": "{srcPath}/ballerina/sequence_services/connectorTest.bal",
+    "startLine": {
+      "line": 37,
+      "offset": 4
+    },
+    "endLine": {
+      "line": 56,
+      "offset": 5
+    }
+  }
+}
