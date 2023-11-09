@@ -51,7 +51,7 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
                     SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).get();
                     ModelGenerator modelGenerator = new ModelGenerator();
                     SequenceModel sequenceModel = modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
-                    Gson gson = new GsonBuilder().serializeNulls().create();
+                    Gson gson = new GsonBuilder().create();
                     JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
                     System.out.println(sequenceModelJson);
                     response.setSequenceDiagramModel(sequenceModelJson);
