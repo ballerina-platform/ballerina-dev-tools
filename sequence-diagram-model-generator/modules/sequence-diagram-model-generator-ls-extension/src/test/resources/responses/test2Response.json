@@ -5,16 +5,13 @@
       "name": "main",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
-            "statementBlockText": "EvenNumber initialization",
-            "elementBody": null,
+            "statementBlockText": "EvenNumberinitialization",
             "kind": "StatementBlock",
             "isHidden": false,
             "location": {
-              "fileName": null,
               "startLine": {
                 "line": 0,
                 "offset": 4
@@ -26,12 +23,10 @@
             }
           },
           {
-            "statementBlockText": "while loop",
-            "elementBody": null,
+            "statementBlockText": "whileloop",
             "kind": "StatementBlock",
             "isHidden": false,
             "location": {
-              "fileName": null,
               "startLine": {
                 "line": 0,
                 "offset": 4
@@ -63,8 +58,7 @@
             }
           },
           {
-            "condition": "(5  == e.generate()) ",
-            "onFailStatement": null,
+            "condition": "(5==e.generate())",
             "elementBody": {
               "childElements": [
                 {
@@ -225,8 +219,6 @@
       "name": "generate",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -246,7 +238,6 @@
       "name": "testFun",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
@@ -269,7 +260,7 @@
             }
           },
           {
-            "condition": "(1 == getNum2()) ",
+            "condition": "(1==getNum2())",
             "elseStatement": {
               "elementBody": {
                 "childElements": [
@@ -405,8 +396,6 @@
       "name": "getNum2",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -426,8 +415,6 @@
       "name": "getNum3",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -447,8 +434,6 @@
       "name": "getNum1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -468,8 +453,6 @@
       "name": "testWithParam",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {

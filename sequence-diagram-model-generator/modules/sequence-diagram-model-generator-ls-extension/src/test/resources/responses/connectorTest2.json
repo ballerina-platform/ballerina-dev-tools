@@ -5,160 +5,27 @@
       "name": "greeting",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
-            "actionName": "httpEp",
-            "actionPath": "/",
+            "actionName": "diseaseEpB",
+            "actionPath": "/covid-19/countries",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
             "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
+            "targetId": "ballerina/http_2.9.0_Client_diseaseEpB",
             "interactionType": "EndpointInteraction",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
               "fileName": "connectorTest.bal",
               "startLine": {
-                "line": 119,
-                "offset": 33
+                "line": 26,
+                "offset": 36
               },
               "endLine": {
-                "line": 119,
-                "offset": 47
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/",
-            "methodName": "get",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 120,
-                "offset": 34
-              },
-              "endLine": {
-                "line": 120,
-                "offset": 52
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/",
-            "methodName": "get",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 121,
-                "offset": 34
-              },
-              "endLine": {
-                "line": 121,
-                "offset": 54
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/users/test1/test2",
-            "methodName": "get",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 123,
-                "offset": 34
-              },
-              "endLine": {
-                "line": 123,
-                "offset": 65
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/users/[name]",
-            "methodName": "get",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 124,
-                "offset": 34
-              },
-              "endLine": {
-                "line": 124,
-                "offset": 60
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/",
-            "methodName": "post",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 126,
-                "offset": 34
-              },
-              "endLine": {
-                "line": 126,
-                "offset": 67
-              }
-            }
-          },
-          {
-            "actionName": "httpEp",
-            "actionPath": "/",
-            "methodName": "put",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
-            "targetId": "ballerina/http_2.9.2_Client_httpEp",
-            "interactionType": "EndpointInteraction",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest.bal",
-              "startLine": {
-                "line": 127,
-                "offset": 38
-              },
-              "endLine": {
-                "line": 127,
-                "offset": 84
+                "line": 26,
+                "offset": 68
               }
             }
           }
@@ -168,11 +35,11 @@
         "location": {
           "fileName": "connectorTest.bal",
           "startLine": {
-            "line": 114,
+            "line": 18,
             "offset": 4
           },
           "endLine": {
-            "line": 133,
+            "line": 30,
             "offset": 5
           }
         }
@@ -182,33 +49,32 @@
       "location": {
         "fileName": "connectorTest.bal",
         "startLine": {
-          "line": 114,
+          "line": 18,
           "offset": 4
         },
         "endLine": {
-          "line": 133,
+          "line": 30,
           "offset": 5
         }
       }
     },
     {
-      "id": "ballerina/http_2.9.2_Client_httpEp",
-      "name": "httpEp",
+      "id": "ballerina/http_2.9.0_Client_diseaseEpB",
+      "name": "diseaseEpB",
       "participantKind": "ENDPOINT",
-      "packageName": "ballerina/http_2.9.2",
+      "packageName": "ballerina/http_2.9.0",
       "type": "Client",
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
         "fileName": "http_client_endpoint.bal",
         "startLine": {
           "line": 30,
-          "offset": 0
+          "offset": 29
         },
         "endLine": {
-          "line": 480,
-          "offset": 1
+          "line": 30,
+          "offset": 35
         }
       }
     }
@@ -218,11 +84,11 @@
   "location": {
     "fileName": "{srcPath}/ballerina/sequence_services/connectorTest.bal",
     "startLine": {
-      "line": 117,
+      "line": 21,
       "offset": 4
     },
     "endLine": {
-      "line": 133,
+      "line": 30,
       "offset": 5
     }
   }

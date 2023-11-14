@@ -41,5 +41,3 @@ function testF1() returns string {
 function testH1() returns string {
     return "";
 }
-
-

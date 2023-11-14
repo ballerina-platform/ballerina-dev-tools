@@ -5,7 +5,6 @@
       "name": "testA1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
@@ -28,7 +27,7 @@
             }
           },
           {
-            "condition": "(condition1) ",
+            "condition": "(condition1)",
             "elseStatement": {
               "elementBody": {
                 "childElements": [
@@ -202,12 +201,10 @@
       "name": "testB1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
-            "condition": "(condition2) ",
-            "onFailStatement": null,
+            "condition": "(condition2)",
             "elementBody": {
               "childElements": [
                 {
@@ -259,8 +256,7 @@
             }
           },
           {
-            "condition": "names ",
-            "onFailStatement": null,
+            "condition": "names",
             "elementBody": {
               "childElements": [
                 {
@@ -345,8 +341,6 @@
       "name": "testH1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -366,8 +360,6 @@
       "name": "testC1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -387,8 +379,6 @@
       "name": "testF1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -408,8 +398,6 @@
       "name": "testE1",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {
@@ -429,12 +417,10 @@
       "name": "hello",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
       "elementBody": {
         "childElements": [
           {
-            "condition": "(true) ",
-            "onFailStatement": null,
+            "condition": "(true)",
             "elementBody": {
               "childElements": [
                 {
@@ -519,8 +505,6 @@
       "name": "updateDetials",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
-      "type": null,
-      "elementBody": null,
       "kind": "Participant",
       "isHidden": false,
       "location": {

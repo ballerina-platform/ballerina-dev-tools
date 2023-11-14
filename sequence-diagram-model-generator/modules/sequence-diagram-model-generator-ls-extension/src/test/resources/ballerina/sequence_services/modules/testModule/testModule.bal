@@ -1,9 +1,9 @@
 public function hello() {
     while(true) {
-        updateDetials();
+        updateDetails();
     }
 }
 
-function updateDetials() {
+function updateDetails() {
     
 }
