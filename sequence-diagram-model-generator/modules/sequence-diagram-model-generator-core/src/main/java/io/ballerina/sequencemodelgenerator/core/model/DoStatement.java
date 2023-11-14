@@ -3,17 +3,17 @@ package io.ballerina.sequencemodelgenerator.core.model;
 import io.ballerina.tools.text.LineRange;
 
 public class DoStatement extends DElement {
-    private OnFailStatement onFailStatement;
+    private OnFailClause onFailClause;
 
     public DoStatement(boolean isHidden, LineRange location) {
         super("DoStatement", isHidden, location);
     }
 
-    public void setOnFailStatement(OnFailStatement onFailStatement) {
-        this.onFailStatement = onFailStatement;
+    public void setOnFailClause(OnFailClause onFailClause) {
+        this.onFailClause = onFailClause;
     }
 
-    public OnFailStatement getOnFailStatement() {
-        return onFailStatement;
+    public OnFailClause getOnFailClause() {
+        return onFailClause;
     }
 }

@@ -424,9 +424,9 @@
             "elementBody": {
               "childElements": [
                 {
-                  "functionName": "updateDetials",
+                  "functionName": "updateDetails",
                   "sourceId": "test/sequence_services.testModule_0.1.0_hello",
-                  "targetId": "test/sequence_services.testModule_0.1.0_updateDetials",
+                  "targetId": "test/sequence_services.testModule_0.1.0_updateDetails",
                   "interactionType": "FunctionInteraction",
                   "kind": "Interaction",
                   "isHidden": false,
@@ -501,8 +501,8 @@
       }
     },
     {
-      "id": "test/sequence_services.testModule_0.1.0_updateDetials",
-      "name": "updateDetials",
+      "id": "test/sequence_services.testModule_0.1.0_updateDetails",
+      "name": "updateDetails",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
       "kind": "Participant",

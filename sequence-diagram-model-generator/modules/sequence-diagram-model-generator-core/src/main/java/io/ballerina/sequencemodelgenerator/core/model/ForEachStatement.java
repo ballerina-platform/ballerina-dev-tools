@@ -4,19 +4,19 @@ import io.ballerina.tools.text.LineRange;
 
 public class ForEachStatement extends DElement {
     private String condition;
-    private OnFailStatement onFailStatement;
+    private OnFailClause onFailClause;
 
     public ForEachStatement(String condition, boolean isHidden, LineRange location) {
         super("ForEachStatement", isHidden, location);
         this.condition = condition;
     }
 
-    public OnFailStatement getOnFailStatement() {
-        return onFailStatement;
+    public OnFailClause getOnFailClause() {
+        return onFailClause;
     }
 
-    public void setOnFailStatement(OnFailStatement onFailStatement) {
-        this.onFailStatement = onFailStatement;
+    public void setOnFailClause(OnFailClause onFailClause) {
+        this.onFailClause = onFailClause;
     }
 
 }

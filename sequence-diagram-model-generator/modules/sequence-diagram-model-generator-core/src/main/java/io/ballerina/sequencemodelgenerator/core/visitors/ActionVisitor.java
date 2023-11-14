@@ -670,16 +670,16 @@ public class ActionVisitor extends NodeVisitor {
 
         if (whileStatementNode.onFailClause().isPresent()) {
             OnFailClauseNode onFailClauseNode = whileStatementNode.onFailClause().get();
-            OnFailStatement onFailStatement = new OnFailStatement(
+            OnFailClause onFailClause = new OnFailClause(
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
                             onFailClauseNode.failErrorName().get().toString() : "" , isHidden, whileStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
-                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+                    this.visitorContext.getParticipants(), onFailClause, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
             whileStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
-            whileStatement.setOnFailStatement(onFailStatement);
+            whileStatement.setOnFailClause(onFailClause);
         }
 
             if (this.visitorContext.getDiagramElementWithChildren() != null) {
@@ -710,16 +710,16 @@ public class ActionVisitor extends NodeVisitor {
 
         if (forEachStatementNode.onFailClause().isPresent()) {
             OnFailClauseNode onFailClauseNode = forEachStatementNode.onFailClause().get();
-            OnFailStatement onFailStatement = new OnFailStatement(
+            OnFailClause onFailClause = new OnFailClause(
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
                             onFailClauseNode.failErrorName().get().toString() : "" , isHidden, forEachStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
-                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+                    this.visitorContext.getParticipants(), onFailClause, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
             forEachStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
-            forEachStatement.setOnFailStatement(onFailStatement);
+            forEachStatement.setOnFailClause(onFailClause);
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
@@ -745,23 +745,23 @@ public class ActionVisitor extends NodeVisitor {
 
         if (lockStatementNode.onFailClause().isPresent()) {
             OnFailClauseNode onFailClauseNode = lockStatementNode.onFailClause().get();
-            OnFailStatement onFailStatement = new OnFailStatement(
+            OnFailClause onFailClause = new OnFailClause(
                     onFailClauseNode.typeDescriptor().isPresent() ?
                             onFailClauseNode.typeDescriptor().get().toString() : "",
                     onFailClauseNode.failErrorName().isPresent() ?
                             onFailClauseNode.failErrorName().get().toString() : "" , isHidden, lockStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
-                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+                    this.visitorContext.getParticipants(), onFailClause, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
             lockStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
-            lockStatement.setOnFailStatement(onFailStatement);
+            lockStatement.setOnFailClause(onFailClause);
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (lockStatement.getElementBody() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getElementBody() != null)) {
+            if (lockStatement.getElementBody() != null || (lockStatement.getOnFailClause() != null && lockStatement.getOnFailClause().getElementBody() != null)) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(lockStatement);
             }
-        } else if (lockStatement.getElementBody() != null || (lockStatement.getOnFailStatement() != null && lockStatement.getOnFailStatement().getElementBody() != null)) {
+        } else if (lockStatement.getElementBody() != null || (lockStatement.getOnFailClause() != null && lockStatement.getOnFailClause().getElementBody() != null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(lockStatement);
         }
     }
@@ -779,22 +779,22 @@ public class ActionVisitor extends NodeVisitor {
         doStatementNode.blockStatement().accept(actionVisitor);
 
         if (doStatementNode.onFailClause().isPresent()) {
-            OnFailStatement onFailStatement = new OnFailStatement(
+            OnFailClause onFailClause = new OnFailClause(
                     doStatementNode.onFailClause().get().typeDescriptor().isPresent() ? doStatementNode.onFailClause().get().typeDescriptor().get().toString() : "",
                     doStatementNode.onFailClause().get().failErrorName().isPresent() ? doStatementNode.onFailClause().get().failErrorName().get().toString() : "",
                     isHidden, doStatementNode.onFailClause().get().lineRange());
             VisitorContext visitorContext1 = new VisitorContext(this.visitorContext.getRootParticipant(), this.visitorContext.getCurrentParticipant(),
-                    this.visitorContext.getParticipants(), onFailStatement, this.visitorContext.getVisitedFunctionNames());
+                    this.visitorContext.getParticipants(), onFailClause, this.visitorContext.getVisitedFunctionNames());
             ActionVisitor actionVisitor1 = new ActionVisitor(semanticModel, currentPackage, visitorContext1);
             doStatementNode.onFailClause().get().blockStatement().accept(actionVisitor1);
-            doStatement.setOnFailStatement(onFailStatement);
+            doStatement.setOnFailClause(onFailClause);
         }
 
         if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (doStatement.getElementBody() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getElementBody() != null)) {
+            if (doStatement.getElementBody() != null || (doStatement.getOnFailClause() != null && doStatement.getOnFailClause().getElementBody() != null)) {
                 this.visitorContext.getDiagramElementWithChildren().addChildDiagramElements(doStatement);
             }
-        } else if (doStatement.getElementBody() != null || (doStatement.getOnFailStatement() != null && doStatement.getOnFailStatement().getElementBody() != null)) {
+        } else if (doStatement.getElementBody() != null || (doStatement.getOnFailClause() != null && doStatement.getOnFailClause().getElementBody() != null)) {
             this.visitorContext.getCurrentParticipant().addChildDiagramElements(doStatement);
         }
     }
