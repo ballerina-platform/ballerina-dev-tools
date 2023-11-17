@@ -23,15 +23,30 @@ function testB1() returns string {
     foreach string name in names {
         string test6 = testH1();
     }
-    return "";
+    string rr = testC1();
+    string returnVal = "";
+    return returnVal;
 }
+
+
+type RC1 record {
+    string name;
+    string address;
+};
+
+type RC2 record {
+    string name;
+    int age;
+};
 
 function testC1() returns string {
-    return "";
+    string returnC = "";
+    return returnC;
 }
 
-function testE1() returns string {
-    return "";
+function testE1() returns RC1|RC2 {
+    RC1 rc1 = {name: "Bob", address: "123 Main St."};
+    return rc1;
 }
 
 function testF1() returns string {
@@ -39,5 +54,6 @@ function testF1() returns string {
 }
 
 function testH1() returns string {
+    string dd = testH1();
     return "";
 }

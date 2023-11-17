@@ -3,7 +3,10 @@ package io.ballerina.sequencemodelgenerator.core.utils;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.*;
 import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.sequencemodelgenerator.core.model.DNode;
+import io.ballerina.sequencemodelgenerator.core.model.Interaction;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
+import io.ballerina.sequencemodelgenerator.core.model.ReturnAction;
 
 import java.util.List;
 
@@ -163,6 +166,27 @@ public class ModelGeneratorUtils {
         }
         return input.trim();
     }
+
+    public static ReturnAction getModifiedReturnAction(Participant participant, String newTargetId) {
+        if (participant.getElementBody() == null) {
+            return null;
+        }
+
+        for (DNode childElement : participant.getElementBody().getChildElements()) {
+            if (childElement instanceof ReturnAction) {
+                ReturnAction returnAction = (ReturnAction) childElement;
+                return new ReturnAction(
+                    returnAction.getSourceId(),
+                    newTargetId,
+                    returnAction.getName(),
+                    returnAction.getType(),
+                    returnAction.isHidden(),
+                    returnAction.getLocation()
+                );
+            }
+        }
+        return null;
+}
 
 
 }

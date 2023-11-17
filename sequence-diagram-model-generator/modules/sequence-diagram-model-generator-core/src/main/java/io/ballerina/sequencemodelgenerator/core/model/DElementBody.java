@@ -17,4 +17,7 @@ public class DElementBody extends DNode {
         childElements.add(DNode);
     }
 
+    public List<DNode> getChildElements() {
+        return childElements;
+    }
 }

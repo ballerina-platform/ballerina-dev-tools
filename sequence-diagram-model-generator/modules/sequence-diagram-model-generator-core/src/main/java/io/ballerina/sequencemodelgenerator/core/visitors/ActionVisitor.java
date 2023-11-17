@@ -9,56 +9,13 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
-import io.ballerina.compiler.syntax.tree.BlockStatementNode;
-import io.ballerina.compiler.syntax.tree.BreakStatementNode;
-import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
-import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
-import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
-import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
-import io.ballerina.compiler.syntax.tree.DoStatementNode;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.ExpressionStatementNode;
-import io.ballerina.compiler.syntax.tree.FailStatementNode;
-import io.ballerina.compiler.syntax.tree.FieldAccessExpressionNode;
-import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
-import io.ballerina.compiler.syntax.tree.ForkStatementNode;
-import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
-import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
-import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
-import io.ballerina.compiler.syntax.tree.LockStatementNode;
-import io.ballerina.compiler.syntax.tree.MatchClauseNode;
-import io.ballerina.compiler.syntax.tree.MatchStatementNode;
-import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.NameReferenceNode;
-import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeVisitor;
-import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
-import io.ballerina.compiler.syntax.tree.PanicStatementNode;
-import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
-import io.ballerina.compiler.syntax.tree.RetryStatementNode;
-import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
-import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.StatementNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.compiler.syntax.tree.Token;
-import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
-import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
-import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.compiler.syntax.tree.XMLNamespaceDeclarationNode;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.model.*;
 import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
 import io.ballerina.tools.diagnostics.Location;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -507,6 +464,12 @@ public class ActionVisitor extends NodeVisitor {
                             } else {
                                 visitorContext.getCurrentParticipant().addChildDiagramElements(interaction);
                             }
+
+                            // Check if the participant has a return statement, if so append the return statement with the current participant details
+                            ReturnAction returnAction = ModelGeneratorUtils.getModifiedReturnAction(participant, visitorContext.getCurrentParticipant().getId().trim());
+                            if (returnAction != null) {
+                                participant.addChildDiagramElements(returnAction);
+                            }
                         }
                     }
 
@@ -606,6 +569,35 @@ public class ActionVisitor extends NodeVisitor {
 
                         ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, visitorContext);
                         functionDefinitionNode.functionBody().accept(actionVisitor);
+
+                        // generate the return action
+                    if (functionDefinitionNode.functionSignature().returnTypeDesc().isPresent()) {
+                        String returnType = null;
+                        String returnVarName = null;
+                        LineRange location = null;
+                           if (! functionDefinitionNode.functionSignature().returnTypeDesc().get().type().isMissing()) {
+                                  returnType = functionDefinitionNode.functionSignature().returnTypeDesc().get().type().toSourceCode();
+                           }
+
+                           if (!functionDefinitionNode.functionBody().isMissing()) {
+                            ReturnStatementVisitor returnVisitor = new ReturnStatementVisitor();
+                            functionDefinitionNode.functionBody().accept(returnVisitor);
+                            ReturnStatementNode returnStatement = returnVisitor.getReturnStatement();
+                            location = returnStatement.lineRange();
+                            if (returnStatement.expression().isPresent()) {
+                                 if (returnStatement.expression().get().kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+                                    SimpleNameReferenceNode varName = (SimpleNameReferenceNode) returnStatement.expression().get();
+                                    returnVarName = varName.toSourceCode();
+
+                                 }
+                            }
+
+                           }
+
+                           ReturnAction returnAction = new ReturnAction(participant.getId().trim(), this.visitorContext.getCurrentParticipant().getId().trim(),
+                                   returnVarName, returnType, false, location);
+                            participant.addChildDiagramElements(returnAction);
+                        }
                 }
             }
     }
