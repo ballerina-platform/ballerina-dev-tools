@@ -9,34 +9,9 @@ import java.util.List;
 public class VisitorContext {
     private Participant rootParticipant;
     private Participant currentParticipant;
-    private List<Participant> participants;
-
+    private final List<Participant> participants;
     private DElement diagramElementWithChildren;
-
-    public DElement getDiagramElementWithChildren() {
-        return diagramElementWithChildren;
-    }
-
-    private List<String> visitedFunctionNames;
-
-//    private List<StatementBlock> statementBlocks;
-//
-//    public void addStatementBlock(StatementBlock statementBlock) {
-//        if (this.statementBlocks == null) {
-//            this.statementBlocks = new ArrayList<>();
-//            this.statementBlocks.add(statementBlock);
-//        } else {
-//            this.statementBlocks.add(statementBlock);
-//        }
-//    }
-//
-//    public StatementBlock getLastAddedStatementBlock() {
-//        if (this.statementBlocks == null) {
-//            return null;
-//        } else {
-//            return this.statementBlocks.get(this.statementBlocks.size() - 1);
-//        }
-//    }
+    private final List<String> visitedFunctionNames;
 
     public VisitorContext() {
         this.rootParticipant = null;
@@ -60,6 +35,10 @@ public class VisitorContext {
         this.visitedFunctionNames = visitedFunctionNames;
     }
 
+    public DElement getDiagramElementWithChildren() {
+        return diagramElementWithChildren;
+    }
+
     public Participant getCurrentParticipant() {
         return currentParticipant;
     }
@@ -80,20 +59,12 @@ public class VisitorContext {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
-    }
-
     public void addToParticipants(Participant participant) {
         this.participants.add(participant);
     }
 
     public List<String> getVisitedFunctionNames() {
         return visitedFunctionNames;
-    }
-
-    public void setVisitedFunctionNames(List<String> visitedFunctionNames) {
-        this.visitedFunctionNames = visitedFunctionNames;
     }
 
     public void addToVisitedFunctionNames(String nameReferenceNode) {

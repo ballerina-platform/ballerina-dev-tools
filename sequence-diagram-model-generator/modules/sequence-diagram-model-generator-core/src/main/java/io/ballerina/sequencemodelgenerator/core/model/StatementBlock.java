@@ -10,6 +10,10 @@ public class StatementBlock extends DElement {
         this.statementBlockText = statementBlockText;
     }
 
+    public String getStatementBlockText() {
+        return statementBlockText;
+    }
+
     public StatementBlock(LineRange location) {
         super("StatementBlock", false, location);
     }

@@ -62,5 +62,14 @@ service /users on new http:Listener(9090) {
 
         return "Hello, " + name;
     }
+
+    resource function get albums/[string title](string age) returns string|error {
+        json postResponse = check self.httpEp->/.post(message = (), url = "");
+        return "";
+    }
+
+    resource function testResource/[string paths]/[int a](http:Request req) returns string {
+            return string `method: ${req.method}, path: ${paths.toString()}`;
+    }
 }
 

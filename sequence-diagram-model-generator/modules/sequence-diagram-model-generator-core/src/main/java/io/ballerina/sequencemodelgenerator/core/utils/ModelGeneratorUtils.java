@@ -1,16 +1,31 @@
 package io.ballerina.sequencemodelgenerator.core.utils;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
+import io.ballerina.compiler.syntax.tree.ComputedResourceAccessSegmentNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.IdentifierToken;
+import io.ballerina.compiler.syntax.tree.Minutiae;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.sequencemodelgenerator.core.model.DNode;
-import io.ballerina.sequencemodelgenerator.core.model.Interaction;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ReturnAction;
 
 import java.util.List;
 
 import static io.ballerina.sequencemodelgenerator.core.model.Constants.TYPE_MAP;
+
 public class ModelGeneratorUtils {
     public static TypeSymbol getRawType(TypeSymbol typeDescriptor) {
         return typeDescriptor.typeKind() == TypeDescKind.TYPE_REFERENCE
@@ -18,14 +33,15 @@ public class ModelGeneratorUtils {
     }
 
     public static String getResourcePath(SeparatedNodeList<Node> accessPathNodes, SemanticModel semanticModel) {
-
-        StringBuilder resourcePathBuilder = new StringBuilder();
+        StringBuilder resourcePathBuilder = new StringBuilder("/");
         for (Node accessPathNode : accessPathNodes) {
-            if (resourcePathBuilder.length() > 0) {
+            if (resourcePathBuilder.length() > 1) {
                 resourcePathBuilder.append("/");
             }
             if (accessPathNode.kind() == SyntaxKind.IDENTIFIER_TOKEN) {
-                resourcePathBuilder.append(((IdentifierToken) accessPathNode).text());
+                // Removing escape character from resourcePath
+                String replaced = ((IdentifierToken) accessPathNode).text().trim().replaceAll("\\\\-", "-");
+                resourcePathBuilder.append(replaced);
             } else if (accessPathNode.kind() == SyntaxKind.COMPUTED_RESOURCE_ACCESS_SEGMENT) {
                 ComputedResourceAccessSegmentNode accessSegmentNode =
                         (ComputedResourceAccessSegmentNode) accessPathNode;
@@ -46,8 +62,10 @@ public class ModelGeneratorUtils {
                     resourcePathBuilder.append(String.format("[%s]", SyntaxKind.BOOLEAN_LITERAL));
                 } else if (expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ||
                         expressionNode.kind() == SyntaxKind.FIELD_ACCESS) {
-                    String varType = semanticModel.typeOf(expressionNode).get().signature();
-                    resourcePathBuilder.append("[").append(varType.trim()).append("]");
+                    if (semanticModel.typeOf(expressionNode).isPresent()) {
+                        String varType = semanticModel.typeOf(expressionNode).get().signature();
+                        resourcePathBuilder.append("[").append(varType.trim()).append("]");
+                    }
                 }
             }
         }
@@ -56,15 +74,6 @@ public class ModelGeneratorUtils {
 
     public static String getQualifiedNameRefNodeFuncNameText(QualifiedNameReferenceNode nameNode) {
         return nameNode.modulePrefix().text() + ((Token) nameNode.colon()).text() + nameNode.identifier().text();
-    }
-
-    public static Participant getParticipantByID(String id, List<Participant> participants) {
-        for (Participant participant : participants) {
-            if (participant.getId().equals(id)) {
-                return participant;
-            }
-        }
-        return null;
     }
 
     public static boolean isInParticipantList(String participantID, List<Participant> participants) {
@@ -92,7 +101,7 @@ public class ModelGeneratorUtils {
         return moduleID + "_" + functionName;
     }
 
-    public static String generateMethodID(Symbol symbol,String className, FunctionDefinitionNode functionDefinitionNode) {
+    public static String generateMethodID(Symbol symbol, String className, FunctionDefinitionNode functionDefinitionNode) {
         String moduleID = generateModuleIDFromSymbol(symbol);
         if (moduleID == null) {
             return null;
@@ -154,17 +163,9 @@ public class ModelGeneratorUtils {
         int startIndex = input.indexOf(prefix);
 
         if (startIndex != -1) {
-            String extracted = input.substring(startIndex + prefix.length()).trim();
-            return extracted;
+            return input.substring(startIndex + prefix.length()).trim();
         }
         return null;
-    }
-
-    public static String removeDoubleQuotes(String input) {
-        if (input.startsWith("\"") && input.endsWith("\"")) {
-            return input.substring(1, input.length() - 1);
-        }
-        return input.trim();
     }
 
     public static ReturnAction getModifiedReturnAction(Participant participant, String newTargetId) {
@@ -176,17 +177,15 @@ public class ModelGeneratorUtils {
             if (childElement instanceof ReturnAction) {
                 ReturnAction returnAction = (ReturnAction) childElement;
                 return new ReturnAction(
-                    returnAction.getSourceId(),
-                    newTargetId,
-                    returnAction.getName(),
-                    returnAction.getType(),
-                    returnAction.isHidden(),
-                    returnAction.getLocation()
+                        returnAction.getSourceId(),
+                        newTargetId,
+                        returnAction.getName(),
+                        returnAction.getType(),
+                        returnAction.isHidden(),
+                        returnAction.getLocation()
                 );
             }
         }
         return null;
-}
-
-
+    }
 }

@@ -1,15 +1,18 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
+import io.ballerina.sequencemodelgenerator.core.model.Constants.InteractionType;
+
+import static io.ballerina.sequencemodelgenerator.core.model.Constants.INTERACTION;
 
 public class Interaction extends DNode {
     private final String sourceId;
     private final String targetId;
+    private final InteractionType interactionType;
 
-    private final String interactionType;
-
-    public Interaction(String sourceId, String targetId, String interactionType,boolean isHidden, LineRange location) {
-        super("Interaction", isHidden, location);
+    public Interaction(String sourceId, String targetId, InteractionType interactionType, boolean isHidden,
+                       LineRange location) {
+        super(INTERACTION, isHidden, location);
         this.sourceId = sourceId;
         this.targetId = targetId;
         this.interactionType = interactionType;
@@ -23,7 +26,7 @@ public class Interaction extends DNode {
         return targetId;
     }
 
-    public String getInteractionType() {
+    public InteractionType getInteractionType() {
         return interactionType;
     }
 

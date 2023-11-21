@@ -4,17 +4,13 @@ import io.ballerina.tools.text.LineRange;
 
 public class DNode {
     private final String kind;
-    private boolean isHidden;
-    private LineRange location;
+    private final boolean isHidden;
+    private final LineRange location;
 
     public DNode(String kind, boolean isHidden, LineRange location) {
         this.kind = kind;
         this.isHidden = isHidden;
         this.location = location;
-    }
-
-    public DNode(String kind) {
-        this.kind = kind;
     }
 
     public String getKind() {

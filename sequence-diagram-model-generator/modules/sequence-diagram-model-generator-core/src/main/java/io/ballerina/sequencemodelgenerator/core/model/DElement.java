@@ -4,6 +4,7 @@ import io.ballerina.tools.text.LineRange;
 
 public class DElement extends DNode {
     private DElementBody elementBody;
+
     public DElement(String kind, boolean isHidden, LineRange location) {
         super(kind, isHidden, location);
     }
@@ -14,7 +15,7 @@ public class DElement extends DNode {
 
     public void addChildDiagramElements(DNode DNode) {
         if (this.elementBody == null) {
-            this.elementBody = new DElementBody(this.getKind()+"Body", this.isHidden(), this.getLocation());
+            this.elementBody = new DElementBody(this.getKind() + "Body", this.isHidden(), this.getLocation());
             this.elementBody.addChildDiagramElement(DNode);
         } else {
             this.elementBody.addChildDiagramElement(DNode);

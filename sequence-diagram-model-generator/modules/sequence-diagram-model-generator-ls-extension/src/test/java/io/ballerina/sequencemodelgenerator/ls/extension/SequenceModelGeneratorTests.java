@@ -120,6 +120,18 @@ public class SequenceModelGeneratorTests {
                 getExpectedResponse("connectorTest4.json"));
     }
 
+    @Test(description = "test sequence model of resource with path params")
+    public void testSequenceModel7() throws IOException, ExecutionException, InterruptedException {
+        Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
+                Path.of("sequence_services", "connectorTest.bal"));
+
+        SequenceDiagramServiceRequest request = new SequenceDiagramServiceRequest(projectPath.toString(),
+                LinePosition.from(70, 4), LinePosition.from(72, 5));
+
+        Assert.assertEquals(getFormattedResponse(request, serviceEndpoint),
+                getExpectedResponse("connectorTest1.json"));
+    }
+
 
     private String getExpectedResponse(String fileName) throws IOException {
         return Files.readString(RES_DIR.resolve(RESPONSES).resolve(Path.of(fileName)))

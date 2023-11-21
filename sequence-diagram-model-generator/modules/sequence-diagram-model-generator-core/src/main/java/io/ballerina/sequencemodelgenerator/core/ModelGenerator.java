@@ -43,7 +43,6 @@ public class ModelGenerator {
             throw new SequenceModelGenerationException(INVALID_NODE_MSG);
         }
 
-        // TODO: Move to separate function and handle exceptions
         VisitorContext visitorContext = new VisitorContext();
         RootNodeVisitor workerNodeVisitor = new RootNodeVisitor(semanticModel, packageName, visitorContext);
         node.accept(workerNodeVisitor);

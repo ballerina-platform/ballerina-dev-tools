@@ -3,7 +3,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 import io.ballerina.tools.text.LineRange;
 
 public class ForEachStatement extends DElement {
-    private String condition;
+    private final String condition;
     private OnFailClause onFailClause;
 
     public ForEachStatement(String condition, boolean isHidden, LineRange location) {

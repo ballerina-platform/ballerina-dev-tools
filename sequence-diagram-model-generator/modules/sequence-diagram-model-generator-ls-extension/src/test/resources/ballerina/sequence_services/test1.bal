@@ -9,7 +9,7 @@ function testA1() returns string {
         string test2 = testC1();
     } else {
         string test3 = testF1();
-        string test4 = testE1();
+        string test4 = testE1(1);
         testModule:hello();
     }
     return "";
@@ -44,7 +44,7 @@ function testC1() returns string {
     return returnC;
 }
 
-function testE1() returns RC1|RC2 {
+function testE1(int a) returns RC1|RC2 {
     RC1 rc1 = {name: "Bob", address: "123 Main St."};
     return rc1;
 }

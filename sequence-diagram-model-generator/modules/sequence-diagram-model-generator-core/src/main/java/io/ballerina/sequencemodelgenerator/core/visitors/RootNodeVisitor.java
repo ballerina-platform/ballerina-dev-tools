@@ -6,7 +6,6 @@ import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
-import io.ballerina.compiler.syntax.tree.ResourcePathParameterNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
@@ -32,7 +31,7 @@ public class RootNodeVisitor extends NodeVisitor {
     }
 
     public VisitorContext getVisitorContext() {
-        return visitorContext;
+        return this.visitorContext;
     }
 
     public SequenceModelGenerationException getModelGenerationException() {
@@ -49,22 +48,12 @@ public class RootNodeVisitor extends NodeVisitor {
         try {
             switch (kind) {
                 case RESOURCE_ACCESSOR_DEFINITION: {
-                    // TODO : Check for parameters and send parameters separately without in the same string
-                    StringBuilder identifierBuilder = new StringBuilder();
                     StringBuilder resourcePathBuilder = new StringBuilder();
                     NodeList<Node> relativeResourcePaths = functionDefinitionNode.relativeResourcePath();
                     for (Node path : relativeResourcePaths) {
-                        if (path instanceof ResourcePathParameterNode) {
-                            ResourcePathParameterNode pathParam = (ResourcePathParameterNode) path;
-                            identifierBuilder.append(String.format("[%s]",
-                                    pathParam.typeDescriptor().toSourceCode().trim()));
-                        } else {
-                            identifierBuilder.append(path);
-                        }
                         resourcePathBuilder.append(path);
                     }
 
-                    // Name of the resource
                     String resourcePath = resourcePathBuilder.toString().trim();
                     Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
                     if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {

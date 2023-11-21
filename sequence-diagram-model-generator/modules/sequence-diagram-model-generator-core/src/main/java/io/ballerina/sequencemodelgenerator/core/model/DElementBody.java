@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DElementBody extends DNode {
-    private List<DNode> childElements;
+    private final List<DNode> childElements;
 
     public DElementBody(String kind, boolean isHidden, LineRange location) {
         super(kind, isHidden, location);

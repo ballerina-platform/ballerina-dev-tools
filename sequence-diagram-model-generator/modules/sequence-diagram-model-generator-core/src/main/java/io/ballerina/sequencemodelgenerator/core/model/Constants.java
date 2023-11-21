@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Constants {
     public static final Map<SyntaxKind, String> TYPE_MAP;
+    public static final String PARTICIPANT = "Participant";
+    public static final String INTERACTION = "Interaction";
 
     static {
         Map<SyntaxKind, String> typeMap = new HashMap<>();
@@ -19,9 +21,16 @@ public class Constants {
         TYPE_MAP = Collections.unmodifiableMap(typeMap);
     }
 
-
     public enum ActionType {
         RESOURCE_ACTION,
         REMOTE_ACTION,
+        ;
+    }
+
+    public enum InteractionType {
+        ENDPOINT_INTERACTION,
+        FUNCTION_INTERACTION,
+        METHOD_INTERACTION,
+        RETURN_ACTION,
     }
 }
