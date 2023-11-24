@@ -25,8 +25,6 @@ public function main() {
 }
 
 public function generate() {
-    EvenNumber e = new;
-    int c = e.generate();
     io:println(c);
 }
 

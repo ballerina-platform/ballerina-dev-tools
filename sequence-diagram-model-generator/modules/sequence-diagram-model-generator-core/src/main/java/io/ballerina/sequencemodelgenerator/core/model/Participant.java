@@ -10,26 +10,32 @@ public class Participant extends DElement {
     private final ParticipantKind participantKind;
     private final String packageName;
     private String type;
+    private boolean hasInteractions;
 
-    public Participant(String id, String name, ParticipantKind kind, String packageName, String type, LineRange location) {
+    public Participant(String id, String name, ParticipantKind kind, String packageName, String type, LineRange location, boolean hasInteractions) {
         super(PARTICIPANT, false, location);
         this.id = id;
         this.name = name;
         this.participantKind = kind;
         this.packageName = packageName;
         this.type = type;
-    }
-
-    public String getPackageName() {
-        return packageName;
+        this.hasInteractions = hasInteractions;
     }
 
     public Participant(String id, String name, ParticipantKind kind, String packageName, LineRange location) {
-        super("Participant", false, location);
+        super(PARTICIPANT, false, location);
         this.id = id;
         this.name = name;
         this.participantKind = kind;
         this.packageName = packageName;
+    }
+
+    public void setHasInteractions(boolean hasInteractions) {
+        this.hasInteractions = hasInteractions;
+    }
+
+    public String getPackageName() {
+        return packageName;
     }
 
     public String getId() {
@@ -52,6 +58,7 @@ public class Participant extends DElement {
                 ", kind=" + participantKind +
                 ", packageName='" + packageName + '\'' +
                 ", type='" + type + '\'' +
+                ", hasInteractions=" + hasInteractions +
                 '}';
     }
 }

@@ -12,6 +12,7 @@ import io.ballerina.projects.Project;
 import io.ballerina.projects.ProjectKind;
 import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceModel;
+import io.ballerina.sequencemodelgenerator.core.visitors.ModuleLevelConnectorVisitor;
 import io.ballerina.sequencemodelgenerator.core.visitors.RootNodeVisitor;
 import io.ballerina.sequencemodelgenerator.core.visitors.VisitorContext;
 import io.ballerina.tools.text.LineRange;
@@ -49,6 +50,10 @@ public class ModelGenerator {
         if (workerNodeVisitor.getModelGenerationException() != null) {
             throw workerNodeVisitor.getModelGenerationException();
         }
-        return new SequenceModel(workerNodeVisitor.getVisitorContext().getParticipants(),position);
+        // get the module level connectors without interactions and update the participant list
+        ModuleLevelConnectorVisitor moduleLevelConnectorVisitor = new ModuleLevelConnectorVisitor(semanticModel,
+                workerNodeVisitor.getVisitorContext().getParticipants());
+        syntaxTree.rootNode().accept(moduleLevelConnectorVisitor);
+        return new SequenceModel(moduleLevelConnectorVisitor.getParticipants(),position);
     }
 }

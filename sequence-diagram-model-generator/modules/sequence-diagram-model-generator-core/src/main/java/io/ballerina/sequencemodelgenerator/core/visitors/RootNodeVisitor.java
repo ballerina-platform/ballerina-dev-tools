@@ -61,13 +61,16 @@ public class RootNodeVisitor extends NodeVisitor {
                         String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
                         if (functionID != null) {
                             Participant participant = new Participant(functionID,
-                                    resourcePath, ParticipantKind.WORKER, packageName, null, functionDefinitionNode.lineRange());
+                                    resourcePath, ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
                             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
+                            if (participant.getElementBody() != null) {
+                                participant.setHasInteractions(true);
+                            }
                         }
                     } else {
                         throw new SequenceModelGenerationException(UNABLE_TO_FIND_SYMBOL);
@@ -81,13 +84,16 @@ public class RootNodeVisitor extends NodeVisitor {
                         String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
                         if (functionID != null){
                             Participant participant = new Participant(functionID,
-                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, null, functionDefinitionNode.lineRange());
+                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
                             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
+                            if (participant.getElementBody() != null) {
+                                participant.setHasInteractions(true);
+                            }
                         }
                     } else {
                         throw new SequenceModelGenerationException(UNABLE_TO_FIND_SYMBOL);
@@ -101,13 +107,16 @@ public class RootNodeVisitor extends NodeVisitor {
                         String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
                         if (functionID != null) {
                             Participant participant = new Participant(functionID,
-                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, null, functionDefinitionNode.lineRange());
+                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
                             ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
+                            if (participant.getElementBody() != null) {
+                                participant.setHasInteractions(true);
+                            }
                         }
                     } else {
                         throw new SequenceModelGenerationException(UNABLE_TO_FIND_SYMBOL);

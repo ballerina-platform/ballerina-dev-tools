@@ -17,7 +17,7 @@ function testA1() returns string {
 
 function testB1() returns string {
     while (condition2) {
-        string test5 = testA1();
+        string test5 = testF1();
     }
     string[] names = ["Bob", "Jo", "Ann", "Tom"];
     foreach string name in names {

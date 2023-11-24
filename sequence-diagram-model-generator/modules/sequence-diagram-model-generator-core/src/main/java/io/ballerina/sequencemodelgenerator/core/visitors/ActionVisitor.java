@@ -101,10 +101,6 @@ public class ActionVisitor extends NodeVisitor {
         this.visitorContext = visitorContext;
     }
 
-    // TODO:
-//    action-stmt
-//   | destructuring-assignment-stmt
-//   | retry-transaction-stmt
 
     @Override
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
@@ -371,7 +367,7 @@ public class ActionVisitor extends NodeVisitor {
                         if (isEndpointAbsentInParticipants(clientID) && clientPkgName != null) {
                             Participant participant = new Participant(clientID, clientNode.toString().trim(),
                                     ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim(),
-                                    objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null);
+                                    objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null, false);
                             this.visitorContext.addToParticipants(participant);
                         }
 
@@ -434,7 +430,7 @@ public class ActionVisitor extends NodeVisitor {
                         if (isEndpointAbsentInParticipants(clientID) && clientPkgName != null) {
                             Participant participant = new Participant(clientID, clientNode.toString().trim(),
                                     ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim(),
-                                    objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null);
+                                    objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null, false);
                             this.visitorContext.addToParticipants(participant);
                         }
 
@@ -591,6 +587,9 @@ public class ActionVisitor extends NodeVisitor {
 
                 ActionVisitor actionVisitor = new ActionVisitor(this.semanticModel, currentPackage, visitorContext);
                 functionDefinitionNode.functionBody().accept(actionVisitor);
+                if (participant.getElementBody() != null) {
+                    participant.setHasInteractions(true);
+                }
 
                 // generate the return action
                 if (functionDefinitionNode.functionSignature().returnTypeDesc().isPresent()) {
@@ -619,6 +618,8 @@ public class ActionVisitor extends NodeVisitor {
                     ReturnAction returnAction = new ReturnAction(participant.getId().trim(), this.visitorContext.getCurrentParticipant().getId().trim(),
                             returnVarName, returnType, false, location);
                     participant.addChildDiagramElements(returnAction);
+                    // update the interaction status of the participant
+                    participant.setHasInteractions(true);
                 }
             }
         }
