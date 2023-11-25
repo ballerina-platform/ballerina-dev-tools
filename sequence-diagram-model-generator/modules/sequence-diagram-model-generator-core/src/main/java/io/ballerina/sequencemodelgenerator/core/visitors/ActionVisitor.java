@@ -78,8 +78,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
+import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.generateResourcePath;
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getRawType;
-import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getResourcePath;
 
 public class ActionVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
@@ -360,7 +360,7 @@ public class ActionVisitor extends NodeVisitor {
                 if (isEndpoint && clientNode != null && objectTypeSymbol.getModule().isPresent()) {
                     String clientID = ModelGeneratorUtils.generateEndpointID(objectTypeSymbol, clientNode);
                     if (clientID != null) {
-                        String resourcePath = getResourcePath(clientResourceAccessActionNode.resourceAccessPath(), this.semanticModel);
+                        String resourcePath = generateResourcePath(clientResourceAccessActionNode.resourceAccessPath());
 
                         String clientPkgName = ModelGeneratorUtils.generateModuleIDFromSymbol(objectTypeSymbol);
 
@@ -576,7 +576,11 @@ public class ActionVisitor extends NodeVisitor {
 
                 }
             } else {
-                functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                if (functionDefinitionNode.kind() == SyntaxKind.RESOURCE_ACCESSOR_DEFINITION) {
+                    functionID = ModelGeneratorUtils.generateResourceID(typeSymbol.get(), functionDefinitionNode);
+                } else {
+                    functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                }
             }
             if (functionID != null && !ModelGeneratorUtils.isInParticipantList(functionID, this.visitorContext.getParticipants())) {
                 Participant participant = new Participant(functionID,

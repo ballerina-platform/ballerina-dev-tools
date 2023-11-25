@@ -1,79 +1,21 @@
 package io.ballerina.sequencemodelgenerator.core.utils;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
-import io.ballerina.compiler.syntax.tree.ComputedResourceAccessSegmentNode;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.IdentifierToken;
-import io.ballerina.compiler.syntax.tree.Minutiae;
-import io.ballerina.compiler.syntax.tree.NameReferenceNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.Token;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.sequencemodelgenerator.core.model.DNode;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ReturnAction;
 
 import java.util.List;
 
-import static io.ballerina.sequencemodelgenerator.core.model.Constants.TYPE_MAP;
-
 public class ModelGeneratorUtils {
     public static TypeSymbol getRawType(TypeSymbol typeDescriptor) {
         return typeDescriptor.typeKind() == TypeDescKind.TYPE_REFERENCE
                 ? ((TypeReferenceTypeSymbol) typeDescriptor).typeDescriptor() : typeDescriptor;
-    }
-
-    public static String getResourcePath(SeparatedNodeList<Node> accessPathNodes, SemanticModel semanticModel) {
-        StringBuilder resourcePathBuilder = new StringBuilder("/");
-        for (Node accessPathNode : accessPathNodes) {
-            if (resourcePathBuilder.length() > 1) {
-                resourcePathBuilder.append("/");
-            }
-            if (accessPathNode.kind() == SyntaxKind.IDENTIFIER_TOKEN) {
-                // Removing escape character from resourcePath
-                String replaced = ((IdentifierToken) accessPathNode).text().trim().replaceAll("\\\\-", "-");
-                resourcePathBuilder.append(replaced);
-            } else if (accessPathNode.kind() == SyntaxKind.COMPUTED_RESOURCE_ACCESS_SEGMENT) {
-                ComputedResourceAccessSegmentNode accessSegmentNode =
-                        (ComputedResourceAccessSegmentNode) accessPathNode;
-                ExpressionNode expressionNode = accessSegmentNode.expression();
-                if (expressionNode.kind() == SyntaxKind.STRING_LITERAL) {
-                    resourcePathBuilder.append(String.format("[%s]", TYPE_MAP.get(SyntaxKind.STRING_LITERAL)));
-                } else if (expressionNode.kind().equals(SyntaxKind.NUMERIC_LITERAL)) {
-                    SyntaxKind numericKind = ((BasicLiteralNode) expressionNode).literalToken().kind();
-                    if (numericKind.equals(SyntaxKind.DECIMAL_FLOATING_POINT_LITERAL_TOKEN)) {
-                        resourcePathBuilder.append(String.format("[%s]", TYPE_MAP.get(
-                                SyntaxKind.DECIMAL_FLOATING_POINT_LITERAL_TOKEN)));
-                    } else if (numericKind.equals(SyntaxKind.DECIMAL_INTEGER_LITERAL_TOKEN)) {
-                        resourcePathBuilder.append(String.format("[%s]", SyntaxKind.DECIMAL_INTEGER_LITERAL_TOKEN));
-                    } else {
-                        resourcePathBuilder.append(String.format("[%s]", SyntaxKind.NUMERIC_LITERAL));
-                    }
-                } else if (expressionNode.kind().equals(SyntaxKind.BOOLEAN_LITERAL)) {
-                    resourcePathBuilder.append(String.format("[%s]", SyntaxKind.BOOLEAN_LITERAL));
-                } else if (expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ||
-                        expressionNode.kind() == SyntaxKind.FIELD_ACCESS) {
-                    if (semanticModel.typeOf(expressionNode).isPresent()) {
-                        String varType = semanticModel.typeOf(expressionNode).get().signature();
-                        resourcePathBuilder.append("[").append(varType.trim()).append("]");
-                    }
-                }
-            }
-        }
-        return resourcePathBuilder.toString();
-    }
-
-    public static String getQualifiedNameRefNodeFuncNameText(QualifiedNameReferenceNode nameNode) {
-        return nameNode.modulePrefix().text() + ((Token) nameNode.colon()).text() + nameNode.identifier().text();
     }
 
     public static boolean isInParticipantList(String participantID, List<Participant> participants) {
@@ -99,6 +41,35 @@ public class ModelGeneratorUtils {
         }
         String functionName = functionDefinitionNode.functionName().text().trim();
         return moduleID + "_" + functionName;
+    }
+
+    public static String generateResourceID(Symbol symbol, FunctionDefinitionNode functionDefinitionNode) {
+        String moduleID = generateModuleIDFromSymbol(symbol);
+        if (moduleID == null) {
+            return null;
+        }
+
+        StringBuilder resourcePathBuilder = new StringBuilder();
+        NodeList<Node> relativeResourcePaths = functionDefinitionNode.relativeResourcePath();
+        for (Node path : relativeResourcePaths) {
+            resourcePathBuilder.append(path);
+        }
+
+        String resourcePath = resourcePathBuilder.toString().trim();
+        String method = functionDefinitionNode.functionName().text().trim();
+        String completeResourcePath = method + "_" + resourcePath;
+        return moduleID + "_" + completeResourcePath;
+    }
+
+    public static String generateResourcePath(SeparatedNodeList<Node> accessPathNodes) {
+        StringBuilder resourcePathBuilder = new StringBuilder("/");
+        for (Node path : accessPathNodes) {
+            if (resourcePathBuilder.length() > 1) {
+                resourcePathBuilder.append("/");
+            }
+            resourcePathBuilder.append(path.toSourceCode().trim().replaceAll("\\\\-", "-"));
+        }
+        return resourcePathBuilder.toString().trim();
     }
 
     public static String generateMethodID(Symbol symbol, String className, FunctionDefinitionNode functionDefinitionNode) {

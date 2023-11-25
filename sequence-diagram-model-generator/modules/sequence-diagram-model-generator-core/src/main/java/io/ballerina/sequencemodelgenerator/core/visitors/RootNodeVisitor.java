@@ -2,11 +2,7 @@ package io.ballerina.sequencemodelgenerator.core.visitors;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.NodeList;
-import io.ballerina.compiler.syntax.tree.NodeVisitor;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.*;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
@@ -55,10 +51,11 @@ public class RootNodeVisitor extends NodeVisitor {
                     }
 
                     String resourcePath = resourcePathBuilder.toString().trim();
+
                     Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
                     if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
                         String packageName = typeSymbol.get().getModule().get().id().packageName();
-                        String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                        String functionID = ModelGeneratorUtils.generateResourceID(typeSymbol.get(), functionDefinitionNode);
                         if (functionID != null) {
                             Participant participant = new Participant(functionID,
                                     resourcePath, ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
