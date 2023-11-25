@@ -1,10 +1,11 @@
 {
   "participants": [
     {
-      "id": "test/sequence_services_0.1.0_get",
-      "name": "greeting",
+      "id": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
+      "name": "greeting/test/[string title]",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
+      "hasInteractions": true,
       "elementBody": {
         "childElements": [
           {
@@ -12,9 +13,9 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -34,9 +35,9 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -56,9 +57,9 @@
             "actionPath": "/",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -78,9 +79,9 @@
             "actionPath": "/users/test1/test2",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -100,9 +101,9 @@
             "actionPath": "/users/[name]",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -122,9 +123,9 @@
             "actionPath": "/",
             "methodName": "post",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -144,9 +145,9 @@
             "actionPath": "/",
             "methodName": "put",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_get",
+            "sourceId": "test/sequence_services_0.1.0_get_greeting/test/[string title]",
             "targetId": "ballerina/http_2.9.0_Client_httpEp",
-            "interactionType": "EndpointInteraction",
+            "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
@@ -196,6 +197,7 @@
       "participantKind": "ENDPOINT",
       "packageName": "ballerina/http_2.9.0",
       "type": "Client",
+      "hasInteractions": false,
       "kind": "Participant",
       "isHidden": false,
       "location": {

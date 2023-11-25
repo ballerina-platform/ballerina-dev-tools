@@ -48,7 +48,7 @@ service /users on new http:Listener(9090) {
     # A resource for generating greetings
     # + name - the input string name
     # + return - string name with hello message or error
-    resource function get greeting(string name) returns string|error {
+    resource function get greeting/test/[string title](string name) returns string|error {
         // different notations for get resource
         json getResponse = check self.httpEp->/;
         json getResponse2 = check self.httpEp->/.get;
@@ -61,15 +61,6 @@ service /users on new http:Listener(9090) {
         record {} putResponse = check self.httpEp->/.put(message = (), headers = {});
 
         return "Hello, " + name;
-    }
-
-    resource function get albums/[string title](string age) returns string|error {
-        json postResponse = check self.httpEp->/.post(message = (), url = "");
-        return "";
-    }
-
-    resource function testResource/[string paths]/[int a](http:Request req) returns string {
-            return string `method: ${req.method}, path: ${paths.toString()}`;
     }
 }
 

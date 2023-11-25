@@ -145,7 +145,13 @@ public class SequenceModelGeneratorTests {
 
         CompletableFuture<?> result = serviceEndpoint.request(SEQUENCE_DESIGN_SERVICE, request);
         SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
-        return response.getSequenceDiagramModel().toString().replaceAll("\\s+", "")
-                .replaceAll("\\\\", "/");
+        
+        return formatStdLibVersion(response.getSequenceDiagramModel().toString().replaceAll("\\s+", "")
+                .replaceAll("\\\\", "/"));
+    }
+
+    private String formatStdLibVersion(String source) {
+        return source
+                .replaceAll("ballerina/http_[0-9].[0-9].[0-9]", "ballerina/http_2.9.0");
     }
 }

@@ -9,46 +9,24 @@
       "elementBody": {
         "childElements": [
           {
-            "actionName": "httpEpS1",
-            "actionPath": "/users/test1/test2",
+            "actionName": "diseaseEp2",
+            "actionPath": "/covid-19/countries",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
             "sourceId": "test/sequence_services_0.1.0_foo",
-            "targetId": "ballerina/http_2.9.0_Client_httpEpS1",
+            "targetId": "ballerina/http_2.9.0_Client_diseaseEp2",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",
             "isHidden": false,
             "location": {
-              "fileName": "connectorTest3.bal",
+              "fileName": "connectorTest4.bal",
               "startLine": {
                 "line": 7,
-                "offset": 30
+                "offset": 32
               },
               "endLine": {
                 "line": 7,
-                "offset": 58
-              }
-            }
-          },
-          {
-            "actionName": "httpEpS2",
-            "actionPath": "/users",
-            "methodName": "get",
-            "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_foo",
-            "targetId": "ballerina/http_2.9.0_Client_httpEpS2",
-            "interactionType": "ENDPOINT_INTERACTION",
-            "kind": "Interaction",
-            "isHidden": false,
-            "location": {
-              "fileName": "connectorTest3.bal",
-              "startLine": {
-                "line": 8,
-                "offset": 30
-              },
-              "endLine": {
-                "line": 8,
-                "offset": 46
+                "offset": 64
               }
             }
           }
@@ -56,13 +34,13 @@
         "kind": "ParticipantBody",
         "isHidden": false,
         "location": {
-          "fileName": "connectorTest3.bal",
+          "fileName": "connectorTest4.bal",
           "startLine": {
-            "line": 4,
+            "line": 5,
             "offset": 0
           },
           "endLine": {
-            "line": 10,
+            "line": 8,
             "offset": 1
           }
         }
@@ -70,20 +48,20 @@
       "kind": "Participant",
       "isHidden": false,
       "location": {
-        "fileName": "connectorTest3.bal",
+        "fileName": "connectorTest4.bal",
         "startLine": {
-          "line": 4,
+          "line": 5,
           "offset": 0
         },
         "endLine": {
-          "line": 10,
+          "line": 8,
           "offset": 1
         }
       }
     },
     {
-      "id": "ballerina/http_2.9.0_Client_httpEpS1",
-      "name": "httpEpS1",
+      "id": "ballerina/http_2.9.0_Client_diseaseEp2",
+      "name": "diseaseEp2",
       "participantKind": "ENDPOINT",
       "packageName": "ballerina/http_2.9.0",
       "type": "Client",
@@ -103,8 +81,29 @@
       }
     },
     {
-      "id": "ballerina/http_2.9.0_Client_httpEpS2",
-      "name": "httpEpS2",
+      "id": "ballerina/http_2.9.0_Client_diseaseEndpoint",
+      "name": "diseaseEndpoint",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.0",
+      "type": "Client",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 29
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 35
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.0_Client_diseaseEndpoint3",
+      "name": "diseaseEndpoint3",
       "participantKind": "ENDPOINT",
       "packageName": "ballerina/http_2.9.0",
       "type": "Client",
@@ -127,13 +126,13 @@
   "kind": "Sequence",
   "isHidden": false,
   "location": {
-    "fileName": "{srcPath}/ballerina/sequence_services/connectorTest3.bal",
+    "fileName": "{srcPath}/ballerina/sequence_services/connectorTest4.bal",
     "startLine": {
-      "line": 4,
+      "line": 5,
       "offset": 0
     },
     "endLine": {
-      "line": 10,
+      "line": 8,
       "offset": 1
     }
   }
