@@ -2,6 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents the If statement in the sequence diagram model.
+ *
+ * @since 2201.8.0
+ */
 public class IfStatement extends DElement {
     private final String condition;
     private DElement elseStatement; // this can be either else or elseIF

@@ -2,6 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents the while statement.
+ *
+ * @since 2201.8.0
+ */
 public class WhileStatement extends DElement {
     private final String condition;
     private OnFailClause onFailClause;

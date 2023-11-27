@@ -7,6 +7,11 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
+/**
+ * Util functions which will be used by the sequence model process.
+ *
+ * @since 2201.8.0
+ */
 public class CommonUtils {
     public static NonTerminalNode findNode(SyntaxTree syntaxTree, LineRange lineRange) {
         if (lineRange == null) {

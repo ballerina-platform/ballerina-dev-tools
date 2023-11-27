@@ -3,6 +3,11 @@ package io.ballerina.sequencemodelgenerator.ls.extension;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents the sequence diagram service request.
+ *
+ * @since 2201.8.0
+ */
 public class SequenceDiagramServiceRequest {
     private final String filePath;
     private final LinePosition startLine;

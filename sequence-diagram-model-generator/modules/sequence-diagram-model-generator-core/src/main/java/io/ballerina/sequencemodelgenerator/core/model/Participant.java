@@ -4,6 +4,12 @@ import io.ballerina.tools.text.LineRange;
 
 import static io.ballerina.sequencemodelgenerator.core.model.Constants.PARTICIPANT;
 
+/**
+ * Represents the Participant which is the main component in sequence diagram model.
+ * The sequence model will contain a list of Participant in which it will contain details about interactions.
+ *
+ * @since 2201.8.0
+ */
 public class Participant extends DElement {
     private final String id;
     private final String name;
@@ -12,7 +18,8 @@ public class Participant extends DElement {
     private String type;
     private boolean hasInteractions;
 
-    public Participant(String id, String name, ParticipantKind kind, String packageName, String type, LineRange location, boolean hasInteractions) {
+    public Participant(String id, String name, ParticipantKind kind, String packageName, String type,
+                       LineRange location, boolean hasInteractions) {
         super(PARTICIPANT, false, location);
         this.id = id;
         this.name = name;

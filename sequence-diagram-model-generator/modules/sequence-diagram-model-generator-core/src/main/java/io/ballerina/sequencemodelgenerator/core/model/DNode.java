@@ -2,6 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents the root node type of the sequence diagram model.
+ *
+ * @since 2201.8.0
+ */
 public class DNode {
     private final String kind;
     private final boolean isHidden;

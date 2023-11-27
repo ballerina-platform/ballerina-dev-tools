@@ -5,13 +5,24 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.Minutiae;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.sequencemodelgenerator.core.model.DNode;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ReturnAction;
 
 import java.util.List;
 
+/**
+ * Util functions which are specified for the model generation logic.
+ *
+ * @since 2201.8.0
+ */
 public class ModelGeneratorUtils {
     public static TypeSymbol getRawType(TypeSymbol typeDescriptor) {
         return typeDescriptor.typeKind() == TypeDescKind.TYPE_REFERENCE
@@ -72,7 +83,8 @@ public class ModelGeneratorUtils {
         return resourcePathBuilder.toString().trim();
     }
 
-    public static String generateMethodID(Symbol symbol, String className, FunctionDefinitionNode functionDefinitionNode) {
+    public static String generateMethodID(Symbol symbol, String className,
+                                          FunctionDefinitionNode functionDefinitionNode) {
         String moduleID = generateModuleIDFromSymbol(symbol);
         if (moduleID == null) {
             return null;
@@ -83,8 +95,10 @@ public class ModelGeneratorUtils {
 
     public static String generateEndpointID(ObjectTypeSymbol objectTypeSymbol, NameReferenceNode nameReferenceNode) {
         if (objectTypeSymbol.getModule().isPresent()) {
-            String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim().replace(":", "_");
-            return clientPkgName + "_" + objectTypeSymbol.signature().trim() + "_" + nameReferenceNode.toString().trim();
+            String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim()
+                    .replace(":", "_");
+            return clientPkgName + "_" + objectTypeSymbol.signature().trim() + "_" +
+                    nameReferenceNode.toString().trim();
         }
         return null;
     }

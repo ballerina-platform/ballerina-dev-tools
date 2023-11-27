@@ -1,8 +1,14 @@
 package io.ballerina.sequencemodelgenerator.core.visitors;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.api.symbols.ObjectTypeSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.ParticipantKind;
 import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
@@ -13,6 +19,11 @@ import java.util.Optional;
 
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getRawType;
 
+/**
+ * Visitor to identify the module level connectors without any interaction.
+ *
+ * @since 2201.8.0
+ */
 public class ModuleLevelConnectorVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final List<Participant> participants;
@@ -29,7 +40,7 @@ public class ModuleLevelConnectorVisitor extends NodeVisitor {
     @Override
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
         if (moduleVariableDeclarationNode.initializer().isPresent()) {
-            LineRange lineRange =  moduleVariableDeclarationNode.initializer().get().lineRange();
+            LineRange lineRange = moduleVariableDeclarationNode.initializer().get().lineRange();
             Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(lineRange);
             if (typeSymbol.isPresent()) {
                 TypeSymbol rawType = getRawType(typeSymbol.get());
@@ -44,7 +55,9 @@ public class ModuleLevelConnectorVisitor extends NodeVisitor {
                         if (isEndpointNotPresentParticipants(endpointID) && clientPkgName != null) {
                             Participant participant = new Participant(endpointID, endpointName,
                                     ParticipantKind.ENDPOINT, clientPkgName, objectTypeSymbol.signature().trim(),
-                                    objectTypeSymbol.getLocation().isPresent() ? objectTypeSymbol.getLocation().get().lineRange() : null, false);
+                                    objectTypeSymbol.getLocation().isPresent() ?
+                                            objectTypeSymbol.getLocation().get().lineRange() :
+                                            null, false);
                             this.participants.add(participant);
                         }
                     }
@@ -71,7 +84,6 @@ public class ModuleLevelConnectorVisitor extends NodeVisitor {
         }
         return endpointName;
     }
-
 
 
     private boolean isEndpointNotPresentParticipants(String clientID) {

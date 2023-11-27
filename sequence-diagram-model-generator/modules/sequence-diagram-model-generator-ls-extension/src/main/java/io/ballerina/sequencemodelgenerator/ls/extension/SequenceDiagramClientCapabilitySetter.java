@@ -3,6 +3,11 @@ package io.ballerina.sequencemodelgenerator.ls.extension;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter;
 
+/**
+ * Client capability setter for the sequence diagram model generator service.
+ *
+ * @since 2201.8.0
+ */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter")
 public class SequenceDiagramClientCapabilitySetter extends
         BallerinaClientCapabilitySetter<SequenceDiagramClientCapabilities> {

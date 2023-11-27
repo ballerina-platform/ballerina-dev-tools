@@ -2,6 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents onFailClause.
+ *
+ * @since 2201.8.0
+ */
 public class OnFailClause extends DElement {
     private final String type;
     private final String name;

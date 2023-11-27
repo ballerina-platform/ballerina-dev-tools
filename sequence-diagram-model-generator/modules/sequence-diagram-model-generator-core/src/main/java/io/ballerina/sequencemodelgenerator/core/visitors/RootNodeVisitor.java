@@ -2,7 +2,11 @@ package io.ballerina.sequencemodelgenerator.core.visitors;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
@@ -11,8 +15,14 @@ import io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils;
 
 import java.util.Optional;
 
-import static io.ballerina.sequencemodelgenerator.core.Constants.*;
+import static io.ballerina.sequencemodelgenerator.core.Constants.ISSUE_IN_VISITING_ROOT_NODE;
+import static io.ballerina.sequencemodelgenerator.core.Constants.UNABLE_TO_FIND_SYMBOL;
 
+/**
+ * Visitor which captures the root node/entry point of the sequence diagram.
+ *
+ * @since 2201.8.0
+ */
 public class RootNodeVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Package currentPackage;
@@ -55,15 +65,18 @@ public class RootNodeVisitor extends NodeVisitor {
                     Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
                     if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
                         String packageName = typeSymbol.get().getModule().get().id().packageName();
-                        String functionID = ModelGeneratorUtils.generateResourceID(typeSymbol.get(), functionDefinitionNode);
+                        String functionID = ModelGeneratorUtils.generateResourceID(typeSymbol.get(),
+                                functionDefinitionNode);
                         if (functionID != null) {
                             Participant participant = new Participant(functionID,
-                                    resourcePath, ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
+                                    resourcePath, ParticipantKind.WORKER, packageName,
+                                    functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
-                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage,
+                                    this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
                             if (participant.getElementBody() != null) {
                                 participant.setHasInteractions(true);
@@ -78,15 +91,18 @@ public class RootNodeVisitor extends NodeVisitor {
                     Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
                     if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
                         String packageName = typeSymbol.get().getModule().get().id().packageName();
-                        String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
-                        if (functionID != null){
+                        String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(),
+                                functionDefinitionNode);
+                        if (functionID != null) {
                             Participant participant = new Participant(functionID,
-                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
+                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER,
+                                    packageName, functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
-                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage,
+                                    this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
                             if (participant.getElementBody() != null) {
                                 participant.setHasInteractions(true);
@@ -96,20 +112,24 @@ public class RootNodeVisitor extends NodeVisitor {
                         throw new SequenceModelGenerationException(UNABLE_TO_FIND_SYMBOL);
                     }
                     break;
-                } case OBJECT_METHOD_DEFINITION: {
+                }
+                case OBJECT_METHOD_DEFINITION: {
                     Optional<Symbol> typeSymbol = semanticModel.symbol(functionDefinitionNode);
                     if (typeSymbol.isPresent() && typeSymbol.get().getModule().isPresent()) {
                         String packageName = typeSymbol.get().getModule().get().id().packageName();
 
-                        String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(), functionDefinitionNode);
+                        String functionID = ModelGeneratorUtils.generateFunctionID(typeSymbol.get(),
+                                functionDefinitionNode);
                         if (functionID != null) {
                             Participant participant = new Participant(functionID,
-                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER, packageName, functionDefinitionNode.lineRange());
+                                    functionDefinitionNode.functionName().toString(), ParticipantKind.WORKER,
+                                    packageName, functionDefinitionNode.lineRange());
                             this.visitorContext.setCurrentParticipant(participant);
                             this.visitorContext.setRootParticipant(participant);
                             this.visitorContext.addToParticipants(participant);
 
-                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage, this.visitorContext);
+                            ActionVisitor actionVisitor = new ActionVisitor(semanticModel, currentPackage,
+                                    this.visitorContext);
                             functionDefinitionNode.functionBody().accept(actionVisitor);
                             if (participant.getElementBody() != null) {
                                 participant.setHasInteractions(true);
@@ -121,7 +141,9 @@ public class RootNodeVisitor extends NodeVisitor {
                 }
             }
         } catch (Exception e) {
-            this.setModelGenerationException(new SequenceModelGenerationException(ISSUE_IN_VISITING_ROOT_NODE + e.getMessage()));
+            this.setModelGenerationException(
+                    new SequenceModelGenerationException(ISSUE_IN_VISITING_ROOT_NODE + e.getMessage()));
+            
         }
     }
 }

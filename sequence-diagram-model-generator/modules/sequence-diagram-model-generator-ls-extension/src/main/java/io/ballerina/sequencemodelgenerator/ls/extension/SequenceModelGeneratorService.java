@@ -20,8 +20,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-import static io.ballerina.sequencemodelgenerator.core.Constants.*;
+import static io.ballerina.sequencemodelgenerator.core.Constants.EMPTY_SEMANTIC_MODEL_MSG;
+import static io.ballerina.sequencemodelgenerator.core.Constants.ISSUE_IN_MODEL_GENERATION;
 
+/**
+ * Extended language server service for the sequence diagram model generator service.
+ *
+ * @since 2201.8.0
+ */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("sequenceModelGeneratorService")
 public class SequenceModelGeneratorService implements ExtendedLanguageServerService {
@@ -38,27 +44,30 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
     }
 
     @JsonRequest
-    public CompletableFuture<SequenceDiagramServiceResponse> getSequenceDiagramModel(SequenceDiagramServiceRequest request) {
+    public CompletableFuture<SequenceDiagramServiceResponse>
+        getSequenceDiagramModel(SequenceDiagramServiceRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             SequenceDiagramServiceResponse response = new SequenceDiagramServiceResponse();
             try {
                 Path filePath = Path.of(request.getFilePath());
                 Project project = getCurrentProject(filePath);
                 if (this.workspaceManager.semanticModel(filePath).isEmpty()) {
-                    ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true, EMPTY_SEMANTIC_MODEL_MSG);
+                    ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true,
+                            EMPTY_SEMANTIC_MODEL_MSG);
                     response.setModelDiagnostic(modelDiagnostic);
                 } else {
                     SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).get();
                     ModelGenerator modelGenerator = new ModelGenerator();
-                    SequenceModel sequenceModel = modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
+                    SequenceModel sequenceModel = modelGenerator.getSequenceDiagramModel(project,
+                            request.getLineRange(), semanticModel);
                     Gson gson = new GsonBuilder().create();
                     JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
                     System.out.println(sequenceModelJson);
                     response.setSequenceDiagramModel(sequenceModelJson);
                 }
-                // TODO: Handle specific exceptions
             } catch (Exception e) {
-                ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true, String.format(ISSUE_IN_MODEL_GENERATION, e.getMessage()));
+                ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true,
+                        String.format(ISSUE_IN_MODEL_GENERATION, e.getMessage()));
                 response.setModelDiagnostic(modelDiagnostic);
             }
             return response;

@@ -1,8 +1,13 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
-import io.ballerina.tools.text.LineRange;
 import io.ballerina.sequencemodelgenerator.core.model.Constants.InteractionType;
+import io.ballerina.tools.text.LineRange;
 
+/**
+ * Represents the MethodCall interactions.
+ *
+ * @since 2201.8.0
+ */
 public class MethodActionStatement extends Interaction {
 
     private final String methodName;

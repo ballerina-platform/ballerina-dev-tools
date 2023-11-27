@@ -22,8 +22,14 @@ import java.nio.file.Path;
 import static io.ballerina.sequencemodelgenerator.core.Constants.INVALID_NODE_MSG;
 import static io.ballerina.sequencemodelgenerator.core.utils.CommonUtils.findNode;
 
+/**
+ * Represents the root model generator for sequence diagram.
+ *
+ * @since 2201.8.0
+ */
 public class ModelGenerator {
-    public SequenceModel getSequenceDiagramModel(Project project, LineRange position, SemanticModel semanticModel) throws SequenceModelGenerationException {
+    public SequenceModel getSequenceDiagramModel(Project project, LineRange position, SemanticModel semanticModel)
+            throws SequenceModelGenerationException {
         Package packageName = project.currentPackage();
         DocumentId docId;
         Document doc;
@@ -54,6 +60,6 @@ public class ModelGenerator {
         ModuleLevelConnectorVisitor moduleLevelConnectorVisitor = new ModuleLevelConnectorVisitor(semanticModel,
                 workerNodeVisitor.getVisitorContext().getParticipants());
         syntaxTree.rootNode().accept(moduleLevelConnectorVisitor);
-        return new SequenceModel(moduleLevelConnectorVisitor.getParticipants(),position);
+        return new SequenceModel(moduleLevelConnectorVisitor.getParticipants(), position);
     }
 }

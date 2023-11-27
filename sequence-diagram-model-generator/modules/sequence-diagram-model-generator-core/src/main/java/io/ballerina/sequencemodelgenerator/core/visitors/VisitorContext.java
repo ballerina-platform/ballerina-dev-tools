@@ -6,10 +6,16 @@ import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Context that is maintained throughout the model generation process.
+ *
+ * @since 2201.8.0
+ */
 public class VisitorContext {
     private Participant rootParticipant;
     private Participant currentParticipant;
     private final List<Participant> participants;
+    // Represents constructs such as conditional statements with a block of statements.
     private DElement diagramElementWithChildren;
     private final List<String> visitedFunctionNames;
 
@@ -20,14 +26,16 @@ public class VisitorContext {
         this.visitedFunctionNames = new ArrayList<>();
     }
 
-    public VisitorContext(Participant rootParticipant, Participant participant, List<Participant> participants, List<String> visitedFunctionNames) {
+    public VisitorContext(Participant rootParticipant, Participant participant, List<Participant> participants,
+                          List<String> visitedFunctionNames) {
         this.rootParticipant = rootParticipant;
         this.currentParticipant = participant;
         this.participants = participants;
         this.visitedFunctionNames = visitedFunctionNames;
     }
 
-    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants, DElement diagramElementWithChildren, List<String> visitedFunctionNames) {
+    public VisitorContext(Participant rootParticipant, Participant currentParticipant, List<Participant> participants
+            , DElement diagramElementWithChildren, List<String> visitedFunctionNames) {
         this.rootParticipant = rootParticipant;
         this.currentParticipant = currentParticipant;
         this.participants = participants;
