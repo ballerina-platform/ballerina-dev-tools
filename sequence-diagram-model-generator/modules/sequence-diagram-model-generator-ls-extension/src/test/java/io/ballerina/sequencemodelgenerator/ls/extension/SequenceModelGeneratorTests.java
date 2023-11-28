@@ -157,6 +157,6 @@ public class SequenceModelGeneratorTests {
 
     private String formatStdLibVersion(String source) {
         return source
-                .replaceAll("ballerina/http_[0-9].[0-9].[0-9]", "ballerina/http_2.9.0");
+                .replaceAll("ballerina/http_\\\\d+\\\\.\\\\d+\\\\.\\\\d+\"", "ballerina/http_2.9.0");
     }
 }
