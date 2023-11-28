@@ -52,7 +52,6 @@ public class Constants {
     public enum ActionType {
         RESOURCE_ACTION,
         REMOTE_ACTION,
-        ;
     }
 
     /**
