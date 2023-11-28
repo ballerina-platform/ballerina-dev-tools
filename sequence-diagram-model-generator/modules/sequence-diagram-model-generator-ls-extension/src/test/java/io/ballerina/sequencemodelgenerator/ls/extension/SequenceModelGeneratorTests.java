@@ -152,11 +152,11 @@ public class SequenceModelGeneratorTests {
         SequenceDiagramServiceResponse response = (SequenceDiagramServiceResponse) result.get();
         
         return formatStdLibVersion(response.getSequenceDiagramModel().toString().replaceAll("\\s+", "")
-                .replaceAll("\\\\", "/"));
+                .replaceAll("\\\\\\\\", "/"));
     }
 
     private String formatStdLibVersion(String source) {
         return source
-                .replaceAll("ballerina/http_\\\\d+\\\\.\\\\d+\\\\.\\\\d+\"", "ballerina/http_2.9.0");
+                .replaceAll("ballerina/http_\\d+.\\d+.\\d+", "ballerina/http_2.9.0");
     }
 }
