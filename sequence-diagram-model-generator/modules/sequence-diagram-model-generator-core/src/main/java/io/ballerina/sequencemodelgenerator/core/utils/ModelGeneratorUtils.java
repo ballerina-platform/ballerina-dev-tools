@@ -36,6 +36,9 @@ import io.ballerina.sequencemodelgenerator.core.model.ReturnAction;
 
 import java.util.List;
 
+import static io.ballerina.sequencemodelgenerator.core.model.Constants.SQ_COMMENT;
+import static io.ballerina.sequencemodelgenerator.core.model.Constants.SQ_IGNORE;
+
 /**
  * Util functions which are specified for the model generation logic.
  *
@@ -139,7 +142,7 @@ public class ModelGeneratorUtils {
         if (!node.leadingMinutiae().isEmpty()) {
             for (Minutiae minutiae : node.leadingMinutiae()) {
                 if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
-                    if (minutiae.text().contains("@sq-comment:")) {
+                    if (minutiae.text().contains(SQ_COMMENT)) {
                         return true;
                     }
                 }
@@ -152,7 +155,7 @@ public class ModelGeneratorUtils {
         if (!node.leadingMinutiae().isEmpty()) {
             for (Minutiae minutiae : node.leadingMinutiae()) {
                 if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
-                    if (minutiae.text().contains("@sq-ignore")) {
+                    if (minutiae.text().contains(SQ_IGNORE)) {
                         return true;
                     }
                 }
@@ -162,7 +165,7 @@ public class ModelGeneratorUtils {
     }
 
     public static String extractBlockComment(String input) {
-        String prefix = "@sq-comment:";
+        String prefix = SQ_COMMENT;
         int startIndex = input.indexOf(prefix);
 
         if (startIndex != -1) {

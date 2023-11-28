@@ -97,6 +97,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
+import static io.ballerina.sequencemodelgenerator.core.model.Constants.SQ_COMMENT;
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.generateResourcePath;
 import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils.getRawType;
 
@@ -953,7 +954,7 @@ public class ActionVisitor extends NodeVisitor {
         if (!token.leadingMinutiae().isEmpty()) {
             token.leadingMinutiae().forEach(minutiae -> {
                 if (minutiae.kind() == SyntaxKind.COMMENT_MINUTIAE) {
-                    if (minutiae.text().contains("@sq-comment:")) {
+                    if (minutiae.text().contains(SQ_COMMENT)) {
 
                         // Split the input string into individual lines using the newline character as the delimiter
                         String[] lines = minutiae.text().split("\\n");
@@ -1005,20 +1006,20 @@ public class ActionVisitor extends NodeVisitor {
     private Participant getParticipantByID(String participantID) {
         for (Participant item : this.visitorContext.getParticipants()) {
             if (item.getId().trim().equals(participantID.trim())) {
-                return item; // Return true when the conditions are met
+                return item;
             }
         }
-        return null; // Return false if no match is found
+        return null;
     }
 
     private boolean isEndpointAbsentInParticipants(String clientID) {
         for (Participant endpoint : this.visitorContext.getParticipants()) {
             if (endpoint.getParticipantKind().equals(ParticipantKind.ENDPOINT)) {
                 if (endpoint.getId().equals(clientID.trim())) {
-                    return false; // Return false when the conditions are met
+                    return false;
                 }
             }
         }
-        return true; // Return true if no match is found
+        return true;
     }
 }
