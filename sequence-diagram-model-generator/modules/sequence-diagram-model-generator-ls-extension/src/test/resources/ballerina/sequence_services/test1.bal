@@ -9,7 +9,7 @@ function testA1() returns string {
         string test2 = testC1();
     } else {
         string test3 = testF1();
-        string test4 = testE1(1);
+        RC1|RC2 test4 = testE1(1);
         testModule:hello();
     }
     return "";

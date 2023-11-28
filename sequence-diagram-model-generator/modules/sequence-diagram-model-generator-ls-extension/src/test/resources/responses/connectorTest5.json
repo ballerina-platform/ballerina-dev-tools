@@ -1,8 +1,8 @@
 {
   "participants": [
     {
-      "id": "test/sequence_services_0.1.0_foo",
-      "name": "foo",
+      "id": "test/sequence_services_0.1.0_bar",
+      "name": "bar",
       "participantKind": "WORKER",
       "packageName": "sequence_services",
       "hasInteractions": true,
@@ -13,7 +13,7 @@
             "actionPath": "/covid-19/countries",
             "methodName": "get",
             "actionType": "RESOURCE_ACTION",
-            "sourceId": "test/sequence_services_0.1.0_foo",
+            "sourceId": "test/sequence_services_0.1.0_bar",
             "targetId": "ballerina/http_2.9.0_Client_diseaseEp2",
             "interactionType": "ENDPOINT_INTERACTION",
             "kind": "Interaction",

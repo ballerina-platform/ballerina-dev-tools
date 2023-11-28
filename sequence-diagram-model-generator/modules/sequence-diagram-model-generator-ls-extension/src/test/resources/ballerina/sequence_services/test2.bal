@@ -25,7 +25,7 @@ public function main() {
 }
 
 public function generate() {
-    io:println(c);
+    io:println("generate");
 }
 
 public function testWithParam(int a, int b) {

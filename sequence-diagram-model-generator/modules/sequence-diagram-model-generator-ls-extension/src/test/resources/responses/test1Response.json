@@ -62,11 +62,11 @@
                       "fileName": "test1.bal",
                       "startLine": {
                         "line": 11,
-                        "offset": 23
+                        "offset": 24
                       },
                       "endLine": {
                         "line": 11,
-                        "offset": 29
+                        "offset": 30
                       }
                     }
                   },
