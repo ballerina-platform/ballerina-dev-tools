@@ -26,9 +26,9 @@ package io.ballerina.architecturemodelgenerator.extension;
 public class TestUtils {
     public static String replaceStdLibVersionStrings(String source) {
         return source
-                .replaceAll("ballerina/http:[0-9].[0-9].[0-9]", "")
-                .replaceAll("ballerina/http:http:[0-9].[0-9].[0-9]", "")
-                .replaceAll("ballerina/grpc:[0-9].[0-9].[0-9]", "")
-                .replaceAll("ballerina/time:[0-9].[0-9].[0-9]", "");
+                .replaceAll("ballerina/http:\\d+.\\d+.\\d+", "")
+                .replaceAll("ballerina/http:http:\\d+.\\d+.\\d+", "")
+                .replaceAll("ballerina/grpc:\\d+.\\d+.\\d+", "")
+                .replaceAll("ballerina/time:\\d+.\\d+.\\d+", "");
     }
 }

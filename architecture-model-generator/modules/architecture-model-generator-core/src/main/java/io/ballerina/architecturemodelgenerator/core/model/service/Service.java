@@ -19,8 +19,8 @@
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.DisplayAnnotation;
 
 import java.util.List;
@@ -32,41 +32,41 @@ import java.util.List;
  */
 public class Service extends ModelElement {
 
-    private final String path;
-    private final String serviceId;
-    private final String serviceType;
-    private final List<Resource> resources;
-    private final DisplayAnnotation annotation;
+    private final String id;
+    private final String label;
+    private final String type;
+    private final List<ResourceFunction> resourceFunctions;
     private final List<RemoteFunction> remoteFunctions;
-    private final List<Dependency> dependencies;
+    private final DisplayAnnotation annotation;
+    private final List<String> dependencies;
 
-    public Service(String path, String serviceId, String serviceType, List<Resource> resources,
-                   DisplayAnnotation annotation, List<RemoteFunction> remoteFunctions, List<Dependency> dependencies,
-                   ElementLocation elementLocation, List<ArchitectureModelDiagnostic> diagnostics) {
-        super(elementLocation, diagnostics);
-        this.path = path;
-        this.serviceId = serviceId;
-        this.serviceType = serviceType;
-        this.resources = resources;
+    public Service(String id, String label, String type, List<ResourceFunction> resourceFunctions,
+                   List<RemoteFunction> remoteFunctions, DisplayAnnotation annotation, List<String> dependencyIds,
+                   SourceLocation sourceLocation, List<ArchitectureModelDiagnostic> diagnostics) {
+        super(sourceLocation, diagnostics);
+        this.id = id;
+        this.label = label;
+        this.type = type;
+        this.resourceFunctions = resourceFunctions;
         this.annotation = annotation;
         this.remoteFunctions = remoteFunctions;
-        this.dependencies = dependencies;
+        this.dependencies = dependencyIds;
     }
 
-    public String getPath() {
-        return path;
+    public String getId() {
+        return id;
     }
 
-    public String getServiceId() {
-        return serviceId;
+    public String getLabel() {
+        return label;
     }
 
-    public String getServiceType() {
-        return serviceType;
+    public String getType() {
+        return type;
     }
 
-    public List<Resource> getResources() {
-        return resources;
+    public List<ResourceFunction> getResourceFunctions() {
+        return resourceFunctions;
     }
 
     public DisplayAnnotation getAnnotation() {
@@ -77,7 +77,7 @@ public class Service extends ModelElement {
         return remoteFunctions;
     }
 
-    public List<Dependency> getDependencies() {
+    public List<String> getDependencies() {
         return dependencies;
     }
 }

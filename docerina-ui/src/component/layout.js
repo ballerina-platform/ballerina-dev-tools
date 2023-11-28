@@ -162,7 +162,7 @@ const Layout = (props) => {
                                     <div className="ui breadcrumb">
                                         {(props.match.params.orgName == "ballerina") && !props.match.params.moduleName.startsWith("lang.") &&
                                             <>
-                                                <Link to="/#stdlibs" className="section">Standard Library</Link>
+                                                <Link to="/#stdlibs" className="section">Ballerina library</Link>
                                                 <i className="right angle icon divider"></i>
                                             </>
                                         }

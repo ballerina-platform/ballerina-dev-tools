@@ -19,8 +19,8 @@
 package io.ballerina.architecturemodelgenerator.core.model.service;
 
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
 import io.ballerina.architecturemodelgenerator.core.model.ModelElement;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.common.Interaction;
 
 import java.util.List;
@@ -30,31 +30,31 @@ import java.util.List;
  *
  * @since 2201.2.2
  */
-public class Resource extends ModelElement {
+public class ResourceFunction extends ModelElement {
 
-    private final String identifier;
-    private final ResourceId resourceId;
+    private final String id;
+    private final String path;
     private final List<ResourceParameter> parameters;
     private final List<String> returns;
     private final List<Interaction> interactions;
 
-    public Resource(String identifier, ResourceId resourceId, List<ResourceParameter> parameters, List<String> returns,
-                    List<Interaction> interactions, ElementLocation elementLocation,
-                    List<ArchitectureModelDiagnostic> diagnostics) {
+    public ResourceFunction(String identifier, String path, List<ResourceParameter> parameters, List<String> returns,
+                            List<Interaction> interactions, SourceLocation elementLocation,
+                            List<ArchitectureModelDiagnostic> diagnostics) {
         super(elementLocation, diagnostics);
-        this.identifier = identifier;
-        this.resourceId = resourceId;
+        this.id = identifier;
+        this.path = path;
         this.parameters = parameters;
         this.returns = returns;
         this.interactions = interactions;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getId() {
+        return id;
     }
 
-    public ResourceId getResourceId() {
-        return resourceId;
+    public String getPath() {
+        return path;
     }
 
     public List<ResourceParameter> getParameters() {

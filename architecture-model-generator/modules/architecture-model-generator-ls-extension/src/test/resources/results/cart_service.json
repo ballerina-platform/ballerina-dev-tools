@@ -1,36 +1,19 @@
 {
+  "modelVersion": "0.4.0",
+  "id": "cart_service",
+  "orgName": "test",
   "version": "0.1.0",
-  "packageId": {
-    "name": "cart_service",
-    "org": "test",
-    "version": "0.1.0"
-  },
   "hasCompilationErrors": false,
   "diagnostics": [],
   "services": {
     "cart": {
-      "path": "CartService",
-      "serviceId": "cart",
-      "serviceType": "ballerina/grpc:1.6.1",
-      "resources": [],
-      "annotation": {
-        "id": "cart",
-        "label": "Cart",
-        "elementLocation": {
-          "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
-          "startPosition": {
-            "line": 7,
-            "offset": 0
-          },
-          "endPosition": {
-            "line": 10,
-            "offset": 1
-          }
-        },
-        "diagnostics": []
-      },
+      "id": "cart",
+      "label": "Cart",
+      "type": "ballerina/grpc:1.8.1",
+      "resourceFunctions": [],
       "remoteFunctions": [
         {
+          "id": "cart:AddItem",
           "name": "AddItem",
           "parameters": [
             {
@@ -39,7 +22,7 @@
               ],
               "name": "value",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
                   "line": 27,
@@ -58,7 +41,7 @@
             "error"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
               "line": 27,
@@ -72,6 +55,7 @@
           "diagnostics": []
         },
         {
+          "id": "cart:GetCart",
           "name": "GetCart",
           "parameters": [
             {
@@ -80,7 +64,7 @@
               ],
               "name": "value",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
                   "line": 36,
@@ -99,7 +83,7 @@
             "error"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
               "line": 36,
@@ -113,6 +97,7 @@
           "diagnostics": []
         },
         {
+          "id": "cart:EmptyCart",
           "name": "EmptyCart",
           "parameters": [
             {
@@ -121,7 +106,7 @@
               ],
               "name": "value",
               "isRequired": true,
-              "elementLocation": {
+              "sourceLocation": {
                 "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
                 "startPosition": {
                   "line": 42,
@@ -140,7 +125,7 @@
             "error"
           ],
           "interactions": [],
-          "elementLocation": {
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
             "startPosition": {
               "line": 42,
@@ -154,8 +139,24 @@
           "diagnostics": []
         }
       ],
+      "annotation": {
+        "id": "cart",
+        "label": "Cart",
+        "sourceLocation": {
+          "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
+          "startPosition": {
+            "line": 7,
+            "offset": 0
+          },
+          "endPosition": {
+            "line": 10,
+            "offset": 1
+          }
+        },
+        "diagnostics": []
+      },
       "dependencies": [],
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/cart_service.bal",
         "startPosition": {
           "line": 7,
@@ -179,7 +180,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 26,
@@ -195,7 +197,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 25,
@@ -212,7 +214,7 @@
       "attributes": [],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 22,
@@ -234,7 +236,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 2,
@@ -262,7 +265,8 @@
               }
             }
           ],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 3,
@@ -278,7 +282,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 1,
@@ -300,7 +304,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 7,
@@ -328,7 +333,8 @@
               }
             }
           ],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 8,
@@ -344,7 +350,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 6,
@@ -366,7 +372,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 30,
@@ -382,7 +389,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 29,
@@ -404,7 +411,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 12,
@@ -424,7 +432,8 @@
           "nillable": false,
           "defaultValue": "",
           "associations": [],
-          "elementLocation": {
+          "isReadOnly": false,
+          "sourceLocation": {
             "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
             "startPosition": {
               "line": 13,
@@ -440,7 +449,7 @@
       ],
       "inclusions": [],
       "isAnonymous": false,
-      "elementLocation": {
+      "sourceLocation": {
         "filePath": "{srcPath}/ballerina/microservice_grpc/cart/types.bal",
         "startPosition": {
           "line": 11,
@@ -453,5 +462,7 @@
       },
       "diagnostics": []
     }
-  }
+  },
+  "functionEntryPoint": null,
+  "connections": []
 }

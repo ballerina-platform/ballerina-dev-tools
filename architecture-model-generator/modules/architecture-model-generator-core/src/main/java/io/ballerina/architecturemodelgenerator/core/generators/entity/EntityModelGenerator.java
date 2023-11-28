@@ -18,7 +18,6 @@
 
 package io.ballerina.architecturemodelgenerator.core.generators.entity;
 
-import io.ballerina.architecturemodelgenerator.core.ArchitectureModel.PackageId;
 import io.ballerina.architecturemodelgenerator.core.Constants.CardinalityValue;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.ArchitectureModelDiagnostic;
 import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticMessage;
@@ -26,7 +25,7 @@ import io.ballerina.architecturemodelgenerator.core.diagnostics.DiagnosticNode;
 import io.ballerina.architecturemodelgenerator.core.generators.GeneratorUtils;
 import io.ballerina.architecturemodelgenerator.core.generators.ModelGenerator;
 import io.ballerina.architecturemodelgenerator.core.generators.entity.nodevisitors.TypeDefinitionNodeVisitor;
-import io.ballerina.architecturemodelgenerator.core.model.ElementLocation;
+import io.ballerina.architecturemodelgenerator.core.model.SourceLocation;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Association;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Attribute;
 import io.ballerina.architecturemodelgenerator.core.model.entity.Entity;
@@ -57,6 +56,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
+import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageCompilation;
 import io.ballerina.tools.text.LineRange;
 
@@ -119,7 +119,7 @@ public class EntityModelGenerator extends ModelGenerator {
     }
 
     private Entity getType(RecordTypeSymbol recordTypeSymbol, RecordTypeDescriptorNode recordNode,
-                           String entityName, ElementLocation elementLocation, boolean isAnonymous) {
+                           String entityName, SourceLocation elementLocation, boolean isAnonymous) {
         List<Attribute> attributeList = new ArrayList<>();
         List<String> inclusionList = new ArrayList<>();
         Map<String, RecordFieldSymbol> recordFieldSymbolMap =
@@ -366,15 +366,16 @@ public class EntityModelGenerator extends ModelGenerator {
      */
     private String getEntityName(String moduleQualifiedName) {
         // moduleQualifiedName is not correct when there is a dot in package name
-        PackageId packageId = new PackageId(getModule().packageInstance());
+        Package pkg = getModule().packageInstance();
         String entityName;
         String[] nameSpits = moduleQualifiedName.split(COLON);
-        if (packageId.getName().equals(nameSpits[0])) { // check whether the referenced type is from the same module
-            entityName = packageId.getOrg() + FORWARD_SLASH + packageId.getName() + COLON + packageId.getVersion() +
-                    COLON + nameSpits[1];
+        if (pkg.packageName().value().equals(nameSpits[0])) {
+            // The referenced type is from the same module
+            entityName = pkg.packageOrg().value() + FORWARD_SLASH + pkg.packageName().value() + COLON +
+                    pkg.packageVersion().value() + COLON + nameSpits[1];
         } else {
-            entityName = packageId.getOrg() + FORWARD_SLASH + packageId.getName() + COLON + nameSpits[0] + COLON +
-                    packageId.getVersion() + COLON + nameSpits[1];
+            entityName = pkg.packageOrg().value() + FORWARD_SLASH + pkg.packageName().value() + COLON + nameSpits[0] +
+                    COLON + pkg.packageVersion().value() + COLON + nameSpits[1];
         }
         return entityName;
     }
@@ -451,8 +452,8 @@ public class EntityModelGenerator extends ModelGenerator {
         return associations;
     }
 
-    private ElementLocation getElementLocation(Symbol symbol) {
-        ElementLocation elementLocation = null;
+    private SourceLocation getElementLocation(Symbol symbol) {
+        SourceLocation elementLocation = null;
         if (symbol.getLocation().isPresent()) {
             LineRange typeLineRange = symbol.getLocation().get().lineRange();
             String filePath;
@@ -461,7 +462,7 @@ public class EntityModelGenerator extends ModelGenerator {
             } else {
                 filePath = getModuleRootPath().toString();
             }
-            elementLocation = GeneratorUtils.getElementLocation(filePath, typeLineRange);
+            elementLocation = GeneratorUtils.getSourceLocation(filePath, typeLineRange);
         }
         return elementLocation;
     }
