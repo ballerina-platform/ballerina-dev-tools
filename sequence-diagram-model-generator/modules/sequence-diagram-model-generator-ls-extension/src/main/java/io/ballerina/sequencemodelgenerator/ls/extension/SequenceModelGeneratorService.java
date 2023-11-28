@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.projects.Project;
 import io.ballerina.sequencemodelgenerator.core.ModelGenerator;
+import io.ballerina.sequencemodelgenerator.core.exception.SequenceModelGenerationException;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceModel;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
@@ -65,7 +66,11 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
                     System.out.println(sequenceModelJson);
                     response.setSequenceDiagramModel(sequenceModelJson);
                 }
-            } catch (Exception e) {
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true,
+                        e.getMessage());
+                response.setModelDiagnostic(modelDiagnostic);
+            } catch (SequenceModelGenerationException e) {
                 ModelDiagnostic modelDiagnostic = new ModelDiagnostic(true,
                         String.format(ISSUE_IN_MODEL_GENERATION, e.getMessage()));
                 response.setModelDiagnostic(modelDiagnostic);

@@ -32,6 +32,11 @@ import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Test class for sequence model generator service.
+ *
+ * @since 2201.8.0
+ */
 public class SequenceModelGeneratorTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();
     private static final String BALLERINA = "ballerina";

@@ -140,7 +140,7 @@ public class RootNodeVisitor extends NodeVisitor {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (SequenceModelGenerationException e) {
             this.setModelGenerationException(
                     new SequenceModelGenerationException(ISSUE_IN_VISITING_ROOT_NODE + e.getMessage()));
             
