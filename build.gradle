@@ -150,7 +150,7 @@ task copyArtifactZip {
 task createArtifactZip(type: Zip) {
     dependsOn copyArtifactZip
     dependsOn(":docerina-ui:createDocerinaUiZip")
-//    dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
+    dependsOn(":testerina-report-tools:createTesterinaReportToolsZip")
     from "build"
     archiveName 'ballerina-dev-tools-' + project.version + '.zip'
     destinationDir(file("dist"))
