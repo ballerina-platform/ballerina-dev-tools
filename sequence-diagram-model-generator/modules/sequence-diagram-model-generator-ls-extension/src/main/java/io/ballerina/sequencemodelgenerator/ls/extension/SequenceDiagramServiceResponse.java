@@ -19,6 +19,10 @@ public class SequenceDiagramServiceResponse {
         this.sequenceDiagramModel = sequenceDiagramModel;
     }
 
+    public ModelDiagnostic getModelDiagnostic() {
+        return modelDiagnostic;
+    }
+
     public void setModelDiagnostic(ModelDiagnostic modelDiagnostic) {
         this.modelDiagnostic = modelDiagnostic;
     }

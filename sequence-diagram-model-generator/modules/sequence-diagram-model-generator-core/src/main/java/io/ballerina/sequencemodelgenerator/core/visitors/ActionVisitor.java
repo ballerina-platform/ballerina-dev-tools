@@ -55,6 +55,7 @@ import io.ballerina.compiler.syntax.tree.XMLNamespaceDeclarationNode;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Package;
 import io.ballerina.sequencemodelgenerator.core.model.Constants;
+import io.ballerina.sequencemodelgenerator.core.model.DElement;
 import io.ballerina.sequencemodelgenerator.core.model.DoStatement;
 import io.ballerina.sequencemodelgenerator.core.model.ElseStatement;
 import io.ballerina.sequencemodelgenerator.core.model.EndpointActionStatement;
@@ -712,9 +713,10 @@ public class ActionVisitor extends NodeVisitor {
             ifStatement.setElseStatement(actionVisitor1.visitorContext.getDiagramElementWithChildren());
         }
 
-        if (this.visitorContext.getDiagramElementWithChildren() != null) {
-            if (this.visitorContext.getDiagramElementWithChildren() instanceof ElseStatement) {
-                ElseStatement elseStatement = (ElseStatement) this.visitorContext.getDiagramElementWithChildren();
+        DElement diagramElement = this.visitorContext.getDiagramElementWithChildren();
+        if (diagramElement != null) {
+            if (diagramElement instanceof ElseStatement) {
+                ElseStatement elseStatement = (ElseStatement) diagramElement;
                 elseStatement.addChildDiagramElements(ifStatement);
             } else {
                 // Adding ifStatement if the body of statement has interactions

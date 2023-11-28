@@ -7,11 +7,19 @@ package io.ballerina.sequencemodelgenerator.ls.extension;
  */
 
 public class ModelDiagnostic {
-    private boolean isIncompleteModel;
-    private String errorMsg;
+    private final boolean isIncompleteModel;
+    private final String errorMsg;
 
     public ModelDiagnostic(boolean isIncompleteModel, String errorMsg) {
         this.isIncompleteModel = isIncompleteModel;
         this.errorMsg = errorMsg;
+    }
+
+    public boolean isIncompleteModel() {
+        return isIncompleteModel;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
     }
 }
