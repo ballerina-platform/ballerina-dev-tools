@@ -72,7 +72,8 @@ public class ModelGeneratorUtils {
             return null;
         }
         String functionName = functionDefinitionNode.functionName().text().trim();
-        return moduleID + "_" + functionName;
+        StringBuilder builder = new StringBuilder();
+        return builder.append(moduleID).append("_").append(functionName).toString().trim();
     }
 
     public static String generateResourceID(Symbol symbol, FunctionDefinitionNode functionDefinitionNode) {
@@ -89,8 +90,8 @@ public class ModelGeneratorUtils {
 
         String resourcePath = resourcePathBuilder.toString().trim();
         String method = functionDefinitionNode.functionName().text().trim();
-        String completeResourcePath = method + "_" + resourcePath;
-        return moduleID + "_" + completeResourcePath;
+        StringBuilder builder = new StringBuilder();
+        return builder.append(moduleID).append("_").append(method).append("_").append(resourcePath).toString().trim();
     }
 
     public static String generateResourcePath(SeparatedNodeList<Node> accessPathNodes) {
@@ -111,15 +112,18 @@ public class ModelGeneratorUtils {
             return null;
         }
         String functionName = functionDefinitionNode.functionName().text().trim();
-        return moduleID + "_" + className + "_" + functionName;
+        StringBuilder builder = new StringBuilder();
+        return builder.append(moduleID).append("_").append(className).append("_").append(functionName).toString()
+                .trim();
     }
 
     public static String generateEndpointID(ObjectTypeSymbol objectTypeSymbol, NameReferenceNode nameReferenceNode) {
         if (objectTypeSymbol.getModule().isPresent()) {
             String clientPkgName = objectTypeSymbol.getModule().get().id().toString().trim()
                     .replace(":", "_");
-            return clientPkgName + "_" + objectTypeSymbol.signature().trim() + "_" +
-                    nameReferenceNode.toString().trim();
+            StringBuilder builder = new StringBuilder();
+            return builder.append(clientPkgName).append("_").append(objectTypeSymbol.signature().trim()).append("_")
+                    .append(nameReferenceNode.toString().trim()).toString();
         }
         return null;
     }
@@ -129,13 +133,14 @@ public class ModelGeneratorUtils {
         if (moduleID == null) {
             return null;
         }
-        return moduleID + "_" + functionName.trim();
+        StringBuilder builder = new StringBuilder();
+        return builder.append(moduleID).append("_").append(functionName.trim()).toString();
     }
 
     public static String generateReferenceIDForMethods(String methodSignature, String functionName) {
         String moduleID = methodSignature.trim().replace(":", "_");
-
-        return moduleID + "_" + functionName.trim();
+        StringBuilder builder = new StringBuilder();
+        return builder.append(moduleID).append("_").append(functionName.trim()).toString();
     }
 
     public static boolean isStatementBlockCommentPresent(Node node) {
