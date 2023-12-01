@@ -39,7 +39,7 @@ import static io.ballerina.sequencemodelgenerator.core.Constants.UNABLE_TO_FIND_
 /**
  * Visitor which captures the root node/entry point of the sequence diagram.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class RootNodeVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;

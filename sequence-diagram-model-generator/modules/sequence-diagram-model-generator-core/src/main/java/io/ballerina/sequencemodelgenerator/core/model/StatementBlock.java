@@ -25,7 +25,7 @@ import io.ballerina.tools.text.LineRange;
  * This special comment will be used to add comments to the sequence diagram,
  * which will explain a certain statement/statement block.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class StatementBlock extends DElement {
 

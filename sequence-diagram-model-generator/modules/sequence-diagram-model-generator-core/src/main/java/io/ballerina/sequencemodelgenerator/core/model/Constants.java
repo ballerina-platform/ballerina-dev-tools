@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 /**
  * Constants used in the sequence diagram model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class Constants {
     public static final String PARTICIPANT = "Participant";

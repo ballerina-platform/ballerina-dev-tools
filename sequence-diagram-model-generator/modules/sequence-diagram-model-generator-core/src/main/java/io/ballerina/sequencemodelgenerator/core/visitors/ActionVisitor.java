@@ -104,7 +104,7 @@ import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils
 /**
  * Visitor which will capture all the interactions and the respective participant originated from the root node.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class ActionVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;

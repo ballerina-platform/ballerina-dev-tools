@@ -23,7 +23,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabili
 /**
  * Client capabilities for the sequence diagram model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceDiagramClientCapabilities extends BallerinaClientCapability {
 

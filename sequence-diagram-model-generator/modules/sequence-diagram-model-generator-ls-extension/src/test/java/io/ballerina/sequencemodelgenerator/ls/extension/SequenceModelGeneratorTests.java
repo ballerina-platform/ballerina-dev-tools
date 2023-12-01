@@ -35,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Test class for sequence model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceModelGeneratorTests {
     private static final Path RES_DIR = Paths.get("src", "test", "resources").toAbsolutePath();

@@ -23,7 +23,7 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the Lock statement.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class LockStatement extends DElement {
     private OnFailClause onFailClause;

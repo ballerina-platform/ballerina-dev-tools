@@ -43,7 +43,7 @@ import static io.ballerina.sequencemodelgenerator.core.utils.CommonUtils.findNod
 /**
  * Represents the root model generator for sequence diagram.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class ModelGenerator {
     public SequenceModel getSequenceDiagramModel(Project project, LineRange position, SemanticModel semanticModel)

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents the sequence model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceModel extends DNode {
     private final List<Participant> participants;

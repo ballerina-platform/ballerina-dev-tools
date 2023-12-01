@@ -24,7 +24,7 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the sequence diagram service request.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceDiagramServiceRequest {
     private final String filePath;

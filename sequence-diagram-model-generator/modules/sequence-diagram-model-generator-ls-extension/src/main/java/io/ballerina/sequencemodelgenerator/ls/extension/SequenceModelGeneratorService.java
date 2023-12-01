@@ -45,7 +45,7 @@ import static io.ballerina.sequencemodelgenerator.core.Constants.ISSUE_IN_MODEL_
 /**
  * Extended language server service for the sequence diagram model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("sequenceModelGeneratorService")

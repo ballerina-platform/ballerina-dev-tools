@@ -40,7 +40,7 @@ import static io.ballerina.sequencemodelgenerator.core.utils.ModelGeneratorUtils
 /**
  * Visitor to identify the module level connectors without any interaction.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class ModuleLevelConnectorVisitor extends NodeVisitor {
     private final SemanticModel semanticModel;

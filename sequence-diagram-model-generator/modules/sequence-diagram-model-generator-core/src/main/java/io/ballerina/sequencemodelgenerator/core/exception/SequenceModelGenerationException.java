@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.core.exception;
 /**
  * Represents the exception class for Sequence diagram model generator.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceModelGenerationException extends Exception {
     public SequenceModelGenerationException(String message) {

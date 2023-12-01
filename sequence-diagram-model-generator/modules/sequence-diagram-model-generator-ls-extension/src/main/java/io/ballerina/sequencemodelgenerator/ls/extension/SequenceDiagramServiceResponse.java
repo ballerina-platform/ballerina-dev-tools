@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 /**
  * Represents the response from the sequence diagram model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceDiagramServiceResponse {
     private JsonElement sequenceDiagramModel;

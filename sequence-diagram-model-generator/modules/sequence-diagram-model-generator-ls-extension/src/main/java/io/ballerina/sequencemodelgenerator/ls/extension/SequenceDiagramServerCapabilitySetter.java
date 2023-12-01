@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Server capability setter for the sequence diagram model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaServerCapabilitySetter")
 public class SequenceDiagramServerCapabilitySetter extends

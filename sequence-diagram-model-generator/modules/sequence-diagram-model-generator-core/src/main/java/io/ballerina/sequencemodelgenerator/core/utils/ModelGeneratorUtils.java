@@ -42,7 +42,7 @@ import static io.ballerina.sequencemodelgenerator.core.model.Constants.SQ_IGNORE
 /**
  * Util functions which are specified for the model generation logic.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class ModelGeneratorUtils {
     public static TypeSymbol getRawType(TypeSymbol typeDescriptor) {

@@ -22,7 +22,7 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represent an element in the sequence diagram model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class DElement extends DNode {
     private DElementBody elementBody;

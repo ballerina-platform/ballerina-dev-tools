@@ -23,7 +23,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaServerCapabili
 /**
  * Server capabilities for the sequence diagram model generator service.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class SequenceDiagramServerCapabilities extends BallerinaServerCapability {
     public SequenceDiagramServerCapabilities() {

@@ -26,7 +26,7 @@ import io.ballerina.tools.text.LineRange;
  * Represents the statement with connector interactions.
  * example :  json response = check self.httpEp->/users/[name];
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class EndpointActionStatement extends Interaction {
     private final String actionName;

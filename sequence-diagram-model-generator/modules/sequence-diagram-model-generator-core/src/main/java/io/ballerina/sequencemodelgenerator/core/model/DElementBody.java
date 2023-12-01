@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents the body of an element {@link DElement} in the sequence diagram model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class DElementBody extends DNode {
     private final List<DNode> childElements;

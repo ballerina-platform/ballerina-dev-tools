@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Context that is maintained throughout the model generation process.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class VisitorContext {
     private Participant rootParticipant;

@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.core;
 /**
  * Constants used for Sequence Diagram model generation errors.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class Constants {
     public static final String EMPTY_SEMANTIC_MODEL_MSG =

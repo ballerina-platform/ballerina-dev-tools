@@ -23,7 +23,7 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the If statement in the sequence diagram model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class IfStatement extends DElement {
     private final String condition;

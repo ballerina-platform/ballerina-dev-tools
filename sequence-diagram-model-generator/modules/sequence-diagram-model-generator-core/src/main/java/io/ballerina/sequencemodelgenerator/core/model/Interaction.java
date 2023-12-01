@@ -26,7 +26,7 @@ import static io.ballerina.sequencemodelgenerator.core.model.Constants.INTERACTI
 /**
  * Represents base interaction model.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class Interaction extends DNode {
     private final String sourceId;

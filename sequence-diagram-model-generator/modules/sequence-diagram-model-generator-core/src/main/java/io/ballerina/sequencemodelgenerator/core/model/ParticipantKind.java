@@ -21,7 +21,7 @@ package io.ballerina.sequencemodelgenerator.core.model;
 /**
  * Represents the participant kind.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public enum ParticipantKind {
     WORKER,

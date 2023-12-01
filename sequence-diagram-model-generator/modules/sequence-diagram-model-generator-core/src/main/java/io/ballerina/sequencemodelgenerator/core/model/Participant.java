@@ -26,7 +26,7 @@ import static io.ballerina.sequencemodelgenerator.core.model.Constants.PARTICIPA
  * Represents the Participant which is the main component in sequence diagram model.
  * The sequence model will contain a list of Participant in which it will contain details about interactions.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class Participant extends DElement {
     private final String id;

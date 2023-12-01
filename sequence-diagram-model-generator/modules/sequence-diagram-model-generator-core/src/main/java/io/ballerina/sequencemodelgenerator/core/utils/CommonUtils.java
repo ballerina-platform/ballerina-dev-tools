@@ -28,7 +28,7 @@ import io.ballerina.tools.text.TextRange;
 /**
  * Util functions which will be used by the sequence model process.
  *
- * @since 2201.8.0
+ * @since 2201.8.5
  */
 public class CommonUtils {
     public static NonTerminalNode findNode(SyntaxTree syntaxTree, LineRange lineRange) {
