@@ -20,7 +20,7 @@ under the License.
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="sequence-model-test-suite">
-    <test name="sequence-model-test" parallel="false">
+    <test name="sequence-model-test" parallel="none">
         <classes>
             <class name="io.ballerina.sequencemodelgenerator.ls.extension.SequenceModelGeneratorTests"/>
         </classes>
