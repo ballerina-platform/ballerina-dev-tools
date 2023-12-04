@@ -1,0 +1,222 @@
+{
+  "participants": [
+    {
+      "id": "test/sequence_services_0.1.0_get_path",
+      "name": "path",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "actionName": "lclHttpEp",
+            "methodName": "get",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get_path",
+            "targetId": "ballerina/http_2.9.0_Client_lclHttpEp",
+            "interactionType": "ENDPOINT_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest2.bal",
+              "startLine": {
+                "line": 26,
+                "offset": 25
+              },
+              "endLine": {
+                "line": 26,
+                "offset": 54
+              }
+            }
+          },
+          {
+            "actionName": "pvtHttpEp",
+            "methodName": "get",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get_path",
+            "targetId": "ballerina/http_2.9.0_Client_pvtHttpEp",
+            "interactionType": "ENDPOINT_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest2.bal",
+              "startLine": {
+                "line": 27,
+                "offset": 28
+              },
+              "endLine": {
+                "line": 27,
+                "offset": 57
+              }
+            }
+          },
+          {
+            "actionName": "antHttpEp",
+            "methodName": "get",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get_path",
+            "targetId": "ballerina/http_2.9.0_Client_antHttpEp",
+            "interactionType": "ENDPOINT_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest2.bal",
+              "startLine": {
+                "line": 28,
+                "offset": 29
+              },
+              "endLine": {
+                "line": 28,
+                "offset": 58
+              }
+            }
+          },
+          {
+            "actionName": "publHttpEp",
+            "methodName": "get",
+            "actionType": "REMOTE_ACTION",
+            "sourceId": "test/sequence_services_0.1.0_get_path",
+            "targetId": "ballerina/http_2.9.0_Client_publHttpEp",
+            "interactionType": "ENDPOINT_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "connectorTest2.bal",
+              "startLine": {
+                "line": 29,
+                "offset": 29
+              },
+              "endLine": {
+                "line": 29,
+                "offset": 59
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "connectorTest2.bal",
+          "startLine": {
+            "line": 25,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 30,
+            "offset": 5
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "connectorTest2.bal",
+        "startLine": {
+          "line": 25,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 5
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.0_Client_lclHttpEp",
+      "name": "lclHttpEp",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.0",
+      "type": "Client",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 29
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 35
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.0_Client_pvtHttpEp",
+      "name": "pvtHttpEp",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.0",
+      "type": "Client",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 29
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 35
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.0_Client_antHttpEp",
+      "name": "antHttpEp",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.0",
+      "type": "Client",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 29
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 35
+        }
+      }
+    },
+    {
+      "id": "ballerina/http_2.9.0_Client_publHttpEp",
+      "name": "publHttpEp",
+      "participantKind": "ENDPOINT",
+      "packageName": "ballerina/http_2.9.0",
+      "type": "Client",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "http_client_endpoint.bal",
+        "startLine": {
+          "line": 30,
+          "offset": 29
+        },
+        "endLine": {
+          "line": 30,
+          "offset": 35
+        }
+      }
+    }
+  ],
+  "kind": "Sequence",
+  "isHidden": false,
+  "location": {
+    "fileName": "{srcPath}/ballerina/sequence_services/connectorTest2.bal",
+    "startLine": {
+      "line": 25,
+      "offset": 4
+    },
+    "endLine": {
+      "line": 30,
+      "offset": 5
+    }
+  }
+}

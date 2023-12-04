@@ -1,0 +1,787 @@
+{
+  "participants": [
+    {
+      "id": "test/sequence_services_0.1.0_testA1",
+      "name": "testA1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "functionName": "testB1",
+            "sourceId": "test/sequence_services_0.1.0_testA1",
+            "targetId": "test/sequence_services_0.1.0_testB1",
+            "interactionType": "FUNCTION_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 6,
+                "offset": 18
+              },
+              "endLine": {
+                "line": 6,
+                "offset": 24
+              }
+            }
+          },
+          {
+            "condition": "(condition1) ",
+            "elseStatement": {
+              "elementBody": {
+                "childElements": [
+                  {
+                    "functionName": "testF1",
+                    "sourceId": "test/sequence_services_0.1.0_testA1",
+                    "targetId": "test/sequence_services_0.1.0_testF1",
+                    "interactionType": "FUNCTION_INTERACTION",
+                    "kind": "Interaction",
+                    "isHidden": false,
+                    "location": {
+                      "fileName": "test1.bal",
+                      "startLine": {
+                        "line": 10,
+                        "offset": 23
+                      },
+                      "endLine": {
+                        "line": 10,
+                        "offset": 29
+                      }
+                    }
+                  },
+                  {
+                    "functionName": "testE1",
+                    "sourceId": "test/sequence_services_0.1.0_testA1",
+                    "targetId": "test/sequence_services_0.1.0_testE1",
+                    "interactionType": "FUNCTION_INTERACTION",
+                    "kind": "Interaction",
+                    "isHidden": false,
+                    "location": {
+                      "fileName": "test1.bal",
+                      "startLine": {
+                        "line": 11,
+                        "offset": 24
+                      },
+                      "endLine": {
+                        "line": 11,
+                        "offset": 30
+                      }
+                    }
+                  },
+                  {
+                    "functionName": "hello",
+                    "sourceId": "test/sequence_services_0.1.0_testA1",
+                    "targetId": "test/sequence_services.testModule_0.1.0_hello",
+                    "interactionType": "FUNCTION_INTERACTION",
+                    "kind": "Interaction",
+                    "isHidden": false,
+                    "location": {
+                      "fileName": "test1.bal",
+                      "startLine": {
+                        "line": 12,
+                        "offset": 8
+                      },
+                      "endLine": {
+                        "line": 12,
+                        "offset": 24
+                      }
+                    }
+                  }
+                ],
+                "kind": "ElseStatementBody",
+                "isHidden": false,
+                "location": {
+                  "fileName": "test1.bal",
+                  "startLine": {
+                    "line": 7,
+                    "offset": 4
+                  },
+                  "endLine": {
+                    "line": 13,
+                    "offset": 5
+                  }
+                }
+              },
+              "kind": "ElseStatement",
+              "isHidden": false,
+              "location": {
+                "fileName": "test1.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 5
+                }
+              }
+            },
+            "elementBody": {
+              "childElements": [
+                {
+                  "functionName": "testC1",
+                  "sourceId": "test/sequence_services_0.1.0_testA1",
+                  "targetId": "test/sequence_services_0.1.0_testC1",
+                  "interactionType": "FUNCTION_INTERACTION",
+                  "kind": "Interaction",
+                  "isHidden": false,
+                  "location": {
+                    "fileName": "test1.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 23
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 29
+                    }
+                  }
+                }
+              ],
+              "kind": "IfStatementBody",
+              "isHidden": false,
+              "location": {
+                "fileName": "test1.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 5
+                }
+              }
+            },
+            "kind": "IfStatement",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 7,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 13,
+                "offset": 5
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 5,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services_0.1.0_testB1",
+      "name": "testB1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "condition": "(condition2) ",
+            "elementBody": {
+              "childElements": [
+                {
+                  "functionName": "testF1",
+                  "sourceId": "test/sequence_services_0.1.0_testB1",
+                  "targetId": "test/sequence_services_0.1.0_testF1",
+                  "interactionType": "FUNCTION_INTERACTION",
+                  "kind": "Interaction",
+                  "isHidden": false,
+                  "location": {
+                    "fileName": "test1.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 23
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 29
+                    }
+                  }
+                }
+              ],
+              "kind": "WhileStatementBody",
+              "isHidden": false,
+              "location": {
+                "fileName": "test1.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 20,
+                  "offset": 5
+                }
+              }
+            },
+            "kind": "WhileStatement",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 18,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 20,
+                "offset": 5
+              }
+            }
+          },
+          {
+            "condition": "names ",
+            "elementBody": {
+              "childElements": [
+                {
+                  "functionName": "testH1",
+                  "sourceId": "test/sequence_services_0.1.0_testB1",
+                  "targetId": "test/sequence_services_0.1.0_testH1",
+                  "interactionType": "FUNCTION_INTERACTION",
+                  "kind": "Interaction",
+                  "isHidden": false,
+                  "location": {
+                    "fileName": "test1.bal",
+                    "startLine": {
+                      "line": 23,
+                      "offset": 23
+                    },
+                    "endLine": {
+                      "line": 23,
+                      "offset": 29
+                    }
+                  }
+                }
+              ],
+              "kind": "ForEachStatementBody",
+              "isHidden": false,
+              "location": {
+                "fileName": "test1.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 24,
+                  "offset": 5
+                }
+              }
+            },
+            "kind": "ForEachStatement",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 22,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 24,
+                "offset": 5
+              }
+            }
+          },
+          {
+            "functionName": "testC1",
+            "sourceId": "test/sequence_services_0.1.0_testB1",
+            "targetId": "test/sequence_services_0.1.0_testC1",
+            "interactionType": "FUNCTION_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 25,
+                "offset": 16
+              },
+              "endLine": {
+                "line": 25,
+                "offset": 22
+              }
+            }
+          },
+          {
+            "name": "returnVal",
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testB1",
+            "targetId": "test/sequence_services_0.1.0_testA1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 27,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 27,
+                "offset": 21
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 28,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 17,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 28,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services_0.1.0_testF1",
+      "name": "testF1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testF1",
+            "targetId": "test/sequence_services_0.1.0_testB1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 52,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 52,
+                "offset": 14
+              }
+            }
+          },
+          {
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testF1",
+            "targetId": "test/sequence_services_0.1.0_testA1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 52,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 52,
+                "offset": 14
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 51,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 53,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 51,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 53,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services_0.1.0_testH1",
+      "name": "testH1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "functionName": "testH1",
+            "sourceId": "test/sequence_services_0.1.0_testH1",
+            "targetId": "test/sequence_services_0.1.0_testH1",
+            "interactionType": "FUNCTION_INTERACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 56,
+                "offset": 16
+              },
+              "endLine": {
+                "line": 56,
+                "offset": 22
+              }
+            }
+          },
+          {
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testH1",
+            "targetId": "test/sequence_services_0.1.0_testB1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 57,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 57,
+                "offset": 14
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 55,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 58,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 55,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 58,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services_0.1.0_testC1",
+      "name": "testC1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "name": "returnC",
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testC1",
+            "targetId": "test/sequence_services_0.1.0_testB1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 43,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 43,
+                "offset": 19
+              }
+            }
+          },
+          {
+            "name": "returnC",
+            "type": "string ",
+            "sourceId": "test/sequence_services_0.1.0_testC1",
+            "targetId": "test/sequence_services_0.1.0_testA1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 43,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 43,
+                "offset": 19
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 41,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 44,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 41,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 44,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services_0.1.0_testE1",
+      "name": "testE1",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "name": "rc1",
+            "type": "RC1|RC2 ",
+            "sourceId": "test/sequence_services_0.1.0_testE1",
+            "targetId": "test/sequence_services_0.1.0_testA1",
+            "interactionType": "RETURN_ACTION",
+            "kind": "Interaction",
+            "isHidden": false,
+            "location": {
+              "fileName": "test1.bal",
+              "startLine": {
+                "line": 48,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 48,
+                "offset": 15
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "test1.bal",
+          "startLine": {
+            "line": 46,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 49,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "test1.bal",
+        "startLine": {
+          "line": 46,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 49,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services.testModule_0.1.0_hello",
+      "name": "hello",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": true,
+      "elementBody": {
+        "childElements": [
+          {
+            "condition": "(true) ",
+            "elementBody": {
+              "childElements": [
+                {
+                  "functionName": "updateDetails",
+                  "sourceId": "test/sequence_services.testModule_0.1.0_hello",
+                  "targetId": "test/sequence_services.testModule_0.1.0_updateDetails",
+                  "interactionType": "FUNCTION_INTERACTION",
+                  "kind": "Interaction",
+                  "isHidden": false,
+                  "location": {
+                    "fileName": "testModule.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 21
+                    }
+                  }
+                }
+              ],
+              "kind": "WhileStatementBody",
+              "isHidden": false,
+              "location": {
+                "fileName": "testModule.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 4
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              }
+            },
+            "kind": "WhileStatement",
+            "isHidden": false,
+            "location": {
+              "fileName": "testModule.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 3,
+                "offset": 5
+              }
+            }
+          }
+        ],
+        "kind": "ParticipantBody",
+        "isHidden": false,
+        "location": {
+          "fileName": "testModule.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 1
+          }
+        }
+      },
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "testModule.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 4,
+          "offset": 1
+        }
+      }
+    },
+    {
+      "id": "test/sequence_services.testModule_0.1.0_updateDetails",
+      "name": "updateDetails",
+      "participantKind": "WORKER",
+      "packageName": "sequence_services",
+      "hasInteractions": false,
+      "kind": "Participant",
+      "isHidden": false,
+      "location": {
+        "fileName": "testModule.bal",
+        "startLine": {
+          "line": 6,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 8,
+          "offset": 1
+        }
+      }
+    }
+  ],
+  "kind": "Sequence",
+  "isHidden": false,
+  "location": {
+    "fileName": "{srcPath}/ballerina/sequence_services/test1.bal",
+    "startLine": {
+      "line": 5,
+      "offset": 0
+    },
+    "endLine": {
+      "line": 15,
+      "offset": 1
+    }
+  }
+}
