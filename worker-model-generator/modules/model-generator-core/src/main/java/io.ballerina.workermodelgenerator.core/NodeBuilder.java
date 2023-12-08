@@ -21,9 +21,9 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.workermodelgenerator.core.model.CanvasPosition;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.InputPort;
-import io.ballerina.workermodelgenerator.core.model.WorkerNodeJsonBuilder;
 import io.ballerina.workermodelgenerator.core.model.OutputPort;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
+import io.ballerina.workermodelgenerator.core.model.WorkerNodeJsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
-    public void setId(String id) {
+    public void setName(String id) {
         this.id = id;
     }
 

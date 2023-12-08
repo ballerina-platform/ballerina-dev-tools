@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents a worker node in a flow.
  *
- * @param id             id of the node
+ * @param name           name of the node
  * @param templateKind   kind of the node
  * @param codeLocation   location of the node in the source code
  * @param canvasPosition position of the node in the canvas
@@ -33,7 +33,7 @@ import java.util.List;
  * @param outputPorts    output ports of the node
  * @since 2201.9.0
  */
-public record WorkerNode(String id, TemplateKind templateKind, CodeLocation codeLocation, CanvasPosition canvasPosition,
-                         List<InputPort> inputPorts, List<OutputPort> outputPorts) {
+public record WorkerNode(String name, TemplateKind templateKind, CodeLocation codeLocation,
+                         CanvasPosition canvasPosition, List<InputPort> inputPorts, List<OutputPort> outputPorts) {
 
 }

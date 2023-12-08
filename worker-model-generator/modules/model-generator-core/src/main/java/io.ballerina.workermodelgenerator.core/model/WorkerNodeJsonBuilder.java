@@ -23,18 +23,18 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.workermodelgenerator.core.TemplateKind;
 
 /**
- * Builder for creating a {@link WorkerNode} instance
+ * Builder for creating a {@link WorkerNode} instance.
  *
  * @since 2201.9.0
  */
 public interface WorkerNodeJsonBuilder {
 
     /**
-     * Sets the id of the node.
+     * Sets the name of the node.
      *
-     * @param id id of the node
+     * @param name name of the worker
      */
-    void setId(String id);
+    void setName(String name);
 
     /**
      * Sets the type of the node.
