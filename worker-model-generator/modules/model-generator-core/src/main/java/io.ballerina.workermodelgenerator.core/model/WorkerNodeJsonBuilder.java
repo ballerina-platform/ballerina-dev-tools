@@ -20,7 +20,6 @@ package io.ballerina.workermodelgenerator.core.model;
 
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.tools.text.LinePosition;
-import io.ballerina.workermodelgenerator.core.TemplateKind;
 
 /**
  * Builder for creating a {@link WorkerNode} instance.
@@ -39,9 +38,9 @@ public interface WorkerNodeJsonBuilder {
     /**
      * Sets the type of the node.
      *
-     * @param templateKind type of the node
+     * @param templateId type of the node
      */
-    void setTemplateKind(TemplateKind templateKind);
+    void setTemplateId(String templateId);
 
     /**
      * Sets code location of the node.
