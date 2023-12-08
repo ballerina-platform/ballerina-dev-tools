@@ -55,6 +55,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
         NodeBuilder nodeBuilder = new NodeBuilder(semanticModel);
 
         // Set the metadata information of the node
+        nodeBuilder.setName(namedWorkerDeclarationNode.workerName().text());
         nodeBuilder.setCodeLocation(namedWorkerDeclarationNode.lineRange().startLine(),
                 namedWorkerDeclarationNode.lineRange().endLine());
         nodeBuilder.setTemplateKind(TemplateKind.TRANSFORMER);
