@@ -28,6 +28,7 @@ import io.ballerina.workermodelgenerator.core.model.WorkerNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Builder implementation for creating a {@link Flow} instance.
@@ -58,7 +59,23 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
         nodeBuilder.setName(namedWorkerDeclarationNode.workerName().text());
         nodeBuilder.setCodeLocation(namedWorkerDeclarationNode.lineRange().startLine(),
                 namedWorkerDeclarationNode.lineRange().endLine());
-        nodeBuilder.setTemplateKind(TemplateKind.TRANSFORMER);
+
+        // Process the annotation information
+        if (namedWorkerDeclarationNode.annotations().size() > 0) {
+            AnnotationFinder annotationFinder = new AnnotationFinder();
+            namedWorkerDeclarationNode.annotations().get(0).accept(annotationFinder);
+            Map<String, String> annotationConfig = annotationFinder.getAnnotationConfig();
+
+            int xCord = 0, yCord = 0;
+            for (Map.Entry<String, String> entry : annotationConfig.entrySet()) {
+                switch (entry.getKey()) {
+                    case Constants.WORKER_TEMPLATE_ID -> nodeBuilder.setTemplateId(entry.getValue());
+                    case Constants.WORKER_X_COORDINATE -> xCord = Integer.parseInt(entry.getValue());
+                    case Constants.WORKER_Y_COORDINATE -> yCord = Integer.parseInt(entry.getValue());
+                }
+            }
+            nodeBuilder.setCanvasPosition(xCord, yCord);
+        }
 
         // Analyze the body of the worker
         BlockStatementNode blockStatementNode = namedWorkerDeclarationNode.workerBody();

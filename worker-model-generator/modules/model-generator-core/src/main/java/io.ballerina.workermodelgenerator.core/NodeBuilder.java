@@ -40,7 +40,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
 
     // Json variables
     private String id;
-    private TemplateKind templateKind;
+    private String templateId;
     private CodeLocation codeLocation;
     private CanvasPosition canvasPosition;
     private final List<InputPort> inputPorts;
@@ -126,8 +126,8 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
-    public void setTemplateKind(TemplateKind templateKind) {
-        this.templateKind = templateKind;
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
     }
 
     @Override
@@ -152,6 +152,6 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
 
     @Override
     public WorkerNode build() {
-        return new WorkerNode(id, templateKind, codeLocation, canvasPosition, inputPorts, outputPorts);
+        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts);
     }
 }

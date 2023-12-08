@@ -16,22 +16,16 @@
  *  under the License.
  */
 
-package io.ballerina.workermodelgenerator.core.model;
-
-import java.util.List;
+package io.ballerina.workermodelgenerator.core;
 
 /**
- * Represents a worker node in a flow.
+ * Constants used in the worker model generator.
  *
- * @param name           name of the node
- * @param templateId     kind of the node
- * @param codeLocation   location of the node in the source code
- * @param canvasPosition position of the node in the canvas
- * @param inputPorts     input ports of the node
- * @param outputPorts    output ports of the node
  * @since 2201.9.0
  */
-public record WorkerNode(String name, String templateId, CodeLocation codeLocation,
-                         CanvasPosition canvasPosition, List<InputPort> inputPorts, List<OutputPort> outputPorts) {
+class Constants {
 
+    public static final String WORKER_TEMPLATE_ID = "templateId";
+    public static final String WORKER_X_COORDINATE = "xCord";
+    public static final String WORKER_Y_COORDINATE = "yCord";
 }
