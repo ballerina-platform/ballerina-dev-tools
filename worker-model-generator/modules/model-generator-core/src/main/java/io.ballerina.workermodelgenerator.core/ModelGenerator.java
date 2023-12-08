@@ -5,15 +5,13 @@ import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.Path;
 
 /**
  * Generator for the worker model.
@@ -25,15 +23,13 @@ public class ModelGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final LineRange lineRange;
-    private static final List<SyntaxKind> validCanvasNodeKinds = Arrays.asList(
-            SyntaxKind.FUNCTION_DEFINITION,
-            SyntaxKind.RESOURCE_ACCESSOR_DEFINITION
-    );
+    private final Path filePath;
 
-    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange) {
+    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
+        this.filePath = filePath;
     }
 
     /**
@@ -51,13 +47,9 @@ public class ModelGenerator {
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
-        // Check if the canvas node is a valid type
-        if (!validCanvasNodeKinds.contains(canvasNode.kind())) {
-            throw new Exception();
-        }
-
         // Build the flow diagram
-        FlowBuilder flowBuilder = new FlowBuilder("1", "flow1", "path", semanticModel);
+        FlowBuilder flowBuilder = new FlowBuilder(semanticModel);
+        flowBuilder.setFilePath(this.filePath.toString());
         canvasNode.accept(flowBuilder);
 
         // Convert the flow diagram to a JSON object

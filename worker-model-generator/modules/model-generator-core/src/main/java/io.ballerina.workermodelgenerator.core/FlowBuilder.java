@@ -20,6 +20,8 @@ package io.ballerina.workermodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.workermodelgenerator.core.model.Flow;
@@ -29,6 +31,7 @@ import io.ballerina.workermodelgenerator.core.model.WorkerNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Builder implementation for creating a {@link Flow} instance.
@@ -43,11 +46,8 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     private final List<WorkerNode> nodes;
     private final SemanticModel semanticModel;
 
-    public FlowBuilder(String id, String name, String filePath, SemanticModel semanticModel) {
+    public FlowBuilder(SemanticModel semanticModel) {
         this.nodes = new ArrayList<>();
-        setId(id);
-        setName(name);
-        setFilePath(filePath);
         this.semanticModel = semanticModel;
     }
 
@@ -72,6 +72,9 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
                     case Constants.WORKER_TEMPLATE_ID -> nodeBuilder.setTemplateId(entry.getValue());
                     case Constants.WORKER_X_COORDINATE -> xCord = Integer.parseInt(entry.getValue());
                     case Constants.WORKER_Y_COORDINATE -> yCord = Integer.parseInt(entry.getValue());
+                    //TODO: Handle invalid annotations
+                    default -> {
+                    }
                 }
             }
             nodeBuilder.setCanvasPosition(xCord, yCord);
@@ -81,6 +84,30 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
         BlockStatementNode blockStatementNode = namedWorkerDeclarationNode.workerBody();
         blockStatementNode.statements().forEach(statement -> statement.accept(nodeBuilder));
         addNode(nodeBuilder.build());
+    }
+
+    @Override
+    public void visit(FunctionDefinitionNode functionDefinitionNode) {
+        Optional<MetadataNode> metadata = functionDefinitionNode.metadata();
+        metadata.ifPresent(metadataNode -> metadataNode.accept(this));
+        super.visit(functionDefinitionNode);
+    }
+
+    @Override
+    public void visit(MetadataNode metadataNode) {
+        AnnotationFinder annotationFinder = new AnnotationFinder();
+        metadataNode.annotations().get(0).accept(annotationFinder);
+        Map<String, String> annotationConfig = annotationFinder.getAnnotationConfig();
+
+        for (Map.Entry<String, String> entry : annotationConfig.entrySet()) {
+            switch (entry.getKey()) {
+                case Constants.FLOW_ID -> setId(entry.getValue());
+                case Constants.FLOW_NAME -> setName(entry.getValue());
+                //TODO: Handle invalid annotations
+                default -> {
+                }
+            }
+        }
     }
 
     @Override

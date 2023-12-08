@@ -71,8 +71,8 @@ public class WorkerModelGeneratorService implements ExtendedLanguageServerServic
                 }
 
                 // Generate the worker design model
-                ModelGenerator modelGenerator =
-                        new ModelGenerator(semanticModel.get(), document.get(), request.getLineRange());
+                ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
+                        request.getLineRange(), filePath);
                 response.setWorkerDesignModel(modelGenerator.getWorkerModel());
             } catch (Throwable e) {
                 throw new RuntimeException(e);
