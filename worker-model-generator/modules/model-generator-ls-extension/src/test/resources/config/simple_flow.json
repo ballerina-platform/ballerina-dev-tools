@@ -1,0 +1,116 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 47,
+    "offset": 1
+  },
+  "source": "simple_flow.bal",
+  "description": "Tests a simple flow",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "/Users/nipunaf/projects/ballerina/ballerina-dev-tools/worker-model-generator/modules/model-generator-ls-extension/src/test/resources/source/simple_flow.bal",
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "transformer",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 17,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 54
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "id",
+            "type": "INT",
+            "receiver": "B"
+          },
+          {
+            "id": "id",
+            "type": "INT",
+            "receiver": "C"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "transformer",
+        "codeLocation": {
+          "start": {
+            "line": 19,
+            "offset": 4
+          },
+          "end": {
+            "line": 31,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 101,
+          "y": 12
+        },
+        "inputPorts": [
+          {
+            "id": "id",
+            "type": "INT",
+            "name": "x1",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "id",
+            "type": "INT",
+            "receiver": "function"
+          }
+        ]
+      },
+      {
+        "name": "C",
+        "templateId": "simple",
+        "codeLocation": {
+          "start": {
+            "line": 33,
+            "offset": 4
+          },
+          "end": {
+            "line": 42,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 12,
+          "y": 1
+        },
+        "inputPorts": [
+          {
+            "id": "id",
+            "type": "INT",
+            "name": "x2",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "id",
+            "type": "INT",
+            "receiver": "function"
+          }
+        ]
+      }
+    ]
+  }
+}
