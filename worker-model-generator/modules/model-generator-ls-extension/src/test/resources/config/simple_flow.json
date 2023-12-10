@@ -12,7 +12,7 @@
   "flow": {
     "id": "1",
     "name": "main/function",
-    "fileName": "/Users/nipunaf/projects/ballerina/ballerina-dev-tools/worker-model-generator/modules/model-generator-ls-extension/src/test/resources/source/simple_flow.bal",
+    "fileName": "simple_flow.bal",
     "nodes": [
       {
         "name": "A",

@@ -77,10 +77,15 @@ public class ModelGeneratorTest {
         JsonObject jsonModel = json.getAsJsonObject("result").getAsJsonObject("workerDesignModel");
         Flow flow = gson.fromJson(jsonModel, Flow.class);
 
-        boolean result = flow.equals(testConfig.getFlow());
-        if (!result) {
-//            updateConfig(configJsonPath, testConfig, flow);
-            logModelDifference(flow, testConfig.getFlow());
+        // Assert only the file name since the absolute path may vary depending on the machine
+        String balFileName = Path.of(flow.fileName()).getFileName().toString();
+        boolean fileNameEquality = balFileName.equals(testConfig.getFlow().fileName());
+        Flow modifiedFlow = new Flow(flow.id(), flow.name(), balFileName, flow.nodes());
+
+        boolean flowEquality = modifiedFlow.equals(testConfig.getFlow());
+        if (!fileNameEquality || !flowEquality) {
+//            updateConfig(configJsonPath, testConfig, modifiedFlow);
+            logModelDifference(testConfig.getFlow(), modifiedFlow);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.getDescription(), configJsonPath));
         }
     }
@@ -127,9 +132,9 @@ public class ModelGeneratorTest {
     }
 
     private void logModelDifference(Flow expectedFlow, Flow actualFlow) {
-        logPropertyDifference(expectedFlow.id(), actualFlow.id());
-        logPropertyDifference(expectedFlow.name(), actualFlow.name());
-        logPropertyDifference(expectedFlow.fileName(), actualFlow.fileName());
+        logPropertyDifference("id", expectedFlow.id(), actualFlow.id());
+        logPropertyDifference("name", expectedFlow.name(), actualFlow.name());
+        logPropertyDifference("fileName", expectedFlow.fileName(), actualFlow.fileName());
 
         List<WorkerNode> missingNodes = new ArrayList<>();
         List<WorkerNode> irrelevantNodes = new ArrayList<>(actualFlow.nodes());
@@ -139,13 +144,15 @@ public class ModelGeneratorTest {
                 missingNodes.add(expectedNode);
             }
         }
-        LOG.info("Completion items which are in response but not in test config : " + irrelevantNodes);
-        LOG.info("Completion items which are in test config but not in response : " + missingNodes);
+        if (!missingNodes.isEmpty() || !irrelevantNodes.isEmpty()) {
+            LOG.info("Completion items which are in response but not in test config : " + irrelevantNodes);
+            LOG.info("Completion items which are in test config but not in response : " + missingNodes);
+        }
     }
 
-    private void logPropertyDifference(String expected, String actual) {
+    private void logPropertyDifference(String name, String expected, String actual) {
         if (!expected.equals(actual)) {
-            LOG.info(String.format("Expected name=(%s), but found name=(%s)", expected, actual));
+            LOG.info(String.format("Expected %s=(%s), but found %s=(%s)", name, expected, name, actual));
         }
     }
 
