@@ -24,9 +24,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.workermodelgenerator.core.model.Flow;
+import io.ballerina.workermodelgenerator.core.model.WorkerNode;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -49,6 +52,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModelGeneratorTest {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ModelGeneratorTest.class);
     private static final Path RES_DIR = Paths.get("src/test/resources/").toAbsolutePath();
     private static final Path CONFIG_DIR = RES_DIR.resolve("config");
     private static final Path SOURCE_DIR = RES_DIR.resolve("source");
@@ -76,7 +80,7 @@ public class ModelGeneratorTest {
         boolean result = flow.equals(testConfig.getFlow());
         if (!result) {
 //            updateConfig(configJsonPath, testConfig, flow);
-            //TODO: Add a logger to display the difference
+            logModelDifference(flow, testConfig.getFlow());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.getDescription(), configJsonPath));
         }
     }
@@ -120,6 +124,29 @@ public class ModelGeneratorTest {
 
         String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
         Files.writeString(configJsonPath, objStr);
+    }
+
+    private void logModelDifference(Flow expectedFlow, Flow actualFlow) {
+        logPropertyDifference(expectedFlow.id(), actualFlow.id());
+        logPropertyDifference(expectedFlow.name(), actualFlow.name());
+        logPropertyDifference(expectedFlow.fileName(), actualFlow.fileName());
+
+        List<WorkerNode> missingNodes = new ArrayList<>();
+        List<WorkerNode> irrelevantNodes = new ArrayList<>(actualFlow.nodes());
+        for (WorkerNode expectedNode : expectedFlow.nodes()) {
+            boolean removed = irrelevantNodes.remove(expectedNode);
+            if (!removed) {
+                missingNodes.add(expectedNode);
+            }
+        }
+        LOG.info("Completion items which are in response but not in test config : " + irrelevantNodes);
+        LOG.info("Completion items which are in test config but not in response : " + missingNodes);
+    }
+
+    private void logPropertyDifference(String expected, String actual) {
+        if (!expected.equals(actual)) {
+            LOG.info(String.format("Expected name=(%s), but found name=(%s)", expected, actual));
+        }
     }
 
     @AfterClass

@@ -1,6 +1,7 @@
 package io.ballerina.workermodelgenerator.core;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -24,12 +25,14 @@ public class ModelGenerator {
     private final Document document;
     private final LineRange lineRange;
     private final Path filePath;
+    private final Gson gson;
 
     public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
         this.filePath = filePath;
+        this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
     /**
@@ -51,9 +54,6 @@ public class ModelGenerator {
         FlowBuilder flowBuilder = new FlowBuilder(semanticModel);
         flowBuilder.setFilePath(this.filePath.toString());
         canvasNode.accept(flowBuilder);
-
-        // Convert the flow diagram to a JSON object
-        Gson gson = new Gson();
         return gson.toJsonTree(flowBuilder.build());
     }
 }
