@@ -97,7 +97,12 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         this.toWorker = receiverNode.name().text();
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
         this.type = typeSymbol.isPresent() ? typeSymbol.get().typeKind() : TypeDescKind.NONE;
-        this.addOutputPort(String.valueOf(++this.portId), this.type, this.toWorker);
+
+        // Capture the name if the expression is a variable
+        String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
+                ((SimpleNameReferenceNode) expressionNode).name().text() : null;
+
+        this.addOutputPort(String.valueOf(++this.portId), this.type, name, this.toWorker);
         this.hasProcessed = true;
     }
 
@@ -157,8 +162,8 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
-    public void addOutputPort(String id, TypeDescKind type, String receiver) {
-        this.outputPorts.add(new OutputPort(id, type, receiver));
+    public void addOutputPort(String id, TypeDescKind type, String name, String receiver) {
+        this.outputPorts.add(new OutputPort(id, type, name, receiver));
     }
 
     @Override
