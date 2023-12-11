@@ -34,12 +34,12 @@
         "inputPorts": [],
         "outputPorts": [
           {
-            "id": "id",
+            "id": "1",
             "type": "INT",
             "receiver": "B"
           },
           {
-            "id": "id",
+            "id": "2",
             "type": "INT",
             "receiver": "C"
           }
@@ -64,7 +64,7 @@
         },
         "inputPorts": [
           {
-            "id": "id",
+            "id": "1",
             "type": "INT",
             "name": "x1",
             "sender": "A"
@@ -72,7 +72,7 @@
         ],
         "outputPorts": [
           {
-            "id": "id",
+            "id": "2",
             "type": "INT",
             "receiver": "function"
           }
@@ -97,7 +97,7 @@
         },
         "inputPorts": [
           {
-            "id": "id",
+            "id": "1",
             "type": "INT",
             "name": "x2",
             "sender": "A"
@@ -105,7 +105,7 @@
         ],
         "outputPorts": [
           {
-            "id": "id",
+            "id": "2",
             "type": "INT",
             "receiver": "function"
           }

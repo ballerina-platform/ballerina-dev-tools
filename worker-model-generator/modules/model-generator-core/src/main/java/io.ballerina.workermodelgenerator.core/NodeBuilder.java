@@ -51,11 +51,13 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private String fromWorker;
     private TypeDescKind type;
     private String name;
+    private int portId;
 
     public NodeBuilder(SemanticModel semanticModel) {
         this.inputPorts = new ArrayList<>();
         this.outputPorts = new ArrayList<>();
         this.semanticModel = semanticModel;
+        this.portId = 0;
     }
 
     @Override
@@ -91,7 +93,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         this.toWorker = receiverNode.name().text();
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
         this.type = typeSymbol.isPresent() ? typeSymbol.get().typeKind() : TypeDescKind.NONE;
-        this.addOutputPort("id", this.type, this.toWorker);
+        this.addOutputPort(String.valueOf(++this.portId), this.type, this.toWorker);
     }
 
     @Override
@@ -112,7 +114,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         this.type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? typeSymbol.typeKind() :
                 TypeDescKind.NONE;
 
-        this.addInputPort("id", this.type, this.name, this.fromWorker);
+        this.addInputPort(String.valueOf(++this.portId), this.type, this.name, this.fromWorker);
     }
 
     @Override

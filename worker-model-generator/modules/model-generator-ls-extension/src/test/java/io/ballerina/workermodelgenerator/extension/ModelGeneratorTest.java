@@ -42,7 +42,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -84,19 +86,19 @@ public class ModelGeneratorTest {
 
         boolean flowEquality = modifiedFlow.equals(testConfig.getFlow());
         if (!fileNameEquality || !flowEquality) {
-//            updateConfig(configJsonPath, testConfig, modifiedFlow);
+            updateConfig(configJsonPath, testConfig, modifiedFlow);
             logModelDifference(testConfig.getFlow(), modifiedFlow);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.getDescription(), configJsonPath));
         }
     }
 
-    public List<String> skipList() {
-        return new ArrayList<>();
+    public String[] skipList() {
+        return new String[]{};
     }
 
     @DataProvider(name = "worker-model-data-provider")
     public Object[] getConfigsList() {
-        List<String> skippedTests = this.skipList();
+        List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
             return Files.walk(CONFIG_DIR)
                     .filter(path -> {
@@ -151,7 +153,7 @@ public class ModelGeneratorTest {
     }
 
     private void logPropertyDifference(String name, String expected, String actual) {
-        if (!expected.equals(actual)) {
+        if (!Objects.equals(expected, actual)) {
             LOG.info(String.format("Expected %s=(%s), but found %s=(%s)", name, expected, name, actual));
         }
     }
