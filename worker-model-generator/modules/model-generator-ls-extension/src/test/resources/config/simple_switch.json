@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 53,
+    "line": 52,
     "offset": 1
   },
   "source": "simple_switch.bal",
@@ -50,7 +50,7 @@
             "offset": 4
           },
           "end": {
-            "line": 32,
+            "line": 31,
             "offset": 5
           }
         },
@@ -70,17 +70,16 @@
           {
             "id": "2",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "C"
           },
           {
             "id": "3",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "D"
           }
         ],
-        "codeBlock": "\n        int y = x % 3;\n",
         "properties": {
           "cases": [
             {
@@ -102,11 +101,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 34,
+            "line": 33,
             "offset": 4
           },
           "end": {
-            "line": 42,
+            "line": 41,
             "offset": 5
           }
         },
@@ -130,11 +129,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 44,
+            "line": 43,
             "offset": 4
           },
           "end": {
-            "line": 52,
+            "line": 51,
             "offset": 5
           }
         },

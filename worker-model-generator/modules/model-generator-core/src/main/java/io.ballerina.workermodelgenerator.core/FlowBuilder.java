@@ -62,6 +62,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
                 namedWorkerDeclarationNode.lineRange().endLine());
 
         // Process the annotation information
+        String templateId = "";
         if (namedWorkerDeclarationNode.annotations().size() > 0) {
             AnnotationFinder annotationFinder = new AnnotationFinder();
             namedWorkerDeclarationNode.annotations().get(0).accept(annotationFinder);
@@ -70,7 +71,10 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
             int xCord = 0, yCord = 0;
             for (Map.Entry<String, String> entry : annotationConfig.entrySet()) {
                 switch (entry.getKey()) {
-                    case Constants.WORKER_TEMPLATE_ID -> nodeBuilder.setTemplateId(entry.getValue());
+                    case Constants.WORKER_TEMPLATE_ID -> {
+                        templateId = entry.getValue();
+                        nodeBuilder.setTemplateId(entry.getValue());
+                    }
                     case Constants.WORKER_X_COORDINATE -> xCord = Integer.parseInt(entry.getValue());
                     case Constants.WORKER_Y_COORDINATE -> yCord = Integer.parseInt(entry.getValue());
                     //TODO: Handle invalid annotations
@@ -91,7 +95,9 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
             }
             nodeBuilder.resetProcessFlag();
         }
-        nodeBuilder.setCodeBlock(codeBlock.toString());
+        if (templateId.equals(Constants.BLOCK_NODE)) {
+            nodeBuilder.setCodeBlock(codeBlock.toString());
+        }
         nodeBuilder.buildSwitchCaseProperties();
         addNode(nodeBuilder.build());
     }

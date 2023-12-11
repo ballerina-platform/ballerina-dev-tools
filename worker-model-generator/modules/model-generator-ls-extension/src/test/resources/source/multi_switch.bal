@@ -24,15 +24,14 @@ public function main() {
     worker B {
         int x = <- A;
 
-        int y = x % 3;
         if (x < 10) {
-            y -> C;
+            x -> C;
         } else if (x > 10 && x < 20) {
-            y -> D;
+            x -> D;
         } else if (x > 20 && x < 40) {
-            y -> E;
+            x -> E;
         } else {
-            y -> F;
+            x -> F;
         }
     }
 

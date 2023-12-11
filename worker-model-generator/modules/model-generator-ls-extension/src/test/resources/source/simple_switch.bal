@@ -24,11 +24,10 @@ public function main() {
     worker B {
         int x = <- A;
 
-        int y = x % 3;
         if (x > 10) {
-            y -> C;
+            x -> C;
         } else {
-            y -> D;
+            x -> D;
         }
     }
 

@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 77,
+    "line": 76,
     "offset": 1
   },
   "source": "multi_switch.bal",
@@ -50,7 +50,7 @@
             "offset": 4
           },
           "end": {
-            "line": 36,
+            "line": 35,
             "offset": 5
           }
         },
@@ -70,29 +70,28 @@
           {
             "id": "2",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "C"
           },
           {
             "id": "3",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "D"
           },
           {
             "id": "4",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "E"
           },
           {
             "id": "5",
             "type": "INT",
-            "name": "y",
+            "name": "x",
             "receiver": "F"
           }
         ],
-        "codeBlock": "\n        int y = x % 3;\n",
         "properties": {
           "cases": [
             {
@@ -126,11 +125,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 38,
+            "line": 37,
             "offset": 4
           },
           "end": {
-            "line": 46,
+            "line": 45,
             "offset": 5
           }
         },
@@ -154,11 +153,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 48,
+            "line": 47,
             "offset": 4
           },
           "end": {
-            "line": 56,
+            "line": 55,
             "offset": 5
           }
         },
@@ -182,11 +181,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 58,
+            "line": 57,
             "offset": 4
           },
           "end": {
-            "line": 66,
+            "line": 65,
             "offset": 5
           }
         },
@@ -210,11 +209,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 68,
+            "line": 67,
             "offset": 4
           },
           "end": {
-            "line": 76,
+            "line": 75,
             "offset": 5
           }
         },
