@@ -43,7 +43,8 @@
             "type": "INT",
             "receiver": "C"
           }
-        ]
+        ],
+        "codeBlock": ""
       },
       {
         "name": "B",
@@ -76,7 +77,8 @@
             "type": "INT",
             "receiver": "function"
           }
-        ]
+        ],
+        "codeBlock": ""
       },
       {
         "name": "C",
@@ -109,7 +111,8 @@
             "type": "INT",
             "receiver": "function"
           }
-        ]
+        ],
+        "codeBlock": ""
       }
     ]
   }

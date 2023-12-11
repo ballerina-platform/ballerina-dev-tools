@@ -45,6 +45,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private CanvasPosition canvasPosition;
     private final List<InputPort> inputPorts;
     private final List<OutputPort> outputPorts;
+    private String codeBlock;
 
     // State variables
     private String toWorker;
@@ -52,6 +53,8 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private TypeDescKind type;
     private String name;
     private int portId;
+    private boolean capturedFromWorker;
+    private boolean hasProcessed;
 
     public NodeBuilder(SemanticModel semanticModel) {
         this.inputPorts = new ArrayList<>();
@@ -77,6 +80,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         if (receiverWorker.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             this.fromWorker = ((SimpleNameReferenceNode) receiverWorker).name().text();
         }
+        this.capturedFromWorker = true;
     }
 
     @Override
@@ -94,6 +98,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
         this.type = typeSymbol.isPresent() ? typeSymbol.get().typeKind() : TypeDescKind.NONE;
         this.addOutputPort(String.valueOf(++this.portId), this.type, this.toWorker);
+        this.hasProcessed = true;
     }
 
     @Override
@@ -105,6 +110,10 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         }
         initializer.get().accept(this);
 
+        if (!this.capturedFromWorker) {
+            return;
+        }
+
         // Find the parameter name
         TypedBindingPatternNode typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
         typedBindingPatternNode.bindingPattern().accept(this);
@@ -115,11 +124,21 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
                 TypeDescKind.NONE;
 
         this.addInputPort(String.valueOf(++this.portId), this.type, this.name, this.fromWorker);
+        this.capturedFromWorker = false;
+        this.hasProcessed = true;
     }
 
     @Override
     public void visit(CaptureBindingPatternNode captureBindingPatternNode) {
         this.name = captureBindingPatternNode.variableName().text();
+    }
+
+    public boolean hasProcessed() {
+        return this.hasProcessed;
+    }
+
+    public void resetProcessFlag() {
+        this.hasProcessed = false;
     }
 
     @Override
@@ -153,7 +172,12 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
+    public void setCodeBlock(String codeBlock) {
+        this.codeBlock = codeBlock;
+    }
+
+    @Override
     public WorkerNode build() {
-        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts);
+        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, codeBlock);
     }
 }

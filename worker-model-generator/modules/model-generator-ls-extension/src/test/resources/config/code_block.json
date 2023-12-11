@@ -1,0 +1,80 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 30,
+    "offset": 1
+  },
+  "source": "code_block.bal",
+  "description": "Tests a flow with a code block",
+  "flow": {
+    "id": "2",
+    "name": "main/function",
+    "fileName": "code_block.bal",
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "block",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 15,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 11,
+          "y": 32
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "INT",
+            "receiver": "B"
+          }
+        ],
+        "codeBlock": ""
+      },
+      {
+        "name": "B",
+        "templateId": "block",
+        "codeLocation": {
+          "start": {
+            "line": 17,
+            "offset": 4
+          },
+          "end": {
+            "line": 28,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 63
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "INT",
+            "name": "x",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "INT",
+            "receiver": "function"
+          }
+        ],
+        "codeBlock": "        int a = 32 + x;\n        int b = a % 12;\n"
+      }
+    ]
+  }
+}

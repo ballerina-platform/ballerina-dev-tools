@@ -78,6 +78,13 @@ public interface WorkerNodeJsonBuilder {
     void addOutputPort(String id, TypeDescKind type, String receiver);
 
     /**
+     * Sets the code block of the node.
+     *
+     * @param codeBlock code block of the node
+     */
+    void setCodeBlock(String codeBlock);
+
+    /**
      * Builds the node.
      *
      * @return built node
