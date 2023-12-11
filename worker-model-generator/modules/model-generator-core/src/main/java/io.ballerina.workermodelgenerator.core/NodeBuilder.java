@@ -5,14 +5,19 @@ import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AsyncSendActionNode;
+import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.BracedExpressionNode;
 import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
+import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionStatementNode;
+import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ReceiveActionNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyncSendActionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -22,11 +27,16 @@ import io.ballerina.workermodelgenerator.core.model.CanvasPosition;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.InputPort;
 import io.ballerina.workermodelgenerator.core.model.OutputPort;
+import io.ballerina.workermodelgenerator.core.model.SwitchCase;
+import io.ballerina.workermodelgenerator.core.model.SwitchDefaultCase;
+import io.ballerina.workermodelgenerator.core.model.SwitchProperties;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
 import io.ballerina.workermodelgenerator.core.model.WorkerNodeJsonBuilder;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -55,12 +65,20 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private int portId;
     private boolean capturedFromWorker;
     private boolean hasProcessed;
+    private SwitchState switchState;
+    private String expresison;
+    private Map<String, List<String>> expressionToNodesMapper;
+    private List<String> defaultSwitchCaseNodes;
+    private SwitchProperties switchProperties;
 
     public NodeBuilder(SemanticModel semanticModel) {
         this.inputPorts = new ArrayList<>();
         this.outputPorts = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.portId = 0;
+        this.expressionToNodesMapper = new LinkedHashMap<>();
+        this.defaultSwitchCaseNodes = new ArrayList<>();
+        this.switchState = SwitchState.OFF;
     }
 
     @Override
@@ -102,7 +120,13 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
                 ((SimpleNameReferenceNode) expressionNode).name().text() : null;
 
-        this.addOutputPort(String.valueOf(++this.portId), this.type, name, this.toWorker);
+        String portIdStr = String.valueOf(++this.portId);
+        this.addOutputPort(portIdStr, this.type, name, this.toWorker);
+        if (this.switchState == SwitchState.CONDITIONAL) {
+            addSwitchCase(this.expresison, portIdStr);
+        } else if (this.switchState == SwitchState.DEFAULT) {
+            addDefaultSwitchCase(portIdStr);
+        }
         this.hasProcessed = true;
     }
 
@@ -136,6 +160,32 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     @Override
     public void visit(CaptureBindingPatternNode captureBindingPatternNode) {
         this.name = captureBindingPatternNode.variableName().text();
+    }
+
+    @Override
+    public void visit(IfElseStatementNode ifElseStatementNode) {
+        this.switchState = SwitchState.CONDITIONAL;
+        ifElseStatementNode.condition().accept(this);
+        ifElseStatementNode.ifBody().accept(this);
+        ifElseStatementNode.elseBody().ifPresent(elseBody -> elseBody.accept(this));
+    }
+
+    @Override
+    public void visit(BlockStatementNode blockStatementNode) {
+        blockStatementNode.statements().forEach(statement -> statement.accept(this));
+    }
+
+    @Override
+    public void visit(ElseBlockNode elseBlockNode) {
+        StatementNode elseBody = elseBlockNode.elseBody();
+        this.switchState =
+                elseBody.kind() == SyntaxKind.BLOCK_STATEMENT ? SwitchState.DEFAULT : SwitchState.CONDITIONAL;
+        elseBody.accept(this);
+    }
+
+    @Override
+    public void visit(BracedExpressionNode bracedExpressionNode) {
+        this.expresison = bracedExpressionNode.expression().toSourceCode();
     }
 
     public boolean hasProcessed() {
@@ -182,7 +232,43 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
+    public void addSwitchCase(String expression, String node) {
+        List<String> currentNodes = this.expressionToNodesMapper.get(expression);
+        if (currentNodes == null) {
+            List<String> nodes = new ArrayList<>();
+            nodes.add(node);
+            this.expressionToNodesMapper.put(expression, nodes);
+            return;
+        }
+        currentNodes.add(node);
+    }
+
+    @Override
+    public void addDefaultSwitchCase(String node) {
+        this.defaultSwitchCaseNodes.add(node);
+    }
+
+    @Override
+    public void buildSwitchCaseProperties() {
+        if (this.defaultSwitchCaseNodes.isEmpty()) {
+            return;
+        }
+        List<SwitchCase> switchCases = new ArrayList<>();
+        for (Map.Entry<String, List<String>> switchCaseEntry : this.expressionToNodesMapper.entrySet()) {
+            switchCases.add(new SwitchCase(switchCaseEntry.getKey(), switchCaseEntry.getValue()));
+        }
+        this.switchProperties = new SwitchProperties(switchCases, new SwitchDefaultCase(this.defaultSwitchCaseNodes));
+    }
+
+    @Override
     public WorkerNode build() {
-        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, codeBlock);
+        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, codeBlock,
+                this.switchProperties);
+    }
+
+    private enum SwitchState {
+        OFF,
+        CONDITIONAL,
+        DEFAULT
     }
 }

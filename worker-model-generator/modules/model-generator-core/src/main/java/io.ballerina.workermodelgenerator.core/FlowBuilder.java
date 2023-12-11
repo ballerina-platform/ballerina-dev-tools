@@ -92,6 +92,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
             nodeBuilder.resetProcessFlag();
         }
         nodeBuilder.setCodeBlock(codeBlock.toString());
+        nodeBuilder.buildSwitchCaseProperties();
         addNode(nodeBuilder.build());
     }
 

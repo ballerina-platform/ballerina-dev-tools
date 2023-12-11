@@ -85,6 +85,12 @@ public interface WorkerNodeJsonBuilder {
      */
     void setCodeBlock(String codeBlock);
 
+    void addSwitchCase(String expression, String node);
+
+    void addDefaultSwitchCase(String node);
+
+    void buildSwitchCaseProperties();
+
     /**
      * Builds the node.
      *
