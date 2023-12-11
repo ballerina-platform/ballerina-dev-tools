@@ -29,9 +29,10 @@ import java.util.List;
  * @param canvasPosition position of the node in the canvas
  * @param inputPorts     input ports of the node
  * @param outputPorts    output ports of the node
+ * @param codeBlock      editable code block of the node
  * @since 2201.9.0
  */
-public record WorkerNode(String name, String templateId, CodeLocation codeLocation,
-                         CanvasPosition canvasPosition, List<InputPort> inputPorts, List<OutputPort> outputPorts) {
+public record WorkerNode(String name, String templateId, CodeLocation codeLocation, CanvasPosition canvasPosition,
+                         List<InputPort> inputPorts, List<OutputPort> outputPorts, String codeBlock) {
 
 }

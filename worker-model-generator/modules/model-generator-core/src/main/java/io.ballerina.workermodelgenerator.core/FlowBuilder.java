@@ -24,6 +24,7 @@ import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.workermodelgenerator.core.model.Flow;
 import io.ballerina.workermodelgenerator.core.model.FlowJsonBuilder;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
@@ -82,7 +83,15 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
 
         // Analyze the body of the worker
         BlockStatementNode blockStatementNode = namedWorkerDeclarationNode.workerBody();
-        blockStatementNode.statements().forEach(statement -> statement.accept(nodeBuilder));
+        StringBuilder codeBlock = new StringBuilder();
+        for (StatementNode statement : blockStatementNode.statements()) {
+            statement.accept(nodeBuilder);
+            if (!nodeBuilder.hasProcessed()) {
+                codeBlock.append(statement.toSourceCode());
+            }
+            nodeBuilder.resetProcessFlag();
+        }
+        nodeBuilder.setCodeBlock(codeBlock.toString());
         addNode(nodeBuilder.build());
     }
 
