@@ -29,6 +29,6 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
  * @param receiver id of the receiver node
  * @since 2201.9.0
  */
-public record OutputPort(String id, TypeDescKind type, String name, String receiver) {
+public record OutputPort(String id, String type, String name, String receiver) {
 
 }

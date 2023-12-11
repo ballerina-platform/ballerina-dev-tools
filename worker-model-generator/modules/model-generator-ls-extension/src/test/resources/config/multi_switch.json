@@ -35,7 +35,7 @@
         "outputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "receiver": "B"
           }
         ],
@@ -61,7 +61,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "sender": "A"
           }
@@ -69,25 +69,25 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "receiver": "C"
           },
           {
             "id": "3",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "receiver": "D"
           },
           {
             "id": "4",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "receiver": "E"
           },
           {
             "id": "5",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "receiver": "F"
           }
@@ -140,7 +140,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "sender": "B"
           }
@@ -168,7 +168,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "x",
             "sender": "B"
           }
@@ -196,7 +196,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "y",
             "sender": "B"
           }
@@ -224,7 +224,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "y",
             "sender": "B"
           }

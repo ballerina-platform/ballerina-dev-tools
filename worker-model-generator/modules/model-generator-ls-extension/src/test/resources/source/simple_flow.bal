@@ -33,7 +33,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "simple",
+        templateId: "transformer",
         xCord: 12,
         yCord: 1
     }

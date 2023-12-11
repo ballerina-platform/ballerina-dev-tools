@@ -60,15 +60,15 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     // State variables
     private String toWorker;
     private String fromWorker;
-    private TypeDescKind type;
+    private String type;
     private String name;
     private int portId;
     private boolean capturedFromWorker;
     private boolean hasProcessed;
     private SwitchState switchState;
     private String expresison;
-    private Map<String, List<String>> expressionToNodesMapper;
-    private List<String> defaultSwitchCaseNodes;
+    private final Map<String, List<String>> expressionToNodesMapper;
+    private final List<String> defaultSwitchCaseNodes;
     private SwitchProperties switchProperties;
 
     public NodeBuilder(SemanticModel semanticModel) {
@@ -114,7 +114,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private void analyzeSendAction(SimpleNameReferenceNode receiverNode, ExpressionNode expressionNode) {
         this.toWorker = receiverNode.name().text();
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
-        this.type = typeSymbol.isPresent() ? typeSymbol.get().typeKind() : TypeDescKind.NONE;
+        this.type = typeSymbol.isPresent() ? typeSymbol.get().signature() : TypeDescKind.NONE.toString();
 
         // Capture the name if the expression is a variable
         String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
@@ -149,8 +149,8 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
 
         // Find the parameter type
         Optional<Symbol> symbol = this.semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
-        this.type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? typeSymbol.typeKind() :
-                TypeDescKind.NONE;
+        this.type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? typeSymbol.signature() :
+                TypeDescKind.NONE.toString();
 
         this.addInputPort(String.valueOf(++this.portId), this.type, this.name, this.fromWorker);
         this.capturedFromWorker = false;
@@ -207,12 +207,12 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     }
 
     @Override
-    public void addInputPort(String id, TypeDescKind type, String name, String sender) {
+    public void addInputPort(String id, String type, String name, String sender) {
         this.inputPorts.add(new InputPort(id, type, name, sender));
     }
 
     @Override
-    public void addOutputPort(String id, TypeDescKind type, String name, String receiver) {
+    public void addOutputPort(String id, String type, String name, String receiver) {
         this.outputPorts.add(new OutputPort(id, type, name, receiver));
     }
 

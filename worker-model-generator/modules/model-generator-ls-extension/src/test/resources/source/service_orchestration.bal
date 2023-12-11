@@ -83,18 +83,36 @@ service /healthcare on new http:Listener(9095) {
 
     resource function post categories/[string doctorCategory]/reserve(ReservationRequest payload) returns PaymentResponse|error {
         final var requestPayload = payload.cloneReadOnly();
-        
+
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 11,
+            yCord: 32
+        }
         // @foo:LogMediator
         worker LogHospitalDetails {
             log:printInfo("ReservationRequest123", payload = requestPayload);
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 12,
+            yCord: 32
+        }
         // @foo:DataMapper
         worker CreateAppointmentPayload {
             AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);
             appointmentReq -> CreateAppointment;
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 5,
+            yCord: 16
+        }
         // @foo:HttpPostMediator
         worker CreateAppointment returns error? {
             // [JBUG] Multiple Receive actions are not yet supported
@@ -107,31 +125,54 @@ service /healthcare on new http:Listener(9095) {
             appt -> GetAppointmentFee;
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 5,
+            yCord: 13
+        }
         // @foo:LogMediator
         worker LogAppointment returns error? {
             Appointment appointment = check <- CreateAppointment;
             log:printInfo("Appointment", payload = appointment);
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 4,
+            yCord: 12
+        }
         // @foo:HttpGetMediator
         worker GetAppointmentFee returns error? {
-            string hospitalId = requestPayload.hospital_id;
-
             Appointment appointment = check <- CreateAppointment;
-            int apptNumber = appointment.appointmentNumber;
 
+            string hospitalId = requestPayload.hospital_id;
+            int apptNumber = appointment.appointmentNumber;
             ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;
 
             fee -> LogAppointmentFee;
             [appointment, fee] -> CreatePaymentRequest;
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 0,
+            yCord: 13
+        }
         // @foo:LogMediator
         worker LogAppointmentFee returns error? {
             ChannelingFee fee = check <- GetAppointmentFee;
             log:printInfo("ChannelingFee", payload = fee);
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 31,
+            yCord: 42
+        }
         // @foo:DataMapper
         worker CreatePaymentRequest returns error? {
             [Appointment, ChannelingFee] [appointment, channelingFee] = check <- GetAppointmentFee;
@@ -139,6 +180,12 @@ service /healthcare on new http:Listener(9095) {
             paymentSettlementReq -> MakePayment;
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 32,
+            yCord: 51
+        }
         // @foo:HttpPostMediator
         worker MakePayment returns error? {
             PaymentSettlement paymentSettlementReq = check <- CreatePaymentRequest;
@@ -148,6 +195,12 @@ service /healthcare on new http:Listener(9095) {
             response -> function;
         }
 
+        @display {
+            label: "Node",
+            templateId: "block",
+            xCord: 50,
+            yCord: 12
+        }
         // @foo:LogMediator
         worker LogPaymentResponse returns error? {
             PaymentResponse response = check <- MakePayment;

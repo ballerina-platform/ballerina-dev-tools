@@ -35,7 +35,7 @@
         "outputPorts": [
           {
             "id": "1",
-            "type": "STRING",
+            "type": "string",
             "receiver": "B"
           }
         ],
@@ -61,7 +61,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "STRING",
+            "type": "string",
             "name": "txt",
             "sender": "A"
           }
@@ -69,12 +69,12 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "INT",
+            "type": "int",
             "receiver": "function"
           },
           {
             "id": "3",
-            "type": "STRING",
+            "type": "string",
             "name": "txt",
             "receiver": "C"
           }
@@ -101,7 +101,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "STRING",
+            "type": "string",
             "name": "txt",
             "sender": "B"
           }

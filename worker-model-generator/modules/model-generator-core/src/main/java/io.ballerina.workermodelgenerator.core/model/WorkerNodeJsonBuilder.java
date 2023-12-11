@@ -66,7 +66,7 @@ public interface WorkerNodeJsonBuilder {
      * @param name   variable assigned to the port
      * @param sender id of the sender node
      */
-    void addInputPort(String id, TypeDescKind type, String name, String sender);
+    void addInputPort(String id, String type, String name, String sender);
 
     /**
      * Adds an output port to the node.
@@ -76,7 +76,7 @@ public interface WorkerNodeJsonBuilder {
      * @param name     variable assigned to the port
      * @param receiver id of the receiver node
      */
-    void addOutputPort(String id, TypeDescKind type, String name, String receiver);
+    void addOutputPort(String id, String type, String name, String receiver);
 
     /**
      * Sets the code block of the node.

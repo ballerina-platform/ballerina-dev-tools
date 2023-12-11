@@ -4,7 +4,7 @@
     "offset": 4
   },
   "end": {
-    "line": 158,
+    "line": 211,
     "offset": 5
   },
   "source": "service_orchestration.bal",
@@ -14,25 +14,10 @@
     "nodes": [
       {
         "name": "LogHospitalDetails",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 87,
-            "offset": 8
-          },
-          "end": {
-            "line": 89,
-            "offset": 9
-          }
-        },
-        "inputPorts": [],
-        "outputPorts": [],
-        "codeBlock": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n"
-      },
-      {
-        "name": "CreateAppointmentPayload",
-        "codeLocation": {
-          "start": {
-            "line": 92,
+            "line": 86,
             "offset": 8
           },
           "end": {
@@ -40,11 +25,36 @@
             "offset": 9
           }
         },
+        "canvasPosition": {
+          "x": 11,
+          "y": 32
+        },
+        "inputPorts": [],
+        "outputPorts": [],
+        "codeBlock": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n"
+      },
+      {
+        "name": "CreateAppointmentPayload",
+        "templateId": "block",
+        "codeLocation": {
+          "start": {
+            "line": 97,
+            "offset": 8
+          },
+          "end": {
+            "line": 107,
+            "offset": 9
+          }
+        },
+        "canvasPosition": {
+          "x": 12,
+          "y": 32
+        },
         "inputPorts": [],
         "outputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "AppointmentRequest",
             "name": "appointmentReq",
             "receiver": "CreateAppointment"
           }
@@ -53,20 +63,25 @@
       },
       {
         "name": "CreateAppointment",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 98,
+            "line": 109,
             "offset": 8
           },
           "end": {
-            "line": 107,
+            "line": 125,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 5,
+          "y": 16
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "AppointmentRequest",
             "name": "appointmentReq",
             "sender": "CreateAppointmentPayload"
           }
@@ -74,13 +89,13 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "TYPE_REFERENCE",
+            "type": "Appointment",
             "name": "appt",
             "receiver": "LogAppointment"
           },
           {
             "id": "3",
-            "type": "TYPE_REFERENCE",
+            "type": "Appointment",
             "name": "appt",
             "receiver": "GetAppointmentFee"
           }
@@ -89,20 +104,25 @@
       },
       {
         "name": "LogAppointment",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 110,
+            "line": 127,
             "offset": 8
           },
           "end": {
-            "line": 113,
+            "line": 137,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 5,
+          "y": 13
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
           }
@@ -112,20 +132,25 @@
       },
       {
         "name": "GetAppointmentFee",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 116,
+            "line": 139,
             "offset": 8
           },
           "end": {
-            "line": 126,
+            "line": 155,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 4,
+          "y": 12
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
           }
@@ -133,34 +158,39 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "TYPE_REFERENCE",
+            "type": "ChannelingFee",
             "name": "fee",
             "receiver": "LogAppointmentFee"
           },
           {
             "id": "3",
-            "type": "TUPLE",
+            "type": "[Appointment, ChannelingFee]",
             "receiver": "CreatePaymentRequest"
           }
         ],
-        "codeBlock": "            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n"
+        "codeBlock": "\n            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n"
       },
       {
         "name": "LogAppointmentFee",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 129,
+            "line": 157,
             "offset": 8
           },
           "end": {
-            "line": 132,
+            "line": 167,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 0,
+          "y": 13
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "ChannelingFee",
             "name": "fee",
             "sender": "GetAppointmentFee"
           }
@@ -170,15 +200,20 @@
       },
       {
         "name": "CreatePaymentRequest",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 135,
+            "line": 169,
             "offset": 8
           },
           "end": {
-            "line": 139,
+            "line": 180,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 31,
+          "y": 42
         },
         "inputPorts": [
           {
@@ -191,7 +226,7 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "TYPE_REFERENCE",
+            "type": "PaymentSettlement",
             "name": "paymentSettlementReq",
             "receiver": "MakePayment"
           }
@@ -200,20 +235,25 @@
       },
       {
         "name": "MakePayment",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 142,
+            "line": 182,
             "offset": 8
           },
           "end": {
-            "line": 148,
+            "line": 195,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 51
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "PaymentSettlement",
             "name": "paymentSettlementReq",
             "sender": "CreatePaymentRequest"
           }
@@ -221,13 +261,13 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "TYPE_REFERENCE",
+            "type": "PaymentResponse",
             "name": "response",
             "receiver": "LogPaymentResponse"
           },
           {
             "id": "3",
-            "type": "TYPE_REFERENCE",
+            "type": "PaymentResponse",
             "name": "response",
             "receiver": "function"
           }
@@ -236,20 +276,25 @@
       },
       {
         "name": "LogPaymentResponse",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 151,
+            "line": 197,
             "offset": 8
           },
           "end": {
-            "line": 154,
+            "line": 207,
             "offset": 9
           }
+        },
+        "canvasPosition": {
+          "x": 50,
+          "y": 12
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "TYPE_REFERENCE",
+            "type": "PaymentResponse",
             "name": "response",
             "sender": "MakePayment"
           }

@@ -29,6 +29,6 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
  * @param sender id of the sender node
  * @since 2201.9.0
  */
-public record InputPort(String id, TypeDescKind type, String name, String sender) {
+public record InputPort(String id, String type, String name, String sender) {
 
 }

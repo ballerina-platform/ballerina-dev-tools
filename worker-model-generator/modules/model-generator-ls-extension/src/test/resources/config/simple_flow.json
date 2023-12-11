@@ -35,16 +35,15 @@
         "outputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "receiver": "B"
           },
           {
             "id": "2",
-            "type": "INT",
+            "type": "int",
             "receiver": "C"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "B",
@@ -66,7 +65,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "x1",
             "sender": "A"
           }
@@ -74,16 +73,15 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "INT",
+            "type": "int",
             "name": "x1",
             "receiver": "function"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "C",
-        "templateId": "simple",
+        "templateId": "transformer",
         "codeLocation": {
           "start": {
             "line": 33,
@@ -101,7 +99,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "int",
             "name": "x2",
             "sender": "A"
           }
@@ -109,12 +107,11 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "INT",
+            "type": "int",
             "name": "x2",
             "receiver": "function"
           }
-        ],
-        "codeBlock": ""
+        ]
       }
     ]
   }
