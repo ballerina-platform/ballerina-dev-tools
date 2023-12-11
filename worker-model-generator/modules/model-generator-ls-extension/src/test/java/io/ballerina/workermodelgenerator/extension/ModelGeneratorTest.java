@@ -86,7 +86,7 @@ public class ModelGeneratorTest {
 
         boolean flowEquality = modifiedFlow.equals(testConfig.getFlow());
         if (!fileNameEquality || !flowEquality) {
-            updateConfig(configJsonPath, testConfig, modifiedFlow);
+//            updateConfig(configJsonPath, testConfig, modifiedFlow);
             logModelDifference(testConfig.getFlow(), modifiedFlow);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.getDescription(), configJsonPath));
         }
@@ -140,6 +140,10 @@ public class ModelGeneratorTest {
 
         List<WorkerNode> missingNodes = new ArrayList<>();
         List<WorkerNode> irrelevantNodes = new ArrayList<>(actualFlow.nodes());
+        if (expectedFlow.nodes() == null) {
+            LOG.info("No worker nodes found in the response");
+            return;
+        }
         for (WorkerNode expectedNode : expectedFlow.nodes()) {
             boolean removed = irrelevantNodes.remove(expectedNode);
             if (!removed) {
@@ -147,8 +151,8 @@ public class ModelGeneratorTest {
             }
         }
         if (!missingNodes.isEmpty() || !irrelevantNodes.isEmpty()) {
-            LOG.info("Completion items which are in response but not in test config : " + irrelevantNodes);
-            LOG.info("Completion items which are in test config but not in response : " + missingNodes);
+            LOG.info("Worker nodes which are in response but not in test config : " + irrelevantNodes);
+            LOG.info("Worker nodes which are in test config but not in response : " + missingNodes);
         }
     }
 

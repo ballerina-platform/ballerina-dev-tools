@@ -25,7 +25,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
  *
  * @param id     id of the port
  * @param type   type of the port
- * @param name   name of the port
+ * @param name   variable assigned to the port
  * @param sender id of the sender node
  * @since 2201.9.0
  */

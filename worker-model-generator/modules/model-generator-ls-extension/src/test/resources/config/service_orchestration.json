@@ -1,0 +1,262 @@
+{
+  "start": {
+    "line": 83,
+    "offset": 4
+  },
+  "end": {
+    "line": 158,
+    "offset": 5
+  },
+  "source": "service_orchestration.bal",
+  "description": "Tests a simple flow",
+  "flow": {
+    "fileName": "service_orchestration.bal",
+    "nodes": [
+      {
+        "name": "LogHospitalDetails",
+        "codeLocation": {
+          "start": {
+            "line": 87,
+            "offset": 8
+          },
+          "end": {
+            "line": 89,
+            "offset": 9
+          }
+        },
+        "inputPorts": [],
+        "outputPorts": [],
+        "codeBlock": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n"
+      },
+      {
+        "name": "CreateAppointmentPayload",
+        "codeLocation": {
+          "start": {
+            "line": 92,
+            "offset": 8
+          },
+          "end": {
+            "line": 95,
+            "offset": 9
+          }
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "appointmentReq",
+            "receiver": "CreateAppointment"
+          }
+        ],
+        "codeBlock": "            AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);\n"
+      },
+      {
+        "name": "CreateAppointment",
+        "codeLocation": {
+          "start": {
+            "line": 98,
+            "offset": 8
+          },
+          "end": {
+            "line": 107,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "appointmentReq",
+            "sender": "CreateAppointmentPayload"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "TYPE_REFERENCE",
+            "name": "appt",
+            "receiver": "LogAppointment"
+          },
+          {
+            "id": "3",
+            "type": "TYPE_REFERENCE",
+            "name": "appt",
+            "receiver": "GetAppointmentFee"
+          }
+        ],
+        "codeBlock": "            Appointment appt = check hospitalServicesEP->/[requestPayload.hospital_id]/categories/[doctorCategory]/reserve.post(appointmentReq);\n"
+      },
+      {
+        "name": "LogAppointment",
+        "codeLocation": {
+          "start": {
+            "line": 110,
+            "offset": 8
+          },
+          "end": {
+            "line": 113,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "appointment",
+            "sender": "CreateAppointment"
+          }
+        ],
+        "outputPorts": [],
+        "codeBlock": "            log:printInfo(\"Appointment\", payload = appointment);\n"
+      },
+      {
+        "name": "GetAppointmentFee",
+        "codeLocation": {
+          "start": {
+            "line": 116,
+            "offset": 8
+          },
+          "end": {
+            "line": 126,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "appointment",
+            "sender": "CreateAppointment"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "TYPE_REFERENCE",
+            "name": "fee",
+            "receiver": "LogAppointmentFee"
+          },
+          {
+            "id": "3",
+            "type": "TUPLE",
+            "receiver": "CreatePaymentRequest"
+          }
+        ],
+        "codeBlock": "            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n"
+      },
+      {
+        "name": "LogAppointmentFee",
+        "codeLocation": {
+          "start": {
+            "line": 129,
+            "offset": 8
+          },
+          "end": {
+            "line": 132,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "fee",
+            "sender": "GetAppointmentFee"
+          }
+        ],
+        "outputPorts": [],
+        "codeBlock": "            log:printInfo(\"ChannelingFee\", payload = fee);\n"
+      },
+      {
+        "name": "CreatePaymentRequest",
+        "codeLocation": {
+          "start": {
+            "line": 135,
+            "offset": 8
+          },
+          "end": {
+            "line": 139,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "NONE",
+            "name": "channelingFee",
+            "sender": "GetAppointmentFee"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "TYPE_REFERENCE",
+            "name": "paymentSettlementReq",
+            "receiver": "MakePayment"
+          }
+        ],
+        "codeBlock": "            PaymentSettlement paymentSettlementReq = check paymentRequestPayloadMapper(requestPayload, appointment, channelingFee);\n"
+      },
+      {
+        "name": "MakePayment",
+        "codeLocation": {
+          "start": {
+            "line": 142,
+            "offset": 8
+          },
+          "end": {
+            "line": 148,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "paymentSettlementReq",
+            "sender": "CreatePaymentRequest"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "TYPE_REFERENCE",
+            "name": "response",
+            "receiver": "LogPaymentResponse"
+          },
+          {
+            "id": "3",
+            "type": "TYPE_REFERENCE",
+            "name": "response",
+            "receiver": "function"
+          }
+        ],
+        "codeBlock": "            PaymentResponse response = check paymentEP->/.post(paymentSettlementReq);\n"
+      },
+      {
+        "name": "LogPaymentResponse",
+        "codeLocation": {
+          "start": {
+            "line": 151,
+            "offset": 8
+          },
+          "end": {
+            "line": 154,
+            "offset": 9
+          }
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "TYPE_REFERENCE",
+            "name": "response",
+            "sender": "MakePayment"
+          }
+        ],
+        "outputPorts": [],
+        "codeBlock": "            log:printInfo(\"PaymentResponse\", payload = response);\n"
+      }
+    ]
+  }
+}

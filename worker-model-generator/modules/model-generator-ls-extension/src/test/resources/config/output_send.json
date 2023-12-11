@@ -4,54 +4,49 @@
     "offset": 0
   },
   "end": {
-    "line": 47,
+    "line": 44,
     "offset": 1
   },
-  "source": "simple_flow.bal",
-  "description": "Tests a simple flow",
+  "source": "output_send.bal",
+  "description": "Tests the capturing of name in an output port",
   "flow": {
     "id": "1",
     "name": "main/function",
-    "fileName": "simple_flow.bal",
+    "fileName": "output_send.bal",
     "nodes": [
       {
         "name": "A",
-        "templateId": "transformer",
+        "templateId": "block",
         "codeLocation": {
           "start": {
             "line": 7,
             "offset": 4
           },
           "end": {
-            "line": 17,
+            "line": 15,
             "offset": 5
           }
         },
         "canvasPosition": {
-          "x": 32,
-          "y": 54
+          "x": 0,
+          "y": 0
         },
         "inputPorts": [],
         "outputPorts": [
           {
             "id": "1",
-            "type": "INT",
+            "type": "STRING",
             "receiver": "B"
-          },
-          {
-            "id": "2",
-            "type": "INT",
-            "receiver": "C"
           }
         ],
         "codeBlock": ""
       },
       {
         "name": "B",
-        "templateId": "transformer",
+        "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 19,
+            "line": 17,
             "offset": 4
           },
           "end": {
@@ -60,14 +55,14 @@
           }
         },
         "canvasPosition": {
-          "x": 101,
-          "y": 12
+          "x": 32,
+          "y": 54
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
-            "name": "x1",
+            "type": "STRING",
+            "name": "txt",
             "sender": "A"
           }
         ],
@@ -75,45 +70,43 @@
           {
             "id": "2",
             "type": "INT",
-            "name": "x1",
             "receiver": "function"
+          },
+          {
+            "id": "3",
+            "type": "STRING",
+            "name": "txt",
+            "receiver": "C"
           }
         ],
         "codeBlock": ""
       },
       {
         "name": "C",
-        "templateId": "simple",
+        "templateId": "block",
         "codeLocation": {
           "start": {
             "line": 33,
             "offset": 4
           },
           "end": {
-            "line": 42,
+            "line": 41,
             "offset": 5
           }
         },
         "canvasPosition": {
           "x": 12,
-          "y": 1
+          "y": 4
         },
         "inputPorts": [
           {
             "id": "1",
-            "type": "INT",
-            "name": "x2",
-            "sender": "A"
+            "type": "STRING",
+            "name": "txt",
+            "sender": "B"
           }
         ],
-        "outputPorts": [
-          {
-            "id": "2",
-            "type": "INT",
-            "name": "x2",
-            "receiver": "function"
-          }
-        ],
+        "outputPorts": [],
         "codeBlock": ""
       }
     ]

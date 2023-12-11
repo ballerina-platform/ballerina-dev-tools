@@ -25,9 +25,10 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
  *
  * @param id       id of the port
  * @param type     type of the port
+ * @param name     variable assigned to the port
  * @param receiver id of the receiver node
  * @since 2201.9.0
  */
-public record OutputPort(String id, TypeDescKind type, String receiver) {
+public record OutputPort(String id, TypeDescKind type, String name, String receiver) {
 
 }
