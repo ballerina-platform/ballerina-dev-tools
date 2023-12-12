@@ -27,11 +27,11 @@ import io.ballerina.workermodelgenerator.core.model.CanvasPosition;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.InputPort;
 import io.ballerina.workermodelgenerator.core.model.OutputPort;
-import io.ballerina.workermodelgenerator.core.model.SwitchCase;
-import io.ballerina.workermodelgenerator.core.model.SwitchDefaultCase;
-import io.ballerina.workermodelgenerator.core.model.SwitchProperties;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
 import io.ballerina.workermodelgenerator.core.model.WorkerNodeJsonBuilder;
+import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
+import io.ballerina.workermodelgenerator.core.model.properties.SwitchCase;
+import io.ballerina.workermodelgenerator.core.model.properties.SwitchDefaultCase;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -69,7 +69,7 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
     private String expresison;
     private final Map<String, List<String>> expressionToNodesMapper;
     private final List<String> defaultSwitchCaseNodes;
-    private SwitchProperties switchProperties;
+    private NodeProperties switchProperties;
 
     public NodeBuilder(SemanticModel semanticModel) {
         this.inputPorts = new ArrayList<>();
@@ -257,12 +257,16 @@ class NodeBuilder extends NodeVisitor implements WorkerNodeJsonBuilder {
         for (Map.Entry<String, List<String>> switchCaseEntry : this.expressionToNodesMapper.entrySet()) {
             switchCases.add(new SwitchCase(switchCaseEntry.getKey(), switchCaseEntry.getValue()));
         }
-        this.switchProperties = new SwitchProperties(switchCases, new SwitchDefaultCase(this.defaultSwitchCaseNodes));
+        NodeProperties.NodePropertiesBuilder nodePropertiesBuilder = new NodeProperties.NodePropertiesBuilder();
+        this.switchProperties = nodePropertiesBuilder
+                .setSwitchCases(switchCases)
+                .setDefaultSwitchCase(new SwitchDefaultCase(this.defaultSwitchCaseNodes))
+                .build();
     }
 
     @Override
     public WorkerNode build() {
-        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, codeBlock,
+        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, this.codeBlock,
                 this.switchProperties);
     }
 

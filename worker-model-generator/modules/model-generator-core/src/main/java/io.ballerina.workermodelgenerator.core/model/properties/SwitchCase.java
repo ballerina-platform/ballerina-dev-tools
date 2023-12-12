@@ -1,4 +1,4 @@
-package io.ballerina.workermodelgenerator.core.model;
+package io.ballerina.workermodelgenerator.core.model.properties;
 
 import java.util.List;
 

@@ -18,6 +18,8 @@
 
 package io.ballerina.workermodelgenerator.core.model;
 
+import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
+
 import java.util.List;
 
 /**
@@ -29,11 +31,10 @@ import java.util.List;
  * @param canvasPosition position of the node in the canvas
  * @param inputPorts     input ports of the node
  * @param outputPorts    output ports of the node
- * @param codeBlock      editable code block of the node
+ * @param properties     properties of the node
  * @since 2201.9.0
  */
 public record WorkerNode(String name, String templateId, CodeLocation codeLocation, CanvasPosition canvasPosition,
-                         List<InputPort> inputPorts, List<OutputPort> outputPorts, String codeBlock,
-                         SwitchProperties properties) {
+                         List<InputPort> inputPorts, List<OutputPort> outputPorts, String codeBlock, NodeProperties properties) {
 
 }
