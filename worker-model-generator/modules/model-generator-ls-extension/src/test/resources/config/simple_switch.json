@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 52,
+    "line": 58,
     "offset": 1
   },
   "source": "simple_switch.bal",
@@ -23,7 +23,7 @@
             "offset": 4
           },
           "end": {
-            "line": 15,
+            "line": 16,
             "offset": 5
           }
         },
@@ -36,21 +36,36 @@
           {
             "id": "1",
             "type": "int",
+            "name": "x",
             "receiver": "B"
           }
         ],
-        "codeBlock": ""
+        "properties": {
+          "codeBlock": {
+            "expression": "        int x = 11;\n",
+            "codeLocation": {
+              "start": {
+                "line": 14,
+                "offset": 8
+              },
+              "end": {
+                "line": 14,
+                "offset": 19
+              }
+            }
+          }
+        }
       },
       {
         "name": "B",
         "templateId": "switch",
         "codeLocation": {
           "start": {
-            "line": 17,
+            "line": 18,
             "offset": 4
           },
           "end": {
-            "line": 31,
+            "line": 32,
             "offset": 5
           }
         },
@@ -101,11 +116,11 @@
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 33,
+            "line": 34,
             "offset": 4
           },
           "end": {
-            "line": 41,
+            "line": 43,
             "offset": 5
           }
         },
@@ -121,19 +136,31 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "x",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "",
+            "codeLocation": {}
+          }
+        }
       },
       {
         "name": "D",
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 43,
+            "line": 45,
             "offset": 4
           },
           "end": {
-            "line": 51,
+            "line": 54,
             "offset": 5
           }
         },
@@ -149,8 +176,20 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "x",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "",
+            "codeLocation": {}
+          }
+        }
       }
     ]
   }

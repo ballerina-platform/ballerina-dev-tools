@@ -12,7 +12,8 @@ public function main() {
         yCord: 0
     }
     worker A {
-        11 -> B;
+        int x = 11;
+        x -> B;
     }
 
     @display {
@@ -39,6 +40,7 @@ public function main() {
     }
     worker C {
         int x = <- B;
+        x -> function;
     }
 
     @display {
@@ -49,5 +51,9 @@ public function main() {
     }
     worker D {
         int x = <- B;
+        x -> function;
     }
+
+    int y1 = <- C;
+    int y2 = <- D;
 }

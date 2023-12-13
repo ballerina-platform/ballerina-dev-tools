@@ -59,7 +59,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "string",
             "name": "txt",
             "sender": "A"
@@ -93,7 +93,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "string",
             "name": "txt",
             "sender": "B"

@@ -43,10 +43,10 @@ public class SwitchAnalyzer extends Analyzer {
         super.analyzeSendAction(receiverNode, expressionNode);
         String portIdStr = getPortId();
         if (processDefaultCase) {
-            addSwitchCase(this.expression, portIdStr);
+            addDefaultSwitchCase(portIdStr);
             return;
         }
-        addDefaultSwitchCase(portIdStr);
+        addSwitchCase(this.expression, portIdStr);
     }
 
     @Override

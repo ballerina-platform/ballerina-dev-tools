@@ -60,7 +60,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "int",
             "name": "x",
             "sender": "A"

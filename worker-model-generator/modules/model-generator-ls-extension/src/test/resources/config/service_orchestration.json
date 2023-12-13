@@ -108,7 +108,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "AppointmentRequest",
             "name": "appointmentReq",
             "sender": "CreateAppointmentPayload"
@@ -163,7 +163,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
@@ -205,7 +205,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
@@ -259,7 +259,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "ChannelingFee",
             "name": "fee",
             "sender": "GetAppointmentFee"
@@ -301,7 +301,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "NONE",
             "name": "channelingFee",
             "sender": "GetAppointmentFee"
@@ -350,7 +350,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "PaymentSettlement",
             "name": "paymentSettlementReq",
             "sender": "CreatePaymentRequest"
@@ -405,7 +405,7 @@
         },
         "inputPorts": [
           {
-            "id": "2",
+            "id": "1",
             "type": "PaymentResponse",
             "name": "response",
             "sender": "MakePayment"

@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 76,
+    "line": 86,
     "offset": 1
   },
   "source": "multi_switch.bal",
@@ -16,14 +16,14 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
             "line": 7,
             "offset": 4
           },
           "end": {
-            "line": 15,
+            "line": 16,
             "offset": 5
           }
         },
@@ -36,21 +36,21 @@
           {
             "id": "1",
             "type": "int",
+            "name": "x",
             "receiver": "B"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "B",
         "templateId": "switch",
         "codeLocation": {
           "start": {
-            "line": 17,
+            "line": 18,
             "offset": 4
           },
           "end": {
-            "line": 35,
+            "line": 36,
             "offset": 5
           }
         },
@@ -122,14 +122,14 @@
       },
       {
         "name": "C",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 37,
+            "line": 38,
             "offset": 4
           },
           "end": {
-            "line": 45,
+            "line": 47,
             "offset": 5
           }
         },
@@ -145,19 +145,25 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "x",
+            "receiver": "function"
+          }
+        ]
       },
       {
         "name": "D",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 47,
+            "line": 49,
             "offset": 4
           },
           "end": {
-            "line": 55,
+            "line": 58,
             "offset": 5
           }
         },
@@ -173,19 +179,25 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "x",
+            "receiver": "function"
+          }
+        ]
       },
       {
         "name": "E",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 57,
+            "line": 60,
             "offset": 4
           },
           "end": {
-            "line": 65,
+            "line": 69,
             "offset": 5
           }
         },
@@ -201,19 +213,25 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "y",
+            "receiver": "function"
+          }
+        ]
       },
       {
         "name": "F",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 67,
+            "line": 71,
             "offset": 4
           },
           "end": {
-            "line": 75,
+            "line": 80,
             "offset": 5
           }
         },
@@ -229,8 +247,14 @@
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "y",
+            "receiver": "function"
+          }
+        ]
       }
     ]
   }

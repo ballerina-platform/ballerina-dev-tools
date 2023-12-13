@@ -7,12 +7,13 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 0,
         yCord: 0
     }
     worker A {
-        11 -> B;
+        int x = 11;
+        x -> B;
     }
 
     @display {
@@ -37,41 +38,50 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 10,
         yCord: 50
     }
     worker C {
         int x = <- B;
+        x -> function;
     }
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 12,
         yCord: 56
     }
     worker D {
         int x = <- B;
+        x -> function;
     }
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 13,
         yCord: 52
     }
     worker E {
         int y = <- B;
+        y -> function;
     }
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 18,
         yCord: 32
     }
     worker F {
         int y = <- B;
+        y -> function;
     }
+
+    int y1 = <- C;
+    int y2 = <- D;
+    int y3 = <- E;
+    int y4 = <- F;
 }

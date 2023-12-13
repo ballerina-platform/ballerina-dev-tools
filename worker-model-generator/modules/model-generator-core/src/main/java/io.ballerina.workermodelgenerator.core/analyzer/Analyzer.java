@@ -43,7 +43,7 @@ public class Analyzer extends NodeVisitor {
     protected Analyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.nodeBuilder = nodeBuilder;
-        this.portId = 1;
+        this.portId = 0;
     }
 
     /**
@@ -97,8 +97,8 @@ public class Analyzer extends NodeVisitor {
         String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
                 ((SimpleNameReferenceNode) expressionNode).name().text() : null;
 
-        nodeBuilder.addOutputPort(this.getPortId(), type, name, this.toWorker);
         this.portId++;
+        this.nodeBuilder.addOutputPort(getPortId(), type, name, this.toWorker);
     }
 
     @Override
@@ -123,7 +123,8 @@ public class Analyzer extends NodeVisitor {
         String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? typeSymbol.signature() :
                 TypeDescKind.NONE.toString();
 
-        nodeBuilder.addInputPort(String.valueOf(++this.portId), type, this.name, this.fromWorker);
+        this.portId++;
+        this.nodeBuilder.addInputPort(getPortId(), type, this.name, this.fromWorker);
         this.capturedFromWorker = false;
     }
 
