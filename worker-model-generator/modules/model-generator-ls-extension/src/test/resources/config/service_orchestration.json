@@ -31,7 +31,21 @@
         },
         "inputPorts": [],
         "outputPorts": [],
-        "codeBlock": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n",
+            "codeLocation": {
+              "start": {
+                "line": 94,
+                "offset": 12
+              },
+              "end": {
+                "line": 94,
+                "offset": 77
+              }
+            }
+          }
+        }
       },
       {
         "name": "CreateAppointmentPayload",
@@ -59,7 +73,21 @@
             "receiver": "CreateAppointment"
           }
         ],
-        "codeBlock": "            AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);\n",
+            "codeLocation": {
+              "start": {
+                "line": 105,
+                "offset": 12
+              },
+              "end": {
+                "line": 105,
+                "offset": 89
+              }
+            }
+          }
+        }
       },
       {
         "name": "CreateAppointment",
@@ -80,7 +108,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "AppointmentRequest",
             "name": "appointmentReq",
             "sender": "CreateAppointmentPayload"
@@ -100,7 +128,21 @@
             "receiver": "GetAppointmentFee"
           }
         ],
-        "codeBlock": "            Appointment appt = check hospitalServicesEP->/[requestPayload.hospital_id]/categories/[doctorCategory]/reserve.post(appointmentReq);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            Appointment appt = check hospitalServicesEP->/[requestPayload.hospital_id]/categories/[doctorCategory]/reserve.post(appointmentReq);\n",
+            "codeLocation": {
+              "start": {
+                "line": 121,
+                "offset": 12
+              },
+              "end": {
+                "line": 121,
+                "offset": 144
+              }
+            }
+          }
+        }
       },
       {
         "name": "LogAppointment",
@@ -121,14 +163,28 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
           }
         ],
         "outputPorts": [],
-        "codeBlock": "            log:printInfo(\"Appointment\", payload = appointment);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            log:printInfo(\"Appointment\", payload = appointment);\n",
+            "codeLocation": {
+              "start": {
+                "line": 136,
+                "offset": 12
+              },
+              "end": {
+                "line": 136,
+                "offset": 64
+              }
+            }
+          }
+        }
       },
       {
         "name": "GetAppointmentFee",
@@ -149,7 +205,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "Appointment",
             "name": "appointment",
             "sender": "CreateAppointment"
@@ -168,7 +224,21 @@
             "receiver": "CreatePaymentRequest"
           }
         ],
-        "codeBlock": "\n            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "\n            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n",
+            "codeLocation": {
+              "start": {
+                "line": 149,
+                "offset": 12
+              },
+              "end": {
+                "line": 151,
+                "offset": 113
+              }
+            }
+          }
+        }
       },
       {
         "name": "LogAppointmentFee",
@@ -189,14 +259,28 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "ChannelingFee",
             "name": "fee",
             "sender": "GetAppointmentFee"
           }
         ],
         "outputPorts": [],
-        "codeBlock": "            log:printInfo(\"ChannelingFee\", payload = fee);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            log:printInfo(\"ChannelingFee\", payload = fee);\n",
+            "codeLocation": {
+              "start": {
+                "line": 166,
+                "offset": 12
+              },
+              "end": {
+                "line": 166,
+                "offset": 58
+              }
+            }
+          }
+        }
       },
       {
         "name": "CreatePaymentRequest",
@@ -217,7 +301,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "NONE",
             "name": "channelingFee",
             "sender": "GetAppointmentFee"
@@ -231,7 +315,21 @@
             "receiver": "MakePayment"
           }
         ],
-        "codeBlock": "            PaymentSettlement paymentSettlementReq = check paymentRequestPayloadMapper(requestPayload, appointment, channelingFee);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            PaymentSettlement paymentSettlementReq = check paymentRequestPayloadMapper(requestPayload, appointment, channelingFee);\n",
+            "codeLocation": {
+              "start": {
+                "line": 178,
+                "offset": 12
+              },
+              "end": {
+                "line": 178,
+                "offset": 131
+              }
+            }
+          }
+        }
       },
       {
         "name": "MakePayment",
@@ -252,7 +350,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "PaymentSettlement",
             "name": "paymentSettlementReq",
             "sender": "CreatePaymentRequest"
@@ -272,7 +370,21 @@
             "receiver": "function"
           }
         ],
-        "codeBlock": "            PaymentResponse response = check paymentEP->/.post(paymentSettlementReq);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            PaymentResponse response = check paymentEP->/.post(paymentSettlementReq);\n",
+            "codeLocation": {
+              "start": {
+                "line": 191,
+                "offset": 12
+              },
+              "end": {
+                "line": 191,
+                "offset": 85
+              }
+            }
+          }
+        }
       },
       {
         "name": "LogPaymentResponse",
@@ -293,14 +405,28 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "PaymentResponse",
             "name": "response",
             "sender": "MakePayment"
           }
         ],
         "outputPorts": [],
-        "codeBlock": "            log:printInfo(\"PaymentResponse\", payload = response);\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "            log:printInfo(\"PaymentResponse\", payload = response);\n",
+            "codeLocation": {
+              "start": {
+                "line": 206,
+                "offset": 12
+              },
+              "end": {
+                "line": 206,
+                "offset": 65
+              }
+            }
+          }
+        }
       }
     ]
   }

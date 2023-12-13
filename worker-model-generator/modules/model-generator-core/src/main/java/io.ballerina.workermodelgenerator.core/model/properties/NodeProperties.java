@@ -1,7 +1,5 @@
 package io.ballerina.workermodelgenerator.core.model.properties;
 
-import io.ballerina.workermodelgenerator.core.model.BalExpression;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +12,9 @@ public class NodeProperties {
     // Code node properties
     BalExpression codeBlock;
 
+    private NodeProperties() {
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof NodeProperties that)) {
@@ -22,6 +23,11 @@ public class NodeProperties {
         return Objects.equals(this.cases, that.cases) &&
                 Objects.equals(this.defaultCase, that.defaultCase) &&
                 Objects.equals(this.codeBlock, that.codeBlock);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cases, defaultCase, codeBlock);
     }
 
     @Override

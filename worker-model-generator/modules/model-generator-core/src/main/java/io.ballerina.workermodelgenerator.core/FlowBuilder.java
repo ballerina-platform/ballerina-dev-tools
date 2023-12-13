@@ -19,12 +19,11 @@
 package io.ballerina.workermodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
-import io.ballerina.compiler.syntax.tree.StatementNode;
+import io.ballerina.workermodelgenerator.core.analyzer.Analyzer;
 import io.ballerina.workermodelgenerator.core.model.Flow;
 import io.ballerina.workermodelgenerator.core.model.FlowJsonBuilder;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
@@ -54,7 +53,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
 
     @Override
     public void visit(NamedWorkerDeclarationNode namedWorkerDeclarationNode) {
-        NodeBuilder nodeBuilder = new NodeBuilder(semanticModel);
+        NodeBuilder nodeBuilder = new NodeBuilder();
 
         // Set the metadata information of the node
         nodeBuilder.setName(namedWorkerDeclarationNode.workerName().text());
@@ -73,7 +72,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
                 switch (entry.getKey()) {
                     case Constants.WORKER_TEMPLATE_ID -> {
                         templateId = entry.getValue();
-                        nodeBuilder.setTemplateId(entry.getValue());
+                        nodeBuilder.setTemplateId(templateId);
                     }
                     case Constants.WORKER_X_COORDINATE -> xCord = Integer.parseInt(entry.getValue());
                     case Constants.WORKER_Y_COORDINATE -> yCord = Integer.parseInt(entry.getValue());
@@ -85,20 +84,10 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
             nodeBuilder.setCanvasPosition(xCord, yCord);
         }
 
-        // Analyze the body of the worker
-        BlockStatementNode blockStatementNode = namedWorkerDeclarationNode.workerBody();
-        StringBuilder codeBlock = new StringBuilder();
-        for (StatementNode statement : blockStatementNode.statements()) {
-            statement.accept(nodeBuilder);
-            if (!nodeBuilder.hasProcessed()) {
-                codeBlock.append(statement.toSourceCode());
-            }
-            nodeBuilder.resetProcessFlag();
-        }
-        if (templateId.equals(Constants.BLOCK_NODE)) {
-            nodeBuilder.setCodeBlock(codeBlock.toString());
-        }
-        nodeBuilder.buildSwitchCaseProperties();
+        // Analyze and build the worker node
+        Analyzer analyzer = Analyzer.getAnalyzer(templateId, nodeBuilder, semanticModel);
+        namedWorkerDeclarationNode.workerBody().accept(analyzer);
+        nodeBuilder.setProperties(analyzer.buildProperties());
         addNode(nodeBuilder.build());
     }
 

@@ -7,25 +7,23 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 0,
         yCord: 0
     }
     worker A {
+        // This shouldn't be captured in name.
         "text" -> B;
     }
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 32,
         yCord: 54
     }
     worker B {
         string txt = <- A;
-
-        // This shouldn't be captured in name.
-        12 -> function;
 
         // This should be captured in name.
         txt -> C;
@@ -33,13 +31,14 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 12,
         yCord: 4
     }
     worker C {
         string txt = <- B;
+        txt -> function;
     }
 
-    int x = <- B;
+    string y1 = <- C;
 }

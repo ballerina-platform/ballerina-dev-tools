@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 30,
+    "line": 32,
     "offset": 1
   },
   "source": "code_block.bal",
@@ -16,14 +16,14 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
             "line": 7,
             "offset": 4
           },
           "end": {
-            "line": 15,
+            "line": 16,
             "offset": 5
           }
         },
@@ -36,21 +36,21 @@
           {
             "id": "1",
             "type": "int",
+            "name": "x",
             "receiver": "B"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "B",
         "templateId": "block",
         "codeLocation": {
           "start": {
-            "line": 17,
+            "line": 18,
             "offset": 4
           },
           "end": {
-            "line": 28,
+            "line": 29,
             "offset": 5
           }
         },
@@ -60,7 +60,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "int",
             "name": "x",
             "sender": "A"
@@ -74,7 +74,21 @@
             "receiver": "function"
           }
         ],
-        "codeBlock": "        int a = 32 + x;\n        int b = a % 12;\n"
+        "properties": {
+          "codeBlock": {
+            "expression": "        int a = 32 + x;\n        int b = a % 12;\n",
+            "codeLocation": {
+              "start": {
+                "line": 26,
+                "offset": 8
+              },
+              "end": {
+                "line": 27,
+                "offset": 23
+              }
+            }
+          }
+        }
       }
     ]
   }

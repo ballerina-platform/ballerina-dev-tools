@@ -18,8 +18,6 @@
 
 package io.ballerina.workermodelgenerator.core.model;
 
-import io.ballerina.compiler.api.symbols.TypeDescKind;
-
 /**
  * Represents an input port of a worker node.
  *

@@ -18,7 +18,6 @@
 
 package io.ballerina.workermodelgenerator.core.model;
 
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.tools.text.LinePosition;
 
 /**
@@ -77,19 +76,6 @@ public interface WorkerNodeJsonBuilder {
      * @param receiver id of the receiver node
      */
     void addOutputPort(String id, String type, String name, String receiver);
-
-    /**
-     * Sets the code block of the node.
-     *
-     * @param codeBlock code block of the node
-     */
-    void setCodeBlock(String codeBlock);
-
-    void addSwitchCase(String expression, String node);
-
-    void addDefaultSwitchCase(String node);
-
-    void buildSwitchCaseProperties();
 
     /**
      * Builds the node.

@@ -7,19 +7,20 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "transformer",
+        templateId: "clone",
         xCord: 32,
         yCord: 54
     }
     worker A {
-        // Use `-> W` to send a message to worker `W`.
-        1 -> B;
-        2 -> C;
+        int x = 2;
+
+        x -> B;
+        x -> C;
     }
 
     @display {
         label: "Node",
-        templateId: "transformer",
+        templateId: "clone",
         xCord: 101,
         yCord: 12
     }
@@ -33,7 +34,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "transformer",
+        templateId: "clone",
         xCord: 12,
         yCord: 1
     }

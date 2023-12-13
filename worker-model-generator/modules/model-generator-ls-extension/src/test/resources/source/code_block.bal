@@ -7,12 +7,13 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "clone",
         xCord: 11,
         yCord: 32
     }
     worker A {
-        12 -> B;
+        int x = 12;
+        x -> B;
     }
 
     @display {

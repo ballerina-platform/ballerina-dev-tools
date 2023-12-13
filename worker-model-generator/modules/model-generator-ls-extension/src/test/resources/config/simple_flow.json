@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 47,
+    "line": 48,
     "offset": 1
   },
   "source": "simple_flow.bal",
@@ -16,14 +16,14 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "transformer",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
             "line": 7,
             "offset": 4
           },
           "end": {
-            "line": 17,
+            "line": 18,
             "offset": 5
           }
         },
@@ -36,25 +36,27 @@
           {
             "id": "1",
             "type": "int",
+            "name": "x",
             "receiver": "B"
           },
           {
             "id": "2",
             "type": "int",
+            "name": "x",
             "receiver": "C"
           }
         ]
       },
       {
         "name": "B",
-        "templateId": "transformer",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 19,
+            "line": 20,
             "offset": 4
           },
           "end": {
-            "line": 31,
+            "line": 32,
             "offset": 5
           }
         },
@@ -64,7 +66,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "int",
             "name": "x1",
             "sender": "A"
@@ -81,14 +83,14 @@
       },
       {
         "name": "C",
-        "templateId": "transformer",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 33,
+            "line": 34,
             "offset": 4
           },
           "end": {
-            "line": 42,
+            "line": 43,
             "offset": 5
           }
         },
@@ -98,7 +100,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "int",
             "name": "x2",
             "sender": "A"

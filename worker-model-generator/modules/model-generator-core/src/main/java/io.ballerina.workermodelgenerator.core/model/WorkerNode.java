@@ -35,6 +35,6 @@ import java.util.List;
  * @since 2201.9.0
  */
 public record WorkerNode(String name, String templateId, CodeLocation codeLocation, CanvasPosition canvasPosition,
-                         List<InputPort> inputPorts, List<OutputPort> outputPorts, String codeBlock, NodeProperties properties) {
+                         List<InputPort> inputPorts, List<OutputPort> outputPorts, NodeProperties properties) {
 
 }

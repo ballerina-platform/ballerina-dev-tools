@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 44,
+    "line": 43,
     "offset": 1
   },
   "source": "output_send.bal",
@@ -16,14 +16,14 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
             "line": 7,
             "offset": 4
           },
           "end": {
-            "line": 15,
+            "line": 16,
             "offset": 5
           }
         },
@@ -38,19 +38,18 @@
             "type": "string",
             "receiver": "B"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "B",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 17,
+            "line": 18,
             "offset": 4
           },
           "end": {
-            "line": 31,
+            "line": 29,
             "offset": 5
           }
         },
@@ -60,7 +59,7 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "string",
             "name": "txt",
             "sender": "A"
@@ -69,28 +68,22 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "int",
-            "receiver": "function"
-          },
-          {
-            "id": "3",
             "type": "string",
             "name": "txt",
             "receiver": "C"
           }
-        ],
-        "codeBlock": ""
+        ]
       },
       {
         "name": "C",
-        "templateId": "block",
+        "templateId": "clone",
         "codeLocation": {
           "start": {
-            "line": 33,
+            "line": 31,
             "offset": 4
           },
           "end": {
-            "line": 41,
+            "line": 40,
             "offset": 5
           }
         },
@@ -100,14 +93,20 @@
         },
         "inputPorts": [
           {
-            "id": "1",
+            "id": "2",
             "type": "string",
             "name": "txt",
             "sender": "B"
           }
         ],
-        "outputPorts": [],
-        "codeBlock": ""
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "string",
+            "name": "txt",
+            "receiver": "function"
+          }
+        ]
       }
     ]
   }

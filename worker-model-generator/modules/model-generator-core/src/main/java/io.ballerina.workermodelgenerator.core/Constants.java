@@ -23,7 +23,7 @@ package io.ballerina.workermodelgenerator.core;
  *
  * @since 2201.9.0
  */
-class Constants {
+public class Constants {
 
     public static final String WORKER_TEMPLATE_ID = "templateId";
     public static final String WORKER_X_COORDINATE = "xCord";
