@@ -11,6 +11,16 @@
   "description": "Tests a simple flow",
   "flow": {
     "fileName": "service_orchestration.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 83,
+        "offset": 128
+      },
+      "end": {
+        "line": 211,
+        "offset": 5
+      }
+    },
     "nodes": [
       {
         "name": "LogHospitalDetails",

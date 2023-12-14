@@ -23,12 +23,13 @@ import java.util.List;
 /**
  * Represents a flow of workers.
  *
- * @param id       id of the flow
- * @param name     name of the flow
- * @param fileName name of the file containing the flow
- * @param nodes    nodes in the flow
+ * @param id               id of the flow
+ * @param name             name of the flow
+ * @param fileName          name of the file containing the flow
+ * @param bodyCodeLocation code location of the body of the flow
+ * @param nodes            nodes in the flow
  * @since 2201.9.0
  */
-public record Flow(String id, String name, String fileName, List<WorkerNode> nodes) {
+public record Flow(String id, String name, String fileName, CodeLocation bodyCodeLocation, List<WorkerNode> nodes) {
 
 }

@@ -54,6 +54,13 @@ public interface FlowJsonBuilder {
     void addNode(WorkerNode node);
 
     /**
+     * Sets the code location of the body of the flow.
+     *
+     * @param bodyCodeLocation code location of the body of the flow
+     */
+    void setBodyCodeLocation(CodeLocation bodyCodeLocation);
+
+    /**
      * Builds the flow.
      *
      * @return built flow

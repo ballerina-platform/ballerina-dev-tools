@@ -19,11 +19,13 @@
 package io.ballerina.workermodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.workermodelgenerator.core.analyzer.Analyzer;
+import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.Flow;
 import io.ballerina.workermodelgenerator.core.model.FlowJsonBuilder;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
@@ -44,6 +46,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     private String name;
     private String filePath;
     private final List<WorkerNode> nodes;
+    private CodeLocation bodyCodeLocation;
     private final SemanticModel semanticModel;
 
     public FlowBuilder(SemanticModel semanticModel) {
@@ -93,6 +96,12 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
+        // Obtain the code body location of the flow
+        FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
+        setBodyCodeLocation(new CodeLocation(functionBodyNode.lineRange().startLine(),
+                functionBodyNode.lineRange().endLine()));
+
+        // Process the flow metadata information from the annotations
         Optional<MetadataNode> metadata = functionDefinitionNode.metadata();
         metadata.ifPresent(metadataNode -> metadataNode.accept(this));
         super.visit(functionDefinitionNode);
@@ -136,7 +145,12 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     }
 
     @Override
+    public void setBodyCodeLocation(CodeLocation bodyCodeLocation) {
+        this.bodyCodeLocation = bodyCodeLocation;
+    }
+
+    @Override
     public Flow build() {
-        return new Flow(id, name, filePath, nodes);
+        return new Flow(id, name, filePath, bodyCodeLocation, nodes);
     }
 }
