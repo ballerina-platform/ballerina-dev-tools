@@ -1,6 +1,7 @@
 package io.ballerina.workermodelgenerator.core.analyzer;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -91,7 +92,7 @@ public class Analyzer extends NodeVisitor {
     protected void analyzeSendAction(SimpleNameReferenceNode receiverNode, ExpressionNode expressionNode) {
         this.toWorker = receiverNode.name().text();
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
-        String type = typeSymbol.isPresent() ? typeSymbol.get().signature() : TypeDescKind.NONE.toString();
+        String type = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.toString();
 
         // Capture the name if the expression is a variable
         String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
@@ -120,7 +121,7 @@ public class Analyzer extends NodeVisitor {
 
         // Find the parameter type
         Optional<Symbol> symbol = this.semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
-        String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? typeSymbol.signature() :
+        String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? getTypeName(typeSymbol) :
                 TypeDescKind.NONE.toString();
 
         this.portId++;
@@ -155,5 +156,18 @@ public class Analyzer extends NodeVisitor {
 
     protected final String getPortId() {
         return String.valueOf(this.portId);
+    }
+
+    private String getTypeName(TypeSymbol typeSymbol) {
+        String typeName = typeSymbol.getName().orElse("");
+        Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
+
+        if (moduleSymbol.isPresent()) {
+            Optional<String> moduleName = moduleSymbol.get().getName();
+            if (moduleName.map(name -> !name.isEmpty() && !name.equals(Constants.DEFAULT_MODULE_SYMBOL)).orElse(false)) {
+                typeName = moduleName.get() + ":" + typeName;
+            }
+        }
+        return typeName;
     }
 }

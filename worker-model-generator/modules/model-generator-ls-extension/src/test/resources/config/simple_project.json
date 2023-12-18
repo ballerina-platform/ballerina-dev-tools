@@ -1,0 +1,209 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 63,
+    "offset": 1
+  },
+  "source": "simple_project/main.bal",
+  "description": "Tests a simple flow in a Ballerina project",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "main.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 23
+      },
+      "end": {
+        "line": 63,
+        "offset": 1
+      }
+    },
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "clone",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 17,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 54
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "lsorg/simple_project:0.1.0:Request",
+            "name": "req",
+            "receiver": "B"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "switch",
+        "codeLocation": {
+          "start": {
+            "line": 19,
+            "offset": 4
+          },
+          "end": {
+            "line": 33,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 0,
+          "y": 132
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "Request",
+            "name": "req",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "lsorg/simple_project:0.1.0:Request",
+            "name": "req",
+            "receiver": "C"
+          },
+          {
+            "id": "3",
+            "type": "lsorg/simple_project:0.1.0:Request",
+            "name": "req",
+            "receiver": "D"
+          }
+        ],
+        "properties": {
+          "cases": [
+            {
+              "expression": "req.value > 5",
+              "nodes": [
+                "2"
+              ]
+            }
+          ],
+          "defaultCase": {
+            "nodes": [
+              "3"
+            ]
+          }
+        }
+      },
+      {
+        "name": "C",
+        "templateId": "block",
+        "codeLocation": {
+          "start": {
+            "line": 35,
+            "offset": 4
+          },
+          "end": {
+            "line": 46,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 10,
+          "y": 12
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "Request",
+            "name": "req",
+            "sender": "B"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "lsorg/simple_project:0.1.0:Response",
+            "name": "res",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "\n        Response res = {id: req.id, success: true};\n",
+            "codeLocation": {
+              "start": {
+                "line": 44,
+                "offset": 8
+              },
+              "end": {
+                "line": 44,
+                "offset": 51
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "D",
+        "templateId": "block",
+        "codeLocation": {
+          "start": {
+            "line": 48,
+            "offset": 4
+          },
+          "end": {
+            "line": 59,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 132,
+          "y": 24
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "Request",
+            "name": "req",
+            "sender": "B"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "lsorg/simple_project:0.1.0:Response",
+            "name": "res",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "\n        Response res = {id: req.id, success: false};\n",
+            "codeLocation": {
+              "start": {
+                "line": 57,
+                "offset": 8
+              },
+              "end": {
+                "line": 57,
+                "offset": 52
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
