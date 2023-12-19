@@ -98,6 +98,7 @@ public class ModelGeneratorTest {
 
     @DataProvider(name = "worker-model-data-provider")
     public Object[] getConfigsList() {
+//        return new Object[] {Path.of("simple_import.json")};
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
             return Files.walk(CONFIG_DIR)

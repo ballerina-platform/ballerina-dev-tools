@@ -45,7 +45,7 @@
         "outputPorts": [
           {
             "id": "1",
-            "type": "lsorg/simple_project:0.1.0:Request",
+            "type": "Request",
             "name": "req",
             "receiver": "B"
           }
@@ -79,13 +79,13 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "lsorg/simple_project:0.1.0:Request",
+            "type": "Request",
             "name": "req",
             "receiver": "C"
           },
           {
             "id": "3",
-            "type": "lsorg/simple_project:0.1.0:Request",
+            "type": "Request",
             "name": "req",
             "receiver": "D"
           }
@@ -134,7 +134,7 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "lsorg/simple_project:0.1.0:Response",
+            "type": "Response",
             "name": "res",
             "receiver": "function"
           }
@@ -183,7 +183,7 @@
         "outputPorts": [
           {
             "id": "2",
-            "type": "lsorg/simple_project:0.1.0:Response",
+            "type": "Response",
             "name": "res",
             "receiver": "function"
           }

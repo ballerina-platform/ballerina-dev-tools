@@ -3,7 +3,10 @@ package io.ballerina.workermodelgenerator.core.analyzer;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AsyncSendActionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -24,6 +27,8 @@ import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * The default syntax tree analyzer to obtain information from a worker node. The implementation primarily concerns on
@@ -35,6 +40,7 @@ public class Analyzer extends NodeVisitor {
 
     private final SemanticModel semanticModel;
     private final NodeBuilder nodeBuilder;
+    private final Set<String> moduleTypeSymbols;
     protected String toWorker;
     protected String fromWorker;
     private String name;
@@ -44,6 +50,10 @@ public class Analyzer extends NodeVisitor {
     protected Analyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.nodeBuilder = nodeBuilder;
+        this.moduleTypeSymbols = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol instanceof TypeDefinitionSymbol)
+                .map(symbol -> ((TypeDefinitionSymbol) symbol).moduleQualifiedName())
+                .collect(Collectors.toSet());
         this.portId = 0;
     }
 
@@ -159,12 +169,24 @@ public class Analyzer extends NodeVisitor {
     }
 
     private String getTypeName(TypeSymbol typeSymbol) {
-        String typeName = typeSymbol.getName().orElse("");
-        Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
+        if (typeSymbol.typeKind() != TypeDescKind.TYPE_REFERENCE) {
+            return typeSymbol.signature();
+        }
 
+        TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+        String typeName = typeReferenceTypeSymbol.getName().orElse(typeSymbol.signature());
+        Symbol typeDefinitionSymbol = typeReferenceTypeSymbol.definition();
+
+        if (typeDefinitionSymbol.kind() == SymbolKind.TYPE_DEFINITION &&
+                this.moduleTypeSymbols.contains(((TypeDefinitionSymbol) typeDefinitionSymbol).moduleQualifiedName())) {
+            return typeName;
+        }
+
+        Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
         if (moduleSymbol.isPresent()) {
             Optional<String> moduleName = moduleSymbol.get().getName();
-            if (moduleName.map(name -> !name.isEmpty() && !name.equals(Constants.DEFAULT_MODULE_SYMBOL)).orElse(false)) {
+            if (moduleName.map(name -> !name.isEmpty() && !name.equals(Constants.DEFAULT_MODULE_SYMBOL))
+                    .orElse(false)) {
                 typeName = moduleName.get() + ":" + typeName;
             }
         }
