@@ -24,6 +24,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
@@ -43,6 +44,7 @@ public class TransformAnalyzer extends Analyzer {
 
     private String transformerFunctionName;
     private BalExpression balExpression;
+    private CodeLocation transformFunctionLocation;
     private String outputType;
 
     protected TransformAnalyzer(NodeBuilder nodeBuilder,
@@ -59,6 +61,12 @@ public class TransformAnalyzer extends Analyzer {
         // Obtain the output type
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(functionCallExpressionNode);
         this.outputType = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.getName();
+
+        // Obtain the bal expression
+        NonTerminalNode parent = functionCallExpressionNode.parent();
+        LineRange lineRange = parent.lineRange();
+        CodeLocation parentLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
+        this.balExpression = new BalExpression(parent.toSourceCode(), parentLocation);
     }
 
     @Override
@@ -67,8 +75,7 @@ public class TransformAnalyzer extends Analyzer {
             return;
         }
         LineRange lineRange = functionDefinitionNode.location().lineRange();
-        CodeLocation codeLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
-        this.balExpression = new BalExpression(functionDefinitionNode.toSourceCode(), codeLocation);
+        this.transformFunctionLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
     }
 
     @Override
@@ -76,7 +83,8 @@ public class TransformAnalyzer extends Analyzer {
         NodeProperties.NodePropertiesBuilder nodePropertiesBuilder = new NodeProperties.NodePropertiesBuilder();
         nodePropertiesBuilder
                 .setOutputType(this.outputType)
-                .setExpression(this.balExpression);
+                .setExpression(this.balExpression)
+                .setTransformFunctionLocation(this.transformFunctionLocation);
         return nodePropertiesBuilder.build();
     }
 }

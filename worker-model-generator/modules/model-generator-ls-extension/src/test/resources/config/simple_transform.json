@@ -53,16 +53,26 @@
         "properties": {
           "outputType": "Student",
           "expression": {
-            "expression": "\nfunction transform(Person p) returns Student => {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
+            "expression": "        Student s = transform({\n            firstName: \"John\",\n            lastName: \"Doe\"\n        });\n",
             "codeLocation": {
               "start": {
-                "line": 32,
-                "offset": 0
+                "line": 22,
+                "offset": 8
               },
               "end": {
-                "line": 34,
-                "offset": 2
+                "line": 25,
+                "offset": 11
               }
+            }
+          },
+          "transformFunctionLocation": {
+            "start": {
+              "line": 32,
+              "offset": 0
+            },
+            "end": {
+              "line": 34,
+              "offset": 2
             }
           }
         }

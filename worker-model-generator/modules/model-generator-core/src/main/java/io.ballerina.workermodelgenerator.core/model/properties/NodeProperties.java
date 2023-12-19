@@ -1,5 +1,7 @@
 package io.ballerina.workermodelgenerator.core.model.properties;
 
+import io.ballerina.workermodelgenerator.core.model.CodeLocation;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +17,7 @@ public class NodeProperties {
     // Transform node properties
     String outputType;
     BalExpression expression;
+    CodeLocation transformFunctionLocation;
 
     private NodeProperties() {
     }
@@ -70,6 +73,11 @@ public class NodeProperties {
 
         public NodePropertiesBuilder setOutputType(String outputType) {
             nodeProperties.outputType = outputType;
+            return this;
+        }
+
+        public NodePropertiesBuilder setTransformFunctionLocation(CodeLocation transformFunctionLocation) {
+            nodeProperties.transformFunctionLocation = transformFunctionLocation;
             return this;
         }
 
