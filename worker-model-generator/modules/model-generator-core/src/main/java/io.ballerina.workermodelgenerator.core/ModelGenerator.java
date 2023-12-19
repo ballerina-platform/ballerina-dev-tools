@@ -51,7 +51,7 @@ public class ModelGenerator {
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
         // Build the flow diagram
-        FlowBuilder flowBuilder = new FlowBuilder(semanticModel);
+        FlowBuilder flowBuilder = new FlowBuilder(semanticModel, modulePartNode);
         flowBuilder.setFilePath(this.filePath.toString());
         canvasNode.accept(flowBuilder);
         return gson.toJsonTree(flowBuilder.build());

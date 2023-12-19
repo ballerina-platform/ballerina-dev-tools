@@ -1,0 +1,71 @@
+{
+  "start": {
+    "line": 9,
+    "offset": 0
+  },
+  "end": {
+    "line": 30,
+    "offset": 1
+  },
+  "source": "simple_transform.bal",
+  "description": "Tests a simple flow with a transform node",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "simple_transform.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 14,
+        "offset": 23
+      },
+      "end": {
+        "line": 30,
+        "offset": 1
+      }
+    },
+    "nodes": [
+      {
+        "name": "DataMapper",
+        "templateId": "TransformNode",
+        "codeLocation": {
+          "start": {
+            "line": 15,
+            "offset": 4
+          },
+          "end": {
+            "line": 27,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 100,
+          "y": 24
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "Student",
+            "name": "s",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "\nfunction transform(Person p) returns Student => {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
+            "codeLocation": {
+              "start": {
+                "line": 32,
+                "offset": 0
+              },
+              "end": {
+                "line": 34,
+                "offset": 2
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

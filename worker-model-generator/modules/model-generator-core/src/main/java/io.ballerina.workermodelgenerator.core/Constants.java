@@ -32,5 +32,6 @@ public class Constants {
     public static final String FLOW_NAME = "name";
     public static final String SWITCH_NODE = "switch";
     public static final String BLOCK_NODE = "block";
+    public static final String TRANSFORM_NODE = "TransformNode";
     public static final String DEFAULT_MODULE_SYMBOL = ".";
 }

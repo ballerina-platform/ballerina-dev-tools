@@ -22,6 +22,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.workermodelgenerator.core.analyzer.Analyzer;
@@ -48,10 +49,12 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     private final List<WorkerNode> nodes;
     private CodeLocation bodyCodeLocation;
     private final SemanticModel semanticModel;
+    private final ModulePartNode modulePartNode;
 
-    public FlowBuilder(SemanticModel semanticModel) {
+    public FlowBuilder(SemanticModel semanticModel, ModulePartNode modulePartNode) {
         this.nodes = new ArrayList<>();
         this.semanticModel = semanticModel;
+        this.modulePartNode = modulePartNode;
     }
 
     @Override
@@ -88,7 +91,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
         }
 
         // Analyze and build the worker node
-        Analyzer analyzer = Analyzer.getAnalyzer(templateId, nodeBuilder, semanticModel);
+        Analyzer analyzer = Analyzer.getAnalyzer(templateId, nodeBuilder, semanticModel, modulePartNode);
         namedWorkerDeclarationNode.workerBody().accept(analyzer);
         nodeBuilder.setProperties(analyzer.buildProperties());
         addNode(nodeBuilder.build());
