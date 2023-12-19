@@ -1,5 +1,6 @@
 package io.ballerina.workermodelgenerator.core.analyzer;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -184,10 +185,9 @@ public class Analyzer extends NodeVisitor {
 
         Optional<ModuleSymbol> moduleSymbol = typeSymbol.getModule();
         if (moduleSymbol.isPresent()) {
-            Optional<String> moduleName = moduleSymbol.get().getName();
-            if (moduleName.map(name -> !name.isEmpty() && !name.equals(Constants.DEFAULT_MODULE_SYMBOL))
-                    .orElse(false)) {
-                typeName = moduleName.get() + ":" + typeName;
+            ModuleID id = moduleSymbol.get().id();
+            if (!id.moduleName().equals(Constants.DEFAULT_MODULE_SYMBOL)) {
+                typeName = id.modulePrefix() + ":" + typeName;
             }
         }
         return typeName;

@@ -1,15 +1,11 @@
-import ballerina/toml;
-
-type WriteConfig record {|
-    string name;
-|};
+import simple_project.types;
 
 @display {
     label: "Flow",
     id: "5",
-    name: "main/function"
+    name: "simple_import/function"
 }
-public function main() {
+public function testSimpleImports() {
 
     @display {
         label: "Node",
@@ -18,12 +14,13 @@ public function main() {
         yCord: 0
     }
     worker A {
-        toml:WriteConfig writeConfig = {
-            allowDottedKeys: false,
-            indentationPolicy: 0
+        types:Request req = {
+            name: "A",
+            address: "1/1/address",
+            age: 11
         };
 
-        writeConfig -> C;
+        req -> C;
     }
 
     @display {
@@ -33,10 +30,12 @@ public function main() {
         yCord: 10
     }
     worker B {
-        WriteConfig writeConfig = {
-            name: "B"
+        Request req = {
+            sender: "foo",
+            id: "1",
+            value: 32
         };
-        writeConfig -> C;
+        req -> C;
     }
 
     @display {
@@ -46,7 +45,7 @@ public function main() {
         yCord: 20
     }
     worker C {
-        toml:WriteConfig writeConfig = <- A;
-        WriteConfig writeConfig2 = <- B;
+        types:Request writeConfig = <- A;
+        Request writeConfig2 = <- B;
     }
 }
