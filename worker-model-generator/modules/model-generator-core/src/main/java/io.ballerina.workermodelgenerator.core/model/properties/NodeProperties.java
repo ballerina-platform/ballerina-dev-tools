@@ -29,12 +29,15 @@ public class NodeProperties {
         }
         return Objects.equals(this.cases, that.cases) &&
                 Objects.equals(this.defaultCase, that.defaultCase) &&
-                Objects.equals(this.codeBlock, that.codeBlock);
+                Objects.equals(this.codeBlock, that.codeBlock) &&
+                Objects.equals(this.outputType, that.outputType) &&
+                Objects.equals(this.expression, that.expression) &&
+                Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock);
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation);
     }
 
     @Override
