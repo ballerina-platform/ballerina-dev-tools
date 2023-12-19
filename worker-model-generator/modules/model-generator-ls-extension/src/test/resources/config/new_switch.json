@@ -1,0 +1,60 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 22,
+    "offset": 1
+  },
+  "source": "new_switch.bal",
+  "description": "Tests a flow with a new switch node",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "new_switch.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 38
+      },
+      "end": {
+        "line": 22,
+        "offset": 2
+      }
+    },
+    "nodes": [
+      {
+        "name": "switch_0",
+        "templateId": "switch",
+        "codeLocation": {
+          "start": {
+            "line": 8,
+            "offset": 4
+          },
+          "end": {
+            "line": 21,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 256,
+          "y": 128
+        },
+        "inputPorts": [],
+        "outputPorts": [],
+        "properties": {
+          "cases": [
+            {
+              "expression": "true",
+              "nodes": []
+            }
+          ],
+          "defaultCase": {
+            "nodes": []
+          }
+        }
+      }
+    ]
+  }
+}

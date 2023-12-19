@@ -312,7 +312,7 @@
         "inputPorts": [
           {
             "id": "1",
-            "type": "NONE",
+            "type": "None",
             "name": "channelingFee",
             "sender": "GetAppointmentFee"
           }

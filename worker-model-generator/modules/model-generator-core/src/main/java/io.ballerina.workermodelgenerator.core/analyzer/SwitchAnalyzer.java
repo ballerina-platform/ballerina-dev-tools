@@ -65,7 +65,7 @@ public class SwitchAnalyzer extends Analyzer {
             addDefaultSwitchCase(portIdStr);
             return;
         }
-        addSwitchCase(this.expression, portIdStr);
+        addSwitchCase(portIdStr);
     }
 
     @Override
@@ -85,20 +85,15 @@ public class SwitchAnalyzer extends Analyzer {
     @Override
     public void visit(BracedExpressionNode bracedExpressionNode) {
         this.expression = bracedExpressionNode.expression().toSourceCode();
+        this.expressionToNodesMapper.put(this.expression, new ArrayList<>());
     }
 
     private void addDefaultSwitchCase(String node) {
         this.defaultSwitchCaseNodes.add(node);
     }
 
-    private void addSwitchCase(String expression, String node) {
-        List<String> currentNodes = this.expressionToNodesMapper.get(expression);
-        if (currentNodes == null) {
-            List<String> nodes = new ArrayList<>();
-            nodes.add(node);
-            this.expressionToNodesMapper.put(expression, nodes);
-            return;
-        }
+    private void addSwitchCase(String node) {
+        List<String> currentNodes = this.expressionToNodesMapper.get(this.expression);
         currentNodes.add(node);
     }
 
