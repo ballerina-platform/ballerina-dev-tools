@@ -19,6 +19,8 @@
 package io.ballerina.workermodelgenerator.core.analyzer;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -30,6 +32,7 @@ import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Syntax tree analyzer to obtain information from a transform node.
@@ -40,6 +43,7 @@ public class TransformAnalyzer extends Analyzer {
 
     private String transformerFunctionName;
     private BalExpression balExpression;
+    private String outputType;
 
     protected TransformAnalyzer(NodeBuilder nodeBuilder,
                                 SemanticModel semanticModel, ModulePartNode modulePartNode) {
@@ -51,6 +55,10 @@ public class TransformAnalyzer extends Analyzer {
         this.transformerFunctionName =
                 ((SimpleNameReferenceNode) functionCallExpressionNode.functionName()).name().text();
         modulePartNode.members().forEach(member -> member.accept(this));
+
+        // Obtain the output type
+        Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(functionCallExpressionNode);
+        this.outputType = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.getName();
     }
 
     @Override
@@ -66,7 +74,9 @@ public class TransformAnalyzer extends Analyzer {
     @Override
     public NodeProperties buildProperties() {
         NodeProperties.NodePropertiesBuilder nodePropertiesBuilder = new NodeProperties.NodePropertiesBuilder();
-        nodePropertiesBuilder.setCodeBlock(this.balExpression);
+        nodePropertiesBuilder
+                .setOutputType(this.outputType)
+                .setExpression(this.balExpression);
         return nodePropertiesBuilder.build();
     }
 }

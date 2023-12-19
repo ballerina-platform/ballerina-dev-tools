@@ -12,6 +12,10 @@ public class NodeProperties {
     // Code node properties
     BalExpression codeBlock;
 
+    // Transform node properties
+    String outputType;
+    BalExpression expression;
+
     private NodeProperties() {
     }
 
@@ -56,6 +60,16 @@ public class NodeProperties {
 
         public NodePropertiesBuilder setCodeBlock(BalExpression codeBlock) {
             nodeProperties.codeBlock = codeBlock;
+            return this;
+        }
+
+        public NodePropertiesBuilder setExpression(BalExpression expression) {
+            nodeProperties.expression = expression;
+            return this;
+        }
+
+        public NodePropertiesBuilder setOutputType(String outputType) {
+            nodeProperties.outputType = outputType;
             return this;
         }
 

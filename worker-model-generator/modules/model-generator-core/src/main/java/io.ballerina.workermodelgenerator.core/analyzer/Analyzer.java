@@ -58,7 +58,7 @@ import java.util.stream.Collectors;
  */
 public class Analyzer extends NodeVisitor {
 
-    private final SemanticModel semanticModel;
+    protected final SemanticModel semanticModel;
     protected final ModulePartNode modulePartNode;
     private final NodeBuilder nodeBuilder;
     private final Set<String> moduleTypeSymbols;
@@ -125,7 +125,7 @@ public class Analyzer extends NodeVisitor {
     protected void analyzeSendAction(SimpleNameReferenceNode receiverNode, ExpressionNode expressionNode) {
         this.toWorker = receiverNode.name().text();
         Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(expressionNode);
-        String type = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.toString();
+        String type = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.getName();
 
         // Capture the name if the expression is a variable
         String name = expressionNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE ?
@@ -155,7 +155,7 @@ public class Analyzer extends NodeVisitor {
         // Find the parameter type
         Optional<Symbol> symbol = this.semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
         String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? getTypeName(typeSymbol) :
-                TypeDescKind.NONE.toString();
+                TypeDescKind.NONE.getName();
 
         this.portId++;
         this.nodeBuilder.addInputPort(getPortId(), type, this.name, this.fromWorker);
@@ -191,7 +191,7 @@ public class Analyzer extends NodeVisitor {
         return String.valueOf(this.portId);
     }
 
-    private String getTypeName(TypeSymbol typeSymbol) {
+    protected String getTypeName(TypeSymbol typeSymbol) {
         if (typeSymbol.typeKind() != TypeDescKind.TYPE_REFERENCE) {
             return typeSymbol.signature();
         }
