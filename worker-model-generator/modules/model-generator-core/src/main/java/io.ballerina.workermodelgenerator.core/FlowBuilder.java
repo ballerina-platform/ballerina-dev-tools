@@ -49,6 +49,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     private String filePath;
     private final List<WorkerNode> nodes;
     private CodeLocation bodyCodeLocation;
+    private CodeLocation fileCodeLocation;
     private final List<Endpoint> endpoints;
     private final SemanticModel semanticModel;
     private final ModulePartNode modulePartNode;
@@ -158,12 +159,17 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     }
 
     @Override
+    public void setFileCodeLocation(CodeLocation fileCodeLocation) {
+        this.fileCodeLocation = fileCodeLocation;
+    }
+
+    @Override
     public void addEndpoint(Endpoint endpoint) {
         this.endpoints.add(endpoint);
     }
 
     @Override
     public Flow build() {
-        return new Flow(id, name, filePath, bodyCodeLocation, endpoints, nodes);
+        return new Flow(id, name, filePath, bodyCodeLocation, fileCodeLocation, endpoints, nodes);
     }
 }

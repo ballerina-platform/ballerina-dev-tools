@@ -23,6 +23,16 @@
         "offset": 1
       }
     },
+    "fileCodeLocation": {
+      "start": {
+        "line": 0,
+        "offset": 0
+      },
+      "end": {
+        "line": 50,
+        "offset": 1
+      }
+    },
     "endpoints": [],
     "nodes": [
       {

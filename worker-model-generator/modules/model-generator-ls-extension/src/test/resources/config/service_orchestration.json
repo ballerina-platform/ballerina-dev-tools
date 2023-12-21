@@ -21,6 +21,16 @@
         "offset": 5
       }
     },
+    "fileCodeLocation": {
+      "start": {
+        "line": 0,
+        "offset": 0
+      },
+      "end": {
+        "line": 235,
+        "offset": 2
+      }
+    },
     "endpoints": [
       {
         "name": "hospitalServicesEP",

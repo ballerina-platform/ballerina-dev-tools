@@ -18,6 +18,10 @@
 
 package io.ballerina.workermodelgenerator.core;
 
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.workermodelgenerator.core.model.CodeLocation;
+
 /**
  * Common utility functions used in the project.
  *
@@ -33,5 +37,16 @@ public class CommonUtils {
      */
     public static String removeQuotes(String inputString) {
         return inputString.replaceAll("^\"|\"$", "");
+    }
+
+    /**
+     * Returns the code location of the given node.
+     *
+     * @param node the node
+     * @return the code location of the node
+     */
+    public static CodeLocation getCodeLocationFromNode(NonTerminalNode node) {
+        LineRange lineRange = node.lineRange();
+        return new CodeLocation(lineRange.startLine(), lineRange.endLine());
     }
 }

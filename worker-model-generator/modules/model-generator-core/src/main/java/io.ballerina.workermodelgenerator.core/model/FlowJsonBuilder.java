@@ -61,6 +61,13 @@ public interface FlowJsonBuilder {
     void setBodyCodeLocation(CodeLocation bodyCodeLocation);
 
     /**
+     * Sets the code location of the file containing the flow.
+     *
+     * @param fileCodeLocation code location of the file containing the flow
+     */
+    void setFileCodeLocation(CodeLocation fileCodeLocation);
+
+    /**
      * Adds an endpoint to the flow.
      *
      * @param endpoint endpoint to be added

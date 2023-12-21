@@ -27,11 +27,12 @@ import java.util.List;
  * @param name             name of the flow
  * @param fileName         name of the file containing the flow
  * @param bodyCodeLocation code location of the body of the flow
+ * @param fileCodeLocation code location of the file containing the flow
  * @param endpoints        endpoints defined for the flows
  * @param nodes            nodes in the flow
  * @since 2201.9.0
  */
-public record Flow(String id, String name, String fileName, CodeLocation bodyCodeLocation, List<Endpoint> endpoints,
-                   List<WorkerNode> nodes) {
+public record Flow(String id, String name, String fileName, CodeLocation bodyCodeLocation,
+                   CodeLocation fileCodeLocation, List<Endpoint> endpoints, List<WorkerNode> nodes) {
 
 }
