@@ -60,7 +60,7 @@ public class ModelGenerator {
         Map<String, String> endpointMap = documentSymbolFinder.getEndpointMap();
         FlowBuilder flowBuilder = new FlowBuilder(semanticModel, modulePartNode, endpointMap);
         flowBuilder.setFilePath(this.filePath.toString());
-        flowBuilder.setFileCodeLocation(CommonUtils.getCodeLocationFromNode(modulePartNode));
+        flowBuilder.setFileSourceRange(CommonUtils.getCodeLocationFromNode(modulePartNode));
         endpointMap.forEach((key, value) -> flowBuilder.addEndpoint(new Endpoint(key, value)));
         canvasNode.accept(flowBuilder);
         return gson.toJsonTree(flowBuilder.build());

@@ -83,7 +83,7 @@ public class ModelGeneratorTest {
         String balFileName = Path.of(flow.fileName()).getFileName().toString();
         boolean fileNameEquality = balFileName.equals(testConfig.getFlow().fileName());
         Flow modifiedFlow = new Flow(flow.id(), flow.name(), balFileName, flow.bodyCodeLocation(),
-                flow.fileCodeLocation(), flow.endpoints(), flow.nodes());
+                flow.fileSourceRange(), flow.endpoints(), flow.nodes());
 
         boolean flowEquality = modifiedFlow.equals(testConfig.getFlow());
         if (!fileNameEquality || !flowEquality) {

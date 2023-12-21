@@ -23,7 +23,7 @@
         "offset": 2
       }
     },
-    "fileCodeLocation": {
+    "fileSourceRange": {
       "start": {
         "line": 1,
         "offset": 0
