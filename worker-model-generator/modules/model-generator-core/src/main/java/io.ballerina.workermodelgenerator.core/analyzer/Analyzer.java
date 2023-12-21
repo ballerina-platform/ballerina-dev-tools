@@ -100,10 +100,10 @@ public class Analyzer extends NodeVisitor {
                                        SemanticModel semanticModel, ModulePartNode modulePartNode) {
         return switch (templateId) {
             case Constants.SWITCH_NODE -> new SwitchAnalyzer(nodeBuilder, semanticModel, modulePartNode);
-            case Constants.BLOCK_NODE -> new CodeBlockAnalyzer(nodeBuilder, semanticModel, modulePartNode);
+            case Constants.CLONE_NODE -> new Analyzer(nodeBuilder, semanticModel, modulePartNode);
             case Constants.TRANSFORM_NODE -> new TransformAnalyzer(nodeBuilder, semanticModel, modulePartNode);
             // TODO: Handle invalid template id
-            default -> new Analyzer(nodeBuilder, semanticModel, modulePartNode);
+            default -> new CodeBlockAnalyzer(nodeBuilder, semanticModel, modulePartNode);
         };
     }
 
