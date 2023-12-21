@@ -37,7 +37,7 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 7,
@@ -79,7 +79,7 @@
       },
       {
         "name": "B",
-        "templateId": "switch",
+        "templateId": "SwitchNode",
         "codeLocation": {
           "start": {
             "line": 18,
@@ -134,7 +134,7 @@
       },
       {
         "name": "C",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 34,
@@ -174,7 +174,7 @@
       },
       {
         "name": "D",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 45,

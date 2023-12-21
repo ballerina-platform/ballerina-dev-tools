@@ -7,7 +7,7 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "CodeBlockNode",
         xCord: 0,
         yCord: 0
     }
@@ -18,7 +18,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "switch",
+        templateId: "SwitchNode",
         xCord: 12,
         yCord: 3
     }
@@ -34,7 +34,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "CodeBlockNode",
         xCord: 10,
         yCord: 50
     }
@@ -45,7 +45,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "CodeBlockNode",
         xCord: 12,
         yCord: 56
     }

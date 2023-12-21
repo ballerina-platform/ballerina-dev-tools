@@ -7,7 +7,7 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 11,
         yCord: 32
     }
@@ -18,7 +18,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "block",
+        templateId: "CodeBlockNode",
         xCord: 32,
         yCord: 63
     }

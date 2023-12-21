@@ -15,7 +15,7 @@ public type Person record {
 public function main() {
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 0,
         yCord: 0
     }

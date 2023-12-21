@@ -37,7 +37,7 @@
     "nodes": [
       {
         "name": "A",
-        "templateId": "clone",
+        "templateId": "CloneNode",
         "codeLocation": {
           "start": {
             "line": 7,
@@ -70,7 +70,7 @@
       },
       {
         "name": "B",
-        "templateId": "clone",
+        "templateId": "CloneNode",
         "codeLocation": {
           "start": {
             "line": 20,
@@ -104,7 +104,7 @@
       },
       {
         "name": "C",
-        "templateId": "clone",
+        "templateId": "CloneNode",
         "codeLocation": {
           "start": {
             "line": 34,

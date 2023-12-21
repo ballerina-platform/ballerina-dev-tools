@@ -37,7 +37,7 @@
     "nodes": [
       {
         "name": "switch_0",
-        "templateId": "switch",
+        "templateId": "SwitchNode",
         "codeLocation": {
           "start": {
             "line": 8,

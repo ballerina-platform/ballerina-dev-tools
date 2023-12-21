@@ -30,8 +30,8 @@ public class Constants {
     public static final String WORKER_Y_COORDINATE = "yCord";
     public static final String FLOW_ID = "id";
     public static final String FLOW_NAME = "name";
-    public static final String SWITCH_NODE = "switch";
-    public static final String CLONE_NODE = "clone";
+    public static final String SWITCH_NODE = "SwitchNode";
+    public static final String CLONE_NODE = "CloneNode";
     public static final String HTTP_REQUEST_NODE = "HttpRequestNode";
     public static final String TRANSFORM_NODE = "TransformNode";
     public static final String DEFAULT_MODULE_SYMBOL = ".";

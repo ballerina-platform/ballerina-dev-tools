@@ -52,7 +52,7 @@
     "nodes": [
       {
         "name": "LogHospitalDetails",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 86,
@@ -87,7 +87,7 @@
       },
       {
         "name": "CreateAppointmentPayload",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 97,
@@ -129,7 +129,7 @@
       },
       {
         "name": "CreateAppointment",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 109,
@@ -184,7 +184,7 @@
       },
       {
         "name": "LogAppointment",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 127,
@@ -226,7 +226,7 @@
       },
       {
         "name": "GetAppointmentFee",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 139,
@@ -280,7 +280,7 @@
       },
       {
         "name": "LogAppointmentFee",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 157,
@@ -322,7 +322,7 @@
       },
       {
         "name": "CreatePaymentRequest",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 169,
@@ -371,7 +371,7 @@
       },
       {
         "name": "MakePayment",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 182,
@@ -426,7 +426,7 @@
       },
       {
         "name": "LogPaymentResponse",
-        "templateId": "block",
+        "templateId": "CodeBlockNode",
         "codeLocation": {
           "start": {
             "line": 197,

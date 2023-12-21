@@ -86,7 +86,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 11,
             yCord: 32
         }
@@ -97,7 +97,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 12,
             yCord: 32
         }
@@ -109,7 +109,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 5,
             yCord: 16
         }
@@ -127,7 +127,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 5,
             yCord: 13
         }
@@ -139,7 +139,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 4,
             yCord: 12
         }
@@ -157,7 +157,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 0,
             yCord: 13
         }
@@ -169,7 +169,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 31,
             yCord: 42
         }
@@ -182,7 +182,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 32,
             yCord: 51
         }
@@ -197,7 +197,7 @@ service /healthcare on new http:Listener(9095) {
 
         @display {
             label: "Node",
-            templateId: "block",
+            templateId: "CodeBlockNode",
             xCord: 50,
             yCord: 12
         }

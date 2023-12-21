@@ -7,7 +7,7 @@
 public function main() {
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 0,
         yCord: 0
     }
@@ -18,7 +18,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "switch",
+        templateId: "SwitchNode",
         xCord: 12,
         yCord: 3
     }
@@ -38,7 +38,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 10,
         yCord: 50
     }
@@ -49,7 +49,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 12,
         yCord: 56
     }
@@ -60,7 +60,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 13,
         yCord: 52
     }
@@ -71,7 +71,7 @@ public function main() {
 
     @display {
         label: "Node",
-        templateId: "clone",
+        templateId: "CloneNode",
         xCord: 18,
         yCord: 32
     }

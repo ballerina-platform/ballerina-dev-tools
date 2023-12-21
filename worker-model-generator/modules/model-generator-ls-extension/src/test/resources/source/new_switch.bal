@@ -8,7 +8,7 @@ public function main() returns error? {
 
     @display {
         label: "Node",
-        templateId: "switch",
+        templateId: "SwitchNode",
         xCord: 256,
         yCord: 128
     }
