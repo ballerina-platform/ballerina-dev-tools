@@ -19,7 +19,10 @@
 package io.ballerina.workermodelgenerator.core.analyzer;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
+import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
@@ -30,6 +33,7 @@ import io.ballerina.workermodelgenerator.core.model.Endpoint;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Syntax tree analyzer to obtain information from a http request node.
@@ -41,11 +45,19 @@ public class HttpRequestAnalyzer extends Analyzer {
     private String path;
     private String endpointName;
     private String action;
+    private String outputType;
 
     protected HttpRequestAnalyzer(NodeBuilder nodeBuilder,
                                   SemanticModel semanticModel,
                                   ModulePartNode modulePartNode, Map<String, String> endpointMap) {
         super(nodeBuilder, semanticModel, modulePartNode, endpointMap);
+    }
+
+    @Override
+    public void visit(CheckExpressionNode checkExpressionNode) {
+        Optional<TypeSymbol> typeSymbol = this.semanticModel.typeOf(checkExpressionNode);
+        this.outputType = typeSymbol.isPresent() ? getTypeName(typeSymbol.get()) : TypeDescKind.NONE.getName();
+        checkExpressionNode.expression().accept(this);
     }
 
     @Override
@@ -82,6 +94,7 @@ public class HttpRequestAnalyzer extends Analyzer {
         return propertiesBuilder
                 .setAction(this.action)
                 .setPath(this.path)
+                .setOutputType(this.outputType)
                 .setEndpoint(endpoint)
                 .build();
     }

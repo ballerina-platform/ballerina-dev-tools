@@ -57,6 +57,7 @@
           }
         ],
         "properties": {
+          "outputType": "json",
           "action": "get",
           "path": "/hello",
           "endpoint": {
