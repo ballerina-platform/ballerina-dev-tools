@@ -31,6 +31,8 @@ import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
+import java.util.Map;
+
 /**
  * Syntax tree analyzer to obtain information from a code block node.
  *
@@ -42,8 +44,9 @@ public class CodeBlockAnalyzer extends Analyzer {
     private BalExpression balExpression;
 
     protected CodeBlockAnalyzer(NodeBuilder nodeBuilder,
-                                SemanticModel semanticModel, ModulePartNode modulePartNode) {
-        super(nodeBuilder, semanticModel, modulePartNode);
+                                SemanticModel semanticModel, ModulePartNode modulePartNode,
+                                Map<String, String> endpointMap) {
+        super(nodeBuilder, semanticModel, modulePartNode, endpointMap);
     }
 
     @Override

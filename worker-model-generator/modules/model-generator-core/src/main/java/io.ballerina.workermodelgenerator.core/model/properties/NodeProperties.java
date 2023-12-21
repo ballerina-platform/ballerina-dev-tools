@@ -1,6 +1,7 @@
 package io.ballerina.workermodelgenerator.core.model.properties;
 
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
+import io.ballerina.workermodelgenerator.core.model.Endpoint;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +20,11 @@ public class NodeProperties {
     BalExpression expression;
     CodeLocation transformFunctionLocation;
 
+    // HTTP request node properties
+    String action;
+    String path;
+    Endpoint endpoint;
+
     private NodeProperties() {
     }
 
@@ -32,12 +38,16 @@ public class NodeProperties {
                 Objects.equals(this.codeBlock, that.codeBlock) &&
                 Objects.equals(this.outputType, that.outputType) &&
                 Objects.equals(this.expression, that.expression) &&
-                Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation);
+                Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation) &&
+                Objects.equals(this.action, that.action) &&
+                Objects.equals(this.path, that.path) &&
+                Objects.equals(this.endpoint, that.endpoint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation);
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation, action,
+                path, endpoint);
     }
 
     @Override
@@ -81,6 +91,21 @@ public class NodeProperties {
 
         public NodePropertiesBuilder setTransformFunctionLocation(CodeLocation transformFunctionLocation) {
             nodeProperties.transformFunctionLocation = transformFunctionLocation;
+            return this;
+        }
+
+        public NodePropertiesBuilder setAction(String action) {
+            nodeProperties.action = action;
+            return this;
+        }
+
+        public NodePropertiesBuilder setPath(String path) {
+            nodeProperties.path = path;
+            return this;
+        }
+
+        public NodePropertiesBuilder setEndpoint(Endpoint endpoint) {
+            nodeProperties.endpoint = endpoint;
             return this;
         }
 

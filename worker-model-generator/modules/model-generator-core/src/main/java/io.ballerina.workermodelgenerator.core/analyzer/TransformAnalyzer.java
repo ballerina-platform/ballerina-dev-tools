@@ -32,6 +32,7 @@ import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -47,9 +48,9 @@ public class TransformAnalyzer extends Analyzer {
     private CodeLocation transformFunctionLocation;
     private String outputType;
 
-    protected TransformAnalyzer(NodeBuilder nodeBuilder,
-                                SemanticModel semanticModel, ModulePartNode modulePartNode) {
-        super(nodeBuilder, semanticModel, modulePartNode);
+    protected TransformAnalyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode,
+                                Map<String, String> endpointMap) {
+        super(nodeBuilder, semanticModel, modulePartNode, endpointMap);
     }
 
     @Override

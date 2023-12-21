@@ -16,22 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.workermodelgenerator.core.model;
-
-import java.util.List;
+package io.ballerina.workermodelgenerator.core;
 
 /**
- * Represents a flow of workers.
+ * Common utility functions used in the project.
  *
- * @param id               id of the flow
- * @param name             name of the flow
- * @param fileName         name of the file containing the flow
- * @param bodyCodeLocation code location of the body of the flow
- * @param endpoints        endpoints defined for the flows
- * @param nodes            nodes in the flow
  * @since 2201.9.0
  */
-public record Flow(String id, String name, String fileName, CodeLocation bodyCodeLocation, List<Endpoint> endpoints,
-                   List<WorkerNode> nodes) {
+public class CommonUtils {
 
+    /**
+     * Removes the quotes from the given string.
+     *
+     * @param inputString the input string
+     * @return the string without quotes
+     */
+    public static String removeQuotes(String inputString) {
+        return inputString.replaceAll("^\"|\"$", "");
+    }
 }

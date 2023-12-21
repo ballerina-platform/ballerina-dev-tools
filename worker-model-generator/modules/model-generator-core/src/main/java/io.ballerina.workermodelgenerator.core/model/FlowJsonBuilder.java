@@ -61,6 +61,13 @@ public interface FlowJsonBuilder {
     void setBodyCodeLocation(CodeLocation bodyCodeLocation);
 
     /**
+     * Adds an endpoint to the flow.
+     *
+     * @param endpoint endpoint to be added
+     */
+    void addEndpoint(Endpoint endpoint);
+
+    /**
      * Builds the flow.
      *
      * @return built flow

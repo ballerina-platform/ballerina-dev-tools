@@ -23,6 +23,7 @@
         "offset": 1
       }
     },
+    "endpoints": [],
     "nodes": [
       {
         "name": "A",

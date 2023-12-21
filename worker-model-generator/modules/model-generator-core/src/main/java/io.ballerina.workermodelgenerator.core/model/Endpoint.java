@@ -18,20 +18,13 @@
 
 package io.ballerina.workermodelgenerator.core.model;
 
-import java.util.List;
-
 /**
- * Represents a flow of workers.
+ * Represents a HTTP endpoint defined for the flow.
  *
- * @param id               id of the flow
- * @param name             name of the flow
- * @param fileName         name of the file containing the flow
- * @param bodyCodeLocation code location of the body of the flow
- * @param endpoints        endpoints defined for the flows
- * @param nodes            nodes in the flow
+ * @param name    name of the endpoint
+ * @param baseUrl base url of the endpoint
  * @since 2201.9.0
  */
-public record Flow(String id, String name, String fileName, CodeLocation bodyCodeLocation, List<Endpoint> endpoints,
-                   List<WorkerNode> nodes) {
+public record Endpoint(String name, String baseUrl) {
 
 }

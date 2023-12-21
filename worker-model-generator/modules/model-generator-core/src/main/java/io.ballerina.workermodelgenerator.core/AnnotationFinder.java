@@ -74,6 +74,6 @@ class AnnotationFinder extends NodeVisitor {
     public void visit(BasicLiteralNode basicLiteralNode) {
         Token valueToken = basicLiteralNode.literalToken();
         this.valueHolder = valueToken.kind() == SyntaxKind.STRING_LITERAL_TOKEN ?
-                valueToken.text().replaceAll("^\"|\"$", "") : valueToken.text();
+                CommonUtils.removeQuotes(valueToken.text()) : valueToken.text();
     }
 }

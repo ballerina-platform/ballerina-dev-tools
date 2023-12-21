@@ -50,8 +50,8 @@ public class SwitchAnalyzer extends Analyzer {
     private final List<String> defaultSwitchCaseNodes;
 
     public SwitchAnalyzer(NodeBuilder nodeBuilder,
-                          SemanticModel semanticModel, ModulePartNode modulePartNode) {
-        super(nodeBuilder, semanticModel, modulePartNode);
+                          SemanticModel semanticModel, ModulePartNode modulePartNode, Map<String, String> endpointMap) {
+        super(nodeBuilder, semanticModel, modulePartNode, endpointMap);
         this.processDefaultCase = false;
         this.expressionToNodesMapper = new LinkedHashMap<>();
         this.defaultSwitchCaseNodes = new ArrayList<>();

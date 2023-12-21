@@ -27,6 +27,7 @@ import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.workermodelgenerator.core.analyzer.Analyzer;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
+import io.ballerina.workermodelgenerator.core.model.Endpoint;
 import io.ballerina.workermodelgenerator.core.model.Flow;
 import io.ballerina.workermodelgenerator.core.model.FlowJsonBuilder;
 import io.ballerina.workermodelgenerator.core.model.WorkerNode;
@@ -48,13 +49,17 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     private String filePath;
     private final List<WorkerNode> nodes;
     private CodeLocation bodyCodeLocation;
+    private final List<Endpoint> endpoints;
     private final SemanticModel semanticModel;
     private final ModulePartNode modulePartNode;
+    private final Map<String, String> endpointMap;
 
-    public FlowBuilder(SemanticModel semanticModel, ModulePartNode modulePartNode) {
+    public FlowBuilder(SemanticModel semanticModel, ModulePartNode modulePartNode, Map<String, String> endpointMap) {
         this.nodes = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.modulePartNode = modulePartNode;
+        this.endpointMap = endpointMap;
+        this.endpoints = new ArrayList<>();
     }
 
     @Override
@@ -91,7 +96,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
         }
 
         // Analyze and build the worker node
-        Analyzer analyzer = Analyzer.getAnalyzer(templateId, nodeBuilder, semanticModel, modulePartNode);
+        Analyzer analyzer = Analyzer.getAnalyzer(templateId, nodeBuilder, semanticModel, modulePartNode, endpointMap);
         namedWorkerDeclarationNode.workerBody().accept(analyzer);
         nodeBuilder.setProperties(analyzer.buildProperties());
         addNode(nodeBuilder.build());
@@ -153,7 +158,12 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     }
 
     @Override
+    public void addEndpoint(Endpoint endpoint) {
+        this.endpoints.add(endpoint);
+    }
+
+    @Override
     public Flow build() {
-        return new Flow(id, name, filePath, bodyCodeLocation, nodes);
+        return new Flow(id, name, filePath, bodyCodeLocation, endpoints, nodes);
     }
 }

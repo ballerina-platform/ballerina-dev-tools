@@ -23,6 +23,7 @@
         "offset": 2
       }
     },
+    "endpoints": [],
     "nodes": [
       {
         "name": "switch_0",

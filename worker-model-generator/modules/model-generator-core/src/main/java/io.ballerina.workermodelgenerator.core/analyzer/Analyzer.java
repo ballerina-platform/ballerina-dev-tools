@@ -46,6 +46,7 @@ import io.ballerina.workermodelgenerator.core.Constants;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -67,8 +68,10 @@ public class Analyzer extends NodeVisitor {
     private String name;
     protected int portId;
     protected boolean capturedFromWorker;
+    protected Map<String, String> endpointMap;
 
-    protected Analyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode) {
+    protected Analyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode, Map<String,
+            String> endpointMap) {
         this.semanticModel = semanticModel;
         this.nodeBuilder = nodeBuilder;
         this.moduleTypeSymbols = semanticModel.moduleSymbols().stream()
@@ -76,6 +79,7 @@ public class Analyzer extends NodeVisitor {
                 .map(symbol -> ((TypeDefinitionSymbol) symbol).moduleQualifiedName())
                 .collect(Collectors.toSet());
         this.modulePartNode = modulePartNode;
+        this.endpointMap = endpointMap;
         this.portId = 0;
     }
 
@@ -97,13 +101,17 @@ public class Analyzer extends NodeVisitor {
      * @return {@link Analyzer} for the given template id
      */
     public static Analyzer getAnalyzer(String templateId, NodeBuilder nodeBuilder,
-                                       SemanticModel semanticModel, ModulePartNode modulePartNode) {
+                                       SemanticModel semanticModel, ModulePartNode modulePartNode,
+                                       Map<String, String> endpointMap) {
         return switch (templateId) {
-            case Constants.SWITCH_NODE -> new SwitchAnalyzer(nodeBuilder, semanticModel, modulePartNode);
-            case Constants.CLONE_NODE -> new Analyzer(nodeBuilder, semanticModel, modulePartNode);
-            case Constants.TRANSFORM_NODE -> new TransformAnalyzer(nodeBuilder, semanticModel, modulePartNode);
+            case Constants.SWITCH_NODE -> new SwitchAnalyzer(nodeBuilder, semanticModel, modulePartNode, endpointMap);
+            case Constants.CLONE_NODE -> new Analyzer(nodeBuilder, semanticModel, modulePartNode, endpointMap);
+            case Constants.TRANSFORM_NODE ->
+                    new TransformAnalyzer(nodeBuilder, semanticModel, modulePartNode, endpointMap);
+            case Constants.HTTP_REQUEST_NODE ->
+                    new HttpRequestAnalyzer(nodeBuilder, semanticModel, modulePartNode, endpointMap);
             // TODO: Handle invalid template id
-            default -> new CodeBlockAnalyzer(nodeBuilder, semanticModel, modulePartNode);
+            default -> new CodeBlockAnalyzer(nodeBuilder, semanticModel, modulePartNode, endpointMap);
         };
     }
 

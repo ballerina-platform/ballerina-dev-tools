@@ -1,0 +1,70 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 24,
+    "offset": 1
+  },
+  "source": "simple_http.bal",
+  "description": "Tests a simple flow with a http node",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "simple_http.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 10,
+        "offset": 49
+      },
+      "end": {
+        "line": 25,
+        "offset": 1
+      }
+    },
+    "endpoints": [
+      {
+        "name": "clientEp",
+        "baseUrl": "http://localhost:9090/"
+      }
+    ],
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "HttpRequestNode",
+        "codeLocation": {
+          "start": {
+            "line": 12,
+            "offset": 4
+          },
+          "end": {
+            "line": 22,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 100,
+          "y": 24
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "json",
+            "name": "res",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "action": "get",
+          "path": "/hello",
+          "endpoint": {
+            "name": "clientEp",
+            "baseUrl": "http://localhost:9090/"
+          }
+        }
+      }
+    ]
+  }
+}

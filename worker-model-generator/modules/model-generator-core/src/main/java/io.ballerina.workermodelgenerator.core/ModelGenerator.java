@@ -11,8 +11,10 @@ import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
+import io.ballerina.workermodelgenerator.core.model.Endpoint;
 
 import java.nio.file.Path;
+import java.util.Map;
 
 /**
  * Generator for the worker model.
@@ -50,9 +52,15 @@ public class ModelGenerator {
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
+        // Analyze the symbols in the document
+        DocumentSymbolFinder documentSymbolFinder = new DocumentSymbolFinder();
+        modulePartNode.accept(documentSymbolFinder);
+
         // Build the flow diagram
-        FlowBuilder flowBuilder = new FlowBuilder(semanticModel, modulePartNode);
+        Map<String, String> endpointMap = documentSymbolFinder.getEndpointMap();
+        FlowBuilder flowBuilder = new FlowBuilder(semanticModel, modulePartNode, endpointMap);
         flowBuilder.setFilePath(this.filePath.toString());
+        endpointMap.forEach((key, value) -> flowBuilder.addEndpoint(new Endpoint(key, value)));
         canvasNode.accept(flowBuilder);
         return gson.toJsonTree(flowBuilder.build());
     }

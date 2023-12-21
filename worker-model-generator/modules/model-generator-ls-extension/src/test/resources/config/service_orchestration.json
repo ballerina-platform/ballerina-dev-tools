@@ -21,6 +21,24 @@
         "offset": 5
       }
     },
+    "endpoints": [
+      {
+        "name": "hospitalServicesEP",
+        "baseUrl": ""
+      },
+      {
+        "name": "hospitalServicesBackend",
+        "baseUrl": "http://localhost:9090"
+      },
+      {
+        "name": "paymentEP",
+        "baseUrl": ""
+      },
+      {
+        "name": "paymentBackend",
+        "baseUrl": "http://localhost:9090/healthcare/payments"
+      }
+    ],
     "nodes": [
       {
         "name": "LogHospitalDetails",
