@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
+import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.ClassDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
@@ -774,13 +775,7 @@ public class ActionVisitor extends NodeVisitor {
         whileStatementNode.whileBody().accept(actionVisitor);
 
         if (whileStatementNode.onFailClause().isPresent()) {
-            OnFailClauseNode onFailClauseNode = whileStatementNode.onFailClause().get();
-            OnFailClause onFailClause = new OnFailClause(
-                    onFailClauseNode.typeDescriptor().isPresent() ?
-                            onFailClauseNode.typeDescriptor().get().toString() : "",
-                    onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "", isHidden,
-                    whileStatementNode.onFailClause().get().lineRange());
+            OnFailClause onFailClause = generateOnFailClause(whileStatementNode.onFailClause().get(), isHidden);
             VisitorContext visitorContext1 = new VisitorContext(
                     this.visitorContext.getRootParticipant(),
                     this.visitorContext.getCurrentParticipant(),
@@ -826,13 +821,7 @@ public class ActionVisitor extends NodeVisitor {
         forEachStatementNode.blockStatement().accept(actionVisitor);
 
         if (forEachStatementNode.onFailClause().isPresent()) {
-            OnFailClauseNode onFailClauseNode = forEachStatementNode.onFailClause().get();
-            OnFailClause onFailClause = new OnFailClause(
-                    onFailClauseNode.typeDescriptor().isPresent() ?
-                            onFailClauseNode.typeDescriptor().get().toString() : "",
-                    onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "", isHidden,
-                    forEachStatementNode.onFailClause().get().lineRange());
+            OnFailClause onFailClause = generateOnFailClause(forEachStatementNode.onFailClause().get(), isHidden);
             VisitorContext visitorContext1 = new VisitorContext(
                     this.visitorContext.getRootParticipant(),
                     this.visitorContext.getCurrentParticipant(),
@@ -872,13 +861,7 @@ public class ActionVisitor extends NodeVisitor {
         lockStatementNode.blockStatement().accept(actionVisitor);
 
         if (lockStatementNode.onFailClause().isPresent()) {
-            OnFailClauseNode onFailClauseNode = lockStatementNode.onFailClause().get();
-            OnFailClause onFailClause = new OnFailClause(
-                    onFailClauseNode.typeDescriptor().isPresent() ?
-                            onFailClauseNode.typeDescriptor().get().toString() : "",
-                    onFailClauseNode.failErrorName().isPresent() ?
-                            onFailClauseNode.failErrorName().get().toString() : "", isHidden,
-                    lockStatementNode.onFailClause().get().lineRange());
+            OnFailClause onFailClause = generateOnFailClause(lockStatementNode.onFailClause().get(), isHidden);
             VisitorContext visitorContext1 = new VisitorContext(
                     this.visitorContext.getRootParticipant(),
                     this.visitorContext.getCurrentParticipant(),
@@ -920,12 +903,7 @@ public class ActionVisitor extends NodeVisitor {
         doStatementNode.blockStatement().accept(actionVisitor);
 
         if (doStatementNode.onFailClause().isPresent()) {
-            OnFailClause onFailClause = new OnFailClause(
-                    doStatementNode.onFailClause().get().typeDescriptor().isPresent() ?
-                            doStatementNode.onFailClause().get().typeDescriptor().get().toString() : "",
-                    doStatementNode.onFailClause().get().failErrorName().isPresent() ?
-                            doStatementNode.onFailClause().get().failErrorName().get().toString() : "",
-                    isHidden, doStatementNode.onFailClause().get().lineRange());
+            OnFailClause onFailClause = generateOnFailClause(doStatementNode.onFailClause().get(), isHidden);
             VisitorContext visitorContext1 = new VisitorContext(
                     this.visitorContext.getRootParticipant(),
                     this.visitorContext.getCurrentParticipant(),
@@ -1021,5 +999,15 @@ public class ActionVisitor extends NodeVisitor {
             }
         }
         return true;
+    }
+
+    private OnFailClause generateOnFailClause(OnFailClauseNode onFailClauseNode, boolean isHidden) {
+        return new OnFailClause(
+                onFailClauseNode.typedBindingPattern().isPresent() ?
+                        onFailClauseNode.typedBindingPattern().get().typeDescriptor().toString() : "",
+                onFailClauseNode.typedBindingPattern().isPresent() &&
+                        onFailClauseNode.typedBindingPattern().get().kind() == SyntaxKind.CAPTURE_BINDING_PATTERN ?
+                        ((CaptureBindingPatternNode) onFailClauseNode.typedBindingPattern().get()
+                                .bindingPattern()).variableName().text() : "", isHidden, onFailClauseNode.lineRange());
     }
 }
