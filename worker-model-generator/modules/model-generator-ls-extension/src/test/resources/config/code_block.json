@@ -1,0 +1,116 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 32,
+    "offset": 1
+  },
+  "source": "code_block.bal",
+  "description": "Tests a flow with a code block",
+  "flow": {
+    "id": "2",
+    "name": "main/function",
+    "fileName": "code_block.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 23
+      },
+      "end": {
+        "line": 32,
+        "offset": 1
+      }
+    },
+    "fileSourceRange": {
+      "start": {
+        "line": 1,
+        "offset": 0
+      },
+      "end": {
+        "line": 32,
+        "offset": 1
+      }
+    },
+    "endpoints": [],
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 16,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 11,
+          "y": 32
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "x",
+            "receiver": "B"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "CodeBlockNode",
+        "codeLocation": {
+          "start": {
+            "line": 18,
+            "offset": 4
+          },
+          "end": {
+            "line": 29,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 63
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "x",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "b",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "        int a = 32 + x;\n        int b = a % 12;\n",
+            "codeLocation": {
+              "start": {
+                "line": 26,
+                "offset": 8
+              },
+              "end": {
+                "line": 27,
+                "offset": 23
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

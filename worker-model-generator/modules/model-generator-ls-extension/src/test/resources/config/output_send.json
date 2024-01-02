@@ -1,0 +1,134 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 43,
+    "offset": 1
+  },
+  "source": "output_send.bal",
+  "description": "Tests the capturing of name in an output port",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "output_send.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 23
+      },
+      "end": {
+        "line": 43,
+        "offset": 1
+      }
+    },
+    "fileSourceRange": {
+      "start": {
+        "line": 1,
+        "offset": 0
+      },
+      "end": {
+        "line": 43,
+        "offset": 1
+      }
+    },
+    "endpoints": [],
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 16,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 0,
+          "y": 0
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "string",
+            "receiver": "B"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 18,
+            "offset": 4
+          },
+          "end": {
+            "line": 29,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 54
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "string",
+            "name": "txt",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "string",
+            "name": "txt",
+            "receiver": "C"
+          }
+        ]
+      },
+      {
+        "name": "C",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 31,
+            "offset": 4
+          },
+          "end": {
+            "line": 40,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 12,
+          "y": 4
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "string",
+            "name": "txt",
+            "sender": "B"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "string",
+            "name": "txt",
+            "receiver": "function"
+          }
+        ]
+      }
+    ]
+  }
+}

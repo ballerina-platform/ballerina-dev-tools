@@ -1,0 +1,113 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 36,
+    "offset": 1
+  },
+  "source": "multi_empty_switch.bal",
+  "description": "Tests a newly added switch node with multiple empty conditions",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "multi_empty_switch.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 23
+      },
+      "end": {
+        "line": 36,
+        "offset": 1
+      }
+    },
+    "fileSourceRange": {
+      "start": {
+        "line": 1,
+        "offset": 0
+      },
+      "end": {
+        "line": 36,
+        "offset": 1
+      }
+    },
+    "endpoints": [],
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 16,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 0,
+          "y": 0
+        },
+        "inputPorts": [],
+        "outputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "x",
+            "receiver": "B"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "SwitchNode",
+        "codeLocation": {
+          "start": {
+            "line": 18,
+            "offset": 4
+          },
+          "end": {
+            "line": 35,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 12,
+          "y": 3
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "x",
+            "sender": "A"
+          }
+        ],
+        "outputPorts": [],
+        "properties": {
+          "cases": [
+            {
+              "expression": "x < 10",
+              "nodes": []
+            },
+            {
+              "expression": "x > 10 && x < 20",
+              "nodes": []
+            },
+            {
+              "expression": "x > 20 && x < 40",
+              "nodes": []
+            }
+          ],
+          "defaultCase": {
+            "nodes": []
+          }
+        }
+      }
+    ]
+  }
+}
