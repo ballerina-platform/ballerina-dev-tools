@@ -19,6 +19,7 @@
 package io.ballerina.workermodelgenerator.core.analyzer;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.BracedExpressionNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -84,8 +85,12 @@ public class SwitchAnalyzer extends Analyzer {
 
     @Override
     public void visit(BracedExpressionNode bracedExpressionNode) {
-        this.expression = bracedExpressionNode.expression().toSourceCode();
-        this.expressionToNodesMapper.put(this.expression, new ArrayList<>());
+        initializeExpressionMap(bracedExpressionNode.expression());
+    }
+
+    @Override
+    public void visit(BinaryExpressionNode binaryExpressionNode) {
+        initializeExpressionMap(binaryExpressionNode);
     }
 
     private void addDefaultSwitchCase(String node) {
@@ -95,6 +100,11 @@ public class SwitchAnalyzer extends Analyzer {
     private void addSwitchCase(String node) {
         List<String> currentNodes = this.expressionToNodesMapper.get(this.expression);
         currentNodes.add(node);
+    }
+
+    private void initializeExpressionMap(ExpressionNode expressionNode) {
+        this.expression = expressionNode.toSourceCode();
+        this.expressionToNodesMapper.put(this.expression, new ArrayList<>());
     }
 
     @Override

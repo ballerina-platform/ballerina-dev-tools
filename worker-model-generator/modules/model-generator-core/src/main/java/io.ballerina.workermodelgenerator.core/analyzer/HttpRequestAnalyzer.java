@@ -22,6 +22,7 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.BasicLiteralNode;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
@@ -83,6 +84,11 @@ public class HttpRequestAnalyzer extends Analyzer {
     @Override
     public void visit(BasicLiteralNode basicLiteralNode) {
         this.path = CommonUtils.removeQuotes(basicLiteralNode.literalToken().text());
+    }
+
+    @Override
+    public void visit(BinaryExpressionNode binaryExpressionNode) {
+        this.path = binaryExpressionNode.toSourceCode();
     }
 
     @Override
