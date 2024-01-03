@@ -78,6 +78,13 @@ public interface WorkerNodeJsonBuilder {
     void addOutputPort(String id, String type, String name, String receiver);
 
     /**
+     * Sets the properties of the node.
+     *
+     * @param metadata metadata of the node
+     */
+    void setMetadata(String metadata);
+
+    /**
      * Builds the node.
      *
      * @return built node

@@ -88,6 +88,7 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
                     }
                     case Constants.WORKER_X_COORDINATE -> xCord = Integer.parseInt(entry.getValue());
                     case Constants.WORKER_Y_COORDINATE -> yCord = Integer.parseInt(entry.getValue());
+                    case Constants.WORKER_METADATA -> nodeBuilder.setMetadata(entry.getValue());
                     //TODO: Handle invalid annotations
                     default -> {
                     }

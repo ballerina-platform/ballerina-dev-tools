@@ -32,9 +32,11 @@ import java.util.List;
  * @param inputPorts     input ports of the node
  * @param outputPorts    output ports of the node
  * @param properties     properties of the node
+ * @param metadata       metadata of the node
  * @since 2201.9.0
  */
 public record WorkerNode(String name, String templateId, CodeLocation codeLocation, CanvasPosition canvasPosition,
-                         List<InputPort> inputPorts, List<OutputPort> outputPorts, NodeProperties properties) {
+                         List<InputPort> inputPorts, List<OutputPort> outputPorts, NodeProperties properties,
+                         String metadata) {
 
 }

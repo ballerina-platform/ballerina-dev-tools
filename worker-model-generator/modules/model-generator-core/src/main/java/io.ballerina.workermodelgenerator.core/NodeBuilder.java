@@ -27,6 +27,7 @@ public class NodeBuilder implements WorkerNodeJsonBuilder {
     private final List<InputPort> inputPorts;
     private final List<OutputPort> outputPorts;
     private NodeProperties properties;
+    private String metadata;
 
     public NodeBuilder() {
         this.inputPorts = new ArrayList<>();
@@ -54,6 +55,11 @@ public class NodeBuilder implements WorkerNodeJsonBuilder {
     }
 
     @Override
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    @Override
     public void setCodeLocation(LinePosition start, LinePosition end) {
         this.codeLocation = new CodeLocation(start, end);
     }
@@ -69,7 +75,8 @@ public class NodeBuilder implements WorkerNodeJsonBuilder {
 
     @Override
     public WorkerNode build() {
-        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, properties);
+        return new WorkerNode(id, templateId, codeLocation, canvasPosition, inputPorts, outputPorts, properties,
+                metadata);
     }
 
 }
