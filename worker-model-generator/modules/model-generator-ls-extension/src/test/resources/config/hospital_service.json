@@ -271,15 +271,15 @@
         "properties": {
           "outputType": "json|error",
           "expression": {
-            "expression": "check transformFunction(j1, j2)",
+            "expression": "\n            json res = check transformFunction(j1, j2);\n",
             "codeLocation": {
               "start": {
                 "line": 75,
-                "offset": 23
+                "offset": 12
               },
               "end": {
                 "line": 75,
-                "offset": 54
+                "offset": 55
               }
             }
           },

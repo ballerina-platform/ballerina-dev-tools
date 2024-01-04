@@ -26,6 +26,7 @@ import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
@@ -65,6 +66,11 @@ public class TransformAnalyzer extends Analyzer {
 
         // Obtain the bal expression
         NonTerminalNode parent = functionCallExpressionNode.parent();
+        while (parent != null && parent.kind() != SyntaxKind.LOCAL_VAR_DECL) {
+            parent = parent.parent();
+        }
+        //TODO: Handle the case when the parent is null
+
         LineRange lineRange = parent.lineRange();
         CodeLocation parentLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
         this.balExpression = new BalExpression(parent.toSourceCode(), parentLocation);
