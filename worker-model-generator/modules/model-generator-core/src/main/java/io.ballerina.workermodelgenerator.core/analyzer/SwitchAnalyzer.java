@@ -29,6 +29,8 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
+import io.ballerina.workermodelgenerator.core.model.CodeLocation;
+import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 import io.ballerina.workermodelgenerator.core.model.properties.SwitchCase;
 import io.ballerina.workermodelgenerator.core.model.properties.SwitchDefaultCase;
@@ -46,8 +48,8 @@ import java.util.Map;
 public class SwitchAnalyzer extends Analyzer {
 
     private boolean processDefaultCase;
-    private String expression;
-    private final Map<String, List<String>> expressionToNodesMapper;
+    private BalExpression expression;
+    private final Map<BalExpression, List<String>> expressionToNodesMapper;
     private final List<String> defaultSwitchCaseNodes;
 
     public SwitchAnalyzer(NodeBuilder nodeBuilder,
@@ -103,7 +105,8 @@ public class SwitchAnalyzer extends Analyzer {
     }
 
     private void initializeExpressionMap(ExpressionNode expressionNode) {
-        this.expression = expressionNode.toSourceCode();
+        this.expression = new BalExpression(expressionNode.toSourceCode(),
+                new CodeLocation(expressionNode.lineRange().startLine(), expressionNode.lineRange().endLine()));
         this.expressionToNodesMapper.put(this.expression, new ArrayList<>());
     }
 
@@ -111,7 +114,7 @@ public class SwitchAnalyzer extends Analyzer {
     public NodeProperties buildProperties() {
         //TODO: Handle the error case when there are no conditional statements.
         List<SwitchCase> switchCases = new ArrayList<>();
-        for (Map.Entry<String, List<String>> switchCaseEntry : this.expressionToNodesMapper.entrySet()) {
+        for (Map.Entry<BalExpression, List<String>> switchCaseEntry : this.expressionToNodesMapper.entrySet()) {
             switchCases.add(new SwitchCase(switchCaseEntry.getKey(), switchCaseEntry.getValue()));
         }
         NodeProperties.NodePropertiesBuilder nodePropertiesBuilder = new NodeProperties.NodePropertiesBuilder();

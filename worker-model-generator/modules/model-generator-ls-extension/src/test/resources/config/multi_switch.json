@@ -116,19 +116,55 @@
         "properties": {
           "cases": [
             {
-              "expression": "x < 10",
+              "expression": {
+                "expression": "x < 10",
+                "codeLocation": {
+                  "start": {
+                    "line": 27,
+                    "offset": 12
+                  },
+                  "end": {
+                    "line": 27,
+                    "offset": 18
+                  }
+                }
+              },
               "nodes": [
                 "2"
               ]
             },
             {
-              "expression": "x > 10 && x < 20",
+              "expression": {
+                "expression": "x > 10 && x < 20",
+                "codeLocation": {
+                  "start": {
+                    "line": 29,
+                    "offset": 19
+                  },
+                  "end": {
+                    "line": 29,
+                    "offset": 35
+                  }
+                }
+              },
               "nodes": [
                 "3"
               ]
             },
             {
-              "expression": "x > 20 && x < 40",
+              "expression": {
+                "expression": "x > 20 && x < 40",
+                "codeLocation": {
+                  "start": {
+                    "line": 31,
+                    "offset": 19
+                  },
+                  "end": {
+                    "line": 31,
+                    "offset": 35
+                  }
+                }
+              },
               "nodes": [
                 "4"
               ]

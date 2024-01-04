@@ -82,7 +82,19 @@
         "properties": {
           "cases": [
             {
-              "expression": "doctorType == \"ENT\" ",
+              "expression": {
+                "expression": "doctorType == \"ENT\" ",
+                "codeLocation": {
+                  "start": {
+                    "line": 26,
+                    "offset": 15
+                  },
+                  "end": {
+                    "line": 26,
+                    "offset": 34
+                  }
+                }
+              },
               "nodes": [
                 "1"
               ]

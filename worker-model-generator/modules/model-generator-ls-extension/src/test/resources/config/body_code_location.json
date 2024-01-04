@@ -1,0 +1,73 @@
+{
+  "start": {
+    "line": 10,
+    "offset": 4
+  },
+  "end": {
+    "line": 20,
+    "offset": 5
+  },
+  "source": "body_code_location.bal",
+  "description": "Tests body code location when there are multiple functions",
+  "flow": {
+    "fileName": "body_code_location.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 10,
+        "offset": 75
+      },
+      "end": {
+        "line": 20,
+        "offset": 5
+      }
+    },
+    "fileSourceRange": {
+      "start": {
+        "line": 0,
+        "offset": 0
+      },
+      "end": {
+        "line": 25,
+        "offset": 1
+      }
+    },
+    "endpoints": [
+      {
+        "name": "pineValleyEp",
+        "baseUrl": "http://localhost:9091/pineValley/"
+      },
+      {
+        "name": "grandOakEp",
+        "baseUrl": "http://localhost:9092/grandOak/"
+      }
+    ],
+    "nodes": [
+      {
+        "name": "CodeBlockNode_0",
+        "templateId": "CodeBlockNode",
+        "codeLocation": {
+          "start": {
+            "line": 12,
+            "offset": 8
+          },
+          "end": {
+            "line": 19,
+            "offset": 9
+          }
+        },
+        "canvasPosition": {
+          "x": 301,
+          "y": 8
+        },
+        "inputPorts": [],
+        "outputPorts": [],
+        "properties": {
+          "codeBlock": {
+            "expression": "",
+            "codeLocation": {}
+          }
+        }
+      }
+    ]
+  }
+}

@@ -57,7 +57,19 @@
         "properties": {
           "cases": [
             {
-              "expression": "true",
+              "expression": {
+                "expression": "true",
+                "codeLocation": {
+                  "start": {
+                    "line": 16,
+                    "offset": 12
+                  },
+                  "end": {
+                    "line": 16,
+                    "offset": 16
+                  }
+                }
+              },
               "nodes": []
             }
           ],

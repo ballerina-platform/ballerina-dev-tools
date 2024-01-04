@@ -119,7 +119,19 @@
         "properties": {
           "cases": [
             {
-              "expression": "x > 10",
+              "expression": {
+                "expression": "x > 10",
+                "codeLocation": {
+                  "start": {
+                    "line": 27,
+                    "offset": 12
+                  },
+                  "end": {
+                    "line": 27,
+                    "offset": 18
+                  }
+                }
+              },
               "nodes": [
                 "2"
               ]

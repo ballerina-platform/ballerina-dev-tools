@@ -104,7 +104,19 @@
         "properties": {
           "cases": [
             {
-              "expression": "req.value > 5",
+              "expression": {
+                "expression": "req.value > 5",
+                "codeLocation": {
+                  "start": {
+                    "line": 28,
+                    "offset": 12
+                  },
+                  "end": {
+                    "line": 28,
+                    "offset": 25
+                  }
+                }
+              },
               "nodes": [
                 "2"
               ]
