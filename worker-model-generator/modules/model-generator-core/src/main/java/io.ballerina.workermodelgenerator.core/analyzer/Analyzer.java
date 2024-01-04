@@ -27,6 +27,7 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.AlternateReceiveWorkerNode;
 import io.ballerina.compiler.syntax.tree.AsyncSendActionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
@@ -46,6 +47,8 @@ import io.ballerina.workermodelgenerator.core.Constants;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -64,7 +67,7 @@ public class Analyzer extends NodeVisitor {
     private final NodeBuilder nodeBuilder;
     private final Set<String> moduleTypeSymbols;
     protected String toWorker;
-    protected String fromWorker;
+    protected List<String> fromWorker;
     private String name;
     protected int portId;
     protected boolean capturedFromWorker;
@@ -165,16 +168,24 @@ public class Analyzer extends NodeVisitor {
         String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? getTypeName(typeSymbol) :
                 TypeDescKind.NONE.getName();
 
-        this.portId++;
-        this.nodeBuilder.addInputPort(getPortId(), type, this.name, this.fromWorker);
+        for (String worker : this.fromWorker) {
+            this.portId++;
+            this.nodeBuilder.addInputPort(getPortId(), type, this.name, worker);
+        }
         this.capturedFromWorker = false;
     }
 
     @Override
     public void visit(ReceiveActionNode receiveActionNode) {
+        this.fromWorker = new ArrayList<>();
         Node receiverWorker = receiveActionNode.receiveWorkers();
-        if (receiverWorker.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
-            this.fromWorker = ((SimpleNameReferenceNode) receiverWorker).name().text();
+        switch (receiverWorker.kind()) {
+            case SIMPLE_NAME_REFERENCE -> this.fromWorker.add(((SimpleNameReferenceNode) receiverWorker).name().text());
+            case ALTERNATE_RECEIVE_WORKER -> ((AlternateReceiveWorkerNode) receiverWorker).workers()
+                    .forEach(worker -> this.fromWorker.add(worker.name().text()));
+            // TODO: Handle invalid worker receive actions
+            default -> {
+            }
         }
         this.capturedFromWorker = true;
     }

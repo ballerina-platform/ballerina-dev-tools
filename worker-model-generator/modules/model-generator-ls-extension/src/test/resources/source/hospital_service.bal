@@ -10,16 +10,11 @@ type PineValleyPayload record {
 
 service / on new http:Listener(9090) {
 
-    @display {
-        label: "Flow",
-        id: "1",
-        name: "doctor/<type>"
-    }
     resource function get doctor/[string doctorType]() returns json|error? {
 
         @display {
             label: "Check Doctor Type",
-            templateId: "SwitchNode"
+            templateId: "SwitchNode",
             xCord: 0,
             yCord: 12
         }
