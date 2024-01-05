@@ -29,7 +29,7 @@ service / on new http:Listener(9090) {
 
         @display {
             label: "Build Pine Valley Payload",
-            templateId: "CloneNode",
+            templateId: "NewPayloadNode",
             xCord: 11,
             yCord: 25
         }

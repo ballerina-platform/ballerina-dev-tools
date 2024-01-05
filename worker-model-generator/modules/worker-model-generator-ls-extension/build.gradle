@@ -34,7 +34,7 @@ configurations {
 }
 
 dependencies {
-    implementation project(':worker-model-generator:model-generator-core')
+    implementation project(':worker-model-generator:worker-model-generator-core')
 
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
