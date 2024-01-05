@@ -1,0 +1,154 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 43,
+    "offset": 1
+  },
+  "source": "alternate_receiver.bal",
+  "description": "Tests a node with alternate receiver",
+  "flow": {
+    "id": "1",
+    "name": "main/function",
+    "fileName": "alternate_receiver.bal",
+    "bodyCodeLocation": {
+      "start": {
+        "line": 6,
+        "offset": 23
+      },
+      "end": {
+        "line": 43,
+        "offset": 1
+      }
+    },
+    "fileSourceRange": {
+      "start": {
+        "line": 1,
+        "offset": 0
+      },
+      "end": {
+        "line": 43,
+        "offset": 1
+      }
+    },
+    "endpoints": [],
+    "nodes": [
+      {
+        "name": "A",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 7,
+            "offset": 4
+          },
+          "end": {
+            "line": 16,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 64
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "x",
+            "sender": "function"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "x",
+            "receiver": "C"
+          }
+        ]
+      },
+      {
+        "name": "B",
+        "templateId": "CloneNode",
+        "codeLocation": {
+          "start": {
+            "line": 18,
+            "offset": 4
+          },
+          "end": {
+            "line": 27,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 32,
+          "y": 30
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "y",
+            "sender": "function"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "2",
+            "type": "int",
+            "name": "y",
+            "receiver": "C"
+          }
+        ]
+      },
+      {
+        "name": "C",
+        "templateId": "ReplyNode",
+        "codeLocation": {
+          "start": {
+            "line": 29,
+            "offset": 4
+          },
+          "end": {
+            "line": 38,
+            "offset": 5
+          }
+        },
+        "canvasPosition": {
+          "x": 100,
+          "y": 102
+        },
+        "inputPorts": [
+          {
+            "id": "1",
+            "type": "int",
+            "name": "y",
+            "sender": "A"
+          },
+          {
+            "id": "2",
+            "type": "int",
+            "name": "y",
+            "sender": "B"
+          }
+        ],
+        "outputPorts": [
+          {
+            "id": "3",
+            "type": "int",
+            "name": "y",
+            "receiver": "function"
+          }
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "",
+            "codeLocation": {}
+          }
+        }
+      }
+    ]
+  }
+}

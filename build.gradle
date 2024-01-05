@@ -101,12 +101,12 @@ def artifactWorkerLibParent = file("$project.rootDir/build/worker-model-generato
 def targetArchModelGeneratorCore = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-core/build/libs/architecture-model-generator-core-${project.version}.jar")
 def targetArchModelGeneratorPlugin = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-plugin/build/libs/architecture-model-generator-plugin-${project.version}.jar")
 def targetArchModelGeneratorLSExt = file("$project.rootDir/architecture-model-generator/modules/architecture-model-generator-ls-extension/build/libs/architecture-model-generator-ls-extension-${project.version}.jar")
-def targetWorkerModelGeneratorCore = file("$project.rootDir/worker-model-generator/modules/model-generator-core/build/libs/model-generator-core-${project.version}.jar")
-def targetWorkerModelGeneratorLSExt = file("$project.rootDir/worker-model-generator/modules/model-generator-ls-extension/build/libs/model-generator-ls-extension-${project.version}.jar")
 def targetGraphqlModelGeneratorCore = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-core/build/libs/graphql-model-generator-core-${project.version}.jar")
 def targetGraphqlModelGeneratorLSExt = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-ls-extension/build/libs/graphql-model-generator-ls-extension-${project.version}.jar")
 def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-diagram-generator/modules/sequence-diagram-model-generator-core/build/libs/sequence-diagram-generator-core-${project.version}.jar")
 def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-diagram-generator/modules/sequence-diagram-model-generator-ls-extension/build/libs/sequence-diagram-generator-ls-extension-${project.version}.jar")
+def targetWorkerModelGeneratorCore = file("$project.rootDir/worker-model-generator/modules/worker-model-generator-core/build/libs/worker-model-generator-core-${project.version}.jar")
+def targetWorkerModelGeneratorLSExt = file("$project.rootDir/worker-model-generator/modules/worker-model-generator-ls-extension/build/libs/worker-model-generator-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
@@ -114,11 +114,11 @@ task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-ls-extension:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-core:build")
     dependsOn(":graphql-model-generator:graphql-model-generator-ls-extension:build")
-    dependsOn(":worker-model-generator:model-generator-core:build")
-    dependsOn(":worker-model-generator:model-generator-ls-extension:build")
     dependsOn(":generatePomFileForMavenJavaPublication")
     dependsOn(":sequence-diagram-model-generator:sequence-diagram-model-generator-core:build")
     dependsOn(":sequence-diagram-model-generator:sequence-diagram-model-generator-ls-extension:build")
+    dependsOn(":worker-model-generator:worker-model-generator-core:build")
+    dependsOn(":worker-model-generator:worker-model-generator-ls-extension:build")
     inputs.dir file(project.rootDir)
     doLast {
         copy {
