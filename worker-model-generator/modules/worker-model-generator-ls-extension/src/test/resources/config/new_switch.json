@@ -16,11 +16,11 @@
     "bodyCodeLocation": {
       "start": {
         "line": 6,
-        "offset": 38
+        "offset": 39
       },
       "end": {
         "line": 22,
-        "offset": 2
+        "offset": 0
       }
     },
     "fileSourceRange": {
