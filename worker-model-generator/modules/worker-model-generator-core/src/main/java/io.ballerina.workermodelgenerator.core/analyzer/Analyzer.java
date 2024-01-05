@@ -67,7 +67,7 @@ public class Analyzer extends NodeVisitor {
     private final NodeBuilder nodeBuilder;
     private final Set<String> moduleTypeSymbols;
     protected String toWorker;
-    protected List<String> fromWorker;
+    protected List<String> fromWorkers;
     private String name;
     protected int portId;
     protected boolean capturedFromWorker;
@@ -83,6 +83,7 @@ public class Analyzer extends NodeVisitor {
                 .collect(Collectors.toSet());
         this.modulePartNode = modulePartNode;
         this.endpointMap = endpointMap;
+        this.fromWorkers = new ArrayList<>();
         this.portId = 0;
     }
 
@@ -168,7 +169,7 @@ public class Analyzer extends NodeVisitor {
         String type = (symbol.isPresent() && symbol.get() instanceof TypeSymbol typeSymbol) ? getTypeName(typeSymbol) :
                 TypeDescKind.NONE.getName();
 
-        for (String worker : this.fromWorker) {
+        for (String worker : this.fromWorkers) {
             this.portId++;
             this.nodeBuilder.addInputPort(getPortId(), type, this.name, worker);
         }
@@ -177,12 +178,13 @@ public class Analyzer extends NodeVisitor {
 
     @Override
     public void visit(ReceiveActionNode receiveActionNode) {
-        this.fromWorker = new ArrayList<>();
+        this.fromWorkers = new ArrayList<>();
         Node receiverWorker = receiveActionNode.receiveWorkers();
         switch (receiverWorker.kind()) {
-            case SIMPLE_NAME_REFERENCE -> this.fromWorker.add(((SimpleNameReferenceNode) receiverWorker).name().text());
+            case SIMPLE_NAME_REFERENCE ->
+                    this.fromWorkers.add(((SimpleNameReferenceNode) receiverWorker).name().text());
             case ALTERNATE_RECEIVE_WORKER -> ((AlternateReceiveWorkerNode) receiverWorker).workers()
-                    .forEach(worker -> this.fromWorker.add(worker.name().text()));
+                    .forEach(worker -> this.fromWorkers.add(worker.name().text()));
             // TODO: Handle invalid worker receive actions
             default -> {
             }

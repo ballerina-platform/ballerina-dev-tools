@@ -142,20 +142,20 @@ task copyArtifactZip {
             into file("$artifactGraphqlLibParent/ls-libs")
         }
         copy {
-            from targetWorkerModelGeneratorCore
-            into file("$artifactWorkerLibParent/libs")
-        }
-        copy {
-            from targetWorkerModelGeneratorLSExt
-            into file("$artifactWorkerLibParent/ls-libs")
-        }
-        copy {
             from targetSequenceDiagramGeneratorCore
             into file("$artifactSequenceLibParent/libs")
         }
         copy {
             from targetSequenceDiagramGeneratorLSExt
             into file("$artifactSequenceLibParent/ls-libs")
+        }
+        copy {
+            from targetWorkerModelGeneratorCore
+            into file("$artifactWorkerLibParent/libs")
+        }
+        copy {
+            from targetWorkerModelGeneratorLSExt
+            into file("$artifactWorkerLibParent/ls-libs")
         }
     }
     outputs.dir artifactLibParent
