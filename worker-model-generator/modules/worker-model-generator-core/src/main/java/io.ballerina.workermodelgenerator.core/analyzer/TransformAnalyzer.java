@@ -71,7 +71,7 @@ public class TransformAnalyzer extends Analyzer {
         }
         //TODO: Handle the case when the parent is null
 
-        LineRange lineRange = parent.lineRange();
+        LineRange lineRange = Objects.requireNonNull(parent).lineRange();
         CodeLocation parentLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
         this.balExpression = new BalExpression(parent.toSourceCode(), parentLocation);
     }
