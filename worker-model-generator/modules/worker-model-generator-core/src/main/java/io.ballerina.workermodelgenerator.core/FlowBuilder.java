@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com) All Rights Reserved.
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -19,12 +19,14 @@
 package io.ballerina.workermodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.MetadataNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NamedWorkerDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.workermodelgenerator.core.analyzer.Analyzer;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.Endpoint;
@@ -108,8 +110,14 @@ class FlowBuilder extends NodeVisitor implements FlowJsonBuilder {
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         // Obtain the code body location of the flow
         FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
-        setBodyCodeLocation(new CodeLocation(functionBodyNode.lineRange().startLine(),
-                functionBodyNode.lineRange().endLine()));
+
+        // TODO: Handle invalid function definitions
+        if (functionBodyNode.kind() != SyntaxKind.FUNCTION_BODY_BLOCK) {
+            return;
+        }
+        FunctionBodyBlockNode functionBodyBlockNode = (FunctionBodyBlockNode) functionBodyNode;
+        setBodyCodeLocation(new CodeLocation(functionBodyBlockNode.openBraceToken().lineRange().endLine(),
+                functionBodyBlockNode.closeBraceToken().lineRange().startLine()));
 
         // Process the flow metadata information from the annotations
         Optional<MetadataNode> metadata = functionDefinitionNode.metadata();

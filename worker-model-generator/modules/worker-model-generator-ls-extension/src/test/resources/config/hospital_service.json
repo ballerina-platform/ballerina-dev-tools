@@ -14,11 +14,11 @@
     "bodyCodeLocation": {
       "start": {
         "line": 12,
-        "offset": 75
+        "offset": 76
       },
       "end": {
         "line": 92,
-        "offset": 5
+        "offset": 4
       }
     },
     "fileSourceRange": {
@@ -108,7 +108,7 @@
       },
       {
         "name": "buildPineValleyPayload",
-        "templateId": "CloneNode",
+        "templateId": "NewPayloadNode",
         "codeLocation": {
           "start": {
             "line": 29,
@@ -137,7 +137,22 @@
             "name": "payload",
             "receiver": "callPineValley"
           }
-        ]
+        ],
+        "properties": {
+          "codeBlock": {
+            "expression": "            PineValleyPayload payload = {doctorType: doctorType};\n",
+            "codeLocation": {
+              "start": {
+                "line": 37,
+                "offset": 12
+              },
+              "end": {
+                "line": 37,
+                "offset": 65
+              }
+            }
+          }
+        }
       },
       {
         "name": "callPineValley",
