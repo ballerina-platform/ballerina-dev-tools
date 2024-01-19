@@ -21,6 +21,7 @@ package io.ballerina.workermodelgenerator.core.analyzer;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -31,6 +32,7 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
+import io.ballerina.workermodelgenerator.core.model.properties.CodeBlock;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Map;
@@ -47,6 +49,7 @@ public class TransformAnalyzer extends Analyzer {
     private String transformerFunctionName;
     private BalExpression balExpression;
     private CodeLocation transformFunctionLocation;
+    private CodeBlock transformFunctionBody;
     private String outputType;
 
     protected TransformAnalyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode,
@@ -81,8 +84,14 @@ public class TransformAnalyzer extends Analyzer {
         if (!Objects.equals(this.transformerFunctionName, functionDefinitionNode.functionName().text())) {
             return;
         }
-        LineRange lineRange = functionDefinitionNode.location().lineRange();
-        this.transformFunctionLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
+        LineRange functionLineRange = functionDefinitionNode.location().lineRange();
+        this.transformFunctionLocation = new CodeLocation(functionLineRange.startLine(), functionLineRange.endLine());
+
+        FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
+        LineRange functionBodyLineRange = functionBodyNode.lineRange();
+        CodeLocation codeLocation =
+                new CodeLocation(functionBodyLineRange.startLine(), functionBodyLineRange.endLine());
+        this.transformFunctionBody = new CodeBlock(functionBodyNode.toSourceCode(), codeLocation);
     }
 
     @Override
@@ -91,7 +100,8 @@ public class TransformAnalyzer extends Analyzer {
         nodePropertiesBuilder
                 .setOutputType(this.outputType)
                 .setExpression(this.balExpression)
-                .setTransformFunctionLocation(this.transformFunctionLocation);
+                .setTransformFunctionLocation(this.transformFunctionLocation)
+                .transformFunctionBody(this.transformFunctionBody);
         return nodePropertiesBuilder.build();
     }
 }

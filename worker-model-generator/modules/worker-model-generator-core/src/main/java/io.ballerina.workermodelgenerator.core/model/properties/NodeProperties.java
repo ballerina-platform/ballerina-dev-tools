@@ -36,12 +36,13 @@ public class NodeProperties {
     SwitchDefaultCase defaultCase;
 
     // Code node properties
-    BalExpression codeBlock;
+    CodeBlock codeBlock;
 
     // Transform node properties
     String outputType;
     BalExpression expression;
     CodeLocation transformFunctionLocation;
+    CodeBlock transformFunctionBody;
 
     // HTTP request node properties
     String action;
@@ -62,6 +63,7 @@ public class NodeProperties {
                 Objects.equals(this.outputType, that.outputType) &&
                 Objects.equals(this.expression, that.expression) &&
                 Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation) &&
+                Objects.equals(this.transformFunctionBody, that.transformFunctionBody) &&
                 Objects.equals(this.action, that.action) &&
                 Objects.equals(this.path, that.path) &&
                 Objects.equals(this.endpoint, that.endpoint);
@@ -69,14 +71,16 @@ public class NodeProperties {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation, action,
-                path, endpoint);
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation,
+                transformFunctionBody, action, path, endpoint);
     }
 
     @Override
     public String toString() {
-        return String.format("NodeProperties[cases=%s, defaultCase=%s, codeBlock=%s]",
-                cases, defaultCase, codeBlock);
+        return String.format("NodeProperties{cases=%s, defaultCase=%s, codeBlock=%s, outputType=%s, expression=%s, " +
+                        "transformFunctionLocation=%s, transformFunctionBody=%s, action=%s, path=%s, endpoint=%s}",
+                cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation, transformFunctionBody,
+                action, path, endpoint);
     }
 
     public static class NodePropertiesBuilder {
@@ -97,7 +101,7 @@ public class NodeProperties {
             return this;
         }
 
-        public NodePropertiesBuilder setCodeBlock(BalExpression codeBlock) {
+        public NodePropertiesBuilder setCodeBlock(CodeBlock codeBlock) {
             nodeProperties.codeBlock = codeBlock;
             return this;
         }
@@ -114,6 +118,11 @@ public class NodeProperties {
 
         public NodePropertiesBuilder setTransformFunctionLocation(CodeLocation transformFunctionLocation) {
             nodeProperties.transformFunctionLocation = transformFunctionLocation;
+            return this;
+        }
+
+        public NodePropertiesBuilder transformFunctionBody(CodeBlock transformFunctionBody) {
+            nodeProperties.transformFunctionBody = transformFunctionBody;
             return this;
         }
 

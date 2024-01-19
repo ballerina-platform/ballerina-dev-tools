@@ -119,6 +119,19 @@
               "line": 47,
               "offset": 2
             }
+          },
+          "transformFunctionBody": {
+            "code": "=> {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
+            "codeLocation": {
+              "start": {
+                "line": 45,
+                "offset": 45
+              },
+              "end": {
+                "line": 47,
+                "offset": 2
+              }
+            }
           }
         }
       }

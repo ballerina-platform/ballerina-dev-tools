@@ -164,7 +164,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "\n        Response res = {id: req.id, success: true};\n",
+            "code": "\n        Response res = {id: req.id, success: true};\n",
             "codeLocation": {
               "start": {
                 "line": 44,
@@ -213,7 +213,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "\n        Response res = {id: req.id, success: false};\n",
+            "code": "\n        Response res = {id: req.id, success: false};\n",
             "codeLocation": {
               "start": {
                 "line": 57,

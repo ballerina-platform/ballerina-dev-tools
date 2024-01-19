@@ -140,7 +140,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            PineValleyPayload payload = {doctorType: doctorType};\n",
+            "code": "            PineValleyPayload payload = {doctorType: doctorType};\n",
             "codeLocation": {
               "start": {
                 "line": 37,
@@ -306,6 +306,19 @@
             "end": {
               "line": 95,
               "offset": 97
+            }
+          },
+          "transformFunctionBody": {
+            "code": "=> check value:mergeJson(j1, j2);\n",
+            "codeLocation": {
+              "start": {
+                "line": 95,
+                "offset": 64
+              },
+              "end": {
+                "line": 95,
+                "offset": 97
+              }
             }
           }
         }

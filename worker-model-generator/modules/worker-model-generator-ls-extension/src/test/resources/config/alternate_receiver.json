@@ -144,7 +144,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "",
+            "code": "",
             "codeLocation": {}
           }
         }
