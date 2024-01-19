@@ -39,6 +39,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.ReceiveActionNode;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.SingleReceiveNode;
 import io.ballerina.compiler.syntax.tree.SyncSendActionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -181,8 +182,8 @@ public class Analyzer extends NodeVisitor {
         this.fromWorkers = new ArrayList<>();
         Node receiverWorker = receiveActionNode.receiveWorkers();
         switch (receiverWorker.kind()) {
-            case SIMPLE_NAME_REFERENCE ->
-                    this.fromWorkers.add(((SimpleNameReferenceNode) receiverWorker).name().text());
+            case SINGLE_RECEIVE ->
+                    this.fromWorkers.add(((SingleReceiveNode) receiverWorker).worker().name().text());
             case ALTERNATE_RECEIVE -> ((AlternateReceiveNode) receiverWorker).workers()
                     .forEach(worker -> this.fromWorkers.add(worker.name().text()));
             // TODO: Handle invalid worker receive actions

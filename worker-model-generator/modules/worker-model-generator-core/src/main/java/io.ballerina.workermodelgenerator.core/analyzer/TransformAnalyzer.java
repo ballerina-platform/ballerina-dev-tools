@@ -89,7 +89,8 @@ public class TransformAnalyzer extends Analyzer {
 
         FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
         LineRange functionBodyLineRange = functionBodyNode.lineRange();
-        CodeLocation codeLocation = new CodeLocation(functionBodyLineRange.startLine(), functionBodyLineRange.endLine());
+        CodeLocation codeLocation =
+                new CodeLocation(functionBodyLineRange.startLine(), functionBodyLineRange.endLine());
         this.transformFunctionBody = new CodeBlock(functionBodyNode.toSourceCode(), codeLocation);
     }
 

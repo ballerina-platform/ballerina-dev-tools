@@ -62,6 +62,7 @@ public class NodeProperties {
                 Objects.equals(this.codeBlock, that.codeBlock) &&
                 Objects.equals(this.outputType, that.outputType) &&
                 Objects.equals(this.expression, that.expression) &&
+                Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation) &&
                 Objects.equals(this.transformFunctionBody, that.transformFunctionBody) &&
                 Objects.equals(this.action, that.action) &&
                 Objects.equals(this.path, that.path) &&
@@ -70,14 +71,16 @@ public class NodeProperties {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionBody, action,
-                path, endpoint);
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation,
+                transformFunctionBody, action, path, endpoint);
     }
 
     @Override
     public String toString() {
-        return String.format("NodeProperties[cases=%s, defaultCase=%s, codeBlock=%s]",
-                cases, defaultCase, codeBlock);
+        return String.format("NodeProperties{cases=%s, defaultCase=%s, codeBlock=%s, outputType=%s, expression=%s, " +
+                        "transformFunctionLocation=%s, transformFunctionBody=%s, action=%s, path=%s, endpoint=%s}",
+                cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation, transformFunctionBody,
+                action, path, endpoint);
     }
 
     public static class NodePropertiesBuilder {
