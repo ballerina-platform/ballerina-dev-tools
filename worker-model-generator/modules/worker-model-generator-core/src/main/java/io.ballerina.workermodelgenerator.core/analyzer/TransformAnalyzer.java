@@ -31,6 +31,7 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
+import io.ballerina.workermodelgenerator.core.model.properties.CodeBlock;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Map;
@@ -46,7 +47,7 @@ public class TransformAnalyzer extends Analyzer {
 
     private String transformerFunctionName;
     private BalExpression balExpression;
-    private CodeLocation transformFunctionLocation;
+    private CodeBlock transformFunction;
     private String outputType;
 
     protected TransformAnalyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode,
@@ -82,7 +83,8 @@ public class TransformAnalyzer extends Analyzer {
             return;
         }
         LineRange lineRange = functionDefinitionNode.location().lineRange();
-        this.transformFunctionLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
+        CodeLocation codeLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
+        this.transformFunction = new CodeBlock(functionDefinitionNode.toSourceCode(), codeLocation);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class TransformAnalyzer extends Analyzer {
         nodePropertiesBuilder
                 .setOutputType(this.outputType)
                 .setExpression(this.balExpression)
-                .setTransformFunctionLocation(this.transformFunctionLocation);
+                .setTransformFunction(this.transformFunction);
         return nodePropertiesBuilder.build();
     }
 }

@@ -76,14 +76,17 @@
               }
             }
           },
-          "transformFunctionLocation": {
-            "start": {
-              "line": 32,
-              "offset": 0
-            },
-            "end": {
-              "line": 34,
-              "offset": 2
+          "transformFunction": {
+            "code": "\nfunction transform(Person p) returns Student => {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
+            "codeLocation": {
+              "start": {
+                "line": 32,
+                "offset": 0
+              },
+              "end": {
+                "line": 34,
+                "offset": 2
+              }
             }
           }
         }

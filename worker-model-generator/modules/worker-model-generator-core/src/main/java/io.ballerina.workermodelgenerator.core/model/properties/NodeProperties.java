@@ -18,7 +18,6 @@
 
 package io.ballerina.workermodelgenerator.core.model.properties;
 
-import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.Endpoint;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class NodeProperties {
     // Transform node properties
     String outputType;
     BalExpression expression;
-    CodeLocation transformFunctionLocation;
+    CodeBlock transformFunction;
 
     // HTTP request node properties
     String action;
@@ -61,7 +60,7 @@ public class NodeProperties {
                 Objects.equals(this.codeBlock, that.codeBlock) &&
                 Objects.equals(this.outputType, that.outputType) &&
                 Objects.equals(this.expression, that.expression) &&
-                Objects.equals(this.transformFunctionLocation, that.transformFunctionLocation) &&
+                Objects.equals(this.transformFunction, that.transformFunction) &&
                 Objects.equals(this.action, that.action) &&
                 Objects.equals(this.path, that.path) &&
                 Objects.equals(this.endpoint, that.endpoint);
@@ -69,7 +68,7 @@ public class NodeProperties {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionLocation, action,
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunction, action,
                 path, endpoint);
     }
 
@@ -112,8 +111,8 @@ public class NodeProperties {
             return this;
         }
 
-        public NodePropertiesBuilder setTransformFunctionLocation(CodeLocation transformFunctionLocation) {
-            nodeProperties.transformFunctionLocation = transformFunctionLocation;
+        public NodePropertiesBuilder setTransformFunction(CodeBlock transformFunction) {
+            nodeProperties.transformFunction = transformFunction;
             return this;
         }
 
