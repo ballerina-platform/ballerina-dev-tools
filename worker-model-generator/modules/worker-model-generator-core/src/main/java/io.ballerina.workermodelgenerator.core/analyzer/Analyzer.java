@@ -27,7 +27,7 @@ import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.AlternateReceiveWorkerNode;
+import io.ballerina.compiler.syntax.tree.AlternateReceiveNode;
 import io.ballerina.compiler.syntax.tree.AsyncSendActionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.CaptureBindingPatternNode;
@@ -183,7 +183,7 @@ public class Analyzer extends NodeVisitor {
         switch (receiverWorker.kind()) {
             case SIMPLE_NAME_REFERENCE ->
                     this.fromWorkers.add(((SimpleNameReferenceNode) receiverWorker).name().text());
-            case ALTERNATE_RECEIVE_WORKER -> ((AlternateReceiveWorkerNode) receiverWorker).workers()
+            case ALTERNATE_RECEIVE -> ((AlternateReceiveNode) receiverWorker).workers()
                     .forEach(worker -> this.fromWorkers.add(worker.name().text()));
             // TODO: Handle invalid worker receive actions
             default -> {
