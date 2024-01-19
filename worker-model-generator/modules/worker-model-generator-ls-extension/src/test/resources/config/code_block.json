@@ -97,7 +97,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "        int a = 32 + x;\n        int b = a % 12;\n",
+            "code": "        int a = 32 + x;\n        int b = a % 12;\n",
             "codeLocation": {
               "start": {
                 "line": 26,

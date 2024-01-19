@@ -36,7 +36,7 @@ public class NodeProperties {
     SwitchDefaultCase defaultCase;
 
     // Code node properties
-    BalExpression codeBlock;
+    CodeBlock codeBlock;
 
     // Transform node properties
     String outputType;
@@ -97,7 +97,7 @@ public class NodeProperties {
             return this;
         }
 
-        public NodePropertiesBuilder setCodeBlock(BalExpression codeBlock) {
+        public NodePropertiesBuilder setCodeBlock(CodeBlock codeBlock) {
             nodeProperties.codeBlock = codeBlock;
             return this;
         }

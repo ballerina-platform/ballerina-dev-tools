@@ -28,7 +28,7 @@ import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.workermodelgenerator.core.NodeBuilder;
 import io.ballerina.workermodelgenerator.core.model.CodeLocation;
-import io.ballerina.workermodelgenerator.core.model.properties.BalExpression;
+import io.ballerina.workermodelgenerator.core.model.properties.CodeBlock;
 import io.ballerina.workermodelgenerator.core.model.properties.NodeProperties;
 
 import java.util.Map;
@@ -41,7 +41,7 @@ import java.util.Map;
 public class CodeBlockAnalyzer extends Analyzer {
 
     private boolean hasProcessed;
-    private BalExpression balExpression;
+    private CodeBlock codeBlock;
 
     protected CodeBlockAnalyzer(NodeBuilder nodeBuilder,
                                 SemanticModel semanticModel, ModulePartNode modulePartNode,
@@ -79,12 +79,12 @@ public class CodeBlockAnalyzer extends Analyzer {
             }
             this.hasProcessed = false;
         }
-        this.balExpression = new BalExpression(codeBlock.toString(), new CodeLocation(start, end));
+        this.codeBlock = new CodeBlock(codeBlock.toString(), new CodeLocation(start, end));
     }
 
     @Override
     public NodeProperties buildProperties() {
         NodeProperties.NodePropertiesBuilder nodePropertiesBuilder = new NodeProperties.NodePropertiesBuilder();
-        return nodePropertiesBuilder.setCodeBlock(this.balExpression).build();
+        return nodePropertiesBuilder.setCodeBlock(this.codeBlock).build();
     }
 }

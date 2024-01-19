@@ -63,7 +63,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "        int x = 11;\n",
+            "code": "        int x = 11;\n",
             "codeLocation": {
               "start": {
                 "line": 14,
@@ -179,7 +179,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "",
+            "code": "",
             "codeLocation": {}
           }
         }
@@ -219,7 +219,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "",
+            "code": "",
             "codeLocation": {}
           }
         }

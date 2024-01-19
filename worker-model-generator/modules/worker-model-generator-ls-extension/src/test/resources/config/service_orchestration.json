@@ -71,7 +71,7 @@
         "outputPorts": [],
         "properties": {
           "codeBlock": {
-            "expression": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n",
+            "code": "            log:printInfo(\"ReservationRequest123\", payload = requestPayload);\n",
             "codeLocation": {
               "start": {
                 "line": 94,
@@ -113,7 +113,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);\n",
+            "code": "            AppointmentRequest appointmentReq = AppointmentPayloadMapper(requestPayload);\n",
             "codeLocation": {
               "start": {
                 "line": 105,
@@ -168,7 +168,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            Appointment appt = check hospitalServicesEP->/[requestPayload.hospital_id]/categories/[doctorCategory]/reserve.post(appointmentReq);\n",
+            "code": "            Appointment appt = check hospitalServicesEP->/[requestPayload.hospital_id]/categories/[doctorCategory]/reserve.post(appointmentReq);\n",
             "codeLocation": {
               "start": {
                 "line": 121,
@@ -210,7 +210,7 @@
         "outputPorts": [],
         "properties": {
           "codeBlock": {
-            "expression": "            log:printInfo(\"Appointment\", payload = appointment);\n",
+            "code": "            log:printInfo(\"Appointment\", payload = appointment);\n",
             "codeLocation": {
               "start": {
                 "line": 136,
@@ -264,7 +264,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "\n            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n",
+            "code": "\n            string hospitalId = requestPayload.hospital_id;\n            int apptNumber = appointment.appointmentNumber;\n            ChannelingFee fee = check hospitalServicesEP->/[hospitalId]/categories/appointments/[apptNumber]/fee;\n",
             "codeLocation": {
               "start": {
                 "line": 149,
@@ -306,7 +306,7 @@
         "outputPorts": [],
         "properties": {
           "codeBlock": {
-            "expression": "            log:printInfo(\"ChannelingFee\", payload = fee);\n",
+            "code": "            log:printInfo(\"ChannelingFee\", payload = fee);\n",
             "codeLocation": {
               "start": {
                 "line": 166,
@@ -355,7 +355,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            PaymentSettlement paymentSettlementReq = check paymentRequestPayloadMapper(requestPayload, appointment, channelingFee);\n",
+            "code": "            PaymentSettlement paymentSettlementReq = check paymentRequestPayloadMapper(requestPayload, appointment, channelingFee);\n",
             "codeLocation": {
               "start": {
                 "line": 178,
@@ -410,7 +410,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            PaymentResponse response = check paymentEP->/.post(paymentSettlementReq);\n",
+            "code": "            PaymentResponse response = check paymentEP->/.post(paymentSettlementReq);\n",
             "codeLocation": {
               "start": {
                 "line": 191,
@@ -452,7 +452,7 @@
         "outputPorts": [],
         "properties": {
           "codeBlock": {
-            "expression": "            log:printInfo(\"PaymentResponse\", payload = response);\n",
+            "code": "            log:printInfo(\"PaymentResponse\", payload = response);\n",
             "codeLocation": {
               "start": {
                 "line": 206,

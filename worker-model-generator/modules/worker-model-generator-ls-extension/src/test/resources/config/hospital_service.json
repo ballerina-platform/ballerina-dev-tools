@@ -140,7 +140,7 @@
         ],
         "properties": {
           "codeBlock": {
-            "expression": "            PineValleyPayload payload = {doctorType: doctorType};\n",
+            "code": "            PineValleyPayload payload = {doctorType: doctorType};\n",
             "codeLocation": {
               "start": {
                 "line": 37,
