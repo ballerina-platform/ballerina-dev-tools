@@ -298,12 +298,22 @@
               }
             }
           },
-          "transformFunction": {
-            "code": "\nfunction transformFunction(json j1, json j2) returns json|error => check value:mergeJson(j1, j2);\n",
+          "transformFunctionLocation": {
+            "start": {
+              "line": 95,
+              "offset": 0
+            },
+            "end": {
+              "line": 95,
+              "offset": 97
+            }
+          },
+          "transformFunctionBody": {
+            "code": "=> check value:mergeJson(j1, j2);\n",
             "codeLocation": {
               "start": {
                 "line": 95,
-                "offset": 0
+                "offset": 64
               },
               "end": {
                 "line": 95,

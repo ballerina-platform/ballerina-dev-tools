@@ -21,6 +21,7 @@ package io.ballerina.workermodelgenerator.core.analyzer;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
@@ -47,7 +48,8 @@ public class TransformAnalyzer extends Analyzer {
 
     private String transformerFunctionName;
     private BalExpression balExpression;
-    private CodeBlock transformFunction;
+    private CodeLocation transformFunctionLocation;
+    private CodeBlock transformFunctionBody;
     private String outputType;
 
     protected TransformAnalyzer(NodeBuilder nodeBuilder, SemanticModel semanticModel, ModulePartNode modulePartNode,
@@ -82,9 +84,13 @@ public class TransformAnalyzer extends Analyzer {
         if (!Objects.equals(this.transformerFunctionName, functionDefinitionNode.functionName().text())) {
             return;
         }
-        LineRange lineRange = functionDefinitionNode.location().lineRange();
-        CodeLocation codeLocation = new CodeLocation(lineRange.startLine(), lineRange.endLine());
-        this.transformFunction = new CodeBlock(functionDefinitionNode.toSourceCode(), codeLocation);
+        LineRange functionLineRange = functionDefinitionNode.location().lineRange();
+        this.transformFunctionLocation = new CodeLocation(functionLineRange.startLine(), functionLineRange.endLine());
+
+        FunctionBodyNode functionBodyNode = functionDefinitionNode.functionBody();
+        LineRange functionBodyLineRange = functionBodyNode.lineRange();
+        CodeLocation codeLocation = new CodeLocation(functionBodyLineRange.startLine(), functionBodyLineRange.endLine());
+        this.transformFunctionBody = new CodeBlock(functionBodyNode.toSourceCode(), codeLocation);
     }
 
     @Override
@@ -93,7 +99,8 @@ public class TransformAnalyzer extends Analyzer {
         nodePropertiesBuilder
                 .setOutputType(this.outputType)
                 .setExpression(this.balExpression)
-                .setTransformFunction(this.transformFunction);
+                .setTransformFunctionLocation(this.transformFunctionLocation)
+                .transformFunctionBody(this.transformFunctionBody);
         return nodePropertiesBuilder.build();
     }
 }

@@ -18,6 +18,7 @@
 
 package io.ballerina.workermodelgenerator.core.model.properties;
 
+import io.ballerina.workermodelgenerator.core.model.CodeLocation;
 import io.ballerina.workermodelgenerator.core.model.Endpoint;
 
 import java.util.List;
@@ -40,7 +41,8 @@ public class NodeProperties {
     // Transform node properties
     String outputType;
     BalExpression expression;
-    CodeBlock transformFunction;
+    CodeLocation transformFunctionLocation;
+    CodeBlock transformFunctionBody;
 
     // HTTP request node properties
     String action;
@@ -60,7 +62,7 @@ public class NodeProperties {
                 Objects.equals(this.codeBlock, that.codeBlock) &&
                 Objects.equals(this.outputType, that.outputType) &&
                 Objects.equals(this.expression, that.expression) &&
-                Objects.equals(this.transformFunction, that.transformFunction) &&
+                Objects.equals(this.transformFunctionBody, that.transformFunctionBody) &&
                 Objects.equals(this.action, that.action) &&
                 Objects.equals(this.path, that.path) &&
                 Objects.equals(this.endpoint, that.endpoint);
@@ -68,7 +70,7 @@ public class NodeProperties {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunction, action,
+        return Objects.hash(cases, defaultCase, codeBlock, outputType, expression, transformFunctionBody, action,
                 path, endpoint);
     }
 
@@ -111,8 +113,13 @@ public class NodeProperties {
             return this;
         }
 
-        public NodePropertiesBuilder setTransformFunction(CodeBlock transformFunction) {
-            nodeProperties.transformFunction = transformFunction;
+        public NodePropertiesBuilder setTransformFunctionLocation(CodeLocation transformFunctionLocation) {
+            nodeProperties.transformFunctionLocation = transformFunctionLocation;
+            return this;
+        }
+
+        public NodePropertiesBuilder transformFunctionBody(CodeBlock transformFunctionBody) {
+            nodeProperties.transformFunctionBody = transformFunctionBody;
             return this;
         }
 

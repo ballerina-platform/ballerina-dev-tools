@@ -110,12 +110,22 @@
               }
             }
           },
-          "transformFunction": {
-            "code": "\nfunction transform(Person p) returns Student|error => {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
+          "transformFunctionLocation": {
+            "start": {
+              "line": 45,
+              "offset": 0
+            },
+            "end": {
+              "line": 47,
+              "offset": 2
+            }
+          },
+          "transformFunctionBody": {
+            "code": "=> {\n    fullName: p.firstName + \" \" + p.lastName\n};\n",
             "codeLocation": {
               "start": {
                 "line": 45,
-                "offset": 0
+                "offset": 51
               },
               "end": {
                 "line": 47,
