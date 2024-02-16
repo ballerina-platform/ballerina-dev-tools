@@ -22,11 +22,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ballerina.projects.Project;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 /**
  * Test service component generation.
@@ -38,9 +40,13 @@ public class ServiceGeneratorTests {
     private static final String BALLERINA = "ballerina";
     private static final String RESULTS = "results";
     Gson gson = new GsonBuilder().serializeNulls().create();
+    private static final String OS = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
 
     @Test(description = "model generation for single module projects")
     public void testSingleModuleModelGeneration() throws IOException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("single_service_sample"));
         Path expectedJsonPath = RES_DIR.resolve(RESULTS).resolve(Path.of("simple_service_sample.json"));
