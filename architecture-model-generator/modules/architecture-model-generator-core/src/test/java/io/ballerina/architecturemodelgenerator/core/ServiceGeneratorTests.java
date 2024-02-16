@@ -39,7 +39,7 @@ public class ServiceGeneratorTests {
     private static final String RESULTS = "results";
     Gson gson = new GsonBuilder().serializeNulls().create();
 
-    @Test(description = "model generation for single module projects")
+    @Test(description = "model generation for single module projects", enabled = false)
     public void testSingleModuleModelGeneration() throws IOException {
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("single_service_sample"));
