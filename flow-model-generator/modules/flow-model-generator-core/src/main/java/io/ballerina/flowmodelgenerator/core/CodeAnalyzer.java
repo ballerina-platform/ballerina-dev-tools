@@ -1,0 +1,203 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+package io.ballerina.flowmodelgenerator.core;
+
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.ElseBlockNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
+import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
+import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.properties.HttpGetNodeProperties;
+import io.ballerina.flowmodelgenerator.core.model.properties.IfNodeProperties;
+import io.ballerina.flowmodelgenerator.core.model.properties.NodePropertiesBuilder;
+import io.ballerina.flowmodelgenerator.core.model.properties.ReturnNodeProperties;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Stack;
+
+/**
+ * Analyzes the source code and generates the flow model.
+ *
+ * @since 2201.9.0
+ */
+class CodeAnalyzer extends NodeVisitor {
+
+    private final List<FlowNode> flowNodeList;
+    private FlowNode.Builder nodeBuilder;
+    private final SemanticModel semanticModel;
+    private final Stack<FlowNode.Builder> flowNodeBuilderStack;
+    private boolean withinBody;
+
+    public CodeAnalyzer(SemanticModel semanticModel) {
+        this.flowNodeList = new ArrayList<>();
+        this.nodeBuilder = new FlowNode.Builder();
+        this.semanticModel = semanticModel;
+        this.flowNodeBuilderStack = new Stack<>();
+    }
+
+    @Override
+    public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
+        super.visit(functionBodyBlockNode);
+    }
+
+    @Override
+    public void visit(VariableDeclarationNode variableDeclarationNode) {
+        variableDeclarationNode.initializer().ifPresent(initializer -> initializer.accept(this));
+        if (!this.withinBody) {
+            appendNode();
+        }
+    }
+
+    @Override
+    public void visit(ReturnStatementNode returnStatementNode) {
+        this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
+        this.nodeBuilder.returning(true);
+        this.nodeBuilder.lineRange(returnStatementNode);
+
+        ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
+        returnStatementNode.expression().ifPresent(returnNodePropertiesBuilder::setExpression);
+        addNodeProperties(returnNodePropertiesBuilder);
+    }
+
+    @Override
+    public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
+        HttpGetNodeProperties.Builder httpGetNodePropertiesBuilder = new HttpGetNodeProperties.Builder(semanticModel);
+        NonTerminalNode parentNode = remoteMethodCallActionNode.parent();
+        NonTerminalNode actionNode = parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                parentNode : remoteMethodCallActionNode;
+        nodeBuilder.lineRange(actionNode.parent());
+        httpGetNodePropertiesBuilder.setTargetTypeValue(actionNode);
+
+        Optional<Symbol> symbol = semanticModel.symbol(remoteMethodCallActionNode);
+        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.METHOD) {
+            return;
+        }
+        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
+        String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
+        String methodName = remoteMethodCallActionNode.methodName().name().text();
+        ExpressionNode expression = remoteMethodCallActionNode.expression();
+
+        switch (moduleName) {
+            case "http" -> {
+                switch (methodName) {
+                    case "get" -> {
+                        nodeBuilder.label("HTTP GET Call");
+                        nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
+                        httpGetNodePropertiesBuilder.setClient(expression);
+                        httpGetNodePropertiesBuilder.setHttpParameters(methodSymbol.typeDescriptor().params().get(),
+                                remoteMethodCallActionNode.arguments());
+                        addNodeProperties(httpGetNodePropertiesBuilder);
+                    }
+                    case "post" -> {
+                        nodeBuilder.label("HTTP POST Call");
+                        nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_POST_CALL);
+                    }
+                    default -> {
+                    }
+                }
+            }
+            default -> {
+            }
+        }
+    }
+
+    @Override
+    public void visit(IfElseStatementNode ifElseStatementNode) {
+        this.nodeBuilder.kind(FlowNode.NodeKind.IF);
+        this.nodeBuilder.label("If");
+        this.nodeBuilder.lineRange(ifElseStatementNode);
+        IfNodeProperties.Builder ifNodePropertiesBuilder = new IfNodeProperties.Builder(semanticModel);
+        ifNodePropertiesBuilder.setConditionExpression(ifElseStatementNode.condition());
+
+        stepIn();
+        this.withinBody = true;
+        for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
+            statement.accept(this);
+            ifNodePropertiesBuilder.addThenBranchNode(buildNode());
+        }
+
+        Optional<Node> elseBody = ifElseStatementNode.elseBody();
+        elseBody.ifPresent(node -> analyzeElseBody(node, ifNodePropertiesBuilder));
+        stepOut();
+        this.withinBody = false;
+
+        addNodeProperties(ifNodePropertiesBuilder);
+        appendNode();
+    }
+
+    private void analyzeElseBody(Node elseBody, IfNodeProperties.Builder ifNodePropertiesBuilder) {
+        switch (elseBody.kind()) {
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), ifNodePropertiesBuilder);
+            case BLOCK_STATEMENT -> {
+                for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
+                    statement.accept(this);
+                    ifNodePropertiesBuilder.addElseBranchNode(buildNode());
+                }
+            }
+            case IF_ELSE_STATEMENT -> {
+                stepIn();
+                elseBody.accept(this);
+            }
+            default -> {
+            }
+        }
+    }
+
+    private void appendNode() {
+        this.flowNodeList.add(buildNode());
+    }
+
+    private void stepIn() {
+        this.flowNodeBuilderStack.push(this.nodeBuilder);
+        this.nodeBuilder = new FlowNode.Builder();
+    }
+
+    private void stepOut() {
+        this.nodeBuilder = this.flowNodeBuilderStack.pop();
+    }
+
+    private FlowNode buildNode() {
+        FlowNode flowNode = this.nodeBuilder.build();
+        this.nodeBuilder = new FlowNode.Builder();
+        return flowNode;
+    }
+
+    private void addNodeProperties(NodePropertiesBuilder nodePropertiesBuilder) {
+        this.nodeBuilder.nodeProperties(nodePropertiesBuilder.build());
+    }
+
+    public List<FlowNode> getFlowNodes() {
+        return flowNodeList;
+    }
+}

@@ -1,0 +1,210 @@
+{
+  "start": {
+    "line": 7,
+    "offset": 4
+  },
+  "end": {
+    "line": 14,
+    "offset": 5
+  },
+  "source": "simple_flow.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "simple_flow.bal",
+    "nodes": [
+      {
+        "id": "39131",
+        "label": "If",
+        "lineRange": {
+          "fileName": "simple_flow.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 9
+          }
+        },
+        "kind": "IF",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "area == \"kandy\" ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "thenBranch": [
+            {
+              "id": "40393",
+              "label": "HTTP GET Call",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 21
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 62
+                }
+              },
+              "kind": "HTTP_API_GET_CALL",
+              "returning": false,
+              "terminating": false,
+              "fixed": false,
+              "nodeProperties": {
+                "client": {
+                  "key": "client",
+                  "type": "http:Client",
+                  "value": "asiri",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                },
+                "path": {
+                  "key": "path",
+                  "type": "string",
+                  "value": "\"/doctors/kandy\"",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                },
+                "headers": {
+                  "key": "headers",
+                  "type": "map<string|string[]>|()",
+                  "typeKind": "BTYPE",
+                  "optional": true,
+                  "editable": false
+                },
+                "targetType": {
+                  "key": "targetType",
+                  "type": "http:Response|anydata",
+                  "value": "json|http:ballerina/http:2.10.7:error",
+                  "typeKind": "BTYPE",
+                  "optional": true,
+                  "editable": false
+                }
+              }
+            },
+            {
+              "id": "41065",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 21
+                }
+              },
+              "kind": "RETURN",
+              "returning": true,
+              "terminating": false,
+              "fixed": false,
+              "nodeProperties": {
+                "expr": {
+                  "key": "expression",
+                  "type": "json",
+                  "value": "j",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                }
+              }
+            }
+          ],
+          "elseBranch": [
+            {
+              "id": "43359",
+              "label": "HTTP GET Call",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 11,
+                  "offset": 21
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 52
+                }
+              },
+              "kind": "HTTP_API_GET_CALL",
+              "returning": false,
+              "terminating": false,
+              "fixed": false,
+              "nodeProperties": {
+                "client": {
+                  "key": "client",
+                  "type": "http:Client",
+                  "value": "nawaloka",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                },
+                "path": {
+                  "key": "path",
+                  "type": "string",
+                  "value": "\"/doctors\"",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                },
+                "headers": {
+                  "key": "headers",
+                  "type": "map<string|string[]>|()",
+                  "typeKind": "BTYPE",
+                  "optional": true,
+                  "editable": false
+                },
+                "targetType": {
+                  "key": "targetType",
+                  "type": "http:Response|anydata",
+                  "value": "json|http:ballerina/http:2.10.7:error",
+                  "typeKind": "BTYPE",
+                  "optional": true,
+                  "editable": false
+                }
+              }
+            },
+            {
+              "id": "44041",
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 12,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 12,
+                  "offset": 21
+                }
+              },
+              "kind": "RETURN",
+              "returning": true,
+              "terminating": false,
+              "fixed": false,
+              "nodeProperties": {
+                "expr": {
+                  "key": "expression",
+                  "type": "json",
+                  "value": "j",
+                  "typeKind": "BTYPE",
+                  "optional": false,
+                  "editable": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
