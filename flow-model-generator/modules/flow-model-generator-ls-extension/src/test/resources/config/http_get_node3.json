@@ -1,0 +1,45 @@
+{
+  "start": {
+    "line": 35,
+    "offset": 0
+  },
+  "end": {
+    "line": 37,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "67747",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 36,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 36,
+            "offset": 43
+          }
+        },
+        "kind": "RETURN",
+        "returning": true,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expr": {
+            "key": "expression",
+            "type": "json|http:ballerina/http:2.10.7:error",
+            "value": "foodClient->get(\"/bananas\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          }
+        }
+      }
+    ]
+  }
+}

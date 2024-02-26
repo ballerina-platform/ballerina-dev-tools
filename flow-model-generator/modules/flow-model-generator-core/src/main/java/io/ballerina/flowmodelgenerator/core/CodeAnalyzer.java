@@ -22,16 +22,21 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
@@ -88,35 +93,61 @@ class CodeAnalyzer extends NodeVisitor {
         ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
         returnStatementNode.expression().ifPresent(returnNodePropertiesBuilder::setExpression);
         addNodeProperties(returnNodePropertiesBuilder);
+        if (!this.withinBody) {
+            appendNode();
+        }
     }
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
-        HttpGetNodeProperties.Builder httpGetNodePropertiesBuilder = new HttpGetNodeProperties.Builder(semanticModel);
-        NonTerminalNode parentNode = remoteMethodCallActionNode.parent();
-        NonTerminalNode actionNode = parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                parentNode : remoteMethodCallActionNode;
-        nodeBuilder.lineRange(actionNode.parent());
-        httpGetNodePropertiesBuilder.setTargetTypeValue(actionNode);
-
-        Optional<Symbol> symbol = semanticModel.symbol(remoteMethodCallActionNode);
-        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.METHOD) {
-            return;
-        }
-        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
+        SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
+        handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes, null);
+    }
+
+    @Override
+    public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
+        String methodName = clientResourceAccessActionNode.methodName()
+                .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
+        ExpressionNode expression = clientResourceAccessActionNode.expression();
+        SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
+                clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
+
+        handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes,
+                clientResourceAccessActionNode.resourceAccessPath());
+    }
+
+    private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
+                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes,
+                                  SeparatedNodeList<Node> resourceAccessPathNodes) {
+        NonTerminalNode parentNode = actionNode.parent();
+        NonTerminalNode statementNode = parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                parentNode : actionNode;
+        this.nodeBuilder.lineRange(actionNode.parent());
+
+        Optional<Symbol> symbol = semanticModel.symbol(actionNode);
+        if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
+                symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+            return;
+        }
+
+        MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
+        String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
         switch (moduleName) {
             case "http" -> {
                 switch (methodName) {
                     case "get" -> {
+                        HttpGetNodeProperties.Builder httpGetNodePropertiesBuilder =
+                                new HttpGetNodeProperties.Builder(semanticModel);
                         nodeBuilder.label("HTTP GET Call");
                         nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
-                        httpGetNodePropertiesBuilder.setClient(expression);
-                        httpGetNodePropertiesBuilder.setHttpParameters(methodSymbol.typeDescriptor().params().get(),
-                                remoteMethodCallActionNode.arguments());
+                        httpGetNodePropertiesBuilder.addClient(expressionNode);
+                        httpGetNodePropertiesBuilder.addTargetTypeValue(statementNode);
+                        httpGetNodePropertiesBuilder.addFunctionArguments(argumentNodes);
+                        httpGetNodePropertiesBuilder.addHttpParameters(methodSymbol.typeDescriptor().params().get());
+                        httpGetNodePropertiesBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         addNodeProperties(httpGetNodePropertiesBuilder);
                     }
                     case "post" -> {

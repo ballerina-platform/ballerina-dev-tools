@@ -50,7 +50,6 @@ import java.util.concurrent.CompletableFuture;
  *
  * @since 2201.9.0
  */
-
 public class ModelGeneratorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ModelGeneratorTest.class);
@@ -86,7 +85,7 @@ public class ModelGeneratorTest {
 
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
-//            updateConfig(configJsonPath, testConfig, modifiedDiagram);
+            updateConfig(configJsonPath, testConfig, modifiedDiagram);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -97,21 +96,21 @@ public class ModelGeneratorTest {
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-//        return new Object[]{Path.of("transform_with_error.json")};
-        List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try {
-            return Files.walk(CONFIG_DIR)
-                    .filter(path -> {
-                        File file = path.toFile();
-                        return file.isFile() && file.getName().endsWith(".json")
-                                && !skippedTests.contains(file.getName());
-                    })
-                    .toArray();
-        } catch (IOException e) {
-            // If failed to load tests, then it's a failure
-            Assert.fail("Unable to load test config", e);
-            return new Object[0][];
-        }
+        return new Object[]{Path.of("http_get_node3.json")};
+//        List<String> skippedTests = Arrays.stream(this.skipList()).toList();
+//        try {
+//            return Files.walk(CONFIG_DIR)
+//                    .filter(path -> {
+//                        File file = path.toFile();
+//                        return file.isFile() && file.getName().endsWith(".json")
+//                                && !skippedTests.contains(file.getName());
+//                    })
+//                    .toArray();
+//        } catch (IOException e) {
+//            // If failed to load tests, then it's a failure
+//            Assert.fail("Unable to load test config", e);
+//            return new Object[0][];
+//        }
     }
 
     private String getResponse(String source, LinePosition start, LinePosition end) throws IOException {

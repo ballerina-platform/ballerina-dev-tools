@@ -25,6 +25,7 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
@@ -65,16 +66,16 @@ public record HttpGetNodeProperties(Expression client, Expression path, Expressi
         private Expression targetType;
         private ExpressionList params;
         private String targetTypeValue;
+        private final Map<String, String> namedArgValueMap;
+        private final Queue<String> positionalArgs;
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
+            this.namedArgValueMap = new HashMap<>();
+            this.positionalArgs = new LinkedList<>();
         }
 
-        public void setHttpParameters(List<ParameterSymbol> parameterSymbols,
-                                      SeparatedNodeList<FunctionArgumentNode> arguments) {
-
-            final Map<String, String> namedArgValueMap = new HashMap<>();
-            final Queue<String> positionalArgs = new LinkedList<>();
+        public void addFunctionArguments(SeparatedNodeList<FunctionArgumentNode> arguments) {
             for (FunctionArgumentNode argument : arguments) {
                 switch (argument.kind()) {
                     case NAMED_ARG -> {
@@ -86,18 +87,20 @@ public record HttpGetNodeProperties(Expression client, Expression path, Expressi
                             positionalArgs.add(((PositionalArgumentNode) argument).expression().toSourceCode());
                 }
             }
-            expressionBuilder = new Expression.Builder();
+        }
 
+        public void addHttpParameters(List<ParameterSymbol> parameterSymbols) {
+            expressionBuilder = new Expression.Builder();
             int numParams = parameterSymbols.size();
-            int numPositionalArgs = positionalArgs.size();
+            int numPositionalArgs = this.positionalArgs.size();
 
             for (int i = 0; i < numParams; i++) {
                 ParameterSymbol parameterSymbol = parameterSymbols.get(i);
                 if (parameterSymbol.getName().isEmpty()) {
                     continue;
                 }
-                String paramValue = i < numPositionalArgs ? positionalArgs.poll() :
-                        namedArgValueMap.get(parameterSymbol.getName().get());
+                String paramValue = i < numPositionalArgs ? this.positionalArgs.poll() :
+                        this.namedArgValueMap.get(parameterSymbol.getName().get());
                 switch (parameterSymbol.getName().get()) {
                     case "path" -> {
                         setParamValue("path", parameterSymbol, paramValue);
@@ -130,7 +133,7 @@ public record HttpGetNodeProperties(Expression client, Expression path, Expressi
             }
         }
 
-        public void setClient(ExpressionNode expressionNode) {
+        public void addClient(ExpressionNode expressionNode) {
             expressionBuilder = new Expression.Builder();
             expressionBuilder.key("client");
             semanticModel.typeOf(expressionNode).ifPresent(typeSymbol ->
@@ -140,9 +143,27 @@ public record HttpGetNodeProperties(Expression client, Expression path, Expressi
             this.client = expressionBuilder.build();
         }
 
-        public void setTargetTypeValue(NonTerminalNode nonTerminalNode) {
+        public void addTargetTypeValue(NonTerminalNode nonTerminalNode) {
             Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(nonTerminalNode);
             typeSymbol.ifPresent(symbol -> this.targetTypeValue = CommonUtils.getTypeSignature(symbol));
+        }
+
+        public void addResourceAccessPath(SeparatedNodeList<Node> nodes) {
+            ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder();
+            expressionListBuilder.key("params");
+            expressionListBuilder.type("http:QueryParamType");
+            expressionListBuilder.optional(true);
+
+            if (nodes != null) {
+                for (Node node : nodes) {
+                    expressionBuilder.key("param");
+                    semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
+                    expressionBuilder.value(node.toString());
+                    expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+                    expressionListBuilder.value(expressionBuilder.build());
+                }
+            }
+            this.params = expressionListBuilder.build();
         }
 
         public NodeProperties build() {

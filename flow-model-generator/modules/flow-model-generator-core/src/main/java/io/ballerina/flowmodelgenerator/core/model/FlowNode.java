@@ -56,7 +56,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
      */
     public static class Builder {
 
-        private String id;
         private String label;
         private LineRange lineRange;
         private NodeKind kind;

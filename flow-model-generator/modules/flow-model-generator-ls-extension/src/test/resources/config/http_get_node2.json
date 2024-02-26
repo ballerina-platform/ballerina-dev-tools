@@ -1,0 +1,133 @@
+{
+  "start": {
+    "line": 30,
+    "offset": 0
+  },
+  "end": {
+    "line": 33,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "62796",
+        "label": "HTTP GET Call",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 31,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 52
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "path": {
+            "key": "path",
+            "type": "string",
+            "value": "\"/pears\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "headers": {
+            "key": "headers",
+            "type": "map<string|string[]>|()",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "targetType": {
+            "key": "targetType",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "params": {
+            "key": "params",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          }
+        }
+      },
+      {
+        "id": "63799",
+        "label": "HTTP GET Call",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 32,
+            "offset": 63
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "path": {
+            "key": "path",
+            "type": "string",
+            "value": "\"/pears\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "headers": {
+            "key": "headers",
+            "type": "map<string|string[]>|()",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "targetType": {
+            "key": "targetType",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "params": {
+            "key": "params",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          }
+        }
+      }
+    ]
+  }
+}

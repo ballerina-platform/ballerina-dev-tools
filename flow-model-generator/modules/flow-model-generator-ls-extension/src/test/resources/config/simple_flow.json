@@ -89,6 +89,12 @@
                   "typeKind": "BTYPE",
                   "optional": true,
                   "editable": false
+                },
+                "params": {
+                  "key": "params",
+                  "type": "http:QueryParamType",
+                  "value": [],
+                  "optional": true
                 }
               }
             },
@@ -171,6 +177,12 @@
                   "typeKind": "BTYPE",
                   "optional": true,
                   "editable": false
+                },
+                "params": {
+                  "key": "params",
+                  "type": "http:QueryParamType",
+                  "value": [],
+                  "optional": true
                 }
               }
             },
