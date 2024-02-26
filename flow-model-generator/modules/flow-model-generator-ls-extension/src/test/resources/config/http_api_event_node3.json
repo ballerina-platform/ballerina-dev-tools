@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

@@ -34,15 +34,14 @@ import java.util.Objects;
  * @param lineRange      line range of the node
  * @param kind           kind of the node
  * @param returning      whether the node is returning
- * @param terminating    whether the node is terminating
  * @param fixed          whether the node is fixed
  * @param branches       branches of the node
  * @param nodeProperties properties that are specific to the node kind
+ * @param flags          flags of the node
  * @since 2201.9.0
  */
-public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning,
-                       boolean terminating, boolean fixed, List<Branch> branches,
-                       NodeProperties nodeProperties) {
+public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning, boolean fixed,
+                       List<Branch> branches, NodeProperties nodeProperties, int flags) {
 
     public enum NodeKind {
         EVENT_HTTP_API,
@@ -52,17 +51,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         BLOCK,
         RETURN,
         EXPRESSION
-    }
-
-    /**
-     * Represents a branch of the node.
-     *
-     * @param key      key of the branch
-     * @param children children of the branch
-     * @since 2201.9.0
-     */
-    record Branch(String key, List<FlowNode> children) {
-
     }
 
     /**
@@ -76,13 +64,14 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         private LineRange lineRange;
         private NodeKind kind;
         private boolean returning;
-        private boolean terminating;
         private boolean fixed;
         private NodeProperties nodeProperties;
         private final List<Branch> branches;
+        private int flags;
 
         public Builder() {
             this.branches = new ArrayList<>();
+            this.flags = 0;
         }
 
         public void label(String label) {
@@ -97,10 +86,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.returning = returning;
         }
 
-        public void terminating(boolean terminating) {
-            this.terminating = terminating;
-        }
-
         public void fixed(boolean fixed) {
             this.fixed = fixed;
         }
@@ -113,8 +98,8 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.lineRange = node.lineRange();
         }
 
-        public void addBranch(String key, List<FlowNode> children) {
-            this.branches.add(new Branch(key, children));
+        public void addBranch(String label, Branch.BranchKind kind, List<FlowNode> children) {
+            this.branches.add(new Branch(label, kind, children));
         }
 
         public boolean isDefault() {
@@ -124,8 +109,7 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         public FlowNode build() {
             String id = String.valueOf(Objects.hash(lineRange));
             List<Branch> outBranches = branches.isEmpty() ? null : branches;
-            return new FlowNode(id, label, lineRange, kind, returning, terminating, fixed, outBranches,
-                    nodeProperties);
+            return new FlowNode(id, label, lineRange, kind, returning, fixed, outBranches, nodeProperties, flags);
         }
     }
 }

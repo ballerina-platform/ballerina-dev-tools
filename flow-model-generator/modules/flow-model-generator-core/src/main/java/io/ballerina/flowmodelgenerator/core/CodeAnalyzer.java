@@ -59,6 +59,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEventProperties;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGetNodeProperties;
@@ -223,14 +224,14 @@ class CodeAnalyzer extends NodeVisitor {
             ifNodes.add(buildNode());
         }
         stepOut();
-        this.nodeBuilder.addBranch("thenBranch", ifNodes);
+        this.nodeBuilder.addBranch("thenBranch", Branch.BranchKind.BLOCK, ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
             stepIn();
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             stepOut();
-            this.nodeBuilder.addBranch("elseBranch", elseBodyChildNodes);
+            this.nodeBuilder.addBranch("elseBranch", Branch.BranchKind.BLOCK, elseBodyChildNodes);
         }
 
         addNodeProperties(ifNodePropertiesBuilder);

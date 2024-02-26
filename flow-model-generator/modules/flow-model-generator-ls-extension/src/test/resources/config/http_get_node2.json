@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "62796",
@@ -63,7 +63,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -103,7 +102,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "63799",
@@ -121,7 +121,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -161,7 +160,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

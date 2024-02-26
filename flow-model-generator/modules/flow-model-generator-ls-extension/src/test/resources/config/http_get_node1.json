@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "46291",
@@ -63,7 +63,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -103,7 +102,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "47059",
@@ -121,7 +121,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -161,7 +160,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "48065",
@@ -179,7 +179,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -220,7 +219,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "49287",
@@ -238,7 +238,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -287,7 +286,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "50271",
@@ -305,7 +305,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -346,7 +345,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "51257",
@@ -364,7 +364,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -396,7 +395,8 @@
             "value": [],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "52240",
@@ -414,7 +414,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -455,7 +454,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "53247",
@@ -473,7 +473,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -514,7 +513,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "54291",
@@ -532,7 +532,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -574,7 +573,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "58207",
@@ -592,7 +592,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -633,7 +632,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "59217",
@@ -651,7 +651,6 @@
         },
         "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "client": {
@@ -708,7 +707,8 @@
             ],
             "optional": true
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

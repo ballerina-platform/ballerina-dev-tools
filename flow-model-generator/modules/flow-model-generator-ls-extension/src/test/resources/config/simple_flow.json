@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "39131",
@@ -63,11 +63,11 @@
         },
         "kind": "IF",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "branches": [
           {
             "key": "thenBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "40393",
@@ -85,7 +85,6 @@
                 },
                 "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "terminating": false,
                 "fixed": false,
                 "nodeProperties": {
                   "client": {
@@ -125,7 +124,8 @@
                     "value": [],
                     "optional": true
                   }
-                }
+                },
+                "flags": 0
               },
               {
                 "id": "41065",
@@ -142,7 +142,6 @@
                 },
                 "kind": "RETURN",
                 "returning": true,
-                "terminating": false,
                 "fixed": false,
                 "nodeProperties": {
                   "expr": {
@@ -153,12 +152,14 @@
                     "optional": false,
                     "editable": false
                   }
-                }
+                },
+                "flags": 0
               }
             ]
           },
           {
             "key": "elseBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "43359",
@@ -176,7 +177,6 @@
                 },
                 "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "terminating": false,
                 "fixed": false,
                 "nodeProperties": {
                   "client": {
@@ -216,7 +216,8 @@
                     "value": [],
                     "optional": true
                   }
-                }
+                },
+                "flags": 0
               },
               {
                 "id": "44041",
@@ -233,7 +234,6 @@
                 },
                 "kind": "RETURN",
                 "returning": true,
-                "terminating": false,
                 "fixed": false,
                 "nodeProperties": {
                   "expr": {
@@ -244,7 +244,8 @@
                     "optional": false,
                     "editable": false
                   }
-                }
+                },
+                "flags": 0
               }
             ]
           }
@@ -258,7 +259,8 @@
             "optional": false,
             "editable": false
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

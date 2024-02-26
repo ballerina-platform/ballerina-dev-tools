@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "47036",
@@ -63,11 +63,11 @@
         },
         "kind": "IF",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "branches": [
           {
             "key": "thenBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "48010",
@@ -85,13 +85,14 @@
                 },
                 "kind": "EXPRESSION",
                 "returning": false,
-                "terminating": false,
-                "fixed": false
+                "fixed": false,
+                "flags": 0
               }
             ]
           },
           {
             "key": "elseBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "49994",
@@ -109,8 +110,8 @@
                 },
                 "kind": "EXPRESSION",
                 "returning": false,
-                "terminating": false,
-                "fixed": false
+                "fixed": false,
+                "flags": 0
               },
               {
                 "id": "50992",
@@ -128,8 +129,8 @@
                 },
                 "kind": "EXPRESSION",
                 "returning": false,
-                "terminating": false,
-                "fixed": false
+                "fixed": false,
+                "flags": 0
               }
             ]
           }
@@ -143,7 +144,8 @@
             "optional": false,
             "editable": false
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

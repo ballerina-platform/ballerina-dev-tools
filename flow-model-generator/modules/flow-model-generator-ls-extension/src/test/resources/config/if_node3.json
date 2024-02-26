@@ -28,7 +28,6 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "nodeProperties": {
           "method": {
@@ -45,7 +44,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
         "id": "69139",
@@ -63,11 +63,11 @@
         },
         "kind": "IF",
         "returning": false,
-        "terminating": false,
         "fixed": false,
         "branches": [
           {
             "key": "thenBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "69847",
@@ -85,8 +85,8 @@
                 },
                 "kind": "EXPRESSION",
                 "returning": false,
-                "terminating": false,
-                "fixed": false
+                "fixed": false,
+                "flags": 0
               },
               {
                 "id": "70828",
@@ -103,7 +103,6 @@
                 },
                 "kind": "RETURN",
                 "returning": true,
-                "terminating": false,
                 "fixed": false,
                 "nodeProperties": {
                   "expr": {
@@ -114,12 +113,14 @@
                     "optional": false,
                     "editable": false
                   }
-                }
+                },
+                "flags": 0
               }
             ]
           },
           {
             "key": "elseBranch",
+            "kind": "BLOCK",
             "children": [
               {
                 "id": "72239",
@@ -137,11 +138,11 @@
                 },
                 "kind": "IF",
                 "returning": false,
-                "terminating": false,
                 "fixed": false,
                 "branches": [
                   {
                     "key": "thenBranch",
+                    "kind": "BLOCK",
                     "children": [
                       {
                         "id": "72925",
@@ -159,11 +160,11 @@
                         },
                         "kind": "IF",
                         "returning": false,
-                        "terminating": false,
                         "fixed": false,
                         "branches": [
                           {
                             "key": "thenBranch",
+                            "kind": "BLOCK",
                             "children": [
                               {
                                 "id": "73945",
@@ -181,13 +182,14 @@
                                 },
                                 "kind": "EXPRESSION",
                                 "returning": false,
-                                "terminating": false,
-                                "fixed": false
+                                "fixed": false,
+                                "flags": 0
                               }
                             ]
                           },
                           {
                             "key": "elseBranch",
+                            "kind": "BLOCK",
                             "children": [
                               {
                                 "id": "75931",
@@ -205,8 +207,8 @@
                                 },
                                 "kind": "EXPRESSION",
                                 "returning": false,
-                                "terminating": false,
-                                "fixed": false
+                                "fixed": false,
+                                "flags": 0
                               }
                             ]
                           }
@@ -220,7 +222,8 @@
                             "optional": false,
                             "editable": false
                           }
-                        }
+                        },
+                        "flags": 0
                       },
                       {
                         "id": "77787",
@@ -238,8 +241,8 @@
                         },
                         "kind": "EXPRESSION",
                         "returning": false,
-                        "terminating": false,
-                        "fixed": false
+                        "fixed": false,
+                        "flags": 0
                       },
                       {
                         "id": "78764",
@@ -256,7 +259,6 @@
                         },
                         "kind": "RETURN",
                         "returning": true,
-                        "terminating": false,
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
@@ -267,12 +269,14 @@
                             "optional": false,
                             "editable": false
                           }
-                        }
+                        },
+                        "flags": 0
                       }
                     ]
                   },
                   {
                     "key": "elseBranch",
+                    "kind": "BLOCK",
                     "children": [
                       {
                         "id": "80763",
@@ -290,8 +294,8 @@
                         },
                         "kind": "EXPRESSION",
                         "returning": false,
-                        "terminating": false,
-                        "fixed": false
+                        "fixed": false,
+                        "flags": 0
                       },
                       {
                         "id": "81740",
@@ -308,7 +312,6 @@
                         },
                         "kind": "RETURN",
                         "returning": true,
-                        "terminating": false,
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
@@ -319,7 +322,8 @@
                             "optional": false,
                             "editable": false
                           }
-                        }
+                        },
+                        "flags": 0
                       }
                     ]
                   }
@@ -333,7 +337,8 @@
                     "optional": false,
                     "editable": false
                   }
-                }
+                },
+                "flags": 0
               }
             ]
           }
@@ -347,7 +352,8 @@
             "optional": false,
             "editable": false
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

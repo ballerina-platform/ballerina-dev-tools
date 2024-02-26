@@ -33,7 +33,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  * @since 2201.9.0
  */
 public record Expression(String key, String type, String value, ExpressionTypeKind typeKind, boolean optional,
-                         boolean editable) {
+                         boolean editable, String documentation) {
 
     public enum ExpressionTypeKind {
         BTYPE,
@@ -54,6 +54,7 @@ public record Expression(String key, String type, String value, ExpressionTypeKi
         private ExpressionTypeKind typeKind;
         private boolean optional;
         private boolean editable;
+        private String documentation;
 
         public void key(String key) {
             this.key = key;
@@ -79,8 +80,12 @@ public record Expression(String key, String type, String value, ExpressionTypeKi
             this.editable = true;
         }
 
+        public void setDocumentation(String documentation) {
+            this.documentation = documentation;
+        }
+
         public Expression build() {
-            Expression expression = new Expression(key, type, value, typeKind, optional, editable);
+            Expression expression = new Expression(key, type, value, typeKind, optional, editable, documentation);
             this.key = null;
             this.type = null;
             this.value = null;
