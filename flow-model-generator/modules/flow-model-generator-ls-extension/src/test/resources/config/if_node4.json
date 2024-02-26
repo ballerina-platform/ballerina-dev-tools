@@ -1,0 +1,295 @@
+{
+  "start": {
+    "line": 54,
+    "offset": 0
+  },
+  "end": {
+    "line": 67,
+    "offset": 1
+  },
+  "source": "if_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "if_node.bal",
+    "nodes": [
+      {
+        "id": "86580",
+        "label": "        int mod = price % 4;\n",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 55,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 55,
+            "offset": 28
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "terminating": false,
+        "fixed": false
+      },
+      {
+        "id": "87863",
+        "label": "If block",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 56,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 66,
+            "offset": 9
+          }
+        },
+        "kind": "IF",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "price > 100 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "thenBranch": {
+            "id": "88080",
+            "label": "Then block",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 56,
+                "offset": 23
+              },
+              "endLine": {
+                "line": 58,
+                "offset": 9
+              }
+            },
+            "kind": "BLOCK",
+            "returning": false,
+            "terminating": false,
+            "children": [
+              {
+                "id": "88679",
+                "lineRange": {
+                  "fileName": "if_node.bal",
+                  "startLine": {
+                    "line": 57,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 57,
+                    "offset": 19
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "terminating": false,
+                "fixed": false,
+                "nodeProperties": {}
+              }
+            ],
+            "fixed": false
+          },
+          "elseBranch": {
+            "id": "89847",
+            "label": "Else block",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 58,
+                "offset": 10
+              },
+              "endLine": {
+                "line": 66,
+                "offset": 9
+              }
+            },
+            "kind": "BLOCK",
+            "returning": false,
+            "terminating": false,
+            "children": [
+              {
+                "id": "90843",
+                "label": "If block",
+                "lineRange": {
+                  "fileName": "if_node.bal",
+                  "startLine": {
+                    "line": 59,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 65,
+                    "offset": 13
+                  }
+                },
+                "kind": "IF",
+                "returning": false,
+                "terminating": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "condition": {
+                    "key": "condition",
+                    "type": "boolean",
+                    "value": "price < 50 ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": false
+                  },
+                  "thenBranch": {
+                    "id": "91277",
+                    "label": "Then block",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 59,
+                        "offset": 26
+                      },
+                      "endLine": {
+                        "line": 65,
+                        "offset": 13
+                      }
+                    },
+                    "kind": "BLOCK",
+                    "returning": false,
+                    "terminating": false,
+                    "children": [
+                      {
+                        "id": "91901",
+                        "label": "If block",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 60,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 64,
+                            "offset": 17
+                          }
+                        },
+                        "kind": "IF",
+                        "returning": false,
+                        "terminating": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "condition": {
+                            "key": "condition",
+                            "type": "boolean",
+                            "value": "price < 25 ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": false
+                          },
+                          "thenBranch": {
+                            "id": "92335",
+                            "label": "Then block",
+                            "lineRange": {
+                              "fileName": "if_node.bal",
+                              "startLine": {
+                                "line": 60,
+                                "offset": 30
+                              },
+                              "endLine": {
+                                "line": 64,
+                                "offset": 17
+                              }
+                            },
+                            "kind": "BLOCK",
+                            "returning": false,
+                            "terminating": false,
+                            "children": [
+                              {
+                                "id": "92959",
+                                "label": "If block",
+                                "lineRange": {
+                                  "fileName": "if_node.bal",
+                                  "startLine": {
+                                    "line": 61,
+                                    "offset": 20
+                                  },
+                                  "endLine": {
+                                    "line": 63,
+                                    "offset": 21
+                                  }
+                                },
+                                "kind": "IF",
+                                "returning": false,
+                                "terminating": false,
+                                "fixed": false,
+                                "nodeProperties": {
+                                  "condition": {
+                                    "key": "condition",
+                                    "type": "boolean",
+                                    "value": "price < 10 && mod == 1 ",
+                                    "typeKind": "BTYPE",
+                                    "optional": false,
+                                    "editable": false
+                                  },
+                                  "thenBranch": {
+                                    "id": "93765",
+                                    "label": "Then block",
+                                    "lineRange": {
+                                      "fileName": "if_node.bal",
+                                      "startLine": {
+                                        "line": 61,
+                                        "offset": 46
+                                      },
+                                      "endLine": {
+                                        "line": 63,
+                                        "offset": 21
+                                      }
+                                    },
+                                    "kind": "BLOCK",
+                                    "returning": false,
+                                    "terminating": false,
+                                    "children": [
+                                      {
+                                        "id": "94023",
+                                        "lineRange": {
+                                          "fileName": "if_node.bal",
+                                          "startLine": {
+                                            "line": 62,
+                                            "offset": 24
+                                          },
+                                          "endLine": {
+                                            "line": 62,
+                                            "offset": 31
+                                          }
+                                        },
+                                        "kind": "RETURN",
+                                        "returning": true,
+                                        "terminating": false,
+                                        "fixed": false,
+                                        "nodeProperties": {}
+                                      }
+                                    ],
+                                    "fixed": false
+                                  }
+                                }
+                              }
+                            ],
+                            "fixed": false
+                          }
+                        }
+                      }
+                    ],
+                    "fixed": false
+                  }
+                }
+              }
+            ],
+            "fixed": false
+          }
+        }
+      }
+    ]
+  }
+}

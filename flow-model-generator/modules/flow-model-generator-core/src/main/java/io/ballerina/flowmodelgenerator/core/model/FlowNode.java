@@ -99,6 +99,10 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.lineRange = node.lineRange();
         }
 
+        public boolean isDefault() {
+            return this.kind == NodeKind.EXPRESSION || this.kind == null;
+        }
+
         public FlowNode build() {
             String id = String.valueOf(Objects.hash(lineRange));
             return new FlowNode(id, label, lineRange, kind, returning, terminating, children, fixed, nodeProperties);

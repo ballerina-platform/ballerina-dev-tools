@@ -99,18 +99,23 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
-        this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
-        this.nodeBuilder.returning(true);
-        this.nodeBuilder.setNode(returnStatementNode);
+        Optional<ExpressionNode> expression = returnStatementNode.expression();
+        expression.ifPresent(expressionNode -> expressionNode.accept(this));
+        if (this.nodeBuilder.isDefault()) {
+            this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
+            this.nodeBuilder.setNode(returnStatementNode);
 
-        ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
-        returnStatementNode.expression().ifPresent(returnNodePropertiesBuilder::setExpression);
-        addNodeProperties(returnNodePropertiesBuilder);
+            ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
+            expression.ifPresent(returnNodePropertiesBuilder::setExpression);
+            addNodeProperties(returnNodePropertiesBuilder);
+        }
+        this.nodeBuilder.returning(true);
         appendNode();
     }
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
+
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();

@@ -33,6 +33,7 @@
       },
       {
         "id": "72710",
+        "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -44,18 +45,47 @@
             "offset": 46
           }
         },
-        "kind": "RETURN",
+        "kind": "HTTP_API_GET_CALL",
         "returning": true,
         "terminating": false,
         "fixed": false,
         "nodeProperties": {
-          "expr": {
-            "key": "expression",
-            "type": "json|http:ballerina/http:2.10.7:error",
-            "value": "drinkClient->get(\"/milkshake\")",
+          "client": {
+            "key": "client",
+            "type": "http:Client",
+            "value": "drinkClient",
             "typeKind": "BTYPE",
             "optional": false,
             "editable": false
+          },
+          "path": {
+            "key": "path",
+            "type": "string",
+            "value": "\"/milkshake\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "headers": {
+            "key": "headers",
+            "type": "map<string|string[]>|()",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "targetType": {
+            "key": "targetType",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "params": {
+            "key": "params",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
           }
         }
       }

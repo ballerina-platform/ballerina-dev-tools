@@ -51,4 +51,19 @@ service /market on new http:Listener(9090) {
             return food;
         }
     }
+
+    resource function get grapes(int price) {
+        int mod = price % 4;
+        if price > 100 {
+            return;
+        } else {
+            if price < 50 {
+                if price < 25 {
+                    if price < 10 && mod == 1 {
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }
