@@ -47,7 +47,8 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         HTTP_API_GET_CALL,
         HTTP_API_POST_CALL,
         BLOCK,
-        RETURN
+        RETURN,
+        EXPRESSION
     }
 
     /**
@@ -68,10 +69,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
 
         public void label(String label) {
             this.label = label;
-        }
-
-        public void lineRange(Node node) {
-            this.lineRange = node.lineRange();
         }
 
         public void kind(NodeKind kind) {
@@ -96,6 +93,10 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
 
         public void nodeProperties(NodeProperties nodeProperties) {
             this.nodeProperties = nodeProperties;
+        }
+
+        public void setNode(Node node) {
+            this.lineRange = node.lineRange();
         }
 
         public FlowNode build() {

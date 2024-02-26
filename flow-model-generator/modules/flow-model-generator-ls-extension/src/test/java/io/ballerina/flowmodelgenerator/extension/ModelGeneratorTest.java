@@ -96,21 +96,21 @@ public class ModelGeneratorTest {
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-        return new Object[]{Path.of("http_get_node3.json")};
-//        List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-//        try {
-//            return Files.walk(CONFIG_DIR)
-//                    .filter(path -> {
-//                        File file = path.toFile();
-//                        return file.isFile() && file.getName().endsWith(".json")
-//                                && !skippedTests.contains(file.getName());
-//                    })
-//                    .toArray();
-//        } catch (IOException e) {
-//            // If failed to load tests, then it's a failure
-//            Assert.fail("Unable to load test config", e);
-//            return new Object[0][];
-//        }
+//        return new Object[]{Path.of("http_get_node2.json")};
+        List<String> skippedTests = Arrays.stream(this.skipList()).toList();
+        try {
+            return Files.walk(CONFIG_DIR)
+                    .filter(path -> {
+                        File file = path.toFile();
+                        return file.isFile() && file.getName().endsWith(".json")
+                                && !skippedTests.contains(file.getName());
+                    })
+                    .toArray();
+        } catch (IOException e) {
+            // If failed to load tests, then it's a failure
+            Assert.fail("Unable to load test config", e);
+            return new Object[0][];
+        }
     }
 
     private String getResponse(String source, LinePosition start, LinePosition end) throws IOException {

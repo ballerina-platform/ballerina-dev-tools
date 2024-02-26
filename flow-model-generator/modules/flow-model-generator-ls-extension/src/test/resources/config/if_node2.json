@@ -103,7 +103,20 @@
                     "terminating": false,
                     "children": [
                       {
-                        "id": "31",
+                        "id": "58059",
+                        "label": "                int c = 12;\n",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 26,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 26,
+                            "offset": 27
+                          }
+                        },
+                        "kind": "EXPRESSION",
                         "returning": false,
                         "terminating": false,
                         "fixed": false
@@ -158,7 +171,20 @@
                     "terminating": false,
                     "children": [
                       {
-                        "id": "31",
+                        "id": "61034",
+                        "label": "                int b = 2;\n",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 29,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 29,
+                            "offset": 26
+                          }
+                        },
+                        "kind": "EXPRESSION",
                         "returning": false,
                         "terminating": false,
                         "fixed": false

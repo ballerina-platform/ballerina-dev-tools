@@ -71,6 +71,123 @@
         }
       },
       {
+        "id": "47059",
+        "label": "HTTP GET Call",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 63
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "path": {
+            "key": "path",
+            "type": "string",
+            "value": "\"/apples\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "headers": {
+            "key": "headers",
+            "type": "map<string|string[]>|()",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "targetType": {
+            "key": "targetType",
+            "type": "http:Response|anydata",
+            "value": "json",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "params": {
+            "key": "params",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          }
+        }
+      },
+      {
+        "id": "48065",
+        "label": "HTTP GET Call",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 16,
+            "offset": 77
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "path": {
+            "key": "path",
+            "type": "string",
+            "value": "\"/apples\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "headers": {
+            "key": "headers",
+            "type": "map<string|string[]>|()",
+            "value": "()",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "targetType": {
+            "key": "targetType",
+            "type": "http:Response|anydata",
+            "value": "json",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": false
+          },
+          "params": {
+            "key": "params",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          }
+        }
+      },
+      {
         "id": "49287",
         "label": "HTTP GET Call",
         "lineRange": {

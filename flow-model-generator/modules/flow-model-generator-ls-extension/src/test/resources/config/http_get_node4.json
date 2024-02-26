@@ -1,0 +1,64 @@
+{
+  "start": {
+    "line": 39,
+    "offset": 0
+  },
+  "end": {
+    "line": 42,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "71727",
+        "label": "        http:Client drinkClient = check new (\"/drink\");\n",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 40,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 40,
+            "offset": 55
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "terminating": false,
+        "fixed": false
+      },
+      {
+        "id": "72710",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 41,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 46
+          }
+        },
+        "kind": "RETURN",
+        "returning": true,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expr": {
+            "key": "expression",
+            "type": "json|http:ballerina/http:2.10.7:error",
+            "value": "drinkClient->get(\"/milkshake\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          }
+        }
+      }
+    ]
+  }
+}

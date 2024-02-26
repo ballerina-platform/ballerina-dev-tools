@@ -58,7 +58,20 @@
             "terminating": false,
             "children": [
               {
-                "id": "31",
+                "id": "69847",
+                "label": "            food.comment = \"cheap\";\n",
+                "lineRange": {
+                  "fileName": "if_node.bal",
+                  "startLine": {
+                    "line": 38,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 38,
+                    "offset": 35
+                  }
+                },
+                "kind": "EXPRESSION",
                 "returning": false,
                 "terminating": false,
                 "fixed": false
@@ -203,7 +216,20 @@
                             "terminating": false,
                             "children": [
                               {
-                                "id": "31",
+                                "id": "73945",
+                                "label": "                food.comment = \"fresh; \";\n",
+                                "lineRange": {
+                                  "fileName": "if_node.bal",
+                                  "startLine": {
+                                    "line": 42,
+                                    "offset": 16
+                                  },
+                                  "endLine": {
+                                    "line": 42,
+                                    "offset": 41
+                                  }
+                                },
+                                "kind": "EXPRESSION",
                                 "returning": false,
                                 "terminating": false,
                                 "fixed": false
@@ -230,7 +256,20 @@
                             "terminating": false,
                             "children": [
                               {
-                                "id": "31",
+                                "id": "75931",
+                                "label": "                food.comment = \"expired; \";\n",
+                                "lineRange": {
+                                  "fileName": "if_node.bal",
+                                  "startLine": {
+                                    "line": 44,
+                                    "offset": 16
+                                  },
+                                  "endLine": {
+                                    "line": 44,
+                                    "offset": 43
+                                  }
+                                },
+                                "kind": "EXPRESSION",
                                 "returning": false,
                                 "terminating": false,
                                 "fixed": false
@@ -241,7 +280,20 @@
                         }
                       },
                       {
-                        "id": "31",
+                        "id": "77787",
+                        "label": "            food.comment += \"moderate\";\n",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 46,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 46,
+                            "offset": 39
+                          }
+                        },
+                        "kind": "EXPRESSION",
                         "returning": false,
                         "terminating": false,
                         "fixed": false
@@ -296,7 +348,20 @@
                     "terminating": false,
                     "children": [
                       {
-                        "id": "31",
+                        "id": "80763",
+                        "label": "            food.comment = \"expensive\";\n",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 49,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 49,
+                            "offset": 39
+                          }
+                        },
+                        "kind": "EXPRESSION",
                         "returning": false,
                         "terminating": false,
                         "fixed": false
