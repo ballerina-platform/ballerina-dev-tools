@@ -13,6 +13,41 @@
     "fileName": "http_get_node.bal",
     "nodes": [
       {
+        "id": "61726",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 30,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 33,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "pears",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
         "id": "62796",
         "label": "HTTP GET Call",
         "lineRange": {

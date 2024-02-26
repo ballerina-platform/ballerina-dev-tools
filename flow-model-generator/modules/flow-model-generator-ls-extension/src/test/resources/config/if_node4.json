@@ -13,6 +13,41 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
+        "id": "85844",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 54,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 67,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "grapes",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
         "id": "86580",
         "label": "        int mod = price % 4;\n",
         "lineRange": {

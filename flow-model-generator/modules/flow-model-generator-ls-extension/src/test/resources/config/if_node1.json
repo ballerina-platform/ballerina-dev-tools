@@ -13,6 +13,41 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
+        "id": "45978",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "apples",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
         "id": "47036",
         "label": "If block",
         "lineRange": {

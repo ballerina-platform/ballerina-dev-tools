@@ -13,6 +13,41 @@
     "fileName": "http_get_node.bal",
     "nodes": [
       {
+        "id": "70654",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 39,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 42,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "milkshake",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
         "id": "71727",
         "label": "        http:Client drinkClient = check new (\"/drink\");\n",
         "lineRange": {

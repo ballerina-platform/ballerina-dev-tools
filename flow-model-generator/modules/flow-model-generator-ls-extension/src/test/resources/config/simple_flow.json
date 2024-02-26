@@ -1,6 +1,6 @@
 {
   "start": {
-    "line": 7,
+    "line": 6,
     "offset": 4
   },
   "end": {
@@ -12,6 +12,41 @@
   "diagram": {
     "fileName": "simple_flow.bal",
     "nodes": [
+      {
+        "id": "38073",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "simple_flow.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "search/doctors/[string area]",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
       {
         "id": "39131",
         "label": "If block",

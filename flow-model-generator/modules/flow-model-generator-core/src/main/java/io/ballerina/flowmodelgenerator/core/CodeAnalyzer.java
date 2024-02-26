@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
+import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.ActionNode;
@@ -38,6 +39,7 @@ import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
@@ -58,6 +60,7 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEventProperties;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGetNodeProperties;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNodeProperties;
 import io.ballerina.flowmodelgenerator.core.model.properties.NodePropertiesBuilder;
@@ -95,6 +98,31 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         handleDefaultStatementNode(variableDeclarationNode, () -> super.visit(variableDeclarationNode));
+    }
+
+    @Override
+    public void visit(FunctionDefinitionNode functionDefinitionNode) {
+        this.nodeBuilder.kind(FlowNode.NodeKind.EVENT_HTTP_API);
+        this.nodeBuilder.label("HTTP API");
+        this.nodeBuilder.setNode(functionDefinitionNode);
+        Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
+        if (symbol.isEmpty()) {
+            return;
+        }
+
+        switch (symbol.get().kind()) {
+            case RESOURCE_METHOD -> {
+                HttpApiEventProperties.Builder httpApiEventProperties =
+                        new HttpApiEventProperties.Builder(semanticModel);
+                httpApiEventProperties.setSymbol((ResourceMethodSymbol) symbol.get());
+                addNodeProperties(httpApiEventProperties);
+            }
+            default -> {
+            }
+        }
+
+        appendNode();
+        super.visit(functionDefinitionNode);
     }
 
     @Override

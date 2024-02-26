@@ -13,6 +13,41 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
+        "id": "68081",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 36,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 52,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "key": "Path",
+            "value": "oranges",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
         "id": "69139",
         "label": "If block",
         "lineRange": {
