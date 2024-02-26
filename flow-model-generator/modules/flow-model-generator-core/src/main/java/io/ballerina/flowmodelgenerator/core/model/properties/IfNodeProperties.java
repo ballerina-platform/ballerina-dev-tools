@@ -24,8 +24,6 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,7 +34,7 @@ import java.util.Optional;
  * @param elseBranch else branch of the if node
  * @since 2201.9.0
  */
-public record IfNodeProperties(Expression condition, List<FlowNode> thenBranch, List<FlowNode> elseBranch)
+public record IfNodeProperties(Expression condition, FlowNode thenBranch, FlowNode elseBranch)
         implements NodeProperties {
 
     /**
@@ -47,13 +45,11 @@ public record IfNodeProperties(Expression condition, List<FlowNode> thenBranch, 
     public static class Builder extends NodePropertiesBuilder {
 
         private Expression condition;
-        private final List<FlowNode> thenBranch;
-        private final List<FlowNode> elseBranch;
+        private FlowNode thenBranch;
+        private FlowNode elseBranch;
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
-            this.thenBranch = new ArrayList<>();
-            this.elseBranch = new ArrayList<>();
         }
 
         public void setConditionExpression(ExpressionNode expressionNode) {
@@ -67,12 +63,12 @@ public record IfNodeProperties(Expression condition, List<FlowNode> thenBranch, 
             this.condition = expressionBuilder.build();
         }
 
-        public void addThenBranchNode(FlowNode flowNode) {
-            this.thenBranch.add(flowNode);
+        public void setThenBranchNode(FlowNode flowNode) {
+            this.thenBranch = flowNode;
         }
 
-        public void addElseBranchNode(FlowNode flowNode) {
-            this.elseBranch.add(flowNode);
+        public void setElseBranchNode(FlowNode flowNode) {
+            this.elseBranch = flowNode;
         }
 
         @Override

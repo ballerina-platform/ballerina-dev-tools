@@ -22,6 +22,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.model.properties.NodeProperties;
 import io.ballerina.tools.text.LineRange;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -38,14 +39,14 @@ import java.util.Objects;
  * @since 2201.9.0
  */
 public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning,
-                       boolean terminating,
-                       boolean fixed, NodeProperties nodeProperties) {
+                       boolean terminating, List<FlowNode> children, boolean fixed, NodeProperties nodeProperties) {
 
     public enum NodeKind {
         EVENT_HTTP_API,
         IF,
         HTTP_API_GET_CALL,
         HTTP_API_POST_CALL,
+        BLOCK,
         RETURN
     }
 
@@ -62,6 +63,7 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         private boolean returning;
         private boolean terminating;
         private boolean fixed;
+        private List<FlowNode> children;
         private NodeProperties nodeProperties;
 
         public void label(String label) {
@@ -88,13 +90,17 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.fixed = fixed;
         }
 
+        public void children(List<FlowNode> children) {
+            this.children = children;
+        }
+
         public void nodeProperties(NodeProperties nodeProperties) {
             this.nodeProperties = nodeProperties;
         }
 
         public FlowNode build() {
-            return new FlowNode(String.valueOf(Objects.hash(lineRange)), label, lineRange, kind, returning, terminating,
-                    fixed, nodeProperties);
+            String id = String.valueOf(Objects.hash(lineRange));
+            return new FlowNode(id, label, lineRange, kind, returning, terminating, children, fixed, nodeProperties);
         }
     }
 }

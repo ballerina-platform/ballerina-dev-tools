@@ -1,0 +1,344 @@
+{
+  "start": {
+    "line": 36,
+    "offset": 0
+  },
+  "end": {
+    "line": 52,
+    "offset": 1
+  },
+  "source": "if_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "if_node.bal",
+    "nodes": [
+      {
+        "id": "69139",
+        "label": "If block",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 37,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 51,
+            "offset": 9
+          }
+        },
+        "kind": "IF",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "food.price < 100 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "thenBranch": {
+            "id": "69418",
+            "label": "Then block",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 37,
+                "offset": 28
+              },
+              "endLine": {
+                "line": 40,
+                "offset": 9
+              }
+            },
+            "kind": "BLOCK",
+            "returning": false,
+            "terminating": false,
+            "children": [
+              {
+                "id": "31",
+                "returning": false,
+                "terminating": false,
+                "fixed": false
+              },
+              {
+                "id": "70828",
+                "lineRange": {
+                  "fileName": "if_node.bal",
+                  "startLine": {
+                    "line": 39,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 39,
+                    "offset": 24
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "terminating": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "expr": {
+                    "key": "expression",
+                    "type": "record {|string name; int price; int remaining?; string comment;|}",
+                    "value": "food",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": false
+                  }
+                }
+              }
+            ],
+            "fixed": false
+          },
+          "elseBranch": {
+            "id": "72084",
+            "label": "Else block",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 40,
+                "offset": 10
+              },
+              "endLine": {
+                "line": 51,
+                "offset": 9
+              }
+            },
+            "kind": "BLOCK",
+            "returning": false,
+            "terminating": false,
+            "children": [
+              {
+                "id": "72239",
+                "label": "If block",
+                "lineRange": {
+                  "fileName": "if_node.bal",
+                  "startLine": {
+                    "line": 40,
+                    "offset": 15
+                  },
+                  "endLine": {
+                    "line": 51,
+                    "offset": 9
+                  }
+                },
+                "kind": "IF",
+                "returning": false,
+                "terminating": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "condition": {
+                    "key": "condition",
+                    "type": "boolean",
+                    "value": "food.price < 200 ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": false
+                  },
+                  "thenBranch": {
+                    "id": "72766",
+                    "label": "Then block",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 40,
+                        "offset": 35
+                      },
+                      "endLine": {
+                        "line": 48,
+                        "offset": 9
+                      }
+                    },
+                    "kind": "BLOCK",
+                    "returning": false,
+                    "terminating": false,
+                    "children": [
+                      {
+                        "id": "72925",
+                        "label": "If block",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 41,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 45,
+                            "offset": 13
+                          }
+                        },
+                        "kind": "IF",
+                        "returning": false,
+                        "terminating": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "condition": {
+                            "key": "condition",
+                            "type": "boolean",
+                            "value": "food.remaining > 0 ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": false
+                          },
+                          "thenBranch": {
+                            "id": "73545",
+                            "label": "Then block",
+                            "lineRange": {
+                              "fileName": "if_node.bal",
+                              "startLine": {
+                                "line": 41,
+                                "offset": 34
+                              },
+                              "endLine": {
+                                "line": 43,
+                                "offset": 13
+                              }
+                            },
+                            "kind": "BLOCK",
+                            "returning": false,
+                            "terminating": false,
+                            "children": [
+                              {
+                                "id": "31",
+                                "returning": false,
+                                "terminating": false,
+                                "fixed": false
+                              }
+                            ],
+                            "fixed": false
+                          },
+                          "elseBranch": {
+                            "id": "74909",
+                            "label": "Else block",
+                            "lineRange": {
+                              "fileName": "if_node.bal",
+                              "startLine": {
+                                "line": 43,
+                                "offset": 14
+                              },
+                              "endLine": {
+                                "line": 45,
+                                "offset": 13
+                              }
+                            },
+                            "kind": "BLOCK",
+                            "returning": false,
+                            "terminating": false,
+                            "children": [
+                              {
+                                "id": "31",
+                                "returning": false,
+                                "terminating": false,
+                                "fixed": false
+                              }
+                            ],
+                            "fixed": false
+                          }
+                        }
+                      },
+                      {
+                        "id": "31",
+                        "returning": false,
+                        "terminating": false,
+                        "fixed": false
+                      },
+                      {
+                        "id": "78764",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 47,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 47,
+                            "offset": 24
+                          }
+                        },
+                        "kind": "RETURN",
+                        "returning": true,
+                        "terminating": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "expr": {
+                            "key": "expression",
+                            "type": "record {|string name; int price; int remaining?; string comment;|}",
+                            "value": "food",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": false
+                          }
+                        }
+                      }
+                    ],
+                    "fixed": false
+                  },
+                  "elseBranch": {
+                    "id": "79772",
+                    "label": "Else block",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 48,
+                        "offset": 10
+                      },
+                      "endLine": {
+                        "line": 51,
+                        "offset": 9
+                      }
+                    },
+                    "kind": "BLOCK",
+                    "returning": false,
+                    "terminating": false,
+                    "children": [
+                      {
+                        "id": "31",
+                        "returning": false,
+                        "terminating": false,
+                        "fixed": false
+                      },
+                      {
+                        "id": "81740",
+                        "lineRange": {
+                          "fileName": "if_node.bal",
+                          "startLine": {
+                            "line": 50,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 50,
+                            "offset": 24
+                          }
+                        },
+                        "kind": "RETURN",
+                        "returning": true,
+                        "terminating": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "expr": {
+                            "key": "expression",
+                            "type": "record {|string name; int price; int remaining?; string comment;|}",
+                            "value": "food",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": false
+                          }
+                        }
+                      }
+                    ],
+                    "fixed": false
+                  }
+                }
+              }
+            ],
+            "fixed": false
+          }
+        }
+      }
+    ]
+  }
+}

@@ -62,7 +62,6 @@ class CodeAnalyzer extends NodeVisitor {
     private FlowNode.Builder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<FlowNode.Builder> flowNodeBuilderStack;
-    private boolean withinBody;
 
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
@@ -79,9 +78,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         variableDeclarationNode.initializer().ifPresent(initializer -> initializer.accept(this));
-        if (!this.withinBody) {
-            appendNode();
-        }
+        appendNode();
     }
 
     @Override
@@ -93,9 +90,7 @@ class CodeAnalyzer extends NodeVisitor {
         ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
         returnStatementNode.expression().ifPresent(returnNodePropertiesBuilder::setExpression);
         addNodeProperties(returnNodePropertiesBuilder);
-        if (!this.withinBody) {
-            appendNode();
-        }
+        appendNode();
     }
 
     @Override
@@ -166,47 +161,69 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         this.nodeBuilder.kind(FlowNode.NodeKind.IF);
-        this.nodeBuilder.label("If");
+        this.nodeBuilder.label("If block");
         this.nodeBuilder.lineRange(ifElseStatementNode);
         IfNodeProperties.Builder ifNodePropertiesBuilder = new IfNodeProperties.Builder(semanticModel);
         ifNodePropertiesBuilder.setConditionExpression(ifElseStatementNode.condition());
 
+        BlockStatementNode ifBody = ifElseStatementNode.ifBody();
+        List<FlowNode> ifNodes = new ArrayList<>();
         stepIn();
-        this.withinBody = true;
-        for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
+        this.nodeBuilder.kind(FlowNode.NodeKind.BLOCK);
+        this.nodeBuilder.label("Then block");
+        this.nodeBuilder.lineRange(ifBody);
+        stepIn();
+        for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
-            ifNodePropertiesBuilder.addThenBranchNode(buildNode());
+            ifNodes.add(buildNode());
         }
+        stepOut();
+        this.nodeBuilder.children(ifNodes);
+        ifNodePropertiesBuilder.setThenBranchNode(buildNode());
+        stepOut();
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
-        elseBody.ifPresent(node -> analyzeElseBody(node, ifNodePropertiesBuilder));
-        stepOut();
-        this.withinBody = false;
+        if (elseBody.isPresent()) {
+            Node elseBodyNode = elseBody.get();
+            stepIn();
+            this.nodeBuilder.kind(FlowNode.NodeKind.BLOCK);
+            this.nodeBuilder.label("Else block");
+            this.nodeBuilder.lineRange(elseBodyNode);
+            stepIn();
+            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBodyNode);
+            stepOut();
+            this.nodeBuilder.children(elseBodyChildNodes);
+            ifNodePropertiesBuilder.setElseBranchNode(buildNode());
+            stepOut();
+        }
 
         addNodeProperties(ifNodePropertiesBuilder);
         appendNode();
     }
 
-    private void analyzeElseBody(Node elseBody, IfNodeProperties.Builder ifNodePropertiesBuilder) {
-        switch (elseBody.kind()) {
-            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), ifNodePropertiesBuilder);
+    private List<FlowNode> analyzeElseBody(Node elseBody) {
+        return switch (elseBody.kind()) {
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
             case BLOCK_STATEMENT -> {
+                List<FlowNode> elseNodes = new ArrayList<>();
                 for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
                     statement.accept(this);
-                    ifNodePropertiesBuilder.addElseBranchNode(buildNode());
+                    elseNodes.add(buildNode());
                 }
+                yield elseNodes;
             }
             case IF_ELSE_STATEMENT -> {
-                stepIn();
                 elseBody.accept(this);
+                yield List.of(buildNode());
             }
-            default -> {
-            }
-        }
+            default -> new ArrayList<>();
+        };
     }
 
     private void appendNode() {
-        this.flowNodeList.add(buildNode());
+        if (this.flowNodeBuilderStack.isEmpty()) {
+            this.flowNodeList.add(buildNode());
+        }
     }
 
     private void stepIn() {

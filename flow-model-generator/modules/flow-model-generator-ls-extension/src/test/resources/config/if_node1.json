@@ -1,0 +1,87 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 0
+  },
+  "end": {
+    "line": 21,
+    "offset": 1
+  },
+  "source": "if_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "if_node.bal",
+    "nodes": [
+      {
+        "id": "47036",
+        "label": "If",
+        "lineRange": {
+          "fileName": "if_node.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 9
+          }
+        },
+        "kind": "IF",
+        "returning": false,
+        "terminating": false,
+        "fixed": false,
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "flag ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
+          },
+          "thenBranch": [
+            {
+              "id": "31",
+              "returning": false,
+              "terminating": false,
+              "fixed": false
+            }
+          ],
+          "elseBranch": {
+            "id": "49020",
+            "label": "Else block",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 10
+              },
+              "endLine": {
+                "line": 20,
+                "offset": 9
+              }
+            },
+            "kind": "BLOCK",
+            "returning": false,
+            "terminating": false,
+            "children": [
+              {
+                "id": "31",
+                "returning": false,
+                "terminating": false,
+                "fixed": false
+              },
+              {
+                "id": "31",
+                "returning": false,
+                "terminating": false,
+                "fixed": false
+              }
+            ],
+            "fixed": false
+          }
+        }
+      }
+    ]
+  }
+}
