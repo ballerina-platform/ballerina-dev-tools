@@ -190,32 +190,19 @@ class CodeAnalyzer extends NodeVisitor {
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         List<FlowNode> ifNodes = new ArrayList<>();
         stepIn();
-        this.nodeBuilder.kind(FlowNode.NodeKind.BLOCK);
-        this.nodeBuilder.label("Then block");
-        this.nodeBuilder.setNode(ifBody);
-        stepIn();
         for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
             ifNodes.add(buildNode());
         }
         stepOut();
-        this.nodeBuilder.children(ifNodes);
-        ifNodePropertiesBuilder.setThenBranchNode(buildNode());
-        stepOut();
+        this.nodeBuilder.addBranch("thenBranch", ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
-            Node elseBodyNode = elseBody.get();
             stepIn();
-            this.nodeBuilder.kind(FlowNode.NodeKind.BLOCK);
-            this.nodeBuilder.label("Else block");
-            this.nodeBuilder.setNode(elseBodyNode);
-            stepIn();
-            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBodyNode);
+            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             stepOut();
-            this.nodeBuilder.children(elseBodyChildNodes);
-            ifNodePropertiesBuilder.setElseBranchNode(buildNode());
-            stepOut();
+            this.nodeBuilder.addBranch("elseBranch", elseBodyChildNodes);
         }
 
         addNodeProperties(ifNodePropertiesBuilder);

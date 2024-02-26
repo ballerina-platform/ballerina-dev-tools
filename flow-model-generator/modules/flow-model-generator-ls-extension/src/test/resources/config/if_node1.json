@@ -30,32 +30,9 @@
         "returning": false,
         "terminating": false,
         "fixed": false,
-        "nodeProperties": {
-          "condition": {
-            "key": "condition",
-            "type": "boolean",
-            "value": "flag ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": false
-          },
-          "thenBranch": {
-            "id": "47191",
-            "label": "Then block",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 15,
-                "offset": 16
-              },
-              "endLine": {
-                "line": 17,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+        "branches": [
+          {
+            "key": "thenBranch",
             "children": [
               {
                 "id": "48010",
@@ -76,26 +53,10 @@
                 "terminating": false,
                 "fixed": false
               }
-            ],
-            "fixed": false
+            ]
           },
-          "elseBranch": {
-            "id": "49020",
-            "label": "Else block",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 17,
-                "offset": 10
-              },
-              "endLine": {
-                "line": 20,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+          {
+            "key": "elseBranch",
             "children": [
               {
                 "id": "49994",
@@ -135,8 +96,17 @@
                 "terminating": false,
                 "fixed": false
               }
-            ],
-            "fixed": false
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "flag ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
           }
         }
       }

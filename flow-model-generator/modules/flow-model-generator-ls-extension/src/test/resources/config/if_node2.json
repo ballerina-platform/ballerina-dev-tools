@@ -30,32 +30,9 @@
         "returning": false,
         "terminating": false,
         "fixed": false,
-        "nodeProperties": {
-          "condition": {
-            "key": "condition",
-            "type": "boolean",
-            "value": "price > 10 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": false
-          },
-          "thenBranch": {
-            "id": "56491",
-            "label": "Then block",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 24,
-                "offset": 22
-              },
-              "endLine": {
-                "line": 32,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+        "branches": [
+          {
+            "key": "thenBranch",
             "children": [
               {
                 "id": "57115",
@@ -75,32 +52,9 @@
                 "returning": false,
                 "terminating": false,
                 "fixed": false,
-                "nodeProperties": {
-                  "condition": {
-                    "key": "condition",
-                    "type": "boolean",
-                    "value": "price > 100 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": false
-                  },
-                  "thenBranch": {
-                    "id": "57487",
-                    "label": "Then block",
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 25,
-                        "offset": 27
-                      },
-                      "endLine": {
-                        "line": 28,
-                        "offset": 13
-                      }
-                    },
-                    "kind": "BLOCK",
-                    "returning": false,
-                    "terminating": false,
+                "branches": [
+                  {
+                    "key": "thenBranch",
                     "children": [
                       {
                         "id": "58059",
@@ -149,26 +103,10 @@
                           }
                         }
                       }
-                    ],
-                    "fixed": false
+                    ]
                   },
-                  "elseBranch": {
-                    "id": "60060",
-                    "label": "Else block",
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 28,
-                        "offset": 14
-                      },
-                      "endLine": {
-                        "line": 31,
-                        "offset": 13
-                      }
-                    },
-                    "kind": "BLOCK",
-                    "returning": false,
-                    "terminating": false,
+                  {
+                    "key": "elseBranch",
                     "children": [
                       {
                         "id": "61034",
@@ -217,13 +155,31 @@
                           }
                         }
                       }
-                    ],
-                    "fixed": false
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "key": "condition",
+                    "type": "boolean",
+                    "value": "price > 100 ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": false
                   }
                 }
               }
-            ],
-            "fixed": false
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "price > 10 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
           }
         }
       },

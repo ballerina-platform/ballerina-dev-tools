@@ -30,32 +30,9 @@
         "returning": false,
         "terminating": false,
         "fixed": false,
-        "nodeProperties": {
-          "condition": {
-            "key": "condition",
-            "type": "boolean",
-            "value": "food.price < 100 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": false
-          },
-          "thenBranch": {
-            "id": "69418",
-            "label": "Then block",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 37,
-                "offset": 28
-              },
-              "endLine": {
-                "line": 40,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+        "branches": [
+          {
+            "key": "thenBranch",
             "children": [
               {
                 "id": "69847",
@@ -104,26 +81,10 @@
                   }
                 }
               }
-            ],
-            "fixed": false
+            ]
           },
-          "elseBranch": {
-            "id": "72084",
-            "label": "Else block",
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 40,
-                "offset": 10
-              },
-              "endLine": {
-                "line": 51,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+          {
+            "key": "elseBranch",
             "children": [
               {
                 "id": "72239",
@@ -143,32 +104,9 @@
                 "returning": false,
                 "terminating": false,
                 "fixed": false,
-                "nodeProperties": {
-                  "condition": {
-                    "key": "condition",
-                    "type": "boolean",
-                    "value": "food.price < 200 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": false
-                  },
-                  "thenBranch": {
-                    "id": "72766",
-                    "label": "Then block",
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 40,
-                        "offset": 35
-                      },
-                      "endLine": {
-                        "line": 48,
-                        "offset": 9
-                      }
-                    },
-                    "kind": "BLOCK",
-                    "returning": false,
-                    "terminating": false,
+                "branches": [
+                  {
+                    "key": "thenBranch",
                     "children": [
                       {
                         "id": "72925",
@@ -188,32 +126,9 @@
                         "returning": false,
                         "terminating": false,
                         "fixed": false,
-                        "nodeProperties": {
-                          "condition": {
-                            "key": "condition",
-                            "type": "boolean",
-                            "value": "food.remaining > 0 ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": false
-                          },
-                          "thenBranch": {
-                            "id": "73545",
-                            "label": "Then block",
-                            "lineRange": {
-                              "fileName": "if_node.bal",
-                              "startLine": {
-                                "line": 41,
-                                "offset": 34
-                              },
-                              "endLine": {
-                                "line": 43,
-                                "offset": 13
-                              }
-                            },
-                            "kind": "BLOCK",
-                            "returning": false,
-                            "terminating": false,
+                        "branches": [
+                          {
+                            "key": "thenBranch",
                             "children": [
                               {
                                 "id": "73945",
@@ -234,26 +149,10 @@
                                 "terminating": false,
                                 "fixed": false
                               }
-                            ],
-                            "fixed": false
+                            ]
                           },
-                          "elseBranch": {
-                            "id": "74909",
-                            "label": "Else block",
-                            "lineRange": {
-                              "fileName": "if_node.bal",
-                              "startLine": {
-                                "line": 43,
-                                "offset": 14
-                              },
-                              "endLine": {
-                                "line": 45,
-                                "offset": 13
-                              }
-                            },
-                            "kind": "BLOCK",
-                            "returning": false,
-                            "terminating": false,
+                          {
+                            "key": "elseBranch",
                             "children": [
                               {
                                 "id": "75931",
@@ -274,8 +173,17 @@
                                 "terminating": false,
                                 "fixed": false
                               }
-                            ],
-                            "fixed": false
+                            ]
+                          }
+                        ],
+                        "nodeProperties": {
+                          "condition": {
+                            "key": "condition",
+                            "type": "boolean",
+                            "value": "food.remaining > 0 ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": false
                           }
                         }
                       },
@@ -326,26 +234,10 @@
                           }
                         }
                       }
-                    ],
-                    "fixed": false
+                    ]
                   },
-                  "elseBranch": {
-                    "id": "79772",
-                    "label": "Else block",
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 48,
-                        "offset": 10
-                      },
-                      "endLine": {
-                        "line": 51,
-                        "offset": 9
-                      }
-                    },
-                    "kind": "BLOCK",
-                    "returning": false,
-                    "terminating": false,
+                  {
+                    "key": "elseBranch",
                     "children": [
                       {
                         "id": "80763",
@@ -394,13 +286,31 @@
                           }
                         }
                       }
-                    ],
-                    "fixed": false
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "key": "condition",
+                    "type": "boolean",
+                    "value": "food.price < 200 ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": false
                   }
                 }
               }
-            ],
-            "fixed": false
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "food.price < 100 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
           }
         }
       }

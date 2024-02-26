@@ -30,32 +30,9 @@
         "returning": false,
         "terminating": false,
         "fixed": false,
-        "nodeProperties": {
-          "condition": {
-            "key": "condition",
-            "type": "boolean",
-            "value": "area == \"kandy\" ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": false
-          },
-          "thenBranch": {
-            "id": "39627",
-            "label": "Then block",
-            "lineRange": {
-              "fileName": "simple_flow.bal",
-              "startLine": {
-                "line": 7,
-                "offset": 27
-              },
-              "endLine": {
-                "line": 10,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+        "branches": [
+          {
+            "key": "thenBranch",
             "children": [
               {
                 "id": "40393",
@@ -143,26 +120,10 @@
                   }
                 }
               }
-            ],
-            "fixed": false
+            ]
           },
-          "elseBranch": {
-            "id": "42076",
-            "label": "Else block",
-            "lineRange": {
-              "fileName": "simple_flow.bal",
-              "startLine": {
-                "line": 10,
-                "offset": 10
-              },
-              "endLine": {
-                "line": 13,
-                "offset": 9
-              }
-            },
-            "kind": "BLOCK",
-            "returning": false,
-            "terminating": false,
+          {
+            "key": "elseBranch",
             "children": [
               {
                 "id": "43359",
@@ -250,8 +211,17 @@
                   }
                 }
               }
-            ],
-            "fixed": false
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "key": "condition",
+            "type": "boolean",
+            "value": "area == \"kandy\" ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": false
           }
         }
       }

@@ -22,20 +22,16 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.Optional;
 
 /**
  * Represents the properties of an if node in the flow model.
  *
- * @param condition  condition of the if node
- * @param thenBranch then branch of the if node
- * @param elseBranch else branch of the if node
+ * @param condition condition of the if node
  * @since 2201.9.0
  */
-public record IfNodeProperties(Expression condition, FlowNode thenBranch, FlowNode elseBranch)
-        implements NodeProperties {
+public record IfNodeProperties(Expression condition) implements NodeProperties {
 
     /**
      * Represents a builder for the if node properties.
@@ -45,8 +41,6 @@ public record IfNodeProperties(Expression condition, FlowNode thenBranch, FlowNo
     public static class Builder extends NodePropertiesBuilder {
 
         private Expression condition;
-        private FlowNode thenBranch;
-        private FlowNode elseBranch;
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
@@ -63,17 +57,9 @@ public record IfNodeProperties(Expression condition, FlowNode thenBranch, FlowNo
             this.condition = expressionBuilder.build();
         }
 
-        public void setThenBranchNode(FlowNode flowNode) {
-            this.thenBranch = flowNode;
-        }
-
-        public void setElseBranchNode(FlowNode flowNode) {
-            this.elseBranch = flowNode;
-        }
-
         @Override
         public NodeProperties build() {
-            return new IfNodeProperties(condition, thenBranch, elseBranch);
+            return new IfNodeProperties(condition);
         }
     }
 }

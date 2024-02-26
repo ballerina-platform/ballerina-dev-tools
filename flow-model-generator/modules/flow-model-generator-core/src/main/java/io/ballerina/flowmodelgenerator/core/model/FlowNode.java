@@ -22,6 +22,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.flowmodelgenerator.core.model.properties.NodeProperties;
 import io.ballerina.tools.text.LineRange;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,11 +36,13 @@ import java.util.Objects;
  * @param returning      whether the node is returning
  * @param terminating    whether the node is terminating
  * @param fixed          whether the node is fixed
+ * @param branches       branches of the node
  * @param nodeProperties properties that are specific to the node kind
  * @since 2201.9.0
  */
 public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning,
-                       boolean terminating, List<FlowNode> children, boolean fixed, NodeProperties nodeProperties) {
+                       boolean terminating, boolean fixed, List<Branch> branches,
+                       NodeProperties nodeProperties) {
 
     public enum NodeKind {
         EVENT_HTTP_API,
@@ -49,6 +52,17 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         BLOCK,
         RETURN,
         EXPRESSION
+    }
+
+    /**
+     * Represents a branch of the node.
+     *
+     * @param key      key of the branch
+     * @param children children of the branch
+     * @since 2201.9.0
+     */
+    record Branch(String key, List<FlowNode> children) {
+
     }
 
     /**
@@ -64,8 +78,12 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         private boolean returning;
         private boolean terminating;
         private boolean fixed;
-        private List<FlowNode> children;
         private NodeProperties nodeProperties;
+        private final List<Branch> branches;
+
+        public Builder() {
+            this.branches = new ArrayList<>();
+        }
 
         public void label(String label) {
             this.label = label;
@@ -87,10 +105,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.fixed = fixed;
         }
 
-        public void children(List<FlowNode> children) {
-            this.children = children;
-        }
-
         public void nodeProperties(NodeProperties nodeProperties) {
             this.nodeProperties = nodeProperties;
         }
@@ -99,13 +113,19 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.lineRange = node.lineRange();
         }
 
+        public void addBranch(String key, List<FlowNode> children) {
+            this.branches.add(new Branch(key, children));
+        }
+
         public boolean isDefault() {
             return this.kind == NodeKind.EXPRESSION || this.kind == null;
         }
 
         public FlowNode build() {
             String id = String.valueOf(Objects.hash(lineRange));
-            return new FlowNode(id, label, lineRange, kind, returning, terminating, children, fixed, nodeProperties);
+            List<Branch> outBranches = branches.isEmpty() ? null : branches;
+            return new FlowNode(id, label, lineRange, kind, returning, terminating, fixed, outBranches,
+                    nodeProperties);
         }
     }
 }
