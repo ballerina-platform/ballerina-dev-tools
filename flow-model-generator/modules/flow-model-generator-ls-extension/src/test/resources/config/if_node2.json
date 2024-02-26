@@ -35,21 +35,23 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "bananas",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
       },
       {
         "id": "56057",
-        "label": "If block",
+        "label": "If",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -71,7 +73,7 @@
             "children": [
               {
                 "id": "57115",
-                "label": "If block",
+                "label": "If",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -112,6 +114,7 @@
                       },
                       {
                         "id": "59059",
+                        "label": "Return",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -128,12 +131,13 @@
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
-                            "key": "expression",
+                            "key": "Expression",
                             "type": "string",
                             "value": "\"expensive\"",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Return value"
                           }
                         },
                         "flags": 0
@@ -165,6 +169,7 @@
                       },
                       {
                         "id": "62034",
+                        "label": "Return",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -181,12 +186,13 @@
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
-                            "key": "expression",
+                            "key": "Expression",
                             "type": "string",
                             "value": "\"moderate\"",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Return value"
                           }
                         },
                         "flags": 0
@@ -196,12 +202,13 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "condition",
+                    "key": "Condition",
                     "type": "boolean",
                     "value": "price > 100 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "documentation": "Boolean Condition"
                   }
                 },
                 "flags": 0
@@ -211,18 +218,20 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "condition",
+            "key": "Condition",
             "type": "boolean",
             "value": "price > 10 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "Boolean Condition"
           }
         },
         "flags": 0
       },
       {
         "id": "64751",
+        "label": "Return",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -239,12 +248,13 @@
         "fixed": false,
         "nodeProperties": {
           "expr": {
-            "key": "expression",
+            "key": "Expression",
             "type": "string",
             "value": "\"cheap\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "Return value"
           }
         },
         "flags": 0

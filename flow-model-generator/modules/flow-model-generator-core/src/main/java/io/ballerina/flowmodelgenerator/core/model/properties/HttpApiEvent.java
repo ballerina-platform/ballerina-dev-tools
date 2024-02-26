@@ -32,10 +32,10 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
 public record HttpApiEvent(Expression method, Expression path) implements NodeProperties {
 
     public static final String EVENT_HTTP_API_KEY = "HTTP API";
-    public static final String EVENT_HTTP_API_METHOD = "Method";
-    public static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
-    public static final String EVENT_HTTP_API_PATH = "Path";
-    public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
+    private static final String EVENT_HTTP_API_METHOD = "Method";
+    private static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
+    private static final String EVENT_HTTP_API_PATH = "Path";
+    private static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
     public static class Builder extends NodePropertiesBuilder {
 
@@ -47,15 +47,17 @@ public record HttpApiEvent(Expression method, Expression path) implements NodePr
         }
 
         public void setSymbol(ResourceMethodSymbol resourceMethodSymbol) {
-            expressionBuilder.key("Method");
+            expressionBuilder.key(EVENT_HTTP_API_METHOD);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.IDENTIFIER);
             expressionBuilder.setEditable();
+            expressionBuilder.setDocumentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
             this.method = expressionBuilder.build();
 
-            expressionBuilder.key("Path");
+            expressionBuilder.key(EVENT_HTTP_API_PATH);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.URI_PATH);
             expressionBuilder.setEditable();
+            expressionBuilder.setDocumentation(EVENT_HTTP_API_PATH_DOC);
             expressionBuilder.value(resourceMethodSymbol.resourcePath().signature());
             this.path = expressionBuilder.build();
         }

@@ -35,21 +35,23 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "apples",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
       },
       {
         "id": "47036",
-        "label": "If block",
+        "label": "If",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -137,12 +139,13 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "condition",
+            "key": "Condition",
             "type": "boolean",
             "value": "flag ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "Boolean Condition"
           }
         },
         "flags": 0

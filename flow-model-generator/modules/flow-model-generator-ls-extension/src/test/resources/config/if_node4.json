@@ -35,14 +35,16 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "grapes",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
@@ -68,7 +70,7 @@
       },
       {
         "id": "87863",
-        "label": "If block",
+        "label": "If",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -90,6 +92,7 @@
             "children": [
               {
                 "id": "88679",
+                "label": "Return",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -115,7 +118,7 @@
             "children": [
               {
                 "id": "90843",
-                "label": "If block",
+                "label": "If",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -137,7 +140,7 @@
                     "children": [
                       {
                         "id": "91901",
-                        "label": "If block",
+                        "label": "If",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -159,7 +162,7 @@
                             "children": [
                               {
                                 "id": "92959",
-                                "label": "If block",
+                                "label": "If",
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -181,6 +184,7 @@
                                     "children": [
                                       {
                                         "id": "94023",
+                                        "label": "Return",
                                         "lineRange": {
                                           "fileName": "if_node.bal",
                                           "startLine": {
@@ -203,12 +207,13 @@
                                 ],
                                 "nodeProperties": {
                                   "condition": {
-                                    "key": "condition",
+                                    "key": "Condition",
                                     "type": "boolean",
                                     "value": "price < 10 && mod == 1 ",
                                     "typeKind": "BTYPE",
                                     "optional": false,
-                                    "editable": false
+                                    "editable": false,
+                                    "documentation": "Boolean Condition"
                                   }
                                 },
                                 "flags": 0
@@ -218,12 +223,13 @@
                         ],
                         "nodeProperties": {
                           "condition": {
-                            "key": "condition",
+                            "key": "Condition",
                             "type": "boolean",
                             "value": "price < 25 ",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Boolean Condition"
                           }
                         },
                         "flags": 0
@@ -233,12 +239,13 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "condition",
+                    "key": "Condition",
                     "type": "boolean",
                     "value": "price < 50 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "documentation": "Boolean Condition"
                   }
                 },
                 "flags": 0
@@ -248,12 +255,13 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "condition",
+            "key": "Condition",
             "type": "boolean",
             "value": "price > 100 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "Boolean Condition"
           }
         },
         "flags": 0

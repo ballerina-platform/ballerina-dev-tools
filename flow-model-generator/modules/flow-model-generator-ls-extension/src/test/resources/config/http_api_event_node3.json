@@ -35,14 +35,16 @@
             "value": "post",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "menu/[int year]/[boolean... flags]",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0

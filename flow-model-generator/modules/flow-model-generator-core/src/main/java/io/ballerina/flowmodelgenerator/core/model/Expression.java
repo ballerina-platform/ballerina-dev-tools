@@ -64,6 +64,10 @@ public record Expression(String key, String type, String value, ExpressionTypeKi
             this.type = CommonUtils.getTypeSignature(typeSymbol);
         }
 
+        public void type(String type) {
+            this.type = type;
+        }
+
         public void value(String value) {
             this.value = value;
         }

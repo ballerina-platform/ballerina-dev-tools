@@ -135,6 +135,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
         if (this.nodeBuilder.isDefault()) {
+            this.nodeBuilder.label(Return.RETURN_KEY);
             this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
             this.nodeBuilder.setNode(returnStatementNode);
 
@@ -190,7 +191,7 @@ class CodeAnalyzer extends NodeVisitor {
                     case "get" -> {
                         HttpGet.Builder httpGetBuilder =
                                 new HttpGet.Builder(semanticModel);
-                        nodeBuilder.label("HTTP GET Call");
+                        nodeBuilder.label(HttpGet.HTTP_API_GET_KEY);
                         nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
                         httpGetBuilder.addClient(expressionNode);
                         httpGetBuilder.addTargetTypeValue(statementNode);
@@ -216,7 +217,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         this.nodeBuilder.kind(FlowNode.NodeKind.IF);
-        this.nodeBuilder.label("If block");
+        this.nodeBuilder.label(IfNode.IF_KEY);
         this.nodeBuilder.setNode(ifElseStatementNode);
         IfNode.Builder ifNodePropertiesBuilder = new IfNode.Builder(semanticModel);
         ifNodePropertiesBuilder.setConditionExpression(ifElseStatementNode.condition());

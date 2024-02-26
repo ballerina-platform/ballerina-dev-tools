@@ -35,21 +35,23 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "pears",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
       },
       {
         "id": "63353",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -66,38 +68,42 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "path",
+            "key": "Path",
             "type": "string",
             "value": "\"/pears\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -116,7 +122,7 @@
       },
       {
         "id": "64697",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -133,38 +139,42 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "path",
+            "key": "Path",
             "type": "string",
             "value": "\"/pears\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true

@@ -31,8 +31,8 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
 public record Return(Expression expr) implements NodeProperties {
 
     public static final String RETURN_KEY = "Return";
-    public static final String RETURN_EXPRESSION = "Expression";
-    public static final String RETURN_EXPRESSION_DOC = "Return value";
+    private static final String RETURN_EXPRESSION = "Expression";
+    private static final String RETURN_EXPRESSION_DOC = "Return value";
 
     /**
      * Represents the builder for return node properties.
@@ -48,10 +48,11 @@ public record Return(Expression expr) implements NodeProperties {
         }
 
         public void setExpression(ExpressionNode expressionNode) {
-            expressionBuilder.key("expression");
+            expressionBuilder.key(RETURN_EXPRESSION);
             expressionBuilder.value(expressionNode.toSourceCode());
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
+            expressionBuilder.setDocumentation(RETURN_EXPRESSION_DOC);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
             expr = expressionBuilder.build();
         }
 

@@ -34,8 +34,8 @@ import java.util.Optional;
 public record IfNode(Expression condition) implements NodeProperties {
 
     public static final String IF_KEY = "If";
-    public static final String IF_CONDITION = "Condition";
-    public static final String IF_CONDITION_DOC = "Boolean Condition";
+    private static final String IF_CONDITION = "Condition";
+    private static final String IF_CONDITION_DOC = "Boolean Condition";
 
     /**
      * Represents a builder for the if node properties.
@@ -51,9 +51,10 @@ public record IfNode(Expression condition) implements NodeProperties {
         }
 
         public void setConditionExpression(ExpressionNode expressionNode) {
-            expressionBuilder.key("condition");
+            expressionBuilder.key(IF_CONDITION);
             expressionBuilder.value(expressionNode.toSourceCode());
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setDocumentation(IF_CONDITION_DOC);
 
             Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(expressionNode);
             typeSymbol.ifPresent(expressionBuilder::type);

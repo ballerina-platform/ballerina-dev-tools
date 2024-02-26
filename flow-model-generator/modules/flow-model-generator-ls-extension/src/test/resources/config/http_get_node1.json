@@ -35,21 +35,23 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "apples",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
       },
       {
         "id": "46477",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -66,38 +68,42 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "path",
+            "key": "Path",
             "type": "string",
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -116,7 +122,7 @@
       },
       {
         "id": "47245",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -133,38 +139,42 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "path",
+            "key": "Path",
             "type": "string",
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -174,7 +184,7 @@
       },
       {
         "id": "48251",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -191,39 +201,43 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "path",
+            "key": "Path",
             "type": "string",
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "value": "()",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -233,7 +247,7 @@
       },
       {
         "id": "49473",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -250,30 +264,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -282,7 +299,8 @@
                 "value": "western",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               },
               {
                 "key": "param",
@@ -290,7 +308,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -309,7 +328,7 @@
       },
       {
         "id": "50457",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -326,30 +345,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -358,7 +380,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -377,7 +400,7 @@
       },
       {
         "id": "51443",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -394,30 +417,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -436,7 +462,7 @@
       },
       {
         "id": "52426",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -453,30 +479,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -485,7 +514,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -504,7 +534,7 @@
       },
       {
         "id": "53433",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -521,30 +551,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -553,7 +586,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -572,7 +606,7 @@
       },
       {
         "id": "54477",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -589,31 +623,34 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -622,7 +659,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -641,7 +679,7 @@
       },
       {
         "id": "58393",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -658,30 +696,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "record {|string name; string 'type; int expire?;|}|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -690,7 +731,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true
@@ -709,7 +751,7 @@
       },
       {
         "id": "59403",
-        "label": "HTTP GET Call",
+        "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -726,30 +768,33 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "client",
+            "key": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Client Connection"
           },
           "headers": {
-            "key": "headers",
-            "type": "map<string|string[]>|()",
+            "key": "Headers",
+            "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "targetType",
+            "key": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false
+            "editable": false,
+            "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "params",
+            "key": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
@@ -758,7 +803,8 @@
                 "value": "apples",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               },
               {
                 "key": "param",
@@ -766,7 +812,8 @@
                 "value": "[varRef]",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               },
               {
                 "key": "param",
@@ -774,7 +821,8 @@
                 "value": "[12 + 3]",
                 "typeKind": "BTYPE",
                 "optional": false,
-                "editable": false
+                "editable": false,
+                "documentation": "HTTP Path"
               }
             ],
             "optional": true

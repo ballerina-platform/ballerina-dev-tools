@@ -48,23 +48,24 @@ import java.util.Queue;
  * @param headers    The headers of the HTTP GET node
  * @param targetType The target type of the HTTP return
  * @param params     The query parameters of the HTTP GET node
+ * @param variable   The variable of the HTTP GET node
  * @since 2201.9.0
  */
 public record HttpGet(Expression client, Expression path, Expression headers, Expression targetType,
                       ExpressionList params, Expression variable) implements NodeProperties {
 
     public static final String HTTP_API_GET_KEY = "HTTP GET";
-    public static final String HTTP_API_GET_CLIENT = "Client";
-    public static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
-    public static final String HTTP_API_GET_CLIENT_DOC = "HTTP Client Connection";
-    public static final String HTTP_API_GET_PATH = "Path";
-    public static final String HTTP_API_GET_PATH_DOC = "HTTP Path";
-    public static final String HTTP_API_GET_HEADERS = "Headers";
-    public static final String HTTP_API_GET_HEADERS_DOC = "HTTP Headers";
-    public static final String HTTP_API_GET_HEADERS_TYPE = "map<string|string[]>?";
-    public static final String HTTP_API_GET_TARGET_TYPE = "Target Type";
-    public static final String HTTP_API_GET_TARGET_TYPE_DOC = "HTTP Response Type";
-    public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
+    private static final String HTTP_API_GET_CLIENT = "Client";
+    private static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
+    private static final String HTTP_API_GET_CLIENT_DOC = "HTTP Client Connection";
+    private static final String HTTP_API_GET_PATH = "Path";
+    private static final String HTTP_API_GET_PATH_DOC = "HTTP Path";
+    private static final String HTTP_API_GET_HEADERS = "Headers";
+    private static final String HTTP_API_GET_HEADERS_DOC = "HTTP Headers";
+    private static final String HTTP_API_GET_HEADERS_TYPE = "map<string|string[]>?";
+    private static final String HTTP_API_GET_TARGET_TYPE = "Target Type";
+    private static final String HTTP_API_GET_TARGET_TYPE_DOC = "HTTP Response Type";
+    private static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
 
     /**
      * Represents the builder for HTTP GET node properties.
@@ -116,28 +117,32 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
                         this.namedArgValueMap.get(parameterSymbol.getName().get());
                 switch (parameterSymbol.getName().get()) {
                     case "path" -> {
-                        setParamValue("path", parameterSymbol, paramValue);
+                        expressionBuilder.type(parameterSymbol.typeDescriptor());
+                        setParamValue(HTTP_API_GET_PATH, parameterSymbol, paramValue, HTTP_API_GET_PATH_DOC);
                         this.paths = expressionBuilder.build();
                     }
                     case "headers" -> {
-                        setParamValue("headers", parameterSymbol, paramValue);
+                        this.expressionBuilder.type(HTTP_API_GET_HEADERS_TYPE);
+                        setParamValue(HTTP_API_GET_HEADERS, parameterSymbol, paramValue, HTTP_API_GET_HEADERS_DOC);
                         this.headers = expressionBuilder.build();
                     }
                     case "targetType" -> {
                         expressionBuilder.value(targetTypeValue);
-                        setParamValue("targetType", parameterSymbol, paramValue);
+                        expressionBuilder.type(HTTP_API_GET_TARGET_TYPE_TYPE);
+                        setParamValue(HTTP_API_GET_TARGET_TYPE, parameterSymbol, paramValue,
+                                HTTP_API_GET_TARGET_TYPE_DOC);
                         this.targetType = expressionBuilder.build();
                     }
                 }
             }
         }
 
-        private void setParamValue(String path, ParameterSymbol parameterSymbol, String paramValue) {
+        private void setParamValue(String path, ParameterSymbol parameterSymbol, String paramValue, String doc) {
             expressionBuilder.key(path);
-            expressionBuilder.type(parameterSymbol.typeDescriptor());
             setParamValue(paramValue);
             expressionBuilder.optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setDocumentation(doc);
         }
 
         private void setParamValue(String paramValue) {
@@ -148,11 +153,11 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
 
         public void addClient(ExpressionNode expressionNode) {
             expressionBuilder = new Expression.Builder();
-            expressionBuilder.key("client");
-            semanticModel.typeOf(expressionNode).ifPresent(typeSymbol ->
-                    expressionBuilder.type(typeSymbol));
+            expressionBuilder.key(HTTP_API_GET_CLIENT);
+            expressionBuilder.type(HTTP_API_GET_CLIENT_TYPE);
             expressionBuilder.value(expressionNode.toString());
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setDocumentation(HTTP_API_GET_CLIENT_DOC);
             this.client = expressionBuilder.build();
         }
 
@@ -163,9 +168,10 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
 
         public void addResourceAccessPath(SeparatedNodeList<Node> nodes) {
             ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder();
-            expressionListBuilder.key("params");
+            expressionListBuilder.key(HTTP_API_GET_PATH);
             expressionListBuilder.type("http:QueryParamType");
             expressionListBuilder.optional(true);
+            expressionBuilder.setDocumentation(HTTP_API_GET_PATH_DOC);
 
             if (nodes != null) {
                 for (Node node : nodes) {

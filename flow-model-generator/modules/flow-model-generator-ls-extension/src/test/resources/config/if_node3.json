@@ -35,21 +35,23 @@
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Method"
           },
           "path": {
             "key": "Path",
             "value": "oranges",
             "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "documentation": "HTTP Path"
           }
         },
         "flags": 0
       },
       {
         "id": "69139",
-        "label": "If block",
+        "label": "If",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -90,6 +92,7 @@
               },
               {
                 "id": "70828",
+                "label": "Return",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -106,12 +109,13 @@
                 "fixed": false,
                 "nodeProperties": {
                   "expr": {
-                    "key": "expression",
+                    "key": "Expression",
                     "type": "record {|string name; int price; int remaining?; string comment;|}",
                     "value": "food",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "documentation": "Return value"
                   }
                 },
                 "flags": 0
@@ -124,7 +128,7 @@
             "children": [
               {
                 "id": "72239",
-                "label": "If block",
+                "label": "If",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -146,7 +150,7 @@
                     "children": [
                       {
                         "id": "72925",
-                        "label": "If block",
+                        "label": "If",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -215,12 +219,13 @@
                         ],
                         "nodeProperties": {
                           "condition": {
-                            "key": "condition",
+                            "key": "Condition",
                             "type": "boolean",
                             "value": "food.remaining > 0 ",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Boolean Condition"
                           }
                         },
                         "flags": 0
@@ -246,6 +251,7 @@
                       },
                       {
                         "id": "78764",
+                        "label": "Return",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -262,12 +268,13 @@
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
-                            "key": "expression",
+                            "key": "Expression",
                             "type": "record {|string name; int price; int remaining?; string comment;|}",
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Return value"
                           }
                         },
                         "flags": 0
@@ -299,6 +306,7 @@
                       },
                       {
                         "id": "81740",
+                        "label": "Return",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -315,12 +323,13 @@
                         "fixed": false,
                         "nodeProperties": {
                           "expr": {
-                            "key": "expression",
+                            "key": "Expression",
                             "type": "record {|string name; int price; int remaining?; string comment;|}",
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false
+                            "editable": false,
+                            "documentation": "Return value"
                           }
                         },
                         "flags": 0
@@ -330,12 +339,13 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "condition",
+                    "key": "Condition",
                     "type": "boolean",
                     "value": "food.price < 200 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "documentation": "Boolean Condition"
                   }
                 },
                 "flags": 0
@@ -345,12 +355,13 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "condition",
+            "key": "Condition",
             "type": "boolean",
             "value": "food.price < 100 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false
+            "editable": false,
+            "documentation": "Boolean Condition"
           }
         },
         "flags": 0
