@@ -67,17 +67,17 @@
         "flags": 0
       },
       {
-        "id": "72710",
+        "id": "72926",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 41,
-            "offset": 8
+            "offset": 15
           },
           "endLine": {
             "line": 41,
-            "offset": 46
+            "offset": 45
           }
         },
         "kind": "HTTP_API_GET_CALL",

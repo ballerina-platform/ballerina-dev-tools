@@ -57,15 +57,16 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEventProperties;
-import io.ballerina.flowmodelgenerator.core.model.properties.HttpGetNodeProperties;
-import io.ballerina.flowmodelgenerator.core.model.properties.IfNodeProperties;
+import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
+import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
+import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.NodePropertiesBuilder;
-import io.ballerina.flowmodelgenerator.core.model.properties.ReturnNodeProperties;
+import io.ballerina.flowmodelgenerator.core.model.properties.Return;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,7 @@ class CodeAnalyzer extends NodeVisitor {
     private FlowNode.Builder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<FlowNode.Builder> flowNodeBuilderStack;
+    private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
@@ -98,13 +100,15 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
+        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
         handleDefaultStatementNode(variableDeclarationNode, () -> super.visit(variableDeclarationNode));
+        this.typedBindingPatternNode = null;
     }
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         this.nodeBuilder.kind(FlowNode.NodeKind.EVENT_HTTP_API);
-        this.nodeBuilder.label("HTTP API");
+        this.nodeBuilder.label(HttpApiEvent.EVENT_HTTP_API_KEY);
         this.nodeBuilder.setNode(functionDefinitionNode);
         Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
         if (symbol.isEmpty()) {
@@ -113,8 +117,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
-                HttpApiEventProperties.Builder httpApiEventProperties =
-                        new HttpApiEventProperties.Builder(semanticModel);
+                HttpApiEvent.Builder httpApiEventProperties =
+                        new HttpApiEvent.Builder(semanticModel);
                 httpApiEventProperties.setSymbol((ResourceMethodSymbol) symbol.get());
                 addNodeProperties(httpApiEventProperties);
             }
@@ -134,7 +138,7 @@ class CodeAnalyzer extends NodeVisitor {
             this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
             this.nodeBuilder.setNode(returnStatementNode);
 
-            ReturnNodeProperties.Builder returnNodePropertiesBuilder = new ReturnNodeProperties.Builder(semanticModel);
+            Return.Builder returnNodePropertiesBuilder = new Return.Builder(semanticModel);
             expression.ifPresent(returnNodePropertiesBuilder::setExpression);
             addNodeProperties(returnNodePropertiesBuilder);
         }
@@ -169,7 +173,7 @@ class CodeAnalyzer extends NodeVisitor {
         NonTerminalNode parentNode = actionNode.parent();
         NonTerminalNode statementNode = parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                 parentNode : actionNode;
-        this.nodeBuilder.setNode(actionNode.parent());
+        this.nodeBuilder.setNode(statementNode);
 
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
@@ -184,16 +188,17 @@ class CodeAnalyzer extends NodeVisitor {
             case "http" -> {
                 switch (methodName) {
                     case "get" -> {
-                        HttpGetNodeProperties.Builder httpGetNodePropertiesBuilder =
-                                new HttpGetNodeProperties.Builder(semanticModel);
+                        HttpGet.Builder httpGetBuilder =
+                                new HttpGet.Builder(semanticModel);
                         nodeBuilder.label("HTTP GET Call");
                         nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
-                        httpGetNodePropertiesBuilder.addClient(expressionNode);
-                        httpGetNodePropertiesBuilder.addTargetTypeValue(statementNode);
-                        httpGetNodePropertiesBuilder.addFunctionArguments(argumentNodes);
-                        httpGetNodePropertiesBuilder.addHttpParameters(methodSymbol.typeDescriptor().params().get());
-                        httpGetNodePropertiesBuilder.addResourceAccessPath(resourceAccessPathNodes);
-                        addNodeProperties(httpGetNodePropertiesBuilder);
+                        httpGetBuilder.addClient(expressionNode);
+                        httpGetBuilder.addTargetTypeValue(statementNode);
+                        httpGetBuilder.addFunctionArguments(argumentNodes);
+                        httpGetBuilder.addHttpParameters(methodSymbol.typeDescriptor().params().get());
+                        httpGetBuilder.addResourceAccessPath(resourceAccessPathNodes);
+                        httpGetBuilder.setVariable(this.typedBindingPatternNode);
+                        addNodeProperties(httpGetBuilder);
                     }
                     case "post" -> {
                         nodeBuilder.label("HTTP POST Call");
@@ -213,7 +218,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder.kind(FlowNode.NodeKind.IF);
         this.nodeBuilder.label("If block");
         this.nodeBuilder.setNode(ifElseStatementNode);
-        IfNodeProperties.Builder ifNodePropertiesBuilder = new IfNodeProperties.Builder(semanticModel);
+        IfNode.Builder ifNodePropertiesBuilder = new IfNode.Builder(semanticModel);
         ifNodePropertiesBuilder.setConditionExpression(ifElseStatementNode.condition());
 
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();

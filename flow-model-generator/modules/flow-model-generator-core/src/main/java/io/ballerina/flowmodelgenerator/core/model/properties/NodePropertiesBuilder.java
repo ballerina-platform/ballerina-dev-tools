@@ -19,7 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.model.properties;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
+
+import java.util.Optional;
 
 /**
  * Represents builder for the node properties.
@@ -28,12 +36,43 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
  */
 public abstract class NodePropertiesBuilder {
 
+    private static final String VARIABLE_KEY = "Variable";
+    private static final String VARIABLE_DOC = "Result Variable";
+
     protected final SemanticModel semanticModel;
     protected Expression.Builder expressionBuilder;
+
+    protected Expression variable;
 
     public NodePropertiesBuilder(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.expressionBuilder = new Expression.Builder();
+    }
+
+    public void setVariable(TypedBindingPatternNode typedBindingPatternNode) {
+        if (typedBindingPatternNode == null) {
+            return;
+        }
+        BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+
+        expressionBuilder.key(VARIABLE_KEY);
+        expressionBuilder.value(bindingPatternNode.toString());
+        expressionBuilder.setEditable();
+        expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+        expressionBuilder.setDocumentation(VARIABLE_DOC);
+
+        Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
+        if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
+            TypeSymbol typeSymbol = (TypeSymbol) typeDescriptorSymbol.get();
+            expressionBuilder.type(typeSymbol);
+        } else {
+            Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
+            if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
+                expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+            }
+        }
+
+        this.variable = expressionBuilder.build();
     }
 
     /**

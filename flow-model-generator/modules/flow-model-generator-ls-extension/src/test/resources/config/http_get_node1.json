@@ -48,13 +48,13 @@
         "flags": 0
       },
       {
-        "id": "46291",
+        "id": "46477",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 14,
-            "offset": 19
+            "offset": 25
           },
           "endLine": {
             "line": 14,
@@ -101,18 +101,27 @@
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "47059",
+        "id": "47245",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 15,
-            "offset": 12
+            "offset": 18
           },
           "endLine": {
             "line": 15,
@@ -164,13 +173,13 @@
         "flags": 0
       },
       {
-        "id": "48065",
+        "id": "48251",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 16,
-            "offset": 12
+            "offset": 18
           },
           "endLine": {
             "line": 16,
@@ -223,13 +232,13 @@
         "flags": 0
       },
       {
-        "id": "49287",
+        "id": "49473",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 17,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 17,
@@ -285,18 +294,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res2 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "50271",
+        "id": "50457",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 18,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 18,
@@ -344,18 +362,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res3 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "51257",
+        "id": "51443",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 19,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 19,
@@ -394,18 +421,27 @@
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res4 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "52240",
+        "id": "52426",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 20,
-            "offset": 19
+            "offset": 25
           },
           "endLine": {
             "line": 20,
@@ -453,18 +489,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res5 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "53247",
+        "id": "53433",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 21,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 21,
@@ -512,18 +557,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res6 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "54291",
+        "id": "54477",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 22,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 25,
@@ -572,18 +626,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res7 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "58207",
+        "id": "58393",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 26,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 26,
@@ -631,18 +694,27 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "record {|string name; string 'type; int expire?;|}",
+            "value": "res8 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "59217",
+        "id": "59403",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 27,
-            "offset": 20
+            "offset": 26
           },
           "endLine": {
             "line": 27,
@@ -706,6 +778,15 @@
               }
             ],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "res9 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0

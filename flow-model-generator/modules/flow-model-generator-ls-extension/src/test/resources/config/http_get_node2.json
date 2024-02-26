@@ -48,17 +48,17 @@
         "flags": 0
       },
       {
-        "id": "62796",
+        "id": "63353",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 31,
-            "offset": 8
+            "offset": 26
           },
           "endLine": {
             "line": 31,
-            "offset": 52
+            "offset": 51
           }
         },
         "kind": "HTTP_API_GET_CALL",
@@ -101,22 +101,31 @@
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json|annotations:error",
+            "value": "res1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "63799",
+        "id": "64697",
         "label": "HTTP GET Call",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 32,
-            "offset": 8
+            "offset": 37
           },
           "endLine": {
             "line": 32,
-            "offset": 63
+            "offset": 62
           }
         },
         "kind": "HTTP_API_GET_CALL",
@@ -159,6 +168,15 @@
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json|http:ballerina/http:2.10.7:error",
+            "value": "res2 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0

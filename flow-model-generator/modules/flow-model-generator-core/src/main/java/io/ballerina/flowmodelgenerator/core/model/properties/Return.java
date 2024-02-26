@@ -28,7 +28,11 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
  * @param expr The expression of the return node
  * @since 2201.9.0
  */
-public record ReturnNodeProperties(Expression expr) implements NodeProperties {
+public record Return(Expression expr) implements NodeProperties {
+
+    public static final String RETURN_KEY = "Return";
+    public static final String RETURN_EXPRESSION = "Expression";
+    public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     /**
      * Represents the builder for return node properties.
@@ -53,7 +57,7 @@ public record ReturnNodeProperties(Expression expr) implements NodeProperties {
 
         @Override
         public NodeProperties build() {
-            return new ReturnNodeProperties(expr);
+            return new Return(expr);
         }
     }
 }

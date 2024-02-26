@@ -29,7 +29,13 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
  * @param path   The path of the resource
  * @since 2201.9.0
  */
-public record HttpApiEventProperties(Expression method, Expression path) implements NodeProperties {
+public record HttpApiEvent(Expression method, Expression path) implements NodeProperties {
+
+    public static final String EVENT_HTTP_API_KEY = "HTTP API";
+    public static final String EVENT_HTTP_API_METHOD = "Method";
+    public static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
+    public static final String EVENT_HTTP_API_PATH = "Path";
+    public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
     public static class Builder extends NodePropertiesBuilder {
 
@@ -56,7 +62,7 @@ public record HttpApiEventProperties(Expression method, Expression path) impleme
 
         @Override
         public NodeProperties build() {
-            return new HttpApiEventProperties(method, path);
+            return new HttpApiEvent(method, path);
         }
     }
 }

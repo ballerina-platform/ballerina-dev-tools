@@ -70,13 +70,13 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "40393",
+                "id": "40579",
                 "label": "HTTP GET Call",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
                     "line": 8,
-                    "offset": 21
+                    "offset": 27
                   },
                   "endLine": {
                     "line": 8,
@@ -123,6 +123,15 @@
                     "type": "http:QueryParamType",
                     "value": [],
                     "optional": true
+                  },
+                  "variable": {
+                    "key": "Variable",
+                    "type": "json",
+                    "value": "j ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 0
@@ -162,13 +171,13 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "43359",
+                "id": "43545",
                 "label": "HTTP GET Call",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
                     "line": 11,
-                    "offset": 21
+                    "offset": 27
                   },
                   "endLine": {
                     "line": 11,
@@ -215,6 +224,15 @@
                     "type": "http:QueryParamType",
                     "value": [],
                     "optional": true
+                  },
+                  "variable": {
+                    "key": "Variable",
+                    "type": "json",
+                    "value": "j ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 0

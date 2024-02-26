@@ -50,8 +50,21 @@ import java.util.Queue;
  * @param params     The query parameters of the HTTP GET node
  * @since 2201.9.0
  */
-public record HttpGetNodeProperties(Expression client, Expression path, Expression headers, Expression targetType,
-                                    ExpressionList params) implements NodeProperties {
+public record HttpGet(Expression client, Expression path, Expression headers, Expression targetType,
+                      ExpressionList params, Expression variable) implements NodeProperties {
+
+    public static final String HTTP_API_GET_KEY = "HTTP GET";
+    public static final String HTTP_API_GET_CLIENT = "Client";
+    public static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
+    public static final String HTTP_API_GET_CLIENT_DOC = "HTTP Client Connection";
+    public static final String HTTP_API_GET_PATH = "Path";
+    public static final String HTTP_API_GET_PATH_DOC = "HTTP Path";
+    public static final String HTTP_API_GET_HEADERS = "Headers";
+    public static final String HTTP_API_GET_HEADERS_DOC = "HTTP Headers";
+    public static final String HTTP_API_GET_HEADERS_TYPE = "map<string|string[]>?";
+    public static final String HTTP_API_GET_TARGET_TYPE = "Target Type";
+    public static final String HTTP_API_GET_TARGET_TYPE_DOC = "HTTP Response Type";
+    public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
 
     /**
      * Represents the builder for HTTP GET node properties.
@@ -167,7 +180,7 @@ public record HttpGetNodeProperties(Expression client, Expression path, Expressi
         }
 
         public NodeProperties build() {
-            return new HttpGetNodeProperties(client, paths, headers, targetType, params);
+            return new HttpGet(client, paths, headers, targetType, params, variable);
         }
     }
 }

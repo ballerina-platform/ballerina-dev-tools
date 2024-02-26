@@ -31,7 +31,11 @@ import java.util.Optional;
  * @param condition condition of the if node
  * @since 2201.9.0
  */
-public record IfNodeProperties(Expression condition) implements NodeProperties {
+public record IfNode(Expression condition) implements NodeProperties {
+
+    public static final String IF_KEY = "If";
+    public static final String IF_CONDITION = "Condition";
+    public static final String IF_CONDITION_DOC = "Boolean Condition";
 
     /**
      * Represents a builder for the if node properties.
@@ -59,7 +63,7 @@ public record IfNodeProperties(Expression condition) implements NodeProperties {
 
         @Override
         public NodeProperties build() {
-            return new IfNodeProperties(condition);
+            return new IfNode(condition);
         }
     }
 }
