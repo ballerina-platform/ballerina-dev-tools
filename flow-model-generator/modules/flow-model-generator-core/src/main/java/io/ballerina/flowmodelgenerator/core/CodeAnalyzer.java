@@ -110,6 +110,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder.kind(FlowNode.NodeKind.EVENT_HTTP_API);
         this.nodeBuilder.label(HttpApiEvent.EVENT_HTTP_API_KEY);
         this.nodeBuilder.setNode(functionDefinitionNode);
+        this.nodeBuilder.fixed(true);
         Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
         if (symbol.isEmpty()) {
             return;

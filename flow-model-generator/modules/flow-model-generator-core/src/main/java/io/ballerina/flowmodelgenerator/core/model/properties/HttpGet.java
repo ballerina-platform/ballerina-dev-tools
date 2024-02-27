@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.properties;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -118,17 +117,21 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
                 switch (parameterSymbol.getName().get()) {
                     case "path" -> {
                         expressionBuilder.type(parameterSymbol.typeDescriptor());
+                        expressionBuilder.setEditable();
                         setParamValue(HTTP_API_GET_PATH, parameterSymbol, paramValue, HTTP_API_GET_PATH_DOC);
                         this.paths = expressionBuilder.build();
                     }
                     case "headers" -> {
                         this.expressionBuilder.type(HTTP_API_GET_HEADERS_TYPE);
+                        expressionBuilder.optional(true);
+                        expressionBuilder.setEditable();
                         setParamValue(HTTP_API_GET_HEADERS, parameterSymbol, paramValue, HTTP_API_GET_HEADERS_DOC);
                         this.headers = expressionBuilder.build();
                     }
                     case "targetType" -> {
                         expressionBuilder.value(targetTypeValue);
                         expressionBuilder.type(HTTP_API_GET_TARGET_TYPE_TYPE);
+                        expressionBuilder.setEditable();
                         setParamValue(HTTP_API_GET_TARGET_TYPE, parameterSymbol, paramValue,
                                 HTTP_API_GET_TARGET_TYPE_DOC);
                         this.targetType = expressionBuilder.build();
@@ -140,7 +143,6 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
         private void setParamValue(String path, ParameterSymbol parameterSymbol, String paramValue, String doc) {
             expressionBuilder.key(path);
             setParamValue(paramValue);
-            expressionBuilder.optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setDocumentation(doc);
         }
@@ -157,6 +159,7 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
             expressionBuilder.type(HTTP_API_GET_CLIENT_TYPE);
             expressionBuilder.value(expressionNode.toString());
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setEditable();
             expressionBuilder.setDocumentation(HTTP_API_GET_CLIENT_DOC);
             this.client = expressionBuilder.build();
         }

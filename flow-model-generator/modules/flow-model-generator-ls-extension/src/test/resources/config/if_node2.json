@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -136,7 +136,7 @@
                             "value": "\"expensive\"",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Return value"
                           }
                         },
@@ -191,7 +191,7 @@
                             "value": "\"moderate\"",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Return value"
                           }
                         },
@@ -207,7 +207,7 @@
                     "value": "price > 100 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Boolean Condition"
                   }
                 },
@@ -223,7 +223,7 @@
             "value": "price > 10 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Boolean Condition"
           }
         },
@@ -253,7 +253,7 @@
             "value": "\"cheap\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Return value"
           }
         },

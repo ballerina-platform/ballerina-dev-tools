@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -144,7 +144,7 @@
             "value": "flag ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Boolean Condition"
           }
         },

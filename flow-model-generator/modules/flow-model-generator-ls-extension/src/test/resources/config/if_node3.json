@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -114,7 +114,7 @@
                     "value": "food",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Return value"
                   }
                 },
@@ -224,7 +224,7 @@
                             "value": "food.remaining > 0 ",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Boolean Condition"
                           }
                         },
@@ -273,7 +273,7 @@
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Return value"
                           }
                         },
@@ -328,7 +328,7 @@
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Return value"
                           }
                         },
@@ -344,7 +344,7 @@
                     "value": "food.price < 200 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Boolean Condition"
                   }
                 },
@@ -360,7 +360,7 @@
             "value": "food.price < 100 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Boolean Condition"
           }
         },

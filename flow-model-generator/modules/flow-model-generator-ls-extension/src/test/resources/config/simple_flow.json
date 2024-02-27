@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -95,7 +95,7 @@
                     "value": "asiri",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Client Connection"
                   },
                   "path": {
@@ -104,7 +104,7 @@
                     "value": "\"/doctors/kandy\"",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Path"
                   },
                   "headers": {
@@ -112,7 +112,7 @@
                     "type": "map<string|string[]>?",
                     "typeKind": "BTYPE",
                     "optional": true,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Headers"
                   },
                   "targetType": {
@@ -120,8 +120,8 @@
                     "type": "http:Response|anydata",
                     "value": "json|http:ballerina/http:2.10.7:error",
                     "typeKind": "BTYPE",
-                    "optional": true,
-                    "editable": false,
+                    "optional": false,
+                    "editable": true,
                     "documentation": "HTTP Response Type"
                   },
                   "params": {
@@ -166,7 +166,7 @@
                     "value": "j",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Return value"
                   }
                 },
@@ -202,7 +202,7 @@
                     "value": "nawaloka",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Client Connection"
                   },
                   "path": {
@@ -211,7 +211,7 @@
                     "value": "\"/doctors\"",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Path"
                   },
                   "headers": {
@@ -219,7 +219,7 @@
                     "type": "map<string|string[]>?",
                     "typeKind": "BTYPE",
                     "optional": true,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "HTTP Headers"
                   },
                   "targetType": {
@@ -227,8 +227,8 @@
                     "type": "http:Response|anydata",
                     "value": "json|http:ballerina/http:2.10.7:error",
                     "typeKind": "BTYPE",
-                    "optional": true,
-                    "editable": false,
+                    "optional": false,
+                    "editable": true,
                     "documentation": "HTTP Response Type"
                   },
                   "params": {
@@ -273,7 +273,7 @@
                     "value": "j",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Return value"
                   }
                 },
@@ -289,7 +289,7 @@
             "value": "area == \"kandy\" ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Boolean Condition"
           }
         },

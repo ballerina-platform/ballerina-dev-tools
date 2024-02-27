@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -212,7 +212,7 @@
                                     "value": "price < 10 && mod == 1 ",
                                     "typeKind": "BTYPE",
                                     "optional": false,
-                                    "editable": false,
+                                    "editable": true,
                                     "documentation": "Boolean Condition"
                                   }
                                 },
@@ -228,7 +228,7 @@
                             "value": "price < 25 ",
                             "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": false,
+                            "editable": true,
                             "documentation": "Boolean Condition"
                           }
                         },
@@ -244,7 +244,7 @@
                     "value": "price < 50 ",
                     "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": false,
+                    "editable": true,
                     "documentation": "Boolean Condition"
                   }
                 },
@@ -260,7 +260,7 @@
             "value": "price > 100 ",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "Boolean Condition"
           }
         },

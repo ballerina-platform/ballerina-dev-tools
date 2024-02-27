@@ -28,7 +28,7 @@
         },
         "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": false,
+        "fixed": true,
         "nodeProperties": {
           "method": {
             "key": "Method",
@@ -73,7 +73,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "path": {
@@ -82,7 +82,7 @@
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Path"
           },
           "headers": {
@@ -90,7 +90,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -98,8 +98,8 @@
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -144,7 +144,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "path": {
@@ -153,7 +153,7 @@
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Path"
           },
           "headers": {
@@ -161,7 +161,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -169,8 +169,8 @@
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -206,7 +206,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "path": {
@@ -215,7 +215,7 @@
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Path"
           },
           "headers": {
@@ -224,7 +224,7 @@
             "value": "()",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -232,8 +232,8 @@
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -269,7 +269,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -277,7 +277,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -285,8 +285,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -350,7 +350,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -358,7 +358,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -366,8 +366,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -422,7 +422,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -430,7 +430,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -438,8 +438,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -484,7 +484,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -492,7 +492,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -500,8 +500,8 @@
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -556,7 +556,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -564,7 +564,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -572,8 +572,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -628,7 +628,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -637,7 +637,7 @@
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -645,8 +645,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -701,7 +701,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -709,7 +709,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -717,8 +717,8 @@
             "type": "http:Response|anydata",
             "value": "record {|string name; string 'type; int expire?;|}|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {
@@ -773,7 +773,7 @@
             "value": "foodClient",
             "typeKind": "BTYPE",
             "optional": false,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Client Connection"
           },
           "headers": {
@@ -781,7 +781,7 @@
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
-            "editable": false,
+            "editable": true,
             "documentation": "HTTP Headers"
           },
           "targetType": {
@@ -789,8 +789,8 @@
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
-            "optional": true,
-            "editable": false,
+            "optional": false,
+            "editable": true,
             "documentation": "HTTP Response Type"
           },
           "params": {

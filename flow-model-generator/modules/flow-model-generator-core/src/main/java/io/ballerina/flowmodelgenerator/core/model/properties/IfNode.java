@@ -55,6 +55,7 @@ public record IfNode(Expression condition) implements NodeProperties {
             expressionBuilder.value(expressionNode.toSourceCode());
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setDocumentation(IF_CONDITION_DOC);
+            expressionBuilder.setEditable();
 
             Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(expressionNode);
             typeSymbol.ifPresent(expressionBuilder::type);

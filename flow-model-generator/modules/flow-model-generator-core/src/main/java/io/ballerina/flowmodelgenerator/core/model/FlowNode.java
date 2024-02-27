@@ -48,7 +48,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         IF,
         HTTP_API_GET_CALL,
         HTTP_API_POST_CALL,
-        BLOCK,
         RETURN,
         EXPRESSION
     }

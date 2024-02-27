@@ -52,6 +52,7 @@ public record Return(Expression expr) implements NodeProperties {
             expressionBuilder.value(expressionNode.toSourceCode());
             expressionBuilder.setDocumentation(RETURN_EXPRESSION_DOC);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setEditable();
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
             expr = expressionBuilder.build();
         }
