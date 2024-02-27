@@ -252,28 +252,9 @@
     ],
     "clients": [
       {
-        "id": "40072",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "clients.bal",
-          "startLine": {
-            "line": 8,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 8,
-            "offset": 20
-          }
-        },
-        "scope": "GLOBAL",
-        "value": "moduleCl",
-        "flags": 0
-      },
-      {
         "id": "40970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -292,7 +273,7 @@
       {
         "id": "41970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -306,6 +287,25 @@
         },
         "scope": "GLOBAL",
         "value": "myExplicitModuleCl",
+        "flags": 0
+      },
+      {
+        "id": "40072",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 20
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "moduleCl",
         "flags": 0
       },
       {

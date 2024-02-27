@@ -191,6 +191,27 @@
         },
         "flags": 0
       }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
     ]
   }
 }
