@@ -54,7 +54,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelGeneratorServiceResponse> getWorkerDesignModel(
+    public CompletableFuture<FlowModelGeneratorServiceResponse> getFlowDesignModel(
             FlowModelGeneratorServiceRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {

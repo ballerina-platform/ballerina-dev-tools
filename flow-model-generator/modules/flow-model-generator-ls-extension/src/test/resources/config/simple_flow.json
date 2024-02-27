@@ -298,25 +298,6 @@
     ],
     "clients": [
       {
-        "id": "35304",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "simple_flow.bal",
-          "startLine": {
-            "line": 3,
-            "offset": 18
-          },
-          "endLine": {
-            "line": 3,
-            "offset": 26
-          }
-        },
-        "scope": "GLOBAL",
-        "value": "nawaloka",
-        "flags": 0
-      },
-      {
         "id": "34309",
         "label": "Client",
         "kind": "HTTP",
@@ -333,6 +314,25 @@
         },
         "scope": "GLOBAL",
         "value": "asiri",
+        "flags": 0
+      },
+      {
+        "id": "35304",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "simple_flow.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 18
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 26
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "nawaloka",
         "flags": 0
       }
     ]

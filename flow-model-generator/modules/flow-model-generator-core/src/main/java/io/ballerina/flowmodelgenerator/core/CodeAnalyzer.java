@@ -65,6 +65,7 @@ import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.Client;
+import io.ballerina.flowmodelgenerator.core.model.properties.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
@@ -107,8 +108,26 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
+        Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        if (initializer.isEmpty()) {
+            return;
+        }
+        ExpressionNode initializerNode = initializer.get();
         this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
-        handleDefaultStatementNode(variableDeclarationNode, () -> super.visit(variableDeclarationNode));
+        initializerNode.accept(this);
+
+        // Generate the default expression node if a node is not built
+        if (this.nodeBuilder.isDefault()) {
+            this.nodeBuilder.setNode(variableDeclarationNode);
+            this.nodeBuilder.label(DefaultExpression.EXPRESSION_LABEL);
+            this.nodeBuilder.kind(FlowNode.NodeKind.EXPRESSION);
+            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
+            defaultExpressionBuilder.setExpression(initializerNode);
+            defaultExpressionBuilder.setVariable(this.typedBindingPatternNode);
+            addNodeProperties(defaultExpressionBuilder);
+        }
+
+        appendNode();
         this.typedBindingPatternNode = null;
     }
 
@@ -157,7 +176,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
-
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();

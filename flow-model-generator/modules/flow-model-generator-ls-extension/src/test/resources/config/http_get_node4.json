@@ -51,7 +51,7 @@
       },
       {
         "id": "71727",
-        "label": "        http:Client drinkClient = check new (\"/drink\");\n",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -66,6 +66,26 @@
         "kind": "EXPRESSION",
         "returning": false,
         "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "key": "Variable",
+            "type": "http:Client",
+            "value": "drinkClient ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "key": "Expression",
+            "type": "http:Client",
+            "value": "check new (\"/drink\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
         "flags": 0
       },
       {

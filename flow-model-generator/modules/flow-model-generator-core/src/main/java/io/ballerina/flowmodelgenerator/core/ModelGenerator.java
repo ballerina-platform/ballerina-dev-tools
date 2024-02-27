@@ -36,6 +36,7 @@ import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -83,6 +84,7 @@ public class ModelGenerator {
                     return (variableSymbol).typeDescriptor();
                 })
                 .flatMap(symbol -> CommonUtils.buildClient(clientBuilder, symbol, Client.ClientScope.GLOBAL).stream())
+                .sorted(Comparator.comparing(Client::value))
                 .toList();
 
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);

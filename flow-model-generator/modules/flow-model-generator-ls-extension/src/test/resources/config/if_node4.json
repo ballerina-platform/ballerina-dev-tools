@@ -51,7 +51,7 @@
       },
       {
         "id": "86580",
-        "label": "        int mod = price % 4;\n",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -66,6 +66,26 @@
         "kind": "EXPRESSION",
         "returning": false,
         "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "key": "Variable",
+            "type": "int",
+            "value": "mod ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "key": "Expression",
+            "type": "int",
+            "value": "price % 4",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
         "flags": 0
       },
       {

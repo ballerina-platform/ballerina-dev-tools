@@ -73,7 +73,7 @@
             "children": [
               {
                 "id": "48010",
-                "label": "            int a = 1;\n",
+                "label": "Custom Expression",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -88,6 +88,26 @@
                 "kind": "EXPRESSION",
                 "returning": false,
                 "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "key": "Variable",
+                    "type": "int",
+                    "value": "a ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "key": "Expression",
+                    "type": "int",
+                    "value": "1",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
                 "flags": 0
               }
             ]
@@ -98,7 +118,7 @@
             "children": [
               {
                 "id": "49994",
-                "label": "            int b = 2;\n",
+                "label": "Custom Expression",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -113,11 +133,31 @@
                 "kind": "EXPRESSION",
                 "returning": false,
                 "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "key": "Variable",
+                    "type": "int",
+                    "value": "b ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "key": "Expression",
+                    "type": "int",
+                    "value": "2",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
                 "flags": 0
               },
               {
                 "id": "50992",
-                "label": "            string c = \"12\";\n",
+                "label": "Custom Expression",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -132,6 +172,26 @@
                 "kind": "EXPRESSION",
                 "returning": false,
                 "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "key": "Variable",
+                    "type": "string",
+                    "value": "c ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "key": "Expression",
+                    "type": "string",
+                    "value": "\"12\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
                 "flags": 0
               }
             ]

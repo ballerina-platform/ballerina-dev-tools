@@ -123,7 +123,7 @@
       },
       {
         "id": "48794",
-        "label": "\n    http:Client localCl = check new (\"http://localhost:8080\");\n",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -138,6 +138,26 @@
         "kind": "EXPRESSION",
         "returning": false,
         "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "key": "Variable",
+            "type": "http:Client",
+            "value": "localCl ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "key": "Expression",
+            "type": "http:Client",
+            "value": "check new (\"http://localhost:8080\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
         "flags": 0
       },
       {
@@ -213,7 +233,7 @@
       },
       {
         "id": "50745",
-        "label": "    MyClient myLocalCl = new;\n",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -228,6 +248,26 @@
         "kind": "EXPRESSION",
         "returning": false,
         "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "key": "Variable",
+            "type": ".:MyClient",
+            "value": "myLocalCl ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "key": "Expression",
+            "type": ".:MyClient",
+            "value": "new",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
         "flags": 0
       },
       {
@@ -252,44 +292,6 @@
     ],
     "clients": [
       {
-        "id": "40970",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "clients.bal",
-          "startLine": {
-            "line": 9,
-            "offset": 9
-          },
-          "endLine": {
-            "line": 9,
-            "offset": 19
-          }
-        },
-        "scope": "GLOBAL",
-        "value": "myModuleCl",
-        "flags": 0
-      },
-      {
-        "id": "41970",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "clients.bal",
-          "startLine": {
-            "line": 10,
-            "offset": 9
-          },
-          "endLine": {
-            "line": 10,
-            "offset": 27
-          }
-        },
-        "scope": "GLOBAL",
-        "value": "myExplicitModuleCl",
-        "flags": 0
-      },
-      {
         "id": "40072",
         "label": "Client",
         "kind": "HTTP",
@@ -306,6 +308,44 @@
         },
         "scope": "GLOBAL",
         "value": "moduleCl",
+        "flags": 0
+      },
+      {
+        "id": "41970",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 9
+          },
+          "endLine": {
+            "line": 10,
+            "offset": 27
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "myExplicitModuleCl",
+        "flags": 0
+      },
+      {
+        "id": "40970",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 9,
+            "offset": 9
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 19
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "myModuleCl",
         "flags": 0
       },
       {
