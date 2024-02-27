@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.flowmodelgenerator.core.model.properties.Client;
+
 import java.util.List;
 
 /**
@@ -25,8 +27,9 @@ import java.util.List;
  *
  * @param fileName The name of the file
  * @param nodes    The nodes in the diagram
+ * @param clients  The clients in the diagram
  * @since 2201.9.0
  */
-public record Diagram(String fileName, List<FlowNode> nodes) {
+public record Diagram(String fileName, List<FlowNode> nodes, List<Client> clients) {
 
 }

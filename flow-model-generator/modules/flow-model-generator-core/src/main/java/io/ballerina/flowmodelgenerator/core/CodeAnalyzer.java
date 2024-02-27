@@ -32,6 +32,7 @@ import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ElseBlockNode;
+import io.ballerina.compiler.syntax.tree.ExplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionStatementNode;
 import io.ballerina.compiler.syntax.tree.FailStatementNode;
@@ -41,9 +42,11 @@ import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
+import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -55,13 +58,13 @@ import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StatementNode;
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.properties.Client;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
@@ -81,7 +84,9 @@ import java.util.Stack;
 class CodeAnalyzer extends NodeVisitor {
 
     private final List<FlowNode> flowNodeList;
+    private final List<Client> clients;
     private FlowNode.Builder nodeBuilder;
+    private Client.Builder clientBuilder;
     private final SemanticModel semanticModel;
     private final Stack<FlowNode.Builder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
@@ -89,8 +94,10 @@ class CodeAnalyzer extends NodeVisitor {
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
         this.nodeBuilder = new FlowNode.Builder();
+        this.clientBuilder = new Client.Builder();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
+        this.clients = new ArrayList<>();
     }
 
     @Override
@@ -172,9 +179,7 @@ class CodeAnalyzer extends NodeVisitor {
     private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
                                   SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                   SeparatedNodeList<Node> resourceAccessPathNodes) {
-        NonTerminalNode parentNode = actionNode.parent();
-        NonTerminalNode statementNode = parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                parentNode : actionNode;
+        NonTerminalNode statementNode = CommonUtils.getExpressionWithCheck(actionNode);
         this.nodeBuilder.setNode(statementNode);
 
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
@@ -262,6 +267,25 @@ class CodeAnalyzer extends NodeVisitor {
             }
             default -> new ArrayList<>();
         };
+    }
+
+    @Override
+    public void visit(ImplicitNewExpressionNode implicitNewExpressionNode) {
+        checkForPossibleClient(implicitNewExpressionNode);
+        super.visit(implicitNewExpressionNode);
+    }
+
+    @Override
+    public void visit(ExplicitNewExpressionNode explicitNewExpressionNode) {
+        checkForPossibleClient(explicitNewExpressionNode);
+        super.visit(explicitNewExpressionNode);
+    }
+
+    private void checkForPossibleClient(NewExpressionNode newExpressionNode) {
+        this.clientBuilder.setTypedBindingPattern(this.typedBindingPatternNode);
+        semanticModel.typeOf(CommonUtils.getExpressionWithCheck(newExpressionNode))
+                .flatMap(symbol -> CommonUtils.buildClient(this.clientBuilder, symbol, Client.ClientScope.LOCAL))
+                .ifPresent(clients::add);
     }
 
     @Override
@@ -390,5 +414,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     public List<FlowNode> getFlowNodes() {
         return flowNodeList;
+    }
+
+    public List<Client> getClients() {
+        return clients;
     }
 }

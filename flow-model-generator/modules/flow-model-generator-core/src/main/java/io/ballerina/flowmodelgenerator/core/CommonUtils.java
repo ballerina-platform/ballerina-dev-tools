@@ -18,10 +18,17 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.properties.Client;
 
 import java.util.Optional;
 
@@ -72,5 +79,41 @@ public class CommonUtils {
                 yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
             }
         };
+    }
+
+    /**
+     * Returns the expression node with check expression if exists.
+     *
+     * @param expressionNode the expression node
+     * @return the expression node with check expression if exists
+     */
+    public static NonTerminalNode getExpressionWithCheck(NonTerminalNode expressionNode) {
+        NonTerminalNode parentNode = expressionNode.parent();
+        return parentNode.kind() == SyntaxKind.CHECK_EXPRESSION ? parentNode : expressionNode;
+    }
+
+    /**
+     * Builds a client from the given type symbol.
+     *
+     * @param builder     the client builder
+     * @param typeSymbol  the type symbol
+     * @param scope       the client scope
+     * @return the client if the type symbol is a client, otherwise empty
+     */
+    public static Optional<Client> buildClient(Client.Builder builder, TypeSymbol typeSymbol,
+                                               Client.ClientScope scope) {
+        if (typeSymbol.typeKind() != TypeDescKind.TYPE_REFERENCE) {
+            return Optional.empty();
+        }
+        TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
+
+        if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
+                !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+            return Optional.empty();
+        }
+
+        builder.setKind(CommonUtils.getTypeSignature(typeDescriptorSymbol));
+        builder.setScope(scope);
+        return Optional.of(builder.build());
     }
 }

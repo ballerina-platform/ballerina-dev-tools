@@ -22,16 +22,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
+import io.ballerina.flowmodelgenerator.core.model.properties.Client;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Generator for the flow model.
@@ -68,10 +73,24 @@ public class ModelGenerator {
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
+        Client.Builder clientBuilder = new Client.Builder();
+        List<Client> moduleClients = semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine())
+                .stream()
+                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
+                .map(symbol -> {
+                    VariableSymbol variableSymbol = (VariableSymbol) symbol;
+                    clientBuilder.setVariableSymbol(variableSymbol);
+                    return (variableSymbol).typeDescriptor();
+                })
+                .flatMap(symbol -> CommonUtils.buildClient(clientBuilder, symbol, Client.ClientScope.GLOBAL).stream())
+                .toList();
+
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
         canvasNode.accept(codeAnalyzer);
+        List<Client> clients = new ArrayList<>(moduleClients);
+        clients.addAll(codeAnalyzer.getClients());
 
-        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes());
+        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), clients);
         return gson.toJsonTree(diagram);
     }
 }

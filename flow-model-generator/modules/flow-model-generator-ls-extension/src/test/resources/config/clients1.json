@@ -1,0 +1,351 @@
+{
+  "start": {
+    "line": 13,
+    "offset": 0
+  },
+  "end": {
+    "line": 28,
+    "offset": 1
+  },
+  "source": "clients.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "clients.bal",
+    "nodes": [
+      {
+        "id": "45137",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 29,
+            "offset": 1
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "flags": 0
+      },
+      {
+        "id": "46519",
+        "label": "HTTP GET",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 27
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 50
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "Client",
+            "type": "http:Client",
+            "value": "moduleCl",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Client Connection"
+          },
+          "path": {
+            "key": "Path",
+            "type": "string",
+            "value": "\"/hello\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          },
+          "headers": {
+            "key": "Headers",
+            "type": "map<string|string[]>?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Headers"
+          },
+          "targetType": {
+            "key": "Target Type",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Response Type"
+          },
+          "params": {
+            "key": "Path",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "moduleVal ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "46776",
+        "label": "    myModuleCl->myRemoteFn();\n",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 28
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "48794",
+        "label": "\n    http:Client localCl = check new (\"http://localhost:8080\");\n",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 62
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "50454",
+        "label": "HTTP GET",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 26
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 48
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "Client",
+            "type": "http:Client",
+            "value": "localCl",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Client Connection"
+          },
+          "path": {
+            "key": "Path",
+            "type": "string",
+            "value": "\"/hello\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          },
+          "headers": {
+            "key": "Headers",
+            "type": "map<string|string[]>?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Headers"
+          },
+          "targetType": {
+            "key": "Target Type",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Response Type"
+          },
+          "params": {
+            "key": "Path",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json",
+            "value": "localVal ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "50745",
+        "label": "    MyClient myLocalCl = new;\n",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 29
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "51735",
+        "label": "    myLocalCl->myRemoteFn();\n",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 27
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "40072",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 20
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "moduleCl",
+        "flags": 0
+      },
+      {
+        "id": "40970",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 9,
+            "offset": 9
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 19
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "myModuleCl",
+        "flags": 0
+      },
+      {
+        "id": "41970",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 9
+          },
+          "endLine": {
+            "line": 10,
+            "offset": 27
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "myExplicitModuleCl",
+        "flags": 0
+      },
+      {
+        "id": "48755",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 23
+          }
+        },
+        "scope": "LOCAL",
+        "value": "localCl ",
+        "flags": 0
+      },
+      {
+        "id": "50738",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "clients.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 22
+          }
+        },
+        "scope": "LOCAL",
+        "value": "myLocalCl ",
+        "flags": 0
+      }
+    ]
+  }
+}

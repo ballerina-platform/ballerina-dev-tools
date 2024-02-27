@@ -54,8 +54,8 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
                       ExpressionList params, Expression variable) implements NodeProperties {
 
     public static final String HTTP_API_GET_KEY = "HTTP GET";
-    private static final String HTTP_API_GET_CLIENT = "Client";
-    private static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
+    public static final String HTTP_API_GET_CLIENT = "Client";
+    public static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
     private static final String HTTP_API_GET_CLIENT_DOC = "HTTP Client Connection";
     private static final String HTTP_API_GET_PATH = "Path";
     private static final String HTTP_API_GET_PATH_DOC = "HTTP Path";
