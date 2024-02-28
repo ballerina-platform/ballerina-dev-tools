@@ -87,7 +87,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"pear\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -166,7 +166,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"pear\"",
             "typeKind": "BTYPE",
             "optional": false,

@@ -79,8 +79,8 @@ public record HttpPost(Expression client, Expression path, Expression message, E
         private Expression mediaType;
         private ExpressionList params;
         private String targetTypeValue;
-        private final Map<String, String> namedArgValueMap;
-        private final Queue<String> positionalArgs;
+        private final Map<String, Node> namedArgValueMap;
+        private final Queue<Node> positionalArgs;
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
@@ -94,10 +94,9 @@ public record HttpPost(Expression client, Expression path, Expression message, E
                     case NAMED_ARG -> {
                         NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
                         namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                namedArgument.expression().toSourceCode());
+                                namedArgument.expression());
                     }
-                    case POSITIONAL_ARG ->
-                            positionalArgs.add(((PositionalArgumentNode) argument).expression().toSourceCode());
+                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
                 }
             }
         }
@@ -112,7 +111,7 @@ public record HttpPost(Expression client, Expression path, Expression message, E
                 if (parameterSymbol.getName().isEmpty()) {
                     continue;
                 }
-                String paramValue = i < numPositionalArgs ? this.positionalArgs.poll() :
+                Node paramValue = i < numPositionalArgs ? this.positionalArgs.poll() :
                         this.namedArgValueMap.get(parameterSymbol.getName().get());
                 switch (parameterSymbol.getName().get()) {
                     case "path" -> {
@@ -137,7 +136,12 @@ public record HttpPost(Expression client, Expression path, Expression message, E
                         this.targetType = expressionBuilder.build();
                     }
                     case "message" -> {
-                        expressionBuilder.type(HttpPost.HTTP_API_POST_MESSAGE_TYPE);
+                        Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(paramValue);
+                        if (typeSymbol.isPresent()) {
+                            expressionBuilder.type(typeSymbol.get());
+                        } else {
+                            expressionBuilder.type(HttpPost.HTTP_API_POST_MESSAGE_TYPE);
+                        }
                         expressionBuilder.setEditable();
                         setParamValue(HttpPost.HTTP_API_POST_MESSAGE, paramValue, HttpPost.HTTP_API_POST_MESSAGE_DOC);
                         this.message = expressionBuilder.build();
@@ -153,16 +157,16 @@ public record HttpPost(Expression client, Expression path, Expression message, E
             }
         }
 
-        private void setParamValue(String path, String paramValue, String doc) {
+        private void setParamValue(String path, Node paramValue, String doc) {
             expressionBuilder.key(path);
             setParamValue(paramValue);
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setDocumentation(doc);
         }
 
-        private void setParamValue(String paramValue) {
+        private void setParamValue(Node paramValue) {
             if (paramValue != null) {
-                expressionBuilder.value(paramValue);
+                expressionBuilder.value(paramValue.toString());
             }
         }
 

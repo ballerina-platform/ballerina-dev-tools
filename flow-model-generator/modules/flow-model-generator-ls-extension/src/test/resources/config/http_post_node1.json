@@ -87,7 +87,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -175,7 +175,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -245,7 +245,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"western red apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -343,7 +343,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "map<anydata>",
             "value": "{\"type\": \"red apple\"}",
             "typeKind": "BTYPE",
             "optional": false,
@@ -433,7 +433,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -512,7 +512,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -601,7 +601,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -691,7 +691,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
             "optional": false,
@@ -780,7 +780,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
             "optional": false,

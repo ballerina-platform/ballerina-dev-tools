@@ -126,7 +126,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"mixed fruit\"",
             "typeKind": "BTYPE",
             "optional": false,

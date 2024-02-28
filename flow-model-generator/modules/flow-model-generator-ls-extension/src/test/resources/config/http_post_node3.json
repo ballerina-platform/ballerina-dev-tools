@@ -87,7 +87,7 @@
           },
           "message": {
             "key": "Message",
-            "type": "http:RequestMessage",
+            "type": "string",
             "value": "\"banana\"",
             "typeKind": "BTYPE",
             "optional": false,
