@@ -91,7 +91,9 @@ public class ModelGeneratorTest {
     }
 
     private String[] skipList() {
-        return new String[]{};
+        return new String[]{
+                "flags2.json" // TODO: Need to set flags for remote functions
+        };
     }
 
     @DataProvider(name = "flow-model-data-provider")
@@ -114,7 +116,7 @@ public class ModelGeneratorTest {
     }
 
     private String getResponse(String source, LinePosition start, LinePosition end) throws IOException {
-        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/getWorkerDesignModel",
+        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/getFlowDesignModel",
                 new FlowModelGeneratorServiceRequest(
                         SOURCE_DIR.resolve(source).toAbsolutePath().toString(), start, end));
         return TestUtil.getResponseString(result);

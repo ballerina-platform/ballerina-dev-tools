@@ -47,7 +47,7 @@
             "documentation": "HTTP Path"
           }
         },
-        "flags": 0
+        "flags": 2048
       },
       {
         "id": "39131",
@@ -140,7 +140,7 @@
                     "documentation": "Result Variable"
                   }
                 },
-                "flags": 0
+                "flags": 1
               },
               {
                 "id": "41065",
@@ -247,7 +247,7 @@
                     "documentation": "Result Variable"
                   }
                 },
-                "flags": 0
+                "flags": 1
               },
               {
                 "id": "44041",

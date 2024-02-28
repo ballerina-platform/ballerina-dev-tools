@@ -47,7 +47,7 @@
             "documentation": "HTTP Path"
           }
         },
-        "flags": 0
+        "flags": 2048
       },
       {
         "id": "71727",
@@ -79,14 +79,14 @@
           "expression": {
             "key": "Expression",
             "type": "http:Client",
-            "value": "check new (\"/drink\")",
+            "value": "new (\"/drink\")",
             "typeKind": "BTYPE",
             "optional": false,
             "editable": true,
             "documentation": "Expression"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "72926",

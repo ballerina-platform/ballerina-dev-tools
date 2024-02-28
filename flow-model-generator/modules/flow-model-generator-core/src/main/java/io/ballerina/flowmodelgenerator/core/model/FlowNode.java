@@ -43,6 +43,12 @@ import java.util.Objects;
 public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning, boolean fixed,
                        List<Branch> branches, NodeProperties nodeProperties, int flags) {
 
+    public static int NODE_FLAG_CHECKED = 1 << 0;
+    public static int NODE_FLAG_CHECKPANIC = 1 << 1;
+    public static int NODE_FLAG_FINAL = 1 << 2;
+    public static int NODE_FLAG_REMOTE = 1 << 10;
+    public static int NODE_FLAG_RESOURCE = 1 << 11;
+
     public enum NodeKind {
         EVENT_HTTP_API,
         IF,
@@ -99,6 +105,10 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
 
         public void addBranch(String label, Branch.BranchKind kind, List<FlowNode> children) {
             this.branches.add(new Branch(label, kind, children));
+        }
+
+        public void addFlag(int flag) {
+            this.flags |= flag;
         }
 
         public boolean isDefault() {

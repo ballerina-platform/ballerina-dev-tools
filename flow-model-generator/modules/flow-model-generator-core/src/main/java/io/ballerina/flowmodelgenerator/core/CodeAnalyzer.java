@@ -27,6 +27,7 @@ import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
+import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
@@ -112,6 +113,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (initializer.isEmpty()) {
             return;
         }
+        if (variableDeclarationNode.finalKeyword().isPresent()) {
+            this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_FINAL);
+        }
         ExpressionNode initializerNode = initializer.get();
         this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
         initializerNode.accept(this);
@@ -144,6 +148,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
+                this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_RESOURCE);
                 HttpApiEvent.Builder httpApiEventProperties =
                         new HttpApiEvent.Builder(semanticModel);
                 httpApiEventProperties.setSymbol((ResourceMethodSymbol) symbol.get());
@@ -167,7 +172,7 @@ class CodeAnalyzer extends NodeVisitor {
             this.nodeBuilder.setNode(returnStatementNode);
 
             Return.Builder returnNodePropertiesBuilder = new Return.Builder(semanticModel);
-            expression.ifPresent(returnNodePropertiesBuilder::setExpression);
+            expression.ifPresent(returnNodePropertiesBuilder::setExpressionNode);
             addNodeProperties(returnNodePropertiesBuilder);
         }
         this.nodeBuilder.returning(true);
@@ -397,6 +402,17 @@ class CodeAnalyzer extends NodeVisitor {
         handleDefaultStatementNode(doStatementNode, () -> super.visit(doStatementNode));
     }
 
+    @Override
+    public void visit(CheckExpressionNode checkExpressionNode) {
+        switch (checkExpressionNode.checkKeyword().text()) {
+            case Constants.CHECK -> this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_CHECKED);
+            case Constants.CHECKPANIC -> this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_CHECKPANIC);
+            default -> {
+            }
+        }
+        checkExpressionNode.expression().accept(this);
+    }
+
     private void appendNode() {
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
@@ -422,9 +438,9 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder.nodeProperties(nodePropertiesBuilder.build());
     }
 
-    private void handleDefaultStatementNode(StatementNode statementNode, Runnable runnable) {
+    private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
         this.nodeBuilder.setNode(statementNode);
-        this.nodeBuilder.label(statementNode.toSourceCode());
+        this.nodeBuilder.label(statementNode.kind().toString());
         this.nodeBuilder.kind(FlowNode.NodeKind.EXPRESSION);
         runnable.run();
         appendNode();

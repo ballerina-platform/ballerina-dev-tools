@@ -47,7 +47,7 @@
             "documentation": "HTTP Path"
           }
         },
-        "flags": 0
+        "flags": 2048
       },
       {
         "id": "47036",

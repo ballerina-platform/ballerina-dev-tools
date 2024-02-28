@@ -47,7 +47,7 @@ public record Return(Expression expr) implements NodeProperties {
             super(semanticModel);
         }
 
-        public void setExpression(ExpressionNode expressionNode) {
+        public void setExpressionNode(ExpressionNode expressionNode) {
             expressionBuilder.key(RETURN_EXPRESSION);
             expressionBuilder.value(expressionNode.toSourceCode());
             expressionBuilder.setDocumentation(RETURN_EXPRESSION_DOC);

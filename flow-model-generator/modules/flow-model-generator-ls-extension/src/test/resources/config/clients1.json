@@ -100,11 +100,11 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "46776",
-        "label": "    myModuleCl->myRemoteFn();\n",
+        "label": "ACTION_STATEMENT",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -151,14 +151,14 @@
           "expression": {
             "key": "Expression",
             "type": "http:Client",
-            "value": "check new (\"http://localhost:8080\")",
+            "value": "new (\"http://localhost:8080\")",
             "typeKind": "BTYPE",
             "optional": false,
             "editable": true,
             "documentation": "Expression"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "50454",
@@ -229,7 +229,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "50745",
@@ -272,7 +272,7 @@
       },
       {
         "id": "51735",
-        "label": "    myLocalCl->myRemoteFn();\n",
+        "label": "ACTION_STATEMENT",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -313,7 +313,7 @@
       {
         "id": "41970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -332,7 +332,7 @@
       {
         "id": "40970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

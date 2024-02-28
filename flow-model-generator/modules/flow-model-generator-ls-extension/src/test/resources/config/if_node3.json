@@ -47,7 +47,7 @@
             "documentation": "HTTP Path"
           }
         },
-        "flags": 0
+        "flags": 2048
       },
       {
         "id": "69139",
@@ -73,7 +73,7 @@
             "children": [
               {
                 "id": "69847",
-                "label": "            food.comment = \"cheap\";\n",
+                "label": "ASSIGNMENT_STATEMENT",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -172,7 +172,7 @@
                             "children": [
                               {
                                 "id": "73945",
-                                "label": "                food.comment = \"fresh; \";\n",
+                                "label": "ASSIGNMENT_STATEMENT",
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -197,7 +197,7 @@
                             "children": [
                               {
                                 "id": "75931",
-                                "label": "                food.comment = \"expired; \";\n",
+                                "label": "ASSIGNMENT_STATEMENT",
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -232,7 +232,7 @@
                       },
                       {
                         "id": "77787",
-                        "label": "            food.comment += \"moderate\";\n",
+                        "label": "COMPOUND_ASSIGNMENT_STATEMENT",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -287,7 +287,7 @@
                     "children": [
                       {
                         "id": "80763",
-                        "label": "            food.comment = \"expensive\";\n",
+                        "label": "ASSIGNMENT_STATEMENT",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {

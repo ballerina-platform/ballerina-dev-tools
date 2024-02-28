@@ -1,0 +1,37 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 0
+  },
+  "end": {
+    "line": 16,
+    "offset": 1
+  },
+  "source": "flags.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "flags.bal",
+    "nodes": [
+      {
+        "id": "45823",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "flags.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 16,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "flags": 1024
+      }
+    ],
+    "clients": []
+  }
+}

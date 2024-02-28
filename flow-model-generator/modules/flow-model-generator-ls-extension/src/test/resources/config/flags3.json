@@ -1,29 +1,29 @@
 {
   "start": {
-    "line": 10,
+    "line": 20,
     "offset": 0
   },
   "end": {
-    "line": 10,
-    "offset": 92
+    "line": 22,
+    "offset": 1
   },
-  "source": "http_api_event_node.bal",
+  "source": "flags.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "http_api_event_node.bal",
+    "fileName": "flags.bal",
     "nodes": [
       {
-        "id": "41880",
+        "id": "51775",
         "label": "HTTP API",
         "lineRange": {
-          "fileName": "http_api_event_node.bal",
+          "fileName": "flags.bal",
           "startLine": {
-            "line": 10,
+            "line": 20,
             "offset": 4
           },
           "endLine": {
-            "line": 10,
-            "offset": 92
+            "line": 22,
+            "offset": 5
           }
         },
         "kind": "EVENT_HTTP_API",
@@ -32,7 +32,7 @@
         "nodeProperties": {
           "method": {
             "key": "Method",
-            "value": "get",
+            "value": "accessor",
             "typeKind": "IDENTIFIER",
             "optional": false,
             "editable": true,
@@ -40,7 +40,7 @@
           },
           "path": {
             "key": "Path",
-            "value": "menu/[int year]",
+            "value": "path",
             "typeKind": "URI_PATH",
             "optional": false,
             "editable": true,

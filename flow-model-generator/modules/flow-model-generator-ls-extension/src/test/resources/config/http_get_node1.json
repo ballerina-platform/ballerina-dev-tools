@@ -47,7 +47,7 @@
             "documentation": "HTTP Path"
           }
         },
-        "flags": 0
+        "flags": 2048
       },
       {
         "id": "46477",
@@ -118,7 +118,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "47245",
@@ -180,7 +180,7 @@
             "optional": true
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "48251",
@@ -243,7 +243,7 @@
             "optional": true
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "49473",
@@ -324,7 +324,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "50457",
@@ -396,7 +396,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "51443",
@@ -458,7 +458,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "52426",
@@ -530,7 +530,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "53433",
@@ -602,7 +602,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "54477",
@@ -675,7 +675,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "58393",
@@ -747,7 +747,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "59403",
@@ -837,7 +837,7 @@
             "documentation": "Result Variable"
           }
         },
-        "flags": 0
+        "flags": 1
       }
     ],
     "clients": [

@@ -24,7 +24,9 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 
@@ -82,8 +84,10 @@ public abstract class NodePropertiesBuilder {
         expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
         expressionBuilder.setDocumentation(DefaultExpression.EXPRESSION_RHS_DOC);
         expressionBuilder.setEditable();
-        expressionBuilder.value(expression.toSourceCode());
         semanticModel.typeOf(expression).ifPresent(expressionBuilder::type);
+
+        expressionBuilder.value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                ((CheckExpressionNode) expression).expression().toString() : expression.toString());
         this.expression = expressionBuilder.build();
     }
 
