@@ -1,0 +1,252 @@
+{
+  "start": {
+    "line": 28,
+    "offset": 0
+  },
+  "end": {
+    "line": 31,
+    "offset": 1
+  },
+  "source": "http_post_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_post_node.bal",
+    "nodes": [
+      {
+        "id": "59742",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 28,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "key": "Method",
+            "value": "post",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "key": "Path",
+            "value": "pears",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "61378",
+        "label": "HTTP POST",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 26
+          },
+          "endLine": {
+            "line": 29,
+            "offset": 60
+          }
+        },
+        "kind": "HTTP_API_POST_CALL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "Client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Client Connection"
+          },
+          "path": {
+            "key": "Path",
+            "type": "string",
+            "value": "\"/pears\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          },
+          "message": {
+            "key": "Message",
+            "type": "http:RequestMessage",
+            "value": "\"pear\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Post Message"
+          },
+          "headers": {
+            "key": "Headers",
+            "type": "map<string|string[]>?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Headers"
+          },
+          "targetType": {
+            "key": "Target Type",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Response Type"
+          },
+          "mediaType": {
+            "key": "Media Type",
+            "type": "string?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Post Media Type"
+          },
+          "params": {
+            "key": "Path",
+            "type": "http:QueryParamType",
+            "value": [],
+            "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json|annotations:error",
+            "value": "res1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "62719",
+        "label": "HTTP POST",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 30,
+            "offset": 37
+          },
+          "endLine": {
+            "line": 30,
+            "offset": 68
+          }
+        },
+        "kind": "HTTP_API_POST_CALL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "key": "Client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Client Connection"
+          },
+          "message": {
+            "key": "Message",
+            "type": "http:RequestMessage",
+            "value": "\"pear\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Post Message"
+          },
+          "headers": {
+            "key": "Headers",
+            "type": "map<string|string[]>?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Headers"
+          },
+          "targetType": {
+            "key": "Target Type",
+            "type": "http:Response|anydata",
+            "value": "json|http:ballerina/http:2.10.7:error",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Response Type"
+          },
+          "mediaType": {
+            "key": "Media Type",
+            "type": "string?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Post Media Type"
+          },
+          "params": {
+            "key": "Path",
+            "type": "http:QueryParamType",
+            "value": [
+              {
+                "key": "param",
+                "type": "string",
+                "value": "pears",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": false,
+                "documentation": "HTTP Path"
+              }
+            ],
+            "optional": true
+          },
+          "variable": {
+            "key": "Variable",
+            "type": "json|http:ballerina/http:2.10.7:error",
+            "value": "res2 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

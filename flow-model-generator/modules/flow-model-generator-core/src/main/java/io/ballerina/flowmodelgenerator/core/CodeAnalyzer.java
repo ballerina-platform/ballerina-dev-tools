@@ -69,6 +69,7 @@ import io.ballerina.flowmodelgenerator.core.model.properties.Client;
 import io.ballerina.flowmodelgenerator.core.model.properties.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
+import io.ballerina.flowmodelgenerator.core.model.properties.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.NodePropertiesBuilder;
 import io.ballerina.flowmodelgenerator.core.model.properties.Return;
@@ -218,21 +219,29 @@ class CodeAnalyzer extends NodeVisitor {
             case "http" -> {
                 switch (methodName) {
                     case "get" -> {
-                        HttpGet.Builder httpGetBuilder =
-                                new HttpGet.Builder(semanticModel);
+                        HttpGet.Builder httpGetBuilder = new HttpGet.Builder(semanticModel);
                         nodeBuilder.label(HttpGet.HTTP_API_GET_KEY);
                         nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
                         httpGetBuilder.addClient(expressionNode);
                         httpGetBuilder.addTargetTypeValue(statementNode);
                         httpGetBuilder.addFunctionArguments(argumentNodes);
-                        httpGetBuilder.addHttpParameters(methodSymbol.typeDescriptor().params().get());
                         httpGetBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         httpGetBuilder.setVariable(this.typedBindingPatternNode);
+                        methodSymbol.typeDescriptor().params().ifPresent(httpGetBuilder::addHttpParameters);
                         addNodeProperties(httpGetBuilder);
                     }
                     case "post" -> {
-                        nodeBuilder.label("HTTP POST Call");
+                        HttpPost.Builder httpPostBuilder = new HttpPost.Builder(semanticModel);
+                        nodeBuilder.label(HttpPost.HTTP_API_POST_KEY);
                         nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_POST_CALL);
+
+                        httpPostBuilder.addClient(expressionNode);
+                        httpPostBuilder.addTargetTypeValue(statementNode);
+                        httpPostBuilder.addFunctionArguments(argumentNodes);
+                        httpPostBuilder.addResourceAccessPath(resourceAccessPathNodes);
+                        httpPostBuilder.setVariable(this.typedBindingPatternNode);
+                        methodSymbol.typeDescriptor().params().ifPresent(httpPostBuilder::addHttpParameters);
+                        addNodeProperties(httpPostBuilder);
                     }
                     default -> {
                     }

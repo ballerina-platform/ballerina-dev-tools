@@ -40,36 +40,34 @@ import java.util.Optional;
 import java.util.Queue;
 
 /**
- * Represents the properties of a HTTP GET node.
+ * Represents the properties of a HTTP POST node.
  *
- * @param client     The client of the HTTP GET node
- * @param path       The path of the HTTP GET node
- * @param headers    The headers of the HTTP GET node
+ * @param client     The client of the HTTP POST node
+ * @param path       The path of the HTTP POST node
+ * @param message    The message of the HTTP POST node
+ * @param headers    The headers of the HTTP POST node
  * @param targetType The target type of the HTTP return
- * @param params     The query parameters of the HTTP GET node
- * @param variable   The variable of the HTTP GET node
+ * @param mediaType  The media type of the HTTP POST node
+ * @param params     The query parameters of the HTTP POST node
+ * @param variable   The variable of the HTTP POST node
  * @since 2201.9.0
  */
-public record HttpGet(Expression client, Expression path, Expression headers, Expression targetType,
-                      ExpressionList params, Expression variable) implements NodeProperties {
+public record HttpPost(Expression client, Expression path, Expression message, Expression headers,
+                       Expression targetType, Expression mediaType, ExpressionList params, Expression variable)
+        implements NodeProperties {
 
-    public static final String HTTP_API_GET_KEY = "HTTP GET";
-    public static final String HTTP_API_GET_CLIENT = "Client";
-    public static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
-    public static final String HTTP_API_GET_CLIENT_DOC = "HTTP Client Connection";
-    public static final String HTTP_API_GET_PATH = "Path";
-    public static final String HTTP_API_GET_PATH_DOC = "HTTP Path";
-    public static final String HTTP_API_GET_HEADERS = "Headers";
-    public static final String HTTP_API_GET_HEADERS_DOC = "HTTP Headers";
-    public static final String HTTP_API_GET_HEADERS_TYPE = "map<string|string[]>?";
-    public static final String HTTP_API_GET_TARGET_TYPE = "Target Type";
-    public static final String HTTP_API_GET_TARGET_TYPE_DOC = "HTTP Response Type";
-    public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
+    public static final String HTTP_API_POST_KEY = "HTTP POST";
+
+    public static final String HTTP_API_POST_MESSAGE = "Message";
+    public static final String HTTP_API_POST_MESSAGE_TYPE = "http:RequestMessage";
+    public static final String HTTP_API_POST_MESSAGE_DOC = "HTTP Post Message";
+
+    public static final String HTTP_API_MEDIA_TYPE = "Media Type";
+    public static final String HTTP_API_MEDIA_TYPE_TYPE = "string?";
+    public static final String HTTP_API_MEDIA_TYPE_DOC = "HTTP Post Media Type";
 
     /**
-     * Represents the builder for HTTP GET node properties.
-     *
-     * @since 2201.9.0
+     * Represents a builder for the HTTP POST node properties.
      */
     public static class Builder extends NodePropertiesBuilder {
 
@@ -77,6 +75,8 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
         private Expression paths;
         private Expression headers;
         private Expression targetType;
+        private Expression message;
+        private Expression mediaType;
         private ExpressionList params;
         private String targetTypeValue;
         private final Map<String, String> namedArgValueMap;
@@ -118,23 +118,36 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
                     case "path" -> {
                         expressionBuilder.type(parameterSymbol.typeDescriptor());
                         expressionBuilder.setEditable();
-                        setParamValue(HTTP_API_GET_PATH, paramValue, HTTP_API_GET_PATH_DOC);
+                        setParamValue(HttpGet.HTTP_API_GET_PATH, paramValue, HttpGet.HTTP_API_GET_PATH_DOC);
                         this.paths = expressionBuilder.build();
                     }
                     case "headers" -> {
-                        this.expressionBuilder.type(HTTP_API_GET_HEADERS_TYPE);
+                        this.expressionBuilder.type(HttpGet.HTTP_API_GET_HEADERS_TYPE);
                         expressionBuilder.optional(true);
                         expressionBuilder.setEditable();
-                        setParamValue(HTTP_API_GET_HEADERS, paramValue, HTTP_API_GET_HEADERS_DOC);
+                        setParamValue(HttpGet.HTTP_API_GET_HEADERS, paramValue, HttpGet.HTTP_API_GET_HEADERS_DOC);
                         this.headers = expressionBuilder.build();
                     }
                     case "targetType" -> {
                         expressionBuilder.value(targetTypeValue);
-                        expressionBuilder.type(HTTP_API_GET_TARGET_TYPE_TYPE);
+                        expressionBuilder.type(HttpGet.HTTP_API_GET_TARGET_TYPE_TYPE);
                         expressionBuilder.setEditable();
-                        setParamValue(HTTP_API_GET_TARGET_TYPE, paramValue,
-                                HTTP_API_GET_TARGET_TYPE_DOC);
+                        setParamValue(HttpGet.HTTP_API_GET_TARGET_TYPE, paramValue,
+                                HttpGet.HTTP_API_GET_TARGET_TYPE_DOC);
                         this.targetType = expressionBuilder.build();
+                    }
+                    case "message" -> {
+                        expressionBuilder.type(HttpPost.HTTP_API_POST_MESSAGE_TYPE);
+                        expressionBuilder.setEditable();
+                        setParamValue(HttpPost.HTTP_API_POST_MESSAGE, paramValue, HttpPost.HTTP_API_POST_MESSAGE_DOC);
+                        this.message = expressionBuilder.build();
+                    }
+                    case "mediaType" -> {
+                        expressionBuilder.type(HttpPost.HTTP_API_MEDIA_TYPE_TYPE);
+                        expressionBuilder.setEditable();
+                        expressionBuilder.optional(true);
+                        setParamValue(HttpPost.HTTP_API_MEDIA_TYPE, paramValue, HttpPost.HTTP_API_MEDIA_TYPE_DOC);
+                        this.mediaType = expressionBuilder.build();
                     }
                 }
             }
@@ -155,12 +168,12 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
 
         public void addClient(ExpressionNode expressionNode) {
             expressionBuilder = new Expression.Builder();
-            expressionBuilder.key(HTTP_API_GET_CLIENT);
-            expressionBuilder.type(HTTP_API_GET_CLIENT_TYPE);
+            expressionBuilder.key(HttpGet.HTTP_API_GET_CLIENT);
+            expressionBuilder.type(HttpGet.HTTP_API_GET_CLIENT_TYPE);
             expressionBuilder.value(expressionNode.toString());
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setEditable();
-            expressionBuilder.setDocumentation(HTTP_API_GET_CLIENT_DOC);
+            expressionBuilder.setDocumentation(HttpGet.HTTP_API_GET_CLIENT_DOC);
             this.client = expressionBuilder.build();
         }
 
@@ -171,10 +184,10 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
 
         public void addResourceAccessPath(SeparatedNodeList<Node> nodes) {
             ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder();
-            expressionListBuilder.key(HTTP_API_GET_PATH);
+            expressionListBuilder.key(HttpGet.HTTP_API_GET_PATH);
             expressionListBuilder.type("http:QueryParamType");
             expressionListBuilder.optional(true);
-            expressionBuilder.setDocumentation(HTTP_API_GET_PATH_DOC);
+            expressionBuilder.setDocumentation(HttpGet.HTTP_API_GET_PATH_DOC);
 
             if (nodes != null) {
                 for (Node node : nodes) {
@@ -189,7 +202,8 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
         }
 
         public NodeProperties build() {
-            return new HttpGet(client, paths, headers, targetType, params, variable);
+            return new HttpPost(client, paths, message, headers, targetType, mediaType, params, variable);
         }
     }
+
 }
