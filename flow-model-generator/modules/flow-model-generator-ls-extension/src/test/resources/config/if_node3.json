@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "oranges",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "branches": [
           {
-            "key": "thenBranch",
+            "label": "thenBranch",
             "kind": "BLOCK",
             "children": [
               {
@@ -108,8 +108,8 @@
                 "returning": true,
                 "fixed": false,
                 "nodeProperties": {
-                  "expr": {
-                    "key": "Expression",
+                  "expression": {
+                    "label": "Expression",
                     "type": "record {|string name; int price; int remaining?; string comment;|}",
                     "value": "food",
                     "typeKind": "BTYPE",
@@ -123,7 +123,7 @@
             ]
           },
           {
-            "key": "elseBranch",
+            "label": "elseBranch",
             "kind": "BLOCK",
             "children": [
               {
@@ -145,7 +145,7 @@
                 "fixed": false,
                 "branches": [
                   {
-                    "key": "thenBranch",
+                    "label": "thenBranch",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -167,7 +167,7 @@
                         "fixed": false,
                         "branches": [
                           {
-                            "key": "thenBranch",
+                            "label": "thenBranch",
                             "kind": "BLOCK",
                             "children": [
                               {
@@ -192,7 +192,7 @@
                             ]
                           },
                           {
-                            "key": "elseBranch",
+                            "label": "elseBranch",
                             "kind": "BLOCK",
                             "children": [
                               {
@@ -219,7 +219,7 @@
                         ],
                         "nodeProperties": {
                           "condition": {
-                            "key": "Condition",
+                            "label": "Condition",
                             "type": "boolean",
                             "value": "food.remaining > 0 ",
                             "typeKind": "BTYPE",
@@ -267,8 +267,8 @@
                         "returning": true,
                         "fixed": false,
                         "nodeProperties": {
-                          "expr": {
-                            "key": "Expression",
+                          "expression": {
+                            "label": "Expression",
                             "type": "record {|string name; int price; int remaining?; string comment;|}",
                             "value": "food",
                             "typeKind": "BTYPE",
@@ -282,7 +282,7 @@
                     ]
                   },
                   {
-                    "key": "elseBranch",
+                    "label": "elseBranch",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -322,8 +322,8 @@
                         "returning": true,
                         "fixed": false,
                         "nodeProperties": {
-                          "expr": {
-                            "key": "Expression",
+                          "expression": {
+                            "label": "Expression",
                             "type": "record {|string name; int price; int remaining?; string comment;|}",
                             "value": "food",
                             "typeKind": "BTYPE",
@@ -339,7 +339,7 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "Condition",
+                    "label": "Condition",
                     "type": "boolean",
                     "value": "food.price < 200 ",
                     "typeKind": "BTYPE",
@@ -355,7 +355,7 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "Condition",
+            "label": "Condition",
             "type": "boolean",
             "value": "food.price < 100 ",
             "typeKind": "BTYPE",

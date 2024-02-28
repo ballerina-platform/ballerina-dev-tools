@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "bananas",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -77,7 +77,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/bananas\"",
             "typeKind": "BTYPE",
@@ -86,7 +86,7 @@
             "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -94,7 +94,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -103,7 +103,7 @@
             "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true

@@ -50,7 +50,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "moduleCl",
             "typeKind": "BTYPE",
@@ -59,7 +59,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/hello\"",
             "typeKind": "BTYPE",
@@ -68,7 +68,7 @@
             "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -76,7 +76,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -85,13 +85,13 @@
             "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "moduleVal ",
             "typeKind": "BTYPE",
@@ -140,7 +140,7 @@
         "fixed": false,
         "nodeProperties": {
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "http:Client",
             "value": "localCl ",
             "typeKind": "BTYPE",
@@ -149,7 +149,7 @@
             "documentation": "Result Variable"
           },
           "expression": {
-            "key": "Expression",
+            "label": "Expression",
             "type": "http:Client",
             "value": "new (\"http://localhost:8080\")",
             "typeKind": "BTYPE",
@@ -179,7 +179,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "localCl",
             "typeKind": "BTYPE",
@@ -188,7 +188,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/hello\"",
             "typeKind": "BTYPE",
@@ -197,7 +197,7 @@
             "documentation": "HTTP Path"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -205,7 +205,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -214,13 +214,13 @@
             "documentation": "HTTP Response Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "localVal ",
             "typeKind": "BTYPE",
@@ -250,7 +250,7 @@
         "fixed": false,
         "nodeProperties": {
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": ".:MyClient",
             "value": "myLocalCl ",
             "typeKind": "BTYPE",
@@ -259,7 +259,7 @@
             "documentation": "Result Variable"
           },
           "expression": {
-            "key": "Expression",
+            "label": "Expression",
             "type": ".:MyClient",
             "value": "new",
             "typeKind": "BTYPE",
@@ -313,7 +313,7 @@
       {
         "id": "41970",
         "label": "Client",
-        "kind": "OTHER",
+        "kind": "HTTP",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -332,7 +332,7 @@
       {
         "id": "40970",
         "label": "Client",
-        "kind": "OTHER",
+        "kind": "HTTP",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "post",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "milkshake",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "nodeProperties": {
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "http:Client",
             "value": "drinkClient ",
             "typeKind": "BTYPE",
@@ -77,7 +77,7 @@
             "documentation": "Result Variable"
           },
           "expression": {
-            "key": "Expression",
+            "label": "Expression",
             "type": "http:Client",
             "value": "new (\"/drink\")",
             "typeKind": "BTYPE",
@@ -107,7 +107,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "drinkClient",
             "typeKind": "BTYPE",
@@ -116,7 +116,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/milkshake\"",
             "typeKind": "BTYPE",
@@ -125,7 +125,7 @@
             "documentation": "HTTP Path"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"mixed fruit\"",
             "typeKind": "BTYPE",
@@ -134,7 +134,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -142,7 +142,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -151,7 +151,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -159,7 +159,7 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true

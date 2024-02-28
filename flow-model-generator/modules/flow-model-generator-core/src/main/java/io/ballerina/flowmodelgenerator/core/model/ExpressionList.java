@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @since 2201.9.0
  */
-public record ExpressionList(String key, String type, List<Expression> value, boolean optional) {
+public record ExpressionList(String label, String type, List<Expression> value, boolean optional) {
 
     /**
      * Represents a builder for the expression list.

@@ -25,10 +25,10 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
 /**
  * Represents the properties of a return node.
  *
- * @param expr The expression of the return node
+ * @param expression The expression of the return node
  * @since 2201.9.0
  */
-public record Return(Expression expr) implements NodeProperties {
+public record Return(Expression expression) implements NodeProperties {
 
     public static final String RETURN_KEY = "Return";
     private static final String RETURN_EXPRESSION = "Expression";

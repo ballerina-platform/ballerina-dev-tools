@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "accessor",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "path",
             "typeKind": "URI_PATH",
             "optional": false,

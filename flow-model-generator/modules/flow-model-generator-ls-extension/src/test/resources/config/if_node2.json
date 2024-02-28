@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "bananas",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "branches": [
           {
-            "key": "thenBranch",
+            "label": "thenBranch",
             "kind": "BLOCK",
             "children": [
               {
@@ -90,7 +90,7 @@
                 "fixed": false,
                 "branches": [
                   {
-                    "key": "thenBranch",
+                    "label": "thenBranch",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -112,7 +112,7 @@
                         "fixed": false,
                         "nodeProperties": {
                           "variable": {
-                            "key": "Variable",
+                            "label": "Variable",
                             "type": "int",
                             "value": "c ",
                             "typeKind": "BTYPE",
@@ -121,7 +121,7 @@
                             "documentation": "Result Variable"
                           },
                           "expression": {
-                            "key": "Expression",
+                            "label": "Expression",
                             "type": "int",
                             "value": "12",
                             "typeKind": "BTYPE",
@@ -150,8 +150,8 @@
                         "returning": true,
                         "fixed": false,
                         "nodeProperties": {
-                          "expr": {
-                            "key": "Expression",
+                          "expression": {
+                            "label": "Expression",
                             "type": "string",
                             "value": "\"expensive\"",
                             "typeKind": "BTYPE",
@@ -165,7 +165,7 @@
                     ]
                   },
                   {
-                    "key": "elseBranch",
+                    "label": "elseBranch",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -187,7 +187,7 @@
                         "fixed": false,
                         "nodeProperties": {
                           "variable": {
-                            "key": "Variable",
+                            "label": "Variable",
                             "type": "int",
                             "value": "b ",
                             "typeKind": "BTYPE",
@@ -196,7 +196,7 @@
                             "documentation": "Result Variable"
                           },
                           "expression": {
-                            "key": "Expression",
+                            "label": "Expression",
                             "type": "int",
                             "value": "2",
                             "typeKind": "BTYPE",
@@ -225,8 +225,8 @@
                         "returning": true,
                         "fixed": false,
                         "nodeProperties": {
-                          "expr": {
-                            "key": "Expression",
+                          "expression": {
+                            "label": "Expression",
                             "type": "string",
                             "value": "\"moderate\"",
                             "typeKind": "BTYPE",
@@ -242,7 +242,7 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "Condition",
+                    "label": "Condition",
                     "type": "boolean",
                     "value": "price > 100 ",
                     "typeKind": "BTYPE",
@@ -258,7 +258,7 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "Condition",
+            "label": "Condition",
             "type": "boolean",
             "value": "price > 10 ",
             "typeKind": "BTYPE",
@@ -287,8 +287,8 @@
         "returning": true,
         "fixed": false,
         "nodeProperties": {
-          "expr": {
-            "key": "Expression",
+          "expression": {
+            "label": "Expression",
             "type": "string",
             "value": "\"cheap\"",
             "typeKind": "BTYPE",

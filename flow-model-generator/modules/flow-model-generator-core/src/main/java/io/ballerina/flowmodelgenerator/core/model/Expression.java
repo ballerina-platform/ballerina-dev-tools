@@ -24,7 +24,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 /**
  * Represents an expression in the flow model.
  *
- * @param key      key of the expression
+ * @param label      label of the expression
  * @param type     type of the expression
  * @param value    value of the expression
  * @param typeKind type kind of the expression
@@ -32,7 +32,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  * @param editable whether the expression is editable
  * @since 2201.9.0
  */
-public record Expression(String key, String type, String value, ExpressionTypeKind typeKind, boolean optional,
+public record Expression(String label, String type, String value, ExpressionTypeKind typeKind, boolean optional,
                          boolean editable, String documentation) {
 
     public enum ExpressionTypeKind {

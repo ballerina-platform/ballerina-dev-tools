@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "post",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "apples",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -77,7 +77,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
@@ -86,7 +86,7 @@
             "documentation": "HTTP Path"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
@@ -95,7 +95,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -103,7 +103,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
@@ -112,7 +112,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -120,13 +120,13 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res1 ",
             "typeKind": "BTYPE",
@@ -156,7 +156,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -165,7 +165,7 @@
             "documentation": "HTTP Client Connection"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "type": "string",
             "value": "\"/apples\"",
             "typeKind": "BTYPE",
@@ -174,7 +174,7 @@
             "documentation": "HTTP Path"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
@@ -183,7 +183,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -191,7 +191,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
@@ -200,7 +200,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -208,7 +208,7 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
@@ -235,7 +235,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -244,7 +244,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"western red apple\"",
             "typeKind": "BTYPE",
@@ -253,7 +253,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -261,7 +261,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -270,7 +270,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -278,11 +278,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "western",
                 "typeKind": "BTYPE",
@@ -291,7 +291,7 @@
                 "documentation": "HTTP Path"
               },
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -303,7 +303,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res2 ",
             "typeKind": "BTYPE",
@@ -333,7 +333,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -342,7 +342,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "map<anydata>",
             "value": "{\"type\": \"red apple\"}",
             "typeKind": "BTYPE",
@@ -351,7 +351,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -359,7 +359,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -368,7 +368,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "value": "\"application/json\"",
             "typeKind": "BTYPE",
@@ -377,11 +377,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -393,7 +393,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res3 ",
             "typeKind": "BTYPE",
@@ -423,7 +423,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -432,7 +432,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
@@ -441,7 +441,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -449,7 +449,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -458,7 +458,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -466,13 +466,13 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [],
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res4 ",
             "typeKind": "BTYPE",
@@ -502,7 +502,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -511,7 +511,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
@@ -520,7 +520,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -528,7 +528,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json",
             "typeKind": "BTYPE",
@@ -537,7 +537,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -545,11 +545,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -561,7 +561,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res5 ",
             "typeKind": "BTYPE",
@@ -591,7 +591,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -600,7 +600,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
@@ -609,7 +609,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "typeKind": "BTYPE",
@@ -618,7 +618,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -627,7 +627,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -635,11 +635,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -651,7 +651,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res7 ",
             "typeKind": "BTYPE",
@@ -681,7 +681,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -690,7 +690,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"red apple\"",
             "typeKind": "BTYPE",
@@ -699,7 +699,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -707,7 +707,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "record {|string name; string 'type; int expire?;|}|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -716,7 +716,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -724,11 +724,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -740,7 +740,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "record {|string name; string 'type; int expire?;|}",
             "value": "res8 ",
             "typeKind": "BTYPE",
@@ -770,7 +770,7 @@
         "fixed": false,
         "nodeProperties": {
           "client": {
-            "key": "Client",
+            "label": "Client",
             "type": "http:Client",
             "value": "foodClient",
             "typeKind": "BTYPE",
@@ -779,7 +779,7 @@
             "documentation": "HTTP Client Connection"
           },
           "message": {
-            "key": "Message",
+            "label": "Message",
             "type": "string",
             "value": "\"green apple\"",
             "typeKind": "BTYPE",
@@ -788,7 +788,7 @@
             "documentation": "HTTP Post Message"
           },
           "headers": {
-            "key": "Headers",
+            "label": "Headers",
             "type": "map<string|string[]>?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -796,7 +796,7 @@
             "documentation": "HTTP Headers"
           },
           "targetType": {
-            "key": "Target Type",
+            "label": "Target Type",
             "type": "http:Response|anydata",
             "value": "json|http:ballerina/http:2.10.7:error",
             "typeKind": "BTYPE",
@@ -805,7 +805,7 @@
             "documentation": "HTTP Response Type"
           },
           "mediaType": {
-            "key": "Media Type",
+            "label": "Media Type",
             "type": "string?",
             "typeKind": "BTYPE",
             "optional": true,
@@ -813,11 +813,11 @@
             "documentation": "HTTP Post Media Type"
           },
           "params": {
-            "key": "Path",
+            "label": "Path",
             "type": "http:QueryParamType",
             "value": [
               {
-                "key": "param",
+                "label": "param",
                 "type": "string",
                 "value": "apples",
                 "typeKind": "BTYPE",
@@ -826,7 +826,7 @@
                 "documentation": "HTTP Path"
               },
               {
-                "key": "param",
+                "label": "param",
                 "type": "json|http:ballerina/http:2.10.7:error",
                 "value": "[varRef]",
                 "typeKind": "BTYPE",
@@ -835,7 +835,7 @@
                 "documentation": "HTTP Path"
               },
               {
-                "key": "param",
+                "label": "param",
                 "type": "json|http:ballerina/http:2.10.7:error",
                 "value": "[12 + 3]",
                 "typeKind": "BTYPE",
@@ -847,7 +847,7 @@
             "optional": true
           },
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "json",
             "value": "res9 ",
             "typeKind": "BTYPE",

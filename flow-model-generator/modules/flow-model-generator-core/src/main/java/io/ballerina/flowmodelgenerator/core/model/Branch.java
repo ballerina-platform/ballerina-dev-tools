@@ -23,11 +23,11 @@ import java.util.List;
 /**
  * Represents a branch of the node.
  *
- * @param key      key of the branch
+ * @param label      label of the branch
  * @param children children of the branch
  * @since 2201.9.0
  */
-public record Branch(String key, BranchKind kind, List<FlowNode> children) {
+public record Branch(String label, BranchKind kind, List<FlowNode> children) {
 
     public enum BranchKind {
         BLOCK

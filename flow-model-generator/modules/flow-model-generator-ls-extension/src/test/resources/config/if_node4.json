@@ -31,7 +31,7 @@
         "fixed": true,
         "nodeProperties": {
           "method": {
-            "key": "Method",
+            "label": "Method",
             "value": "get",
             "typeKind": "IDENTIFIER",
             "optional": false,
@@ -39,7 +39,7 @@
             "documentation": "HTTP Method"
           },
           "path": {
-            "key": "Path",
+            "label": "Path",
             "value": "grapes",
             "typeKind": "URI_PATH",
             "optional": false,
@@ -68,7 +68,7 @@
         "fixed": false,
         "nodeProperties": {
           "variable": {
-            "key": "Variable",
+            "label": "Variable",
             "type": "int",
             "value": "mod ",
             "typeKind": "BTYPE",
@@ -77,7 +77,7 @@
             "documentation": "Result Variable"
           },
           "expression": {
-            "key": "Expression",
+            "label": "Expression",
             "type": "int",
             "value": "price % 4",
             "typeKind": "BTYPE",
@@ -107,7 +107,7 @@
         "fixed": false,
         "branches": [
           {
-            "key": "thenBranch",
+            "label": "thenBranch",
             "kind": "BLOCK",
             "children": [
               {
@@ -133,7 +133,7 @@
             ]
           },
           {
-            "key": "elseBranch",
+            "label": "elseBranch",
             "kind": "BLOCK",
             "children": [
               {
@@ -155,7 +155,7 @@
                 "fixed": false,
                 "branches": [
                   {
-                    "key": "thenBranch",
+                    "label": "thenBranch",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -177,7 +177,7 @@
                         "fixed": false,
                         "branches": [
                           {
-                            "key": "thenBranch",
+                            "label": "thenBranch",
                             "kind": "BLOCK",
                             "children": [
                               {
@@ -199,7 +199,7 @@
                                 "fixed": false,
                                 "branches": [
                                   {
-                                    "key": "thenBranch",
+                                    "label": "thenBranch",
                                     "kind": "BLOCK",
                                     "children": [
                                       {
@@ -227,7 +227,7 @@
                                 ],
                                 "nodeProperties": {
                                   "condition": {
-                                    "key": "Condition",
+                                    "label": "Condition",
                                     "type": "boolean",
                                     "value": "price < 10 && mod == 1 ",
                                     "typeKind": "BTYPE",
@@ -243,7 +243,7 @@
                         ],
                         "nodeProperties": {
                           "condition": {
-                            "key": "Condition",
+                            "label": "Condition",
                             "type": "boolean",
                             "value": "price < 25 ",
                             "typeKind": "BTYPE",
@@ -259,7 +259,7 @@
                 ],
                 "nodeProperties": {
                   "condition": {
-                    "key": "Condition",
+                    "label": "Condition",
                     "type": "boolean",
                     "value": "price < 50 ",
                     "typeKind": "BTYPE",
@@ -275,7 +275,7 @@
         ],
         "nodeProperties": {
           "condition": {
-            "key": "Condition",
+            "label": "Condition",
             "type": "boolean",
             "value": "price > 100 ",
             "typeKind": "BTYPE",
