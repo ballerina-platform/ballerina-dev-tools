@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -20,10 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -42,20 +41,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Test cases for the flow model generator service.
+ * Tests for the flow model source generator service.
  *
  * @since 2201.9.0
  */
-public class ModelGeneratorTest {
+public class SourceGeneratorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ModelGeneratorTest.class);
-    private static final Path RES_DIR = Paths.get("src/test/resources/diagram_generator").toAbsolutePath();
-    private static final Path CONFIG_DIR = RES_DIR.resolve("config");
-    private static final Path SOURCE_DIR = RES_DIR.resolve("source");
+    private static final Path RES_DIR = Paths.get("src/test/resources/to_source").toAbsolutePath();
     private final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
@@ -68,39 +64,30 @@ public class ModelGeneratorTest {
     }
 
     @Test(dataProvider = "flow-model-data-provider")
-    public void testGeneratedModel(Path config) throws IOException {
-        Path configJsonPath = CONFIG_DIR.resolve(config);
+    public void testSourceCodeGeneration(Path config) throws IOException {
+        Path configJsonPath = RES_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        String response = getResponse(testConfig.source(), testConfig.start(), testConfig.end());
+        String response = getResponse(testConfig.diagram());
         JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        JsonObject jsonModel = json.getAsJsonObject("result").getAsJsonObject("flowDesignModel");
+        String outputSource = json.getAsJsonObject("result").getAsJsonPrimitive("source").getAsString();
 
-        // Assert only the file name since the absolute path may vary depending on the machine
-        String balFileName = Path.of(jsonModel.getAsJsonPrimitive("fileName").getAsString()).getFileName().toString();
-        JsonPrimitive testFileName = testConfig.diagram().getAsJsonPrimitive("fileName");
-        boolean fileNameEquality = testFileName != null && balFileName.equals(testFileName.getAsString());
-        JsonObject modifiedDiagram = jsonModel.deepCopy();
-        modifiedDiagram.addProperty("fileName", balFileName);
-
-        boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
-        if (!fileNameEquality || !flowEquality) {
-//            updateConfig(configJsonPath, testConfig, modifiedDiagram);
-            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        if (!testConfig.output().equals(outputSource)) {
+            LOG.error("Generated source code for " + testConfig.description() + " does not match the expected source");
+            LOG.error("Expected: " + testConfig.output());
+            LOG.error("Actual: " + outputSource);
         }
     }
 
     private String[] skipList() {
-        return new String[]{
-                "flags2.json" // TODO: Need to set flags for remote functions
-        };
+        return new String[]{};
     }
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-//        return new Object[]{Path.of("if_node2.json")};
+//        return new Object[]{Path.of("http_post_node4.json")};
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
-            return Files.walk(CONFIG_DIR)
+            return Files.walk(RES_DIR)
                     .filter(path -> {
                         File file = path.toFile();
                         return file.isFile() && file.getName().endsWith(".json")
@@ -114,25 +101,10 @@ public class ModelGeneratorTest {
         }
     }
 
-    private String getResponse(String source, LinePosition start, LinePosition end) throws IOException {
-        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/getFlowDesignModel",
-                new FlowModelGeneratorServiceRequest(
-                        SOURCE_DIR.resolve(source).toAbsolutePath().toString(), start, end));
+    private String getResponse(JsonElement diagramNode) {
+        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/getSourceCode",
+                new FlowModelSourceGeneratorServiceRequest(diagramNode));
         return TestUtil.getResponseString(result);
-    }
-
-    private void updateConfig(Path configJsonPath, TestConfig testConfig, JsonObject responseDiagram)
-            throws IOException {
-        TestConfig updatedConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
-                testConfig.description(), responseDiagram);
-        String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
-        Files.writeString(configJsonPath, objStr);
-    }
-
-    private void logPropertyDifference(String name, String expected, String actual) {
-        if (!Objects.equals(expected, actual)) {
-            LOG.info(String.format("Expected %s=(%s), but found %s=(%s)", name, expected, name, actual));
-        }
     }
 
     @AfterClass
@@ -142,11 +114,7 @@ public class ModelGeneratorTest {
         this.serviceEndpoint = null;
     }
 
-    /**
-     * Represents the test configuration.
-     */
-    private record TestConfig(LinePosition start, LinePosition end, String source, String description,
-                              JsonObject diagram) {
+    private record TestConfig(String description, JsonElement diagram, String output) {
 
         public String description() {
             return description == null ? "" : description;
