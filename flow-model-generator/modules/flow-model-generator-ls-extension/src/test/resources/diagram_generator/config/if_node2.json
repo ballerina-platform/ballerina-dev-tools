@@ -68,7 +68,7 @@
         "fixed": false,
         "branches": [
           {
-            "label": "thenBranch",
+            "label": "Then",
             "kind": "BLOCK",
             "children": [
               {
@@ -90,7 +90,7 @@
                 "fixed": false,
                 "branches": [
                   {
-                    "label": "thenBranch",
+                    "label": "Then",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -165,7 +165,7 @@
                     ]
                   },
                   {
-                    "label": "elseBranch",
+                    "label": "Else",
                     "kind": "BLOCK",
                     "children": [
                       {

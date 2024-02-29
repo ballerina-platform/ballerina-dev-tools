@@ -268,14 +268,14 @@ class CodeAnalyzer extends NodeVisitor {
             ifNodes.add(buildNode());
         }
         stepOut();
-        this.nodeBuilder.addBranch("thenBranch", Branch.BranchKind.BLOCK, ifNodes);
+        this.nodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
             stepIn();
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             stepOut();
-            this.nodeBuilder.addBranch("elseBranch", Branch.BranchKind.BLOCK, elseBodyChildNodes);
+            this.nodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
         }
 
         addNodeProperties(ifNodePropertiesBuilder);
