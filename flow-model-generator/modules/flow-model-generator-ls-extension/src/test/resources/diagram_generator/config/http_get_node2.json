@@ -93,21 +93,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [],
-            "optional": true
-          },
           "variable": {
             "label": "Variable",
             "type": "json|annotations:error",
@@ -163,21 +148,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Headers"
-          },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [],
-            "optional": true
           },
           "variable": {
             "label": "Variable",

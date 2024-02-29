@@ -46,14 +46,11 @@ import java.util.Queue;
  * @param path       The path of the HTTP POST node
  * @param message    The message of the HTTP POST node
  * @param headers    The headers of the HTTP POST node
- * @param targetType The target type of the HTTP return
  * @param mediaType  The media type of the HTTP POST node
- * @param params     The query parameters of the HTTP POST node
  * @param variable   The variable of the HTTP POST node
  * @since 2201.9.0
  */
-public record HttpPost(Expression client, Expression path, Expression message, Expression headers,
-                       Expression targetType, Expression mediaType, ExpressionList params, Expression variable)
+public record HttpPost(Expression client, Expression path, Expression message, Expression headers, Expression mediaType, Expression variable)
         implements NodeProperties {
 
     public static final String HTTP_API_POST_KEY = "HTTP POST";
@@ -206,7 +203,7 @@ public record HttpPost(Expression client, Expression path, Expression message, E
         }
 
         public NodeProperties build() {
-            return new HttpPost(client, paths, message, headers, targetType, mediaType, params, variable);
+            return new HttpPost(client, paths, message, headers, mediaType, variable);
         }
     }
 

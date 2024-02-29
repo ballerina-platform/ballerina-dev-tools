@@ -102,15 +102,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -118,12 +109,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -190,15 +175,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -206,12 +182,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [],
-            "optional": true
           }
         },
         "flags": 1
@@ -260,15 +230,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -276,31 +237,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "western",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              },
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -358,15 +294,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -375,22 +302,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -448,15 +359,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -464,12 +366,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -527,15 +423,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -543,22 +430,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -617,15 +488,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -633,22 +495,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -706,15 +552,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "record {|string name; string 'type; int expire?;|}|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -722,22 +559,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",
@@ -795,15 +616,6 @@
             "editable": true,
             "documentation": "HTTP Headers"
           },
-          "targetType": {
-            "label": "Target Type",
-            "type": "http:Response|anydata",
-            "value": "json|http:ballerina/http:2.10.7:error",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Response Type"
-          },
           "mediaType": {
             "label": "Media Type",
             "type": "string?",
@@ -811,40 +623,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "params": {
-            "label": "Path",
-            "type": "http:QueryParamType",
-            "value": [
-              {
-                "label": "param",
-                "type": "string",
-                "value": "apples",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              },
-              {
-                "label": "param",
-                "type": "json|http:ballerina/http:2.10.7:error",
-                "value": "[varRef]",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              },
-              {
-                "label": "param",
-                "type": "json|http:ballerina/http:2.10.7:error",
-                "value": "[12 + 3]",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": false,
-                "documentation": "HTTP Path"
-              }
-            ],
-            "optional": true
           },
           "variable": {
             "label": "Variable",

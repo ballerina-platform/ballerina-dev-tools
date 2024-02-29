@@ -45,13 +45,10 @@ import java.util.Queue;
  * @param client     The client of the HTTP GET node
  * @param path       The path of the HTTP GET node
  * @param headers    The headers of the HTTP GET node
- * @param targetType The target type of the HTTP return
- * @param params     The query parameters of the HTTP GET node
  * @param variable   The variable of the HTTP GET node
  * @since 2201.9.0
  */
-public record HttpGet(Expression client, Expression path, Expression headers, Expression targetType,
-                      ExpressionList params, Expression variable) implements NodeProperties {
+public record HttpGet(Expression client, Expression path, Expression headers, Expression variable) implements NodeProperties {
 
     public static final String HTTP_API_GET_KEY = "HTTP GET";
     public static final String HTTP_API_GET_CLIENT = "Client";
@@ -189,7 +186,7 @@ public record HttpGet(Expression client, Expression path, Expression headers, Ex
         }
 
         public NodeProperties build() {
-            return new HttpGet(client, paths, headers, targetType, params, variable);
+            return new HttpGet(client, paths, headers, variable);
         }
     }
 }
