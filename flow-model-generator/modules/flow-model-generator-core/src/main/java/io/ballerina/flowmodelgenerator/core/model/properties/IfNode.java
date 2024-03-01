@@ -48,12 +48,11 @@ public class IfNode extends FlowNode {
     }
 
     @Override
-    public String toSource(SourceBuilder.SourceBuilderData data) {
-        SourceBuilder sourceBuilder = new SourceBuilder(data);
+    public String toSource() {
+        SourceBuilder sourceBuilder = new SourceBuilder();
         Expression condition = getProperty(IF_CONDITION_KEY);
 
         sourceBuilder
-                .start()
                 .keyword(SyntaxKind.IF_KEYWORD)
                 .expression(condition)
                 .openBrace();
@@ -72,7 +71,7 @@ public class IfNode extends FlowNode {
         }
 
         sourceBuilder.closeBrace();
-        return sourceBuilder.build();
+        return sourceBuilder.build(false);
     }
 
     /**

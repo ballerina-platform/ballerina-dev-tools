@@ -20,6 +20,7 @@ module io.ballerina.flow.model.generator {
     requires io.ballerina.lang;
     requires io.ballerina.tools.api;
     requires io.ballerina.parser;
+    requires io.ballerina.formatter.core;
     requires org.eclipse.lsp4j;
     requires com.google.gson;
 

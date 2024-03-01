@@ -32,6 +32,7 @@ import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.DefaultExpression;
@@ -41,6 +42,8 @@ import io.ballerina.flowmodelgenerator.core.model.properties.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.Return;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.formatter.core.FormattingOptions;
+import org.ballerinalang.formatter.core.FormattingTreeModifier;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -96,7 +99,7 @@ public abstract class FlowNode {
         return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
     }
 
-    public abstract String toSource(SourceBuilder.SourceBuilderData data);
+    public abstract String toSource();
 
     public static int NODE_FLAG_CHECKED = 1 << 0;
     public static int NODE_FLAG_CHECKPANIC = 1 << 1;
@@ -243,17 +246,12 @@ public abstract class FlowNode {
         private static final String TAB_INDENT = "    ";
         private static final String WHITE_SPACE = " ";
 
+        private static final FormattingTreeModifier
+                treeModifier = new FormattingTreeModifier(FormattingOptions.builder().build(), (LineRange) null);
         private final StringBuilder sb;
-        private final SourceBuilderData data;
 
-        public SourceBuilder(SourceBuilderData data) {
+        public SourceBuilder() {
             sb = new StringBuilder();
-            this.data = data;
-        }
-
-        public SourceBuilder start() {
-            sb.append(data.indentSpace());
-            return this;
         }
 
         public SourceBuilder keyword(SyntaxKind keyword) {
@@ -282,16 +280,14 @@ public abstract class FlowNode {
         }
 
         public SourceBuilder closeBrace() {
-            sb.append(data.indentSpace())
+            sb.append(TAB_INDENT)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
                     .append(System.lineSeparator());
             return this;
         }
 
         public SourceBuilder addChildren(List<FlowNode> flowNodes) {
-            data.increaseIndent();
-            flowNodes.forEach(flowNode -> sb.append(flowNode.toSource(data)));
-            data.decreaseIndent();
+            flowNodes.forEach(flowNode -> sb.append(flowNode.toSource()));
             return this;
         }
 
@@ -300,33 +296,11 @@ public abstract class FlowNode {
             return this;
         }
 
-        public String build() {
-            return sb.toString();
-        }
-
-        public static class SourceBuilderData {
-
-            private String indentSpace;
-            private static final int TAB_LENGTH = TAB_INDENT.length();
-
-            public SourceBuilderData() {
-                this.indentSpace = "";
-            }
-
-            public void increaseIndent() {
-                this.indentSpace += TAB_INDENT;
-            }
-
-            public void decreaseIndent() {
-                int indentLength = this.indentSpace.length();
-                if (indentLength >= TAB_LENGTH) {
-                    this.indentSpace = this.indentSpace.substring(0, indentLength - TAB_LENGTH);
-                }
-            }
-
-            public String indentSpace() {
-                return indentSpace;
-            }
+        public String build(boolean isExpression) {
+            String outputStr = sb.toString();
+            Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
+                    NodeParser.parseStatement(outputStr).apply(treeModifier);
+            return modifiedNode.toSourceCode().strip();
         }
     }
 

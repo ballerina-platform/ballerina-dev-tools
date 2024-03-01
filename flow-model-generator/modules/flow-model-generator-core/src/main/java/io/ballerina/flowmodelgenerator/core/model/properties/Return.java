@@ -43,12 +43,10 @@ public class Return extends FlowNode {
     }
 
     @Override
-    public String toSource(SourceBuilder.SourceBuilderData data) {
-        SourceBuilder sourceBuilder = new SourceBuilder(data);
+    public String toSource() {
+        SourceBuilder sourceBuilder = new SourceBuilder();
 
-        sourceBuilder
-                .start()
-                .keyword(SyntaxKind.RETURN_KEYWORD);
+        sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
         Expression expression = getProperty(RETURN_EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
@@ -56,7 +54,7 @@ public class Return extends FlowNode {
                     .expression(expression);
         }
         sourceBuilder.endOfStatement();
-        return sourceBuilder.build();
+        return sourceBuilder.build(false);
     }
 
     /**

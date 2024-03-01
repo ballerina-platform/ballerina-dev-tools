@@ -45,7 +45,7 @@ public class HttpApiEvent extends FlowNode {
     }
 
     @Override
-    public String toSource(SourceBuilder.SourceBuilderData data) {
+    public String toSource() {
         return null;
     }
 

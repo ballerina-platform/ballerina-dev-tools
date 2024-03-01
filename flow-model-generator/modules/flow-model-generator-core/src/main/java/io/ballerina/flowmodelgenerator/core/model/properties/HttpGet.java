@@ -68,7 +68,7 @@ public class HttpGet extends FlowNode {
     }
 
     @Override
-    public String toSource(SourceBuilder.SourceBuilderData data) {
+    public String toSource() {
         return null;
     }
 

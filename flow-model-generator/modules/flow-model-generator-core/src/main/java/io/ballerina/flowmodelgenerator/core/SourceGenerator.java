@@ -42,6 +42,6 @@ public class SourceGenerator {
 
     public String toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        return flowNode.toSource(new FlowNode.SourceBuilder.SourceBuilderData());
+        return flowNode.toSource();
     }
 }

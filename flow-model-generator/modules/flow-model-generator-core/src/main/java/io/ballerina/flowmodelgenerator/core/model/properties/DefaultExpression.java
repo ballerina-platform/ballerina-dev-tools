@@ -37,20 +37,19 @@ public class DefaultExpression extends FlowNode {
     }
 
     @Override
-    public String toSource(SourceBuilder.SourceBuilderData data) {
+    public String toSource() {
         Expression variable = getProperty(FlowNode.NodePropertiesBuilder.VARIABLE_KEY);
         Expression expression = getProperty(FlowNode.NodePropertiesBuilder.EXPRESSION_RHS_KEY);
 
-        SourceBuilder sourceBuilder = new SourceBuilder(data);
+        SourceBuilder sourceBuilder = new SourceBuilder();
         sourceBuilder
-                .start()
                 .expressionWithType(variable)
                 .whiteSpace()
                 .keyword(SyntaxKind.EQUAL_TOKEN)
                 .whiteSpace()
                 .expression(expression)
                 .endOfStatement();
-        return sourceBuilder.build();
+        return sourceBuilder.build(false);
     }
 
     /**
