@@ -86,16 +86,16 @@ class CodeAnalyzer extends NodeVisitor {
 
     private final List<FlowNode> flowNodeList;
     private final List<Client> clients;
-    private FlowNode.Builder nodeBuilder;
+    private FlowNode.NodeBuilder nodeBuilder;
     private Client.Builder clientBuilder;
     private final SemanticModel semanticModel;
-    private final Stack<FlowNode.Builder> flowNodeBuilderStack;
+    private final Stack<FlowNode.NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
         this.clientBuilder = new Client.Builder();
-        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
+        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.clients = new ArrayList<>();
@@ -115,10 +115,12 @@ class CodeAnalyzer extends NodeVisitor {
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
-        if (isDefaultBuilder()) {
+        if (this.nodeBuilder.isDefault()) {
             this.nodeBuilder.setLineRange(variableDeclarationNode);
-            this.nodeBuilder.setExpression(initializerNode);
-            this.nodeBuilder.setVariable(this.typedBindingPatternNode);
+            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
+            defaultExpressionBuilder.setExpression(initializerNode);
+            defaultExpressionBuilder.setVariable(this.typedBindingPatternNode);
+            this.nodeBuilder.setPropertiesBuilder(defaultExpressionBuilder);
         }
 
         appendNode();
@@ -135,9 +137,9 @@ class CodeAnalyzer extends NodeVisitor {
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
                 HttpApiEvent.Builder httpApiEventBuilder = new HttpApiEvent.Builder(semanticModel);
-                httpApiEventBuilder.addFlag(FlowNode.NODE_FLAG_RESOURCE);
                 httpApiEventBuilder.setSymbol((ResourceMethodSymbol) symbol.get());
-                this.setBuilder(httpApiEventBuilder);
+                this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_RESOURCE);
+                this.nodeBuilder.setPropertiesBuilder(httpApiEventBuilder);
             }
             default -> {
             }
@@ -152,11 +154,11 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ReturnStatementNode returnStatementNode) {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
-        if (isDefaultBuilder()) {
+        if (this.nodeBuilder.isDefault()) {
             Return.Builder returnBuilder = new Return.Builder(semanticModel);
-            returnBuilder.setLineRange(returnStatementNode);
+            this.nodeBuilder.setLineRange(returnStatementNode);
             expression.ifPresent(returnBuilder::setExpressionNode);
-            setBuilder(returnBuilder);
+            this.nodeBuilder.setPropertiesBuilder(returnBuilder);
         }
         this.nodeBuilder.setReturning();
         appendNode();
@@ -206,7 +208,7 @@ class CodeAnalyzer extends NodeVisitor {
                         httpGetBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         httpGetBuilder.setVariable(this.typedBindingPatternNode);
                         methodSymbol.typeDescriptor().params().ifPresent(httpGetBuilder::addHttpParameters);
-                        setBuilder(httpGetBuilder);
+                        this.nodeBuilder.setPropertiesBuilder(httpGetBuilder);
                     }
                     case "post" -> {
                         HttpPost.Builder httpPostBuilder = new HttpPost.Builder(semanticModel);
@@ -217,7 +219,7 @@ class CodeAnalyzer extends NodeVisitor {
                         httpPostBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         httpPostBuilder.setVariable(this.typedBindingPatternNode);
                         methodSymbol.typeDescriptor().params().ifPresent(httpPostBuilder::addHttpParameters);
-                        setBuilder(httpPostBuilder);
+                        this.nodeBuilder.setPropertiesBuilder(httpPostBuilder);
                     }
                     default -> {
                     }
@@ -231,9 +233,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
+        this.nodeBuilder.setLineRange(ifElseStatementNode);
         IfNode.Builder ifNodeBuilder = new IfNode.Builder(semanticModel);
         ifNodeBuilder.setConditionExpression(ifElseStatementNode.condition());
-        ifNodeBuilder.setLineRange(ifElseStatementNode);
 
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         List<FlowNode> ifNodes = new ArrayList<>();
@@ -243,17 +245,17 @@ class CodeAnalyzer extends NodeVisitor {
             ifNodes.add(buildNode());
         }
         endBranch();
-        ifNodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
+        this.nodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
             startBranch();
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             endBranch();
-            ifNodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
+            this.nodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
         }
 
-        setBuilder(ifNodeBuilder);
+        this.nodeBuilder.setPropertiesBuilder(ifNodeBuilder);
         appendNode();
     }
 
@@ -405,25 +407,25 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void startBranch() {
         this.flowNodeBuilderStack.push(this.nodeBuilder);
-        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
+        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
     }
 
     private void endBranch() {
         this.nodeBuilder = this.flowNodeBuilderStack.pop();
     }
 
-    private void scanChildNode(Node node, FlowNode.Builder builder) {
+    private void scanChildNode(Node node, FlowNode.NodeBuilder builder) {
         this.nodeBuilder = builder;
         node.accept(this);
     }
 
-    private void setBuilder(FlowNode.Builder builder) {
+    private void setBuilder(FlowNode.NodeBuilder builder) {
         this.nodeBuilder = builder;
     }
 
     private FlowNode buildNode() {
         FlowNode flowNode = this.nodeBuilder.build();
-        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
+        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
         return flowNode;
     }
 
@@ -431,10 +433,6 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder.setLineRange(statementNode);
         runnable.run();
         appendNode();
-    }
-
-    private boolean isDefaultBuilder() {
-        return this.nodeBuilder instanceof DefaultExpression.Builder;
     }
 
     public List<FlowNode> getFlowNodes() {

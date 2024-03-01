@@ -59,14 +59,14 @@ public class HttpPost extends FlowNode {
     public static final String HTTP_API_MEDIA_TYPE_TYPE = "string?";
     public static final String HTTP_API_MEDIA_TYPE_DOC = "HTTP Post Media Type";
 
-    protected HttpPost() {
-        super(HTTP_API_POST_KEY, Kind.HTTP_API_POST_CALL, false);
+    protected HttpPost(Map<String, Expression> nodeProperties) {
+        super(HTTP_API_POST_KEY, Kind.HTTP_API_POST_CALL, false, nodeProperties);
     }
 
     /**
      * Represents a builder for the HTTP POST node properties.
      */
-    public static class Builder extends FlowNode.Builder {
+    public static class Builder extends FlowNode.NodePropertiesBuilder {
 
         private Expression client;
         private Expression paths;
@@ -203,13 +203,14 @@ public class HttpPost extends FlowNode {
         }
 
         @Override
-        protected FlowNode buildConcreteNode() {
+        public FlowNode build() {
             addProperty(HttpGet.HTTP_API_GET_CLIENT_KEY, this.client);
             addProperty(HttpGet.HTTP_API_GET_PATH_KEY, this.paths);
-            addProperty(HttpGet.HTTP_API_GET_HEADERS_KEY, this.headers);
             addProperty(HttpPost.HTTP_API_POST_MESSAGE_KEY, this.message);
+            addProperty(HttpGet.HTTP_API_GET_HEADERS_KEY, this.headers);
             addProperty(HttpPost.HTTP_API_MEDIA_TYPE_KEY, this.mediaType);
-            return new HttpPost();
+            addProperty(VARIABLE_KEY, this.variable);
+            return new HttpPost(nodeProperties);
         }
     }
 

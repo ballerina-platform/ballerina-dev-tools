@@ -67,19 +67,20 @@ public abstract class FlowNode {
     private Map<String, Expression> nodeProperties;
     private int flags;
 
-    protected FlowNode(String label, Kind kind, boolean fixed) {
+    protected FlowNode(String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties) {
         this.label = label;
         this.kind = kind;
         this.fixed = fixed;
+        if (!nodeProperties.isEmpty()) {
+            this.nodeProperties = nodeProperties;
+        }
     }
 
-    private void setCommonFields(LineRange lineRange, boolean returning, List<Branch> branches,
-                                 Map<String, Expression> nodeProperties, int flags) {
+    private void setCommonFields(LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
         this.id = String.valueOf(Objects.hash(lineRange));
         this.lineRange = lineRange;
         this.returning = returning;
         this.branches = branches;
-        this.nodeProperties = nodeProperties;
         this.flags = flags;
     }
 
@@ -103,33 +104,18 @@ public abstract class FlowNode {
      *
      * @since 2201.9.0
      */
-    public abstract static class Builder {
-
-        private static final String VARIABLE_LABEL = "Variable";
-        public static final String VARIABLE_KEY = "variable";
-        private static final String VARIABLE_DOC = "Result Variable";
-
-        public final static String EXPRESSION_RHS_LABEL = "Expression";
-        public final static String EXPRESSION_RHS_KEY = "expression";
-        public final static String EXPRESSION_RHS_DOC = "Expression";
+    public final static class NodeBuilder {
 
         private LineRange lineRange;
         private boolean returning;
-        protected final Map<String, Expression> nodeProperties;
         private final List<Branch> branches;
         private int flags;
+        private NodePropertiesBuilder nodePropertiesBuilder;
+        private final SemanticModel semanticModel;
 
-        protected Expression.Builder expressionBuilder;
-        protected final SemanticModel semanticModel;
-
-        protected Expression variable;
-        protected Expression expression;
-
-        public Builder(SemanticModel semanticModel) {
+        public NodeBuilder(SemanticModel semanticModel) {
             this.branches = new ArrayList<>();
-            this.nodeProperties = new LinkedHashMap<>();
             this.flags = 0;
-            this.expressionBuilder = new Expression.Builder();
             this.semanticModel = semanticModel;
         }
 
@@ -147,6 +133,48 @@ public abstract class FlowNode {
 
         public void addFlag(int flag) {
             this.flags |= flag;
+        }
+
+        public void setPropertiesBuilder(NodePropertiesBuilder propertiesBuilder) {
+            this.nodePropertiesBuilder = propertiesBuilder;
+        }
+
+        public boolean isDefault() {
+            return this.nodePropertiesBuilder == null;
+        }
+
+        public FlowNode build() {
+            if (nodePropertiesBuilder == null) {
+                this.nodePropertiesBuilder = new DefaultExpression.Builder(semanticModel);
+            }
+            FlowNode node = nodePropertiesBuilder.build();
+            List<Branch> outBranches = branches.isEmpty() ? null : branches;
+            node.setCommonFields(lineRange, returning, outBranches, flags);
+            return node;
+        }
+    }
+
+    public abstract static class NodePropertiesBuilder {
+
+        private static final String VARIABLE_LABEL = "Variable";
+        public static final String VARIABLE_KEY = "variable";
+        private static final String VARIABLE_DOC = "Result Variable";
+
+        public final static String EXPRESSION_RHS_LABEL = "Expression";
+        public final static String EXPRESSION_RHS_KEY = "expression";
+        public final static String EXPRESSION_RHS_DOC = "Expression";
+
+        protected final Map<String, Expression> nodeProperties;
+        protected final SemanticModel semanticModel;
+        protected Expression.Builder expressionBuilder;
+
+        protected Expression variable;
+        protected Expression expression;
+
+        public NodePropertiesBuilder(SemanticModel semanticModel) {
+            this.nodeProperties = new LinkedHashMap<>();
+            this.expressionBuilder = new Expression.Builder();
+            this.semanticModel = semanticModel;
         }
 
         public void setVariable(TypedBindingPatternNode typedBindingPatternNode) {
@@ -187,23 +215,14 @@ public abstract class FlowNode {
             this.expression = expressionBuilder.build();
         }
 
-        public final FlowNode build() {
-            FlowNode node = buildConcreteNode();
-            List<Branch> outBranches = branches.isEmpty() ? null : branches;
-            Map<String, Expression> outNodeProperties = nodeProperties.isEmpty() ? null : nodeProperties;
-            node.setCommonFields(lineRange, returning, outBranches, outNodeProperties, flags);
-            return node;
-        }
-
         protected final void addProperty(String key, Expression expression) {
             if (expression != null) {
                 this.nodeProperties.put(key, expression);
             }
         }
 
-        protected abstract FlowNode buildConcreteNode();
+        public abstract FlowNode build();
     }
-
 
     /**
      * Represents a deserializer for the flow node.

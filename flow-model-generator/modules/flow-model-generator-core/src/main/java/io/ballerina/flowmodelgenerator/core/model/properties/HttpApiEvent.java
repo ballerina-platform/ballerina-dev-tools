@@ -23,6 +23,8 @@ import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.Map;
+
 /**
  * Represents the properties of a HttpApiEvent node.
  *
@@ -38,11 +40,11 @@ public class HttpApiEvent extends FlowNode {
     private static final String EVENT_HTTP_API_PATH_KEY = "path";
     private static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
-    protected HttpApiEvent() {
-        super(EVENT_HTTP_API_LABEL, Kind.EVENT_HTTP_API, true);
+    protected HttpApiEvent(Map<String, Expression> nodeProperties) {
+        super(EVENT_HTTP_API_LABEL, Kind.EVENT_HTTP_API, true, nodeProperties);
     }
 
-    public static class Builder extends FlowNode.Builder {
+    public static class Builder extends FlowNode.NodePropertiesBuilder {
 
         private Expression method;
         private Expression path;
@@ -68,10 +70,10 @@ public class HttpApiEvent extends FlowNode {
         }
 
         @Override
-        protected FlowNode buildConcreteNode() {
+        public FlowNode build() {
             addProperty(EVENT_HTTP_API_METHOD_KEY, method);
             addProperty(EVENT_HTTP_API_PATH_KEY, path);
-            return new HttpApiEvent();
+            return new HttpApiEvent(nodeProperties);
         }
     }
 }

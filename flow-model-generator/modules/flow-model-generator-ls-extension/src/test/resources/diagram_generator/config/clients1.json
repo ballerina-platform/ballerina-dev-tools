@@ -14,7 +14,7 @@
     "nodes": [
       {
         "id": "45137",
-        "label": "HTTP API",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -26,9 +26,9 @@
             "offset": 1
           }
         },
-        "kind": "EVENT_HTTP_API",
+        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": true,
+        "fixed": false,
         "flags": 0
       },
       {
@@ -89,7 +89,7 @@
       },
       {
         "id": "46776",
-        "label": "ACTION_STATEMENT",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -242,7 +242,7 @@
       },
       {
         "id": "51735",
-        "label": "ACTION_STATEMENT",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

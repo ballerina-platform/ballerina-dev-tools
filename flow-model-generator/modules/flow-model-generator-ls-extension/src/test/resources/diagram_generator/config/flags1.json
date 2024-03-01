@@ -14,7 +14,7 @@
     "nodes": [
       {
         "id": "34969",
-        "label": "HTTP API",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -26,14 +26,14 @@
             "offset": 1
           }
         },
-        "kind": "EVENT_HTTP_API",
+        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": true,
+        "fixed": false,
         "flags": 0
       },
       {
         "id": "35860",
-        "label": "CALL_STATEMENT",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -52,7 +52,7 @@
       },
       {
         "id": "36857",
-        "label": "CALL_STATEMENT",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {

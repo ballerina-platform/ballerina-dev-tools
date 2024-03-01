@@ -63,8 +63,8 @@ public class HttpGet extends FlowNode {
     public static final String HTTP_API_GET_TARGET_TYPE_DOC = "HTTP Response Type";
     public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
 
-    protected HttpGet() {
-        super(HTTP_API_GET_KEY, Kind.HTTP_API_GET_CALL, false);
+    protected HttpGet(Map<String, Expression> nodeProperties) {
+        super(HTTP_API_GET_KEY, Kind.HTTP_API_GET_CALL, false, nodeProperties);
     }
 
     /**
@@ -72,7 +72,7 @@ public class HttpGet extends FlowNode {
      *
      * @since 2201.9.0
      */
-    public static class Builder extends FlowNode.Builder {
+    public static class Builder extends FlowNode.NodePropertiesBuilder {
 
         private Expression client;
         private Expression paths;
@@ -190,11 +190,12 @@ public class HttpGet extends FlowNode {
         }
 
         @Override
-        protected FlowNode buildConcreteNode() {
+        public FlowNode build() {
             addProperty(HTTP_API_GET_CLIENT_KEY, this.client);
             addProperty(HTTP_API_GET_PATH_KEY, this.paths);
             addProperty(HTTP_API_GET_HEADERS_KEY, this.headers);
-            return new HttpGet();
+            addProperty(VARIABLE_KEY, this.variable);
+            return new HttpGet(nodeProperties);
         }
     }
 }

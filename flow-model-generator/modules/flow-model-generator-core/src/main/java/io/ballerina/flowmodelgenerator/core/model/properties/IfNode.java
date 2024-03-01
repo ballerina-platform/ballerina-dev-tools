@@ -24,6 +24,7 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -38,8 +39,8 @@ public class IfNode extends FlowNode {
     public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
 
-    protected IfNode() {
-        super(IF_LABEL, Kind.IF, false);
+    protected IfNode(Map<String, Expression> nodeProperties) {
+        super(IF_LABEL, Kind.IF, false, nodeProperties);
     }
 
     /**
@@ -47,7 +48,7 @@ public class IfNode extends FlowNode {
      *
      * @since 2201.9.0
      */
-    public static class Builder extends FlowNode.Builder {
+    public static class Builder extends FlowNode.NodePropertiesBuilder {
 
         private Expression condition;
 
@@ -69,9 +70,9 @@ public class IfNode extends FlowNode {
         }
 
         @Override
-        protected FlowNode buildConcreteNode() {
+        public FlowNode build() {
             addProperty(IF_CONDITION_KEY, this.condition);
-            return new IfNode();
+            return new IfNode(nodeProperties);
         }
     }
 }
