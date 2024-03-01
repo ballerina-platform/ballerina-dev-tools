@@ -40,7 +40,6 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
-import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
@@ -71,7 +70,6 @@ import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
-import io.ballerina.flowmodelgenerator.core.model.properties.NodePropertiesBuilder;
 import io.ballerina.flowmodelgenerator.core.model.properties.Return;
 
 import java.util.ArrayList;
@@ -96,16 +94,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
-        this.nodeBuilder = new FlowNode.Builder();
         this.clientBuilder = new Client.Builder();
+        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.clients = new ArrayList<>();
-    }
-
-    @Override
-    public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
-        super.visit(functionBodyBlockNode);
     }
 
     @Override
@@ -122,14 +115,10 @@ class CodeAnalyzer extends NodeVisitor {
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
-        if (this.nodeBuilder.isDefault()) {
-            this.nodeBuilder.setNode(variableDeclarationNode);
-            this.nodeBuilder.label(DefaultExpression.EXPRESSION_LABEL);
-            this.nodeBuilder.kind(FlowNode.NodeKind.EXPRESSION);
-            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
-            defaultExpressionBuilder.setExpression(initializerNode);
-            defaultExpressionBuilder.setVariable(this.typedBindingPatternNode);
-            addNodeProperties(defaultExpressionBuilder);
+        if (isDefaultBuilder()) {
+            this.nodeBuilder.setLineRange(variableDeclarationNode);
+            this.nodeBuilder.setExpression(initializerNode);
+            this.nodeBuilder.setVariable(this.typedBindingPatternNode);
         }
 
         appendNode();
@@ -138,10 +127,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
-        this.nodeBuilder.kind(FlowNode.NodeKind.EVENT_HTTP_API);
-        this.nodeBuilder.label(HttpApiEvent.EVENT_HTTP_API_KEY);
-        this.nodeBuilder.setNode(functionDefinitionNode);
-        this.nodeBuilder.fixed(true);
         Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
         if (symbol.isEmpty()) {
             return;
@@ -149,15 +134,15 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
-                this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_RESOURCE);
-                HttpApiEvent.Builder httpApiEventProperties =
-                        new HttpApiEvent.Builder(semanticModel);
-                httpApiEventProperties.setSymbol((ResourceMethodSymbol) symbol.get());
-                addNodeProperties(httpApiEventProperties);
+                HttpApiEvent.Builder httpApiEventBuilder = new HttpApiEvent.Builder(semanticModel);
+                httpApiEventBuilder.addFlag(FlowNode.NODE_FLAG_RESOURCE);
+                httpApiEventBuilder.setSymbol((ResourceMethodSymbol) symbol.get());
+                this.setBuilder(httpApiEventBuilder);
             }
             default -> {
             }
         }
+        this.nodeBuilder.setLineRange(functionDefinitionNode);
 
         appendNode();
         super.visit(functionDefinitionNode);
@@ -167,16 +152,13 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ReturnStatementNode returnStatementNode) {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
-        if (this.nodeBuilder.isDefault()) {
-            this.nodeBuilder.label(Return.RETURN_KEY);
-            this.nodeBuilder.kind(FlowNode.NodeKind.RETURN);
-            this.nodeBuilder.setNode(returnStatementNode);
-
-            Return.Builder returnNodePropertiesBuilder = new Return.Builder(semanticModel);
-            expression.ifPresent(returnNodePropertiesBuilder::setExpressionNode);
-            addNodeProperties(returnNodePropertiesBuilder);
+        if (isDefaultBuilder()) {
+            Return.Builder returnBuilder = new Return.Builder(semanticModel);
+            returnBuilder.setLineRange(returnStatementNode);
+            expression.ifPresent(returnBuilder::setExpressionNode);
+            setBuilder(returnBuilder);
         }
-        this.nodeBuilder.returning(true);
+        this.nodeBuilder.setReturning();
         appendNode();
     }
 
@@ -204,8 +186,6 @@ class CodeAnalyzer extends NodeVisitor {
                                   SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                   SeparatedNodeList<Node> resourceAccessPathNodes) {
         NonTerminalNode statementNode = CommonUtils.getExpressionWithCheck(actionNode);
-        this.nodeBuilder.setNode(statementNode);
-
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
@@ -220,20 +200,16 @@ class CodeAnalyzer extends NodeVisitor {
                 switch (methodName) {
                     case "get" -> {
                         HttpGet.Builder httpGetBuilder = new HttpGet.Builder(semanticModel);
-                        nodeBuilder.label(HttpGet.HTTP_API_GET_KEY);
-                        nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_GET_CALL);
                         httpGetBuilder.addClient(expressionNode);
                         httpGetBuilder.addTargetTypeValue(statementNode);
                         httpGetBuilder.addFunctionArguments(argumentNodes);
                         httpGetBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         httpGetBuilder.setVariable(this.typedBindingPatternNode);
                         methodSymbol.typeDescriptor().params().ifPresent(httpGetBuilder::addHttpParameters);
-                        addNodeProperties(httpGetBuilder);
+                        setBuilder(httpGetBuilder);
                     }
                     case "post" -> {
                         HttpPost.Builder httpPostBuilder = new HttpPost.Builder(semanticModel);
-                        nodeBuilder.label(HttpPost.HTTP_API_POST_KEY);
-                        nodeBuilder.kind(FlowNode.NodeKind.HTTP_API_POST_CALL);
 
                         httpPostBuilder.addClient(expressionNode);
                         httpPostBuilder.addTargetTypeValue(statementNode);
@@ -241,7 +217,7 @@ class CodeAnalyzer extends NodeVisitor {
                         httpPostBuilder.addResourceAccessPath(resourceAccessPathNodes);
                         httpPostBuilder.setVariable(this.typedBindingPatternNode);
                         methodSymbol.typeDescriptor().params().ifPresent(httpPostBuilder::addHttpParameters);
-                        addNodeProperties(httpPostBuilder);
+                        setBuilder(httpPostBuilder);
                     }
                     default -> {
                     }
@@ -250,35 +226,34 @@ class CodeAnalyzer extends NodeVisitor {
             default -> {
             }
         }
+        this.nodeBuilder.setLineRange(statementNode);
     }
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        this.nodeBuilder.kind(FlowNode.NodeKind.IF);
-        this.nodeBuilder.label(IfNode.IF_KEY);
-        this.nodeBuilder.setNode(ifElseStatementNode);
-        IfNode.Builder ifNodePropertiesBuilder = new IfNode.Builder(semanticModel);
-        ifNodePropertiesBuilder.setConditionExpression(ifElseStatementNode.condition());
+        IfNode.Builder ifNodeBuilder = new IfNode.Builder(semanticModel);
+        ifNodeBuilder.setConditionExpression(ifElseStatementNode.condition());
+        ifNodeBuilder.setLineRange(ifElseStatementNode);
 
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         List<FlowNode> ifNodes = new ArrayList<>();
-        stepIn();
+        startBranch();
         for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
             ifNodes.add(buildNode());
         }
-        stepOut();
-        this.nodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
+        endBranch();
+        ifNodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
-            stepIn();
+            startBranch();
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
-            stepOut();
-            this.nodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
+            endBranch();
+            ifNodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
         }
 
-        addNodeProperties(ifNodePropertiesBuilder);
+        setBuilder(ifNodeBuilder);
         appendNode();
     }
 
@@ -428,31 +403,38 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private void stepIn() {
+    private void startBranch() {
         this.flowNodeBuilderStack.push(this.nodeBuilder);
-        this.nodeBuilder = new FlowNode.Builder();
+        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
     }
 
-    private void stepOut() {
+    private void endBranch() {
         this.nodeBuilder = this.flowNodeBuilderStack.pop();
+    }
+
+    private void scanChildNode(Node node, FlowNode.Builder builder) {
+        this.nodeBuilder = builder;
+        node.accept(this);
+    }
+
+    private void setBuilder(FlowNode.Builder builder) {
+        this.nodeBuilder = builder;
     }
 
     private FlowNode buildNode() {
         FlowNode flowNode = this.nodeBuilder.build();
-        this.nodeBuilder = new FlowNode.Builder();
+        this.nodeBuilder = new DefaultExpression.Builder(semanticModel);
         return flowNode;
     }
 
-    private void addNodeProperties(NodePropertiesBuilder nodePropertiesBuilder) {
-        this.nodeBuilder.nodeProperties(nodePropertiesBuilder.build());
-    }
-
     private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
-        this.nodeBuilder.setNode(statementNode);
-        this.nodeBuilder.label(statementNode.kind().toString());
-        this.nodeBuilder.kind(FlowNode.NodeKind.EXPRESSION);
+        this.nodeBuilder.setLineRange(statementNode);
         runnable.run();
         appendNode();
+    }
+
+    private boolean isDefaultBuilder() {
+        return this.nodeBuilder instanceof DefaultExpression.Builder;
     }
 
     public List<FlowNode> getFlowNodes() {

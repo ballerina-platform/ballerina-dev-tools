@@ -23,38 +23,65 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.properties.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpGet;
 import io.ballerina.flowmodelgenerator.core.model.properties.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.properties.IfNode;
-import io.ballerina.flowmodelgenerator.core.model.properties.NodeProperties;
 import io.ballerina.flowmodelgenerator.core.model.properties.Return;
 import io.ballerina.tools.text.LineRange;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a node in the flow model.
  *
- * @param id             unique identifier of the node
- * @param label          label of the node
- * @param lineRange      line range of the node
- * @param kind           kind of the node
- * @param returning      whether the node is returning
- * @param fixed          whether the node is fixed
- * @param branches       branches of the node
- * @param nodeProperties properties that are specific to the node kind
- * @param flags          flags of the node
  * @since 2201.9.0
  */
-public record FlowNode(String id, String label, LineRange lineRange, NodeKind kind, boolean returning, boolean fixed,
-                       List<Branch> branches, NodeProperties nodeProperties, int flags) {
+public abstract class FlowNode {
+
+    private String id;
+    private String label;
+    private LineRange lineRange;
+    private Kind kind;
+    private boolean returning;
+    private boolean fixed;
+    private List<Branch> branches;
+    private Map<String, Expression> nodeProperties;
+    private int flags;
+
+    protected FlowNode(String label, Kind kind, boolean fixed) {
+        this.label = label;
+        this.kind = kind;
+        this.fixed = fixed;
+    }
+
+    private void setCommonFields(LineRange lineRange, boolean returning, List<Branch> branches,
+                                 Map<String, Expression> nodeProperties, int flags) {
+        this.id = String.valueOf(Objects.hash(lineRange));
+        this.lineRange = lineRange;
+        this.returning = returning;
+        this.branches = branches;
+        this.nodeProperties = nodeProperties;
+        this.flags = flags;
+    }
 
     public static int NODE_FLAG_CHECKED = 1 << 0;
     public static int NODE_FLAG_CHECKPANIC = 1 << 1;
@@ -62,7 +89,7 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
     public static int NODE_FLAG_REMOTE = 1 << 10;
     public static int NODE_FLAG_RESOURCE = 1 << 11;
 
-    public enum NodeKind {
+    public enum Kind {
         EVENT_HTTP_API,
         IF,
         HTTP_API_GET_CALL,
@@ -76,43 +103,41 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
      *
      * @since 2201.9.0
      */
-    public static class Builder {
+    public abstract static class Builder {
 
-        private String label;
+        private static final String VARIABLE_LABEL = "Variable";
+        public static final String VARIABLE_KEY = "variable";
+        private static final String VARIABLE_DOC = "Result Variable";
+
+        public final static String EXPRESSION_RHS_LABEL = "Expression";
+        public final static String EXPRESSION_RHS_KEY = "expression";
+        public final static String EXPRESSION_RHS_DOC = "Expression";
+
         private LineRange lineRange;
-        private NodeKind kind;
         private boolean returning;
-        private boolean fixed;
-        private NodeProperties nodeProperties;
+        protected final Map<String, Expression> nodeProperties;
         private final List<Branch> branches;
         private int flags;
 
-        public Builder() {
+        protected Expression.Builder expressionBuilder;
+        protected final SemanticModel semanticModel;
+
+        protected Expression variable;
+        protected Expression expression;
+
+        public Builder(SemanticModel semanticModel) {
             this.branches = new ArrayList<>();
+            this.nodeProperties = new LinkedHashMap<>();
             this.flags = 0;
+            this.expressionBuilder = new Expression.Builder();
+            this.semanticModel = semanticModel;
         }
 
-        public void label(String label) {
-            this.label = label;
+        public void setReturning() {
+            this.returning = true;
         }
 
-        public void kind(NodeKind kind) {
-            this.kind = kind;
-        }
-
-        public void returning(boolean returning) {
-            this.returning = returning;
-        }
-
-        public void fixed(boolean fixed) {
-            this.fixed = fixed;
-        }
-
-        public void nodeProperties(NodeProperties nodeProperties) {
-            this.nodeProperties = nodeProperties;
-        }
-
-        public void setNode(Node node) {
+        public void setLineRange(Node node) {
             this.lineRange = node.lineRange();
         }
 
@@ -124,16 +149,61 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
             this.flags |= flag;
         }
 
-        public boolean isDefault() {
-            return this.kind == NodeKind.EXPRESSION || this.kind == null;
+        public void setVariable(TypedBindingPatternNode typedBindingPatternNode) {
+            if (typedBindingPatternNode == null) {
+                return;
+            }
+            BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+
+            expressionBuilder.key(VARIABLE_LABEL);
+            expressionBuilder.value(bindingPatternNode.toString());
+            expressionBuilder.setEditable();
+            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setDocumentation(VARIABLE_DOC);
+
+            Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
+            if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
+                TypeSymbol typeSymbol = (TypeSymbol) typeDescriptorSymbol.get();
+                expressionBuilder.type(typeSymbol);
+            } else {
+                Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
+                if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
+                    expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+                }
+            }
+
+            this.variable = expressionBuilder.build();
         }
 
-        public FlowNode build() {
-            String id = String.valueOf(Objects.hash(lineRange));
-            List<Branch> outBranches = branches.isEmpty() ? null : branches;
-            return new FlowNode(id, label, lineRange, kind, returning, fixed, outBranches, nodeProperties, flags);
+        public void setExpression(ExpressionNode expression) {
+            expressionBuilder.key(EXPRESSION_RHS_LABEL);
+            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+            expressionBuilder.setDocumentation(EXPRESSION_RHS_DOC);
+            expressionBuilder.setEditable();
+            semanticModel.typeOf(expression).ifPresent(expressionBuilder::type);
+
+            expressionBuilder.value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                    ((CheckExpressionNode) expression).expression().toString() : expression.toString());
+            this.expression = expressionBuilder.build();
         }
+
+        public final FlowNode build() {
+            FlowNode node = buildConcreteNode();
+            List<Branch> outBranches = branches.isEmpty() ? null : branches;
+            Map<String, Expression> outNodeProperties = nodeProperties.isEmpty() ? null : nodeProperties;
+            node.setCommonFields(lineRange, returning, outBranches, outNodeProperties, flags);
+            return node;
+        }
+
+        protected final void addProperty(String key, Expression expression) {
+            if (expression != null) {
+                this.nodeProperties.put(key, expression);
+            }
+        }
+
+        protected abstract FlowNode buildConcreteNode();
     }
+
 
     /**
      * Represents a deserializer for the flow node.
@@ -146,10 +216,10 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
         public FlowNode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
-            FlowNode.NodeKind kind = context.deserialize(jsonObject.get("kind"), FlowNode.NodeKind.class);
+            FlowNode.Kind kind = context.deserialize(jsonObject.get("kind"), FlowNode.Kind.class);
             JsonElement propertiesJson = jsonObject.get("nodeProperties");
 
-            NodeProperties properties = switch (kind) {
+            return switch (kind) {
                 case EXPRESSION -> context.deserialize(propertiesJson, DefaultExpression.class);
                 case IF -> context.deserialize(propertiesJson, IfNode.class);
                 case EVENT_HTTP_API -> context.deserialize(propertiesJson, HttpApiEvent.class);
@@ -157,18 +227,6 @@ public record FlowNode(String id, String label, LineRange lineRange, NodeKind ki
                 case HTTP_API_GET_CALL -> context.deserialize(propertiesJson, HttpGet.class);
                 case HTTP_API_POST_CALL -> context.deserialize(propertiesJson, HttpPost.class);
             };
-
-            return new FlowNode(
-                    jsonObject.get("id").getAsString(),
-                    jsonObject.get("label").getAsString(),
-                    context.deserialize(jsonObject.get("lineRange"), LineRange.class),
-                    kind,
-                    jsonObject.get("returning").getAsBoolean(),
-                    jsonObject.get("fixed").getAsBoolean(),
-                    context.deserialize(jsonObject.get("branches"), new TypeToken<List<Branch>>() {}.getType()),
-                    properties,
-                    context.deserialize(jsonObject.get("flags"), Integer.class)
-            );
         }
     }
 }

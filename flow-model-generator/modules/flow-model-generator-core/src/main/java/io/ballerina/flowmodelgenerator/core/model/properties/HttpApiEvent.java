@@ -21,23 +21,28 @@ package io.ballerina.flowmodelgenerator.core.model.properties;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 /**
  * Represents the properties of a HttpApiEvent node.
  *
- * @param method The method of the resource
- * @param path   The path of the resource
  * @since 2201.9.0
  */
-public record HttpApiEvent(Expression method, Expression path) implements NodeProperties {
+public class HttpApiEvent extends FlowNode {
 
-    public static final String EVENT_HTTP_API_KEY = "HTTP API";
+    public static final String EVENT_HTTP_API_LABEL = "HTTP API";
     private static final String EVENT_HTTP_API_METHOD = "Method";
+    private static final String EVENT_HTTP_API_METHOD_KEY = "method";
     private static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
     private static final String EVENT_HTTP_API_PATH = "Path";
+    private static final String EVENT_HTTP_API_PATH_KEY = "path";
     private static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
-    public static class Builder extends NodePropertiesBuilder {
+    protected HttpApiEvent() {
+        super(EVENT_HTTP_API_LABEL, Kind.EVENT_HTTP_API, true);
+    }
+
+    public static class Builder extends FlowNode.Builder {
 
         private Expression method;
         private Expression path;
@@ -63,8 +68,10 @@ public record HttpApiEvent(Expression method, Expression path) implements NodePr
         }
 
         @Override
-        public NodeProperties build() {
-            return new HttpApiEvent(method, path);
+        protected FlowNode buildConcreteNode() {
+            addProperty(EVENT_HTTP_API_METHOD_KEY, method);
+            addProperty(EVENT_HTTP_API_PATH_KEY, path);
+            return new HttpApiEvent();
         }
     }
 }

@@ -21,27 +21,32 @@ package io.ballerina.flowmodelgenerator.core.model.properties;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 /**
  * Represents the properties of a return node.
  *
- * @param expression The expression of the return node
  * @since 2201.9.0
  */
-public record Return(Expression expression) implements NodeProperties {
+public class Return extends FlowNode {
 
-    public static final String RETURN_KEY = "Return";
+    public static final String RETURN_LABEL = "Return";
     private static final String RETURN_EXPRESSION = "Expression";
+    private static final String RETURN_EXPRESSION_KEY = "expression";
     private static final String RETURN_EXPRESSION_DOC = "Return value";
+
+    protected Return() {
+        super(RETURN_LABEL, Kind.RETURN, false);
+    }
 
     /**
      * Represents the builder for return node properties.
      *
      * @since 2201.9.0
      */
-    public static class Builder extends NodePropertiesBuilder {
+    public static class Builder extends FlowNode.Builder {
 
-        private Expression expr;
+        private Expression expression;
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
@@ -54,12 +59,13 @@ public record Return(Expression expression) implements NodeProperties {
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setEditable();
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            expr = expressionBuilder.build();
+            expression = expressionBuilder.build();
         }
 
         @Override
-        public NodeProperties build() {
-            return new Return(expr);
+        protected FlowNode buildConcreteNode() {
+            nodeProperties.put(RETURN_EXPRESSION_KEY, expression);
+            return new Return();
         }
     }
 }

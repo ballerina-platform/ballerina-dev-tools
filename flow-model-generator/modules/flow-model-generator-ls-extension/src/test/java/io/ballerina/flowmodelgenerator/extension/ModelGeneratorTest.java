@@ -84,7 +84,7 @@ public class ModelGeneratorTest {
 
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
-//            updateConfig(configJsonPath, testConfig, modifiedDiagram);
+            updateConfig(configJsonPath, testConfig, modifiedDiagram);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -97,7 +97,7 @@ public class ModelGeneratorTest {
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-//        return new Object[]{Path.of("if_node2.json")};
+//        return new Object[]{Path.of("if_node3.json")};
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
             return Files.walk(CONFIG_DIR)

@@ -22,27 +22,32 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.Optional;
 
 /**
  * Represents the properties of an if node in the flow model.
  *
- * @param condition condition of the if node
  * @since 2201.9.0
  */
-public record IfNode(Expression condition) implements NodeProperties {
+public class IfNode extends FlowNode {
 
-    public static final String IF_KEY = "If";
+    public static final String IF_LABEL = "If";
     private static final String IF_CONDITION = "Condition";
+    public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
+
+    protected IfNode() {
+        super(IF_LABEL, Kind.IF, false);
+    }
 
     /**
      * Represents a builder for the if node properties.
      *
      * @since 2201.9.0
      */
-    public static class Builder extends NodePropertiesBuilder {
+    public static class Builder extends FlowNode.Builder {
 
         private Expression condition;
 
@@ -64,8 +69,9 @@ public record IfNode(Expression condition) implements NodeProperties {
         }
 
         @Override
-        public NodeProperties build() {
-            return new IfNode(condition);
+        protected FlowNode buildConcreteNode() {
+            addProperty(IF_CONDITION_KEY, this.condition);
+            return new IfNode();
         }
     }
 }

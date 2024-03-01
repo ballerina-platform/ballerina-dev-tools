@@ -19,33 +19,35 @@
 package io.ballerina.flowmodelgenerator.core.model.properties;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 /**
  * Represents the properties of a default expression node.
- *
- * @param variable   The variable of the default expression node
- * @param expression The expression of the default expression node
  */
-public record DefaultExpression(Expression variable, Expression expression) implements NodeProperties {
+public class DefaultExpression extends FlowNode {
 
     public final static String EXPRESSION_LABEL = "Custom Expression";
-    public final static String EXPRESSION_RHS_LABEL = "Expression";
-    public final static String EXPRESSION_RHS_DOC = "Expression";
+
+    protected DefaultExpression() {
+        super(EXPRESSION_LABEL, Kind.EXPRESSION, false);
+    }
 
     /**
      * Represents the builder for default expression node properties.
      *
      * @since 2201.9.0
      */
-    public static class Builder extends NodePropertiesBuilder {
+    public static class Builder extends FlowNode.Builder {
 
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
         }
 
-        public NodeProperties build() {
-            return new DefaultExpression(this.variable, this.expression);
+        @Override
+        protected FlowNode buildConcreteNode() {
+            addProperty(FlowNode.Builder.VARIABLE_KEY, this.variable);
+            addProperty(FlowNode.Builder.EXPRESSION_RHS_KEY, this.expression);
+            return new DefaultExpression();
         }
     }
 

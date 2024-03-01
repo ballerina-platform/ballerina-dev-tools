@@ -31,6 +31,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionList;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -42,31 +43,30 @@ import java.util.Queue;
 /**
  * Represents the properties of a HTTP POST node.
  *
- * @param client     The client of the HTTP POST node
- * @param path       The path of the HTTP POST node
- * @param message    The message of the HTTP POST node
- * @param headers    The headers of the HTTP POST node
- * @param mediaType  The media type of the HTTP POST node
- * @param variable   The variable of the HTTP POST node
  * @since 2201.9.0
  */
-public record HttpPost(Expression client, Expression path, Expression message, Expression headers, Expression mediaType, Expression variable)
-        implements NodeProperties {
+public class HttpPost extends FlowNode {
 
     public static final String HTTP_API_POST_KEY = "HTTP POST";
 
     public static final String HTTP_API_POST_MESSAGE = "Message";
+    public static final String HTTP_API_POST_MESSAGE_KEY = "message";
     public static final String HTTP_API_POST_MESSAGE_TYPE = "http:RequestMessage";
     public static final String HTTP_API_POST_MESSAGE_DOC = "HTTP Post Message";
 
     public static final String HTTP_API_MEDIA_TYPE = "Media Type";
+    public static final String HTTP_API_MEDIA_TYPE_KEY = "mediaType";
     public static final String HTTP_API_MEDIA_TYPE_TYPE = "string?";
     public static final String HTTP_API_MEDIA_TYPE_DOC = "HTTP Post Media Type";
+
+    protected HttpPost() {
+        super(HTTP_API_POST_KEY, Kind.HTTP_API_POST_CALL, false);
+    }
 
     /**
      * Represents a builder for the HTTP POST node properties.
      */
-    public static class Builder extends NodePropertiesBuilder {
+    public static class Builder extends FlowNode.Builder {
 
         private Expression client;
         private Expression paths;
@@ -202,8 +202,14 @@ public record HttpPost(Expression client, Expression path, Expression message, E
             this.params = expressionListBuilder.build();
         }
 
-        public NodeProperties build() {
-            return new HttpPost(client, paths, message, headers, mediaType, variable);
+        @Override
+        protected FlowNode buildConcreteNode() {
+            addProperty(HttpGet.HTTP_API_GET_CLIENT_KEY, this.client);
+            addProperty(HttpGet.HTTP_API_GET_PATH_KEY, this.paths);
+            addProperty(HttpGet.HTTP_API_GET_HEADERS_KEY, this.headers);
+            addProperty(HttpPost.HTTP_API_POST_MESSAGE_KEY, this.message);
+            addProperty(HttpPost.HTTP_API_MEDIA_TYPE_KEY, this.mediaType);
+            return new HttpPost();
         }
     }
 
