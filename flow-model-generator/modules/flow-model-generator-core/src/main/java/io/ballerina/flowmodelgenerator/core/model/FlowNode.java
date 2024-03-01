@@ -84,6 +84,16 @@ public abstract class FlowNode {
         this.flags = flags;
     }
 
+    public Kind kind() {
+        return kind;
+    }
+
+    protected Expression getProperty(String key) {
+        return nodeProperties.get(key);
+    }
+
+    public abstract String toSource();
+
     public static int NODE_FLAG_CHECKED = 1 << 0;
     public static int NODE_FLAG_CHECKPANIC = 1 << 1;
     public static int NODE_FLAG_FINAL = 1 << 2;
@@ -236,15 +246,14 @@ public abstract class FlowNode {
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             FlowNode.Kind kind = context.deserialize(jsonObject.get("kind"), FlowNode.Kind.class);
-            JsonElement propertiesJson = jsonObject.get("nodeProperties");
 
             return switch (kind) {
-                case EXPRESSION -> context.deserialize(propertiesJson, DefaultExpression.class);
-                case IF -> context.deserialize(propertiesJson, IfNode.class);
-                case EVENT_HTTP_API -> context.deserialize(propertiesJson, HttpApiEvent.class);
-                case RETURN -> context.deserialize(propertiesJson, Return.class);
-                case HTTP_API_GET_CALL -> context.deserialize(propertiesJson, HttpGet.class);
-                case HTTP_API_POST_CALL -> context.deserialize(propertiesJson, HttpPost.class);
+                case EXPRESSION -> context.deserialize(jsonObject, DefaultExpression.class);
+                case IF -> context.deserialize(jsonObject, IfNode.class);
+                case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
+                case RETURN -> context.deserialize(jsonObject, Return.class);
+                case HTTP_API_GET_CALL -> context.deserialize(jsonObject, HttpGet.class);
+                case HTTP_API_POST_CALL -> context.deserialize(jsonObject, HttpPost.class);
             };
         }
     }

@@ -44,6 +44,11 @@ public class HttpApiEvent extends FlowNode {
         super(EVENT_HTTP_API_LABEL, Kind.EVENT_HTTP_API, true, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        return null;
+    }
+
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 
         private Expression method;

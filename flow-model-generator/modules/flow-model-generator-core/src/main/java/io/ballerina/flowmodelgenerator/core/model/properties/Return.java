@@ -41,6 +41,18 @@ public class Return extends FlowNode {
         super(RETURN_LABEL, Kind.RETURN, false, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("return");
+        Expression expression = this.getProperty(RETURN_EXPRESSION_KEY);
+        if (expression != null) {
+            sb.append(" ").append(expression.toSourceCode());
+        }
+        sb.append(";");
+        return sb.toString();
+    }
+
     /**
      * Represents the builder for return node properties.
      *

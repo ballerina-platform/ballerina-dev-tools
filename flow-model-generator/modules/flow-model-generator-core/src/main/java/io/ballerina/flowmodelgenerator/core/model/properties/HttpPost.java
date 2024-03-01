@@ -63,6 +63,11 @@ public class HttpPost extends FlowNode {
         super(HTTP_API_POST_KEY, Kind.HTTP_API_POST_CALL, false, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        return null;
+    }
+
     /**
      * Represents a builder for the HTTP POST node properties.
      */

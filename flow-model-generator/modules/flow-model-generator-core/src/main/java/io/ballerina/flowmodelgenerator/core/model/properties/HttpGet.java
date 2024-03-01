@@ -67,6 +67,11 @@ public class HttpGet extends FlowNode {
         super(HTTP_API_GET_KEY, Kind.HTTP_API_GET_CALL, false, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        return null;
+    }
+
     /**
      * Represents the builder for HTTP GET node properties.
      *

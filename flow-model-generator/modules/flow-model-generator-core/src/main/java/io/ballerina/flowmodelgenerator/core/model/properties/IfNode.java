@@ -43,6 +43,11 @@ public class IfNode extends FlowNode {
         super(IF_LABEL, Kind.IF, false, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        return null;
+    }
+
     /**
      * Represents a builder for the if node properties.
      *

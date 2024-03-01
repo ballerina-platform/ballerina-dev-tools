@@ -35,6 +35,10 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 public record Expression(String label, String type, String value, ExpressionTypeKind typeKind, boolean optional,
                          boolean editable, String documentation) {
 
+    public String toSourceCode() {
+        return value;
+    }
+
     public enum ExpressionTypeKind {
         BTYPE,
         IDENTIFIER,

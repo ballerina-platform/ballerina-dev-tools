@@ -35,6 +35,11 @@ public class DefaultExpression extends FlowNode {
         super(EXPRESSION_LABEL, Kind.EXPRESSION, false, nodeProperties);
     }
 
+    @Override
+    public String toSource() {
+        return null;
+    }
+
     /**
      * Represents the builder for default expression node properties.
      *

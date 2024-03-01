@@ -44,24 +44,6 @@ public class SourceGenerator {
 
     public String toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        return switch (flowNode.kind()) {
-            case RETURN -> returnToSource(flowNode);
-            default -> "";
-        };
-    }
-
-    private String returnToSource(FlowNode node) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("return");
-        Return nodeProperties = (Return) node.nodeProperties();
-        if (nodeProperties != null) {
-            sb.append(" ").append(toSourceCode(nodeProperties.expression()));
-        }
-        sb.append(";");
-        return sb.toString();
-    }
-
-    private String toSourceCode(Expression expression) {
-        return expression.value();
+        return flowNode.toSource();
     }
 }

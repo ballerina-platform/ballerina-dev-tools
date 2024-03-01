@@ -87,7 +87,7 @@ class CodeAnalyzer extends NodeVisitor {
     private final List<FlowNode> flowNodeList;
     private final List<Client> clients;
     private FlowNode.NodeBuilder nodeBuilder;
-    private Client.Builder clientBuilder;
+    private final Client.Builder clientBuilder;
     private final SemanticModel semanticModel;
     private final Stack<FlowNode.NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
@@ -399,6 +399,8 @@ class CodeAnalyzer extends NodeVisitor {
         checkExpressionNode.expression().accept(this);
     }
 
+    // Utility methods
+
     private void appendNode() {
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
@@ -412,15 +414,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void endBranch() {
         this.nodeBuilder = this.flowNodeBuilderStack.pop();
-    }
-
-    private void scanChildNode(Node node, FlowNode.NodeBuilder builder) {
-        this.nodeBuilder = builder;
-        node.accept(this);
-    }
-
-    private void setBuilder(FlowNode.NodeBuilder builder) {
-        this.nodeBuilder = builder;
     }
 
     private FlowNode buildNode() {
