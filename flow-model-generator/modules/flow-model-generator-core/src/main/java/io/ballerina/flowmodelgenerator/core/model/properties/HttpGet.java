@@ -64,11 +64,11 @@ public class HttpGet extends FlowNode {
     public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
 
     protected HttpGet(Map<String, Expression> nodeProperties) {
-        super(HTTP_API_GET_KEY, Kind.HTTP_API_GET_CALL, false, nodeProperties);
+        super(HTTP_API_GET_KEY, Kind.LIBRARY_CALL_HTTP_GET, false, nodeProperties);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(SourceBuilder.SourceBuilderData data) {
         return null;
     }
 

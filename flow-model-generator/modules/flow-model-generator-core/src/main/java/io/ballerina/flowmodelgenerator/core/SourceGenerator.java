@@ -21,9 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.properties.Return;
 
 /**
  * Generates source code from the flow model.
@@ -44,6 +42,6 @@ public class SourceGenerator {
 
     public String toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        return flowNode.toSource();
+        return flowNode.toSource(new FlowNode.SourceBuilder.SourceBuilderData());
     }
 }

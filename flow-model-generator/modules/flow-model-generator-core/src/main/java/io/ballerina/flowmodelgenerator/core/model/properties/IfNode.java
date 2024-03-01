@@ -21,6 +21,8 @@ package io.ballerina.flowmodelgenerator.core.model.properties;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
@@ -35,6 +37,8 @@ import java.util.Optional;
 public class IfNode extends FlowNode {
 
     public static final String IF_LABEL = "If";
+    public static final String IF_THEN_LABEL = "Then";
+    public static final String IF_ELSE_LABEL = "Else";
     private static final String IF_CONDITION = "Condition";
     public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
@@ -44,8 +48,31 @@ public class IfNode extends FlowNode {
     }
 
     @Override
-    public String toSource() {
-        return null;
+    public String toSource(SourceBuilder.SourceBuilderData data) {
+        SourceBuilder sourceBuilder = new SourceBuilder(data);
+        Expression condition = getProperty(IF_CONDITION_KEY);
+
+        sourceBuilder
+                .start()
+                .keyword(SyntaxKind.IF_KEYWORD)
+                .expression(condition)
+                .openBrace();
+
+        Branch ifBranch = getBranch(IF_THEN_LABEL);
+        sourceBuilder.addChildren(ifBranch.children());
+
+        Branch elseBranch = getBranch(IF_ELSE_LABEL);
+        if (elseBranch != null) {
+            sourceBuilder
+                    .closeBrace()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.ELSE_KEYWORD)
+                    .openBrace();
+            sourceBuilder.addChildren(elseBranch.children());
+        }
+
+        sourceBuilder.closeBrace();
+        return sourceBuilder.build();
     }
 
     /**

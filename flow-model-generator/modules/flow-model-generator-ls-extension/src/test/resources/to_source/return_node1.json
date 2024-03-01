@@ -1,34 +1,34 @@
 {
-    "description": "Tests a simple diagram flow",
-    "diagram": {
-        "id": "44041",
-        "label": "Return",
-        "lineRange": {
-            "fileName": "simple_flow.bal",
-            "startLine": {
-                "line": 12,
-                "offset": 12
-            },
-            "endLine": {
-                "line": 12,
-                "offset": 21
-            }
-        },
-        "kind": "RETURN",
-        "returning": true,
-        "fixed": false,
-        "nodeProperties": {
-            "expression": {
-                "label": "Expression",
-                "type": "json",
-                "value": "j",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": true,
-                "documentation": "Return value"
-            }
-        },
-        "flags": 0
+  "description": "Tests a simple diagram flow",
+  "output": "return  j;\n",
+  "diagram": {
+    "id": "44041",
+    "label": "Return",
+    "lineRange": {
+      "fileName": "simple_flow.bal",
+      "startLine": {
+        "line": 12,
+        "offset": 12
+      },
+      "endLine": {
+        "line": 12,
+        "offset": 21
+      }
     },
-    "output": "return j;"
+    "kind": "RETURN",
+    "returning": true,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "json",
+        "value": "j",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Return value"
+      }
+    },
+    "flags": 0
+  }
 }

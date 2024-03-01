@@ -72,6 +72,8 @@ public class SourceGeneratorTest {
         String outputSource = json.getAsJsonObject("result").getAsJsonPrimitive("source").getAsString();
 
         if (!testConfig.output().equals(outputSource)) {
+//            updateConfig(configJsonPath, testConfig, outputSource);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
             LOG.error("Generated source code for " + testConfig.description() + " does not match the expected source");
             LOG.error("Expected: " + testConfig.output());
             LOG.error("Actual: " + outputSource);
@@ -84,7 +86,7 @@ public class SourceGeneratorTest {
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-//        return new Object[]{Path.of("http_post_node4.json")};
+//        return new Object[]{Path.of("if_node3.json")};
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
             return Files.walk(RES_DIR)
@@ -107,6 +109,13 @@ public class SourceGeneratorTest {
         return TestUtil.getResponseString(result);
     }
 
+    private void updateConfig(Path configJsonPath, TestConfig testConfig, String output)
+            throws IOException {
+        TestConfig updatedConfig = new TestConfig(testConfig.description(), output, testConfig.diagram());
+        String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
+        Files.writeString(configJsonPath, objStr);
+    }
+
     @AfterClass
     public void shutDownLanguageServer() {
         TestUtil.shutdownLanguageServer(this.serviceEndpoint);
@@ -114,7 +123,7 @@ public class SourceGeneratorTest {
         this.serviceEndpoint = null;
     }
 
-    private record TestConfig(String description, JsonElement diagram, String output) {
+    private record TestConfig(String description, String output, JsonElement diagram) {
 
         public String description() {
             return description == null ? "" : description;

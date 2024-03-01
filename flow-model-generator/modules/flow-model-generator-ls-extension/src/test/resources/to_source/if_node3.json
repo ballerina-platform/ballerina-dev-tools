@@ -1,0 +1,260 @@
+{
+  "description": "Sample diagram node",
+  "output": "if price > 100 {\n    return ;\n}\n else {\n    if price < 50 {\n        if price < 25 {\n            if price < 10 && mod == 1 {\n                return ;\n            }\n        }\n    }\n    if mod == 0 {\n        return ;\n    }\n}\n",
+  "diagram": {
+    "id": "87956",
+    "label": "If",
+    "lineRange": {
+      "fileName": "if_node.bal",
+      "startLine": {
+        "line": 56,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 69,
+        "offset": 9
+      }
+    },
+    "kind": "IF",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "88679",
+            "label": "Return",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 57,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 57,
+                "offset": 19
+              }
+            },
+            "kind": "RETURN",
+            "returning": true,
+            "fixed": false,
+            "nodeProperties": {},
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "Else",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "90843",
+            "label": "If",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 59,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 65,
+                "offset": 13
+              }
+            },
+            "kind": "IF",
+            "returning": false,
+            "fixed": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "91901",
+                    "label": "If",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 60,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 64,
+                        "offset": 17
+                      }
+                    },
+                    "kind": "IF",
+                    "returning": false,
+                    "fixed": false,
+                    "branches": [
+                      {
+                        "label": "Then",
+                        "kind": "BLOCK",
+                        "children": [
+                          {
+                            "id": "92959",
+                            "label": "If",
+                            "lineRange": {
+                              "fileName": "if_node.bal",
+                              "startLine": {
+                                "line": 61,
+                                "offset": 20
+                              },
+                              "endLine": {
+                                "line": 63,
+                                "offset": 21
+                              }
+                            },
+                            "kind": "IF",
+                            "returning": false,
+                            "fixed": false,
+                            "branches": [
+                              {
+                                "label": "Then",
+                                "kind": "BLOCK",
+                                "children": [
+                                  {
+                                    "id": "94023",
+                                    "label": "Return",
+                                    "lineRange": {
+                                      "fileName": "if_node.bal",
+                                      "startLine": {
+                                        "line": 62,
+                                        "offset": 24
+                                      },
+                                      "endLine": {
+                                        "line": 62,
+                                        "offset": 31
+                                      }
+                                    },
+                                    "kind": "RETURN",
+                                    "returning": true,
+                                    "fixed": false,
+                                    "nodeProperties": {},
+                                    "flags": 0
+                                  }
+                                ]
+                              }
+                            ],
+                            "nodeProperties": {
+                              "condition": {
+                                "label": "Condition",
+                                "type": "boolean",
+                                "value": "price < 10 && mod == 1 ",
+                                "typeKind": "BTYPE",
+                                "optional": false,
+                                "editable": true,
+                                "documentation": "Boolean Condition"
+                              }
+                            },
+                            "flags": 0
+                          }
+                        ]
+                      }
+                    ],
+                    "nodeProperties": {
+                      "condition": {
+                        "label": "Condition",
+                        "type": "boolean",
+                        "value": "price < 25 ",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Boolean Condition"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "nodeProperties": {
+              "condition": {
+                "label": "Condition",
+                "type": "boolean",
+                "value": "price < 50 ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Boolean Condition"
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "97663",
+            "label": "If",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 66,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 68,
+                "offset": 13
+              }
+            },
+            "kind": "IF",
+            "returning": false,
+            "fixed": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "98727",
+                    "label": "Return",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 67,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 67,
+                        "offset": 23
+                      }
+                    },
+                    "kind": "RETURN",
+                    "returning": true,
+                    "fixed": false,
+                    "nodeProperties": {},
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "nodeProperties": {
+              "condition": {
+                "label": "Condition",
+                "type": "boolean",
+                "value": "mod == 0 ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Boolean Condition"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "nodeProperties": {
+      "condition": {
+        "label": "Condition",
+        "type": "boolean",
+        "value": "price > 100 ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Boolean Condition"
+      }
+    },
+    "flags": 0
+  }
+}

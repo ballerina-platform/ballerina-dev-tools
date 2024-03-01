@@ -92,7 +92,11 @@ public abstract class FlowNode {
         return nodeProperties.get(key);
     }
 
-    public abstract String toSource();
+    protected Branch getBranch(String label) {
+        return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
+    }
+
+    public abstract String toSource(SourceBuilder.SourceBuilderData data);
 
     public static int NODE_FLAG_CHECKED = 1 << 0;
     public static int NODE_FLAG_CHECKPANIC = 1 << 1;
@@ -103,8 +107,8 @@ public abstract class FlowNode {
     public enum Kind {
         EVENT_HTTP_API,
         IF,
-        HTTP_API_GET_CALL,
-        HTTP_API_POST_CALL,
+        LIBRARY_CALL_HTTP_GET,
+        LIBRARY_CALL_HTTP_POST,
         RETURN,
         EXPRESSION
     }
@@ -234,6 +238,98 @@ public abstract class FlowNode {
         public abstract FlowNode build();
     }
 
+    public static class SourceBuilder {
+
+        private static final String TAB_INDENT = "    ";
+        private static final String WHITE_SPACE = " ";
+
+        private final StringBuilder sb;
+        private final SourceBuilderData data;
+
+        public SourceBuilder(SourceBuilderData data) {
+            sb = new StringBuilder();
+            this.data = data;
+        }
+
+        public SourceBuilder start() {
+            sb.append(data.indentSpace());
+            return this;
+        }
+
+        public SourceBuilder keyword(SyntaxKind keyword) {
+            sb.append(keyword.stringValue()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public SourceBuilder expression(Expression expression) {
+            sb.append(expression.toSourceCode());
+            return this;
+        }
+
+        public SourceBuilder expressionWithType(Expression expression) {
+            sb.append(expression.type()).append(WHITE_SPACE).append(expression.toSourceCode());
+            return this;
+        }
+
+        public SourceBuilder whiteSpace() {
+            sb.append(WHITE_SPACE);
+            return this;
+        }
+
+        public SourceBuilder openBrace() {
+            sb.append(SyntaxKind.OPEN_BRACE_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
+        public SourceBuilder closeBrace() {
+            sb.append(data.indentSpace())
+                    .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
+                    .append(System.lineSeparator());
+            return this;
+        }
+
+        public SourceBuilder addChildren(List<FlowNode> flowNodes) {
+            data.increaseIndent();
+            flowNodes.forEach(flowNode -> sb.append(flowNode.toSource(data)));
+            data.decreaseIndent();
+            return this;
+        }
+
+        public SourceBuilder endOfStatement() {
+            sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
+        public String build() {
+            return sb.toString();
+        }
+
+        public static class SourceBuilderData {
+
+            private String indentSpace;
+            private static final int TAB_LENGTH = TAB_INDENT.length();
+
+            public SourceBuilderData() {
+                this.indentSpace = "";
+            }
+
+            public void increaseIndent() {
+                this.indentSpace += TAB_INDENT;
+            }
+
+            public void decreaseIndent() {
+                int indentLength = this.indentSpace.length();
+                if (indentLength >= TAB_LENGTH) {
+                    this.indentSpace = this.indentSpace.substring(0, indentLength - TAB_LENGTH);
+                }
+            }
+
+            public String indentSpace() {
+                return indentSpace;
+            }
+        }
+    }
+
     /**
      * Represents a deserializer for the flow node.
      *
@@ -252,8 +348,8 @@ public abstract class FlowNode {
                 case IF -> context.deserialize(jsonObject, IfNode.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
-                case HTTP_API_GET_CALL -> context.deserialize(jsonObject, HttpGet.class);
-                case HTTP_API_POST_CALL -> context.deserialize(jsonObject, HttpPost.class);
+                case LIBRARY_CALL_HTTP_GET -> context.deserialize(jsonObject, HttpGet.class);
+                case LIBRARY_CALL_HTTP_POST -> context.deserialize(jsonObject, HttpPost.class);
             };
         }
     }

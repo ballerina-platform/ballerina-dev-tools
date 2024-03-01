@@ -1,0 +1,224 @@
+{
+  "description": "Sample diagram node",
+  "output": "if price > 10 {\n    if price > 100 {\n        int c  =  12;\n        return  \"expensive\";\n    }\n else {\n        int b  =  2;\n        return  \"moderate\";\n    }\n}\n",
+  "diagram": {
+    "id": "56057",
+    "label": "If",
+    "lineRange": {
+      "fileName": "if_node.bal",
+      "startLine": {
+        "line": 24,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 32,
+        "offset": 9
+      }
+    },
+    "kind": "IF",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "57115",
+            "label": "If",
+            "lineRange": {
+              "fileName": "if_node.bal",
+              "startLine": {
+                "line": 25,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 31,
+                "offset": 13
+              }
+            },
+            "kind": "IF",
+            "returning": false,
+            "fixed": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "58059",
+                    "label": "Custom Expression",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 26,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 26,
+                        "offset": 27
+                      }
+                    },
+                    "kind": "EXPRESSION",
+                    "returning": false,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "variable": {
+                        "label": "Variable",
+                        "type": "int",
+                        "value": "c ",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      },
+                      "expression": {
+                        "label": "Expression",
+                        "type": "int",
+                        "value": "12",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Expression"
+                      }
+                    },
+                    "flags": 0
+                  },
+                  {
+                    "id": "59059",
+                    "label": "Return",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 27,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 27,
+                        "offset": 35
+                      }
+                    },
+                    "kind": "RETURN",
+                    "returning": true,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "expression": {
+                        "label": "Expression",
+                        "type": "string",
+                        "value": "\"expensive\"",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Return value"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "61034",
+                    "label": "Custom Expression",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 29,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 29,
+                        "offset": 26
+                      }
+                    },
+                    "kind": "EXPRESSION",
+                    "returning": false,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "variable": {
+                        "label": "Variable",
+                        "type": "int",
+                        "value": "b ",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      },
+                      "expression": {
+                        "label": "Expression",
+                        "type": "int",
+                        "value": "2",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Expression"
+                      }
+                    },
+                    "flags": 0
+                  },
+                  {
+                    "id": "62034",
+                    "label": "Return",
+                    "lineRange": {
+                      "fileName": "if_node.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 34
+                      }
+                    },
+                    "kind": "RETURN",
+                    "returning": true,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "expression": {
+                        "label": "Expression",
+                        "type": "string",
+                        "value": "\"moderate\"",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Return value"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "nodeProperties": {
+              "condition": {
+                "label": "Condition",
+                "type": "boolean",
+                "value": "price > 100 ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Boolean Condition"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "nodeProperties": {
+      "condition": {
+        "label": "Condition",
+        "type": "boolean",
+        "value": "price > 10 ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Boolean Condition"
+      }
+    },
+    "flags": 0
+  }
+}

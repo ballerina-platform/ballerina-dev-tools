@@ -212,7 +212,6 @@ class CodeAnalyzer extends NodeVisitor {
                     }
                     case "post" -> {
                         HttpPost.Builder httpPostBuilder = new HttpPost.Builder(semanticModel);
-
                         httpPostBuilder.addClient(expressionNode);
                         httpPostBuilder.addTargetTypeValue(statementNode);
                         httpPostBuilder.addFunctionArguments(argumentNodes);
@@ -245,14 +244,14 @@ class CodeAnalyzer extends NodeVisitor {
             ifNodes.add(buildNode());
         }
         endBranch();
-        this.nodeBuilder.addBranch("Then", Branch.BranchKind.BLOCK, ifNodes);
+        this.nodeBuilder.addBranch(IfNode.IF_THEN_LABEL, Branch.BranchKind.BLOCK, ifNodes);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
             startBranch();
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             endBranch();
-            this.nodeBuilder.addBranch("Else", Branch.BranchKind.BLOCK, elseBodyChildNodes);
+            this.nodeBuilder.addBranch(IfNode.IF_ELSE_LABEL, Branch.BranchKind.BLOCK, elseBodyChildNodes);
         }
 
         this.nodeBuilder.setPropertiesBuilder(ifNodeBuilder);

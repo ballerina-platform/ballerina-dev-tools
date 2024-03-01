@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.properties;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
@@ -36,8 +37,20 @@ public class DefaultExpression extends FlowNode {
     }
 
     @Override
-    public String toSource() {
-        return null;
+    public String toSource(SourceBuilder.SourceBuilderData data) {
+        Expression variable = getProperty(FlowNode.NodePropertiesBuilder.VARIABLE_KEY);
+        Expression expression = getProperty(FlowNode.NodePropertiesBuilder.EXPRESSION_RHS_KEY);
+
+        SourceBuilder sourceBuilder = new SourceBuilder(data);
+        sourceBuilder
+                .start()
+                .expressionWithType(variable)
+                .whiteSpace()
+                .keyword(SyntaxKind.EQUAL_TOKEN)
+                .whiteSpace()
+                .expression(expression)
+                .endOfStatement();
+        return sourceBuilder.build();
     }
 
     /**

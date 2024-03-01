@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.properties;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
@@ -42,15 +43,20 @@ public class Return extends FlowNode {
     }
 
     @Override
-    public String toSource() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("return");
-        Expression expression = this.getProperty(RETURN_EXPRESSION_KEY);
+    public String toSource(SourceBuilder.SourceBuilderData data) {
+        SourceBuilder sourceBuilder = new SourceBuilder(data);
+
+        sourceBuilder
+                .start()
+                .keyword(SyntaxKind.RETURN_KEYWORD);
+        Expression expression = getProperty(RETURN_EXPRESSION_KEY);
         if (expression != null) {
-            sb.append(" ").append(expression.toSourceCode());
+            sourceBuilder
+                    .whiteSpace()
+                    .expression(expression);
         }
-        sb.append(";");
-        return sb.toString();
+        sourceBuilder.endOfStatement();
+        return sourceBuilder.build();
     }
 
     /**

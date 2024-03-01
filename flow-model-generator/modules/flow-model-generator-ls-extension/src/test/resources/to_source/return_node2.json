@@ -1,34 +1,34 @@
 {
-    "description": "Sample diagram node",
-    "diagram": {
-        "id": "59059",
-        "label": "Return",
-        "lineRange": {
-            "fileName": "if_node.bal",
-            "startLine": {
-                "line": 27,
-                "offset": 16
-            },
-            "endLine": {
-                "line": 27,
-                "offset": 35
-            }
-        },
-        "kind": "RETURN",
-        "returning": true,
-        "fixed": false,
-        "nodeProperties": {
-            "expression": {
-                "label": "Expression",
-                "type": "string",
-                "value": "\"expensive\"",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": true,
-                "documentation": "Return value"
-            }
-        },
-        "flags": 0
+  "description": "Sample diagram node",
+  "output": "return  \"expensive\";\n",
+  "diagram": {
+    "id": "59059",
+    "label": "Return",
+    "lineRange": {
+      "fileName": "if_node.bal",
+      "startLine": {
+        "line": 27,
+        "offset": 16
+      },
+      "endLine": {
+        "line": 27,
+        "offset": 35
+      }
     },
-    "output": "return \"expensive\";"
+    "kind": "RETURN",
+    "returning": true,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "string",
+        "value": "\"expensive\"",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Return value"
+      }
+    },
+    "flags": 0
+  }
 }

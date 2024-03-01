@@ -60,11 +60,11 @@ public class HttpPost extends FlowNode {
     public static final String HTTP_API_MEDIA_TYPE_DOC = "HTTP Post Media Type";
 
     protected HttpPost(Map<String, Expression> nodeProperties) {
-        super(HTTP_API_POST_KEY, Kind.HTTP_API_POST_CALL, false, nodeProperties);
+        super(HTTP_API_POST_KEY, Kind.LIBRARY_CALL_HTTP_POST, false, nodeProperties);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(SourceBuilder.SourceBuilderData data) {
         return null;
     }
 

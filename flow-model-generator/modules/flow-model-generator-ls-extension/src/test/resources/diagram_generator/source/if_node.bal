@@ -64,6 +64,9 @@ service /market on new http:Listener(9090) {
                     }
                 }
             }
+            if mod == 0 {
+                return;
+            }
         }
     }
 }
