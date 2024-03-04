@@ -88,6 +88,26 @@
                 "kind": "EXPRESSION",
                 "returning": false,
                 "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "string",
+                    "value": "food.comment",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "type": "string",
+                    "value": "\"cheap\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
                 "flags": 0
               },
               {
@@ -187,6 +207,26 @@
                                 "kind": "EXPRESSION",
                                 "returning": false,
                                 "fixed": false,
+                                "nodeProperties": {
+                                  "variable": {
+                                    "label": "Variable",
+                                    "type": "string",
+                                    "value": "food.comment",
+                                    "typeKind": "BTYPE",
+                                    "optional": false,
+                                    "editable": true,
+                                    "documentation": "Result Variable"
+                                  },
+                                  "expression": {
+                                    "label": "Expression",
+                                    "type": "string",
+                                    "value": "\"fresh; \"",
+                                    "typeKind": "BTYPE",
+                                    "optional": false,
+                                    "editable": true,
+                                    "documentation": "Expression"
+                                  }
+                                },
                                 "flags": 0
                               }
                             ]
@@ -212,6 +252,26 @@
                                 "kind": "EXPRESSION",
                                 "returning": false,
                                 "fixed": false,
+                                "nodeProperties": {
+                                  "variable": {
+                                    "label": "Variable",
+                                    "type": "string",
+                                    "value": "food.comment",
+                                    "typeKind": "BTYPE",
+                                    "optional": false,
+                                    "editable": true,
+                                    "documentation": "Result Variable"
+                                  },
+                                  "expression": {
+                                    "label": "Expression",
+                                    "type": "string",
+                                    "value": "\"expired; \"",
+                                    "typeKind": "BTYPE",
+                                    "optional": false,
+                                    "editable": true,
+                                    "documentation": "Expression"
+                                  }
+                                },
                                 "flags": 0
                               }
                             ]
@@ -302,6 +362,26 @@
                         "kind": "EXPRESSION",
                         "returning": false,
                         "fixed": false,
+                        "nodeProperties": {
+                          "variable": {
+                            "label": "Variable",
+                            "type": "string",
+                            "value": "food.comment",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"expensive\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          }
+                        },
                         "flags": 0
                       },
                       {

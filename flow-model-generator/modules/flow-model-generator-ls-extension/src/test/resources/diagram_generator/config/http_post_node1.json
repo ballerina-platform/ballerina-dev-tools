@@ -63,7 +63,7 @@
             "offset": 84
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -136,7 +136,7 @@
             "offset": 89
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -200,7 +200,7 @@
             "offset": 79
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -264,7 +264,7 @@
             "offset": 105
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -329,7 +329,7 @@
             "offset": 59
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -393,7 +393,7 @@
             "offset": 83
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -457,7 +457,7 @@
             "offset": 10
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -522,7 +522,7 @@
             "offset": 63
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -586,7 +586,7 @@
             "offset": 83
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {

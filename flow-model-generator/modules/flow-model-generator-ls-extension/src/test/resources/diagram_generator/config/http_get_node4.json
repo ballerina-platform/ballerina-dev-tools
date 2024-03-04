@@ -102,7 +102,7 @@
             "offset": 45
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": true,
         "fixed": false,
         "nodeProperties": {

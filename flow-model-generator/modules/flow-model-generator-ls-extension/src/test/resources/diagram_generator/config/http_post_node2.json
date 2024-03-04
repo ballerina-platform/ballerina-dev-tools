@@ -63,7 +63,7 @@
             "offset": 60
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -136,7 +136,7 @@
             "offset": 68
           }
         },
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "LIBRARY_CALL_HTTP_POST",
         "returning": false,
         "fixed": false,
         "nodeProperties": {

@@ -102,32 +102,6 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
-    public void visit(VariableDeclarationNode variableDeclarationNode) {
-        Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
-        if (initializer.isEmpty()) {
-            return;
-        }
-        if (variableDeclarationNode.finalKeyword().isPresent()) {
-            this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_FINAL);
-        }
-        ExpressionNode initializerNode = initializer.get();
-        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
-        initializerNode.accept(this);
-
-        // Generate the default expression node if a node is not built
-        if (this.nodeBuilder.isDefault()) {
-            this.nodeBuilder.setLineRange(variableDeclarationNode);
-            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
-            defaultExpressionBuilder.setExpression(initializerNode);
-            defaultExpressionBuilder.setVariable(this.typedBindingPatternNode);
-            this.nodeBuilder.setPropertiesBuilder(defaultExpressionBuilder);
-        }
-
-        appendNode();
-        this.typedBindingPatternNode = null;
-    }
-
-    @Override
     public void visit(FunctionDefinitionNode functionDefinitionNode) {
         Optional<Symbol> symbol = semanticModel.symbol(functionDefinitionNode);
         if (symbol.isEmpty()) {
@@ -297,8 +271,43 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
+    public void visit(VariableDeclarationNode variableDeclarationNode) {
+        Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        if (initializer.isEmpty()) {
+            return;
+        }
+        variableDeclarationNode.finalKeyword().ifPresent(token -> this.nodeBuilder.addFlag(FlowNode.NODE_FLAG_FINAL));
+        ExpressionNode initializerNode = initializer.get();
+        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+        initializerNode.accept(this);
+
+        // Generate the default expression node if a node is not built
+        if (this.nodeBuilder.isDefault()) {
+            this.nodeBuilder.setLineRange(variableDeclarationNode);
+            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
+            defaultExpressionBuilder.setExpression(initializerNode);
+            defaultExpressionBuilder.setVariable(this.typedBindingPatternNode);
+            this.nodeBuilder.setPropertiesBuilder(defaultExpressionBuilder);
+        }
+
+        appendNode();
+        this.typedBindingPatternNode = null;
+    }
+
+    @Override
     public void visit(AssignmentStatementNode assignmentStatementNode) {
-        handleDefaultStatementNode(assignmentStatementNode, () -> super.visit(assignmentStatementNode));
+        ExpressionNode expression = assignmentStatementNode.expression();
+        expression.accept(this);
+
+        if (this.nodeBuilder.isDefault()) {
+            this.nodeBuilder.setLineRange(assignmentStatementNode);
+            DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
+            defaultExpressionBuilder.setExpression(expression);
+            defaultExpressionBuilder.setVariable(assignmentStatementNode.varRef());
+            this.nodeBuilder.setPropertiesBuilder(defaultExpressionBuilder);
+        }
+
+        appendNode();
     }
 
     @Override

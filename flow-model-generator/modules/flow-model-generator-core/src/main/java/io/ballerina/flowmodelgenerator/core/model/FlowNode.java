@@ -198,29 +198,41 @@ public abstract class FlowNode {
             this.semanticModel = semanticModel;
         }
 
-        public void setVariable(TypedBindingPatternNode typedBindingPatternNode) {
-            if (typedBindingPatternNode == null) {
+        public void setVariable(Node node) {
+            if (node == null) {
                 return;
             }
-            BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+            if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
+                TypedBindingPatternNode typedBindingPatternNode = (TypedBindingPatternNode) node;
+                BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+
+                expressionBuilder.key(VARIABLE_LABEL);
+                expressionBuilder.value(bindingPatternNode.toString());
+                expressionBuilder.setEditable();
+                expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
+                expressionBuilder.setDocumentation(VARIABLE_DOC);
+
+                Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
+                if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
+                    TypeSymbol typeSymbol = (TypeSymbol) typeDescriptorSymbol.get();
+                    expressionBuilder.type(typeSymbol);
+                } else {
+                    Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
+                    if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
+                        expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+                    }
+                }
+
+                this.variable = expressionBuilder.build();
+                return;
+            }
 
             expressionBuilder.key(VARIABLE_LABEL);
-            expressionBuilder.value(bindingPatternNode.toString());
+            expressionBuilder.value(node.toString().strip());
             expressionBuilder.setEditable();
             expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
             expressionBuilder.setDocumentation(VARIABLE_DOC);
-
-            Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
-            if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
-                TypeSymbol typeSymbol = (TypeSymbol) typeDescriptorSymbol.get();
-                expressionBuilder.type(typeSymbol);
-            } else {
-                Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
-                if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
-                    expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
-                }
-            }
-
+            semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
             this.variable = expressionBuilder.build();
         }
 

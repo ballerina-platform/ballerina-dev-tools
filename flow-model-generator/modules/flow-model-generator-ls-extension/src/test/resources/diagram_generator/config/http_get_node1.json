@@ -63,7 +63,7 @@
             "offset": 70
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -119,7 +119,7 @@
             "offset": 63
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -166,7 +166,7 @@
             "offset": 77
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -214,7 +214,7 @@
             "offset": 59
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -261,7 +261,7 @@
             "offset": 51
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -308,7 +308,7 @@
             "offset": 45
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -355,7 +355,7 @@
             "offset": 67
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -402,7 +402,7 @@
             "offset": 51
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -449,7 +449,7 @@
             "offset": 10
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -497,7 +497,7 @@
             "offset": 51
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -544,7 +544,7 @@
             "offset": 69
           }
         },
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "LIBRARY_CALL_HTTP_GET",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
