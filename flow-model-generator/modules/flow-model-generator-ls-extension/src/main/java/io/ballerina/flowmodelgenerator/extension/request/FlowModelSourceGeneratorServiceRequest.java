@@ -16,24 +16,24 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.flowmodelgenerator.extension.request;
 
 import com.google.gson.JsonElement;
 
 /**
- * Represents a response from the flow model source generator service.
+ * Represents a request to the flow model source generator service.
  *
  * @since 2201.9.0
  */
-public class FlowModelSourceGeneratorServiceResponse {
+public class FlowModelSourceGeneratorServiceRequest {
 
-    private JsonElement textEdits;
+    private final JsonElement diagramNode;
 
-    public void setTextEdits(JsonElement textEdits) {
-        this.textEdits = textEdits;
+    public FlowModelSourceGeneratorServiceRequest(JsonElement diagramNode) {
+        this.diagramNode = diagramNode;
     }
 
-    public JsonElement getTextEdits() {
-        return textEdits;
+    public JsonElement getDiagramNode() {
+        return diagramNode;
     }
 }

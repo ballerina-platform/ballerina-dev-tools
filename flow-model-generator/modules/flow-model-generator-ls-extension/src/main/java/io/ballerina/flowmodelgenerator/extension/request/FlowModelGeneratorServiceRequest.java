@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension;
+package io.ballerina.flowmodelgenerator.extension.request;
 
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
