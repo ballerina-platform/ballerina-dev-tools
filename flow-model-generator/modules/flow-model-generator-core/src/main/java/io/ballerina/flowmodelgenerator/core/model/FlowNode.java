@@ -103,6 +103,10 @@ public abstract class FlowNode {
         return lineRange;
     }
 
+    public boolean hasFlag(int flag) {
+        return (flags & flag) == flag;
+    }
+
     public abstract String toSource();
 
     public static int NODE_FLAG_CHECKED = 1 << 0;
@@ -271,6 +275,11 @@ public abstract class FlowNode {
 
         public SourceBuilder keyword(SyntaxKind keyword) {
             sb.append(keyword.stringValue()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public SourceBuilder name(String name) {
+            sb.append(name);
             return this;
         }
 

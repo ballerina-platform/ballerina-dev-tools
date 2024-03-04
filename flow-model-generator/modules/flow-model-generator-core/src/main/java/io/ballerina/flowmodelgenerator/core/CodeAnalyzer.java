@@ -174,7 +174,7 @@ class CodeAnalyzer extends NodeVisitor {
         switch (moduleName) {
             case "http" -> {
                 switch (methodName) {
-                    case "get" -> {
+                    case HttpGet.HTTP_GET_KEY -> {
                         HttpGet.Builder httpGetBuilder = new HttpGet.Builder(semanticModel);
                         httpGetBuilder.addClient(expressionNode);
                         httpGetBuilder.addTargetTypeValue(statementNode);

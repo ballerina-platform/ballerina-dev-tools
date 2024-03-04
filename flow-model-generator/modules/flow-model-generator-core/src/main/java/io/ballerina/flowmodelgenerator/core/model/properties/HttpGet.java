@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionList;
@@ -47,7 +48,8 @@ import java.util.Queue;
  */
 public class HttpGet extends FlowNode {
 
-    public static final String HTTP_API_GET_KEY = "HTTP GET";
+    public static final String HTTP_GET_KEY = "get";
+    public static final String HTTP_API_GET_LABEL = "HTTP GET";
     public static final String HTTP_API_GET_CLIENT = "Client";
     public static final String HTTP_API_GET_CLIENT_KEY = "client";
     public static final String HTTP_API_GET_CLIENT_TYPE = "http:Client";
@@ -64,12 +66,43 @@ public class HttpGet extends FlowNode {
     public static final String HTTP_API_GET_TARGET_TYPE_TYPE = "http:Response|anydata";
 
     protected HttpGet(Map<String, Expression> nodeProperties) {
-        super(HTTP_API_GET_KEY, Kind.LIBRARY_CALL_HTTP_GET, false, nodeProperties);
+        super(HTTP_API_GET_LABEL, Kind.LIBRARY_CALL_HTTP_GET, false, nodeProperties);
     }
 
     @Override
     public String toSource() {
-        return null;
+        SourceBuilder sourceBuilder = new SourceBuilder();
+
+        Expression variable = getProperty(NodePropertiesBuilder.VARIABLE_KEY);
+        sourceBuilder
+                .expressionWithType(variable)
+                .keyword(SyntaxKind.EQUAL_TOKEN);
+
+        if (hasFlag(NODE_FLAG_CHECKED)) {
+            sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
+        }
+
+        Expression client = getProperty(HTTP_API_GET_CLIENT_KEY);
+        Expression path = getProperty(HTTP_API_GET_PATH_KEY);
+
+        sourceBuilder
+                .expression(client)
+                .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
+                .name(HTTP_GET_KEY)
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
+                .expression(path);
+
+        Expression headers = getProperty(HTTP_API_GET_HEADERS_KEY);
+        if (headers.value() != null) {
+            sourceBuilder
+                    .keyword(SyntaxKind.COMMA_TOKEN)
+                    .expression(headers);
+        }
+        sourceBuilder
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .endOfStatement();
+
+        return sourceBuilder.build(false);
     }
 
     /**
