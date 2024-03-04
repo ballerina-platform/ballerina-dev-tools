@@ -44,20 +44,24 @@ public record ExpressionList(String label, String type, List<Expression> value, 
             this.value = new ArrayList<>();
         }
 
-        public void key(String key) {
+        public Builder key(String key) {
             this.key = key;
+            return this;
         }
 
-        public void type(String type) {
+        public Builder type(String type) {
             this.type = type;
+            return this;
         }
 
-        public void value(Expression value) {
+        public Builder value(Expression value) {
             this.value.add(value);
+            return this;
         }
 
-        public void optional(boolean optional) {
+        public Builder optional(boolean optional) {
             this.optional = optional;
+            return this;
         }
 
         public ExpressionList build() {

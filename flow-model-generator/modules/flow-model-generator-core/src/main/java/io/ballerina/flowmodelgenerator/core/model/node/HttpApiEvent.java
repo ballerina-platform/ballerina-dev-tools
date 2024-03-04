@@ -59,18 +59,20 @@ public class HttpApiEvent extends FlowNode {
         }
 
         public void setSymbol(ResourceMethodSymbol resourceMethodSymbol) {
-            expressionBuilder.key(EVENT_HTTP_API_METHOD);
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.IDENTIFIER);
-            expressionBuilder.setEditable();
-            expressionBuilder.setDocumentation(EVENT_HTTP_API_METHOD_DOC);
+            expressionBuilder
+                    .key(EVENT_HTTP_API_METHOD)
+                    .typeKind(Expression.ExpressionTypeKind.IDENTIFIER)
+                    .setEditable()
+                    .setDocumentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
             this.method = expressionBuilder.build();
 
-            expressionBuilder.key(EVENT_HTTP_API_PATH);
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.URI_PATH);
-            expressionBuilder.setEditable();
-            expressionBuilder.setDocumentation(EVENT_HTTP_API_PATH_DOC);
-            expressionBuilder.value(resourceMethodSymbol.resourcePath().signature());
+            expressionBuilder
+                    .key(EVENT_HTTP_API_PATH)
+                    .typeKind(Expression.ExpressionTypeKind.URI_PATH)
+                    .setEditable()
+                    .setDocumentation(EVENT_HTTP_API_PATH_DOC)
+                    .value(resourceMethodSymbol.resourcePath().signature());
             this.path = expressionBuilder.build();
         }
 

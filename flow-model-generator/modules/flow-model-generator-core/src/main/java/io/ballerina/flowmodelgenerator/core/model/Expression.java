@@ -60,36 +60,44 @@ public record Expression(String label, String type, String value, ExpressionType
         private boolean editable;
         private String documentation;
 
-        public void key(String key) {
+        public Builder key(String key) {
             this.key = key;
+            return this;
         }
 
-        public void type(TypeSymbol typeSymbol) {
+        public Builder type(TypeSymbol typeSymbol) {
             this.type = CommonUtils.getTypeSignature(typeSymbol);
+            return this;
         }
 
-        public void type(String type) {
+        public Builder type(String type) {
             this.type = type;
+            return this;
         }
 
-        public void value(String value) {
+        public Builder value(String value) {
             this.value = value;
+            return this;
         }
 
-        public void typeKind(ExpressionTypeKind typeKind) {
+        public Builder typeKind(ExpressionTypeKind typeKind) {
             this.typeKind = typeKind;
+            return this;
         }
 
-        public void optional(boolean optional) {
+        public Builder optional(boolean optional) {
             this.optional = optional;
+            return this;
         }
 
-        public void setEditable() {
+        public Builder setEditable() {
             this.editable = true;
+            return this;
         }
 
-        public void setDocumentation(String documentation) {
+        public Builder setDocumentation(String documentation) {
             this.documentation = documentation;
+            return this;
         }
 
         public Expression build() {

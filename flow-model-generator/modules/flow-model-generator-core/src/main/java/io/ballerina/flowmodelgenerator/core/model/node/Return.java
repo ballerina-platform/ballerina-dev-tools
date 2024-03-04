@@ -71,13 +71,14 @@ public class Return extends FlowNode {
         }
 
         public void setExpressionNode(ExpressionNode expressionNode) {
-            expressionBuilder.key(RETURN_EXPRESSION);
-            expressionBuilder.value(expressionNode.toSourceCode());
-            expressionBuilder.setDocumentation(RETURN_EXPRESSION_DOC);
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setEditable();
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            expression = expressionBuilder.build();
+            this.expression = expressionBuilder
+                    .key(RETURN_EXPRESSION)
+                    .value(expressionNode.toSourceCode())
+                    .setDocumentation(RETURN_EXPRESSION_DOC)
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setEditable()
+                    .build();
         }
 
         @Override

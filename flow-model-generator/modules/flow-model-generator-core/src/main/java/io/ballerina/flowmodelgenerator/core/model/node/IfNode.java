@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
@@ -28,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Represents the properties of an if node in the flow model.
@@ -94,16 +92,14 @@ public class IfNode extends FlowNode {
         }
 
         public void setConditionExpression(ExpressionNode expressionNode) {
-            expressionBuilder.key(IF_CONDITION);
-            expressionBuilder.value(expressionNode.toSourceCode());
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setDocumentation(IF_CONDITION_DOC);
-            expressionBuilder.setEditable();
-
-            Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(expressionNode);
-            typeSymbol.ifPresent(expressionBuilder::type);
-
-            this.condition = expressionBuilder.build();
+            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
+            this.condition = expressionBuilder
+                    .key(IF_CONDITION)
+                    .value(expressionNode.toSourceCode())
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setDocumentation(IF_CONDITION_DOC)
+                    .setEditable()
+                    .build();
         }
 
         @Override

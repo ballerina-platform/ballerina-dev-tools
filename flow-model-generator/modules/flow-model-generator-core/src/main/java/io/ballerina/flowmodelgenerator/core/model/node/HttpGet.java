@@ -161,24 +161,26 @@ public class HttpGet extends FlowNode {
                         this.namedArgValueMap.get(parameterSymbol.getName().get());
                 switch (parameterSymbol.getName().get()) {
                     case "path" -> {
-                        expressionBuilder.type(parameterSymbol.typeDescriptor());
-                        expressionBuilder.setEditable();
+                        expressionBuilder
+                                .type(parameterSymbol.typeDescriptor())
+                                .setEditable();
                         setParamValue(HTTP_API_GET_PATH, paramValue, HTTP_API_GET_PATH_DOC);
                         this.paths = expressionBuilder.build();
                     }
                     case "headers" -> {
-                        this.expressionBuilder.type(HTTP_API_GET_HEADERS_TYPE);
-                        expressionBuilder.optional(true);
-                        expressionBuilder.setEditable();
+                        expressionBuilder
+                                .type(HTTP_API_GET_HEADERS_TYPE)
+                                .optional(true)
+                                .setEditable();
                         setParamValue(HTTP_API_GET_HEADERS, paramValue, HTTP_API_GET_HEADERS_DOC);
                         this.headers = expressionBuilder.build();
                     }
                     case "targetType" -> {
-                        expressionBuilder.value(targetTypeValue);
-                        expressionBuilder.type(HTTP_API_GET_TARGET_TYPE_TYPE);
-                        expressionBuilder.setEditable();
-                        setParamValue(HTTP_API_GET_TARGET_TYPE, paramValue,
-                                HTTP_API_GET_TARGET_TYPE_DOC);
+                        expressionBuilder
+                                .value(targetTypeValue)
+                                .type(HTTP_API_GET_TARGET_TYPE_TYPE)
+                                .setEditable();
+                        setParamValue(HTTP_API_GET_TARGET_TYPE, paramValue, HTTP_API_GET_TARGET_TYPE_DOC);
                         this.targetType = expressionBuilder.build();
                     }
                 }
@@ -186,10 +188,11 @@ public class HttpGet extends FlowNode {
         }
 
         private void setParamValue(String path, String paramValue, String doc) {
-            expressionBuilder.key(path);
             setParamValue(paramValue);
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setDocumentation(doc);
+            expressionBuilder
+                    .key(path)
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setDocumentation(doc);
         }
 
         private void setParamValue(String paramValue) {
@@ -199,14 +202,14 @@ public class HttpGet extends FlowNode {
         }
 
         public void addClient(ExpressionNode expressionNode) {
-            expressionBuilder = new Expression.Builder();
-            expressionBuilder.key(HTTP_API_GET_CLIENT);
-            expressionBuilder.type(HTTP_API_GET_CLIENT_TYPE);
-            expressionBuilder.value(expressionNode.toString());
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setEditable();
-            expressionBuilder.setDocumentation(HTTP_API_GET_CLIENT_DOC);
-            this.client = expressionBuilder.build();
+            this.client = new Expression.Builder()
+                    .key(HTTP_API_GET_CLIENT)
+                    .type(HTTP_API_GET_CLIENT_TYPE)
+                    .value(expressionNode.toString())
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setEditable()
+                    .setDocumentation(HTTP_API_GET_CLIENT_DOC)
+                    .build();
         }
 
         public void addTargetTypeValue(NonTerminalNode nonTerminalNode) {
@@ -215,19 +218,20 @@ public class HttpGet extends FlowNode {
         }
 
         public void addResourceAccessPath(SeparatedNodeList<Node> nodes) {
-            ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder();
-            expressionListBuilder.key(HTTP_API_GET_PATH);
-            expressionListBuilder.type("http:QueryParamType");
-            expressionListBuilder.optional(true);
+            ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder()
+                    .key(HTTP_API_GET_PATH)
+                    .type("http:QueryParamType")
+                    .optional(true);
             expressionBuilder.setDocumentation(HTTP_API_GET_PATH_DOC);
 
             if (nodes != null) {
                 for (Node node : nodes) {
-                    expressionBuilder.key("param");
-                    semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
-                    expressionBuilder.value(node.toString());
-                    expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
                     expressionListBuilder.value(expressionBuilder.build());
+                    expressionBuilder
+                            .key("param")
+                            .value(node.toString())
+                            .typeKind(Expression.ExpressionTypeKind.BTYPE);
+                    semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
                 }
             }
             this.params = expressionListBuilder.build();
