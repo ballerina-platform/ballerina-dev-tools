@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.model.properties;
+package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;

@@ -18,7 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import io.ballerina.flowmodelgenerator.core.model.properties.Client;
+import io.ballerina.flowmodelgenerator.core.model.node.Client;
 
 import java.util.List;
 
