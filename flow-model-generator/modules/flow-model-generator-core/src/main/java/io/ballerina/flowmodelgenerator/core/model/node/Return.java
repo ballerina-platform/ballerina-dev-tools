@@ -70,7 +70,7 @@ public class Return extends FlowNode {
             super(semanticModel);
         }
 
-        public void setExpressionNode(ExpressionNode expressionNode) {
+        public Builder setExpressionNode(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
             this.expression = expressionBuilder
                     .key(RETURN_EXPRESSION)
@@ -79,6 +79,7 @@ public class Return extends FlowNode {
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .setEditable()
                     .build();
+            return this;
         }
 
         @Override

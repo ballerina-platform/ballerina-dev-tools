@@ -148,24 +148,29 @@ public abstract class FlowNode {
             this.semanticModel = semanticModel;
         }
 
-        public void setReturning() {
+        public NodeBuilder returning() {
             this.returning = true;
+            return this;
         }
 
-        public void setLineRange(Node node) {
+        public NodeBuilder lineRange(Node node) {
             this.lineRange = node.lineRange();
+            return this;
         }
 
-        public void addBranch(String label, Branch.BranchKind kind, List<FlowNode> children) {
+        public NodeBuilder branch(String label, Branch.BranchKind kind, List<FlowNode> children) {
             this.branches.add(new Branch(label, kind, children));
+            return this;
         }
 
-        public void addFlag(int flag) {
+        public NodeBuilder flag(int flag) {
             this.flags |= flag;
+            return this;
         }
 
-        public void setPropertiesBuilder(NodePropertiesBuilder propertiesBuilder) {
+        public NodeBuilder propertiesBuilder(NodePropertiesBuilder propertiesBuilder) {
             this.nodePropertiesBuilder = propertiesBuilder;
+            return this;
         }
 
         public boolean isDefault() {
@@ -206,19 +211,20 @@ public abstract class FlowNode {
             this.semanticModel = semanticModel;
         }
 
-        public void setVariable(Node node) {
+        public NodePropertiesBuilder variable(Node node) {
             if (node == null) {
-                return;
+                return this;
             }
             if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
                 TypedBindingPatternNode typedBindingPatternNode = (TypedBindingPatternNode) node;
                 BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
 
-                expressionBuilder.key(VARIABLE_LABEL);
-                expressionBuilder.value(bindingPatternNode.toString());
-                expressionBuilder.setEditable();
-                expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-                expressionBuilder.setDocumentation(VARIABLE_DOC);
+                expressionBuilder
+                        .key(VARIABLE_LABEL)
+                        .value(bindingPatternNode.toString())
+                        .setEditable()
+                        .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                        .setDocumentation(VARIABLE_DOC);
 
                 Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
                 if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
@@ -232,28 +238,31 @@ public abstract class FlowNode {
                 }
 
                 this.variable = expressionBuilder.build();
-                return;
+                return this;
             }
 
-            expressionBuilder.key(VARIABLE_LABEL);
-            expressionBuilder.value(node.toString().strip());
-            expressionBuilder.setEditable();
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setDocumentation(VARIABLE_DOC);
             semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
-            this.variable = expressionBuilder.build();
+            this.variable = expressionBuilder
+                    .key(VARIABLE_LABEL)
+                    .value(node.toString().strip())
+                    .setEditable()
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setDocumentation(VARIABLE_DOC)
+                    .build();
+            return this;
         }
 
-        public void setExpression(ExpressionNode expression) {
-            expressionBuilder.key(EXPRESSION_RHS_LABEL);
-            expressionBuilder.typeKind(Expression.ExpressionTypeKind.BTYPE);
-            expressionBuilder.setDocumentation(EXPRESSION_RHS_DOC);
-            expressionBuilder.setEditable();
+        public NodePropertiesBuilder expression(ExpressionNode expression) {
             semanticModel.typeOf(expression).ifPresent(expressionBuilder::type);
-
-            expressionBuilder.value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                    ((CheckExpressionNode) expression).expression().toString() : expression.toString());
-            this.expression = expressionBuilder.build();
+            this.expression = expressionBuilder
+                    .key(EXPRESSION_RHS_LABEL)
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .setDocumentation(EXPRESSION_RHS_DOC)
+                    .setEditable()
+                    .value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                            ((CheckExpressionNode) expression).expression().toString() : expression.toString())
+                    .build();
+            return this;
         }
 
         protected final void addProperty(String key, Expression expression) {

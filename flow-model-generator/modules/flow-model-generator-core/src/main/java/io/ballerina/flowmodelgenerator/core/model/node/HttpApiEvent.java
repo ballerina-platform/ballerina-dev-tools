@@ -58,7 +58,7 @@ public class HttpApiEvent extends FlowNode {
             super(semanticModel);
         }
 
-        public void setSymbol(ResourceMethodSymbol resourceMethodSymbol) {
+        public Builder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             expressionBuilder
                     .key(EVENT_HTTP_API_METHOD)
                     .typeKind(Expression.ExpressionTypeKind.IDENTIFIER)
@@ -74,6 +74,7 @@ public class HttpApiEvent extends FlowNode {
                     .setDocumentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
             this.path = expressionBuilder.build();
+            return this;
         }
 
         @Override

@@ -91,7 +91,7 @@ public class IfNode extends FlowNode {
             super(semanticModel);
         }
 
-        public void setConditionExpression(ExpressionNode expressionNode) {
+        public Builder setConditionExpression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
             this.condition = expressionBuilder
                     .key(IF_CONDITION)
@@ -100,6 +100,7 @@ public class IfNode extends FlowNode {
                     .setDocumentation(IF_CONDITION_DOC)
                     .setEditable()
                     .build();
+            return this;
         }
 
         @Override
