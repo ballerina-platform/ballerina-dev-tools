@@ -1,18 +1,20 @@
 {
   "description": "Tests a simple diagram flow",
-  "output": {
-    "range": {
-      "start": {
-        "line": 12,
-        "character": 12
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 12,
+          "character": 12
+        },
+        "end": {
+          "line": 12,
+          "character": 21
+        }
       },
-      "end": {
-        "line": 12,
-        "character": 21
-      }
-    },
-    "newText": "return j;"
-  },
+      "newText": "return j;"
+    }
+  ],
   "diagram": {
     "id": "44041",
     "label": "Return",

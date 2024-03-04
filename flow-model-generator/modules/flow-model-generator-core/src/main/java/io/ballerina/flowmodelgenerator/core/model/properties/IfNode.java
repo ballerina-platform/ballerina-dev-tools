@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,12 +63,17 @@ public class IfNode extends FlowNode {
 
         Branch elseBranch = getBranch(IF_ELSE_LABEL);
         if (elseBranch != null) {
+            List<FlowNode> children = elseBranch.children();
             sourceBuilder
                     .closeBrace()
                     .whiteSpace()
-                    .keyword(SyntaxKind.ELSE_KEYWORD)
-                    .openBrace();
-            sourceBuilder.addChildren(elseBranch.children());
+                    .keyword(SyntaxKind.ELSE_KEYWORD);
+
+            // If there is only one child, and if that is an if node, generate an `else if` statement`
+            if (children.size() != 1 || children.get(0).kind() != Kind.IF) {
+                sourceBuilder.openBrace();
+            }
+            sourceBuilder.addChildren(children);
         }
 
         sourceBuilder.closeBrace();

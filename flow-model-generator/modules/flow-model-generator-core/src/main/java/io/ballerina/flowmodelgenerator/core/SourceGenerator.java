@@ -24,6 +24,8 @@ import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
+
 /**
  * Generates source code from the flow model.
  *
@@ -43,7 +45,9 @@ public class SourceGenerator {
 
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        TextEdit textEdit = new TextEdit(CommonUtils.toRange(flowNode.lineRange()), flowNode.toSource());
-        return gson.toJsonTree(textEdit);
+        List<TextEdit> textEdits = List.of(
+                new TextEdit(CommonUtils.toRange(flowNode.lineRange()), flowNode.toSource())
+        );
+        return gson.toJsonTree(textEdits);
     }
 }

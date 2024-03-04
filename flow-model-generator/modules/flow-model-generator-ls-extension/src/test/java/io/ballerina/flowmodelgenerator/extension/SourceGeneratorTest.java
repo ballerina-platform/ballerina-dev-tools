@@ -20,9 +20,11 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.TextEdit;
@@ -37,9 +39,11 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -53,6 +57,7 @@ public class SourceGeneratorTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ModelGeneratorTest.class);
     private static final Path RES_DIR = Paths.get("src/test/resources/to_source").toAbsolutePath();
+    private static final Type textEditListType = new TypeToken<List<TextEdit>>() {}.getType();
     private final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
@@ -70,13 +75,40 @@ public class SourceGeneratorTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         String response = getResponse(testConfig.diagram());
         JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        JsonObject jsonObject = json.getAsJsonObject("result").getAsJsonObject("textEdit");
-        TextEdit textEdit = gson.fromJson(jsonObject, TextEdit.class);
+        JsonArray jsonArray = json.getAsJsonObject("result").getAsJsonArray("textEdits");
 
-        if (!testConfig.output().equals(textEdit)) {
-//            updateConfig(configJsonPath, testConfig, textEdit);
-            LOG.error("Expected: " + testConfig.output());
-            LOG.error("Actual: " + textEdit);
+        List<TextEdit> actualTextEdits = gson.fromJson(jsonArray, textEditListType);
+        List<TextEdit> expectedTextEdits = testConfig.output();
+        List<TextEdit> mismatchedTextEdits = new ArrayList<>();
+
+        int actualTextEditsSize = actualTextEdits.size();
+        int expectedTextEditsSize = expectedTextEdits.size();
+        boolean hasCountMatch = actualTextEditsSize == expectedTextEditsSize;
+        if (!hasCountMatch) {
+            LOG.error(String.format("Mismatched text edits count. Expected: %d, Found: %d",
+                    expectedTextEditsSize, actualTextEditsSize));
+        }
+
+        for (TextEdit actualTextEdit : actualTextEdits) {
+            if (expectedTextEdits.contains(actualTextEdit)) {
+                expectedTextEdits.remove(actualTextEdit);
+            } else {
+                mismatchedTextEdits.add(actualTextEdit);
+            }
+        }
+
+        boolean hasAllExpectedTextEdits = expectedTextEdits.isEmpty();
+        if (!hasAllExpectedTextEdits) {
+            LOG.error("Found in expected text edits but not in actual text edits: " + expectedTextEdits);
+        }
+
+        boolean hasRelevantTextEdits = mismatchedTextEdits.isEmpty();
+        if (!hasRelevantTextEdits) {
+            LOG.error("Found in actual text edits but not in expected text edits: " + mismatchedTextEdits);
+        }
+
+        if (!hasCountMatch || !hasAllExpectedTextEdits || !hasRelevantTextEdits) {
+//            updateConfig(configJsonPath, testConfig, actualTextEdits);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -87,7 +119,7 @@ public class SourceGeneratorTest {
 
     @DataProvider(name = "flow-model-data-provider")
     private Object[] getConfigsList() {
-//        return new Object[]{Path.of("if_node3.json")};
+//        return new Object[]{Path.of("if_node4.json")};
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
             return Files.walk(RES_DIR)
@@ -110,7 +142,7 @@ public class SourceGeneratorTest {
         return TestUtil.getResponseString(result);
     }
 
-    private void updateConfig(Path configJsonPath, TestConfig testConfig, TextEdit output)
+    private void updateConfig(Path configJsonPath, TestConfig testConfig, List<TextEdit> output)
             throws IOException {
         TestConfig updatedConfig = new TestConfig(testConfig.description(), output, testConfig.diagram());
         String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
@@ -124,7 +156,7 @@ public class SourceGeneratorTest {
         this.serviceEndpoint = null;
     }
 
-    private record TestConfig(String description, TextEdit output, JsonElement diagram) {
+    private record TestConfig(String description, List<TextEdit> output, JsonElement diagram) {
 
         public String description() {
             return description == null ? "" : description;

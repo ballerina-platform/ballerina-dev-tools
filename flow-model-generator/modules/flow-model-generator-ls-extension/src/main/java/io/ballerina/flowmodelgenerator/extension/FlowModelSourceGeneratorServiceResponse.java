@@ -27,13 +27,13 @@ import com.google.gson.JsonElement;
  */
 public class FlowModelSourceGeneratorServiceResponse {
 
-    private JsonElement textEdit;
+    private JsonElement textEdits;
 
-    public void setTextEdit(JsonElement textEdit) {
-        this.textEdit = textEdit;
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
     }
 
-    public JsonElement getTextEdit() {
-        return textEdit;
+    public JsonElement getTextEdits() {
+        return textEdits;
     }
 }

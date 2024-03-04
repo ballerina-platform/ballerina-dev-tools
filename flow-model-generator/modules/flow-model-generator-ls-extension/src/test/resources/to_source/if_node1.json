@@ -1,18 +1,20 @@
 {
   "description": "Sample diagram node",
-  "output": {
-    "range": {
-      "start": {
-        "line": 15,
-        "character": 8
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 15,
+          "character": 8
+        },
+        "end": {
+          "line": 20,
+          "character": 9
+        }
       },
-      "end": {
-        "line": 20,
-        "character": 9
-      }
-    },
-    "newText": "if flag {\n    int a = 1;\n}\nelse {\n    int b = 2;\n    string c = \"12\";\n}"
-  },
+      "newText": "if flag {\n    int a = 1;\n}\nelse {\n    int b = 2;\n    string c = \"12\";\n}"
+    }
+  ],
   "diagram": {
     "id": "47036",
     "label": "If",
