@@ -1,6 +1,18 @@
 {
   "description": "Sample diagram node",
-  "output": "return  \"expensive\";\n",
+  "output": {
+    "range": {
+      "start": {
+        "line": 27,
+        "character": 16
+      },
+      "end": {
+        "line": 27,
+        "character": 35
+      }
+    },
+    "newText": "return \"expensive\";"
+  },
   "diagram": {
     "id": "59059",
     "label": "Return",

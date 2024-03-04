@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
+import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,14 +70,14 @@ public class SourceGeneratorTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         String response = getResponse(testConfig.diagram());
         JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        String outputSource = json.getAsJsonObject("result").getAsJsonPrimitive("source").getAsString();
+        JsonObject jsonObject = json.getAsJsonObject("result").getAsJsonObject("textEdit");
+        TextEdit textEdit = gson.fromJson(jsonObject, TextEdit.class);
 
-        if (!testConfig.output().equals(outputSource)) {
-//            updateConfig(configJsonPath, testConfig, outputSource);
-            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
-            LOG.error("Generated source code for " + testConfig.description() + " does not match the expected source");
+        if (!testConfig.output().equals(textEdit)) {
+//            updateConfig(configJsonPath, testConfig, textEdit);
             LOG.error("Expected: " + testConfig.output());
-            LOG.error("Actual: " + outputSource);
+            LOG.error("Actual: " + textEdit);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
 
@@ -109,7 +110,7 @@ public class SourceGeneratorTest {
         return TestUtil.getResponseString(result);
     }
 
-    private void updateConfig(Path configJsonPath, TestConfig testConfig, String output)
+    private void updateConfig(Path configJsonPath, TestConfig testConfig, TextEdit output)
             throws IOException {
         TestConfig updatedConfig = new TestConfig(testConfig.description(), output, testConfig.diagram());
         String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
@@ -123,7 +124,7 @@ public class SourceGeneratorTest {
         this.serviceEndpoint = null;
     }
 
-    private record TestConfig(String description, String output, JsonElement diagram) {
+    private record TestConfig(String description, TextEdit output, JsonElement diagram) {
 
         public String description() {
             return description == null ? "" : description;

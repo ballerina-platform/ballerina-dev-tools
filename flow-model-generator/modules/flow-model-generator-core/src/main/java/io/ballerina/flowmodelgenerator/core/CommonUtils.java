@@ -29,6 +29,10 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.properties.Client;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.Range;
 
 import java.util.Optional;
 
@@ -95,9 +99,9 @@ public class CommonUtils {
     /**
      * Builds a client from the given type symbol.
      *
-     * @param builder     the client builder
-     * @param typeSymbol  the type symbol
-     * @param scope       the client scope
+     * @param builder    the client builder
+     * @param typeSymbol the type symbol
+     * @param scope      the client scope
      * @return the client if the type symbol is a client, otherwise empty
      */
     public static Optional<Client> buildClient(Client.Builder builder, TypeSymbol typeSymbol,
@@ -116,4 +120,25 @@ public class CommonUtils {
         builder.setScope(scope);
         return Optional.of(builder.build());
     }
+
+    /**
+     * Convert the syntax-node line range into a lsp4j range.
+     *
+     * @param lineRange - line range
+     * @return {@link Range} converted range
+     */
+    public static Range toRange(LineRange lineRange) {
+        return new Range(toPosition(lineRange.startLine()), toPosition(lineRange.endLine()));
+    }
+
+    /**
+     * Converts syntax-node line position into a lsp4j position.
+     *
+     * @param linePosition - line position
+     * @return {@link Position} converted position
+     */
+    public static Position toPosition(LinePosition linePosition) {
+        return new Position(linePosition.line(), linePosition.offset());
+    }
+
 }

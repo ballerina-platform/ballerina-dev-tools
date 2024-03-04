@@ -99,6 +99,10 @@ public abstract class FlowNode {
         return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
     }
 
+    public LineRange lineRange() {
+        return lineRange;
+    }
+
     public abstract String toSource();
 
     public static int NODE_FLAG_CHECKED = 1 << 0;
@@ -243,7 +247,6 @@ public abstract class FlowNode {
 
     public static class SourceBuilder {
 
-        private static final String TAB_INDENT = "    ";
         private static final String WHITE_SPACE = " ";
 
         private static final FormattingTreeModifier
@@ -280,7 +283,7 @@ public abstract class FlowNode {
         }
 
         public SourceBuilder closeBrace() {
-            sb.append(TAB_INDENT)
+            sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
                     .append(System.lineSeparator());
             return this;

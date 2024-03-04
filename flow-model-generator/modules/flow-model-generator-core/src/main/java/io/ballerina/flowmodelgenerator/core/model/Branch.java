@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents a branch of the node.
  *
- * @param label      label of the branch
+ * @param label    label of the branch
  * @param children children of the branch
  * @since 2201.9.0
  */

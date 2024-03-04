@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonElement;
+
 /**
  * Represents a response from the flow model source generator service.
  *
@@ -25,13 +27,13 @@ package io.ballerina.flowmodelgenerator.extension;
  */
 public class FlowModelSourceGeneratorServiceResponse {
 
-    private String source;
+    private JsonElement textEdit;
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setTextEdit(JsonElement textEdit) {
+        this.textEdit = textEdit;
     }
 
-    public String getSource() {
-        return source;
+    public JsonElement getTextEdit() {
+        return textEdit;
     }
 }
