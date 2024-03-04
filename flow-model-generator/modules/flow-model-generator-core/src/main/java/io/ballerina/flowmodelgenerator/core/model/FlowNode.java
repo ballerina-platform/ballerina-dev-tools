@@ -107,6 +107,10 @@ public abstract class FlowNode {
         return (flags & flag) == flag;
     }
 
+    public boolean returning() {
+        return returning;
+    }
+
     public abstract String toSource();
 
     public static int NODE_FLAG_CHECKED = 1 << 0;

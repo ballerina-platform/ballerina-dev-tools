@@ -74,9 +74,15 @@ public class HttpGet extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         Expression variable = getProperty(NodePropertiesBuilder.VARIABLE_KEY);
-        sourceBuilder
-                .expressionWithType(variable)
-                .keyword(SyntaxKind.EQUAL_TOKEN);
+        if (variable != null) {
+            sourceBuilder
+                    .expressionWithType(variable)
+                    .keyword(SyntaxKind.EQUAL_TOKEN);
+        }
+
+        if (returning()) {
+            sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
+        }
 
         if (hasFlag(NODE_FLAG_CHECKED)) {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
