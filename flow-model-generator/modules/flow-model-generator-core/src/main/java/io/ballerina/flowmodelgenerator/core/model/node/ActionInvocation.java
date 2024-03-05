@@ -88,13 +88,24 @@ public class ActionInvocation extends FlowNode {
                 sourceBuilder.expression(firstParameter);
             }
 
+            boolean hasEmptyParam = false;
             for (int i = 1; i < parameterExpressions.size(); i++) {
-                Expression parameter = getProperty(parameterExpressions.get(i).key());
-                if (parameter != null && parameter.value() != null) {
-                    sourceBuilder
-                            .keyword(SyntaxKind.COMMA_TOKEN)
-                            .expression(parameter);
+                String parameterKey = parameterExpressions.get(i).key();
+                Expression parameter = getProperty(parameterKey);
+
+                if (parameter == null || parameter.value() == null) {
+                    hasEmptyParam = true;
+                    continue;
                 }
+
+                sourceBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+                if (hasEmptyParam) {
+                    sourceBuilder
+                            .name(parameterKey)
+                            .keyword(SyntaxKind.EQUAL_TOKEN);
+                    hasEmptyParam = false;
+                }
+                sourceBuilder.expression(parameter);
             }
         }
 

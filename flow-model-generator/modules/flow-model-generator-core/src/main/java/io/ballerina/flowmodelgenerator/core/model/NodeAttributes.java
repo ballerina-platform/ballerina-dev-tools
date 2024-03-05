@@ -49,8 +49,8 @@ public class NodeAttributes {
                     List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpHeaders));
     public static final Info httpPost =
             new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.httpClient,
-                    List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpHeaders,
-                            ExpressionAttributes.httpMessage, ExpressionAttributes.httpMediaType));
+                    List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpMessage,
+                            ExpressionAttributes.httpHeaders, ExpressionAttributes.httpMediaType));
 
     static {
         nodeInfoMap.add(httpGet);
