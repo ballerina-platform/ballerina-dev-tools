@@ -16,11 +16,10 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.model.node;
+package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.Objects;
