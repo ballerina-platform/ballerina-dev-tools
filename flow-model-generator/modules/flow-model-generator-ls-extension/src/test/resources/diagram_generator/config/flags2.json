@@ -14,7 +14,7 @@
     "nodes": [
       {
         "id": "45823",
-        "label": "HTTP API",
+        "label": "Custom Expression",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -26,10 +26,10 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
+        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": true,
-        "flags": 1024
+        "fixed": false,
+        "flags": 0
       }
     ],
     "clients": []

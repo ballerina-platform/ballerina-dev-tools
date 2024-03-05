@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.Objects;
@@ -82,9 +83,9 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
         }
 
         public void setKind(String type) {
-            if (type.equals(HttpGet.HTTP_API_GET_CLIENT_TYPE)) {
+            if (type.equals(ExpressionAttributes.httpClient.type())) {
                 this.kind = ClientKind.HTTP;
-                this.label = HttpGet.HTTP_API_GET_CLIENT;
+                this.label = ExpressionAttributes.httpClient.label();
             }
         }
 

@@ -72,20 +72,20 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "40579",
+                "id": "40115",
                 "label": "HTTP GET",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
                     "line": 8,
-                    "offset": 27
+                    "offset": 12
                   },
                   "endLine": {
                     "line": 8,
-                    "offset": 62
+                    "offset": 63
                   }
                 },
-                "kind": "LIBRARY_CALL_HTTP_GET",
+                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
                 "fixed": false,
                 "nodeProperties": {
@@ -97,6 +97,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "HTTP Client Connection"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "json",
+                    "value": "j ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   },
                   "path": {
                     "label": "Path",
@@ -114,15 +123,6 @@
                     "optional": true,
                     "editable": true,
                     "documentation": "HTTP Headers"
-                  },
-                  "variable": {
-                    "label": "Variable",
-                    "type": "json",
-                    "value": "j ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 1
@@ -164,20 +164,20 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "43545",
+                "id": "43081",
                 "label": "HTTP GET",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
                     "line": 11,
-                    "offset": 27
+                    "offset": 12
                   },
                   "endLine": {
                     "line": 11,
-                    "offset": 52
+                    "offset": 53
                   }
                 },
-                "kind": "LIBRARY_CALL_HTTP_GET",
+                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
                 "fixed": false,
                 "nodeProperties": {
@@ -189,6 +189,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "HTTP Client Connection"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "json",
+                    "value": "j ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   },
                   "path": {
                     "label": "Path",
@@ -206,15 +215,6 @@
                     "optional": true,
                     "editable": true,
                     "documentation": "HTTP Headers"
-                  },
-                  "variable": {
-                    "label": "Variable",
-                    "type": "json",
-                    "value": "j ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 1

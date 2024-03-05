@@ -52,7 +52,7 @@ public record Expression(String label, String type, String value, ExpressionType
      */
     public static class Builder {
 
-        private String key;
+        private String label;
         private String type;
         private String value;
         private ExpressionTypeKind typeKind;
@@ -60,8 +60,8 @@ public record Expression(String label, String type, String value, ExpressionType
         private boolean editable;
         private String documentation;
 
-        public Builder key(String key) {
-            this.key = key;
+        public Builder label(String key) {
+            this.label = key;
             return this;
         }
 
@@ -90,19 +90,19 @@ public record Expression(String label, String type, String value, ExpressionType
             return this;
         }
 
-        public Builder setEditable() {
+        public Builder editable() {
             this.editable = true;
             return this;
         }
 
-        public Builder setDocumentation(String documentation) {
+        public Builder documentation(String documentation) {
             this.documentation = documentation;
             return this;
         }
 
         public Expression build() {
-            Expression expression = new Expression(key, type, value, typeKind, optional, editable, documentation);
-            this.key = null;
+            Expression expression = new Expression(label, type, value, typeKind, optional, editable, documentation);
+            this.label = null;
             this.type = null;
             this.value = null;
             this.typeKind = null;

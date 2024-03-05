@@ -35,10 +35,9 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionInvocation;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpGet;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.tools.text.LineRange;
@@ -122,8 +121,8 @@ public abstract class FlowNode {
     public enum Kind {
         EVENT_HTTP_API,
         IF,
-        LIBRARY_CALL_HTTP_GET,
-        LIBRARY_CALL_HTTP_POST,
+        HTTP_API_GET_CALL,
+        HTTP_API_POST_CALL,
         RETURN,
         EXPRESSION
     }
@@ -154,7 +153,9 @@ public abstract class FlowNode {
         }
 
         public NodeBuilder lineRange(Node node) {
-            this.lineRange = node.lineRange();
+            if (this.lineRange == null) {
+                this.lineRange = node.lineRange();
+            }
             return this;
         }
 
@@ -211,20 +212,21 @@ public abstract class FlowNode {
             this.semanticModel = semanticModel;
         }
 
-        public NodePropertiesBuilder variable(Node node) {
+        @SuppressWarnings("unchecked")
+        public <T extends NodePropertiesBuilder> T variable(Node node) {
             if (node == null) {
-                return this;
+                return (T) this;
             }
             if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
                 TypedBindingPatternNode typedBindingPatternNode = (TypedBindingPatternNode) node;
                 BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
 
                 expressionBuilder
-                        .key(VARIABLE_LABEL)
+                        .label(VARIABLE_LABEL)
                         .value(bindingPatternNode.toString())
-                        .setEditable()
+                        .editable()
                         .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                        .setDocumentation(VARIABLE_DOC);
+                        .documentation(VARIABLE_DOC);
 
                 Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
                 if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
@@ -236,36 +238,35 @@ public abstract class FlowNode {
                         expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
                     }
                 }
-
-                this.variable = expressionBuilder.build();
-                return this;
+            } else {
+                semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
+                expressionBuilder
+                        .label(VARIABLE_LABEL)
+                        .value(node.toString().strip())
+                        .editable()
+                        .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                        .documentation(VARIABLE_DOC);
             }
 
-            semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
-            this.variable = expressionBuilder
-                    .key(VARIABLE_LABEL)
-                    .value(node.toString().strip())
-                    .setEditable()
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .setDocumentation(VARIABLE_DOC)
-                    .build();
-            return this;
+            this.variable = expressionBuilder.build();
+            addProperty(VARIABLE_KEY, this.variable);
+            return (T) this;
         }
 
         public NodePropertiesBuilder expression(ExpressionNode expression) {
             semanticModel.typeOf(expression).ifPresent(expressionBuilder::type);
             this.expression = expressionBuilder
-                    .key(EXPRESSION_RHS_LABEL)
+                    .label(EXPRESSION_RHS_LABEL)
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .setDocumentation(EXPRESSION_RHS_DOC)
-                    .setEditable()
+                    .documentation(EXPRESSION_RHS_DOC)
+                    .editable()
                     .value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expression).expression().toString() : expression.toString())
                     .build();
             return this;
         }
 
-        protected final void addProperty(String key, Expression expression) {
+        public final void addProperty(String key, Expression expression) {
             if (expression != null) {
                 this.nodeProperties.put(key, expression);
             }
@@ -359,8 +360,7 @@ public abstract class FlowNode {
                 case IF -> context.deserialize(jsonObject, IfNode.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
-                case LIBRARY_CALL_HTTP_GET -> context.deserialize(jsonObject, HttpGet.class);
-                case LIBRARY_CALL_HTTP_POST -> context.deserialize(jsonObject, HttpPost.class);
+                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionInvocation.class);
             };
         }
     }

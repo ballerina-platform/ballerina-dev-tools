@@ -89,20 +89,20 @@
         "flags": 1
       },
       {
-        "id": "70958",
+        "id": "70742",
         "label": "HTTP POST",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
             "line": 39,
-            "offset": 15
+            "offset": 8
           },
           "endLine": {
             "line": 39,
-            "offset": 61
+            "offset": 62
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_POST",
+        "kind": "HTTP_API_POST_CALL",
         "returning": true,
         "fixed": false,
         "nodeProperties": {

@@ -50,20 +50,20 @@
         "flags": 2048
       },
       {
-        "id": "61378",
+        "id": "60821",
         "label": "HTTP POST",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
             "line": 29,
-            "offset": 26
+            "offset": 8
           },
           "endLine": {
             "line": 29,
-            "offset": 60
+            "offset": 61
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_POST",
+        "kind": "HTTP_API_POST_CALL",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -75,6 +75,15 @@
             "optional": false,
             "editable": true,
             "documentation": "HTTP Client Connection"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "json|annotations:error",
+            "value": "res1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           },
           "path": {
             "label": "Path",
@@ -109,34 +118,25 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "variable": {
-            "label": "Variable",
-            "type": "json|annotations:error",
-            "value": "res1 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
           }
         },
         "flags": 0
       },
       {
-        "id": "62719",
+        "id": "61821",
         "label": "HTTP POST",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
             "line": 30,
-            "offset": 37
+            "offset": 8
           },
           "endLine": {
             "line": 30,
-            "offset": 68
+            "offset": 69
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_POST",
+        "kind": "HTTP_API_POST_CALL",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -148,6 +148,15 @@
             "optional": false,
             "editable": true,
             "documentation": "HTTP Client Connection"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "json|http:ballerina/http:2.10.7:error",
+            "value": "res2 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           },
           "message": {
             "label": "Message",
@@ -173,15 +182,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Post Media Type"
-          },
-          "variable": {
-            "label": "Variable",
-            "type": "json|http:ballerina/http:2.10.7:error",
-            "value": "res2 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
           }
         },
         "flags": 0

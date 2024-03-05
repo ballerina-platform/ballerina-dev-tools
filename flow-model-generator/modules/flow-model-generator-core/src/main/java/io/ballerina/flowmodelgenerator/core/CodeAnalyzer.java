@@ -63,12 +63,13 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionInvocation;
 import io.ballerina.flowmodelgenerator.core.model.node.Client;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpGet;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpPost;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 
@@ -128,13 +129,13 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
+        nodeBuilder.lineRange(returnStatementNode);
+
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
         if (nodeBuilder.isDefault()) {
             Return.Builder returnBuilder = new Return.Builder(semanticModel);
             expression.ifPresent(returnBuilder::setExpressionNode);
-            nodeBuilder
-                    .lineRange(returnStatementNode)
-                    .propertiesBuilder(returnBuilder);
+            nodeBuilder.propertiesBuilder(returnBuilder);
         }
         nodeBuilder.returning();
         appendNode();
@@ -142,6 +143,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
+        nodeBuilder.lineRange(remoteMethodCallActionNode);
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
@@ -150,6 +152,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
+        nodeBuilder.lineRange(clientResourceAccessActionNode);
         String methodName = clientResourceAccessActionNode.methodName()
                 .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
         ExpressionNode expression = clientResourceAccessActionNode.expression();
@@ -173,37 +176,20 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
+//        Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(nonTerminalNode);
+//        typeSymbol.ifPresent(symbol -> this.targetTypeValue = CommonUtils.getTypeSignature(symbol));
+
         switch (moduleName) {
             case "http" -> {
-                switch (methodName) {
-                    case HttpGet.HTTP_GET_KEY -> {
-                        HttpGet.Builder httpGetBuilder = new HttpGet.Builder(semanticModel);
-                        httpGetBuilder.addClient(expressionNode);
-                        httpGetBuilder.addTargetTypeValue(statementNode);
-                        httpGetBuilder.addFunctionArguments(argumentNodes);
-                        httpGetBuilder.addResourceAccessPath(resourceAccessPathNodes);
-                        httpGetBuilder.variable(this.typedBindingPatternNode);
-                        methodSymbol.typeDescriptor().params().ifPresent(httpGetBuilder::addHttpParameters);
-                        nodeBuilder.propertiesBuilder(httpGetBuilder);
-                    }
-                    case "post" -> {
-                        HttpPost.Builder httpPostBuilder = new HttpPost.Builder(semanticModel);
-                        httpPostBuilder.addClient(expressionNode);
-                        httpPostBuilder.addTargetTypeValue(statementNode);
-                        httpPostBuilder.addFunctionArguments(argumentNodes);
-                        httpPostBuilder.addResourceAccessPath(resourceAccessPathNodes);
-                        httpPostBuilder.variable(this.typedBindingPatternNode);
-                        methodSymbol.typeDescriptor().params().ifPresent(httpPostBuilder::addHttpParameters);
-                        nodeBuilder.propertiesBuilder(httpPostBuilder);
-                    }
-                    default -> {
-                    }
-                }
-            }
-            default -> {
+                ActionInvocation.Builder builder = new ActionInvocation.Builder(semanticModel)
+                        .nodeInfo(NodeAttributes.get(methodName))
+                        .callExpression(expressionNode, ExpressionAttributes.httpClient)
+                        .variable(this.typedBindingPatternNode);
+                methodSymbol.typeDescriptor().params().ifPresent(params -> builder.functionArguments(
+                        argumentNodes, params));
+                nodeBuilder.propertiesBuilder(builder);
             }
         }
-        nodeBuilder.lineRange(statementNode);
     }
 
     @Override
@@ -275,6 +261,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        nodeBuilder.lineRange(variableDeclarationNode);
         if (initializer.isEmpty()) {
             return;
         }
@@ -285,7 +272,6 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (nodeBuilder.isDefault()) {
-            nodeBuilder.lineRange(variableDeclarationNode);
             DefaultExpression.Builder defaultExpressionBuilder = new DefaultExpression.Builder(semanticModel);
             defaultExpressionBuilder.expression(initializerNode);
             defaultExpressionBuilder.variable(this.typedBindingPatternNode);
@@ -400,6 +386,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(CheckExpressionNode checkExpressionNode) {
+        nodeBuilder.lineRange(checkExpressionNode);
         switch (checkExpressionNode.checkKeyword().text()) {
             case Constants.CHECK -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKED);
             case Constants.CHECKPANIC -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKPANIC);

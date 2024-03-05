@@ -94,11 +94,11 @@ public class IfNode extends FlowNode {
         public Builder setConditionExpression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
             this.condition = expressionBuilder
-                    .key(IF_CONDITION)
+                    .label(IF_CONDITION)
                     .value(expressionNode.toSourceCode())
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .setDocumentation(IF_CONDITION_DOC)
-                    .setEditable()
+                    .documentation(IF_CONDITION_DOC)
+                    .editable()
                     .build();
             return this;
         }

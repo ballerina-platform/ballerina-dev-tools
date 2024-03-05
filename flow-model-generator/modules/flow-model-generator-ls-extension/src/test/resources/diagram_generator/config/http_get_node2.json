@@ -50,20 +50,20 @@
         "flags": 2048
       },
       {
-        "id": "63353",
+        "id": "62796",
         "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 31,
-            "offset": 26
+            "offset": 8
           },
           "endLine": {
             "line": 31,
-            "offset": 51
+            "offset": 52
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_GET",
+        "kind": "HTTP_API_GET_CALL",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -75,23 +75,6 @@
             "optional": false,
             "editable": true,
             "documentation": "HTTP Client Connection"
-          },
-          "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/pears\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
-          },
-          "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
           },
           "variable": {
             "label": "Variable",
@@ -101,36 +84,6 @@
             "optional": false,
             "editable": true,
             "documentation": "Result Variable"
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "64697",
-        "label": "HTTP GET",
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 32,
-            "offset": 37
-          },
-          "endLine": {
-            "line": 32,
-            "offset": 62
-          }
-        },
-        "kind": "LIBRARY_CALL_HTTP_GET",
-        "returning": false,
-        "fixed": false,
-        "nodeProperties": {
-          "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "foodClient",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
           },
           "path": {
             "label": "Path",
@@ -148,6 +101,36 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Headers"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "63799",
+        "label": "HTTP GET",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 32,
+            "offset": 63
+          }
+        },
+        "kind": "HTTP_API_GET_CALL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "client": {
+            "label": "Client",
+            "type": "http:Client",
+            "value": "foodClient",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Client Connection"
           },
           "variable": {
             "label": "Variable",
@@ -157,6 +140,23 @@
             "optional": false,
             "editable": true,
             "documentation": "Result Variable"
+          },
+          "path": {
+            "label": "Path",
+            "type": "string",
+            "value": "\"/pears\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          },
+          "headers": {
+            "label": "Headers",
+            "type": "map<string|string[]>?",
+            "typeKind": "BTYPE",
+            "optional": true,
+            "editable": true,
+            "documentation": "HTTP Headers"
           }
         },
         "flags": 0

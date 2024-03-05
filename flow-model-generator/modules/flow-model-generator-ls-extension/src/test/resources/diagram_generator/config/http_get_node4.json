@@ -89,20 +89,20 @@
         "flags": 1
       },
       {
-        "id": "72926",
+        "id": "72710",
         "label": "HTTP GET",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 41,
-            "offset": 15
+            "offset": 8
           },
           "endLine": {
             "line": 41,
-            "offset": 45
+            "offset": 46
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_GET",
+        "kind": "HTTP_API_GET_CALL",
         "returning": true,
         "fixed": false,
         "nodeProperties": {
