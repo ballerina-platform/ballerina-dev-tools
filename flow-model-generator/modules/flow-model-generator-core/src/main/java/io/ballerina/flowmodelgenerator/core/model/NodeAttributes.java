@@ -25,7 +25,8 @@ public class NodeAttributes {
 
     private static final List<Info> nodeInfoMap = new ArrayList<>();
 
-    public record Info(String key, String label, FlowNode.Kind kind, List<ExpressionAttributes.Info> expressions) {
+    public record Info(String key, String label, FlowNode.Kind kind, ExpressionAttributes.Info callExpression,
+                       List<ExpressionAttributes.Info> parameterExpressions) {
 
     }
 
@@ -44,10 +45,10 @@ public class NodeAttributes {
     }
 
     public static final Info httpGet =
-            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL,
+            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.httpClient,
                     List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpHeaders));
     public static final Info httpPost =
-            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL,
+            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.httpClient,
                     List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpHeaders,
                             ExpressionAttributes.httpMessage, ExpressionAttributes.httpMediaType));
 

@@ -72,23 +72,32 @@ public class ActionInvocation extends FlowNode {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        //TODO: Remove this coupling
-        Expression client = getProperty(ExpressionAttributes.httpClient.key());
-        Expression path = getProperty(ExpressionAttributes.httpPath.key());
+        NodeAttributes.Info info = NodeAttributes.get(kind());
+        Expression client = getProperty(info.callExpression().key());
 
-        sourceBuilder
-                .expression(client)
+        sourceBuilder.expression(client)
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name("get")
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
-                .expression(path);
+                .name(info.key())
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
-        Expression headers = getProperty(ExpressionAttributes.httpHeaders.key());
-        if (headers.value() != null) {
-            sourceBuilder
-                    .keyword(SyntaxKind.COMMA_TOKEN)
-                    .expression(headers);
+        List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
+
+        if (!parameterExpressions.isEmpty()) {
+            Expression firstParameter = getProperty(parameterExpressions.get(0).key());
+            if (firstParameter != null) {
+                sourceBuilder.expression(firstParameter);
+            }
+
+            for (int i = 1; i < parameterExpressions.size(); i++) {
+                Expression parameter = getProperty(parameterExpressions.get(i).key());
+                if (parameter != null && parameter.value() != null) {
+                    sourceBuilder
+                            .keyword(SyntaxKind.COMMA_TOKEN)
+                            .expression(parameter);
+                }
+            }
         }
+
         sourceBuilder
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
