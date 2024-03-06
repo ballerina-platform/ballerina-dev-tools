@@ -101,7 +101,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
     }
 
     @Override
-    protected String getServiceName() {
+    protected String getApiName() {
         return "getSourceCode";
     }
 

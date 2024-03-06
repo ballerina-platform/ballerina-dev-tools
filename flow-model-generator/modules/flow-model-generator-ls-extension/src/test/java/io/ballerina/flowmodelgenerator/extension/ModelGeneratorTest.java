@@ -76,7 +76,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
-    protected String getServiceName() {
+    protected String getApiName() {
         return "getFlowDesignModel";
     }
 

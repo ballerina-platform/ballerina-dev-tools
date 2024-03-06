@@ -96,7 +96,7 @@ abstract class AbstractLSTest {
     }
 
     protected String getResponse(Object request) throws IOException {
-        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/" + getServiceName(), request);
+        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/" + getApiName(), request);
         return TestUtil.getResponseString(result);
     }
 
@@ -104,7 +104,7 @@ abstract class AbstractLSTest {
 
     protected abstract Class<? extends AbstractLSTest> clazz();
 
-    protected abstract String getServiceName();
+    protected abstract String getApiName();
 
     @AfterClass
     public void shutDownLanguageServer() {

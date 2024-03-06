@@ -33,7 +33,7 @@ public class FlowModelGeneratorServiceResponse {
         this.flowDesignModel = flowDesignModel;
     }
 
-    public JsonElement getFlowDesignModel() {
+    public JsonElement flowDesignModel() {
         return flowDesignModel;
     }
 }

@@ -33,7 +33,7 @@ public class FlowModelSourceGeneratorServiceResponse {
         this.textEdits = textEdits;
     }
 
-    public JsonElement getTextEdits() {
+    public JsonElement textEdits() {
         return textEdits;
     }
 }

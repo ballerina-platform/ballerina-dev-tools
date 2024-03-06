@@ -38,11 +38,11 @@ public class FlowModelGeneratorServiceRequest {
         this.endLine = endLine;
     }
 
-    public String getFilePath() {
+    public String filePath() {
         return filePath;
     }
 
-    public LineRange getLineRange() {
+    public LineRange lineRange() {
         return LineRange.from(filePath, startLine, endLine);
     }
 }
