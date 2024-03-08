@@ -27,8 +27,8 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.Client;
+import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -74,6 +74,7 @@ public class ModelGenerator {
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
+        // Obtain the clients visible at the module-level
         Client.Builder clientBuilder = new Client.Builder();
         List<Client> moduleClients = semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine())
                 .stream()
@@ -87,11 +88,15 @@ public class ModelGenerator {
                 .sorted(Comparator.comparing(Client::value))
                 .toList();
 
+        // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
         canvasNode.accept(codeAnalyzer);
+
+        // Combine the module-level clients with the clients found in diagram
         List<Client> clients = new ArrayList<>(moduleClients);
         clients.addAll(codeAnalyzer.getClients());
 
+        // Generate the flow model
         Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), clients);
         return gson.toJsonTree(diagram);
     }

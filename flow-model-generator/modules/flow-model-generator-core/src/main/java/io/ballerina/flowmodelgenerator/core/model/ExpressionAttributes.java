@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class ExpressionAttributes {
 
     private static final Map<String, Info> parameterInfoMap = new HashMap<>();

@@ -32,20 +32,20 @@
         "flags": 0
       },
       {
-        "id": "46519",
+        "id": "45807",
         "label": "HTTP GET",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
             "line": 14,
-            "offset": 27
+            "offset": 4
           },
           "endLine": {
             "line": 14,
-            "offset": 50
+            "offset": 51
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_GET",
+        "kind": "HTTP_API_GET_CALL",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -57,6 +57,15 @@
             "optional": false,
             "editable": true,
             "documentation": "HTTP Client Connection"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "json",
+            "value": "moduleVal ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           },
           "path": {
             "label": "Path",
@@ -74,21 +83,12 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Headers"
-          },
-          "variable": {
-            "label": "Variable",
-            "type": "json",
-            "value": "moduleVal ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
           }
         },
         "flags": 1
       },
       {
-        "id": "46776",
+        "id": "46777",
         "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
@@ -98,7 +98,7 @@
           },
           "endLine": {
             "line": 15,
-            "offset": 28
+            "offset": 29
           }
         },
         "kind": "EXPRESSION",
@@ -146,20 +146,20 @@
         "flags": 1
       },
       {
-        "id": "50454",
+        "id": "49773",
         "label": "HTTP GET",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
             "line": 18,
-            "offset": 26
+            "offset": 4
           },
           "endLine": {
             "line": 18,
-            "offset": 48
+            "offset": 49
           }
         },
-        "kind": "LIBRARY_CALL_HTTP_GET",
+        "kind": "HTTP_API_GET_CALL",
         "returning": false,
         "fixed": false,
         "nodeProperties": {
@@ -171,6 +171,15 @@
             "optional": false,
             "editable": true,
             "documentation": "HTTP Client Connection"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "json",
+            "value": "localVal ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           },
           "path": {
             "label": "Path",
@@ -188,15 +197,6 @@
             "optional": true,
             "editable": true,
             "documentation": "HTTP Headers"
-          },
-          "variable": {
-            "label": "Variable",
-            "type": "json",
-            "value": "localVal ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
           }
         },
         "flags": 1
@@ -241,7 +241,7 @@
         "flags": 0
       },
       {
-        "id": "51735",
+        "id": "51736",
         "label": "Custom Expression",
         "lineRange": {
           "fileName": "clients.bal",
@@ -251,7 +251,7 @@
           },
           "endLine": {
             "line": 20,
-            "offset": 27
+            "offset": 28
           }
         },
         "kind": "EXPRESSION",

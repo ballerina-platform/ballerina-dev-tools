@@ -47,9 +47,9 @@ import java.util.Queue;
  *
  * @since 2201.9.0
  */
-public class ActionInvocation extends FlowNode {
+public class CallNode extends FlowNode {
 
-    protected ActionInvocation(String label, Kind kind, Map<String, Expression> nodeProperties) {
+    protected CallNode(String label, Kind kind, Map<String, Expression> nodeProperties) {
         super(label, kind, false, nodeProperties);
     }
 
@@ -237,7 +237,7 @@ public class ActionInvocation extends FlowNode {
 
         @Override
         public FlowNode build() {
-            return new ActionInvocation(label, kind, nodeProperties);
+            return new CallNode(label, kind, nodeProperties);
         }
     }
 }

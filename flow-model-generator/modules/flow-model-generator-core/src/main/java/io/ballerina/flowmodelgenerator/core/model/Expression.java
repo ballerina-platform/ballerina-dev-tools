@@ -45,6 +45,10 @@ public record Expression(String label, String type, String value, ExpressionType
         URI_PATH
     }
 
+    public record Info() {
+
+    }
+
     /**
      * Represents a builder for the expression.
      *

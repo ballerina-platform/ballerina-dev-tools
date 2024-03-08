@@ -43,6 +43,12 @@ public class SourceGenerator {
                 .create();
     }
 
+    /**
+     * Converts the flow model to source code.
+     *
+     * @param diagramNode The flow model node to be converted.
+     * @return The source code of the flow model node.
+     */
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
         List<TextEdit> textEdits = List.of(

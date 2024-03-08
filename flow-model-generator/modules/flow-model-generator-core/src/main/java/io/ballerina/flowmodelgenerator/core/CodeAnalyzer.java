@@ -63,11 +63,11 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionInvocation;
-import io.ballerina.flowmodelgenerator.core.model.Client;
+import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
@@ -181,7 +181,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (moduleName) {
             case "http" -> {
-                ActionInvocation.Builder builder = new ActionInvocation.Builder(semanticModel)
+                CallNode.Builder builder = new CallNode.Builder(semanticModel)
                         .nodeInfo(NodeAttributes.get(methodName))
                         .callExpression(expressionNode, ExpressionAttributes.httpClient)
                         .variable(this.typedBindingPatternNode);
@@ -398,27 +398,48 @@ class CodeAnalyzer extends NodeVisitor {
 
     // Utility methods
 
+    /**
+     * It's the responsibility of the topmost to add the flow nodes for building the diagram. Hence, the method only
+     * adds the node to the diagram if there is no active node that is building its branches.
+     */
     private void appendNode() {
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
         }
     }
 
+    /**
+     * Starts a new branch and sets the node builder to the starting node of the branch.
+     */
     private void startBranch() {
         this.flowNodeBuilderStack.push(nodeBuilder);
         nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
     }
 
+    /**
+     * Ends the current branch and sets the node builder to the parent node.
+     */
     private void endBranch() {
         nodeBuilder = this.flowNodeBuilderStack.pop();
     }
 
+    /**
+     * Builds the flow node and resets the node builder.
+     *
+     * @return the built flow node
+     */
     private FlowNode buildNode() {
         FlowNode flowNode = nodeBuilder.build();
         nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
         return flowNode;
     }
 
+    /**
+     * The default procedure to handle the statement nodes. These nodes should be handled explicitly.
+     *
+     * @param statementNode the statement node
+     * @param runnable      The runnable to be called to analyze the child nodes.
+     */
     private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
         nodeBuilder.lineRange(statementNode);
         runnable.run();
