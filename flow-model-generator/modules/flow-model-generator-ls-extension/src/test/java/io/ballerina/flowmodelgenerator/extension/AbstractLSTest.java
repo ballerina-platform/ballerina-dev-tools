@@ -20,6 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -55,7 +57,7 @@ abstract class AbstractLSTest {
     private BallerinaLanguageServer languageServer;
 
     @BeforeClass
-    public void init() {
+    public final void init() {
         RES_DIR = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
         CONFIG_DIR = RES_DIR.resolve("config");
         SOURCE_DIR = RES_DIR.resolve("source");
@@ -65,9 +67,20 @@ abstract class AbstractLSTest {
         this.serviceEndpoint = builder.build();
     }
 
+    /**
+     * Positive tests for the flow model generator service.
+     *
+     * @param config The path to the test config
+     * @throws IOException If an error occurs while reading the config
+     */
     @Test(dataProvider = "data-provider")
     public abstract void test(Path config) throws IOException;
 
+    /**
+     * Provides the list of test configs.
+     *
+     * @return The list of test configs
+     */
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
@@ -86,24 +99,95 @@ abstract class AbstractLSTest {
         }
     }
 
+    /**
+     * Provides the list of tests to be skipped.
+     *
+     * @return The list of tests to be skipped
+     */
     protected String[] skipList() {
         return new String[]{};
     }
 
+    /**
+     * Updates the test config with the result generated from the test case.
+     *
+     * @param configJsonPath The path to the test config
+     * @param updatedConfig  The updated config
+     * @throws IOException If an error occurs while writing the config
+     */
     protected void updateConfig(Path configJsonPath, Object updatedConfig) throws IOException {
         String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
         Files.writeString(configJsonPath, objStr);
     }
 
-    protected String getResponse(Object request) throws IOException {
+    protected JsonObject getResponse(Object request) throws IOException {
         CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/" + getApiName(), request);
-        return TestUtil.getResponseString(result);
+        String response = TestUtil.getResponseString(result);
+        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
     }
 
+    /**
+     * Asserts the equality of the actual and expected arrays.
+     *
+     * @param property      The property name
+     * @param actualNodes   The actual nodes
+     * @param expectedNodes The expected nodes
+     * @return True if the arrays are equal, false otherwise
+     */
+    protected final boolean assertArray(String property, List<?> actualNodes, List<?> expectedNodes) {
+        List<Object> unmatchedExpectedNodes = new java.util.ArrayList<>(expectedNodes);
+        List<Object> mismatchedAvailableNodes = new java.util.ArrayList<>();
+
+        int actualTextEditsSize = actualNodes.size();
+        int expectedTextEditsSize = expectedNodes.size();
+        boolean hasCountMatch = actualTextEditsSize == expectedTextEditsSize;
+        if (!hasCountMatch) {
+            LOG.error(String.format("Mismatched %s count. Expected: %d, Found: %d", property, expectedTextEditsSize,
+                    actualTextEditsSize));
+        }
+
+        for (Object actualNode : actualNodes) {
+            if (expectedNodes.contains(actualNode)) {
+                unmatchedExpectedNodes.remove(actualNode);
+            } else {
+                mismatchedAvailableNodes.add(actualNode);
+            }
+        }
+
+        boolean hasAllExpectedTextEdits = unmatchedExpectedNodes.isEmpty();
+        if (!hasAllExpectedTextEdits) {
+            LOG.error(String.format("Found in expected %s but not in actual %s: ", property, property) +
+                    unmatchedExpectedNodes);
+        }
+
+        boolean hasRelevantTextEdits = mismatchedAvailableNodes.isEmpty();
+        if (!hasRelevantTextEdits) {
+            LOG.error(String.format("Found in actual %s but not in expected %s: ", property, property) +
+                    mismatchedAvailableNodes);
+        }
+
+        return hasCountMatch && hasAllExpectedTextEdits && hasRelevantTextEdits;
+    }
+
+    /**
+     * Returns the resource directory of the API test.
+     *
+     * @return The resource directory of the API test
+     */
     protected abstract String getResourceDir();
 
+    /**
+     * Returns the class of the API test.
+     *
+     * @return The class of the API test
+     */
     protected abstract Class<? extends AbstractLSTest> clazz();
 
+    /**
+     * Returns the name of the API.
+     *
+     * @return The name of the API
+     */
     protected abstract String getApiName();
 
     @AfterClass

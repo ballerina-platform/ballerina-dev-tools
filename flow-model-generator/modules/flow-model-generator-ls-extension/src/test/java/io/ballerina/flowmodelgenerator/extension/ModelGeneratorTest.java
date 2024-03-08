@@ -19,9 +19,8 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorServiceRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -42,12 +41,11 @@ public class ModelGeneratorTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = CONFIG_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        String response = getResponse(new FlowModelGeneratorServiceRequest(
-                SOURCE_DIR.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
-                testConfig.end()));
 
-        JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        JsonObject jsonModel = json.getAsJsonObject("result").getAsJsonObject("flowDesignModel");
+        FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(
+                SOURCE_DIR.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
+                testConfig.end());
+        JsonObject jsonModel = getResponse(request).getAsJsonObject("flowDesignModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine
         String balFileName = Path.of(jsonModel.getAsJsonPrimitive("fileName").getAsString()).getFileName().toString();
@@ -60,7 +58,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
         if (!fileNameEquality || !flowEquality) {
             TestConfig updatedConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
                     testConfig.description(), modifiedDiagram);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -81,7 +79,14 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     /**
-     * Represents the test configuration.
+     * Represents the test configuration for the model generator test.
+     *
+     * @param start       The start position of the diagram
+     * @param end         The end position of the diagram
+     * @param source      The source file
+     * @param description The description of the test
+     * @param diagram     The expected diagram for the given inputs
+     * @since 2201.9.0
      */
     private record TestConfig(LinePosition start, LinePosition end, String source, String description,
                               JsonObject diagram) {

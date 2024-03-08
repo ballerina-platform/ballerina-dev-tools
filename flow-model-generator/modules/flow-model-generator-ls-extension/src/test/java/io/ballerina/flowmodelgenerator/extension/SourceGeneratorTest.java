@@ -20,10 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorServiceRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -32,7 +30,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,50 +39,22 @@ import java.util.List;
  */
 public class SourceGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<List<TextEdit>>() {}.getType();
+    private static final Type textEditListType = new TypeToken<List<TextEdit>>() {
+    }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = RES_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        String response = getResponse(new FlowModelSourceGeneratorServiceRequest(testConfig.diagram()));
-        JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        JsonArray jsonArray = json.getAsJsonObject("result").getAsJsonArray("textEdits");
+
+        FlowModelSourceGeneratorRequest request = new FlowModelSourceGeneratorRequest(testConfig.diagram());
+        JsonArray jsonArray = getResponse(request).getAsJsonArray("textEdits");
 
         List<TextEdit> actualTextEdits = gson.fromJson(jsonArray, textEditListType);
-        List<TextEdit> expectedTextEdits = testConfig.output();
-        List<TextEdit> mismatchedTextEdits = new ArrayList<>();
-
-        int actualTextEditsSize = actualTextEdits.size();
-        int expectedTextEditsSize = expectedTextEdits.size();
-        boolean hasCountMatch = actualTextEditsSize == expectedTextEditsSize;
-        if (!hasCountMatch) {
-            LOG.error(String.format("Mismatched text edits count. Expected: %d, Found: %d",
-                    expectedTextEditsSize, actualTextEditsSize));
-        }
-
-        for (TextEdit actualTextEdit : actualTextEdits) {
-            if (expectedTextEdits.contains(actualTextEdit)) {
-                expectedTextEdits.remove(actualTextEdit);
-            } else {
-                mismatchedTextEdits.add(actualTextEdit);
-            }
-        }
-
-        boolean hasAllExpectedTextEdits = expectedTextEdits.isEmpty();
-        if (!hasAllExpectedTextEdits) {
-            LOG.error("Found in expected text edits but not in actual text edits: " + expectedTextEdits);
-        }
-
-        boolean hasRelevantTextEdits = mismatchedTextEdits.isEmpty();
-        if (!hasRelevantTextEdits) {
-            LOG.error("Found in actual text edits but not in expected text edits: " + mismatchedTextEdits);
-        }
-
-        if (!hasCountMatch || !hasAllExpectedTextEdits || !hasRelevantTextEdits) {
-            TestConfig updatedConfig = new TestConfig(testConfig.description(), actualTextEdits, testConfig.diagram());
-//            updateConfig(configJsonPath, updatedConfig);
+        if (!assertArray("text edits", actualTextEdits, testConfig.output())) {
+            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.diagram(), actualTextEdits);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -105,7 +74,14 @@ public class SourceGeneratorTest extends AbstractLSTest {
         return "getSourceCode";
     }
 
-    private record TestConfig(String description, List<TextEdit> output, JsonElement diagram) {
+    /**
+     * Represents the test configuration for the source generator test.
+     *
+     * @param description The description of the test
+     * @param diagram     The diagram to generate the source code
+     * @param output      The expected output source code
+     */
+    private record TestConfig(String description, JsonElement diagram, List<TextEdit> output) {
 
         public String description() {
             return description == null ? "" : description;

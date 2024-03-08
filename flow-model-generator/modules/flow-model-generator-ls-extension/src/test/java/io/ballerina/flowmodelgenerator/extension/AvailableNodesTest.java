@@ -19,10 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
@@ -32,7 +29,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,55 +38,24 @@ import java.util.List;
  */
 public class AvailableNodesTest extends AbstractLSTest {
 
-    private static final Type availableNodesType = new TypeToken<List<String>>() {}.getType();
+    private static final Type availableNodesType = new TypeToken<List<String>>() {
+    }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
         Path configJsonPath = RES_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        String response = getResponse(new FlowModelAvailableNodesRequest(testConfig.parentNodeLineRange(),
-                testConfig.parentNodeKind(), testConfig.branchLabel()));
 
-        JsonObject json = JsonParser.parseString(response).getAsJsonObject();
-        JsonArray availableNodes = json.getAsJsonObject("result").getAsJsonArray("availableNodes");
+        FlowModelAvailableNodesRequest request = new FlowModelAvailableNodesRequest(testConfig.parentNodeLineRange(),
+                testConfig.parentNodeKind(), testConfig.branchLabel());
+        JsonArray availableNodes = getResponse(request).getAsJsonArray("availableNodes");
 
         List<String> actualAvailableNodes = gson.fromJson(availableNodes, availableNodesType);
-        List<String> expectedAvailableNodes = testConfig.availableNodes();
-        List<String> mismatchedAvailableNodes = new ArrayList<>();
-
-        int actualAvailableNodesSize = actualAvailableNodes.size();
-        int expectedAvailableNodesSize = expectedAvailableNodes.size();
-        boolean hasCountMatch = actualAvailableNodesSize == expectedAvailableNodesSize;
-        if (!hasCountMatch) {
-            LOG.error(String.format("Mismatched available nodes count. Expected: %d, Found: %d",
-                    expectedAvailableNodesSize, actualAvailableNodesSize));
-        }
-
-        for (String actualAvailableNode : actualAvailableNodes) {
-            if (expectedAvailableNodes.contains(actualAvailableNode)) {
-                expectedAvailableNodes.remove(actualAvailableNode);
-            } else {
-                mismatchedAvailableNodes.add(actualAvailableNode);
-            }
-        }
-
-        boolean hasAllExpectedAvailableNodes = expectedAvailableNodes.isEmpty();
-        if (!hasAllExpectedAvailableNodes) {
-            LOG.error(
-                    "Found in expected available nodes but not in actual available nodes: " + mismatchedAvailableNodes);
-        }
-
-        boolean hasRelevantAvailableNodes = mismatchedAvailableNodes.isEmpty();
-        if (!hasRelevantAvailableNodes) {
-            LOG.error(
-                    "Found in actual available nodes but not in expected available nodes: " + mismatchedAvailableNodes);
-        }
-
-        if (!hasCountMatch || !hasAllExpectedAvailableNodes || !hasRelevantAvailableNodes) {
+        if (!assertArray("available nodes", actualAvailableNodes, testConfig.availableNodes())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.parentNodeLineRange(),
                     testConfig.parentNodeKind(), testConfig.branchLabel(), actualAvailableNodes);
-            updateConfig(config, updateConfig);
+//            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
 
@@ -111,6 +76,15 @@ public class AvailableNodesTest extends AbstractLSTest {
         return "getAvailableNodes";
     }
 
+    /**
+     * Represents the test configuration for the available nodes test.
+     *
+     * @param description         The description of the test
+     * @param parentNodeLineRange The line range of the parent node
+     * @param parentNodeKind      The kind of the parent node
+     * @param branchLabel         The branch label
+     * @param availableNodes      The available nodes for the given input
+     */
     private record TestConfig(String description, LineRange parentNodeLineRange, String parentNodeKind,
                               String branchLabel, List<String> availableNodes) {
 

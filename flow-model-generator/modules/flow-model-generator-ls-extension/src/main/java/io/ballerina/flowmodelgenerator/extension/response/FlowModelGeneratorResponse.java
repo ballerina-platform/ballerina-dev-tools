@@ -21,19 +21,19 @@ package io.ballerina.flowmodelgenerator.extension.response;
 import com.google.gson.JsonElement;
 
 /**
- * Represents a response from the flow model source generator service.
+ * Represents the response for the flow model getSourceCode API.
  *
  * @since 2201.9.0
  */
-public class FlowModelSourceGeneratorServiceResponse {
+public class FlowModelGeneratorResponse {
 
-    private JsonElement textEdits;
+    private JsonElement flowDesignModel;
 
-    public void setTextEdits(JsonElement textEdits) {
-        this.textEdits = textEdits;
+    public void setFlowDesignModel(JsonElement flowDesignModel) {
+        this.flowDesignModel = flowDesignModel;
     }
 
-    public JsonElement textEdits() {
-        return textEdits;
+    public JsonElement flowDesignModel() {
+        return flowDesignModel;
     }
 }

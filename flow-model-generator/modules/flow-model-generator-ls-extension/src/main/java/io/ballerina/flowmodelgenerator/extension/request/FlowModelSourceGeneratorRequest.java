@@ -21,19 +21,11 @@ package io.ballerina.flowmodelgenerator.extension.request;
 import com.google.gson.JsonElement;
 
 /**
- * Represents a request to the flow model source generator service.
+ * Represents a request to the flow model getSourceCode API.
  *
+ * @param diagramNode diagram node
  * @since 2201.9.0
  */
-public class FlowModelSourceGeneratorServiceRequest {
+public record FlowModelSourceGeneratorRequest(JsonElement diagramNode) {
 
-    private final JsonElement diagramNode;
-
-    public FlowModelSourceGeneratorServiceRequest(JsonElement diagramNode) {
-        this.diagramNode = diagramNode;
-    }
-
-    public JsonElement getDiagramNode() {
-        return diagramNode;
-    }
 }

@@ -16,24 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.response;
+package io.ballerina.flowmodelgenerator.extension.request;
 
-import com.google.gson.JsonElement;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 
 /**
- * Represents the response for the flow model generator service.
+ * Represents the request for the flow model getFlowDesignModel API.
  *
+ * @param filePath  file path of the source file
+ * @param startLine start line of the source range
+ * @param endLine   end line of the source range
  * @since 2201.9.0
  */
-public class FlowModelGeneratorServiceResponse {
+public record FlowModelGeneratorRequest(String filePath, LinePosition startLine, LinePosition endLine) {
 
-    private JsonElement flowDesignModel;
-
-    public void setFlowDesignModel(JsonElement flowDesignModel) {
-        this.flowDesignModel = flowDesignModel;
-    }
-
-    public JsonElement flowDesignModel() {
-        return flowDesignModel;
+    public LineRange lineRange() {
+        return LineRange.from(filePath, startLine, endLine);
     }
 }

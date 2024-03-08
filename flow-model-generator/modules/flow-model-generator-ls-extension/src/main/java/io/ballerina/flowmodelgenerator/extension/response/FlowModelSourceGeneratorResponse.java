@@ -18,20 +18,22 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 /**
- * Represents the response for the flow model getAvailableNodes API.
+ * Represents the response for the flow model getFlowDesignModel API.
+ *
+ * @since 2201.9.0
  */
-public class FlowModelAvailableNodesResponse {
+public class FlowModelSourceGeneratorResponse {
 
-    private JsonArray availableNodes;
+    private JsonElement textEdits;
 
-    public void setAvailableNodes(JsonArray availableNodes) {
-        this.availableNodes = availableNodes;
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
     }
 
-    public JsonArray availableNodes() {
-        return availableNodes;
+    public JsonElement textEdits() {
+        return textEdits;
     }
 }
