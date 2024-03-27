@@ -10,6 +10,7 @@ public class Interaction extends SequenceNode {
     public static final String PARAMS_LABEL = "params";
     public static final String NAME_LABEL = "name";
     public static final String VALUE_LABEL = "value";
+    public static final String EXPRESSION_LABEL = "expr";
 
     private InteractionType interactionType;
     private String targetId;
