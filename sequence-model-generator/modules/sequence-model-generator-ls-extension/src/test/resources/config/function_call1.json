@@ -29,9 +29,8 @@
         "moduleName": ".",
         "nodes": [
           {
-            "interactionType": "RETURN_CALL",
-            "targetId": "31807",
-            "kind": "INTERACTION",
+            "kind": "RETURN",
+            "branches": [],
             "properties": {
               "value": {
                 "type": "int"
@@ -80,7 +79,7 @@
               "params": [],
               "value": {
                 "type": "int",
-                "value": "j "
+                "value": "j"
               }
             },
             "location": {
