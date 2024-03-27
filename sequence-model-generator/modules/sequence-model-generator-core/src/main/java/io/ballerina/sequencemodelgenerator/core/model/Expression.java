@@ -15,14 +15,14 @@ public record Expression(String type, String value) {
         }
 
         public static Expression create(SemanticModel semanticModel, Node node) {
-            String nodeString = node.toString();
+            String nodeString = node.toString().strip();
             return semanticModel.typeOf(node)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), nodeString))
                     .orElseGet(() -> new Expression(null, nodeString));
         }
 
         public static Expression create(SemanticModel semanticModel, Node typeNode, Node valueNode) {
-            String nodeString = valueNode.toString();
+            String nodeString = valueNode.toString().strip();
             return semanticModel.typeOf(typeNode)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), nodeString))
                     .orElseGet(() -> new Expression(null, nodeString));

@@ -66,7 +66,7 @@
               ],
               "value": {
                 "type": "json|http:ballerina/http:2.10.12:error",
-                "value": "getRes "
+                "value": "getRes"
               }
             },
             "location": {
@@ -110,7 +110,7 @@
               ],
               "value": {
                 "type": "http:Response|http:ballerina/http:2.10.12:error",
-                "value": "postRes "
+                "value": "postRes"
               }
             },
             "location": {

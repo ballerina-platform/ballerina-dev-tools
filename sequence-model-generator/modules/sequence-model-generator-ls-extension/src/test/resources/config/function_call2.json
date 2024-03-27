@@ -30,6 +30,7 @@
         "nodes": [
           {
             "kind": "RETURN",
+            "branches": [],
             "properties": {
               "value": {
                 "type": "int"
@@ -82,8 +83,7 @@
                 }
               ],
               "value": {
-                "type": "int",
-                "value": "i "
+                "type": "int"
               }
             },
             "location": {
@@ -99,8 +99,20 @@
             }
           },
           {
-            "kind": "RETURN",
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "42693",
+            "kind": "INTERACTION",
             "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn3"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "2"
+                }
+              ],
               "value": {
                 "type": "int"
               }
@@ -148,7 +160,7 @@
               "params": [],
               "value": {
                 "type": "int",
-                "value": "ret2 "
+                "value": "ret2"
               }
             },
             "location": {
@@ -179,8 +191,7 @@
                 }
               ],
               "value": {
-                "type": "int",
-                "value": "ret3 "
+                "type": "int"
               }
             },
             "location": {
@@ -196,8 +207,20 @@
             }
           },
           {
-            "kind": "RETURN",
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "42693",
+            "kind": "INTERACTION",
             "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn3"
+              },
+              "params": [
+                {
+                  "type": "int",
+                  "value": "2"
+                }
+              ],
               "value": {
                 "type": "int"
               }

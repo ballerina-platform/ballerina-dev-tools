@@ -1,16 +1,21 @@
 package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
+import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.ElseBlockNode;
 import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
+import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
-import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.sequencemodelgenerator.core.model.Expression;
 import io.ballerina.sequencemodelgenerator.core.model.Interaction;
@@ -18,6 +23,7 @@ import io.ballerina.sequencemodelgenerator.core.model.SequenceNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 public class ParticipantBodyAnalyzer extends NodeVisitor {
@@ -27,7 +33,7 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     private final Stack<SequenceNode.Builder> nodeBuilderStack;
 
     private SequenceNode.Builder nodeBuilder;
-    private TypedBindingPatternNode typedBindingPatternNode;
+    private Node variableNode;
 
     public ParticipantBodyAnalyzer(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
@@ -41,27 +47,33 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
         String targetId = ParticipantManager.getInstance().getParticipantId(remoteMethodCallActionNode.expression());
 
-        SequenceNode.Builder interactionBuilder = new Interaction.Builder(semanticModel)
+        nodeBuilder = new Interaction.Builder(semanticModel)
                 .interactionType(Interaction.InteractionType.ENDPOINT_CALL)
                 .targetId(targetId)
                 .location(remoteMethodCallActionNode);
 
         List<Expression> paramList = getParamList(remoteMethodCallActionNode.arguments());
-        interactionBuilder
+        nodeBuilder
                 .property(Interaction.PARAMS_LABEL, paramList)
                 .property(Interaction.NAME_LABEL,
                         Expression.Factory.createStringType(remoteMethodCallActionNode.methodName()))
                 .property(Interaction.EXPRESSION_LABEL, remoteMethodCallActionNode.expression())
                 .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
-                        remoteMethodCallActionNode, typedBindingPatternNode.bindingPattern()));
+                        remoteMethodCallActionNode, variableNode));
 
-        appendNode(interactionBuilder);
+        appendNode();
     }
 
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
-        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+        this.variableNode = variableDeclarationNode.typedBindingPattern().bindingPattern();
         variableDeclarationNode.initializer().ifPresent(expressionNode -> expressionNode.accept(this));
+    }
+
+    @Override
+    public void visit(AssignmentStatementNode assignmentStatementNode) {
+        this.variableNode = assignmentStatementNode.varRef();
+        super.visit(assignmentStatementNode);
     }
 
     @Override
@@ -69,21 +81,23 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         NameReferenceNode functionName = functionCallExpressionNode.functionName();
 
         String targetId = ParticipantManager.getInstance().getParticipantId(functionName);
-        SequenceNode.Builder interactionBuilder = new Interaction.Builder(semanticModel)
+        nodeBuilder = new Interaction.Builder(semanticModel)
                 .interactionType(Interaction.InteractionType.FUNCTION_CALL)
                 .targetId(targetId)
                 .location(functionCallExpressionNode);
 
         List<Expression> paramList = getParamList(functionCallExpressionNode.arguments());
 
-        interactionBuilder
+        nodeBuilder
                 .property(Interaction.PARAMS_LABEL, paramList)
                 .property(Interaction.NAME_LABEL, Expression.Factory.createStringType(functionName))
                 .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
-                        functionCallExpressionNode, typedBindingPatternNode.bindingPattern()));
+                        functionCallExpressionNode, variableNode));
 
-        appendNode(interactionBuilder);
+        appendNode();
     }
+
+
 
     private List<Expression> getParamList(SeparatedNodeList<FunctionArgumentNode> arguments) {
         return arguments.stream()
@@ -101,15 +115,60 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         handleReturnInteraction(expressionFunctionBodyNode.expression());
     }
 
+    @Override
+    public void visit(IfElseStatementNode ifElseStatementNode) {
+        nodeBuilder.location(ifElseStatementNode)
+                .property(SequenceNode.CONDITION_LABEL, ifElseStatementNode.condition());
+
+        BlockStatementNode ifBody = ifElseStatementNode.ifBody();
+        List<SequenceNode> thenBlockNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : ifBody.statements()) {
+            statement.accept(this);
+            thenBlockNodes.add(buildNode());
+        }
+        endBranch();
+        nodeBuilder.branch(SequenceNode.IF_THEN_LABEL, thenBlockNodes);
+
+        Optional<Node> elseBody = ifElseStatementNode.elseBody();
+        if (elseBody.isPresent()) {
+            startBranch();
+            List<SequenceNode> elseNodes = analyzeElseBody(elseBody.get());
+            endBranch();
+            nodeBuilder.branch(SequenceNode.IF_ELSE_LABEL, elseNodes);
+        }
+
+        appendNode();
+    }
+
+    private List<SequenceNode> analyzeElseBody(Node elseBody) {
+        return switch (elseBody.kind()) {
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
+            case BLOCK_STATEMENT -> {
+                List<SequenceNode> elseNodes = new ArrayList<>();
+                for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
+                    statement.accept(this);
+                    elseNodes.add(buildNode());
+                }
+                yield elseNodes;
+            }
+            case IF_ELSE_STATEMENT -> {
+                elseBody.accept(this);
+                yield List.of(buildNode());
+            }
+            default -> new ArrayList<>();
+        };
+    }
+
     // Handle methods
     private void handleReturnInteraction(ExpressionNode expressionNode) {
-        SequenceNode.Builder builder = new SequenceNode.Builder(semanticModel)
+        nodeBuilder
                 .kind(SequenceNode.NodeKind.RETURN)
                 .location(expressionNode)
                 .property(Interaction.VALUE_LABEL,
                         Expression.Factory.createType(semanticModel, expressionNode));
 
-        appendNode(builder);
+        appendNode();
     }
 
     public List<SequenceNode> getSequenceNodes() {
@@ -117,9 +176,9 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     }
 
     // Utility method
-    private void appendNode(SequenceNode.Builder builder) {
+    private void appendNode() {
         if (this.nodeBuilderStack.isEmpty()) {
-            this.sequenceNodes.add(builder.build());
+            this.sequenceNodes.add(nodeBuilder.build());
         }
     }
 
