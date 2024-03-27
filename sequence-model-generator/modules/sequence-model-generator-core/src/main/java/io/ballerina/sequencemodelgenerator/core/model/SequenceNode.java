@@ -12,10 +12,10 @@ import java.util.Map;
 public class SequenceNode {
 
     public static final String CONDITION_LABEL = "condition";
-    public static final String BODY_LABEL = "body";
 
     public static final String IF_THEN_LABEL = "Then";
     public static final String IF_ELSE_LABEL = "Else";
+    public static final String BODY_LABEL = "Body";
 
     private NodeKind kind;
     private List<Branch> branches;
@@ -45,7 +45,6 @@ public class SequenceNode {
     public static class Builder {
 
         protected final SemanticModel semanticModel;
-
         protected NodeKind kind;
         protected List<Branch> branches;
         protected Map<String, Object> properties;
@@ -85,6 +84,10 @@ public class SequenceNode {
         public Builder location(Node node) {
             this.location = node.lineRange();
             return this;
+        }
+
+        public boolean hasModified() {
+            return this.location != null;
         }
 
         public SequenceNode build() {
