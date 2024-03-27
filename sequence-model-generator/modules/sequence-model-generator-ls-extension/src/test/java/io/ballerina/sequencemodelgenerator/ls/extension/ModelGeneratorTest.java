@@ -90,8 +90,8 @@ public class ModelGeneratorTest {
 
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
-            TestConfig updatedTestConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
-                    testConfig.description(), modifiedDiagram);
+            TestConfig updatedTestConfig = new TestConfig(testConfig.source(), testConfig.description(),
+                    testConfig.start(), testConfig.end(), modifiedDiagram);
             updateConfig(configJsonPath, updatedTestConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -139,7 +139,7 @@ public class ModelGeneratorTest {
         Files.writeString(configJsonPath, objStr);
     }
 
-    private record TestConfig(LinePosition start, LinePosition end, String source, String description,
+    private record TestConfig(String source, String description, LinePosition start, LinePosition end,
                               Diagram diagram) {
 
     }
