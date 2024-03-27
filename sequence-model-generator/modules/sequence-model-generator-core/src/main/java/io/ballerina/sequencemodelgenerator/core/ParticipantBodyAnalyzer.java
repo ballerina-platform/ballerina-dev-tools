@@ -195,7 +195,7 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     // Utility method
     private void appendNode() {
         if (this.nodeBuilderStack.isEmpty()) {
-            this.sequenceNodes.add(nodeBuilder.build());
+            this.sequenceNodes.add(buildNode());
         }
     }
 

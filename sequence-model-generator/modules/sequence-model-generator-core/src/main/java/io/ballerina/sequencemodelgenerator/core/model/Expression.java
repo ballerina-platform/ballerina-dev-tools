@@ -29,7 +29,7 @@ public record Expression(String type, String value) {
         }
 
         public static Expression createStringType(Node node) {
-            return new Expression(STRING_TYPE, node.toString());
+            return new Expression(STRING_TYPE, node.toString().strip());
         }
 
         public static Expression createType(SemanticModel semanticModel, Node node) {
