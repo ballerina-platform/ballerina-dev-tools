@@ -20,10 +20,11 @@ package io.ballerina.sequencemodelgenerator.ls.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -34,7 +35,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.internal.annotations.TestOrConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,21 +75,24 @@ public class ModelGeneratorTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = CONFIG_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        JsonObject jsonModel = getResponse(testConfig.source(), testConfig.start(), testConfig.end());
+        JsonObject responseJson =
+                getResponse(testConfig.source(), testConfig.start(), testConfig.end());
+        Assert.assertNotNull(responseJson);
+        Diagram jsonModel = gson.fromJson(responseJson.getAsJsonObject("sequenceDiagramModel"), Diagram.class);
 
         // Assert only the file name since the absolute path may vary depending on the machine
-        Assert.assertNotNull(jsonModel);
-        String balFileName =
-                Path.of(jsonModel.getAsJsonPrimitive(FILE_NAME_FIELD).getAsString()).getFileName().toString();
-        JsonPrimitive testFileName = testConfig.diagram().getAsJsonPrimitive(FILE_NAME_FIELD);
-        boolean fileNameEquality = testFileName != null && balFileName.equals(testFileName.getAsString());
-        JsonObject modifiedDiagram = jsonModel.deepCopy();
-        modifiedDiagram.addProperty(FILE_NAME_FIELD, balFileName);
+        LineRange location = jsonModel.location();
+        String balFileName = Path.of(location.fileName()).getFileName().toString();
+        LineRange testConfigLocation = testConfig.diagram().location();
+        boolean fileNameEquality = testConfigLocation != null && balFileName.equals(testConfigLocation.fileName());
+        Diagram modifiedDiagram = new Diagram(
+                LineRange.from(balFileName, location.startLine(), location.endLine()), jsonModel.participants());
 
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
             TestConfig updatedTestConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
                     testConfig.description(), modifiedDiagram);
+            updateConfig(configJsonPath, updatedTestConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -131,8 +134,17 @@ public class ModelGeneratorTest {
         return new String[]{};
     }
 
+    private void updateConfig(Path configJsonPath, Object updatedConfig) throws IOException {
+        String objStr = gson.toJson(updatedConfig).concat(System.lineSeparator());
+        Files.writeString(configJsonPath, objStr);
+    }
+
     private record TestConfig(LinePosition start, LinePosition end, String source, String description,
-                              JsonObject diagram) {
+                              Diagram diagram) {
+
+    }
+
+    private record Diagram(LineRange location, JsonArray participants) {
 
     }
 }
