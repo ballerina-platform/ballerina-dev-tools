@@ -50,7 +50,7 @@ public class ModelGenerator {
                 .orElse(Constants.DEFAULT_MODULE);
 
         ParticipantManager participantManager = ParticipantManager.getInstance();
-        participantManager.generateParticipant(rootNode, null, moduleName);
+        participantManager.generateParticipant(rootNode, moduleName);
         return new Diagram(participantManager.getParticipants(), lineRange);
     }
 }
