@@ -1,0 +1,95 @@
+{
+  "source": "endpoint_call1.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 6,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "endpoint_call1.bal",
+      "startLine": {
+        "line": 4,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 6,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "33781",
+        "name": "cl",
+        "kind": "ENDPOINT",
+        "moduleName": ".",
+        "location": {
+          "fileName": "endpoint_call1.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 53
+          }
+        }
+      },
+      {
+        "id": "35775",
+        "name": "getCall",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "33781",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "params": [
+                {
+                  "type": "string",
+                  "value": "\"/hello\""
+                }
+              ],
+              "value": {
+                "type": "json|http:ballerina/http:2.10.12:error",
+                "value": "response "
+              }
+            },
+            "location": {
+              "fileName": "endpoint_call1.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 26
+              },
+              "endLine": {
+                "line": 5,
+                "offset": 43
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "endpoint_call1.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}
