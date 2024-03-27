@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
 import io.ballerina.sequencemodelgenerator.core.ModelGenerator;
 import io.ballerina.sequencemodelgenerator.core.model.Diagram;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -35,6 +35,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -65,12 +66,11 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
             SequenceDiagramServiceResponse response = new SequenceDiagramServiceResponse();
             Path filePath = Path.of(request.getFilePath());
             try {
-                this.workspaceManager.loadProject(filePath);
+                Project project = getCurrentProject(filePath);
                 SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElseThrow();
-                Document document = this.workspaceManager.document(filePath).orElseThrow();
                 ModelGenerator modelGenerator = new ModelGenerator();
                 Diagram sequenceModel =
-                        modelGenerator.getSequenceDiagramModel(document, request.getLineRange(), semanticModel);
+                        modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
                 Gson gson = new GsonBuilder().create();
                 JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
                 response.setSequenceDiagramModel(sequenceModelJson);
@@ -80,5 +80,13 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
             }
             return response;
         });
+    }
+
+    private Project getCurrentProject(Path path) throws WorkspaceDocumentException, EventSyncException {
+        Optional<Project> project = workspaceManager.project(path);
+        if (project.isEmpty()) {
+            return workspaceManager.loadProject(path);
+        }
+        return project.get();
     }
 }

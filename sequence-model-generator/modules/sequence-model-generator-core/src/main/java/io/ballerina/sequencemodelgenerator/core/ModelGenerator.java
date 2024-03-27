@@ -19,16 +19,13 @@
 package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
 import io.ballerina.sequencemodelgenerator.core.model.Diagram;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
-
-import java.util.List;
 
 /**
  * Represents the root model generator for sequence diagram.
@@ -37,19 +34,23 @@ import java.util.List;
  */
 public class ModelGenerator {
 
-    public Diagram getSequenceDiagramModel(Document document, LineRange lineRange, SemanticModel semanticModel) {
+    public Diagram getSequenceDiagramModel(Project project, LineRange lineRange, SemanticModel semanticModel) {
         // Obtain the block representing the diagram
-        SyntaxTree syntaxTree = document.syntaxTree();
+        SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, lineRange.fileName(), null);
         TextDocument textDocument = syntaxTree.textDocument();
-        ModulePartNode modulePartNode = syntaxTree.rootNode();
         int start = textDocument.textPositionFrom(lineRange.startLine());
         int end = textDocument.textPositionFrom(lineRange.endLine());
-        NonTerminalNode rootNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
+        TextRange textRange = TextRange.from(start, end - start);
+        NonTerminalNode rootNode = CommonUtil.getNode(syntaxTree, textRange);
+        ParticipantManager.initialize(semanticModel, project);
 
-        // Analyze the code block to find the sequence nodes
-        ParticipantAnalyzer codeAnalyzer = new ParticipantAnalyzer(semanticModel);
-        rootNode.accept(codeAnalyzer);
+        // Generate the participant nodes
+        String moduleName = semanticModel.symbol(rootNode)
+                .flatMap(CommonUtil::getModuleName)
+                .orElse(Constants.DEFAULT_MODULE);
 
-        return new Diagram(List.of(), lineRange);
+        ParticipantManager participantManager = ParticipantManager.getInstance();
+        participantManager.generateParticipant(rootNode, null, moduleName);
+        return new Diagram(participantManager.getParticipants(), lineRange);
     }
 }

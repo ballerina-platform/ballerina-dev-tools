@@ -18,11 +18,17 @@ public record Participant(String id, String name, ParticipantKind kind, String m
 
     public static class Builder {
 
+        private String id;
         private String name;
         private ParticipantKind kind;
         private String moduleName;
         private List<SequenceNode> nodes;
         private LineRange location;
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder name(String name) {
             this.name = name;
@@ -44,13 +50,12 @@ public record Participant(String id, String name, ParticipantKind kind, String m
             return this;
         }
 
-        public Builder location(Node node) {
-            this.location = node.lineRange();
+        public Builder location(LineRange location) {
+            this.location = location;
             return this;
         }
 
         public Participant build() {
-            String id = String.valueOf(Objects.hash(location));
             return new Participant(id, name, kind, moduleName, nodes, location);
         }
     }
