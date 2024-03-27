@@ -25,8 +25,7 @@ public class Interaction extends SequenceNode {
         ENDPOINT_CALL,
         FUNCTION_CALL,
         METHOD_CALL,
-        WORKER_CALL,
-        RETURN_CALL
+        WORKER_CALL
     }
 
     public static class Builder extends SequenceNode.Builder {

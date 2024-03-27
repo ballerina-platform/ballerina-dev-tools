@@ -2,15 +2,19 @@ package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ExpressionFunctionBodyNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
+import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
+import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
-import io.ballerina.sequencemodelgenerator.core.model.ExpressionNode;
+import io.ballerina.sequencemodelgenerator.core.model.Expression;
 import io.ballerina.sequencemodelgenerator.core.model.Interaction;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceNode;
@@ -26,27 +30,21 @@ public class ParticipantAnalyzer extends NodeVisitor {
     private final List<SequenceNode> sequenceNodes;
     private final SemanticModel semanticModel;
     private final Stack<SequenceNode.Builder> nodeBuilderStack;
-    private final String sourceId;
     private final String moduleName;
 
-    // State variables
     private String participantId;
     private SequenceNode.Builder nodeBuilder;
     private TypedBindingPatternNode typedBindingPatternNode;
-
-    // Output variables
     private Participant participant;
     private List<String> dependentParticipants;
 
-    public ParticipantAnalyzer(SemanticModel semanticModel, String sourceId, String moduleName) {
+    public ParticipantAnalyzer(SemanticModel semanticModel, String moduleName) {
         this.semanticModel = semanticModel;
         this.sequenceNodes = new ArrayList<>();
         this.nodeBuilderStack = new Stack<>();
-        this.sourceId = sourceId;
         this.moduleName = moduleName;
 
         this.nodeBuilder = new SequenceNode.Builder(semanticModel);
-        this.dependentParticipants = new ArrayList<>();
     }
 
     @Override
@@ -73,7 +71,7 @@ public class ParticipantAnalyzer extends NodeVisitor {
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
         NameReferenceNode functionName = functionCallExpressionNode.functionName();
 
-        String targetId = ParticipantManager.getInstance().getParticipantId(functionName, participantId);
+        String targetId = ParticipantManager.getInstance().getParticipantId(functionName);
         SequenceNode.Builder interactionBuilder = new Interaction.Builder(semanticModel)
                 .interactionType(Interaction.InteractionType.FUNCTION_CALL)
                 .targetId(targetId)
@@ -85,8 +83,8 @@ public class ParticipantAnalyzer extends NodeVisitor {
 
         interactionBuilder
                 .property(Interaction.PARAMS_LABEL, paramList)
-                .property(Interaction.NAME_LABEL, ExpressionNode.Factory.createStringType(functionName))
-                .property(Interaction.VALUE_LABEL, ExpressionNode.Factory.create(semanticModel,
+                .property(Interaction.NAME_LABEL, Expression.Factory.createStringType(functionName))
+                .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
                         functionCallExpressionNode, typedBindingPatternNode.bindingPattern()));
 
         appendNode(interactionBuilder);
@@ -94,24 +92,21 @@ public class ParticipantAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
-        SequenceNode.Builder interactionBuilder = new Interaction.Builder(semanticModel)
-                .interactionType(Interaction.InteractionType.RETURN_CALL)
-                .targetId(sourceId)
-                .location(returnStatementNode)
-                .property(Interaction.VALUE_LABEL,
-                        ExpressionNode.Factory.createType(semanticModel, returnStatementNode.expression().get()));
-
-        appendNode(interactionBuilder);
+        returnStatementNode.expression().ifPresent(this::handleReturnInteraction);
     }
 
     @Override
     public void visit(ExpressionFunctionBodyNode expressionFunctionBodyNode) {
-        SequenceNode.Builder interactionBuilder = new Interaction.Builder(semanticModel)
-                .interactionType(Interaction.InteractionType.RETURN_CALL)
-                .targetId(sourceId)
-                .location(expressionFunctionBodyNode)
+        handleReturnInteraction(expressionFunctionBodyNode.expression());
+    }
+
+    // Handle methods
+    private void handleReturnInteraction(ExpressionNode expressionNode) {
+        SequenceNode.Builder builder = new SequenceNode.Builder(semanticModel)
+                .kind(SequenceNode.NodeKind.RETURN)
+                .location(expressionNode)
                 .property(Interaction.VALUE_LABEL,
-                        ExpressionNode.Factory.createType(semanticModel, expressionFunctionBodyNode.expression()));
+                        Expression.Factory.createType(semanticModel, expressionNode));
 
         appendNode(interactionBuilder);
     }
@@ -147,9 +142,5 @@ public class ParticipantAnalyzer extends NodeVisitor {
         String id = String.valueOf(Objects.hash(location));
         this.participantId = id;
         participantBuilder.id(id).location(location);
-    }
-
-    private void addDependentParticipant(String name) {
-        this.dependentParticipants.add(name);
     }
 }

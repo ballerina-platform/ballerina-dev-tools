@@ -2,7 +2,6 @@ package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
@@ -38,7 +37,7 @@ public class ParticipantManager {
         return instance;
     }
 
-    public String getParticipantId(NameReferenceNode name, String sourceId) {
+    public String getParticipantId(Node name) {
         String participantId = cache.get(name.toString());
         if (participantId != null) {
             return participantId;
@@ -50,14 +49,14 @@ public class ParticipantManager {
             String moduleName = CommonUtil.getModuleName(symbol).orElseThrow();
             SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, fileName, moduleName);
             NonTerminalNode participantNode = CommonUtil.getNode(syntaxTree, location.textRange());
-            return generateParticipant(participantNode, sourceId, moduleName);
+            return generateParticipant(participantNode, moduleName);
         } catch (RuntimeException e) {
             return null;
         }
     }
 
-    public String generateParticipant(Node participantNode, String sourceId, String moduleName) {
-        ParticipantAnalyzer participantAnalyzer = new ParticipantAnalyzer(semanticModel, sourceId, moduleName);
+    public String generateParticipant(Node participantNode, String moduleName) {
+        ParticipantAnalyzer participantAnalyzer = new ParticipantAnalyzer(semanticModel, moduleName);
         participantNode.accept(participantAnalyzer);
         Participant participant = participantAnalyzer.getParticipant();
         participants.add(participant);

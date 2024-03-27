@@ -2,14 +2,13 @@ package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.sequencemodelgenerator.core.CommonUtil;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class SequenceNode {
+public class SequenceNode {
 
     private NodeKind kind;
     private Branch[] branches;
@@ -32,7 +31,8 @@ public abstract class SequenceNode {
         WHILE,
         FOREACH,
         MATCH,
-        INTERACTION
+        INTERACTION,
+        RETURN
     }
 
     public static class Builder {
@@ -59,18 +59,18 @@ public abstract class SequenceNode {
             return this;
         }
 
-        public Builder property(String key, List<ExpressionNode> value) {
+        public Builder property(String key, List<Expression> value) {
             this.properties.put(key, value);
             return this;
         }
 
-        public Builder property(String key, ExpressionNode value) {
+        public Builder property(String key, Expression value) {
             this.properties.put(key, value);
             return this;
         }
 
         public Builder property(String key, Node node) {
-            this.properties.put(key, ExpressionNode.Factory.create(semanticModel, node));
+            this.properties.put(key, Expression.Factory.create(semanticModel, node));
             return this;
         }
 
@@ -80,7 +80,7 @@ public abstract class SequenceNode {
         }
 
         public SequenceNode build() {
-            return null;
+            return new SequenceNode(kind, branches, properties, location);
         }
     }
 }
