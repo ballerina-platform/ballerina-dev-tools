@@ -51,6 +51,7 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
                 .property(Interaction.PARAMS_LABEL, paramList)
                 .property(Interaction.NAME_LABEL,
                         Expression.Factory.createStringType(remoteMethodCallActionNode.methodName()))
+                .property(Interaction.EXPRESSION_LABEL, remoteMethodCallActionNode.expression())
                 .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
                         remoteMethodCallActionNode, typedBindingPatternNode.bindingPattern()));
 
