@@ -17,6 +17,7 @@ import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.sequencemodelgenerator.core.model.Expression;
 import io.ballerina.sequencemodelgenerator.core.model.Interaction;
 import io.ballerina.sequencemodelgenerator.core.model.SequenceNode;
@@ -97,8 +98,6 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         appendNode();
     }
 
-
-
     private List<Expression> getParamList(SeparatedNodeList<FunctionArgumentNode> arguments) {
         return arguments.stream()
                 .map(argument -> Expression.Factory.create(semanticModel, argument))
@@ -117,15 +116,15 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        nodeBuilder.location(ifElseStatementNode)
+        nodeBuilder
+                .location(ifElseStatementNode)
                 .property(SequenceNode.CONDITION_LABEL, ifElseStatementNode.condition());
 
-        BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         List<SequenceNode> thenBlockNodes = new ArrayList<>();
         startBranch();
-        for (StatementNode statement : ifBody.statements()) {
+        for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
             statement.accept(this);
-            thenBlockNodes.add(buildNode());
+            addNode(thenBlockNodes, statement);
         }
         endBranch();
         nodeBuilder.branch(SequenceNode.IF_THEN_LABEL, thenBlockNodes);
@@ -158,6 +157,24 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
             }
             default -> new ArrayList<>();
         };
+    }
+
+    @Override
+    public void visit(WhileStatementNode whileStatementNode) {
+        nodeBuilder
+                .location(whileStatementNode)
+                .property(SequenceNode.CONDITION_LABEL, whileStatementNode.condition());
+
+        List<SequenceNode> bodyBlockNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : whileStatementNode.whileBody().statements()) {
+            statement.accept(this);
+            addNode(bodyBlockNodes, statement);
+        }
+        endBranch();
+        nodeBuilder.branch(SequenceNode.BODY_LABEL, bodyBlockNodes);
+
+        appendNode();
     }
 
     // Handle methods
@@ -195,5 +212,11 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         SequenceNode sequenceNode = nodeBuilder.build();
         nodeBuilder = new SequenceNode.Builder(semanticModel);
         return sequenceNode;
+    }
+
+    private void addNode(List<SequenceNode> nodeList, Node node) {
+        if (nodeBuilder.hasModified()) {
+            nodeList.add(buildNode());
+        }
     }
 }
