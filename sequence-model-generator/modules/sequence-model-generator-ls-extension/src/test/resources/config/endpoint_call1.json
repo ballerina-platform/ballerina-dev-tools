@@ -65,7 +65,7 @@
                 }
               ],
               "value": {
-                "type": "json|http:ballerina/http:2.10.12:error",
+                "type": "json|http:ClientError",
                 "value": "getRes"
               }
             },
@@ -109,7 +109,7 @@
                 }
               ],
               "value": {
-                "type": "http:Response|http:ballerina/http:2.10.12:error",
+                "type": "http:Response|http:ClientError",
                 "value": "postRes"
               }
             },
