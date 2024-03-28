@@ -54,7 +54,10 @@ public class CommonUtil {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
-                yield getTypeSignature(typeReferenceTypeSymbol.typeDescriptor());
+                String modulePrefix = getModuleName(typeReferenceTypeSymbol).map(s -> s + ":").orElse("");
+                yield typeReferenceTypeSymbol.definition().getName()
+                        .map(name -> modulePrefix + name)
+                        .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()));
             }
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
