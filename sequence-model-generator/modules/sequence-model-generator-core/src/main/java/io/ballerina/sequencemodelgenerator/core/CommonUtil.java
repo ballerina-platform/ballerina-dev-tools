@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -16,7 +34,15 @@ import io.ballerina.tools.text.TextRange;
 import java.nio.file.Path;
 import java.util.Optional;
 
+/**
+ * Represents the common utility functions for the sequence diagram.
+ *
+ * @since 2201.9.0
+ */
 public class CommonUtil {
+
+    private CommonUtil() {
+    }
 
     /**
      * Returns the type signature of the given type symbol.
@@ -50,6 +76,14 @@ public class CommonUtil {
         };
     }
 
+    /**
+     * Returns the syntax tree of the given file.
+     *
+     * @param project    the project of the sequence diagram
+     * @param fileName   the file name
+     * @param moduleName the module name in which the file resides
+     * @return the syntax tree of the file
+     */
     public static SyntaxTree getSyntaxTree(Project project, String fileName, String moduleName) {
         Path sourceRoot = project.sourceRoot();
         Path filePath = switch (project.kind()) {
@@ -71,11 +105,24 @@ public class CommonUtil {
         return module.document(documentId).syntaxTree();
     }
 
+    /**
+     * Returns the node in the syntax tree for the given text range.
+     *
+     * @param syntaxTree the syntax tree in which the node resides
+     * @param textRange  the text range of the node
+     * @return the node in the syntax tree
+     */
     public static NonTerminalNode getNode(SyntaxTree syntaxTree, TextRange textRange) {
         ModulePartNode modulePartNode = syntaxTree.rootNode();
         return modulePartNode.findNode(textRange, true);
     }
 
+    /**
+     * Returns the module name of the given symbol.
+     *
+     * @param symbol the symbol to get the module name
+     * @return the module name
+     */
     public static Optional<String> getModuleName(Symbol symbol) {
         return symbol.getModule().map(module -> module.id().modulePrefix());
     }

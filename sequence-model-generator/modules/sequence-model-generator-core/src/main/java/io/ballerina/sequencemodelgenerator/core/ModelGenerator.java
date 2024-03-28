@@ -34,7 +34,15 @@ import io.ballerina.tools.text.TextRange;
  */
 public class ModelGenerator {
 
-    public Diagram getSequenceDiagramModel(Project project, LineRange lineRange, SemanticModel semanticModel) {
+    /**
+     * Generates the sequence diagram model.
+     *
+     * @param project       project of the diagram
+     * @param lineRange     line range of the participant
+     * @param semanticModel semantic model  of the diagram
+     * @return the sequence diagram model
+     */
+    public static Diagram getSequenceDiagramModel(Project project, LineRange lineRange, SemanticModel semanticModel) {
         // Obtain the block representing the diagram
         SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, lineRange.fileName(), null);
         TextDocument textDocument = syntaxTree.textDocument();
