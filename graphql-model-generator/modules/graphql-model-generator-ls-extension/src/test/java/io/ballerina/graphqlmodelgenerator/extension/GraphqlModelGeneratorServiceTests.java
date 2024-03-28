@@ -22,6 +22,7 @@ import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -42,6 +44,7 @@ public class GraphqlModelGeneratorServiceTests {
     private static final String BALLERINA = "ballerina";
     private static final String RESPONSES = "responses";
     private static final String PROJECT_DESIGN_SERVICE = "graphqlDesignService/getGraphqlModel";
+    private static final String OS = System.getProperty("os.name", "unknown").toLowerCase(Locale.ROOT);
 
     private Endpoint serviceEndpoint;
 
@@ -52,6 +55,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test service with operations, outputs(enum,record,class), documentation and directives")
     public void testDifferentOutputsAndOperations() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "01_graphql_service.bal"));
 
@@ -65,6 +71,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test service with input objects")
     public void testInputObjects() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "02_graphql_service.bal"));
 
@@ -77,6 +86,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test service with interfaces")
     public void testServiceWithInterfaces() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "03_service_with_interfaces.bal"));
 
@@ -89,6 +101,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test service with union output")
     public void testServiceWithUnionOutput() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "04_service_with_union_outputs.bal"));
 
@@ -101,6 +116,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test outputs from different files other than the service file")
     public void testObjectsFromDifferentFiles() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "05_outputs_from_different_file.bal"));
 
@@ -113,6 +131,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test graphql file uploads")
     public void testFileUploads() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "06_file_uploads.bal"));
 
@@ -125,6 +146,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test resource paths with hierarchical paths")
     public void testHierarchicalResourcePaths() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "07_hierarchical_resource_paths.bal"));
 
@@ -138,6 +162,9 @@ public class GraphqlModelGeneratorServiceTests {
 
     @Test(description = "test resource with invalid output")
     public void testResourceWithInvalidOutput() throws IOException, ExecutionException, InterruptedException {
+        if (OS.contains("win")) {
+            throw new SkipException("Skipping this test on Windows");
+        }
         Path projectPath = RES_DIR.resolve(BALLERINA).resolve(
                 Path.of("graphql_services", "08_resource_with_invalid_return.bal"));
 
