@@ -26,15 +26,15 @@ import com.google.gson.JsonElement;
  * @since 2201.9.0
  */
 public class SequenceDiagramServiceResponse {
-    private JsonElement sequenceDiagramModel;
+    private JsonElement sequenceDiagram;
     private ModelDiagnostic modelDiagnostic;
 
-    public JsonElement getSequenceDiagramModel() {
-        return sequenceDiagramModel;
+    public JsonElement getSequenceDiagram() {
+        return sequenceDiagram;
     }
 
-    public void setSequenceDiagramModel(JsonElement sequenceDiagramModel) {
-        this.sequenceDiagramModel = sequenceDiagramModel;
+    public void setSequenceDiagram(JsonElement sequenceDiagram) {
+        this.sequenceDiagram = sequenceDiagram;
     }
 
     public ModelDiagnostic getModelDiagnostic() {

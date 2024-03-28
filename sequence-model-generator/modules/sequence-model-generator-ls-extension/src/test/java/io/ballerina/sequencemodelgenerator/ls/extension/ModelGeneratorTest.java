@@ -78,7 +78,7 @@ public class ModelGeneratorTest {
         JsonObject responseJson =
                 getResponse(testConfig.source(), testConfig.start(), testConfig.end());
         Assert.assertNotNull(responseJson);
-        Diagram jsonModel = gson.fromJson(responseJson.getAsJsonObject("sequenceDiagramModel"), Diagram.class);
+        Diagram jsonModel = gson.fromJson(responseJson.getAsJsonObject("sequenceDiagram"), Diagram.class);
 
         // Assert only the file name since the absolute path may vary depending on the machine
         LineRange location = jsonModel.location();

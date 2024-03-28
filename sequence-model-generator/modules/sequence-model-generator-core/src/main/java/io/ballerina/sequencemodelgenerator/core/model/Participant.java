@@ -1,62 +1,49 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.sequencemodelgenerator.core.model;
 
-import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.tools.text.LineRange;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * Represents a participant in the sequence diagram.
+ *
+ * @param id         unique identifier of the participant
+ * @param name       name of the participant
+ * @param kind       kind of the participant
+ * @param moduleName Module name in which the participant is defined
+ * @param nodes      sequence nodes of the participant
+ * @param location   location of the participant
+ * @since 2201.9.0
+ */
 public record Participant(String id, String name, ParticipantKind kind, String moduleName, List<SequenceNode> nodes,
                           LineRange location) {
 
+    /**
+     * Represents the kind of the participant.
+     *
+     * @since 2201.9.0
+     */
     public enum ParticipantKind {
         FUNCTION,
         WORKER,
         ENDPOINT
-    }
-
-    public static class Builder {
-
-        private String id;
-        private String name;
-        private ParticipantKind kind;
-        private String moduleName;
-        private List<SequenceNode> nodes;
-        private LineRange location;
-
-        public Builder id(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder kind(ParticipantKind kind) {
-            this.kind = kind;
-            return this;
-        }
-
-        public Builder moduleName(String moduleName) {
-            this.moduleName = moduleName;
-            return this;
-        }
-
-        public Builder nodes(List<SequenceNode> nodes) {
-            this.nodes = new ArrayList<>(nodes);
-            return this;
-        }
-
-        public Builder location(LineRange location) {
-            this.location = location;
-            return this;
-        }
-
-        public Participant build() {
-            return new Participant(id, name, kind, moduleName, nodes, location);
-        }
     }
 }

@@ -1,3 +1,21 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package io.ballerina.sequencemodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
@@ -14,6 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Manages the participants in the sequence diagram.
+ *
+ * @since 2201.9.0
+ */
 public class ParticipantManager {
 
     private static ParticipantManager instance = null;
@@ -29,14 +52,31 @@ public class ParticipantManager {
         this.project = project;
     }
 
+    /**
+     * Initializes the participant manager. This method should be called before calling any other method.
+     *
+     * @param semanticModel semantic model of the sequence diagram
+     * @param project       project of the sequence diagram
+     */
     public static void initialize(SemanticModel semanticModel, Project project) {
         instance = new ParticipantManager(semanticModel, project);
     }
 
+    /**
+     * Returns the participant manager instance.
+     *
+     * @return participant manager instance
+     */
     public static ParticipantManager getInstance() {
         return instance;
     }
 
+    /**
+     * Returns the participant ID of the given participant name. Generates the participant if not found.
+     *
+     * @param name participant name
+     * @return participant ID
+     */
     public String getParticipantId(Node name) {
         String participantId = cache.get(name.toString());
         if (participantId != null) {
@@ -55,6 +95,13 @@ public class ParticipantManager {
         }
     }
 
+    /**
+     * Generates the participant node.
+     *
+     * @param participantNode participant node
+     * @param moduleName      module name of the participant
+     * @return participant ID
+     */
     public String generateParticipant(Node participantNode, String moduleName) {
         ParticipantAnalyzer participantAnalyzer = new ParticipantAnalyzer(semanticModel, moduleName);
         participantNode.accept(participantAnalyzer);
@@ -65,6 +112,11 @@ public class ParticipantManager {
         return participantId;
     }
 
+    /**
+     * Returns the participants in the sequence diagram.
+     *
+     * @return participants in the sequence diagram
+     */
     public List<Participant> getParticipants() {
         return participants;
     }

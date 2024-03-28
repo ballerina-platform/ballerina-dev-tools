@@ -68,12 +68,11 @@ public class SequenceModelGeneratorService implements ExtendedLanguageServerServ
             try {
                 Project project = getCurrentProject(filePath);
                 SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElseThrow();
-                ModelGenerator modelGenerator = new ModelGenerator();
                 Diagram sequenceModel =
-                        modelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
+                        ModelGenerator.getSequenceDiagramModel(project, request.getLineRange(), semanticModel);
                 Gson gson = new GsonBuilder().create();
                 JsonElement sequenceModelJson = gson.toJsonTree(sequenceModel);
-                response.setSequenceDiagramModel(sequenceModelJson);
+                response.setSequenceDiagram(sequenceModelJson);
 
             } catch (WorkspaceDocumentException | EventSyncException e) {
                 throw new RuntimeException(e);
