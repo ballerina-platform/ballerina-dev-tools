@@ -35,14 +35,22 @@ public class Interaction extends SequenceNode {
     public static final String VALUE_LABEL = "value";
     public static final String EXPRESSION_LABEL = "expr";
 
-    private InteractionType interactionType;
-    private String targetId;
+    private final InteractionType interactionType;
+    private final String targetId;
 
     public Interaction(Map<String, Object> properties, LineRange location, InteractionType interactionType,
                        String targetId) {
         super(NodeKind.INTERACTION, null, properties, location);
         this.interactionType = interactionType;
         this.targetId = targetId;
+    }
+
+    public InteractionType interactionType() {
+        return interactionType;
+    }
+
+    public String targetId() {
+        return targetId;
     }
 
     public enum InteractionType {
