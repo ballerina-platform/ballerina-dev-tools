@@ -40,16 +40,32 @@ public class SequenceNode {
     public static final String IF_ELSE_LABEL = "Else";
     public static final String BODY_LABEL = "Body";
 
-    private NodeKind kind;
-    private List<Branch> branches;
-    private Map<String, Object> properties;
-    private LineRange location;
+    private final NodeKind kind;
+    private final List<Branch> branches;
+    private final Map<String, Object> properties;
+    private final LineRange location;
 
     public SequenceNode(NodeKind kind, List<Branch> branches, Map<String, Object> properties, LineRange location) {
         this.kind = kind;
         this.branches = branches;
         this.properties = properties;
         this.location = location;
+    }
+
+    public NodeKind kind() {
+        return kind;
+    }
+
+    public List<Branch> branches() {
+        return branches;
+    }
+
+    public Map<String, Object> properties() {
+        return properties;
+    }
+
+    public LineRange location() {
+        return location;
     }
 
     /**
