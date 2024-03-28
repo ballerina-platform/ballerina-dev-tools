@@ -148,7 +148,7 @@
                         }
                       ],
                       "value": {
-                        "type": "record {|string keyword; boolean isAvailable;|}|http:ballerina/http:2.10.12:error",
+                        "type": "record {|string keyword; boolean isAvailable;|}|http:ClientError",
                         "value": "ratingRes"
                       }
                     },
@@ -189,7 +189,7 @@
                                 }
                               ],
                               "value": {
-                                "type": "int|http:ballerina/http:2.10.12:error",
+                                "type": "int|http:ClientError",
                                 "value": "rating"
                               }
                             },
@@ -234,7 +234,7 @@
                                 }
                               ],
                               "value": {
-                                "type": "http:Response|http:ballerina/http:2.10.12:error",
+                                "type": "http:Response|http:ClientError",
                                 "value": "postRes"
                               }
                             },
@@ -390,7 +390,7 @@
                 }
               ],
               "value": {
-                "type": "Food[]|http:ballerina/http:2.10.12:error",
+                "type": "Food[]|http:ClientError",
                 "value": "menu"
               }
             },
@@ -485,7 +485,7 @@
                 }
               ],
               "value": {
-                "type": "ItemInfo[]|http:ballerina/http:2.10.12:error",
+                "type": "ItemInfo[]|http:ClientError",
                 "value": "foodInfo"
               }
             },
@@ -512,7 +512,7 @@
               },
               "params": [
                 {
-                  "type": "ItemInfo[]|http:ballerina/http:2.10.12:error",
+                  "type": "ItemInfo[]|http:ClientError",
                   "value": "foodInfo"
                 }
               ],
