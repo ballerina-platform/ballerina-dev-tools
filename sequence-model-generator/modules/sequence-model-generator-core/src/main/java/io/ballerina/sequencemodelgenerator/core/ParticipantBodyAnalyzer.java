@@ -55,7 +55,6 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     private final List<SequenceNode> sequenceNodes;
     private final SemanticModel semanticModel;
     private final Stack<SequenceNode.Builder> nodeBuilderStack;
-
     private SequenceNode.Builder nodeBuilder;
     private Node variableNode;
 
@@ -63,7 +62,6 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         this.semanticModel = semanticModel;
         this.sequenceNodes = new ArrayList<>();
         this.nodeBuilderStack = new Stack<>();
-
         this.nodeBuilder = new SequenceNode.Builder(semanticModel);
     }
 
@@ -76,9 +74,8 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
                 .targetId(targetId)
                 .location(remoteMethodCallActionNode);
 
-        List<Expression> paramList = getParamList(remoteMethodCallActionNode.arguments());
         nodeBuilder
-                .property(Interaction.PARAMS_LABEL, paramList)
+                .property(Interaction.PARAMS_LABEL, getParamList(remoteMethodCallActionNode.arguments()))
                 .property(Interaction.NAME_LABEL,
                         Expression.Factory.createStringType(remoteMethodCallActionNode.methodName()))
                 .property(Interaction.EXPRESSION_LABEL, remoteMethodCallActionNode.expression())
@@ -110,13 +107,14 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
                 .targetId(targetId)
                 .location(functionCallExpressionNode);
 
-        List<Expression> paramList = getParamList(functionCallExpressionNode.arguments());
-
         nodeBuilder
-                .property(Interaction.PARAMS_LABEL, paramList)
-                .property(Interaction.NAME_LABEL, Expression.Factory.createStringType(functionName))
-                .property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
-                        functionCallExpressionNode, variableNode));
+                .property(Interaction.PARAMS_LABEL, getParamList(functionCallExpressionNode.arguments()))
+                .property(Interaction.NAME_LABEL, Expression.Factory.createStringType(functionName));
+
+        if (variableNode != null) {
+            nodeBuilder.property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel,
+                    functionCallExpressionNode, variableNode));
+        }
 
         appendNode();
     }
@@ -129,12 +127,30 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
-        returnStatementNode.expression().ifPresent(this::handleReturnInteraction);
+        Optional<ExpressionNode> expression = returnStatementNode.expression();
+        if (expression.isPresent()) {
+            handleReturnInteraction(expression.get());
+            return;
+        }
+        nodeBuilder
+                .kind(SequenceNode.NodeKind.RETURN)
+                .location(returnStatementNode);
+        appendNode();
     }
 
     @Override
     public void visit(ExpressionFunctionBodyNode expressionFunctionBodyNode) {
         handleReturnInteraction(expressionFunctionBodyNode.expression());
+    }
+
+    private void handleReturnInteraction(ExpressionNode expressionNode) {
+        nodeBuilder
+                .kind(SequenceNode.NodeKind.RETURN)
+                .location(expressionNode)
+                .property(Interaction.VALUE_LABEL,
+                        Expression.Factory.createType(semanticModel, expressionNode));
+
+        appendNode();
     }
 
     @Override
@@ -196,17 +212,6 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
         }
         endBranch();
         nodeBuilder.branch(SequenceNode.BODY_LABEL, bodyBlockNodes);
-
-        appendNode();
-    }
-
-    // Handle methods
-    private void handleReturnInteraction(ExpressionNode expressionNode) {
-        nodeBuilder
-                .kind(SequenceNode.NodeKind.RETURN)
-                .location(expressionNode)
-                .property(Interaction.VALUE_LABEL,
-                        Expression.Factory.createType(semanticModel, expressionNode));
 
         appendNode();
     }

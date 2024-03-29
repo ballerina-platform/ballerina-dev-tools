@@ -104,8 +104,7 @@ public class CommonUtil {
         };
         Path absPath = filePath.isAbsolute() ? filePath : sourceRoot.resolve(filePath);
         DocumentId documentId = project.documentId(absPath);
-        Module module = project.currentPackage().module(documentId.moduleId());
-        return module.document(documentId).syntaxTree();
+        return project.currentPackage().module(documentId.moduleId()).document(documentId).syntaxTree();
     }
 
     /**
