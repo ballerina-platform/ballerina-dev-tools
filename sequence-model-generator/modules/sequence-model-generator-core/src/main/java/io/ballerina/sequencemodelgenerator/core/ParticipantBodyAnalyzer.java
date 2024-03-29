@@ -34,6 +34,7 @@ import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StatementNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.sequencemodelgenerator.core.model.Expression;
@@ -127,29 +128,22 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
-        Optional<ExpressionNode> expression = returnStatementNode.expression();
-        if (expression.isPresent()) {
-            handleReturnInteraction(expression.get());
-            return;
-        }
-        nodeBuilder
-                .kind(SequenceNode.NodeKind.RETURN)
-                .location(returnStatementNode);
-        appendNode();
+        handleReturnAction(returnStatementNode, returnStatementNode.expression().orElse(null));
     }
 
     @Override
     public void visit(ExpressionFunctionBodyNode expressionFunctionBodyNode) {
-        handleReturnInteraction(expressionFunctionBodyNode.expression());
+        ExpressionNode expression = expressionFunctionBodyNode.expression();
+        handleReturnAction(expression, expression);
     }
 
-    private void handleReturnInteraction(ExpressionNode expressionNode) {
+    private void handleReturnAction(Node locationNode, ExpressionNode expression) {
         nodeBuilder
                 .kind(SequenceNode.NodeKind.RETURN)
-                .location(expressionNode)
-                .property(Interaction.VALUE_LABEL,
-                        Expression.Factory.createType(semanticModel, expressionNode));
-
+                .location(locationNode);
+        if (expression != null && expression.kind() != SyntaxKind.NIL_LITERAL) {
+            nodeBuilder.property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel, expression));
+        }
         appendNode();
     }
 
