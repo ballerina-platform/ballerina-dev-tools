@@ -90,12 +90,14 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         this.variableNode = variableDeclarationNode.typedBindingPattern().bindingPattern();
         variableDeclarationNode.initializer().ifPresent(expressionNode -> expressionNode.accept(this));
+        this.variableNode = null;
     }
 
     @Override
     public void visit(AssignmentStatementNode assignmentStatementNode) {
         this.variableNode = assignmentStatementNode.varRef();
         super.visit(assignmentStatementNode);
+        this.variableNode = null;
     }
 
     @Override
