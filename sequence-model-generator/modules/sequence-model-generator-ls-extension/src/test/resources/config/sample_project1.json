@@ -57,11 +57,11 @@
               "fileName": "sample_project1.bal",
               "startLine": {
                 "line": 43,
-                "offset": 11
+                "offset": 4
               },
               "endLine": {
                 "line": 45,
-                "offset": 43
+                "offset": 44
               }
             }
           }
@@ -87,11 +87,7 @@
           {
             "kind": "RETURN",
             "branches": [],
-            "properties": {
-              "value": {
-                "type": "()"
-              }
-            },
+            "properties": {},
             "location": {
               "fileName": "sample_project1.bal",
               "startLine": {
@@ -304,11 +300,11 @@
               "fileName": "sample_project1.bal",
               "startLine": {
                 "line": 39,
-                "offset": 11
+                "offset": 4
               },
               "endLine": {
                 "line": 39,
-                "offset": 19
+                "offset": 20
               }
             }
           }
@@ -334,11 +330,7 @@
           {
             "kind": "RETURN",
             "branches": [],
-            "properties": {
-              "value": {
-                "type": "()"
-              }
-            },
+            "properties": {},
             "location": {
               "fileName": "sample_project1.bal",
               "startLine": {
@@ -447,11 +439,7 @@
                   "type": "record {|string 'type; int count;|}[]",
                   "value": "itemCounts"
                 }
-              ],
-              "value": {
-                "type": "()",
-                "value": "itemCounts"
-              }
+              ]
             },
             "location": {
               "fileName": "sample_project1.bal",
@@ -515,11 +503,7 @@
                   "type": "ItemInfo[]|http:ClientError",
                   "value": "foodInfo"
                 }
-              ],
-              "value": {
-                "type": "()",
-                "value": "foodInfo"
-              }
+              ]
             },
             "location": {
               "fileName": "sample_project1.bal",

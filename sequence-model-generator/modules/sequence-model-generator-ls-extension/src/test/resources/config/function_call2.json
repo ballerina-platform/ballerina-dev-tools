@@ -111,11 +111,11 @@
               "fileName": "function_call2.bal",
               "startLine": {
                 "line": 8,
-                "offset": 11
+                "offset": 4
               },
               "endLine": {
                 "line": 8,
-                "offset": 16
+                "offset": 17
               }
             }
           }
@@ -209,11 +209,11 @@
               "fileName": "function_call2.bal",
               "startLine": {
                 "line": 3,
-                "offset": 11
+                "offset": 4
               },
               "endLine": {
                 "line": 3,
-                "offset": 22
+                "offset": 23
               }
             }
           }

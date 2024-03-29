@@ -144,7 +144,8 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
                 .kind(SequenceNode.NodeKind.RETURN)
                 .location(locationNode);
         if (expression != null && expression.kind() != SyntaxKind.NIL_LITERAL) {
-            nodeBuilder.property(Interaction.VALUE_LABEL, Expression.Factory.create(semanticModel, expression));
+            nodeBuilder.property(Interaction.VALUE_LABEL,
+                    Expression.Factory.createType(semanticModel, expression, true));
         }
         appendNode();
     }

@@ -19,6 +19,7 @@
 package io.ballerina.sequencemodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.sequencemodelgenerator.core.CommonUtil;
 
@@ -61,8 +62,9 @@ public record Expression(String type, String value) {
             return new Expression(STRING_TYPE, node.toString().strip());
         }
 
-        public static Expression createType(SemanticModel semanticModel, Node node) {
+        public static Expression createType(SemanticModel semanticModel, Node node, boolean ignoreNil) {
             return semanticModel.typeOf(node)
+                    .filter(symbol -> ignoreNil && symbol.typeKind() != TypeDescKind.NIL)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), null))
                     .orElseGet(() -> null);
         }
