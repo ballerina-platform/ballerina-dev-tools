@@ -61,7 +61,6 @@ public class ModelGeneratorTest {
     private Endpoint serviceEndpoint;
     private BallerinaLanguageServer languageServer;
     private static final String SEQUENCE_DESIGN_SERVICE = "sequenceModelGeneratorService/getSequenceDiagramModel";
-    private static final String FILE_NAME_FIELD = "fileName";
 
     @BeforeClass
     public void init() {
@@ -75,8 +74,7 @@ public class ModelGeneratorTest {
     public void test(Path config) throws IOException {
         Path configJsonPath = CONFIG_DIR.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
-        JsonObject responseJson =
-                getResponse(testConfig.source(), testConfig.start(), testConfig.end());
+        JsonObject responseJson = getResponse(testConfig.source(), testConfig.start(), testConfig.end());
         Assert.assertNotNull(responseJson);
         Diagram jsonModel = gson.fromJson(responseJson.getAsJsonObject("sequenceDiagram"), Diagram.class);
 
