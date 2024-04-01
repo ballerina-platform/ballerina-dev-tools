@@ -28,7 +28,7 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 /**
- * Represents the sequence model generator for sequence diagram.
+ * Represents the model generator for the sequence diagram.
  *
  * @since 2201.9.0
  */
