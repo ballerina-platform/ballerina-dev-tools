@@ -33,7 +33,7 @@ import io.ballerina.sequencemodelgenerator.core.CommonUtil;
 public record Expression(String type, String value) {
 
     /**
-     * Represents a factory to create {@link Expression} instances.
+     * Represents a factory to create an {@link Expression} instance.
      *
      * @since 2201.9.0
      */
@@ -45,21 +45,21 @@ public record Expression(String type, String value) {
         }
 
         public static Expression create(SemanticModel semanticModel, Node node) {
-            String nodeString = node.toString().strip();
+            String nodeString = getNodeString(node);
             return semanticModel.typeOf(node)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), nodeString))
                     .orElseGet(() -> new Expression(null, nodeString));
         }
 
         public static Expression create(SemanticModel semanticModel, Node typeNode, Node valueNode) {
-            String nodeString = valueNode.toString().strip();
+            String nodeString = getNodeString(valueNode);
             return semanticModel.typeOf(typeNode)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), nodeString))
                     .orElseGet(() -> new Expression(null, nodeString));
         }
 
         public static Expression createStringType(Node node) {
-            return new Expression(STRING_TYPE, node.toString().strip());
+            return new Expression(STRING_TYPE, getNodeString(node));
         }
 
         public static Expression createType(SemanticModel semanticModel, Node node, boolean ignoreNil) {
@@ -67,6 +67,10 @@ public record Expression(String type, String value) {
                     .filter(symbol -> ignoreNil && symbol.typeKind() != TypeDescKind.NIL)
                     .map(symbol -> new Expression(CommonUtil.getTypeSignature(symbol), null))
                     .orElseGet(() -> null);
+        }
+
+        private static String getNodeString(Node node) {
+            return node.toString().strip();
         }
     }
 }
