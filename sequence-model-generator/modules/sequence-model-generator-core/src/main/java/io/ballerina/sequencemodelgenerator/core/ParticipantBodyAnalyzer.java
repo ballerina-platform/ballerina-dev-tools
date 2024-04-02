@@ -153,6 +153,7 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         nodeBuilder
+                .kind(SequenceNode.NodeKind.IF)
                 .location(ifElseStatementNode)
                 .property(SequenceNode.CONDITION_LABEL, ifElseStatementNode.condition());
 
@@ -199,6 +200,7 @@ public class ParticipantBodyAnalyzer extends NodeVisitor {
     public void visit(WhileStatementNode whileStatementNode) {
         nodeBuilder
                 .location(whileStatementNode)
+                .kind(SequenceNode.NodeKind.WHILE)
                 .property(SequenceNode.CONDITION_LABEL, whileStatementNode.condition());
 
         List<SequenceNode> bodyBlockNodes = new ArrayList<>();

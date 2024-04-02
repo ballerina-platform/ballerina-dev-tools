@@ -120,6 +120,7 @@
         "moduleName": ".",
         "nodes": [
           {
+            "kind": "WHILE",
             "branches": [
               {
                 "label": "Body",
@@ -161,6 +162,7 @@
                     }
                   },
                   {
+                    "kind": "IF",
                     "branches": [
                       {
                         "label": "Then",

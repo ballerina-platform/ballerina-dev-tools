@@ -146,11 +146,13 @@
         "moduleName": ".",
         "nodes": [
           {
+            "kind": "IF",
             "branches": [
               {
                 "label": "Then",
                 "children": [
                   {
+                    "kind": "IF",
                     "branches": [
                       {
                         "label": "Then",
