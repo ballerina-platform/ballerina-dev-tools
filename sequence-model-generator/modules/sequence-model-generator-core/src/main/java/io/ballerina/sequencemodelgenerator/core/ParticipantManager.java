@@ -27,6 +27,7 @@ import io.ballerina.projects.Project;
 import io.ballerina.sequencemodelgenerator.core.model.Participant;
 import io.ballerina.tools.diagnostics.Location;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,12 +45,14 @@ public class ParticipantManager {
     private final List<Participant> participants;
     private final SemanticModel semanticModel;
     private final Project project;
+    private final String packageName;
 
     private ParticipantManager(SemanticModel semanticModel, Project project) {
         this.cache = new HashMap<>();
         this.participants = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.project = project;
+        this.packageName = project.currentPackage().packageName().toString();
     }
 
     /**
@@ -87,9 +90,12 @@ public class ParticipantManager {
             Location location = symbol.getLocation().orElseThrow();
             String fileName = location.lineRange().fileName();
             String moduleName = CommonUtil.getModuleName(symbol).orElseThrow();
-            SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, fileName, moduleName);
+            Path filePath = CommonUtil.getFilePath(project, fileName,
+                    moduleName.equals(packageName) ? null : moduleName);
+            SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, filePath);
+            SemanticModel moduleSemanticModel = CommonUtil.getSemanticModel(project, filePath);
             NonTerminalNode participantNode = CommonUtil.getNode(syntaxTree, location.textRange());
-            return generateParticipant(participantNode, moduleName);
+            return generateParticipant(moduleSemanticModel, participantNode, moduleName);
         } catch (RuntimeException e) {
             return null;
         }
@@ -102,8 +108,8 @@ public class ParticipantManager {
      * @param moduleName      module name of the participant
      * @return participant ID
      */
-    public String generateParticipant(Node participantNode, String moduleName) {
-        ParticipantAnalyzer participantAnalyzer = new ParticipantAnalyzer(semanticModel, moduleName);
+    public String generateParticipant(SemanticModel moduleSemanticModel, Node participantNode, String moduleName) {
+        ParticipantAnalyzer participantAnalyzer = new ParticipantAnalyzer(moduleSemanticModel, moduleName);
         participantNode.accept(participantAnalyzer);
         Participant participant = participantAnalyzer.getParticipant();
         participants.add(participant);
