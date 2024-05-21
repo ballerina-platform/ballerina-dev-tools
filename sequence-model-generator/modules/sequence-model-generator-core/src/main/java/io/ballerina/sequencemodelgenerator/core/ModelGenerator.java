@@ -27,6 +27,8 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
+import java.nio.file.Path;
+
 /**
  * Represents the model generator for the sequence diagram.
  *
@@ -44,7 +46,8 @@ public class ModelGenerator {
      */
     public static Diagram getSequenceDiagramModel(Project project, LineRange lineRange, SemanticModel semanticModel) {
         // Obtain the node representing the root participant
-        SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, lineRange.fileName(), null);
+        Path filePath = CommonUtil.getFilePath(project, lineRange.fileName(), null);
+        SyntaxTree syntaxTree = CommonUtil.getSyntaxTree(project, filePath);
         TextDocument textDocument = syntaxTree.textDocument();
         int start = textDocument.textPositionFrom(lineRange.startLine());
         int end = textDocument.textPositionFrom(lineRange.endLine());
@@ -57,7 +60,7 @@ public class ModelGenerator {
                 .orElse(Constants.DEFAULT_MODULE);
         ParticipantManager.initialize(semanticModel, project);
         ParticipantManager participantManager = ParticipantManager.getInstance();
-        participantManager.generateParticipant(rootNode, moduleName);
+        participantManager.generateParticipant(semanticModel, rootNode, moduleName);
         return new Diagram(participantManager.getParticipants(), lineRange);
     }
 }

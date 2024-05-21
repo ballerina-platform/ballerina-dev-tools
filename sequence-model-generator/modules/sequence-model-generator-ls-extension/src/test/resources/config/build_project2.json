@@ -1,0 +1,198 @@
+{
+  "source": "project/modules/mod2/mod2.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 7,
+    "offset": 0
+  },
+  "end": {
+    "line": 15,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "mod2.bal",
+      "startLine": {
+        "line": 7,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 15,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "36757",
+        "name": "cl",
+        "kind": "ENDPOINT",
+        "moduleName": "mod2",
+        "location": {
+          "fileName": "mod2.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 5,
+            "offset": 53
+          }
+        }
+      },
+      {
+        "id": "48652",
+        "name": "print",
+        "kind": "FUNCTION",
+        "moduleName": "mod2",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {},
+            "location": {
+              "fileName": "mod2.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 28
+              },
+              "endLine": {
+                "line": 17,
+                "offset": 43
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "mod2.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 44
+          }
+        }
+      },
+      {
+        "id": "38937",
+        "name": "fn",
+        "kind": "FUNCTION",
+        "moduleName": "mod2",
+        "nodes": [
+          {
+            "kind": "IF",
+            "branches": [
+              {
+                "label": "Then",
+                "children": [
+                  {
+                    "interactionType": "ENDPOINT_CALL",
+                    "targetId": "36757",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "get"
+                      },
+                      "expr": {
+                        "type": "http:Client",
+                        "value": "cl"
+                      },
+                      "params": [
+                        {
+                          "type": "string",
+                          "value": "\"/hello\""
+                        }
+                      ],
+                      "value": {
+                        "type": "json|http:ClientError",
+                        "value": "res"
+                      }
+                    },
+                    "location": {
+                      "fileName": "mod2.bal",
+                      "startLine": {
+                        "line": 10,
+                        "offset": 20
+                      },
+                      "endLine": {
+                        "line": 10,
+                        "offset": 37
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "children": [
+                  {
+                    "branches": [],
+                    "properties": {}
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "type": "boolean",
+                "value": "mod1:isEven(val)"
+              }
+            },
+            "location": {
+              "fileName": "mod2.bal",
+              "startLine": {
+                "line": 9,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 13,
+                "offset": 5
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "48652",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "print"
+              },
+              "params": [
+                {
+                  "type": "json",
+                  "value": "res"
+                }
+              ]
+            },
+            "location": {
+              "fileName": "mod2.bal",
+              "startLine": {
+                "line": 14,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 14
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "mod2.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

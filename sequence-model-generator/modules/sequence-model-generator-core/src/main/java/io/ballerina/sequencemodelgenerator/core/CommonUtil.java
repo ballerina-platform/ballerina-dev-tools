@@ -18,6 +18,7 @@
 
 package io.ballerina.sequencemodelgenerator.core;
 
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -81,12 +82,23 @@ public class CommonUtil {
     /**
      * Returns the syntax tree of the given file.
      *
+     * @param project the project of the sequence diagram
+     * @return the syntax tree of the file
+     */
+    public static SyntaxTree getSyntaxTree(Project project, Path filePath) {
+        DocumentId documentId = project.documentId(filePath);
+        return project.currentPackage().module(documentId.moduleId()).document(documentId).syntaxTree();
+    }
+
+    /**
+     * Returns the file path of the given file name.
+     *
      * @param project    the project of the sequence diagram
      * @param fileName   the file name
      * @param moduleName the module name in which the file resides
-     * @return the syntax tree of the file
+     * @return the file path
      */
-    public static SyntaxTree getSyntaxTree(Project project, String fileName, String moduleName) {
+    public static Path getFilePath(Project project, String fileName, String moduleName) {
         Path sourceRoot = project.sourceRoot();
         Path filePath = switch (project.kind()) {
             case SINGLE_FILE_PROJECT -> sourceRoot;
@@ -101,9 +113,7 @@ public class CommonUtil {
             }
             default -> throw new IllegalStateException("Unsupported project kind: " + project.kind());
         };
-        Path absPath = filePath.isAbsolute() ? filePath : sourceRoot.resolve(filePath);
-        DocumentId documentId = project.documentId(absPath);
-        return project.currentPackage().module(documentId.moduleId()).document(documentId).syntaxTree();
+        return filePath.isAbsolute() ? filePath : sourceRoot.resolve(filePath);
     }
 
     /**
@@ -126,5 +136,16 @@ public class CommonUtil {
      */
     public static Optional<String> getModuleName(Symbol symbol) {
         return symbol.getModule().map(module -> module.id().modulePrefix());
+    }
+
+    /**
+     * Returns the semantic model of the given file.
+     *
+     * @param project  the project of the sequence diagram
+     * @param filePath the file path
+     * @return the semantic model of the file
+     */
+    public static SemanticModel getSemanticModel(Project project, Path filePath) {
+        return project.currentPackage().getCompilation().getSemanticModel(project.documentId(filePath).moduleId());
     }
 }

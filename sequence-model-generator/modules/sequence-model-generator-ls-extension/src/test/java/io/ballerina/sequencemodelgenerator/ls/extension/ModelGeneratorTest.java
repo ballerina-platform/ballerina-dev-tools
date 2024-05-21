@@ -90,7 +90,7 @@ public class ModelGeneratorTest {
         if (!fileNameEquality || !flowEquality) {
             TestConfig updatedTestConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.start(), testConfig.end(), modifiedDiagram);
-            updateConfig(configJsonPath, updatedTestConfig);
+//            updateConfig(configJsonPath, updatedTestConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
