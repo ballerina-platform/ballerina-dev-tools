@@ -1,0 +1,276 @@
+{
+  "source": "if_node1.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 7,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "if_node1.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 7,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "40704",
+        "name": "fn2",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "if_node1.bal",
+              "startLine": {
+                "line": 9,
+                "offset": 30
+              },
+              "endLine": {
+                "line": 9,
+                "offset": 31
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node1.bal",
+          "startLine": {
+            "line": 9,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 32
+          }
+        }
+      },
+      {
+        "id": "42688",
+        "name": "fn3",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "if_node1.bal",
+              "startLine": {
+                "line": 11,
+                "offset": 30
+              },
+              "endLine": {
+                "line": 11,
+                "offset": 31
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node1.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 11,
+            "offset": 32
+          }
+        }
+      },
+      {
+        "id": "44678",
+        "name": "fn4",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "location": {
+              "fileName": "if_node1.bal",
+              "startLine": {
+                "line": 13,
+                "offset": 33
+              },
+              "endLine": {
+                "line": 13,
+                "offset": 37
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node1.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 38
+          }
+        }
+      },
+      {
+        "id": "31962",
+        "name": "fn1",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "IF",
+            "branches": [
+              {
+                "label": "Then",
+                "children": [
+                  {
+                    "interactionType": "FUNCTION_CALL",
+                    "targetId": "40704",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "fn2"
+                      },
+                      "params": [],
+                      "value": {
+                        "type": "int",
+                        "value": "a"
+                      }
+                    },
+                    "location": {
+                      "fileName": "if_node1.bal",
+                      "startLine": {
+                        "line": 2,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 2,
+                        "offset": 21
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "children": [
+                  {
+                    "interactionType": "FUNCTION_CALL",
+                    "targetId": "42688",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "fn3"
+                      },
+                      "params": [],
+                      "value": {
+                        "type": "int",
+                        "value": "b"
+                      }
+                    },
+                    "location": {
+                      "fileName": "if_node1.bal",
+                      "startLine": {
+                        "line": 4,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 4,
+                        "offset": 21
+                      }
+                    }
+                  },
+                  {
+                    "interactionType": "FUNCTION_CALL",
+                    "targetId": "44678",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "fn4"
+                      },
+                      "params": [],
+                      "value": {
+                        "type": "string",
+                        "value": "c"
+                      }
+                    },
+                    "location": {
+                      "fileName": "if_node1.bal",
+                      "startLine": {
+                        "line": 5,
+                        "offset": 19
+                      },
+                      "endLine": {
+                        "line": 5,
+                        "offset": 24
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "type": "boolean",
+                "value": "flag"
+              }
+            },
+            "location": {
+              "fileName": "if_node1.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 6,
+                "offset": 5
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "if_node1.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}
