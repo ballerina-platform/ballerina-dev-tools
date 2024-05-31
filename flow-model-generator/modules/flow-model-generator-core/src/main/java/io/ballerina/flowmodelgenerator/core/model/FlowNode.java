@@ -41,7 +41,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.formatter.core.FormattingOptions;
+import org.ballerinalang.formatter.core.options.FormattingOptions;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 
 import java.lang.reflect.Type;

@@ -39,11 +39,11 @@ public class ModelGeneratorTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = CONFIG_DIR.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(
-                SOURCE_DIR.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
+                sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
                 testConfig.end());
         JsonObject jsonModel = getResponse(request).getAsJsonObject("flowDesignModel");
 

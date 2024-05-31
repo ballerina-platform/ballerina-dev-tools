@@ -49,8 +49,8 @@ import java.util.concurrent.CompletableFuture;
  */
 abstract class AbstractLSTest {
 
-    protected static Logger LOG;
-    protected static Path RES_DIR, SOURCE_DIR, CONFIG_DIR;
+    protected static Logger log;
+    protected static Path resDir, sourceDir, configDir;
     protected final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     private Endpoint serviceEndpoint;
@@ -58,10 +58,10 @@ abstract class AbstractLSTest {
 
     @BeforeClass
     public final void init() {
-        RES_DIR = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
-        CONFIG_DIR = RES_DIR.resolve("config");
-        SOURCE_DIR = RES_DIR.resolve("source");
-        LOG = LoggerFactory.getLogger(clazz());
+        resDir = Paths.get("src/test/resources").resolve(getResourceDir()).toAbsolutePath();
+        configDir = resDir.resolve("config");
+        sourceDir = resDir.resolve("source");
+        log = LoggerFactory.getLogger(clazz());
         this.languageServer = new BallerinaLanguageServer();
         TestUtil.LanguageServerBuilder builder = TestUtil.newLanguageServer().withLanguageServer(languageServer);
         this.serviceEndpoint = builder.build();
@@ -85,7 +85,7 @@ abstract class AbstractLSTest {
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
         try {
-            return Files.walk(RES_DIR)
+            return Files.walk(resDir)
                     .filter(path -> {
                         File file = path.toFile();
                         return file.isFile() && file.getName().endsWith(".json")
@@ -142,7 +142,7 @@ abstract class AbstractLSTest {
         int expectedTextEditsSize = expectedNodes.size();
         boolean hasCountMatch = actualTextEditsSize == expectedTextEditsSize;
         if (!hasCountMatch) {
-            LOG.error(String.format("Mismatched %s count. Expected: %d, Found: %d", property, expectedTextEditsSize,
+            log.error(String.format("Mismatched %s count. Expected: %d, Found: %d", property, expectedTextEditsSize,
                     actualTextEditsSize));
         }
 
@@ -156,13 +156,13 @@ abstract class AbstractLSTest {
 
         boolean hasAllExpectedTextEdits = unmatchedExpectedNodes.isEmpty();
         if (!hasAllExpectedTextEdits) {
-            LOG.error(String.format("Found in expected %s but not in actual %s: ", property, property) +
+            log.error(String.format("Found in expected %s but not in actual %s: ", property, property) +
                     unmatchedExpectedNodes);
         }
 
         boolean hasRelevantTextEdits = mismatchedAvailableNodes.isEmpty();
         if (!hasRelevantTextEdits) {
-            LOG.error(String.format("Found in actual %s but not in expected %s: ", property, property) +
+            log.error(String.format("Found in actual %s but not in expected %s: ", property, property) +
                     mismatchedAvailableNodes);
         }
 

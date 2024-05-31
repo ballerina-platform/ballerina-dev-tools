@@ -34,7 +34,6 @@ public class FlowModelGeneratorServerCapabilitySetter extends
 
     @Override
     public Optional<FlowModelGeneratorServerCapabilities> build() {
-
         FlowModelGeneratorServerCapabilities capabilities = new FlowModelGeneratorServerCapabilities();
         return Optional.of(capabilities);
     }
