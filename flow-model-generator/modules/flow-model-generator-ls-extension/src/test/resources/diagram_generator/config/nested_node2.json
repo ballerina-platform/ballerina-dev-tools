@@ -1,0 +1,285 @@
+{
+  "start": {
+    "line": 11,
+    "offset": 4
+  },
+  "end": {
+    "line": 20,
+    "offset": 5
+  },
+  "source": "nested_node.bal",
+  "description": "Tests a diagram flow with nested nodes",
+  "diagram": {
+    "fileName": "nested_node.bal",
+    "nodes": [
+      {
+        "id": "43064",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "nested_node.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "path2",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "31",
+        "label": "Custom Expression",
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "45149",
+                "label": "If",
+                "lineRange": {
+                  "fileName": "nested_node.bal",
+                  "startLine": {
+                    "line": 13,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 17,
+                    "offset": 13
+                  }
+                },
+                "kind": "IF",
+                "returning": false,
+                "fixed": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "46195",
+                        "label": "HTTP GET",
+                        "lineRange": {
+                          "fileName": "nested_node.bal",
+                          "startLine": {
+                            "line": 14,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 14,
+                            "offset": 67
+                          }
+                        },
+                        "kind": "HTTP_API_GET_CALL",
+                        "returning": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "client": {
+                            "label": "Client",
+                            "type": "http:Client",
+                            "value": "asiri",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Client Connection"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "json",
+                            "value": "j ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "path": {
+                            "label": "Path",
+                            "type": "string",
+                            "value": "\"/doctors/kandy\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Path"
+                          },
+                          "headers": {
+                            "label": "Headers",
+                            "type": "map<string|string[]>?",
+                            "typeKind": "BTYPE",
+                            "optional": true,
+                            "editable": true,
+                            "documentation": "HTTP Headers"
+                          }
+                        },
+                        "flags": 1
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "48181",
+                        "label": "HTTP GET",
+                        "lineRange": {
+                          "fileName": "nested_node.bal",
+                          "startLine": {
+                            "line": 16,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 16,
+                            "offset": 69
+                          }
+                        },
+                        "kind": "HTTP_API_GET_CALL",
+                        "returning": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "client": {
+                            "label": "Client",
+                            "type": "http:Client",
+                            "value": "asiri",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Client Connection"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "json",
+                            "value": "j ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "path": {
+                            "label": "Path",
+                            "type": "string",
+                            "value": "\"/doctors/colombo\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Path"
+                          },
+                          "headers": {
+                            "label": "Headers",
+                            "type": "map<string|string[]>?",
+                            "typeKind": "BTYPE",
+                            "optional": true,
+                            "editable": true,
+                            "documentation": "HTTP Headers"
+                          }
+                        },
+                        "flags": 1
+                      }
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "label": "Condition",
+                    "type": "boolean",
+                    "value": "isKandy ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Boolean Condition"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "50012",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "nested_node.bal",
+                  "startLine": {
+                    "line": 18,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 18,
+                    "offset": 40
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "annotations:error|()",
+                    "value": "unionResult ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "value": "commit",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34309",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "nested_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 18
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 23
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "asiri",
+        "flags": 0
+      }
+    ]
+  }
+}

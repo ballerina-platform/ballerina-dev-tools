@@ -68,6 +68,7 @@ public abstract class FlowNode {
     private List<Branch> branches;
     private Map<String, Expression> nodeProperties;
     private int flags;
+    public static final String BLOCK_BODY = "body";
 
     protected FlowNode(String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties) {
         this.label = label;

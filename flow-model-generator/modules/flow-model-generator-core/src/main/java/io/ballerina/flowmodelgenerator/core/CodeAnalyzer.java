@@ -356,7 +356,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
-        handleDefaultStatementNode(transactionStatementNode, () -> super.visit(transactionStatementNode));
+        handleDefaultNodeWithBlock(transactionStatementNode.blockStatement());
     }
 
     @Override
@@ -381,7 +381,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(DoStatementNode doStatementNode) {
-        handleDefaultStatementNode(doStatementNode, () -> super.visit(doStatementNode));
+        handleDefaultNodeWithBlock(doStatementNode.blockStatement());
     }
 
     @Override
@@ -443,6 +443,23 @@ class CodeAnalyzer extends NodeVisitor {
     private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
         nodeBuilder.lineRange(statementNode);
         runnable.run();
+        appendNode();
+    }
+
+    /**
+     * The default procedure to handle the node with a block statement.
+     *
+     * @param bodyNode the block statement node
+     */
+    private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
+        List<FlowNode> bodyNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : bodyNode.statements()) {
+            statement.accept(this);
+            bodyNodes.add(buildNode());
+        }
+        endBranch();
+        nodeBuilder.branch(IfNode.BLOCK_BODY, Branch.BranchKind.BLOCK, bodyNodes);
         appendNode();
     }
 
