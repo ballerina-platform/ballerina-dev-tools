@@ -19,7 +19,7 @@ class FileCoverage extends Component<{ moduleName: string, modIndex: number, fil
             <span className="back-arrow report" onClick={() => this.props.updateState("module", modIndex)}>&#60;</span>
             <h5 id={moduleName}>{moduleName}/{sourceFile.name}</h5>
             </div>
-            <div className="col card coverage-content">
+            <div className="col card coverage-content overflow-auto">
                 <table className="table table-borderless">
                     <thead>
                         <th>{sourceFile.name}</th>
