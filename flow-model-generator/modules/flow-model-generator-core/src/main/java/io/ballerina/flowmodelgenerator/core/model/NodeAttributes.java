@@ -21,6 +21,11 @@ package io.ballerina.flowmodelgenerator.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Node attributes used in the Ballerina libraries.
+ *
+ * @since 1.4.0
+ */
 public class NodeAttributes {
 
     private static final List<Info> nodeInfoMap = new ArrayList<>();

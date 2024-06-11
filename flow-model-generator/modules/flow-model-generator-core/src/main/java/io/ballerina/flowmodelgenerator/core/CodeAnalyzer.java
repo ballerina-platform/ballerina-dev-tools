@@ -81,7 +81,7 @@ import java.util.Stack;
 /**
  * Analyzes the source code and generates the flow model.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 class CodeAnalyzer extends NodeVisitor {
 
@@ -166,7 +166,6 @@ class CodeAnalyzer extends NodeVisitor {
     private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
                                   SeparatedNodeList<FunctionArgumentNode> argumentNodes,
                                   SeparatedNodeList<Node> resourceAccessPathNodes) {
-        NonTerminalNode statementNode = CommonUtils.getExpressionWithCheck(actionNode);
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
@@ -175,9 +174,6 @@ class CodeAnalyzer extends NodeVisitor {
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
-
-//        Optional<TypeSymbol> typeSymbol = semanticModel.typeOf(nonTerminalNode);
-//        typeSymbol.ifPresent(symbol -> this.targetTypeValue = CommonUtils.getTypeSignature(symbol));
 
         switch (moduleName) {
             case "http" -> {

@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @param label    label of the branch
  * @param children children of the branch
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public record Branch(String label, BranchKind kind, List<FlowNode> children) {
 

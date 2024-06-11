@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Represents the properties of a HttpApiEvent node.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class HttpApiEvent extends FlowNode {
 

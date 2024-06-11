@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Generator for the flow model.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class ModelGenerator {
 

@@ -45,7 +45,7 @@ import java.util.Queue;
 /**
  * Represents the generalized action invocation node in the flow model.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class CallNode extends FlowNode {
 
@@ -144,11 +144,6 @@ public class CallNode extends FlowNode {
             return this;
         }
 
-//        public Builder parameter(ExpressionAttributes.Info info, String value) {
-//            parameterInfoMap.put(info.key(), new ParameterInfo(info.label(), info.documentation(), value));
-//            return this;
-//        }
-
         public Builder functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
                                          List<ParameterSymbol> parameterSymbols) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
@@ -186,7 +181,6 @@ public class CallNode extends FlowNode {
                             .typeKind(Expression.ExpressionTypeKind.BTYPE)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
-//                            .value(info.value() == null ? paramValue : parameterInfo.value());
 
                     if (paramValue != null) {
                         expressionBuilder.value(paramValue.toSourceCode());
@@ -210,28 +204,6 @@ public class CallNode extends FlowNode {
                     addProperty(parameterName, expressionBuilder.build());
                 }
             }
-            return this;
-        }
-
-        public Builder resourceAccessPaths(SeparatedNodeList<Node> nodes) {
-            ExpressionList.Builder expressionListBuilder = new ExpressionList.Builder()
-                    .key("paths")
-                    .type("http:QueryParamType")
-                    .optional(true);
-            expressionBuilder.documentation("doc");
-
-            if (nodes != null) {
-                for (Node node : nodes) {
-                    expressionListBuilder.value(expressionBuilder.build());
-                    expressionBuilder
-                            .label("param")
-                            .value(node.toString())
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE);
-                    semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
-                }
-            }
-            // TODO: Modify the node properties to support expression lists
-//            addProperty("paths", expressionListBuilder.build());
             return this;
         }
 

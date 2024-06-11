@@ -55,7 +55,7 @@ import java.util.Optional;
 /**
  * Represents a node in the flow model.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public abstract class FlowNode {
 
@@ -131,7 +131,7 @@ public abstract class FlowNode {
     /**
      * Represents a builder for the flow node.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public final static class NodeBuilder {
 
@@ -346,7 +346,7 @@ public abstract class FlowNode {
     /**
      * Represents a deserializer for the flow node.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Deserializer implements JsonDeserializer<FlowNode> {
 

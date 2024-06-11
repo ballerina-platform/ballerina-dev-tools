@@ -30,7 +30,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  * @param typeKind type kind of the expression
  * @param optional whether the expression is optional
  * @param editable whether the expression is editable
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public record Expression(String label, String type, String value, ExpressionTypeKind typeKind, boolean optional,
                          boolean editable, String documentation) {
@@ -52,7 +52,7 @@ public record Expression(String label, String type, String value, ExpressionType
     /**
      * Represents a builder for the expression.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Builder {
 

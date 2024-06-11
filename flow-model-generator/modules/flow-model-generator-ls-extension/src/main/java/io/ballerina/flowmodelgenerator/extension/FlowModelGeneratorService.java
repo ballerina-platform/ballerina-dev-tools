@@ -43,7 +43,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Represents the extended language server service for the flow model generator service.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
 @JsonSegment("flowDesignService")

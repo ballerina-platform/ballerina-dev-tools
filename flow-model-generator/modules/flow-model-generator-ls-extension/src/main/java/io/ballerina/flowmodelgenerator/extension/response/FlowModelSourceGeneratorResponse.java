@@ -23,7 +23,7 @@ import com.google.gson.JsonElement;
 /**
  * Represents the response for the flow model getFlowDesignModel API.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class FlowModelSourceGeneratorResponse {
 

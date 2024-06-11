@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Represents the properties of an if node in the flow model.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class IfNode extends FlowNode {
 
@@ -81,7 +81,7 @@ public class IfNode extends FlowNode {
     /**
      * Represents a builder for the if node properties.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 

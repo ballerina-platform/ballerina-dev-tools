@@ -21,7 +21,11 @@ package io.ballerina.flowmodelgenerator.core.model;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Expression attributes used in the Ballerina libraries.
+ *
+ * @since 1.4.0
+ */
 public class ExpressionAttributes {
 
     private static final Map<String, Info> parameterInfoMap = new HashMap<>();
@@ -39,10 +43,12 @@ public class ExpressionAttributes {
     }
 
     public static final Info httpPath = new Info("path", "Path", "HTTP Path", "string", false);
-    public static final Info httpHeaders = new Info("headers", "Headers", "HTTP Headers", "map<string|string[]>?", false);
+    public static final Info httpHeaders =
+            new Info("headers", "Headers", "HTTP Headers", "map<string|string[]>?", false);
     public static final Info httpClient = new Info("client", "Client", "HTTP Client Connection", "http:Client", false);
     public static final Info httpMessage = new Info("message", "Message", "HTTP Post Message", "string", true);
-    public static final Info httpMediaType = new Info("mediaType", "Media Type", "HTTP Post Media Type", "string?", false);
+    public static final Info httpMediaType =
+            new Info("mediaType", "Media Type", "HTTP Post Media Type", "string?", false);
 
     static {
         addMapEntry(httpPath);

@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Test for the getting available nodes service.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class AvailableNodesTest extends AbstractLSTest {
 

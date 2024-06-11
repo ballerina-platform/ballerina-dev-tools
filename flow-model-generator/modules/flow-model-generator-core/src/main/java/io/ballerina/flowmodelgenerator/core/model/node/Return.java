@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Represents the properties of a return node.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class Return extends FlowNode {
 
@@ -60,7 +60,7 @@ public class Return extends FlowNode {
     /**
      * Represents the builder for return node properties.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 

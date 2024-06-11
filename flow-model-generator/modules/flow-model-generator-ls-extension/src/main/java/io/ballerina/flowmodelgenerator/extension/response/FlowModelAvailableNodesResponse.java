@@ -22,6 +22,8 @@ import com.google.gson.JsonArray;
 
 /**
  * Represents the response for the flow model getAvailableNodes API.
+ *
+ * @since 1.4.0
  */
 public class FlowModelAvailableNodesResponse {
 

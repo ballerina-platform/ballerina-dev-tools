@@ -302,7 +302,7 @@
       {
         "id": "40970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

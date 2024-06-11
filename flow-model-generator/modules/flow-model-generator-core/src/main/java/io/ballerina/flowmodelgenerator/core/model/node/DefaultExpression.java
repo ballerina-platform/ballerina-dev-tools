@@ -27,6 +27,8 @@ import java.util.Map;
 
 /**
  * Represents the properties of a default expression node.
+ *
+ * @since 1.4.0
  */
 public class DefaultExpression extends FlowNode {
 
@@ -55,7 +57,7 @@ public class DefaultExpression extends FlowNode {
     /**
      * Represents the builder for default expression node properties.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Generates available nodes for a given position in the diagram.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class AvailableNodesGenerator {
 

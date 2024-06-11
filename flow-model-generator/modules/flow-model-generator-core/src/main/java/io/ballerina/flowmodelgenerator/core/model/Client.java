@@ -34,7 +34,7 @@ import java.util.Objects;
  * @param scope     The scope of the client
  * @param value     The value of the client
  * @param flags     The flags of the client
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public record Client(String id, String label, ClientKind kind, LineRange lineRange, ClientScope scope, String value,
                      int flags) {

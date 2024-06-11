@@ -26,7 +26,7 @@ import io.ballerina.tools.text.LineRange;
  * @param parentNodeLineRange line range of the parent node
  * @param parentNodeKind      kind of the parent node
  * @param branchLabel         label of the branch if exists
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public record FlowModelAvailableNodesRequest(LineRange parentNodeLineRange, String parentNodeKind, String branchLabel) {
 

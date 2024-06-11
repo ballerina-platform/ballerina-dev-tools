@@ -23,7 +23,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabili
 /**
  * Represents client capabilities for the flow model generator service.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public class FlowModelGeneratorClientCapabilities extends BallerinaClientCapability {
 

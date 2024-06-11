@@ -24,7 +24,7 @@ import org.ballerinalang.langserver.commons.registration.BallerinaClientCapabili
 /**
  * Represents client capability setter for the flow model generator service.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 @JavaSPIService("org.ballerinalang.langserver.commons.registration.BallerinaClientCapabilitySetter")
 public class FlowModelGeneratorClientCapabilitySetter extends

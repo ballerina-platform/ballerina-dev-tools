@@ -24,14 +24,14 @@ import java.util.List;
 /**
  * Represents a list of expressions.
  *
- * @since 2201.9.0
+ * @since 1.4.0
  */
 public record ExpressionList(String label, String type, List<Expression> value, boolean optional) {
 
     /**
      * Represents a builder for the expression list.
      *
-     * @since 2201.9.0
+     * @since 1.4.0
      */
     public static class Builder {
 
