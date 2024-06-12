@@ -130,7 +130,7 @@
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
-                    "type": "record {|string name; int price; int remaining?; string comment;|}",
+                    "type": "Food",
                     "value": "food",
                     "typeKind": "BTYPE",
                     "optional": false,
@@ -329,7 +329,7 @@
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
-                            "type": "record {|string name; int price; int remaining?; string comment;|}",
+                            "type": "Food",
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,
@@ -404,7 +404,7 @@
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
-                            "type": "record {|string name; int price; int remaining?; string comment;|}",
+                            "type": "Food",
                             "value": "food",
                             "typeKind": "BTYPE",
                             "optional": false,

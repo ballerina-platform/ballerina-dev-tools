@@ -537,7 +537,7 @@
           },
           "variable": {
             "label": "Variable",
-            "type": "record {|string name; string 'type; int expire?;|}",
+            "type": "Food",
             "value": "res8 ",
             "typeKind": "BTYPE",
             "optional": false,

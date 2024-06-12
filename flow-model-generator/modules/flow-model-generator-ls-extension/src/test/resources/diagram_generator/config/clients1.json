@@ -221,7 +221,7 @@
         "nodeProperties": {
           "variable": {
             "label": "Variable",
-            "type": ".:MyClient",
+            "type": "MyClient",
             "value": "myLocalCl ",
             "typeKind": "BTYPE",
             "optional": false,
@@ -230,7 +230,7 @@
           },
           "expression": {
             "label": "Expression",
-            "type": ".:MyClient",
+            "type": "MyClient",
             "value": "new",
             "typeKind": "BTYPE",
             "optional": false,

@@ -134,7 +134,7 @@
           },
           "variable": {
             "label": "Variable",
-            "type": "json|http:ballerina/http:2.11.1:error",
+            "type": "json|http:ClientError",
             "value": "res2 ",
             "typeKind": "BTYPE",
             "optional": false,

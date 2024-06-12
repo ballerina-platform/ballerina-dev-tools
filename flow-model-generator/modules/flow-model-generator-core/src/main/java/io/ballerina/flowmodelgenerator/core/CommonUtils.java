@@ -18,8 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
@@ -63,7 +66,11 @@ public class CommonUtils {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
-                yield getTypeSignature(typeReferenceTypeSymbol.typeDescriptor());
+                yield typeReferenceTypeSymbol.definition().getName()
+                        .map(name -> getModuleName(typeReferenceTypeSymbol)
+                                .map(prefix -> prefix + ":" + name)
+                                .orElse(name))
+                        .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()));
             }
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
@@ -83,6 +90,19 @@ public class CommonUtils {
                 yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
             }
         };
+    }
+
+    /**
+     * Returns the module name of the given symbol.
+     *
+     * @param symbol the symbol to get the module name
+     * @return the module name
+     */
+    public static Optional<String> getModuleName(Symbol symbol) {
+        return symbol.getModule()
+                .map(ModuleSymbol::id)
+                .map(ModuleID::modulePrefix)
+                .filter(prefix -> !prefix.equals("."));
     }
 
     /**
