@@ -39,7 +39,7 @@ import java.util.Objects;
 public record Client(String id, String label, ClientKind kind, LineRange lineRange, ClientScope scope, String value,
                      int flags) {
 
-    private final static String OTHER_CLIENT = "Client";
+    private static final String OTHER_CLIENT = "Client";
 
     public enum ClientKind {
         HTTP,
@@ -81,9 +81,9 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
         }
 
         public void setKind(String type) {
-            if (type.equals(ExpressionAttributes.httpClient.type())) {
+            if (type.equals(ExpressionAttributes.HTTP_CLIENT.type())) {
                 this.kind = ClientKind.HTTP;
-                this.label = ExpressionAttributes.httpClient.label();
+                this.label = ExpressionAttributes.HTTP_CLIENT.label();
             }
         }
 
@@ -91,9 +91,12 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
             this.scope = scope;
         }
 
+        public void flag(int flag) {
+            this.flags |= flag;
+        }
+
         public Client build() {
-            String id = String.valueOf(Objects.hash(lineRange));
-            return new Client(id, label, kind, lineRange, scope, value, flags);
+            return new Client(String.valueOf(Objects.hash(lineRange)), label, kind, lineRange, scope, value, flags);
         }
     }
 

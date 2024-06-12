@@ -85,6 +85,7 @@ import java.util.Stack;
  */
 class CodeAnalyzer extends NodeVisitor {
 
+    //TODO: Wrap the class variables inside another class
     private final List<FlowNode> flowNodeList;
     private final List<Client> clients;
     private FlowNode.NodeBuilder nodeBuilder;
@@ -175,16 +176,14 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
-        switch (moduleName) {
-            case "http" -> {
-                CallNode.Builder builder = new CallNode.Builder(semanticModel)
-                        .nodeInfo(NodeAttributes.get(methodName))
-                        .callExpression(expressionNode, ExpressionAttributes.httpClient)
-                        .variable(this.typedBindingPatternNode);
-                methodSymbol.typeDescriptor().params().ifPresent(params -> builder.functionArguments(
-                        argumentNodes, params));
-                nodeBuilder.propertiesBuilder(builder);
-            }
+        if (moduleName.equals("http")) {
+            CallNode.Builder builder = new CallNode.Builder(semanticModel)
+                    .nodeInfo(NodeAttributes.get(methodName))
+                    .callExpression(expressionNode, ExpressionAttributes.HTTP_CLIENT)
+                    .variable(this.typedBindingPatternNode);
+            methodSymbol.typeDescriptor().params().ifPresent(params -> builder.functionArguments(
+                    argumentNodes, params));
+            nodeBuilder.propertiesBuilder(builder);
         }
     }
 

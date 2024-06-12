@@ -24,6 +24,7 @@ import java.util.List;
  * Represents a branch of the node.
  *
  * @param label    label of the branch
+ * @param kind     kind of the branch
  * @param children children of the branch
  * @since 1.4.0
  */

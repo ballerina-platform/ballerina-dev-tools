@@ -24,6 +24,10 @@ import java.util.List;
 /**
  * Represents a list of expressions.
  *
+ * @param label    label of the expression list
+ * @param type     type of the expression list
+ * @param value    the list of expressions
+ * @param optional whether the expression list is optional
  * @since 1.4.0
  */
 public record ExpressionList(String label, String type, List<Expression> value, boolean optional) {

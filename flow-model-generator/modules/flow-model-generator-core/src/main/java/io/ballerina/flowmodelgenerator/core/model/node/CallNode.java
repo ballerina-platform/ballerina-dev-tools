@@ -156,6 +156,9 @@ public class CallNode extends FlowNode {
                                 namedArgument.expression());
                     }
                     case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                    default -> {
+                        // Ignore the default case
+                    }
                 }
             }
 

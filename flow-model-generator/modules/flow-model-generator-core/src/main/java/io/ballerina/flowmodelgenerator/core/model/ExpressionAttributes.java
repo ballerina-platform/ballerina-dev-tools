@@ -42,19 +42,19 @@ public class ExpressionAttributes {
         parameterInfoMap.put(info.key(), info);
     }
 
-    public static final Info httpPath = new Info("path", "Path", "HTTP Path", "string", false);
-    public static final Info httpHeaders =
+    public static final Info HTTP_PATH = new Info("path", "Path", "HTTP Path", "string", false);
+    public static final Info HTTP_HEADERS =
             new Info("headers", "Headers", "HTTP Headers", "map<string|string[]>?", false);
-    public static final Info httpClient = new Info("client", "Client", "HTTP Client Connection", "http:Client", false);
-    public static final Info httpMessage = new Info("message", "Message", "HTTP Post Message", "string", true);
-    public static final Info httpMediaType =
+    public static final Info HTTP_CLIENT = new Info("client", "Client", "HTTP Client Connection", "http:Client", false);
+    public static final Info HTTP_MESSAGE = new Info("message", "Message", "HTTP Post Message", "string", true);
+    public static final Info HTTP_MEDIA_TYPE =
             new Info("mediaType", "Media Type", "HTTP Post Media Type", "string?", false);
 
     static {
-        addMapEntry(httpPath);
-        addMapEntry(httpHeaders);
-        addMapEntry(httpClient);
-        addMapEntry(httpMessage);
-        addMapEntry(httpMediaType);
+        addMapEntry(HTTP_PATH);
+        addMapEntry(HTTP_HEADERS);
+        addMapEntry(HTTP_CLIENT);
+        addMapEntry(HTTP_MESSAGE);
+        addMapEntry(HTTP_MEDIA_TYPE);
     }
 }

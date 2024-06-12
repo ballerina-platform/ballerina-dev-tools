@@ -49,16 +49,16 @@ public class NodeAttributes {
                 .orElse(null);
     }
 
-    public static final Info httpGet =
-            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.httpClient,
-                    List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpHeaders));
-    public static final Info httpPost =
-            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.httpClient,
-                    List.of(ExpressionAttributes.httpPath, ExpressionAttributes.httpMessage,
-                            ExpressionAttributes.httpHeaders, ExpressionAttributes.httpMediaType));
+    public static final Info HTTP_GET =
+            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.HTTP_CLIENT,
+                    List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_HEADERS));
+    public static final Info HTTP_POST =
+            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.HTTP_CLIENT,
+                    List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_MESSAGE,
+                            ExpressionAttributes.HTTP_HEADERS, ExpressionAttributes.HTTP_MEDIA_TYPE));
 
     static {
-        nodeInfoMap.add(httpGet);
-        nodeInfoMap.add(httpPost);
+        nodeInfoMap.add(HTTP_GET);
+        nodeInfoMap.add(HTTP_POST);
     }
 }

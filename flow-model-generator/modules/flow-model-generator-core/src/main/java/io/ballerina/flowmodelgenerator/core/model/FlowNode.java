@@ -113,11 +113,11 @@ public abstract class FlowNode {
 
     public abstract String toSource();
 
-    public static int NODE_FLAG_CHECKED = 1 << 0;
-    public static int NODE_FLAG_CHECKPANIC = 1 << 1;
-    public static int NODE_FLAG_FINAL = 1 << 2;
-    public static int NODE_FLAG_REMOTE = 1 << 10;
-    public static int NODE_FLAG_RESOURCE = 1 << 11;
+    public static final int NODE_FLAG_CHECKED = 1 << 0;
+    public static final int NODE_FLAG_CHECKPANIC = 1 << 1;
+    public static final int NODE_FLAG_FINAL = 1 << 2;
+    public static final int NODE_FLAG_REMOTE = 1 << 10;
+    public static final int NODE_FLAG_RESOURCE = 1 << 11;
 
     public enum Kind {
         EVENT_HTTP_API,
@@ -133,7 +133,7 @@ public abstract class FlowNode {
      *
      * @since 1.4.0
      */
-    public final static class NodeBuilder {
+    public static final class NodeBuilder {
 
         private LineRange lineRange;
         private boolean returning;
@@ -202,9 +202,9 @@ public abstract class FlowNode {
         public static final String VARIABLE_KEY = "variable";
         private static final String VARIABLE_DOC = "Result Variable";
 
-        public final static String EXPRESSION_RHS_LABEL = "Expression";
-        public final static String EXPRESSION_RHS_KEY = "expression";
-        public final static String EXPRESSION_RHS_DOC = "Expression";
+        public static final String EXPRESSION_RHS_LABEL = "Expression";
+        public static final String EXPRESSION_RHS_KEY = "expression";
+        public static final String EXPRESSION_RHS_DOC = "Expression";
 
         protected final Map<String, Expression> nodeProperties;
         protected final SemanticModel semanticModel;

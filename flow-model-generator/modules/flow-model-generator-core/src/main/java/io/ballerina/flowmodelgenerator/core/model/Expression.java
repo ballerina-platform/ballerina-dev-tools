@@ -24,12 +24,13 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 /**
  * Represents an expression in the flow model.
  *
- * @param label    label of the expression
- * @param type     type of the expression
- * @param value    value of the expression
- * @param typeKind type kind of the expression
- * @param optional whether the expression is optional
- * @param editable whether the expression is editable
+ * @param label         label of the expression
+ * @param type          type of the expression
+ * @param value         value of the expression
+ * @param typeKind      type kind of the expression
+ * @param optional      whether the expression is optional
+ * @param editable      whether the expression is editable
+ * @param documentation the documentation of the expression
  * @since 1.4.0
  */
 public record Expression(String label, String type, String value, ExpressionTypeKind typeKind, boolean optional,

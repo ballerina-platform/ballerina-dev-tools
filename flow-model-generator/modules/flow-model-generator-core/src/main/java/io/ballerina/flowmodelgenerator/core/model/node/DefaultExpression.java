@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class DefaultExpression extends FlowNode {
 
-    public final static String EXPRESSION_LABEL = "Custom Expression";
+    public static final String EXPRESSION_LABEL = "Custom Expression";
 
     protected DefaultExpression(Map<String, Expression> nodeProperties) {
         super(EXPRESSION_LABEL, Kind.EXPRESSION, false, nodeProperties);
