@@ -72,5 +72,4 @@ public class DefaultExpression extends FlowNode {
             return new DefaultExpression(nodeProperties);
         }
     }
-
 }

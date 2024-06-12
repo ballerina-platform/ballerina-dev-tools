@@ -41,8 +41,8 @@ import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.formatter.core.options.FormattingOptions;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
+import org.ballerinalang.formatter.core.options.FormattingOptions;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -190,6 +190,12 @@ public abstract class FlowNode {
         }
     }
 
+    /**
+     * Represents a builder for the node properties of a flow node. Each concrete flow node override this class to build
+     * its properties.
+     *
+     * @since 1.4.0
+     */
     public abstract static class NodePropertiesBuilder {
 
         private static final String VARIABLE_LABEL = "Variable";
@@ -276,6 +282,11 @@ public abstract class FlowNode {
         public abstract FlowNode build();
     }
 
+    /**
+     * Represents a builder to generate a Ballerina source code.
+     *
+     * @since 1.4.0
+     */
     public static class SourceBuilder {
 
         private static final String WHITE_SPACE = " ";

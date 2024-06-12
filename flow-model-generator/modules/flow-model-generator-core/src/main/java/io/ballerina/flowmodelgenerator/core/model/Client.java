@@ -42,7 +42,6 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
     private final static String OTHER_CLIENT = "Client";
 
     public enum ClientKind {
-
         HTTP,
         OTHER
     }
@@ -54,7 +53,7 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
     }
 
     /**
-     * Represents the builder for client in the diagram.
+     * Represents the builder for a client in the diagram.
      */
     public static class Builder {
 
