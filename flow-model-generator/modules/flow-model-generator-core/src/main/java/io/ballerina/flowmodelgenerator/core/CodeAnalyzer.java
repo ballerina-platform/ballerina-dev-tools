@@ -50,6 +50,7 @@ import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
@@ -69,6 +70,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
+import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
@@ -376,7 +378,34 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(DoStatementNode doStatementNode) {
-        handleDefaultNodeWithBlock(doStatementNode.blockStatement());
+        Optional<OnFailClauseNode> optOnFailClauseNode = doStatementNode.onFailClause();
+        if (optOnFailClauseNode.isEmpty()) {
+            handleDefaultNodeWithBlock(doStatementNode.blockStatement());
+            return;
+        }
+
+        nodeBuilder.lineRange(doStatementNode);
+        BlockStatementNode doBody = doStatementNode.blockStatement();
+        List<FlowNode> bodyNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : doBody.statements()) {
+            statement.accept(this);
+            bodyNodes.add(buildNode());
+        }
+        endBranch();
+        nodeBuilder.branch(ErrorHandlerNode.ERROR_HANDLER_BODY, Branch.BranchKind.BLOCK, bodyNodes);
+
+        OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
+        List<FlowNode> onFailNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
+            statement.accept(this);
+            onFailNodes.add(buildNode());
+        }
+        endBranch();
+        nodeBuilder.branch(ErrorHandlerNode.ERROR_HANDLER_LABEL, Branch.BranchKind.BLOCK, onFailNodes);
+        nodeBuilder.propertiesBuilder(new ErrorHandlerNode.Builder(semanticModel));
+        appendNode();
     }
 
     @Override

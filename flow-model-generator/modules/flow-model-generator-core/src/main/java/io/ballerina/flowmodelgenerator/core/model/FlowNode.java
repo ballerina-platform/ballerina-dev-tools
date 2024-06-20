@@ -37,6 +37,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
+import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
@@ -125,7 +126,8 @@ public abstract class FlowNode {
         HTTP_API_GET_CALL,
         HTTP_API_POST_CALL,
         RETURN,
-        EXPRESSION
+        EXPRESSION,
+        ERROR_HANDLER
     }
 
     /**
@@ -372,6 +374,7 @@ public abstract class FlowNode {
                 case IF -> context.deserialize(jsonObject, IfNode.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
+                case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandlerNode.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
             };
         }
