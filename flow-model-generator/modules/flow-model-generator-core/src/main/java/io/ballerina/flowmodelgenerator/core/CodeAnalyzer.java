@@ -74,6 +74,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -327,7 +328,34 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(WhileStatementNode whileStatementNode) {
-        handleDefaultStatementNode(whileStatementNode, () -> super.visit(whileStatementNode));
+        nodeBuilder.lineRange(whileStatementNode);
+        WhileNode.Builder whileNodeBuilder = new WhileNode.Builder(semanticModel);
+        whileNodeBuilder.setConditionExpression(whileStatementNode.condition());
+
+        BlockStatementNode whileBody = whileStatementNode.whileBody();
+        List<FlowNode> whileNodes = new ArrayList<>();
+        startBranch();
+        for (StatementNode statement : whileBody.statements()) {
+            statement.accept(this);
+            whileNodes.add(buildNode());
+        }
+        endBranch();
+        nodeBuilder.branch(WhileNode.WHILE_BODY, Branch.BranchKind.BLOCK, whileNodes);
+
+        Optional<OnFailClauseNode> onFailClauseNode = whileStatementNode.onFailClause();
+        if (onFailClauseNode.isPresent()) {
+            List<FlowNode> onFailNodes = new ArrayList<>();
+            startBranch();
+            for (StatementNode statement : onFailClauseNode.get().blockStatement().statements()) {
+                statement.accept(this);
+                onFailNodes.add(buildNode());
+            }
+            endBranch();
+            nodeBuilder.branch(WhileNode.WHILE_ON_FAIL, Branch.BranchKind.BLOCK, onFailNodes);
+        }
+
+        nodeBuilder.propertiesBuilder(whileNodeBuilder);
+        appendNode();
     }
 
     @Override

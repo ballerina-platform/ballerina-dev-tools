@@ -41,6 +41,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -127,7 +128,8 @@ public abstract class FlowNode {
         HTTP_API_POST_CALL,
         RETURN,
         EXPRESSION,
-        ERROR_HANDLER
+        ERROR_HANDLER,
+        WHILE
     }
 
     /**
@@ -375,6 +377,7 @@ public abstract class FlowNode {
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
                 case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandlerNode.class);
+                case WHILE -> context.deserialize(jsonObject, WhileNode.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
             };
         }
