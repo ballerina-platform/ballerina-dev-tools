@@ -57,7 +57,7 @@
         "fixed": false,
         "branches": [
           {
-            "label": "body",
+            "label": "Body",
             "kind": "BLOCK",
             "children": [
               {
@@ -68,7 +68,7 @@
                 "fixed": false,
                 "branches": [
                   {
-                    "label": "body",
+                    "label": "Body",
                     "kind": "BLOCK",
                     "children": [
                       {
@@ -79,7 +79,7 @@
                         "fixed": false,
                         "branches": [
                           {
-                            "label": "body",
+                            "label": "Body",
                             "kind": "BLOCK",
                             "children": [
                               {

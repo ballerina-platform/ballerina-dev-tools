@@ -70,7 +70,6 @@ public abstract class FlowNode {
     private List<Branch> branches;
     private Map<String, Expression> nodeProperties;
     private int flags;
-    public static final String BLOCK_BODY = "body";
 
     protected FlowNode(String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties) {
         this.label = label;
@@ -164,8 +163,8 @@ public abstract class FlowNode {
             return this;
         }
 
-        public NodeBuilder branch(String label, Branch.BranchKind kind, List<FlowNode> children) {
-            this.branches.add(new Branch(label, kind, children));
+        public NodeBuilder branch(Branch branch) {
+            this.branches.add(branch);
             return this;
         }
 

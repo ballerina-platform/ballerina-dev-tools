@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,50 @@ import java.util.List;
  */
 public record Branch(String label, BranchKind kind, List<FlowNode> children) {
 
+    public static String BODY_LABEL = "Body";
+    public static String ON_FAIL_LABEL = "On Fail";
+
     public enum BranchKind {
         BLOCK
+    }
+
+    /**
+     * Represents a builder for the branch.
+     *
+     * @since 1.4.0
+     */
+    public static class Builder {
+
+        private String label;
+        private Branch.BranchKind kind;
+        private final List<FlowNode> children;
+
+        public Builder() {
+            children = new ArrayList<>();
+        }
+
+        public Builder label(String label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder kind(Branch.BranchKind kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        public Builder node(FlowNode node) {
+            this.children.add(node);
+            return this;
+        }
+
+        public Builder nodes(List<FlowNode> nodes) {
+            this.children.addAll(nodes);
+            return this;
+        }
+
+        public Branch build() {
+            return new Branch(label, kind, children);
+        }
     }
 }

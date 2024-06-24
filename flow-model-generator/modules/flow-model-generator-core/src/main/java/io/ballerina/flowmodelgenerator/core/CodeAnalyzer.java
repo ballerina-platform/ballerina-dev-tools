@@ -196,22 +196,19 @@ class CodeAnalyzer extends NodeVisitor {
         IfNode.Builder ifNodeBuilder = new IfNode.Builder(semanticModel);
         ifNodeBuilder.setConditionExpression(ifElseStatementNode.condition());
 
-        BlockStatementNode ifBody = ifElseStatementNode.ifBody();
-        List<FlowNode> ifNodes = new ArrayList<>();
-        startBranch();
-        for (StatementNode statement : ifBody.statements()) {
+        Branch.Builder thenBranchBuilder = startBranch(IfNode.IF_THEN_LABEL, Branch.BranchKind.BLOCK);
+        for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
             statement.accept(this);
-            ifNodes.add(buildNode());
+            thenBranchBuilder.node(buildNode());
         }
-        endBranch();
-        nodeBuilder.branch(IfNode.IF_THEN_LABEL, Branch.BranchKind.BLOCK, ifNodes);
+        endBranch(thenBranchBuilder);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
-            startBranch();
+            Branch.Builder elseBranchBuilder = startBranch(IfNode.IF_ELSE_LABEL, Branch.BranchKind.BLOCK);
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
-            endBranch();
-            nodeBuilder.branch(IfNode.IF_ELSE_LABEL, Branch.BranchKind.BLOCK, elseBodyChildNodes);
+            elseBranchBuilder.nodes(elseBodyChildNodes);
+            endBranch(elseBranchBuilder);
         }
 
         nodeBuilder.propertiesBuilder(ifNodeBuilder);
@@ -333,25 +330,21 @@ class CodeAnalyzer extends NodeVisitor {
         whileNodeBuilder.setConditionExpression(whileStatementNode.condition());
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
-        List<FlowNode> whileNodes = new ArrayList<>();
-        startBranch();
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : whileBody.statements()) {
             statement.accept(this);
-            whileNodes.add(buildNode());
+            branchBuilder.node(buildNode());
         }
-        endBranch();
-        nodeBuilder.branch(WhileNode.WHILE_BODY, Branch.BranchKind.BLOCK, whileNodes);
+        endBranch(branchBuilder);
 
         Optional<OnFailClauseNode> onFailClauseNode = whileStatementNode.onFailClause();
         if (onFailClauseNode.isPresent()) {
-            List<FlowNode> onFailNodes = new ArrayList<>();
-            startBranch();
+            Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
             for (StatementNode statement : onFailClauseNode.get().blockStatement().statements()) {
                 statement.accept(this);
-                onFailNodes.add(buildNode());
+                onFailBranchBuilder.node(buildNode());
             }
-            endBranch();
-            nodeBuilder.branch(WhileNode.WHILE_ON_FAIL, Branch.BranchKind.BLOCK, onFailNodes);
+            endBranch(onFailBranchBuilder);
         }
 
         nodeBuilder.propertiesBuilder(whileNodeBuilder);
@@ -413,25 +406,20 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         nodeBuilder.lineRange(doStatementNode);
-        BlockStatementNode doBody = doStatementNode.blockStatement();
-        List<FlowNode> bodyNodes = new ArrayList<>();
-        startBranch();
-        for (StatementNode statement : doBody.statements()) {
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
+        for (StatementNode statement : doStatementNode.blockStatement().statements()) {
             statement.accept(this);
-            bodyNodes.add(buildNode());
+            branchBuilder.node(buildNode());
         }
-        endBranch();
-        nodeBuilder.branch(ErrorHandlerNode.ERROR_HANDLER_BODY, Branch.BranchKind.BLOCK, bodyNodes);
+        endBranch(branchBuilder);
 
         OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
-        List<FlowNode> onFailNodes = new ArrayList<>();
-        startBranch();
+        Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
             statement.accept(this);
-            onFailNodes.add(buildNode());
+            onFailBranchBuilder.node(buildNode());
         }
-        endBranch();
-        nodeBuilder.branch(ErrorHandlerNode.ERROR_HANDLER_LABEL, Branch.BranchKind.BLOCK, onFailNodes);
+        endBranch(onFailBranchBuilder);
         nodeBuilder.propertiesBuilder(new ErrorHandlerNode.Builder(semanticModel));
         appendNode();
     }
@@ -463,16 +451,18 @@ class CodeAnalyzer extends NodeVisitor {
     /**
      * Starts a new branch and sets the node builder to the starting node of the branch.
      */
-    private void startBranch() {
+    private Branch.Builder startBranch(String label, Branch.BranchKind kind) {
         this.flowNodeBuilderStack.push(nodeBuilder);
         nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
+        return new Branch.Builder().label(label).kind(kind);
     }
 
     /**
      * Ends the current branch and sets the node builder to the parent node.
      */
-    private void endBranch() {
+    private void endBranch(Branch.Builder branchBuilder) {
         nodeBuilder = this.flowNodeBuilderStack.pop();
+        nodeBuilder.branch(branchBuilder.build());
     }
 
     /**
@@ -504,14 +494,12 @@ class CodeAnalyzer extends NodeVisitor {
      * @param bodyNode the block statement node
      */
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        List<FlowNode> bodyNodes = new ArrayList<>();
-        startBranch();
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : bodyNode.statements()) {
             statement.accept(this);
-            bodyNodes.add(buildNode());
+            branchBuilder.node(buildNode());
         }
-        endBranch();
-        nodeBuilder.branch(IfNode.BLOCK_BODY, Branch.BranchKind.BLOCK, bodyNodes);
+        endBranch(branchBuilder);
         appendNode();
     }
 
