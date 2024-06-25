@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 5,
+    "line": 31,
     "offset": 4
   },
   "end": {
-    "line": 13,
+    "line": 38,
     "offset": 5
   },
   "source": "error_handler.bal",
@@ -13,16 +13,16 @@
     "fileName": "error_handler.bal",
     "nodes": [
       {
-        "id": "37081",
+        "id": "62842",
         "label": "HTTP API",
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
-            "line": 5,
+            "line": 31,
             "offset": 4
           },
           "endLine": {
-            "line": 13,
+            "line": 38,
             "offset": 5
           }
         },
@@ -40,7 +40,7 @@
           },
           "path": {
             "label": "Path",
-            "value": "apples",
+            "value": "pineapples",
             "typeKind": "URI_PATH",
             "optional": false,
             "editable": true,
@@ -50,17 +50,17 @@
         "flags": 2048
       },
       {
-        "id": "37964",
+        "id": "63900",
         "label": "ErrorHandler",
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
-            "line": 6,
+            "line": 32,
             "offset": 8
           },
           "endLine": {
-            "line": 6,
-            "offset": 20
+            "line": 37,
+            "offset": 9
           }
         },
         "kind": "ERROR_HANDLER",
@@ -72,17 +72,17 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "40117",
+                "id": "64920",
                 "label": "HTTP GET",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
-                    "line": 8,
+                    "line": 33,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 8,
-                    "offset": 65
+                    "line": 33,
+                    "offset": 68
                   }
                 },
                 "kind": "HTTP_API_GET_CALL",
@@ -101,7 +101,7 @@
                   "variable": {
                     "label": "Variable",
                     "type": "json",
-                    "value": "res2 ",
+                    "value": "res ",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -110,7 +110,7 @@
                   "path": {
                     "label": "Path",
                     "type": "string",
-                    "value": "\"/western/apples\"",
+                    "value": "\"/western/pineapples\"",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -128,40 +128,31 @@
                 "flags": 1
               },
               {
-                "id": "41078",
-                "label": "Custom Expression",
+                "id": "65878",
+                "label": "Return",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
-                    "line": 9,
+                    "line": 34,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 9,
+                    "line": 34,
                     "offset": 34
                   }
                 },
-                "kind": "EXPRESSION",
-                "returning": false,
+                "kind": "RETURN",
+                "returning": true,
                 "fixed": false,
                 "nodeProperties": {
-                  "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
-                    "value": "msg",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
-                  },
                   "expression": {
                     "label": "Expression",
                     "type": "string",
-                    "value": "res2.toString()",
+                    "value": "res.toString()",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
-                    "documentation": "Expression"
+                    "documentation": "Return value"
                   }
                 },
                 "flags": 0
@@ -173,45 +164,47 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "43075",
-                "label": "Custom Expression",
+                "id": "67861",
+                "label": "Return",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
-                    "line": 11,
+                    "line": 36,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 11,
-                    "offset": 47
+                    "line": 36,
+                    "offset": 33
                   }
                 },
-                "kind": "EXPRESSION",
-                "returning": false,
+                "kind": "RETURN",
+                "returning": true,
                 "fixed": false,
                 "nodeProperties": {
-                  "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
-                    "value": "msg",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
-                  },
                   "expression": {
                     "label": "Expression",
                     "type": "string",
-                    "value": "\"Failed to get the response\"",
+                    "value": "err.message()",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
-                    "documentation": "Expression"
+                    "documentation": "Return value"
                   }
                 },
                 "flags": 0
               }
-            ]
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": "http:ClientError",
+                "value": "err ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
           }
         ],
         "flags": 0

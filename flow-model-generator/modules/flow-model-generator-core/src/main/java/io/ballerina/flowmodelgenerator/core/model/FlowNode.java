@@ -24,17 +24,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Symbol;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
-import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
@@ -52,7 +47,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Represents a node in the flow model.
@@ -201,9 +195,9 @@ public abstract class FlowNode {
      */
     public abstract static class NodePropertiesBuilder {
 
-        private static final String VARIABLE_LABEL = "Variable";
+        public static final String VARIABLE_LABEL = "Variable";
         public static final String VARIABLE_KEY = "variable";
-        private static final String VARIABLE_DOC = "Result Variable";
+        public static final String VARIABLE_DOC = "Result Variable";
 
         public static final String EXPRESSION_RHS_LABEL = "Expression";
         public static final String EXPRESSION_RHS_KEY = "expression";
@@ -227,36 +221,13 @@ public abstract class FlowNode {
             if (node == null) {
                 return (T) this;
             }
-            if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
-                TypedBindingPatternNode typedBindingPatternNode = (TypedBindingPatternNode) node;
-                BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
-
-                expressionBuilder
-                        .label(VARIABLE_LABEL)
-                        .value(bindingPatternNode.toString())
-                        .editable()
-                        .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                        .documentation(VARIABLE_DOC);
-
-                Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
-                if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
-                    TypeSymbol typeSymbol = (TypeSymbol) typeDescriptorSymbol.get();
-                    expressionBuilder.type(typeSymbol);
-                } else {
-                    Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
-                    if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
-                        expressionBuilder.type(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
-                    }
-                }
-            } else {
-                semanticModel.typeOf(node).ifPresent(expressionBuilder::type);
-                expressionBuilder
-                        .label(VARIABLE_LABEL)
-                        .value(node.toString().strip())
-                        .editable()
-                        .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                        .documentation(VARIABLE_DOC);
-            }
+            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
+            expressionBuilder
+                    .label(VARIABLE_LABEL)
+                    .value(CommonUtils.getVariableName(node))
+                    .editable()
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .documentation(VARIABLE_DOC);
 
             this.variable = expressionBuilder.build();
             addProperty(VARIABLE_KEY, this.variable);

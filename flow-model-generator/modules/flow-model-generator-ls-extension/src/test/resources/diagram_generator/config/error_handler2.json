@@ -169,7 +169,7 @@
             ]
           },
           {
-            "label": "ErrorHandler",
+            "label": "On Fail",
             "kind": "BLOCK",
             "children": [
               {
@@ -348,7 +348,7 @@
                     ]
                   },
                   {
-                    "label": "ErrorHandler",
+                    "label": "On Fail",
                     "kind": "BLOCK",
                     "children": [
                       {

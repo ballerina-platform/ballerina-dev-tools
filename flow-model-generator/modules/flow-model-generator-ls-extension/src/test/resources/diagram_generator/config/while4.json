@@ -1,28 +1,28 @@
 {
   "start": {
-    "line": 5,
+    "line": 36,
     "offset": 4
   },
   "end": {
-    "line": 13,
+    "line": 46,
     "offset": 5
   },
-  "source": "error_handler.bal",
-  "description": "Tests a error handler",
+  "source": "while.bal",
+  "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "error_handler.bal",
+    "fileName": "while.bal",
     "nodes": [
       {
-        "id": "37081",
+        "id": "67895",
         "label": "HTTP API",
         "lineRange": {
-          "fileName": "error_handler.bal",
+          "fileName": "while.bal",
           "startLine": {
-            "line": 5,
+            "line": 36,
             "offset": 4
           },
           "endLine": {
-            "line": 13,
+            "line": 46,
             "offset": 5
           }
         },
@@ -40,7 +40,7 @@
           },
           "path": {
             "label": "Path",
-            "value": "apples",
+            "value": "mangos",
             "typeKind": "URI_PATH",
             "optional": false,
             "editable": true,
@@ -50,20 +50,59 @@
         "flags": 2048
       },
       {
-        "id": "37964",
-        "label": "ErrorHandler",
+        "id": "68716",
+        "label": "Custom Expression",
         "lineRange": {
-          "fileName": "error_handler.bal",
+          "fileName": "while.bal",
           "startLine": {
-            "line": 6,
+            "line": 37,
             "offset": 8
           },
           "endLine": {
-            "line": 6,
+            "line": 37,
             "offset": 20
           }
         },
-        "kind": "ERROR_HANDLER",
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "i ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "0",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "70875",
+        "label": "While",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 39,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 45,
+            "offset": 9
+          }
+        },
+        "kind": "WHILE",
         "returning": false,
         "fixed": false,
         "branches": [
@@ -72,17 +111,17 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "40117",
+                "id": "71862",
                 "label": "HTTP GET",
                 "lineRange": {
-                  "fileName": "error_handler.bal",
+                  "fileName": "while.bal",
                   "startLine": {
-                    "line": 8,
+                    "line": 40,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 8,
-                    "offset": 65
+                    "line": 40,
+                    "offset": 66
                   }
                 },
                 "kind": "HTTP_API_GET_CALL",
@@ -101,7 +140,7 @@
                   "variable": {
                     "label": "Variable",
                     "type": "json",
-                    "value": "res2 ",
+                    "value": "response ",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -110,7 +149,7 @@
                   "path": {
                     "label": "Path",
                     "type": "string",
-                    "value": "\"/western/apples\"",
+                    "value": "\"/food/mangos\"",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -128,17 +167,17 @@
                 "flags": 1
               },
               {
-                "id": "41078",
+                "id": "72868",
                 "label": "Custom Expression",
                 "lineRange": {
-                  "fileName": "error_handler.bal",
+                  "fileName": "while.bal",
                   "startLine": {
-                    "line": 9,
+                    "line": 41,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 9,
-                    "offset": 34
+                    "line": 41,
+                    "offset": 80
                   }
                 },
                 "kind": "EXPRESSION",
@@ -157,13 +196,32 @@
                   "expression": {
                     "label": "Expression",
                     "type": "string",
-                    "value": "res2.toString()",
+                    "value": "\"Response received from food service: \" + response.toString()",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
                     "documentation": "Expression"
                   }
                 },
+                "flags": 0
+              },
+              {
+                "id": "73799",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 42,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 42,
+                    "offset": 19
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
                 "flags": 0
               }
             ]
@@ -173,17 +231,17 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "43075",
+                "id": "75841",
                 "label": "Custom Expression",
                 "lineRange": {
-                  "fileName": "error_handler.bal",
+                  "fileName": "while.bal",
                   "startLine": {
-                    "line": 11,
+                    "line": 44,
                     "offset": 12
                   },
                   "endLine": {
-                    "line": 11,
-                    "offset": 47
+                    "line": 44,
+                    "offset": 77
                   }
                 },
                 "kind": "EXPRESSION",
@@ -202,7 +260,7 @@
                   "expression": {
                     "label": "Expression",
                     "type": "string",
-                    "value": "\"Failed to get the response\"",
+                    "value": "\"Error occurred while invoking food service\" + e.message()",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -211,9 +269,31 @@
                 },
                 "flags": 0
               }
-            ]
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": "http:ClientError",
+                "value": "e ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
           }
         ],
+        "nodeProperties": {
+          "condition": {
+            "label": "Condition",
+            "type": "boolean",
+            "value": "i < count ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Boolean Condition"
+          }
+        },
         "flags": 0
       }
     ],
@@ -223,7 +303,7 @@
         "label": "Client",
         "kind": "HTTP",
         "lineRange": {
-          "fileName": "error_handler.bal",
+          "fileName": "while.bal",
           "startLine": {
             "line": 2,
             "offset": 12

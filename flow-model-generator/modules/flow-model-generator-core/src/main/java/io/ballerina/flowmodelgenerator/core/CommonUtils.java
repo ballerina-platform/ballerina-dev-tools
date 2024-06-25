@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
@@ -29,8 +30,12 @@ import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -161,4 +166,41 @@ public class CommonUtils {
         return new Position(linePosition.line(), linePosition.offset());
     }
 
+    /**
+     * Get the type symbol of the given node.
+     *
+     * @param semanticModel the semantic model
+     * @param node          the node to get the type symbol
+     * @return the type symbol
+     */
+    public static Optional<TypeSymbol> getTypeSymbol(SemanticModel semanticModel, Node node) {
+        if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
+            TypedBindingPatternNode typedBindingPatternNode = (TypedBindingPatternNode) node;
+            BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+
+            Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
+            if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
+                return Optional.of((TypeSymbol) typeDescriptorSymbol.get());
+            }
+
+            Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
+            if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
+                return Optional.of(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+            }
+        }
+        return semanticModel.typeOf(node);
+    }
+
+    /**
+     * Get the variable name from the given node.
+     *
+     * @param node the node to get the variable name
+     * @return the variable name
+     */
+    public static String getVariableName(Node node) {
+        if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
+            return ((TypedBindingPatternNode) node).bindingPattern().toString();
+        }
+        return node.toString().strip();
+    }
 }

@@ -337,10 +337,12 @@ class CodeAnalyzer extends NodeVisitor {
         }
         endBranch(branchBuilder);
 
-        Optional<OnFailClauseNode> onFailClauseNode = whileStatementNode.onFailClause();
-        if (onFailClauseNode.isPresent()) {
+        Optional<OnFailClauseNode> optOnFailClauseNode = whileStatementNode.onFailClause();
+        if (optOnFailClauseNode.isPresent()) {
             Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
-            for (StatementNode statement : onFailClauseNode.get().blockStatement().statements()) {
+            OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
+            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
                 statement.accept(this);
                 onFailBranchBuilder.node(buildNode());
             }
@@ -415,6 +417,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
         Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
+        onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
         for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
             statement.accept(this);
             onFailBranchBuilder.node(buildNode());
@@ -454,7 +457,7 @@ class CodeAnalyzer extends NodeVisitor {
     private Branch.Builder startBranch(String label, Branch.BranchKind kind) {
         this.flowNodeBuilderStack.push(nodeBuilder);
         nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
-        return new Branch.Builder().label(label).kind(kind);
+        return new Branch.Builder(semanticModel).label(label).kind(kind);
     }
 
     /**

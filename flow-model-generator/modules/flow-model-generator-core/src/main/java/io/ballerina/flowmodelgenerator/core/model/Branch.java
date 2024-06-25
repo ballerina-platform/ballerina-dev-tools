@@ -18,18 +18,25 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a branch of the node.
  *
- * @param label    label of the branch
- * @param kind     kind of the branch
- * @param children children of the branch
+ * @param label      label of the branch
+ * @param kind       kind of the branch
+ * @param children   children of the branch
+ * @param properties properties of the branch
  * @since 1.4.0
  */
-public record Branch(String label, BranchKind kind, List<FlowNode> children) {
+public record Branch(String label, BranchKind kind, List<FlowNode> children, Map<String, Expression> properties) {
 
     public static String BODY_LABEL = "Body";
     public static String ON_FAIL_LABEL = "On Fail";
@@ -48,9 +55,13 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children) {
         private String label;
         private Branch.BranchKind kind;
         private final List<FlowNode> children;
+        private final Map<String, Expression> properties;
+        private final SemanticModel semanticModel;
 
-        public Builder() {
+        public Builder(SemanticModel semanticModel) {
             children = new ArrayList<>();
+            properties = new HashMap<>();
+            this.semanticModel = semanticModel;
         }
 
         public Builder label(String label) {
@@ -73,8 +84,24 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children) {
             return this;
         }
 
+        public Builder variable(Node node) {
+            Expression.Builder expressionBuilder = new Expression.Builder();
+            if (node == null) {
+                return this;
+            }
+            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
+            expressionBuilder
+                    .label(FlowNode.NodePropertiesBuilder.VARIABLE_LABEL)
+                    .value(CommonUtils.getVariableName(node))
+                    .editable()
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .documentation(FlowNode.NodePropertiesBuilder.VARIABLE_DOC);
+            properties.put(FlowNode.NodePropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
+            return this;
+        }
+
         public Branch build() {
-            return new Branch(label, kind, children);
+            return new Branch(label, kind, children, properties.isEmpty() ? null : properties);
         }
     }
 }

@@ -28,4 +28,13 @@ service /food on new http:Listener(0) {
             }
         }
     }
+
+    resource function get pineapples() returns string {
+        do {
+            json res = check foodClient->get("/western/pineapples");
+            return res.toString();
+        } on fail http:ClientError err {
+            return err.message();
+        }
+    }
 }
