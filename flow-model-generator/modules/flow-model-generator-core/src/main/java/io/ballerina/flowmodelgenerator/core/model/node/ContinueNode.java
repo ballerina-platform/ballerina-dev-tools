@@ -19,23 +19,19 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
-import java.util.Map;
-
 /**
- * Represents the properties of an error handler node in the flow model.
+ * Represents the properties of a continue node.
  *
  * @since 1.4.0
  */
-public class ErrorHandlerNode extends FlowNode {
+public class ContinueNode extends FlowNode {
 
-    public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
-    public static final String ERROR_HANDLER_BODY = "Body";
+    public static final String CONTINUE_LABEL = "Continue";
 
-    protected ErrorHandlerNode(Map<String, Expression> nodeProperties) {
-        super(ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false, nodeProperties);
+    protected ContinueNode() {
+        super(CONTINUE_LABEL, Kind.CONTINUE, false, null);
     }
 
     @Override
@@ -44,7 +40,7 @@ public class ErrorHandlerNode extends FlowNode {
     }
 
     /**
-     * Represents the builder for error handler node properties.
+     * Represents the builder for continue node properties.
      *
      * @since 1.4.0
      */
@@ -56,7 +52,8 @@ public class ErrorHandlerNode extends FlowNode {
 
         @Override
         public FlowNode build() {
-            return new ErrorHandlerNode(nodeProperties);
+            return new ContinueNode();
         }
     }
+
 }

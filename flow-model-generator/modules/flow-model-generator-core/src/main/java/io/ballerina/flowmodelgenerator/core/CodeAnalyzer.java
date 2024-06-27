@@ -68,7 +68,9 @@ import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
+import io.ballerina.flowmodelgenerator.core.model.node.BreakNode;
 import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ContinueNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
@@ -305,7 +307,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(BreakStatementNode breakStatementNode) {
-        handleDefaultStatementNode(breakStatementNode, () -> super.visit(breakStatementNode));
+        nodeBuilder.lineRange(breakStatementNode);
+        nodeBuilder.propertiesBuilder(new BreakNode.Builder(semanticModel));
+        appendNode();
     }
 
     @Override
@@ -320,7 +324,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ContinueStatementNode continueStatementNode) {
-        handleDefaultStatementNode(continueStatementNode, () -> super.visit(continueStatementNode));
+        nodeBuilder.lineRange(continueStatementNode);
+        nodeBuilder.propertiesBuilder(new ContinueNode.Builder(semanticModel));
+        appendNode();
     }
 
     @Override
@@ -442,8 +448,8 @@ class CodeAnalyzer extends NodeVisitor {
     // Utility methods
 
     /**
-     * It's the responsibility of the topmost to add the flow nodes for building the diagram. Hence, the method only
-     * adds the node to the diagram if there is no active node that is building its branches.
+     * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
+     * only adds the node to the diagram if there is no active parent node which is building its branches.
      */
     private void appendNode() {
         if (this.flowNodeBuilderStack.isEmpty()) {

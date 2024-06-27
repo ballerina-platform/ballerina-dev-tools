@@ -69,4 +69,52 @@ service /food on new http:Listener(0) {
         }
         return finalMsg;
     }
+
+    resource function get bananas(int count) {
+        string? msg;
+        int i = 0;
+        while i < count {
+            json|error response = foodClient->get("/food/bananas");
+            if (response is json) {
+                msg = "Response received from food service: " + response.toString();
+            } else {
+                msg = "Error occurred while invoking food service: " + response.message();
+                continue;
+            }
+            i += 1;
+        }
+    }
+
+    resource function get grapes(int count) {
+        string? msg;
+        int i = 0;
+        while i < count {
+            json|error response = foodClient->get("/food/grapes");
+            if (response is json) {
+                msg = "Response received from food service: " + response.toString();
+            } else {
+                msg = "Error occurred while invoking food service: " + response.message();
+                break;
+            }
+            i += 1;
+        }
+    }
+
+    resource function get watermelons(int count) {
+        string? msg;
+        int i = 0;
+        while i < count {
+            json|error response = foodClient->get("/food/watermelons");
+            if (response is json) {
+                msg = "Response received from food service: " + response.toString();
+            } else {
+                msg = "Error occurred while invoking food service: " + response.message();
+                continue;
+            }
+            if (i == 3) {
+                break;
+            }
+            i += 1;
+        }
+    }
 }

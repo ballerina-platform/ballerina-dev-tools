@@ -34,8 +34,6 @@ public class WhileNode extends FlowNode {
 
     public static final String WHILE_LABEL = "While";
     public static final String WHILE_CONDITION = "Condition";
-    public static final String WHILE_BODY = "Body";
-    public static final String WHILE_ON_FAIL = "On Fail";
     public static final String WHILE_CONDITION_KEY = "condition";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
 

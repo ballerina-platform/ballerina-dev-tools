@@ -30,7 +30,9 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.model.node.BreakNode;
 import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ContinueNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
@@ -69,7 +71,7 @@ public abstract class FlowNode {
         this.label = label;
         this.kind = kind;
         this.fixed = fixed;
-        if (!nodeProperties.isEmpty()) {
+        if (nodeProperties == null || !nodeProperties.isEmpty()) {
             this.nodeProperties = nodeProperties;
         }
     }
@@ -122,7 +124,9 @@ public abstract class FlowNode {
         RETURN,
         EXPRESSION,
         ERROR_HANDLER,
-        WHILE
+        WHILE,
+        CONTINUE,
+        BREAK
     }
 
     /**
@@ -348,6 +352,8 @@ public abstract class FlowNode {
                 case RETURN -> context.deserialize(jsonObject, Return.class);
                 case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandlerNode.class);
                 case WHILE -> context.deserialize(jsonObject, WhileNode.class);
+                case CONTINUE -> context.deserialize(jsonObject, ContinueNode.class);
+                case BREAK -> context.deserialize(jsonObject, BreakNode.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
             };
         }
