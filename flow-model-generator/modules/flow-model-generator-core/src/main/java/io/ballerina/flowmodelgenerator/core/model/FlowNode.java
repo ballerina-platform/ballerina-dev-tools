@@ -96,6 +96,10 @@ public abstract class FlowNode {
         return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
     }
 
+    protected Expression getBranchProperty(Branch branch, String key) {
+        return branch != null ? branch.properties().get(key) : null;
+    }
+
     public LineRange lineRange() {
         return lineRange;
     }

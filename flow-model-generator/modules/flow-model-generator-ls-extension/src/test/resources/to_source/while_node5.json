@@ -1,0 +1,142 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "58971",
+    "label": "While",
+    "lineRange": {
+      "fileName": "while.bal",
+      "startLine": {
+        "line": 27,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 33,
+        "offset": 9
+      }
+    },
+    "kind": "WHILE",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "47018",
+            "label": "Custom Expression",
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 15,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 22
+              }
+            },
+            "kind": "EXPRESSION",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "variable": {
+                "label": "Variable",
+                "type": "int",
+                "value": "i",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              },
+              "expression": {
+                "label": "Expression",
+                "type": "int",
+                "value": "i + 1",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "90836",
+            "label": "Return",
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 59,
+                "offset": 16
+              },
+              "endLine": {
+                "line": 59,
+                "offset": 68
+              }
+            },
+            "kind": "RETURN",
+            "returning": true,
+            "fixed": false,
+            "nodeProperties": {
+              "expression": {
+                "label": "Expression",
+                "type": "string",
+                "value": "\"Error occurred while creating admin client\"",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Return value"
+              }
+            },
+            "flags": 0
+          }
+        ],
+        "properties": {
+          "variable": {
+            "label": "Variable",
+            "type": "http:ClientError",
+            "value": "e ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        }
+      }
+    ],
+    "nodeProperties": {
+      "condition": {
+        "label": "Condition",
+        "type": "boolean",
+        "value": "i < count ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Boolean Condition"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 27,
+          "character": 8
+        },
+        "end": {
+          "line": 33,
+          "character": 9
+        }
+      },
+      "newText": "while i < count {\n    int i = i + 1;\n}\non fail http:ClientError e {\n    return \"Error occurred while creating admin client\";\n}"
+    }
+  ]
+}

@@ -29,6 +29,6 @@ fi
 
 echo '{
     "description": "Sample diagram node",
-    "diagram": {},
-    "output": []
+    "output": [],
+    "diagram": {}
 }' > ""${NAME}${NUMBER}.json""

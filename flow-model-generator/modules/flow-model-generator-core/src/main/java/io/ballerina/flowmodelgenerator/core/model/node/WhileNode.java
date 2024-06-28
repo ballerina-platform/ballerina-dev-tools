@@ -20,6 +20,8 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
@@ -43,7 +45,38 @@ public class WhileNode extends FlowNode {
 
     @Override
     public String toSource() {
-        return null;
+        SourceBuilder sourceBuilder = new SourceBuilder();
+        Expression condition = getProperty(WHILE_CONDITION_KEY);
+        Branch body = getBranch(Branch.BODY_LABEL);
+
+        sourceBuilder
+                .keyword(SyntaxKind.WHILE_KEYWORD)
+                .expression(condition)
+                .openBrace()
+                .addChildren(body.children())
+                .closeBrace();
+
+        // Handle the on fail branch
+        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch != null) {
+            // Build the keywords
+            sourceBuilder
+                    .keyword(SyntaxKind.ON_KEYWORD)
+                    .keyword(SyntaxKind.FAIL_KEYWORD);
+
+            // Build the parameters
+            Expression variableProperty = getBranchProperty(onFailBranch, NodePropertiesBuilder.VARIABLE_KEY);
+            if (variableProperty != null) {
+                sourceBuilder.expressionWithType(variableProperty);
+            }
+
+            // Build the body
+            sourceBuilder.openBrace()
+                    .addChildren(onFailBranch.children())
+                    .closeBrace();
+        }
+
+        return sourceBuilder.build(false);
     }
 
     public static class Builder extends FlowNode.NodePropertiesBuilder {
