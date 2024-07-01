@@ -1,0 +1,11 @@
+{
+  "description": "Sample diagram node",
+  "kind": "BREAK",
+  "output": {
+    "label": "Break",
+    "kind": "BREAK",
+    "returning": false,
+    "fixed": false,
+    "flags": 0
+  }
+}

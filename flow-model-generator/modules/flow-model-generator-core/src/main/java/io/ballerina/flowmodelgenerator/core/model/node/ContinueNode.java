@@ -30,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class ContinueNode extends FlowNode {
 
     public static final String CONTINUE_LABEL = "Continue";
+    public static final ContinueNode DEFAULT_NODE = new ContinueNode();
 
     protected ContinueNode() {
         super(CONTINUE_LABEL, Kind.CONTINUE, false, null);

@@ -30,6 +30,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class BreakNode extends FlowNode {
 
     public static final String BREAK_LABEL = "Break";
+    public static final BreakNode DEFAULT_NODE = new BreakNode();
 
     protected BreakNode() {
         super(BREAK_LABEL, Kind.BREAK, false, null);
