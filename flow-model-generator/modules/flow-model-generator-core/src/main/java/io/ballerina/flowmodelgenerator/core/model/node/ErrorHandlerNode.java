@@ -19,6 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
@@ -40,7 +42,34 @@ public class ErrorHandlerNode extends FlowNode {
 
     @Override
     public String toSource() {
-        return null;
+        SourceBuilder sourceBuilder = new SourceBuilder();
+        Branch body = getBranch(ERROR_HANDLER_BODY);
+        sourceBuilder
+                .keyword(SyntaxKind.DO_KEYWORD)
+                .openBrace()
+                .addChildren(body.children())
+                .closeBrace();
+
+        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch != null) {
+            // Build the keywords
+            sourceBuilder
+                    .keyword(SyntaxKind.ON_KEYWORD)
+                    .keyword(SyntaxKind.FAIL_KEYWORD);
+
+            // Build the parameters
+            Expression variableProperty = getBranchProperty(onFailBranch, NodePropertiesBuilder.VARIABLE_KEY);
+            if (variableProperty != null) {
+                sourceBuilder.expressionWithType(variableProperty);
+            }
+
+            // Build the body
+            sourceBuilder.openBrace()
+                    .addChildren(onFailBranch.children())
+                    .closeBrace();
+        }
+
+        return sourceBuilder.build(false);
     }
 
     /**

@@ -97,7 +97,7 @@ public abstract class FlowNode {
     }
 
     protected Expression getBranchProperty(Branch branch, String key) {
-        return branch != null ? branch.properties().get(key) : null;
+        return branch.properties() != null ? branch.properties().get(key) : null;
     }
 
     public LineRange lineRange() {
