@@ -1,0 +1,235 @@
+{
+  "start": {
+    "line": 31,
+    "offset": 4
+  },
+  "end": {
+    "line": 38,
+    "offset": 5
+  },
+  "source": "error_handler.bal",
+  "description": "Tests a error handler",
+  "diagram": {
+    "fileName": "error_handler.bal",
+    "nodes": [
+      {
+        "id": "62842",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "error_handler.bal",
+          "startLine": {
+            "line": 31,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 38,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "pineapples",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "63900",
+        "label": "ErrorHandler",
+        "lineRange": {
+          "fileName": "error_handler.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 37,
+            "offset": 9
+          }
+        },
+        "kind": "ERROR_HANDLER",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "64920",
+                "label": "HTTP GET",
+                "lineRange": {
+                  "fileName": "error_handler.bal",
+                  "startLine": {
+                    "line": 33,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 33,
+                    "offset": 68
+                  }
+                },
+                "kind": "HTTP_API_GET_CALL",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "client": {
+                    "label": "Client",
+                    "type": "http:Client",
+                    "value": "foodClient",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Client Connection"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "json",
+                    "value": "res ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "path": {
+                    "label": "Path",
+                    "type": "string",
+                    "value": "\"/western/pineapples\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Path"
+                  },
+                  "headers": {
+                    "label": "Headers",
+                    "type": "map<string|string[]>?",
+                    "typeKind": "BTYPE",
+                    "optional": true,
+                    "editable": true,
+                    "documentation": "HTTP Headers"
+                  }
+                },
+                "flags": 1
+              },
+              {
+                "id": "65878",
+                "label": "Return",
+                "lineRange": {
+                  "fileName": "error_handler.bal",
+                  "startLine": {
+                    "line": 34,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 34,
+                    "offset": 34
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "string",
+                    "value": "res.toString()",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Return value"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "67861",
+                "label": "Return",
+                "lineRange": {
+                  "fileName": "error_handler.bal",
+                  "startLine": {
+                    "line": 36,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 36,
+                    "offset": 33
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "string",
+                    "value": "err.message()",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Return value"
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": "http:ClientError",
+                "value": "err ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "error_handler.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "start": {
+    "line": 87,
+    "offset": 4
+  },
+  "end": {
+    "line": 100,
+    "offset": 5
+  },
+  "source": "while.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "while.bal",
+    "nodes": [
+      {
+        "id": "118580",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 87,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 100,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "grapes",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "119308",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 88,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 88,
+            "offset": 20
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "i ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "0",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "121560",
+        "label": "While",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 90,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 99,
+            "offset": 9
+          }
+        },
+        "kind": "WHILE",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "122454",
+                "label": "HTTP GET",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 91,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 91,
+                    "offset": 66
+                  }
+                },
+                "kind": "HTTP_API_GET_CALL",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "client": {
+                    "label": "Client",
+                    "type": "http:Client",
+                    "value": "foodClient",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Client Connection"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "json|annotations:error",
+                    "value": "response ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "path": {
+                    "label": "Path",
+                    "type": "string",
+                    "value": "\"/food/grapes\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Path"
+                  },
+                  "headers": {
+                    "label": "Headers",
+                    "type": "map<string|string[]>?",
+                    "typeKind": "BTYPE",
+                    "optional": true,
+                    "editable": true,
+                    "documentation": "HTTP Headers"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "123548",
+                "label": "If",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 92,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 97,
+                    "offset": 13
+                  }
+                },
+                "kind": "IF",
+                "returning": false,
+                "fixed": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "124580",
+                        "label": "Custom Expression",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 93,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 93,
+                            "offset": 84
+                          }
+                        },
+                        "kind": "EXPRESSION",
+                        "returning": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "variable": {
+                            "label": "Variable",
+                            "type": "string|()",
+                            "value": "msg",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"Response received from food service: \" + response.toString()",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "126570",
+                        "label": "Custom Expression",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 95,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 95,
+                            "offset": 90
+                          }
+                        },
+                        "kind": "EXPRESSION",
+                        "returning": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "variable": {
+                            "label": "Variable",
+                            "type": "string|()",
+                            "value": "msg",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"Error occurred while invoking food service: \" + response.message()",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "127494",
+                        "label": "Break",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 96,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 96,
+                            "offset": 22
+                          }
+                        },
+                        "kind": "BREAK",
+                        "returning": false,
+                        "fixed": false,
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "label": "Condition",
+                    "type": "boolean",
+                    "value": "(response is json) ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Boolean Condition"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "129351",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 98,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 98,
+                    "offset": 19
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "label": "Condition",
+            "type": "boolean",
+            "value": "i < count ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Boolean Condition"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

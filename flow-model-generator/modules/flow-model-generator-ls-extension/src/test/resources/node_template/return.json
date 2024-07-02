@@ -1,0 +1,21 @@
+{
+  "description": "Sample diagram node",
+  "kind": "RETURN",
+  "output": {
+    "label": "Return",
+    "kind": "RETURN",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Return value"
+      }
+    },
+    "flags": 0
+  }
+}

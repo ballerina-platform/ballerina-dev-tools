@@ -1,0 +1,11 @@
+{
+  "description": "Sample diagram node",
+  "kind": "CONTINUE",
+  "output": {
+    "label": "Continue",
+    "kind": "CONTINUE",
+    "returning": false,
+    "fixed": false,
+    "flags": 0
+  }
+}

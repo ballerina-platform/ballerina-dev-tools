@@ -1,0 +1,24 @@
+{
+  "description": "Sample diagram node",
+  "kind": "ERROR_HANDLER",
+  "output": {
+    "id": "31",
+    "label": "ErrorHandler",
+    "kind": "ERROR_HANDLER",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": []
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": []
+      }
+    ],
+    "flags": 0
+  }
+}

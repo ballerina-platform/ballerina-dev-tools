@@ -1,0 +1,29 @@
+{
+  "description": "Sample diagram node",
+  "kind": "WHILE",
+  "output": {
+    "id": "31",
+    "label": "While",
+    "kind": "WHILE",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": []
+      }
+    ],
+    "nodeProperties": {
+      "condition": {
+        "label": "Condition",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Boolean Condition"
+      }
+    },
+    "flags": 0
+  }
+}

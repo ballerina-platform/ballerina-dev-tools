@@ -1,0 +1,55 @@
+{
+  "start": {
+    "line": 20,
+    "offset": 0
+  },
+  "end": {
+    "line": 22,
+    "offset": 1
+  },
+  "source": "flags.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "flags.bal",
+    "nodes": [
+      {
+        "id": "51775",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "flags.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 22,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "accessor",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "path",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      }
+    ],
+    "clients": []
+  }
+}

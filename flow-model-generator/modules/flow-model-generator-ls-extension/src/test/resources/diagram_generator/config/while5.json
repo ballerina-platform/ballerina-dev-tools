@@ -1,0 +1,685 @@
+{
+  "start": {
+    "line": 48,
+    "offset": 4
+  },
+  "end": {
+    "line": 70,
+    "offset": 5
+  },
+  "source": "while.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "while.bal",
+    "nodes": [
+      {
+        "id": "80171",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 48,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 70,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "pineapples",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "80618",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 49,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 49,
+            "offset": 18
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "i ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "0",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "81621",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 50,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 50,
+            "offset": 29
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "string",
+            "value": "finalMsg ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "string",
+            "value": "\"\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "83120",
+        "label": "While",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 51,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 68,
+            "offset": 9
+          }
+        },
+        "kind": "WHILE",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "83770",
+                "label": "HTTP GET",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 52,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 52,
+                    "offset": 70
+                  }
+                },
+                "kind": "HTTP_API_GET_CALL",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "client": {
+                    "label": "Client",
+                    "type": "http:Client",
+                    "value": "foodClient",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Client Connection"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "json",
+                    "value": "response ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "path": {
+                    "label": "Path",
+                    "type": "string",
+                    "value": "\"/food/pineapples\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "HTTP Path"
+                  },
+                  "headers": {
+                    "label": "Headers",
+                    "type": "map<string|string[]>?",
+                    "typeKind": "BTYPE",
+                    "optional": true,
+                    "editable": true,
+                    "documentation": "HTTP Headers"
+                  }
+                },
+                "flags": 1
+              },
+              {
+                "id": "84736",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 53,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 53,
+                    "offset": 44
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "flags": 0
+              },
+              {
+                "id": "85703",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 54,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 54,
+                    "offset": 19
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "87697",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 56,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 56,
+                    "offset": 29
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "attempts ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "type": "int",
+                    "value": "0",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "88745",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 57,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 57,
+                    "offset": 85
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "http:Client|http:ClientError",
+                    "value": "adminClient ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "type": "http:Client|http:ClientError",
+                    "value": "new (\"http://localhost:9090\")",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "89727",
+                "label": "If",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 58,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 60,
+                    "offset": 13
+                  }
+                },
+                "kind": "IF",
+                "returning": false,
+                "fixed": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "90836",
+                        "label": "Return",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 59,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 59,
+                            "offset": 68
+                          }
+                        },
+                        "kind": "RETURN",
+                        "returning": true,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"Error occurred while creating admin client\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Return value"
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "label": "Condition",
+                    "type": "boolean",
+                    "value": "adminClient is http:ClientError ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Boolean Condition"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "92796",
+                "label": "While",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 61,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 66,
+                    "offset": 13
+                  }
+                },
+                "kind": "WHILE",
+                "returning": false,
+                "fixed": false,
+                "branches": [
+                  {
+                    "label": "Body",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "93839",
+                        "label": "HTTP POST",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 62,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 62,
+                            "offset": 95
+                          }
+                        },
+                        "kind": "HTTP_API_POST_CALL",
+                        "returning": false,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "client": {
+                            "label": "Client",
+                            "type": "http:Client",
+                            "value": "adminClient",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Client Connection"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "json",
+                            "value": "response ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          },
+                          "path": {
+                            "label": "Path",
+                            "type": "string",
+                            "value": "\"/admin/restart\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Path"
+                          },
+                          "message": {
+                            "label": "Message",
+                            "type": "map<anydata>",
+                            "value": "{body: e.message()}",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Post Message"
+                          },
+                          "headers": {
+                            "label": "Headers",
+                            "type": "map<string|string[]>?",
+                            "typeKind": "BTYPE",
+                            "optional": true,
+                            "editable": true,
+                            "documentation": "HTTP Headers"
+                          },
+                          "mediaType": {
+                            "label": "Media Type",
+                            "type": "string?",
+                            "typeKind": "BTYPE",
+                            "optional": true,
+                            "editable": true,
+                            "documentation": "HTTP Post Media Type"
+                          }
+                        },
+                        "flags": 1
+                      },
+                      {
+                        "id": "94822",
+                        "label": "Return",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 63,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 63,
+                            "offset": 86
+                          }
+                        },
+                        "kind": "RETURN",
+                        "returning": true,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"Response received from admin service: \" + response.toString()",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Return value"
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  },
+                  {
+                    "label": "On Fail",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "96789",
+                        "label": "Return",
+                        "lineRange": {
+                          "fileName": "while.bal",
+                          "startLine": {
+                            "line": 65,
+                            "offset": 16
+                          },
+                          "endLine": {
+                            "line": 65,
+                            "offset": 69
+                          }
+                        },
+                        "kind": "RETURN",
+                        "returning": true,
+                        "fixed": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "string",
+                            "value": "\"Error occurred while invoking admin service\"",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Return value"
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "nodeProperties": {
+                  "condition": {
+                    "label": "Condition",
+                    "type": "boolean",
+                    "value": "attempts < retries ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Boolean Condition"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "98644",
+                "label": "Return",
+                "lineRange": {
+                  "fileName": "while.bal",
+                  "startLine": {
+                    "line": 67,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 67,
+                    "offset": 64
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "string",
+                    "value": "\"Error occurred while invoking food service\"",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Return value"
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": "http:ClientError",
+                "value": "e ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "label": "Condition",
+            "type": "boolean",
+            "value": "i < count ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Boolean Condition"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "100464",
+        "label": "Return",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 69,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 69,
+            "offset": 24
+          }
+        },
+        "kind": "RETURN",
+        "returning": true,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "string",
+            "value": "finalMsg",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Return value"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}
