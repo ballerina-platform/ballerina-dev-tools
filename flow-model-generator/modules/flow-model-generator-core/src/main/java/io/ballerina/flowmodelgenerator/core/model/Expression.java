@@ -65,6 +65,16 @@ public record Expression(String label, String type, String value, ExpressionType
         private boolean editable;
         private String documentation;
 
+        private static Builder instance = null;
+
+        public static Builder getInstance() {
+            // TODO: Make this method concurrent safe
+            if (instance == null) {
+                instance = new Builder();
+            }
+            return instance;
+        }
+
         public Builder label(String key) {
             this.label = key;
             return this;

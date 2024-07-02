@@ -1,0 +1,29 @@
+{
+  "description": "Sample diagram node",
+  "kind": "IF",
+  "output": {
+    "id": "31",
+    "label": "If",
+    "kind": "IF",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "children": []
+      }
+    ],
+    "nodeProperties": {
+      "condition": {
+        "label": "Condition",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Boolean Condition"
+      }
+    },
+    "flags": 0
+  }
+}

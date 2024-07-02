@@ -42,6 +42,17 @@ public class Return extends FlowNode {
         super(RETURN_LABEL, Kind.RETURN, false, nodeProperties);
     }
 
+    public static final Return DEFAULT_NODE = new Return(Map.of(
+            RETURN_EXPRESSION_KEY,
+            Expression.Builder.getInstance()
+                    .label(RETURN_EXPRESSION)
+                    .value("")
+                    .documentation(RETURN_EXPRESSION_DOC)
+                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .editable()
+                    .build()
+    ));
+
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();

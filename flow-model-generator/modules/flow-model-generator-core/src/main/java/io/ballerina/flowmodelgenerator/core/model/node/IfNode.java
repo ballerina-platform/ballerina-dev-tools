@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,17 @@ public class IfNode extends FlowNode {
     private static final String IF_CONDITION = "Condition";
     public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
+
+    private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
+            .label(IF_CONDITION)
+            .value("")
+            .documentation(IF_CONDITION_DOC)
+            .typeKind(Expression.ExpressionTypeKind.BTYPE)
+            .editable()
+            .build();
+    public static final FlowNode DEFAULT_NODE = new IfNode(Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION))
+            .setCommonFields(null, false,
+                    List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, new ArrayList<>(), null)), 0);
 
     protected IfNode(Map<String, Expression> nodeProperties) {
         super(IF_LABEL, Kind.IF, false, nodeProperties);

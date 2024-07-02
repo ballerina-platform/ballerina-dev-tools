@@ -76,12 +76,13 @@ public abstract class FlowNode {
         }
     }
 
-    private void setCommonFields(LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+    protected FlowNode setCommonFields(LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
         this.id = String.valueOf(Objects.hash(lineRange));
         this.lineRange = lineRange;
         this.returning = returning;
         this.branches = branches;
         this.flags = flags;
+        return this;
     }
 
     public Kind kind() {
@@ -190,8 +191,7 @@ public abstract class FlowNode {
             }
             FlowNode node = nodePropertiesBuilder.build();
             List<Branch> outBranches = branches.isEmpty() ? null : branches;
-            node.setCommonFields(lineRange, returning, outBranches, flags);
-            return node;
+            return node.setCommonFields(lineRange, returning, outBranches, flags);
         }
     }
 

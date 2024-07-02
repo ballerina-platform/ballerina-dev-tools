@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +36,8 @@ public class ErrorHandlerNode extends FlowNode {
 
     public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
     public static final String ERROR_HANDLER_BODY = "Body";
+    public static final FlowNode DEFAULT_NODE = new ErrorHandlerNode(null)
+            .setCommonFields(null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
 
     protected ErrorHandlerNode(Map<String, Expression> nodeProperties) {
         super(ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false, nodeProperties);

@@ -25,6 +25,8 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +40,16 @@ public class WhileNode extends FlowNode {
     public static final String WHILE_CONDITION = "Condition";
     public static final String WHILE_CONDITION_KEY = "condition";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
+    private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
+            .label(WHILE_CONDITION)
+            .value("")
+            .documentation(WHILE_CONDITION_DOC)
+            .typeKind(Expression.ExpressionTypeKind.BTYPE)
+            .editable()
+            .build();
+    public static final FlowNode DEFAULT_NODE = new WhileNode(Map.of(WHILE_CONDITION_KEY, DEFAULT_CONDITION))
+            .setCommonFields(null, false,
+                    List.of(new Branch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK, new ArrayList<>(), null)), 0);
 
     protected WhileNode(Map<String, Expression> nodeProperties) {
         super(WHILE_LABEL, Kind.WHILE, false, nodeProperties);

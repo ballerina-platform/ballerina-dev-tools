@@ -39,7 +39,9 @@ public class AvailableNodesGenerator {
                         FlowNode.Kind.HTTP_API_GET_CALL,
                         FlowNode.Kind.HTTP_API_POST_CALL,
                         FlowNode.Kind.RETURN,
-                        FlowNode.Kind.EXPRESSION
+                        FlowNode.Kind.EXPRESSION,
+                        FlowNode.Kind.WHILE,
+                        FlowNode.Kind.ERROR_HANDLER
                 )).getAsJsonArray();
     }
 }

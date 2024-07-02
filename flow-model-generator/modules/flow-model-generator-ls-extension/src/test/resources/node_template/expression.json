@@ -1,0 +1,11 @@
+{
+  "description": "Sample diagram node",
+  "kind": "EXPRESSION",
+  "output": {
+    "label": "Custom Expression",
+    "kind": "EXPRESSION",
+    "returning": false,
+    "fixed": false,
+    "flags": 0
+  }
+}
