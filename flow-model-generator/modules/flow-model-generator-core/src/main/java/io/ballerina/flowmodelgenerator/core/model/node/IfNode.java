@@ -112,12 +112,12 @@ public class IfNode extends FlowNode {
                     .documentation(IF_CONDITION_DOC)
                     .editable()
                     .build();
+            addProperty(IF_CONDITION_KEY, this.condition);
             return this;
         }
 
         @Override
         public FlowNode build() {
-            addProperty(IF_CONDITION_KEY, this.condition);
             return new IfNode(nodeProperties);
         }
     }

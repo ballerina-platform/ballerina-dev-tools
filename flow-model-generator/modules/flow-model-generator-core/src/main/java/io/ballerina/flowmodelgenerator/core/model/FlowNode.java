@@ -252,6 +252,7 @@ public abstract class FlowNode {
                     .value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expression).expression().toString() : expression.toString())
                     .build();
+            addProperty(EXPRESSION_RHS_KEY, this.expression);
             return this;
         }
 

@@ -90,12 +90,12 @@ public class Return extends FlowNode {
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
+            addProperty(RETURN_EXPRESSION_KEY, expression);
             return this;
         }
 
         @Override
         public FlowNode build() {
-            nodeProperties.put(RETURN_EXPRESSION_KEY, expression);
             return new Return(nodeProperties);
         }
     }

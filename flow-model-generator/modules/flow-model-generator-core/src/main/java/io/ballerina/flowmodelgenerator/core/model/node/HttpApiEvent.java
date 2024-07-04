@@ -66,6 +66,7 @@ public class HttpApiEvent extends FlowNode {
                     .documentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
             this.method = expressionBuilder.build();
+            addProperty(EVENT_HTTP_API_METHOD_KEY, method);
 
             expressionBuilder
                     .label(EVENT_HTTP_API_PATH)
@@ -74,13 +75,12 @@ public class HttpApiEvent extends FlowNode {
                     .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
             this.path = expressionBuilder.build();
+            addProperty(EVENT_HTTP_API_PATH_KEY, path);
             return this;
         }
 
         @Override
         public FlowNode build() {
-            addProperty(EVENT_HTTP_API_METHOD_KEY, method);
-            addProperty(EVENT_HTTP_API_PATH_KEY, path);
             return new HttpApiEvent(nodeProperties);
         }
     }

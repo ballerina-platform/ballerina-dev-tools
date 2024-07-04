@@ -69,8 +69,6 @@ public class DefaultExpression extends FlowNode {
 
         @Override
         public FlowNode build() {
-            addProperty(FlowNode.NodePropertiesBuilder.VARIABLE_KEY, this.variable);
-            addProperty(FlowNode.NodePropertiesBuilder.EXPRESSION_RHS_KEY, this.expression);
             return new DefaultExpression(nodeProperties);
         }
     }

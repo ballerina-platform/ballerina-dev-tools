@@ -108,12 +108,12 @@ public class WhileNode extends FlowNode {
                     .documentation(WHILE_CONDITION_DOC)
                     .editable()
                     .build();
+            addProperty(WHILE_CONDITION_KEY, this.condition);
             return this;
         }
 
         @Override
         public FlowNode build() {
-            addProperty(WHILE_CONDITION_KEY, this.condition);
             return new WhileNode(nodeProperties);
         }
     }
