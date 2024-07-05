@@ -51,9 +51,6 @@ public class HttpApiEvent extends FlowNode {
 
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 
-        private Expression method;
-        private Expression path;
-
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
         }
@@ -65,8 +62,7 @@ public class HttpApiEvent extends FlowNode {
                     .editable()
                     .documentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
-            this.method = expressionBuilder.build();
-            addProperty(EVENT_HTTP_API_METHOD_KEY, method);
+            addProperty(EVENT_HTTP_API_METHOD_KEY, expressionBuilder.build());
 
             expressionBuilder
                     .label(EVENT_HTTP_API_PATH)
@@ -74,8 +70,7 @@ public class HttpApiEvent extends FlowNode {
                     .editable()
                     .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
-            this.path = expressionBuilder.build();
-            addProperty(EVENT_HTTP_API_PATH_KEY, path);
+            addProperty(EVENT_HTTP_API_PATH_KEY, expressionBuilder.build());
             return this;
         }
 

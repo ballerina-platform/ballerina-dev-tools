@@ -215,9 +215,6 @@ public abstract class FlowNode {
         protected final SemanticModel semanticModel;
         protected Expression.Builder expressionBuilder;
 
-        protected Expression variable;
-        protected Expression expression;
-
         public NodePropertiesBuilder(SemanticModel semanticModel) {
             this.nodeProperties = new LinkedHashMap<>();
             this.expressionBuilder = new Expression.Builder();
@@ -237,22 +234,21 @@ public abstract class FlowNode {
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .documentation(VARIABLE_DOC);
 
-            this.variable = expressionBuilder.build();
-            addProperty(VARIABLE_KEY, this.variable);
+            addProperty(VARIABLE_KEY, expressionBuilder.build());
             return (T) this;
         }
 
-        public NodePropertiesBuilder expression(ExpressionNode expression) {
-            semanticModel.typeOf(expression).ifPresent(expressionBuilder::type);
-            this.expression = expressionBuilder
+        public NodePropertiesBuilder expression(ExpressionNode expressionNode) {
+            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
+            Expression expression = expressionBuilder
                     .label(EXPRESSION_RHS_LABEL)
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .documentation(EXPRESSION_RHS_DOC)
                     .editable()
-                    .value(expression.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                            ((CheckExpressionNode) expression).expression().toString() : expression.toString())
+                    .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
-            addProperty(EXPRESSION_RHS_KEY, this.expression);
+            addProperty(EXPRESSION_RHS_KEY, expression);
             return this;
         }
 

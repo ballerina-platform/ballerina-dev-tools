@@ -75,15 +75,13 @@ public class Return extends FlowNode {
      */
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 
-        private Expression expression;
-
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
         }
 
         public Builder setExpressionNode(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.expression = expressionBuilder
+            Expression expression = expressionBuilder
                     .label(RETURN_EXPRESSION)
                     .value(expressionNode.toSourceCode())
                     .documentation(RETURN_EXPRESSION_DOC)

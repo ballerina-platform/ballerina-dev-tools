@@ -97,22 +97,20 @@ public class IfNode extends FlowNode {
      */
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 
-        private Expression condition;
-
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
         }
 
         public Builder setConditionExpression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.condition = expressionBuilder
+            Expression condition = expressionBuilder
                     .label(IF_CONDITION)
                     .value(expressionNode.toSourceCode())
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .documentation(IF_CONDITION_DOC)
                     .editable()
                     .build();
-            addProperty(IF_CONDITION_KEY, this.condition);
+            addProperty(IF_CONDITION_KEY, condition);
             return this;
         }
 

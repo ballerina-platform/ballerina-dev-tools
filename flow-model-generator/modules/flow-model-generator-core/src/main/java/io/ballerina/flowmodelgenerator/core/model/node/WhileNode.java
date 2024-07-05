@@ -93,22 +93,20 @@ public class WhileNode extends FlowNode {
 
     public static class Builder extends FlowNode.NodePropertiesBuilder {
 
-        private Expression condition;
-
         public Builder(SemanticModel semanticModel) {
             super(semanticModel);
         }
 
         public Builder setConditionExpression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.condition = expressionBuilder
+            Expression condition = expressionBuilder
                     .label(WHILE_CONDITION)
                     .value(expressionNode.toSourceCode())
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
                     .documentation(WHILE_CONDITION_DOC)
                     .editable()
                     .build();
-            addProperty(WHILE_CONDITION_KEY, this.condition);
+            addProperty(WHILE_CONDITION_KEY, condition);
             return this;
         }
 
