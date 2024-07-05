@@ -1,0 +1,334 @@
+{
+  "start": {
+    "line": 29,
+    "offset": 0
+  },
+  "end": {
+    "line": 42,
+    "offset": 1
+  },
+  "source": "fail.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "fail.bal",
+    "nodes": [
+      {
+        "id": "60916",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 42,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "61654",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 30,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 30,
+            "offset": 26
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "string",
+            "value": "str ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "string",
+            "value": "\"string\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "62638",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 31,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 18
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "count ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "0",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "63896",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 5
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "count",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "count + 1",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "65791",
+        "label": "If",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 34,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 36,
+            "offset": 9
+          }
+        },
+        "kind": "IF",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "66863",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "fail.bal",
+                  "startLine": {
+                    "line": 35,
+                    "offset": 12
+                  },
+                  "endLine": {
+                    "line": 35,
+                    "offset": 27
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "label": "Condition",
+            "type": "boolean",
+            "value": "(count < 5) ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Boolean Condition"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "68718",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 37,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 37,
+            "offset": 22
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "variable": {
+            "label": "Variable",
+            "type": "string",
+            "value": "str",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          },
+          "expression": {
+            "label": "Expression",
+            "type": "string",
+            "value": "\"value\"",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "69718",
+        "label": "Fail",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 38,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 38,
+            "offset": 30
+          }
+        },
+        "kind": "FAIL",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "error(\"Failing\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Fail value"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "31",
+        "label": "Custom Expression",
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "71181",
+        "label": "Return",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 39,
+            "offset": 22
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 5
+          }
+        },
+        "kind": "RETURN",
+        "returning": true,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "e",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Return value"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "31",
+        "label": "Custom Expression",
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "31",
+        "label": "Custom Expression",
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

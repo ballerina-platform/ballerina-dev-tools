@@ -1,0 +1,141 @@
+{
+  "start": {
+    "line": 12,
+    "offset": 0
+  },
+  "end": {
+    "line": 18,
+    "offset": 1
+  },
+  "source": "fail.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "fail.bal",
+    "nodes": [
+      {
+        "id": "43835",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 12,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "44893",
+        "label": "ErrorHandler",
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 5
+          }
+        },
+        "kind": "ERROR_HANDLER",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "45967",
+                "label": "Fail",
+                "lineRange": {
+                  "fileName": "fail.bal",
+                  "startLine": {
+                    "line": 14,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 14,
+                    "offset": 87
+                  }
+                },
+                "kind": "FAIL",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "AssertionError",
+                    "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Fail value"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "47881",
+                "label": "Return",
+                "lineRange": {
+                  "fileName": "fail.bal",
+                  "startLine": {
+                    "line": 16,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 16,
+                    "offset": 17
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": ".:error",
+                    "value": "e",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Return value"
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": ".:error",
+                "value": "e ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

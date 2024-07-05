@@ -35,6 +35,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
 import io.ballerina.flowmodelgenerator.core.model.node.ContinueNode;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
+import io.ballerina.flowmodelgenerator.core.model.node.FailNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
@@ -131,7 +132,8 @@ public abstract class FlowNode {
         ERROR_HANDLER,
         WHILE,
         CONTINUE,
-        BREAK
+        BREAK,
+        FAIL
     }
 
     /**
@@ -358,6 +360,7 @@ public abstract class FlowNode {
                 case WHILE -> context.deserialize(jsonObject, WhileNode.class);
                 case CONTINUE -> context.deserialize(jsonObject, ContinueNode.class);
                 case BREAK -> context.deserialize(jsonObject, BreakNode.class);
+                case FAIL -> context.deserialize(jsonObject, FailNode.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
             };
         }
