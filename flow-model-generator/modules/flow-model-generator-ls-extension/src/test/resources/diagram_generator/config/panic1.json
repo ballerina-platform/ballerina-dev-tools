@@ -1,0 +1,67 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 6,
+    "offset": 1
+  },
+  "source": "panic.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "panic.bal",
+    "nodes": [
+      {
+        "id": "35775",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "36848",
+        "label": "Panic",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 5,
+            "offset": 20
+          }
+        },
+        "kind": "PANIC",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "error(\"\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Panic value"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

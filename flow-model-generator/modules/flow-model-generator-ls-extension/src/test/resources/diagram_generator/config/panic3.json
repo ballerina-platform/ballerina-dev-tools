@@ -1,0 +1,67 @@
+{
+  "start": {
+    "line": 12,
+    "offset": 0
+  },
+  "end": {
+    "line": 14,
+    "offset": 1
+  },
+  "source": "panic.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "panic.bal",
+    "nodes": [
+      {
+        "id": "43711",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 12,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "44848",
+        "label": "Panic",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 84
+          }
+        },
+        "kind": "PANIC",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "AssertionError",
+            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Panic value"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

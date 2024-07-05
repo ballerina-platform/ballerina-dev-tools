@@ -33,6 +33,7 @@ public class NodeTemplateGenerator {
             case WHILE -> WhileNode.DEFAULT_NODE;
             case CONTINUE -> ContinueNode.DEFAULT_NODE;
             case BREAK -> BreakNode.DEFAULT_NODE;
+            case PANIC -> BreakNode.DEFAULT_NODE;
         };
         return gson.toJsonTree(flowNode);
     }
