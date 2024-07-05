@@ -2,7 +2,7 @@
   "description": "Sample diagram node",
   "kind": "IF",
   "output": {
-    "id": "31",
+    "id": "0",
     "label": "If",
     "kind": "IF",
     "returning": false,

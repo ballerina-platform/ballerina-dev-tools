@@ -18,9 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the properties of a continue node.
@@ -30,32 +35,19 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class ContinueNode extends FlowNode {
 
     public static final String CONTINUE_LABEL = "Continue";
-    public static final ContinueNode DEFAULT_NODE = new ContinueNode();
 
-    protected ContinueNode() {
-        super(CONTINUE_LABEL, Kind.CONTINUE, false, null);
+    public static final ContinueNode DEFAULT_NODE = new ContinueNode("0", CONTINUE_LABEL, Kind.CONTINUE, false,
+            Map.of(), null, false, List.of(), 0);
+
+    public ContinueNode(String id, String label, Kind kind, boolean fixed,
+                        Map<String, Expression> nodeProperties,
+                        LineRange lineRange, boolean returning,
+                        List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
     public String toSource() {
         return SyntaxKind.CONTINUE_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
-
-    /**
-     * Represents the builder for continue node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        @Override
-        public FlowNode build() {
-            return new ContinueNode();
-        }
-    }
-
 }

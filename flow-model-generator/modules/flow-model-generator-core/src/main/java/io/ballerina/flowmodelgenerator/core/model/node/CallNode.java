@@ -18,28 +18,16 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ParameterKind;
-import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
-import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
-import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
-import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
+import io.ballerina.tools.text.LineRange;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Queue;
 
 /**
  * Represents the generalized action invocation node in the flow model.
@@ -48,15 +36,17 @@ import java.util.Queue;
  */
 public class CallNode extends FlowNode {
 
-    protected CallNode(String label, Kind kind, Map<String, Expression> nodeProperties) {
-        super(label, kind, false, nodeProperties);
+    public CallNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                    LineRange lineRange, boolean returning,
+                    List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        Expression variable = getProperty(NodePropertiesBuilder.VARIABLE_KEY);
+        Expression variable = getProperty(PropertiesBuilder.VARIABLE_KEY);
         if (variable != null) {
             sourceBuilder
                     .expressionWithType(variable)
@@ -113,105 +103,5 @@ public class CallNode extends FlowNode {
                 .endOfStatement();
 
         return sourceBuilder.build(false);
-    }
-
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        private String label;
-        private Kind kind;
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        public Builder nodeInfo(NodeAttributes.Info info) {
-            this.label = info.label();
-            this.kind = info.kind();
-            return this;
-        }
-
-        public Builder callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
-            Expression client = new Expression.Builder()
-                    .label(info.label())
-                    .type(info.type())
-                    .value(expressionNode.toString())
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .editable()
-                    .documentation(info.documentation())
-                    .build();
-            addProperty(info.key(), client);
-            return this;
-        }
-
-        public Builder functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                         List<ParameterSymbol> parameterSymbols) {
-            final Map<String, Node> namedArgValueMap = new HashMap<>();
-            final Queue<Node> positionalArgs = new LinkedList<>();
-
-            for (FunctionArgumentNode argument : arguments) {
-                switch (argument.kind()) {
-                    case NAMED_ARG -> {
-                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
-                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                namedArgument.expression());
-                    }
-                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
-                    default -> {
-                        // Ignore the default case
-                    }
-                }
-            }
-
-            expressionBuilder = new Expression.Builder();
-            int numParams = parameterSymbols.size();
-            int numPositionalArgs = positionalArgs.size();
-
-            for (int i = 0; i < numParams; i++) {
-                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
-                Optional<String> name = parameterSymbol.getName();
-                if (name.isEmpty()) {
-                    continue;
-                }
-                String parameterName = name.get();
-                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
-
-                ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
-                if (info != null) {
-                    expressionBuilder
-                            .label(info.label())
-                            .documentation(info.documentation())
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                            .editable()
-                            .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
-
-                    if (paramValue != null) {
-                        expressionBuilder.value(paramValue.toSourceCode());
-                    }
-
-                    String staticType = info.type();
-                    Optional<TypeSymbol> valueType =
-                            paramValue != null ? semanticModel.typeOf(paramValue) : Optional.empty();
-
-                    if (info.dynamicType() && valueType.isPresent()) {
-                        // Obtain the type from the value if the dynamic type is set
-                        expressionBuilder.type(valueType.get());
-                    } else if (staticType != null) {
-                        // Set the static type
-                        expressionBuilder.type(staticType);
-                    } else {
-                        // Set the type of the symbol if none of types were found
-                        expressionBuilder.type(parameterSymbol.typeDescriptor());
-                    }
-
-                    addProperty(parameterName, expressionBuilder.build());
-                }
-            }
-            return this;
-        }
-
-        @Override
-        public FlowNode build() {
-            return new CallNode(label, kind, nodeProperties);
-        }
     }
 }

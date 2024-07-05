@@ -124,15 +124,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "http:Client",
-            "value": "localCl ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "http:Client",
@@ -141,6 +132,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "http:Client",
+            "value": "localCl ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 1
@@ -219,15 +219,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "MyClient",
-            "value": "myLocalCl ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "MyClient",
@@ -236,6 +227,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "MyClient",
+            "value": "myLocalCl ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
@@ -302,7 +302,7 @@
       {
         "id": "40970",
         "label": "Client",
-        "kind": "OTHER",
+        "kind": "HTTP",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

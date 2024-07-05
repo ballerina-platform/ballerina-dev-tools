@@ -2,7 +2,7 @@
   "description": "Sample diagram node",
   "kind": "ERROR_HANDLER",
   "output": {
-    "id": "31",
+    "id": "0",
     "label": "ErrorHandler",
     "kind": "ERROR_HANDLER",
     "returning": false,

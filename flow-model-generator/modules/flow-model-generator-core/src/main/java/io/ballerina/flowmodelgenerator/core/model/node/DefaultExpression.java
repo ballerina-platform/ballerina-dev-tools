@@ -18,11 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,16 +36,21 @@ public class DefaultExpression extends FlowNode {
 
     public static final String EXPRESSION_LABEL = "Custom Expression";
 
-    public static final FlowNode DEFAULT_NODE = new DefaultExpression(null);
+    public static final FlowNode DEFAULT_NODE =
+            new DefaultExpression("0", EXPRESSION_LABEL, Kind.EXPRESSION, false,
+                    Map.of(), null, false, List.of(), 0);
 
-    protected DefaultExpression(Map<String, Expression> nodeProperties) {
-        super(EXPRESSION_LABEL, Kind.EXPRESSION, false, nodeProperties);
+    public DefaultExpression(String id, String label, Kind kind, boolean fixed,
+                             Map<String, Expression> nodeProperties,
+                             LineRange lineRange, boolean returning,
+                             List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
     public String toSource() {
-        Expression variable = getProperty(FlowNode.NodePropertiesBuilder.VARIABLE_KEY);
-        Expression expression = getProperty(FlowNode.NodePropertiesBuilder.EXPRESSION_RHS_KEY);
+        Expression variable = getProperty(FlowNode.PropertiesBuilder.VARIABLE_KEY);
+        Expression expression = getProperty(FlowNode.PropertiesBuilder.EXPRESSION_RHS_KEY);
 
         SourceBuilder sourceBuilder = new SourceBuilder();
         sourceBuilder
@@ -54,22 +61,5 @@ public class DefaultExpression extends FlowNode {
                 .expression(expression)
                 .endOfStatement();
         return sourceBuilder.build(false);
-    }
-
-    /**
-     * Represents the builder for default expression node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        @Override
-        public FlowNode build() {
-            return new DefaultExpression(nodeProperties);
-        }
     }
 }

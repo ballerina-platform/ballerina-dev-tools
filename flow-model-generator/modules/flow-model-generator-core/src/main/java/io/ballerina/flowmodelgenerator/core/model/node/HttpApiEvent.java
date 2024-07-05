@@ -18,11 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,50 +34,21 @@ import java.util.Map;
 public class HttpApiEvent extends FlowNode {
 
     public static final String EVENT_HTTP_API_LABEL = "HTTP API";
-    private static final String EVENT_HTTP_API_METHOD = "Method";
-    private static final String EVENT_HTTP_API_METHOD_KEY = "method";
-    private static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
-    private static final String EVENT_HTTP_API_PATH = "Path";
-    private static final String EVENT_HTTP_API_PATH_KEY = "path";
-    private static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
+    public static final String EVENT_HTTP_API_METHOD = "Method";
+    public static final String EVENT_HTTP_API_METHOD_KEY = "method";
+    public static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
+    public static final String EVENT_HTTP_API_PATH = "Path";
+    public static final String EVENT_HTTP_API_PATH_KEY = "path";
+    public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
-    protected HttpApiEvent(Map<String, Expression> nodeProperties) {
-        super(EVENT_HTTP_API_LABEL, Kind.EVENT_HTTP_API, true, nodeProperties);
+    public HttpApiEvent(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                        LineRange lineRange, boolean returning,
+                        List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
     public String toSource() {
         return null;
-    }
-
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        public Builder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
-            expressionBuilder
-                    .label(EVENT_HTTP_API_METHOD)
-                    .typeKind(Expression.ExpressionTypeKind.IDENTIFIER)
-                    .editable()
-                    .documentation(EVENT_HTTP_API_METHOD_DOC);
-            resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
-            addProperty(EVENT_HTTP_API_METHOD_KEY, expressionBuilder.build());
-
-            expressionBuilder
-                    .label(EVENT_HTTP_API_PATH)
-                    .typeKind(Expression.ExpressionTypeKind.URI_PATH)
-                    .editable()
-                    .documentation(EVENT_HTTP_API_PATH_DOC)
-                    .value(resourceMethodSymbol.resourcePath().signature());
-            addProperty(EVENT_HTTP_API_PATH_KEY, expressionBuilder.build());
-            return this;
-        }
-
-        @Override
-        public FlowNode build() {
-            return new HttpApiEvent(nodeProperties);
-        }
     }
 }

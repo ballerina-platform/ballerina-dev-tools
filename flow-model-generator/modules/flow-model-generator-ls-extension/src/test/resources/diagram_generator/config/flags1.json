@@ -87,15 +87,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "boolean",
-            "value": "res1 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "boolean",
@@ -104,6 +95,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "boolean",
+            "value": "res1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 1
@@ -126,15 +126,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "boolean",
-            "value": "res2 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "boolean",
@@ -143,6 +134,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "boolean",
+            "value": "res2 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 2
@@ -165,15 +165,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "boolean",
-            "value": "res3 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "boolean",
@@ -182,6 +173,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "boolean",
+            "value": "res3 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 5
@@ -204,15 +204,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "boolean",
-            "value": "res4 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "boolean",
@@ -221,6 +212,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "boolean",
+            "value": "res4 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 6
