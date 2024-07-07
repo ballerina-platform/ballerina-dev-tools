@@ -1,0 +1,110 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47869",
+    "label": "Lock",
+    "lineRange": {
+      "fileName": "lock.bal",
+      "startLine": {
+        "line": 16,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 20,
+        "offset": 5
+      }
+    },
+    "kind": "LOCK",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "48874",
+            "label": "Custom Expression",
+            "lineRange": {
+              "fileName": "lock.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 17,
+                "offset": 18
+              }
+            },
+            "kind": "EXPRESSION",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "variable": {
+                "label": "Variable",
+                "type": "int",
+                "value": "i ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              },
+              "expression": {
+                "label": "Expression",
+                "type": "int",
+                "value": "0",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "50855",
+            "label": "Return",
+            "lineRange": {
+              "fileName": "lock.bal",
+              "startLine": {
+                "line": 19,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 15
+              }
+            },
+            "kind": "RETURN",
+            "returning": true,
+            "fixed": false,
+            "nodeProperties": {},
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 16,
+          "character": 4
+        },
+        "end": {
+          "line": 20,
+          "character": 5
+        }
+      },
+      "newText": "lock {\n    int i = 0;\n}\non fail {\n    return;\n}"
+    }
+  ]
+}

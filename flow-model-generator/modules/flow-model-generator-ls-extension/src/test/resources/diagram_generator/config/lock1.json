@@ -1,0 +1,103 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "source": "lock.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "lock.bal",
+    "nodes": [
+      {
+        "id": "31869",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "32927",
+        "label": "Lock",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 5
+          }
+        },
+        "kind": "LOCK",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "33994",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 2,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 2,
+                    "offset": 18
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "i ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "type": "int",
+                    "value": "0",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

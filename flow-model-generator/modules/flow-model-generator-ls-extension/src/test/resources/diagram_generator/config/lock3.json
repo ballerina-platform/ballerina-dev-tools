@@ -1,0 +1,129 @@
+{
+  "start": {
+    "line": 15,
+    "offset": 0
+  },
+  "end": {
+    "line": 21,
+    "offset": 1
+  },
+  "source": "lock.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "lock.bal",
+    "nodes": [
+      {
+        "id": "46811",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "47869",
+        "label": "Lock",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 5
+          }
+        },
+        "kind": "LOCK",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "48874",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 17,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 17,
+                    "offset": 18
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "nodeProperties": {
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "i ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  },
+                  "expression": {
+                    "label": "Expression",
+                    "type": "int",
+                    "value": "0",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "50855",
+                "label": "Return",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 19,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 19,
+                    "offset": 15
+                  }
+                },
+                "kind": "RETURN",
+                "returning": true,
+                "fixed": false,
+                "nodeProperties": {},
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
