@@ -2,6 +2,7 @@
   "description": "Sample diagram node",
   "kind": "CONTINUE",
   "output": {
+    "id": "0",
     "label": "Continue",
     "kind": "CONTINUE",
     "returning": false,

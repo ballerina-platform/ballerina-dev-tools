@@ -2,6 +2,7 @@
   "description": "Sample diagram node",
   "kind": "BREAK",
   "output": {
+    "id": "0",
     "label": "Break",
     "kind": "BREAK",
     "returning": false,

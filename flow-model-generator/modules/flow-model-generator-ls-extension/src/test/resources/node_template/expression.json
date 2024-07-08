@@ -2,6 +2,7 @@
   "description": "Sample diagram node",
   "kind": "EXPRESSION",
   "output": {
+    "id": "0",
     "label": "Custom Expression",
     "kind": "EXPRESSION",
     "returning": false,

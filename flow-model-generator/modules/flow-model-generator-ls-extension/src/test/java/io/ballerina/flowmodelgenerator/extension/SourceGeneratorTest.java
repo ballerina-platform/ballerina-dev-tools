@@ -54,7 +54,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
         List<TextEdit> actualTextEdits = gson.fromJson(jsonArray, textEditListType);
         if (!assertArray("text edits", actualTextEdits, testConfig.output())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.diagram(), actualTextEdits);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

@@ -67,15 +67,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "int",
-            "value": "mod ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "int",
@@ -84,6 +75,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "mod ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
@@ -127,7 +127,6 @@
                 "kind": "RETURN",
                 "returning": true,
                 "fixed": false,
-                "nodeProperties": {},
                 "flags": 0
               }
             ]
@@ -219,7 +218,6 @@
                                         "kind": "RETURN",
                                         "returning": true,
                                         "fixed": false,
-                                        "nodeProperties": {},
                                         "flags": 0
                                       }
                                     ]
@@ -309,7 +307,6 @@
                         "kind": "RETURN",
                         "returning": true,
                         "fixed": false,
-                        "nodeProperties": {},
                         "flags": 0
                       }
                     ]

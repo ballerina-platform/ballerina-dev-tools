@@ -2,7 +2,7 @@
   "description": "Sample diagram node",
   "kind": "WHILE",
   "output": {
-    "id": "31",
+    "id": "0",
     "label": "While",
     "kind": "WHILE",
     "returning": false,

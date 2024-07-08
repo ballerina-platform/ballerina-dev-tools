@@ -2,6 +2,7 @@
   "description": "Sample diagram node",
   "kind": "RETURN",
   "output": {
+    "id": "0",
     "label": "Return",
     "kind": "RETURN",
     "returning": false,

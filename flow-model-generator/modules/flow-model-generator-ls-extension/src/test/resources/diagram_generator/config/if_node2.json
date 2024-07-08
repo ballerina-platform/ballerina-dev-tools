@@ -111,15 +111,6 @@
                         "returning": false,
                         "fixed": false,
                         "nodeProperties": {
-                          "variable": {
-                            "label": "Variable",
-                            "type": "int",
-                            "value": "c ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
-                          },
                           "expression": {
                             "label": "Expression",
                             "type": "int",
@@ -128,6 +119,15 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "int",
+                            "value": "c ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
                           }
                         },
                         "flags": 0
@@ -186,15 +186,6 @@
                         "returning": false,
                         "fixed": false,
                         "nodeProperties": {
-                          "variable": {
-                            "label": "Variable",
-                            "type": "int",
-                            "value": "b ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
-                          },
                           "expression": {
                             "label": "Expression",
                             "type": "int",
@@ -203,6 +194,15 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "int",
+                            "value": "b ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
                           }
                         },
                         "flags": 0
