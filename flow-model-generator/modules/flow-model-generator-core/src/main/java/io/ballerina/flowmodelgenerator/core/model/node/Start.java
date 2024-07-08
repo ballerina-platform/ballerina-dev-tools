@@ -38,7 +38,7 @@ public class Start extends FlowNode {
     private static final String START_EXPRESSION_KEY = "expression";
     public static final String START_EXPRESSION_DOC = "Call action or expression";
 
-    public static final FlowNode DEFAULT_NODE = new Return("0", START_LABEL, Kind.START, false,
+    public static final FlowNode DEFAULT_NODE = new Start(DEFAULT_ID, START_LABEL, Kind.START, false,
             Map.of(START_EXPRESSION_KEY,
                     Expression.Builder.getInstance()
                             .label(START_EXPRESSION)
