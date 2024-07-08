@@ -1,0 +1,48 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32906",
+    "label": "Start",
+    "lineRange": {
+      "fileName": "start.bal",
+      "startLine": {
+        "line": 1,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 1,
+        "offset": 46
+      }
+    },
+    "kind": "START",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "int",
+        "value": "sum(40, 50)",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Call action or expression"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 1,
+          "character": 4
+        },
+        "end": {
+          "line": 1,
+          "character": 46
+        }
+      },
+      "newText": "start sum(40, 50);"
+    }
+  ]
+}

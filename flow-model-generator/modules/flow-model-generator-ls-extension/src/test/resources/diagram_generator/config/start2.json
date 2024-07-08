@@ -1,0 +1,126 @@
+{
+  "start": {
+    "line": 20,
+    "offset": 0
+  },
+  "end": {
+    "line": 24,
+    "offset": 1
+  },
+  "source": "start.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "start.bal",
+    "nodes": [
+      {
+        "id": "51709",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 24,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "52725",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 25
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "Foo1",
+            "value": "new(\"foo\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "Foo1",
+            "value": "f1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "54730",
+        "label": "Start",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 23,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 23,
+            "offset": 46
+          }
+        },
+        "kind": "START",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "future<string>",
+            "value": "f1->getName()",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Call action or expression"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "52711",
+        "label": "Client",
+        "kind": "OTHER",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 11
+          }
+        },
+        "scope": "LOCAL",
+        "value": "f1 ",
+        "flags": 0
+      }
+    ]
+  }
+}

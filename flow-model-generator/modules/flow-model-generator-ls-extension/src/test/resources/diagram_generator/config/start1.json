@@ -1,0 +1,67 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 2,
+    "offset": 1
+  },
+  "source": "start.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "start.bal",
+    "nodes": [
+      {
+        "id": "31807",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "32906",
+        "label": "Start",
+        "lineRange": {
+          "fileName": "start.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 1,
+            "offset": 46
+          }
+        },
+        "kind": "START",
+        "returning": false,
+        "fixed": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "sum(40, 50)",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Call action or expression"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "54730",
+    "label": "Start",
+    "lineRange": {
+      "fileName": "start.bal",
+      "startLine": {
+        "line": 23,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 23,
+        "offset": 46
+      }
+    },
+    "kind": "START",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "future<string>",
+        "value": "f1->getName()",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Call action or expression"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 23,
+          "character": 4
+        },
+        "end": {
+          "line": 23,
+          "character": 46
+        }
+      },
+      "newText": "start f1->getName();"
+    }
+  ]
+}

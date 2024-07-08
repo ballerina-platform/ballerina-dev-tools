@@ -10,6 +10,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.StartNode;
 import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
 
 /**
@@ -33,6 +34,7 @@ public class NodeTemplateGenerator {
             case WHILE -> WhileNode.DEFAULT_NODE;
             case CONTINUE -> ContinueNode.DEFAULT_NODE;
             case BREAK -> BreakNode.DEFAULT_NODE;
+            case START -> StartNode.DEFAULT_NODE;
         };
         return gson.toJsonTree(flowNode);
     }

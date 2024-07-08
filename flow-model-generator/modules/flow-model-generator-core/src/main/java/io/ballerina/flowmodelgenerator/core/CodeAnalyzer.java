@@ -58,6 +58,7 @@ import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -76,6 +77,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.StartNode;
 import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
 
 import java.util.ArrayList;
@@ -262,9 +264,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
-        nodeBuilder.lineRange(variableDeclarationNode)
-                .metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                        DefaultExpression::new);
+        nodeBuilder.lineRange(variableDeclarationNode);
         if (initializer.isEmpty()) {
             return;
         }
@@ -275,7 +275,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (nodeBuilder.isDefault()) {
-            nodeBuilder.properties()
+            nodeBuilder.metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
+                    DefaultExpression::new)
+                    .properties()
                     .expression(initializerNode)
                     .variable(this.typedBindingPatternNode);
         }
@@ -374,6 +376,13 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(LocalTypeDefinitionStatementNode localTypeDefinitionStatementNode) {
         handleDefaultStatementNode(localTypeDefinitionStatementNode,
                 () -> super.visit(localTypeDefinitionStatementNode));
+    }
+
+    @Override
+    public void visit(StartActionNode startActionNode) {
+        nodeBuilder.lineRange(startActionNode)
+                .metadata(StartNode.START_LABEL, FlowNode.Kind.START, null, null, StartNode::new)
+                .properties().setExpressionNode(startActionNode.expression(), StartNode.START_EXPRESSION_DOC);
     }
 
     @Override
