@@ -67,15 +67,6 @@
         "returning": false,
         "fixed": false,
         "nodeProperties": {
-          "variable": {
-            "label": "Variable",
-            "type": "int",
-            "value": "i ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
-          },
           "expression": {
             "label": "Expression",
             "type": "int",
@@ -84,6 +75,15 @@
             "optional": false,
             "editable": true,
             "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "i ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
           }
         },
         "flags": 0
@@ -206,15 +206,6 @@
                         "returning": false,
                         "fixed": false,
                         "nodeProperties": {
-                          "variable": {
-                            "label": "Variable",
-                            "type": "string|()",
-                            "value": "msg",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
-                          },
                           "expression": {
                             "label": "Expression",
                             "type": "string",
@@ -223,6 +214,15 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "string|()",
+                            "value": "msg",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
                           }
                         },
                         "flags": 0
@@ -251,15 +251,6 @@
                         "returning": false,
                         "fixed": false,
                         "nodeProperties": {
-                          "variable": {
-                            "label": "Variable",
-                            "type": "string|()",
-                            "value": "msg",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
-                          },
                           "expression": {
                             "label": "Expression",
                             "type": "string",
@@ -268,6 +259,15 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "string|()",
+                            "value": "msg",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
                           }
                         },
                         "flags": 0
@@ -306,15 +306,6 @@
                 "returning": false,
                 "fixed": false,
                 "nodeProperties": {
-                  "variable": {
-                    "label": "Variable",
-                    "type": "int",
-                    "value": "i",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
-                  },
                   "expression": {
                     "label": "Expression",
                     "type": "int",
@@ -323,6 +314,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "i",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 0

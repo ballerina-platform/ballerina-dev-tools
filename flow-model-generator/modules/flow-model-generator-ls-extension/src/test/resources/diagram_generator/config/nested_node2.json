@@ -234,6 +234,14 @@
                 "returning": false,
                 "fixed": false,
                 "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "value": "commit",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  },
                   "variable": {
                     "label": "Variable",
                     "type": "annotations:error|()",
@@ -242,14 +250,6 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "Result Variable"
-                  },
-                  "expression": {
-                    "label": "Expression",
-                    "value": "commit",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
                   }
                 },
                 "flags": 0
