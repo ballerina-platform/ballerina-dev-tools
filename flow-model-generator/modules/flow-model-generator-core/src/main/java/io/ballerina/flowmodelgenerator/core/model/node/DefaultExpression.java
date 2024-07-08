@@ -35,6 +35,7 @@ import java.util.Map;
 public class DefaultExpression extends FlowNode {
 
     public static final String EXPRESSION_LABEL = "Custom Expression";
+    public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
     public static final FlowNode DEFAULT_NODE =
             new DefaultExpression(DEFAULT_ID, EXPRESSION_LABEL, Kind.EXPRESSION, false,

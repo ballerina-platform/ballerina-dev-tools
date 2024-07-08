@@ -35,6 +35,7 @@ import java.util.Map;
 public class Continue extends FlowNode {
 
     public static final String CONTINUE_LABEL = "Continue";
+    public static final String DESCRIPTION = "Skip the current iteration and continue with the next one";
 
     public static final Continue DEFAULT_NODE = new Continue(DEFAULT_ID, CONTINUE_LABEL, Kind.CONTINUE, false,
             Map.of(), null, false, List.of(), 0);

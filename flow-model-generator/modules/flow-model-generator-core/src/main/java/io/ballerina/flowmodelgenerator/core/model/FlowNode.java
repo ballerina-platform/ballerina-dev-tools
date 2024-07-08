@@ -38,8 +38,8 @@ import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
@@ -185,6 +185,7 @@ public abstract class FlowNode {
             this.branches = new ArrayList<>();
             this.flags = 0;
             this.semanticModel = semanticModel;
+            this.constructor = DefaultExpression::new;
         }
 
         public NodeBuilder returning() {
@@ -262,8 +263,6 @@ public abstract class FlowNode {
         public static final String CONDITION_KEY = "condition";
         public static final String CONDITION_DOC = "Boolean Condition";
 
-        private String label;
-        private Kind kind;
         private final Map<String, Expression> nodeProperties;
         private final SemanticModel semanticModel;
         protected Expression.Builder expressionBuilder;

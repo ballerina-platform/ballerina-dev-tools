@@ -38,6 +38,7 @@ public class Return extends FlowNode {
     private static final String RETURN_EXPRESSION = "Expression";
     private static final String RETURN_EXPRESSION_KEY = "expression";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
+    public static final String DESCRIPTION = "Return a value";
 
     public static final FlowNode DEFAULT_NODE = new Return("0", RETURN_LABEL, Kind.RETURN, false,
             Map.of(RETURN_EXPRESSION_KEY,

@@ -35,6 +35,7 @@ import java.util.Map;
 public class If extends FlowNode {
 
     public static final String IF_LABEL = "If";
+    public static final String DESCRIPTION = "Add conditional branch to the integration flow.";
     public static final String IF_THEN_LABEL = "Then";
     public static final String IF_ELSE_LABEL = "Else";
     private static final String IF_CONDITION = "Condition";

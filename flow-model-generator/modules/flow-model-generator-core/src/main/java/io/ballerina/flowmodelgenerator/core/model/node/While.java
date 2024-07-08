@@ -38,6 +38,7 @@ public class While extends FlowNode {
     public static final String WHILE_CONDITION = "Condition";
     public static final String WHILE_CONDITION_KEY = "condition";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
+    public static final String DESCRIPTION = "Loop over a block of code.";
     private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
             .label(WHILE_CONDITION)
             .value("")

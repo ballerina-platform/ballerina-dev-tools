@@ -35,6 +35,7 @@ import java.util.Map;
 public class Break extends FlowNode {
 
     public static final String BREAK_LABEL = "Break";
+    public static final String DESCRIPTION = "Exit the current loop";
     public static final Break DEFAULT_NODE = new Break(DEFAULT_ID, BREAK_LABEL, Kind.BREAK, false,
             Map.of(), null, false, List.of(), 0);
 

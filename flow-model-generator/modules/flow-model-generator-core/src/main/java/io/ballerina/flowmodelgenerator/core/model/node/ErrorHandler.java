@@ -36,7 +36,7 @@ public class ErrorHandler extends FlowNode {
 
     public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
     public static final String ERROR_HANDLER_BODY = "Body";
-
+    public static final String DESCRIPTION = "Catch and handle errors";
     public static final FlowNode DEFAULT_NODE =
             new ErrorHandler(DEFAULT_ID, ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false,
                     Map.of(), null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
