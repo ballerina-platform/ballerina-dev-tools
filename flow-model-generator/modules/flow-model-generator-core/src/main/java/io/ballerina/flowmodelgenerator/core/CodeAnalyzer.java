@@ -75,7 +75,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.LockNode;
+import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
@@ -379,8 +379,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        nodeBuilder.lineRange(lockStatementNode);
-        LockNode.Builder lockNodeBuilder = new LockNode.Builder(semanticModel);
+        nodeBuilder.lineRange(lockStatementNode)
+                .metadata(Lock.LOCK_LABEL, FlowNode.Kind.LOCK, null, null,
+                        Lock::new);
 
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
@@ -401,7 +402,6 @@ class CodeAnalyzer extends NodeVisitor {
             endBranch(onFailBranchBuilder);
         }
 
-        nodeBuilder.propertiesBuilder(lockNodeBuilder);
         appendNode();
     }
 

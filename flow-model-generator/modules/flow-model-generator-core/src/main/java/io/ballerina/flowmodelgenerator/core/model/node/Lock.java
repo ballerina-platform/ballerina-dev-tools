@@ -18,11 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
 import java.util.Map;
@@ -32,15 +32,16 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class LockNode extends FlowNode {
+public class Lock extends FlowNode {
 
     public static final String LOCK_LABEL = "Lock";
     public static final String LOCK_BODY = "Body";
-    public static final FlowNode DEFAULT_NODE = new LockNode(null)
-            .setCommonFields(null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
+    public static final FlowNode DEFAULT_NODE = new Lock(DEFAULT_ID, LOCK_LABEL, Kind.LOCK, false, Map.of(),
+            null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
 
-    protected LockNode(Map<String, Expression> nodeProperties) {
-        super(LOCK_LABEL, Kind.LOCK, false, nodeProperties);
+    public Lock(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class LockNode extends FlowNode {
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Expression variableProperty = getBranchProperty(onFailBranch, NodePropertiesBuilder.VARIABLE_KEY);
+            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
@@ -70,22 +71,5 @@ public class LockNode extends FlowNode {
         }
 
         return sourceBuilder.build(false);
-    }
-
-    /**
-     * Represents the builder for lock node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends NodePropertiesBuilder {
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        @Override
-        public FlowNode build() {
-            return new LockNode(nodeProperties);
-        }
     }
 }
