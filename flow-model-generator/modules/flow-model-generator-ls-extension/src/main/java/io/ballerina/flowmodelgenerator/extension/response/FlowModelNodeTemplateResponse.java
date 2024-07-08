@@ -1,7 +1,6 @@
 package io.ballerina.flowmodelgenerator.extension.response;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 /**
  * Represents the response for the flow model getNodeTemplate API.

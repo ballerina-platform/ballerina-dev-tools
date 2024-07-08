@@ -283,7 +283,7 @@
       {
         "id": "41970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -302,7 +302,7 @@
       {
         "id": "40970",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -340,7 +340,7 @@
       {
         "id": "50738",
         "label": "Client",
-        "kind": "HTTP",
+        "kind": "OTHER",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
