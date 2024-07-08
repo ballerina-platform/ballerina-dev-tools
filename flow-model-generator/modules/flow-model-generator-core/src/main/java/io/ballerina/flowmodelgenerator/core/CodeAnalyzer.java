@@ -69,7 +69,7 @@ import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
-import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
@@ -187,7 +187,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (moduleName.equals("http")) {
             NodeAttributes.Info info = NodeAttributes.get(methodName);
-            nodeBuilder.metadata(info.label(), info.kind(), null, null, CallNode::new)
+            nodeBuilder.metadata(info.label(), info.kind(), null, null, ActionCall::new)
                     .properties()
                     .callExpression(expressionNode, ExpressionAttributes.HTTP_CLIENT)
                     .variable(this.typedBindingPatternNode);

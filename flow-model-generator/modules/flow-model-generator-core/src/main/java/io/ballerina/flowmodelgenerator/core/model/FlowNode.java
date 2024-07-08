@@ -39,7 +39,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
-import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
@@ -532,7 +532,7 @@ public abstract class FlowNode {
                 case WHILE -> context.deserialize(jsonObject, While.class);
                 case CONTINUE -> context.deserialize(jsonObject, Continue.class);
                 case BREAK -> context.deserialize(jsonObject, Break.class);
-                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
+                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
             };
         }
     }
