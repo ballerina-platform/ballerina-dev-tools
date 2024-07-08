@@ -18,12 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,22 +37,24 @@ public class Return extends FlowNode {
     public static final String RETURN_LABEL = "Return";
     private static final String RETURN_EXPRESSION = "Expression";
     private static final String RETURN_EXPRESSION_KEY = "expression";
-    private static final String RETURN_EXPRESSION_DOC = "Return value";
+    public static final String RETURN_EXPRESSION_DOC = "Return value";
 
-    protected Return(Map<String, Expression> nodeProperties) {
-        super(RETURN_LABEL, Kind.RETURN, false, nodeProperties);
+    public static final FlowNode DEFAULT_NODE = new Return("0", RETURN_LABEL, Kind.RETURN, false,
+            Map.of(RETURN_EXPRESSION_KEY,
+                    Expression.Builder.getInstance()
+                            .label(RETURN_EXPRESSION)
+                            .value("")
+                            .documentation(RETURN_EXPRESSION_DOC)
+                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                            .editable()
+                            .build()
+            ), null, false, List.of(), 0);
+
+    public Return(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                  LineRange lineRange, boolean returning,
+                  List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
-
-    public static final Return DEFAULT_NODE = new Return(Map.of(
-            RETURN_EXPRESSION_KEY,
-            Expression.Builder.getInstance()
-                    .label(RETURN_EXPRESSION)
-                    .value("")
-                    .documentation(RETURN_EXPRESSION_DOC)
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .editable()
-                    .build()
-    ));
 
     @Override
     public String toSource() {
@@ -66,37 +69,5 @@ public class Return extends FlowNode {
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
-    }
-
-    /**
-     * Represents the builder for return node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        private Expression expression;
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        public Builder setExpressionNode(ExpressionNode expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.expression = expressionBuilder
-                    .label(RETURN_EXPRESSION)
-                    .value(expressionNode.toSourceCode())
-                    .documentation(RETURN_EXPRESSION_DOC)
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .editable()
-                    .build();
-            return this;
-        }
-
-        @Override
-        public FlowNode build() {
-            nodeProperties.put(RETURN_EXPRESSION_KEY, expression);
-            return new Return(nodeProperties);
-        }
     }
 }

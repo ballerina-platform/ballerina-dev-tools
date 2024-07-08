@@ -95,12 +95,12 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
             }
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
             expressionBuilder
-                    .label(FlowNode.NodePropertiesBuilder.VARIABLE_LABEL)
+                    .label(FlowNode.PropertiesBuilder.VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
                     .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .documentation(FlowNode.NodePropertiesBuilder.VARIABLE_DOC);
-            properties.put(FlowNode.NodePropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
+                    .documentation(FlowNode.PropertiesBuilder.VARIABLE_DOC);
+            properties.put(FlowNode.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
             return this;
         }
 

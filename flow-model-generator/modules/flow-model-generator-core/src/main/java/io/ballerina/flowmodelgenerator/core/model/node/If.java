@@ -18,14 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +32,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class IfNode extends FlowNode {
+public class If extends FlowNode {
 
     public static final String IF_LABEL = "If";
     public static final String IF_THEN_LABEL = "Then";
@@ -50,12 +48,14 @@ public class IfNode extends FlowNode {
             .typeKind(Expression.ExpressionTypeKind.BTYPE)
             .editable()
             .build();
-    public static final FlowNode DEFAULT_NODE = new IfNode(Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION))
-            .setCommonFields(null, false,
-                    List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, new ArrayList<>(), null)), 0);
 
-    protected IfNode(Map<String, Expression> nodeProperties) {
-        super(IF_LABEL, Kind.IF, false, nodeProperties);
+    public static final FlowNode DEFAULT_NODE = new If(DEFAULT_ID, IF_LABEL, Kind.IF, false,
+            Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION), null, false,
+            List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
+
+    public If(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+              LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
@@ -88,37 +88,5 @@ public class IfNode extends FlowNode {
 
         sourceBuilder.closeBrace();
         return sourceBuilder.build(false);
-    }
-
-    /**
-     * Represents a builder for the if node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        private Expression condition;
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        public Builder setConditionExpression(ExpressionNode expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.condition = expressionBuilder
-                    .label(IF_CONDITION)
-                    .value(expressionNode.toSourceCode())
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .documentation(IF_CONDITION_DOC)
-                    .editable()
-                    .build();
-            return this;
-        }
-
-        @Override
-        public FlowNode build() {
-            addProperty(IF_CONDITION_KEY, this.condition);
-            return new IfNode(nodeProperties);
-        }
     }
 }

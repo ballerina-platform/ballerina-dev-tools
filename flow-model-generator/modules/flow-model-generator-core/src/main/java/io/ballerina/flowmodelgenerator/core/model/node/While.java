@@ -18,14 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +32,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class WhileNode extends FlowNode {
+public class While extends FlowNode {
 
     public static final String WHILE_LABEL = "While";
     public static final String WHILE_CONDITION = "Condition";
@@ -47,13 +45,15 @@ public class WhileNode extends FlowNode {
             .typeKind(Expression.ExpressionTypeKind.BTYPE)
             .editable()
             .build();
-    public static final FlowNode DEFAULT_NODE = new WhileNode(Map.of(WHILE_CONDITION_KEY, DEFAULT_CONDITION))
-            .setCommonFields(null, false,
-                    List.of(new Branch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK, new ArrayList<>(), null)), 0);
 
-    protected WhileNode(Map<String, Expression> nodeProperties) {
-        super(WHILE_LABEL, Kind.WHILE, false, nodeProperties);
+    public While(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
+
+    public static final FlowNode DEFAULT_NODE = new While(DEFAULT_ID, WHILE_LABEL, Kind.WHILE, false,
+            Map.of(WHILE_CONDITION_KEY, DEFAULT_CONDITION), null, false,
+            List.of(new Branch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
 
     @Override
     public String toSource() {
@@ -77,7 +77,7 @@ public class WhileNode extends FlowNode {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Expression variableProperty = getBranchProperty(onFailBranch, NodePropertiesBuilder.VARIABLE_KEY);
+            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
@@ -89,32 +89,5 @@ public class WhileNode extends FlowNode {
         }
 
         return sourceBuilder.build(false);
-    }
-
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        private Expression condition;
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        public Builder setConditionExpression(ExpressionNode expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            this.condition = expressionBuilder
-                    .label(WHILE_CONDITION)
-                    .value(expressionNode.toSourceCode())
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .documentation(WHILE_CONDITION_DOC)
-                    .editable()
-                    .build();
-            return this;
-        }
-
-        @Override
-        public FlowNode build() {
-            addProperty(WHILE_CONDITION_KEY, this.condition);
-            return new WhileNode(nodeProperties);
-        }
     }
 }

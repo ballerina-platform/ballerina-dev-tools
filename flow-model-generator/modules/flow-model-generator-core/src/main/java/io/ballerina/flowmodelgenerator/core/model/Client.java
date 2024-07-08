@@ -96,7 +96,14 @@ public record Client(String id, String label, ClientKind kind, LineRange lineRan
         }
 
         public Client build() {
-            return new Client(String.valueOf(Objects.hash(lineRange)), label, kind, lineRange, scope, value, flags);
+            Client client = new Client(String.valueOf(Objects.hash(lineRange)), label, kind, lineRange, scope, value, flags);
+            label = OTHER_CLIENT;
+            kind = ClientKind.OTHER;
+            lineRange = null;
+            scope = ClientScope.GLOBAL;
+            value = null;
+            flags = 0;
+            return client;
         }
     }
 

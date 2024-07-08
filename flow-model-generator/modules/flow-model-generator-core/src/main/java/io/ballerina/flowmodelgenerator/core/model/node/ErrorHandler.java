@@ -18,11 +18,11 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
 import java.util.Map;
@@ -32,15 +32,20 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class ErrorHandlerNode extends FlowNode {
+public class ErrorHandler extends FlowNode {
 
     public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
     public static final String ERROR_HANDLER_BODY = "Body";
-    public static final FlowNode DEFAULT_NODE = new ErrorHandlerNode(null)
-            .setCommonFields(null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
 
-    protected ErrorHandlerNode(Map<String, Expression> nodeProperties) {
-        super(ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false, nodeProperties);
+    public static final FlowNode DEFAULT_NODE =
+            new ErrorHandler(DEFAULT_ID, ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false,
+                    Map.of(), null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
+
+    public ErrorHandler(String id, String label, Kind kind, boolean fixed,
+                        Map<String, Expression> nodeProperties,
+                        LineRange lineRange, boolean returning, List<Branch> branches,
+                        int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
@@ -61,7 +66,7 @@ public class ErrorHandlerNode extends FlowNode {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Expression variableProperty = getBranchProperty(onFailBranch, NodePropertiesBuilder.VARIABLE_KEY);
+            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
@@ -73,22 +78,5 @@ public class ErrorHandlerNode extends FlowNode {
         }
 
         return sourceBuilder.build(false);
-    }
-
-    /**
-     * Represents the builder for error handler node properties.
-     *
-     * @since 1.4.0
-     */
-    public static class Builder extends FlowNode.NodePropertiesBuilder {
-
-        public Builder(SemanticModel semanticModel) {
-            super(semanticModel);
-        }
-
-        @Override
-        public FlowNode build() {
-            return new ErrorHandlerNode(nodeProperties);
-        }
     }
 }
