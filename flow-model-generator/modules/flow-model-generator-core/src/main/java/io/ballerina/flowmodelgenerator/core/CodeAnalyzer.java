@@ -77,7 +77,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
-import io.ballerina.flowmodelgenerator.core.model.node.StartNode;
+import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
@@ -381,8 +381,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(StartActionNode startActionNode) {
         nodeBuilder.lineRange(startActionNode)
-                .metadata(StartNode.START_LABEL, FlowNode.Kind.START, null, null, StartNode::new)
-                .properties().setExpressionNode(startActionNode.expression(), StartNode.START_EXPRESSION_DOC);
+                .metadata(Start.START_LABEL, FlowNode.Kind.START, null, null, Start::new)
+                .properties().setExpressionNode(startActionNode.expression(), Start.START_EXPRESSION_DOC);
     }
 
     @Override

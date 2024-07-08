@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class StartNode extends FlowNode {
+public class Start extends FlowNode {
     public static final String START_LABEL = "Start";
     private static final String START_EXPRESSION = "Expression";
     private static final String START_EXPRESSION_KEY = "expression";
@@ -49,8 +49,8 @@ public class StartNode extends FlowNode {
                             .build()
             ), null, false, List.of(), 0);
 
-    public StartNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                        LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+    public Start(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
