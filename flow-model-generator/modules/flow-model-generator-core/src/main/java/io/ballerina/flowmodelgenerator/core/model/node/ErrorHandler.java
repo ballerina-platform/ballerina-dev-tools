@@ -32,19 +32,19 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class ErrorHandlerNode extends FlowNode {
+public class ErrorHandler extends FlowNode {
 
     public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
     public static final String ERROR_HANDLER_BODY = "Body";
 
     public static final FlowNode DEFAULT_NODE =
-            new ErrorHandlerNode("0", ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false,
+            new ErrorHandler(DEFAULT_ID, ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false,
                     Map.of(), null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
 
-    public ErrorHandlerNode(String id, String label, Kind kind, boolean fixed,
-                            Map<String, Expression> nodeProperties,
-                            LineRange lineRange, boolean returning, List<Branch> branches,
-                            int flags) {
+    public ErrorHandler(String id, String label, Kind kind, boolean fixed,
+                        Map<String, Expression> nodeProperties,
+                        LineRange lineRange, boolean returning, List<Branch> branches,
+                        int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 

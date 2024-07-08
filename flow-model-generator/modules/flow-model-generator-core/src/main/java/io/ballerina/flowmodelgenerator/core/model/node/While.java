@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class WhileNode extends FlowNode {
+public class While extends FlowNode {
 
     public static final String WHILE_LABEL = "While";
     public static final String WHILE_CONDITION = "Condition";
@@ -46,12 +46,12 @@ public class WhileNode extends FlowNode {
             .editable()
             .build();
 
-    public WhileNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                     LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+    public While(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
-    public static final FlowNode DEFAULT_NODE = new WhileNode("0", WHILE_LABEL, Kind.WHILE, false,
+    public static final FlowNode DEFAULT_NODE = new While(DEFAULT_ID, WHILE_LABEL, Kind.WHILE, false,
             Map.of(WHILE_CONDITION_KEY, DEFAULT_CONDITION), null, false,
             List.of(new Branch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
 

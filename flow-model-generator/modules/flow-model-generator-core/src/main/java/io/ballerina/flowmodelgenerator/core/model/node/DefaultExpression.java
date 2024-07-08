@@ -37,7 +37,7 @@ public class DefaultExpression extends FlowNode {
     public static final String EXPRESSION_LABEL = "Custom Expression";
 
     public static final FlowNode DEFAULT_NODE =
-            new DefaultExpression("0", EXPRESSION_LABEL, Kind.EXPRESSION, false,
+            new DefaultExpression(DEFAULT_ID, EXPRESSION_LABEL, Kind.EXPRESSION, false,
                     Map.of(), null, false, List.of(), 0);
 
     public DefaultExpression(String id, String label, Kind kind, boolean fixed,

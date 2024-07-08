@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class IfNode extends FlowNode {
+public class If extends FlowNode {
 
     public static final String IF_LABEL = "If";
     public static final String IF_THEN_LABEL = "Then";
@@ -49,12 +49,12 @@ public class IfNode extends FlowNode {
             .editable()
             .build();
 
-    public static final FlowNode DEFAULT_NODE = new IfNode("0", IF_LABEL, Kind.IF, false,
+    public static final FlowNode DEFAULT_NODE = new If(DEFAULT_ID, IF_LABEL, Kind.IF, false,
             Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION), null, false,
             List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
 
-    public IfNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                  LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+    public If(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+              LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
