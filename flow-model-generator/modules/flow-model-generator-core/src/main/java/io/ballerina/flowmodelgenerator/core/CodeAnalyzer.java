@@ -75,7 +75,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.PanicNode;
+import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
@@ -368,12 +368,10 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
-        nodeBuilder.lineRange(panicStatementNode);
-
-        PanicNode.Builder panicNodeBuilder = new PanicNode.Builder(semanticModel);
-        panicNodeBuilder.setExpressionNode(panicStatementNode.expression());
-        nodeBuilder.propertiesBuilder(panicNodeBuilder);
-
+        nodeBuilder.lineRange(panicStatementNode)
+                .metadata(Panic.PANIC_LABEL, FlowNode.Kind.PANIC, null, null, Panic::new)
+                .properties()
+                .setExpressionNode(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
         appendNode();
     }
 
