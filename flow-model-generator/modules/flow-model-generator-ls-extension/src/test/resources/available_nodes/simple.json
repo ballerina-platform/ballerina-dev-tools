@@ -1,0 +1,14 @@
+{
+  "description": "A simple example of a package",
+  "parentNodeKind": "IF",
+  "branchLabel": "THEN",
+  "availableNodes": [
+    "IF",
+    "HTTP_API_GET_CALL",
+    "HTTP_API_POST_CALL",
+    "RETURN",
+    "EXPRESSION",
+    "WHILE",
+    "ERROR_HANDLER"
+  ]
+}

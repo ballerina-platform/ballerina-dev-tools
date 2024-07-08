@@ -1,0 +1,112 @@
+{
+  "start": {
+    "line": 19,
+    "offset": 4
+  },
+  "end": {
+    "line": 22,
+    "offset": 5
+  },
+  "source": "while.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "while.bal",
+    "nodes": [
+      {
+        "id": "50814",
+        "label": "HTTP API",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 22,
+            "offset": 5
+          }
+        },
+        "kind": "EVENT_HTTP_API",
+        "returning": false,
+        "fixed": true,
+        "nodeProperties": {
+          "method": {
+            "label": "Method",
+            "value": "get",
+            "typeKind": "IDENTIFIER",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Method"
+          },
+          "path": {
+            "label": "Path",
+            "value": "nothing",
+            "typeKind": "URI_PATH",
+            "optional": false,
+            "editable": true,
+            "documentation": "HTTP Path"
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "51872",
+        "label": "While",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 9
+          }
+        },
+        "kind": "WHILE",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": []
+          }
+        ],
+        "nodeProperties": {
+          "condition": {
+            "label": "Condition",
+            "type": "boolean",
+            "value": "true ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Boolean Condition"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "while.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

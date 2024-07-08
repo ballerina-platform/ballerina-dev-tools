@@ -1,0 +1,91 @@
+{
+  "description": "Sample diagram node",
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 14,
+          "character": 8
+        },
+        "end": {
+          "line": 14,
+          "character": 85
+        }
+      },
+      "newText": "json res1 = check foodClient->post(\"/apples\", \"red apple\");"
+    }
+  ],
+  "diagram": {
+    "id": "45965",
+    "label": "HTTP POST",
+    "lineRange": {
+      "fileName": "http_post_node.bal",
+      "startLine": {
+        "line": 14,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 14,
+        "offset": 85
+      }
+    },
+    "kind": "HTTP_API_POST_CALL",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "client": {
+        "label": "Client",
+        "type": "http:Client",
+        "value": "foodClient",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Client Connection"
+      },
+      "variable": {
+        "label": "Variable",
+        "type": "json",
+        "value": "res1 ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Result Variable"
+      },
+      "path": {
+        "label": "Path",
+        "type": "string",
+        "value": "\"/apples\"",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Path"
+      },
+      "message": {
+        "label": "Message",
+        "type": "string",
+        "value": "\"red apple\"",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Post Message"
+      },
+      "headers": {
+        "label": "Headers",
+        "type": "map<string|string[]>?",
+        "typeKind": "BTYPE",
+        "optional": true,
+        "editable": true,
+        "documentation": "HTTP Headers"
+      },
+      "mediaType": {
+        "label": "Media Type",
+        "type": "string?",
+        "typeKind": "BTYPE",
+        "optional": true,
+        "editable": true,
+        "documentation": "HTTP Post Media Type"
+      }
+    },
+    "flags": 1
+  }
+}

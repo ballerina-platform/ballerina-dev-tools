@@ -1,0 +1,92 @@
+/*
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
+ *
+ *  WSO2 LLC. licenses this file to you under the Apache License,
+ *  Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+package io.ballerina.flowmodelgenerator.core.model.node;
+
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.tools.text.LineRange;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Represents the properties of an if node in the flow model.
+ *
+ * @since 1.4.0
+ */
+public class If extends FlowNode {
+
+    public static final String IF_LABEL = "If";
+    public static final String IF_THEN_LABEL = "Then";
+    public static final String IF_ELSE_LABEL = "Else";
+    private static final String IF_CONDITION = "Condition";
+    public static final String IF_CONDITION_KEY = "condition";
+    private static final String IF_CONDITION_DOC = "Boolean Condition";
+
+    private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
+            .label(IF_CONDITION)
+            .value("")
+            .documentation(IF_CONDITION_DOC)
+            .typeKind(Expression.ExpressionTypeKind.BTYPE)
+            .editable()
+            .build();
+
+    public static final FlowNode DEFAULT_NODE = new If(DEFAULT_ID, IF_LABEL, Kind.IF, false,
+            Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION), null, false,
+            List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
+
+    public If(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+              LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
+        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    }
+
+    @Override
+    public String toSource() {
+        SourceBuilder sourceBuilder = new SourceBuilder();
+        Expression condition = getProperty(IF_CONDITION_KEY);
+
+        sourceBuilder
+                .keyword(SyntaxKind.IF_KEYWORD)
+                .expression(condition)
+                .openBrace();
+
+        Branch ifBranch = getBranch(IF_THEN_LABEL);
+        sourceBuilder.addChildren(ifBranch.children());
+
+        Branch elseBranch = getBranch(IF_ELSE_LABEL);
+        if (elseBranch != null) {
+            List<FlowNode> children = elseBranch.children();
+            sourceBuilder
+                    .closeBrace()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.ELSE_KEYWORD);
+
+            // If there is only one child, and if that is an if node, generate an `else if` statement`
+            if (children.size() != 1 || children.get(0).kind() != Kind.IF) {
+                sourceBuilder.openBrace();
+            }
+            sourceBuilder.addChildren(children);
+        }
+
+        sourceBuilder.closeBrace();
+        return sourceBuilder.build(false);
+    }
+}

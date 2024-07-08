@@ -1,0 +1,369 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "47884",
+    "label": "ErrorHandler",
+    "lineRange": {
+      "fileName": "error_handler.bal",
+      "startLine": {
+        "line": 16,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 16,
+        "offset": 20
+      }
+    },
+    "kind": "ERROR_HANDLER",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "50038",
+            "label": "HTTP GET",
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 18,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 18,
+                "offset": 66
+              }
+            },
+            "kind": "HTTP_API_GET_CALL",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "client": {
+                "label": "Client",
+                "type": "http:Client",
+                "value": "foodClient",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "HTTP Client Connection"
+              },
+              "variable": {
+                "label": "Variable",
+                "type": "json",
+                "value": "res3 ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              },
+              "path": {
+                "label": "Path",
+                "type": "string",
+                "value": "\"/western/oranges\"",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "HTTP Path"
+              },
+              "headers": {
+                "label": "Headers",
+                "type": "map<string|string[]>?",
+                "typeKind": "BTYPE",
+                "optional": true,
+                "editable": true,
+                "documentation": "HTTP Headers"
+              }
+            },
+            "flags": 1
+          },
+          {
+            "id": "50998",
+            "label": "Custom Expression",
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 19,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 19,
+                "offset": 34
+              }
+            },
+            "kind": "EXPRESSION",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "variable": {
+                "label": "Variable",
+                "type": "string|()",
+                "value": "msg",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              },
+              "expression": {
+                "label": "Expression",
+                "type": "string",
+                "value": "res3.toString()",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "52995",
+            "label": "Custom Expression",
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 21,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 21,
+                "offset": 47
+              }
+            },
+            "kind": "EXPRESSION",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "variable": {
+                "label": "Variable",
+                "type": "string|()",
+                "value": "msg",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              },
+              "expression": {
+                "label": "Expression",
+                "type": "string",
+                "value": "\"Failed to get the response\"",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "54108",
+            "label": "ErrorHandler",
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 22,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 27,
+                "offset": 13
+              }
+            },
+            "kind": "ERROR_HANDLER",
+            "returning": false,
+            "fixed": false,
+            "branches": [
+              {
+                "label": "Body",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "55159",
+                    "label": "HTTP POST",
+                    "lineRange": {
+                      "fileName": "error_handler.bal",
+                      "startLine": {
+                        "line": 23,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 23,
+                        "offset": 103
+                      }
+                    },
+                    "kind": "HTTP_API_POST_CALL",
+                    "returning": false,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "client": {
+                        "label": "Client",
+                        "type": "http:Client",
+                        "value": "foodClient",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "HTTP Client Connection"
+                      },
+                      "variable": {
+                        "label": "Variable",
+                        "type": "json",
+                        "value": "res ",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      },
+                      "path": {
+                        "label": "Path",
+                        "type": "string",
+                        "value": "\"/log\"",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "HTTP Path"
+                      },
+                      "message": {
+                        "label": "Message",
+                        "type": "string",
+                        "value": "\"Error occurred while getting the response\"",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "HTTP Post Message"
+                      },
+                      "headers": {
+                        "label": "Headers",
+                        "type": "map<string|string[]>?",
+                        "typeKind": "BTYPE",
+                        "optional": true,
+                        "editable": true,
+                        "documentation": "HTTP Headers"
+                      },
+                      "mediaType": {
+                        "label": "Media Type",
+                        "type": "string?",
+                        "typeKind": "BTYPE",
+                        "optional": true,
+                        "editable": true,
+                        "documentation": "HTTP Post Media Type"
+                      }
+                    },
+                    "flags": 1
+                  },
+                  {
+                    "id": "56102",
+                    "label": "Custom Expression",
+                    "lineRange": {
+                      "fileName": "error_handler.bal",
+                      "startLine": {
+                        "line": 24,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 24,
+                        "offset": 54
+                      }
+                    },
+                    "kind": "EXPRESSION",
+                    "returning": false,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "variable": {
+                        "label": "Variable",
+                        "type": "string|()",
+                        "value": "msg",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      },
+                      "expression": {
+                        "label": "Expression",
+                        "type": "string",
+                        "value": "msg.toString() + res.toString()",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Expression"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "On Fail",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "58095",
+                    "label": "Custom Expression",
+                    "lineRange": {
+                      "fileName": "error_handler.bal",
+                      "startLine": {
+                        "line": 26,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 26,
+                        "offset": 63
+                      }
+                    },
+                    "kind": "EXPRESSION",
+                    "returning": false,
+                    "fixed": false,
+                    "nodeProperties": {
+                      "variable": {
+                        "label": "Variable",
+                        "type": "string|()",
+                        "value": "msg",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      },
+                      "expression": {
+                        "label": "Expression",
+                        "type": "string",
+                        "value": "\"Error occurred while logging the error\"",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Expression"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 16,
+          "character": 8
+        },
+        "end": {
+          "line": 16,
+          "character": 20
+        }
+      },
+      "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    string|() msg = res3.toString();\n}\non fail {\n    string|() msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        string|() msg = msg.toString() + res.toString();\n    }\non fail {\n        string|() msg = \"Error occurred while logging the error\";\n    }\n}"
+    }
+  ]
+}
