@@ -28,25 +28,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents the properties of a break node.
+ * Represents the properties of a continue node.
  *
  * @since 1.4.0
  */
-public class BreakNode extends FlowNode {
+public class Continue extends FlowNode {
 
-    public static final String BREAK_LABEL = "Break";
-    public static final BreakNode DEFAULT_NODE = new BreakNode("0", BREAK_LABEL, Kind.BREAK, false,
+    public static final String CONTINUE_LABEL = "Continue";
+
+    public static final Continue DEFAULT_NODE = new Continue(DEFAULT_ID, CONTINUE_LABEL, Kind.CONTINUE, false,
             Map.of(), null, false, List.of(), 0);
 
-    public BreakNode(String id, String label, Kind kind, boolean fixed,
-                     Map<String, Expression> nodeProperties,
-                     LineRange lineRange, boolean returning,
-                     List<Branch> branches, int flags) {
+    public Continue(String id, String label, Kind kind, boolean fixed,
+                    Map<String, Expression> nodeProperties,
+                    LineRange lineRange, boolean returning,
+                    List<Branch> branches, int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 
     @Override
     public String toSource() {
-        return SyntaxKind.BREAK_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
+        return SyntaxKind.CONTINUE_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
 }

@@ -69,16 +69,16 @@ import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.flowmodelgenerator.core.model.node.BreakNode;
-import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
-import io.ballerina.flowmodelgenerator.core.model.node.ContinueNode;
+import io.ballerina.flowmodelgenerator.core.model.node.Break;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
+import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.StartNode;
-import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
+import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,7 +189,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (moduleName.equals("http")) {
             NodeAttributes.Info info = NodeAttributes.get(methodName);
-            nodeBuilder.metadata(info.label(), info.kind(), null, null, CallNode::new)
+            nodeBuilder.metadata(info.label(), info.kind(), null, null, ActionCall::new)
                     .properties()
                     .callExpression(expressionNode, ExpressionAttributes.HTTP_CLIENT)
                     .variable(this.typedBindingPatternNode);
@@ -201,11 +201,11 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         nodeBuilder
-                .metadata(IfNode.IF_LABEL, FlowNode.Kind.IF, null, null, IfNode::new)
+                .metadata(If.IF_LABEL, FlowNode.Kind.IF, null, null, If::new)
                 .lineRange(ifElseStatementNode)
                 .properties().setConditionExpression(ifElseStatementNode.condition());
 
-        Branch.Builder thenBranchBuilder = startBranch(IfNode.IF_THEN_LABEL, Branch.BranchKind.BLOCK);
+        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
             statement.accept(this);
             thenBranchBuilder.node(buildNode());
@@ -214,7 +214,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
-            Branch.Builder elseBranchBuilder = startBranch(IfNode.IF_ELSE_LABEL, Branch.BranchKind.BLOCK);
+            Branch.Builder elseBranchBuilder = startBranch(If.IF_ELSE_LABEL, Branch.BranchKind.BLOCK);
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             elseBranchBuilder.nodes(elseBodyChildNodes);
             endBranch(elseBranchBuilder);
@@ -316,7 +316,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(BreakStatementNode breakStatementNode) {
         nodeBuilder.lineRange(breakStatementNode)
-                .metadata(BreakNode.BREAK_LABEL, FlowNode.Kind.BREAK, null, null, BreakNode::new);
+                .metadata(Break.BREAK_LABEL, FlowNode.Kind.BREAK, null, null, Break::new);
         appendNode();
     }
 
@@ -333,15 +333,15 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(ContinueStatementNode continueStatementNode) {
         nodeBuilder.lineRange(continueStatementNode)
-                .metadata(ContinueNode.CONTINUE_LABEL, FlowNode.Kind.CONTINUE, null, null,
-                        ContinueNode::new);
+                .metadata(Continue.CONTINUE_LABEL, FlowNode.Kind.CONTINUE, null, null,
+                        Continue::new);
         appendNode();
     }
 
     @Override
     public void visit(WhileStatementNode whileStatementNode) {
         nodeBuilder.lineRange(whileStatementNode)
-                .metadata(WhileNode.WHILE_LABEL, FlowNode.Kind.WHILE, null, null, WhileNode::new)
+                .metadata(While.WHILE_LABEL, FlowNode.Kind.WHILE, null, null, While::new)
                 .properties().setConditionExpression(whileStatementNode.condition());
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
@@ -429,8 +429,8 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         nodeBuilder.lineRange(doStatementNode)
-                .metadata(ErrorHandlerNode.ERROR_HANDLER_LABEL, FlowNode.Kind.ERROR_HANDLER, null, null,
-                        ErrorHandlerNode::new);
+                .metadata(ErrorHandler.ERROR_HANDLER_LABEL, FlowNode.Kind.ERROR_HANDLER, null, null,
+                        ErrorHandler::new);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : doStatementNode.blockStatement().statements()) {
             statement.accept(this);

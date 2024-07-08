@@ -7,6 +7,8 @@
     "HTTP_API_GET_CALL",
     "HTTP_API_POST_CALL",
     "RETURN",
-    "EXPRESSION"
+    "EXPRESSION",
+    "WHILE",
+    "ERROR_HANDLER"
   ]
 }

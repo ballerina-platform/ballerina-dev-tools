@@ -34,11 +34,11 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class CallNode extends FlowNode {
+public class ActionCall extends FlowNode {
 
-    public CallNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                    LineRange lineRange, boolean returning,
-                    List<Branch> branches, int flags) {
+    public ActionCall(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
+                      LineRange lineRange, boolean returning,
+                      List<Branch> branches, int flags) {
         super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
     }
 

@@ -38,16 +38,16 @@ import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.model.node.BreakNode;
-import io.ballerina.flowmodelgenerator.core.model.node.CallNode;
-import io.ballerina.flowmodelgenerator.core.model.node.ContinueNode;
+import io.ballerina.flowmodelgenerator.core.model.node.Break;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandlerNode;
+import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.IfNode;
+import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.StartNode;
-import io.ballerina.flowmodelgenerator.core.model.node.WhileNode;
+import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -137,6 +137,7 @@ public abstract class FlowNode {
     public static final int NODE_FLAG_FINAL = 1 << 2;
     public static final int NODE_FLAG_REMOTE = 1 << 10;
     public static final int NODE_FLAG_RESOURCE = 1 << 11;
+    public static final String DEFAULT_ID = "0";
 
     public enum Kind {
         EVENT_HTTP_API,
@@ -526,15 +527,15 @@ public abstract class FlowNode {
 
             return switch (kind) {
                 case EXPRESSION -> context.deserialize(jsonObject, DefaultExpression.class);
-                case IF -> context.deserialize(jsonObject, IfNode.class);
+                case IF -> context.deserialize(jsonObject, If.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
-                case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandlerNode.class);
-                case WHILE -> context.deserialize(jsonObject, WhileNode.class);
-                case CONTINUE -> context.deserialize(jsonObject, ContinueNode.class);
-                case BREAK -> context.deserialize(jsonObject, BreakNode.class);
+                case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandler.class);
+                case WHILE -> context.deserialize(jsonObject, While.class);
+                case CONTINUE -> context.deserialize(jsonObject, Continue.class);
+                case BREAK -> context.deserialize(jsonObject, Break.class);
                 case START -> context.deserialize(jsonObject, StartNode.class);
-                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, CallNode.class);
+                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
             };
         }
     }
