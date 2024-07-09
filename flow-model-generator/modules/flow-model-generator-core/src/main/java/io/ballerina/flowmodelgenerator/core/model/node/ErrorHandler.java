@@ -33,8 +33,8 @@ import java.util.List;
 public class ErrorHandler extends FlowNode {
 
     public static final String LABEL = "ErrorHandler";
-    public static final String ERROR_HANDLER_BODY = "Body";
     public static final String DESCRIPTION = "Catch and handle errors";
+    public static final String ERROR_HANDLER_BODY = "Body";
 
     @Override
     protected void setConstData() {

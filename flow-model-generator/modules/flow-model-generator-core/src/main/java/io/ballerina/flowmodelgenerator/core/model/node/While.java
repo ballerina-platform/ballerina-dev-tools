@@ -32,14 +32,13 @@ import java.util.Map;
  */
 public class While extends FlowNode {
 
-    public static final String WHILE_LABEL = "While";
-    public static final String WHILE_CONDITION_KEY = "condition";
-    private static final String WHILE_CONDITION_DOC = "Boolean Condition";
+    public static final String LABEL = "While";
     public static final String DESCRIPTION = "Loop over a block of code.";
+    private static final String WHILE_CONDITION_DOC = "Boolean Condition";
 
     @Override
     protected void setConstData() {
-        this.label = WHILE_LABEL;
+        this.label = LABEL;
         this.kind = Kind.WHILE;
         this.description = DESCRIPTION;
     }
@@ -47,7 +46,7 @@ public class While extends FlowNode {
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(WHILE_CONDITION_KEY);
+        Expression condition = getProperty(Expression.CONDITION_KEY);
         Branch body = getBranch(Branch.BODY_LABEL);
 
         sourceBuilder

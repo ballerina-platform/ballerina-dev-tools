@@ -37,7 +37,6 @@ public class If extends FlowNode {
     public static final String DESCRIPTION = "Add conditional branch to the integration flow.";
     public static final String IF_THEN_LABEL = "Then";
     public static final String IF_ELSE_LABEL = "Else";
-    public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
 
     @Override
@@ -50,7 +49,7 @@ public class If extends FlowNode {
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(IF_CONDITION_KEY);
+        Expression condition = getProperty(Expression.CONDITION_KEY);
 
         sourceBuilder
                 .keyword(SyntaxKind.IF_KEYWORD)

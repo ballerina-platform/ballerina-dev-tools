@@ -31,16 +31,15 @@ import java.util.Map;
  */
 public class Panic extends FlowNode {
 
-    public static final String PANIC_LABEL = "Panic";
-    private static final String PANIC_EXPRESSION_KEY = "expression";
+    public static final String LABEL = "Panic";
+    public static final String DESCRIPTION = "Panic and stop the execution";
     public static final String PANIC_EXPRESSION_DOC = "Panic value";
-    public static final String PANIC_DESCRIPTION = "Panic and stop the execution";
 
     @Override
     protected void setConstData() {
-        this.label = PANIC_LABEL;
+        this.label = LABEL;
         this.kind = Kind.PANIC;
-        this.description = PANIC_DESCRIPTION;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Panic extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.PANIC_KEYWORD);
-        Expression expression = getProperty(PANIC_EXPRESSION_KEY);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
                     .whiteSpace()

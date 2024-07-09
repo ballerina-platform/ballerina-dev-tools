@@ -32,9 +32,8 @@ import java.util.Map;
 public class Return extends FlowNode {
 
     public static final String LABEL = "Return";
-    private static final String RETURN_EXPRESSION_KEY = "expression";
-    public static final String RETURN_EXPRESSION_DOC = "Return value";
     public static final String DESCRIPTION = "Return a value";
+    public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
     protected void setConstData() {
@@ -48,7 +47,7 @@ public class Return extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
-        Expression expression = getProperty(RETURN_EXPRESSION_KEY);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
                     .whiteSpace()
