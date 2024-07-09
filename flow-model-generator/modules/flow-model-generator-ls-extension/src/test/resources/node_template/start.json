@@ -1,0 +1,22 @@
+{
+  "description": "Sample diagram node",
+  "kind": "START",
+  "output": {
+    "id": "0",
+    "label": "Start",
+    "kind": "START",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Call action or expression"
+      }
+    },
+    "flags": 0
+  }
+}
