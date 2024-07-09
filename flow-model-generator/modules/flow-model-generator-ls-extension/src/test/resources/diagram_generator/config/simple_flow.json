@@ -15,6 +15,7 @@
       {
         "id": "38073",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "simple_flow.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "39131",
         "label": "If",
+        "description": "Add conditional branch to the integration flow.",
+        "kind": "IF",
         "lineRange": {
           "fileName": "simple_flow.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 9
           }
         },
-        "kind": "IF",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Then",
@@ -74,6 +73,7 @@
               {
                 "id": "40115",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -85,9 +85,7 @@
                     "offset": 63
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -130,6 +128,8 @@
               {
                 "id": "41065",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -141,9 +141,7 @@
                     "offset": 21
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -166,6 +164,7 @@
               {
                 "id": "43081",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -177,9 +176,7 @@
                     "offset": 53
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -222,6 +219,8 @@
               {
                 "id": "44041",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -233,9 +232,7 @@
                     "offset": 21
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

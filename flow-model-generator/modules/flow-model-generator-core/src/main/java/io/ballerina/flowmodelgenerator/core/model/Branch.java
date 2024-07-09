@@ -38,12 +38,16 @@ import java.util.Map;
  */
 public record Branch(String label, BranchKind kind, List<FlowNode> children, Map<String, Expression> properties) {
 
-    public static String BODY_LABEL = "Body";
-    public static String ON_FAIL_LABEL = "On Fail";
+    public static final String BODY_LABEL = "Body";
+    public static final String ON_FAIL_LABEL = "On Fail";
 
     public static final Branch DEFAULT_BODY_BRANCH = new Branch(BODY_LABEL, BranchKind.BLOCK, new ArrayList<>(), null);
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
             new Branch(ON_FAIL_LABEL, BranchKind.BLOCK, new ArrayList<>(), null);
+
+    public static Branch getEmptyBranch(String label) {
+        return new Branch(label, BranchKind.BLOCK, new ArrayList<>(), null);
+    }
 
     public enum BranchKind {
         BLOCK
@@ -89,7 +93,7 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         }
 
         public Builder variable(Node node) {
-            Expression.Builder expressionBuilder = new Expression.Builder();
+            Expression.Builder expressionBuilder = Expression.Builder.getInstance();
             if (node == null) {
                 return this;
             }

@@ -15,6 +15,8 @@
       {
         "id": "34969",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
-        "id": "35860",
+        "id": "35859",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -42,17 +44,17 @@
           },
           "endLine": {
             "line": 4,
-            "offset": 24
+            "offset": 23
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 1
       },
       {
-        "id": "36857",
+        "id": "36856",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -61,17 +63,17 @@
           },
           "endLine": {
             "line": 5,
-            "offset": 29
+            "offset": 28
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 2
       },
       {
         "id": "38859",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -83,9 +85,7 @@
             "offset": 47
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -111,6 +111,8 @@
       {
         "id": "39856",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -122,9 +124,7 @@
             "offset": 52
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -150,6 +150,8 @@
       {
         "id": "40845",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -161,9 +163,7 @@
             "offset": 49
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -189,6 +189,8 @@
       {
         "id": "41842",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -200,9 +202,7 @@
             "offset": 54
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",

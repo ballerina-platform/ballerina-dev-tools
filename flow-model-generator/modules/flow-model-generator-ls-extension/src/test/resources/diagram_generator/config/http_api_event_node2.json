@@ -15,6 +15,7 @@
       {
         "id": "41880",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_api_event_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 92
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",

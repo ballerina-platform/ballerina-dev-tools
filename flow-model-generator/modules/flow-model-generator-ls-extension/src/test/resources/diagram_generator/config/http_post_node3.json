@@ -15,6 +15,7 @@
       {
         "id": "64671",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -50,22 +49,21 @@
         "flags": 2048
       },
       {
-        "id": "65774",
+        "id": "65990",
         "label": "HTTP POST",
+        "kind": "HTTP_API_POST_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
             "line": 34,
-            "offset": 8
+            "offset": 15
           },
           "endLine": {
             "line": 34,
-            "offset": 54
+            "offset": 53
           }
         },
-        "kind": "HTTP_API_POST_CALL",
         "returning": true,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",

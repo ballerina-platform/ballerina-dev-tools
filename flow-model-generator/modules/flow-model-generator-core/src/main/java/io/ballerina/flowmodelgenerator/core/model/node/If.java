@@ -22,7 +22,6 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
 import java.util.Map;
@@ -34,34 +33,23 @@ import java.util.Map;
  */
 public class If extends FlowNode {
 
-    public static final String IF_LABEL = "If";
+    public static final String LABEL = "If";
+    public static final String DESCRIPTION = "Add conditional branch to the integration flow.";
     public static final String IF_THEN_LABEL = "Then";
     public static final String IF_ELSE_LABEL = "Else";
-    private static final String IF_CONDITION = "Condition";
-    public static final String IF_CONDITION_KEY = "condition";
     private static final String IF_CONDITION_DOC = "Boolean Condition";
 
-    private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
-            .label(IF_CONDITION)
-            .value("")
-            .documentation(IF_CONDITION_DOC)
-            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-            .editable()
-            .build();
-
-    public static final FlowNode DEFAULT_NODE = new If(DEFAULT_ID, IF_LABEL, Kind.IF, false,
-            Map.of(IF_CONDITION_KEY, DEFAULT_CONDITION), null, false,
-            List.of(new Branch(IF_THEN_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
-
-    public If(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-              LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.description = DESCRIPTION;
+        this.kind = Kind.IF;
     }
 
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(IF_CONDITION_KEY);
+        Expression condition = getProperty(Expression.CONDITION_KEY);
 
         sourceBuilder
                 .keyword(SyntaxKind.IF_KEYWORD)
@@ -88,5 +76,12 @@ public class If extends FlowNode {
 
         sourceBuilder.closeBrace();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties =
+                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(IF_CONDITION_DOC));
+        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
     }
 }

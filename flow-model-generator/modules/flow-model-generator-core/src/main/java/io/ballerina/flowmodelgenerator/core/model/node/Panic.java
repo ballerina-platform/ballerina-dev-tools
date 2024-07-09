@@ -19,12 +19,9 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,25 +30,16 @@ import java.util.Map;
  * @since 1.4.0
  */
 public class Panic extends FlowNode {
-    public static final String PANIC_LABEL = "Panic";
-    private static final String PANIC_EXPRESSION = "Expression";
-    private static final String PANIC_EXPRESSION_KEY = "expression";
-    public static final String PANIC_EXPRESSION_DOC = "Panic value";
-    public static final Panic DEFAULT_NODE = new Panic(DEFAULT_ID, PANIC_LABEL, Kind.PANIC, false,
-            Map.of(
-                    PANIC_EXPRESSION_KEY,
-                    Expression.Builder.getInstance()
-                            .label(PANIC_EXPRESSION)
-                            .value("")
-                            .documentation(PANIC_EXPRESSION_DOC)
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                            .editable()
-                            .build()
-            ), null, false, List.of(), 0);
 
-    public Panic(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    public static final String LABEL = "Panic";
+    public static final String DESCRIPTION = "Panic and stop the execution";
+    public static final String PANIC_EXPRESSION_DOC = "Panic value";
+
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.PANIC;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -59,7 +47,7 @@ public class Panic extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.PANIC_KEYWORD);
-        Expression expression = getProperty(PANIC_EXPRESSION_KEY);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
                     .whiteSpace()
@@ -67,5 +55,10 @@ public class Panic extends FlowNode {
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(PANIC_EXPRESSION_DOC));
     }
 }

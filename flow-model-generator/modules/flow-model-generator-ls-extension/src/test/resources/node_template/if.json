@@ -2,14 +2,18 @@
   "description": "Sample diagram node",
   "kind": "IF",
   "output": {
-    "id": "0",
     "label": "If",
+    "description": "Add conditional branch to the integration flow.",
     "kind": "IF",
     "returning": false,
-    "fixed": false,
     "branches": [
       {
         "label": "Then",
+        "kind": "BLOCK",
+        "children": []
+      },
+      {
+        "label": "Else",
         "kind": "BLOCK",
         "children": []
       }

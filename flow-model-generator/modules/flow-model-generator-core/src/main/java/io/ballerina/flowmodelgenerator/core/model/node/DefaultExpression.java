@@ -19,13 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a default expression node.
@@ -34,17 +29,14 @@ import java.util.Map;
  */
 public class DefaultExpression extends FlowNode {
 
-    public static final String EXPRESSION_LABEL = "Custom Expression";
+    public static final String LABEL = "Custom Expression";
+    public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
-    public static final FlowNode DEFAULT_NODE =
-            new DefaultExpression(DEFAULT_ID, EXPRESSION_LABEL, Kind.EXPRESSION, false,
-                    Map.of(), null, false, List.of(), 0);
-
-    public DefaultExpression(String id, String label, Kind kind, boolean fixed,
-                             Map<String, Expression> nodeProperties,
-                             LineRange lineRange, boolean returning,
-                             List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.EXPRESSION;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -61,5 +53,10 @@ public class DefaultExpression extends FlowNode {
                 .expression(expression)
                 .endOfStatement();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+
     }
 }
