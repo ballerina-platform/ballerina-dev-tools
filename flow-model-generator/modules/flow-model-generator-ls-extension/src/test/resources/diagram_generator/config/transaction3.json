@@ -1,0 +1,129 @@
+{
+  "start": {
+    "line": 19,
+    "offset": 0
+  },
+  "end": {
+    "line": 26,
+    "offset": 1
+  },
+  "source": "transaction.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "transaction.bal",
+    "nodes": [
+      {
+        "id": "50810",
+        "label": "Custom Expression",
+        "lineRange": {
+          "fileName": "transaction.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 1
+          }
+        },
+        "kind": "EXPRESSION",
+        "returning": false,
+        "fixed": false,
+        "flags": 0
+      },
+      {
+        "id": "51868",
+        "label": "Transaction",
+        "lineRange": {
+          "fileName": "transaction.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 25,
+            "offset": 5
+          }
+        },
+        "kind": "TRANSACTION",
+        "returning": false,
+        "fixed": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "52895",
+                "label": "Transaction",
+                "lineRange": {
+                  "fileName": "transaction.bal",
+                  "startLine": {
+                    "line": 21,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 23,
+                    "offset": 9
+                  }
+                },
+                "kind": "TRANSACTION",
+                "returning": false,
+                "fixed": false,
+                "branches": [
+                  {
+                    "label": "Body",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "53965",
+                        "label": "Custom Expression",
+                        "lineRange": {
+                          "fileName": "transaction.bal",
+                          "startLine": {
+                            "line": 22,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 22,
+                            "offset": 25
+                          }
+                        },
+                        "kind": "EXPRESSION",
+                        "returning": false,
+                        "fixed": false,
+                        "flags": 1
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "55821",
+                "label": "Custom Expression",
+                "lineRange": {
+                  "fileName": "transaction.bal",
+                  "startLine": {
+                    "line": 24,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 24,
+                    "offset": 21
+                  }
+                },
+                "kind": "EXPRESSION",
+                "returning": false,
+                "fixed": false,
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

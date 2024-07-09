@@ -1,0 +1,24 @@
+{
+  "description": "Sample diagram node",
+  "kind": "TRANSACTION",
+  "output": {
+    "id": "0",
+    "label": "Transaction",
+    "kind": "TRANSACTION",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": []
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": []
+      }
+    ],
+    "flags": 0
+  }
+}

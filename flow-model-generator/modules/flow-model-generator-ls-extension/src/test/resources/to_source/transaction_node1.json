@@ -1,0 +1,84 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32927",
+    "label": "Transaction",
+    "lineRange": {
+      "fileName": "transaction.bal",
+      "startLine": {
+        "line": 1,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 3,
+        "offset": 5
+      }
+    },
+    "kind": "TRANSACTION",
+    "returning": false,
+    "fixed": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "34007",
+            "label": "Custom Expression",
+            "lineRange": {
+              "fileName": "transaction.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 31
+              }
+            },
+            "kind": "EXPRESSION",
+            "returning": false,
+            "fixed": false,
+            "nodeProperties": {
+              "expression": {
+                "label": "Expression",
+                "type": "()",
+                "value": "check commit",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              },
+              "variable": {
+                "label": "Variable",
+                "type": "()",
+                "value": "res ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            },
+            "flags": 1
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 1,
+          "character": 4
+        },
+        "end": {
+          "line": 3,
+          "character": 5
+        }
+      },
+      "newText": "transaction {\n    () res = check commit;\n}"
+    }
+  ]
+}
