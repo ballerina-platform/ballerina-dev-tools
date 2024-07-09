@@ -37,7 +37,7 @@ public class While extends FlowNode {
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.WHILE;
         this.description = DESCRIPTION;

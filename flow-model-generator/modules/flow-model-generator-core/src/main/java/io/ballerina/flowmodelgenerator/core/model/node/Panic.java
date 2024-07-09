@@ -36,7 +36,7 @@ public class Panic extends FlowNode {
     public static final String PANIC_EXPRESSION_DOC = "Panic value";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.PANIC;
         this.description = DESCRIPTION;

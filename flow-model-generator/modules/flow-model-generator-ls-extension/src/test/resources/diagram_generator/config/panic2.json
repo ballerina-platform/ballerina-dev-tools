@@ -15,6 +15,8 @@
       {
         "id": "39743",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "40830",
         "label": "Panic",
+        "description": "Panic and stop the execution",
+        "kind": "PANIC",
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 34
           }
         },
-        "kind": "PANIC",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",

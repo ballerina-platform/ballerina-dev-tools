@@ -93,7 +93,7 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         }
 
         public Builder variable(Node node) {
-            Expression.Builder expressionBuilder = new Expression.Builder();
+            Expression.Builder expressionBuilder = Expression.Builder.getInstance();
             if (node == null) {
                 return this;
             }

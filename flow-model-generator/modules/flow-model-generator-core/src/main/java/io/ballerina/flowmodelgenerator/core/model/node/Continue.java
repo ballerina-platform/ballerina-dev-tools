@@ -32,7 +32,7 @@ public class Continue extends FlowNode {
     public static final String DESCRIPTION = "Skip the current iteration and continue with the next one";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.CONTINUE;
         this.description = DESCRIPTION;

@@ -87,14 +87,17 @@ public record Expression(String label, String type, String value, ExpressionType
         private boolean editable;
         private String documentation;
 
-        private static Builder instance = null;
+        private Builder() {
+
+        }
+
+        private static final class InstanceHolder {
+
+            private static final Builder instance = new Builder();
+        }
 
         public static Builder getInstance() {
-            // TODO: Make this method concurrent safe
-            if (instance == null) {
-                instance = new Builder();
-            }
-            return instance;
+            return InstanceHolder.instance;
         }
 
         public Builder label(String key) {

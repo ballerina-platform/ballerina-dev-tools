@@ -32,7 +32,7 @@ public class Break extends FlowNode {
     public static final String DESCRIPTION = "Exit the current loop";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
         this.kind = Kind.BREAK;

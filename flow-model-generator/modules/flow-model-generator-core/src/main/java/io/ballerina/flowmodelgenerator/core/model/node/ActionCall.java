@@ -34,7 +34,7 @@ import java.util.List;
 public class ActionCall extends FlowNode {
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
     }
 
     @Override

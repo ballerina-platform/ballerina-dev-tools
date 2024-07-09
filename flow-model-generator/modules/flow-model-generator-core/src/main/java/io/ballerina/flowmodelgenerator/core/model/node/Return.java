@@ -36,7 +36,7 @@ public class Return extends FlowNode {
     public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
         this.kind = Kind.RETURN;

@@ -33,7 +33,7 @@ public class DefaultExpression extends FlowNode {
     public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.EXPRESSION;
         this.description = DESCRIPTION;

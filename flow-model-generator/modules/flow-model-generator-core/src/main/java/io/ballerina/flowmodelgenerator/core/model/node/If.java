@@ -40,7 +40,7 @@ public class If extends FlowNode {
     private static final String IF_CONDITION_DOC = "Boolean Condition";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
         this.kind = Kind.IF;

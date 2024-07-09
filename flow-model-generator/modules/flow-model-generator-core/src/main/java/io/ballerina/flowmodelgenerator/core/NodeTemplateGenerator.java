@@ -47,6 +47,7 @@ public class NodeTemplateGenerator {
         }
 
         flowNode = constructorMap.getOrDefault(kind, DefaultExpression::new).get();
+        flowNode.setConstData();
         flowNode.setTemplateData();
         nodeCache.put(flowNode.kind(), flowNode);
         return gson.toJsonTree(flowNode);

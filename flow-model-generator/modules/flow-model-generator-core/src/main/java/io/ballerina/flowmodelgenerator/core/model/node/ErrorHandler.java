@@ -37,7 +37,7 @@ public class ErrorHandler extends FlowNode {
     public static final String ERROR_HANDLER_BODY = "Body";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.ERROR_HANDLER;
         this.description = DESCRIPTION;

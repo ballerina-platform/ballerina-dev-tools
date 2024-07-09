@@ -36,7 +36,7 @@ public class HttpApiEvent extends FlowNode {
     public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
     @Override
-    protected void setConstData() {
+    public void setConstData() {
         this.label = LABEL;
         this.kind = Kind.EVENT_HTTP_API;
     }

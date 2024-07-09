@@ -89,7 +89,6 @@ public abstract class FlowNode {
     protected int flags;
 
     protected FlowNode() {
-        setConstData();
     }
 
     public Kind kind() {
@@ -120,7 +119,7 @@ public abstract class FlowNode {
         return returning;
     }
 
-    protected abstract void setConstData();
+    public abstract void setConstData();
 
     public abstract String toSource();
 
@@ -212,6 +211,7 @@ public abstract class FlowNode {
             flowNode.nodeProperties = propertiesBuilder == null ? null : propertiesBuilder.build();
             flowNode.branches = branches.isEmpty() ? null : branches;
             flowNode.flags = flags;
+            flowNode.setConstData();
             return flowNode;
         }
     }
@@ -242,7 +242,7 @@ public abstract class FlowNode {
 
         public PropertiesBuilder(SemanticModel semanticModel) {
             this.nodeProperties = new LinkedHashMap<>();
-            this.expressionBuilder = new Expression.Builder();
+            this.expressionBuilder = Expression.Builder.getInstance();
             this.semanticModel = semanticModel;
         }
 
@@ -278,7 +278,7 @@ public abstract class FlowNode {
         }
 
         public PropertiesBuilder callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
-            Expression client = new Expression.Builder()
+            Expression client = Expression.Builder.getInstance()
                     .label(info.label())
                     .type(info.type())
                     .value(expressionNode.toString())
@@ -309,7 +309,7 @@ public abstract class FlowNode {
                 }
             }
 
-            expressionBuilder = new Expression.Builder();
+            expressionBuilder = Expression.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
