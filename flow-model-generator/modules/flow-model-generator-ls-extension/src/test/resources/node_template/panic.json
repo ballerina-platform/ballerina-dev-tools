@@ -1,0 +1,22 @@
+{
+  "description": "Sample diagram node",
+  "kind": "PANIC",
+  "output": {
+    "id": "0",
+    "label": "Panic",
+    "kind": "PANIC",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Panic value"
+      }
+    },
+    "flags": 0
+  }
+}
