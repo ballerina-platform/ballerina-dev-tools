@@ -19,13 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a continue node.
@@ -34,17 +28,14 @@ import java.util.Map;
  */
 public class Continue extends FlowNode {
 
-    public static final String CONTINUE_LABEL = "Continue";
+    public static final String LABEL = "Continue";
     public static final String DESCRIPTION = "Skip the current iteration and continue with the next one";
 
-    public static final Continue DEFAULT_NODE = new Continue(DEFAULT_ID, CONTINUE_LABEL, Kind.CONTINUE, false,
-            Map.of(), null, false, List.of(), 0);
-
-    public Continue(String id, String label, Kind kind, boolean fixed,
-                    Map<String, Expression> nodeProperties,
-                    LineRange lineRange, boolean returning,
-                    List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    protected void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.CONTINUE;
+        this.description = DESCRIPTION;
     }
 
     @Override

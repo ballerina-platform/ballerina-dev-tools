@@ -19,13 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a break node.
@@ -34,16 +28,14 @@ import java.util.Map;
  */
 public class Break extends FlowNode {
 
-    public static final String BREAK_LABEL = "Break";
+    public static final String LABEL = "Break";
     public static final String DESCRIPTION = "Exit the current loop";
-    public static final Break DEFAULT_NODE = new Break(DEFAULT_ID, BREAK_LABEL, Kind.BREAK, false,
-            Map.of(), null, false, List.of(), 0);
 
-    public Break(String id, String label, Kind kind, boolean fixed,
-                 Map<String, Expression> nodeProperties,
-                 LineRange lineRange, boolean returning,
-                 List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    protected void setConstData() {
+        this.label = LABEL;
+        this.description = DESCRIPTION;
+        this.kind = Kind.BREAK;
     }
 
     @Override

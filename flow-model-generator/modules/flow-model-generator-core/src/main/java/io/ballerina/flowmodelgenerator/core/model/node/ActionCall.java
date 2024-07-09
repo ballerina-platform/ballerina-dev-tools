@@ -36,10 +36,8 @@ import java.util.Map;
  */
 public class ActionCall extends FlowNode {
 
-    public ActionCall(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                      LineRange lineRange, boolean returning,
-                      List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    protected void setConstData() {
     }
 
     @Override

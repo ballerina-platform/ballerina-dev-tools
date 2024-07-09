@@ -19,13 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a return node.
@@ -34,27 +29,17 @@ import java.util.Map;
  */
 public class Return extends FlowNode {
 
-    public static final String RETURN_LABEL = "Return";
+    public static final String LABEL = "Return";
     private static final String RETURN_EXPRESSION = "Expression";
     private static final String RETURN_EXPRESSION_KEY = "expression";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
     public static final String DESCRIPTION = "Return a value";
 
-    public static final FlowNode DEFAULT_NODE = new Return("0", RETURN_LABEL, Kind.RETURN, false,
-            Map.of(RETURN_EXPRESSION_KEY,
-                    Expression.Builder.getInstance()
-                            .label(RETURN_EXPRESSION)
-                            .value("")
-                            .documentation(RETURN_EXPRESSION_DOC)
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                            .editable()
-                            .build()
-            ), null, false, List.of(), 0);
-
-    public Return(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                  LineRange lineRange, boolean returning,
-                  List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    protected void setConstData() {
+        this.label = LABEL;
+        this.description = DESCRIPTION;
+        this.kind = Kind.RETURN;
     }
 
     @Override

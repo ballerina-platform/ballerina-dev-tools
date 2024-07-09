@@ -15,6 +15,7 @@
       {
         "id": "50814",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "51872",
         "label": "While",
+        "description": "Loop over a block of code.",
+        "kind": "WHILE",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 9
           }
         },
-        "kind": "WHILE",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",

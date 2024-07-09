@@ -15,6 +15,7 @@
       {
         "id": "66655",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -50,22 +49,21 @@
         "flags": 2048
       },
       {
-        "id": "67747",
+        "id": "67963",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
             "line": 36,
-            "offset": 8
+            "offset": 15
           },
           "endLine": {
             "line": 36,
-            "offset": 43
+            "offset": 42
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": true,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",

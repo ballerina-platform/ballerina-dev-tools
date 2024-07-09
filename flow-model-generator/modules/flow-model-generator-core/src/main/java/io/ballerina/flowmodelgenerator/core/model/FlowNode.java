@@ -62,6 +62,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Supplier;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
@@ -77,29 +78,18 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
  */
 public abstract class FlowNode {
 
-    String id;
-    String label;
-    LineRange lineRange;
-    Kind kind;
-    boolean returning;
-    boolean fixed;
-    List<Branch> branches;
-    Map<String, Expression> nodeProperties;
-    int flags;
+    protected String id;
+    protected String label;
+    protected String description;
+    protected Kind kind;
+    protected LineRange lineRange;
+    protected boolean returning;
+    protected List<Branch> branches;
+    protected Map<String, Expression> nodeProperties;
+    protected int flags;
 
-    protected FlowNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                       LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        this.id = id;
-        this.label = label;
-        this.kind = kind;
-        this.fixed = fixed;
-        this.lineRange = lineRange;
-        this.returning = returning;
-        this.branches = branches.isEmpty() ? null : branches;
-        this.flags = flags;
-        if (nodeProperties == null || !nodeProperties.isEmpty()) {
-            this.nodeProperties = nodeProperties;
-        }
+    protected FlowNode() {
+        setConstData();
     }
 
     public Kind kind() {
@@ -130,6 +120,8 @@ public abstract class FlowNode {
         return returning;
     }
 
+    protected abstract void setConstData();
+
     public abstract String toSource();
 
     public static final int NODE_FLAG_CHECKED = 1 << 0;
@@ -153,14 +145,6 @@ public abstract class FlowNode {
         PANIC
     }
 
-    @FunctionalInterface
-    public interface Constructor<T> {
-
-        T construct(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                    LineRange lineRange, boolean returning,
-                    List<Branch> branches, int flags);
-    }
-
     /**
      * Represents a builder for the flow node.
      *
@@ -168,40 +152,26 @@ public abstract class FlowNode {
      */
     public static final class NodeBuilder {
 
-        private LineRange lineRange;
-        private String label;
-        private Kind kind;
-        private boolean returning;
-        private boolean fixed;
         private int flags;
-        private String description;
-        private String category;
         private final List<Branch> branches;
         private PropertiesBuilder propertiesBuilder;
         private final SemanticModel semanticModel;
-        private Constructor<? extends FlowNode> constructor;
+        private final FlowNode flowNode;
 
-        public <T extends FlowNode> NodeBuilder(SemanticModel semanticModel) {
+        public <T extends FlowNode> NodeBuilder(SemanticModel semanticModel, Supplier<? extends FlowNode> constructor) {
             this.branches = new ArrayList<>();
             this.flags = 0;
             this.semanticModel = semanticModel;
-            this.constructor = DefaultExpression::new;
+            this.flowNode = constructor.get();
         }
 
         public NodeBuilder returning() {
-            this.returning = true;
-            return this;
-        }
-
-        public NodeBuilder fixed() {
-            this.fixed = true;
+            flowNode.returning = true;
             return this;
         }
 
         public NodeBuilder lineRange(Node node) {
-            if (this.lineRange == null) {
-                this.lineRange = node.lineRange();
-            }
+            flowNode.lineRange = node.lineRange();
             return this;
         }
 
@@ -212,6 +182,16 @@ public abstract class FlowNode {
 
         public NodeBuilder flag(int flag) {
             this.flags |= flag;
+            return this;
+        }
+
+        public NodeBuilder kind(Kind kind) {
+            flowNode.kind = kind;
+            return this;
+        }
+
+        public NodeBuilder label(String label) {
+            flowNode.label = label;
             return this;
         }
 
@@ -227,19 +207,11 @@ public abstract class FlowNode {
         }
 
         public FlowNode build() {
-            return constructor.construct(String.valueOf(Objects.hash(lineRange)), label, kind, fixed,
-                    propertiesBuilder == null ? null : propertiesBuilder.build(), lineRange, returning, branches,
-                    flags);
-        }
-
-        public <T extends FlowNode> NodeBuilder metadata(String label, Kind kind, String description,
-                                                         String category, Constructor<T> constructor) {
-            this.label = label;
-            this.kind = kind;
-            this.description = description;
-            this.category = category;
-            this.constructor = constructor;
-            return this;
+            flowNode.id = String.valueOf(Objects.hash(flowNode.lineRange));
+            flowNode.nodeProperties = propertiesBuilder == null ? null : propertiesBuilder.build();
+            flowNode.branches = branches.isEmpty() ? null : branches;
+            flowNode.flags = flags;
+            return flowNode;
         }
     }
 

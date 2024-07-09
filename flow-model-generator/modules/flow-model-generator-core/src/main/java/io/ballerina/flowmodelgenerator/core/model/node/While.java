@@ -22,10 +22,6 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a while node in the flow model.
@@ -47,14 +43,12 @@ public class While extends FlowNode {
             .editable()
             .build();
 
-    public While(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    protected void setConstData() {
+        this.label = WHILE_LABEL;
+        this.kind = Kind.WHILE;
+        this.description = DESCRIPTION;
     }
-
-    public static final FlowNode DEFAULT_NODE = new While(DEFAULT_ID, WHILE_LABEL, Kind.WHILE, false,
-            Map.of(WHILE_CONDITION_KEY, DEFAULT_CONDITION), null, false,
-            List.of(new Branch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK, List.of(), null)), 0);
 
     @Override
     public String toSource() {

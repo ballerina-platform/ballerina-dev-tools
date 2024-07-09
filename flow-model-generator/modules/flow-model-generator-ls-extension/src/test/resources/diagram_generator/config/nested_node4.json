@@ -15,6 +15,7 @@
       {
         "id": "59990",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "nested_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -50,33 +49,66 @@
         "flags": 2048
       },
       {
-        "id": "31",
+        "id": "61141",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
         "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "nested_node.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 11
+          },
+          "endLine": {
+            "line": 38,
+            "offset": 9
+          }
+        },
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
             "kind": "BLOCK",
             "children": [
               {
-                "id": "31",
+                "id": "62168",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
                 "kind": "EXPRESSION",
+                "lineRange": {
+                  "fileName": "nested_node.bal",
+                  "startLine": {
+                    "line": 30,
+                    "offset": 15
+                  },
+                  "endLine": {
+                    "line": 36,
+                    "offset": 13
+                  }
+                },
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Body",
                     "kind": "BLOCK",
                     "children": [
                       {
-                        "id": "31",
+                        "id": "63474",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
                         "kind": "EXPRESSION",
+                        "lineRange": {
+                          "fileName": "nested_node.bal",
+                          "startLine": {
+                            "line": 31,
+                            "offset": 28
+                          },
+                          "endLine": {
+                            "line": 34,
+                            "offset": 17
+                          }
+                        },
                         "returning": false,
-                        "fixed": false,
                         "branches": [
                           {
                             "label": "Body",
@@ -85,6 +117,7 @@
                               {
                                 "id": "64198",
                                 "label": "HTTP POST",
+                                "kind": "HTTP_API_POST_CALL",
                                 "lineRange": {
                                   "fileName": "nested_node.bal",
                                   "startLine": {
@@ -96,9 +129,7 @@
                                     "offset": 90
                                   }
                                 },
-                                "kind": "HTTP_API_POST_CALL",
                                 "returning": false,
-                                "fixed": false,
                                 "nodeProperties": {
                                   "client": {
                                     "label": "Client",
@@ -156,8 +187,10 @@
                                 "flags": 1
                               },
                               {
-                                "id": "65133",
+                                "id": "65132",
                                 "label": "Custom Expression",
+                                "description": "Represents a custom Ballerina expression",
+                                "kind": "EXPRESSION",
                                 "lineRange": {
                                   "fileName": "nested_node.bal",
                                   "startLine": {
@@ -166,12 +199,10 @@
                                   },
                                   "endLine": {
                                     "line": 33,
-                                    "offset": 33
+                                    "offset": 32
                                   }
                                 },
-                                "kind": "EXPRESSION",
                                 "returning": false,
-                                "fixed": false,
                                 "flags": 1
                               }
                             ]
@@ -182,6 +213,7 @@
                       {
                         "id": "67027",
                         "label": "HTTP GET",
+                        "kind": "HTTP_API_GET_CALL",
                         "lineRange": {
                           "fileName": "nested_node.bal",
                           "startLine": {
@@ -193,9 +225,7 @@
                             "offset": 67
                           }
                         },
-                        "kind": "HTTP_API_GET_CALL",
                         "returning": false,
-                        "fixed": false,
                         "nodeProperties": {
                           "client": {
                             "label": "Client",
@@ -243,6 +273,7 @@
               {
                 "id": "68883",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "nested_node.bal",
                   "startLine": {
@@ -254,9 +285,7 @@
                     "offset": 63
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
