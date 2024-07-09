@@ -19,15 +19,12 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the generalized action invocation node in the flow model.
@@ -101,5 +98,10 @@ public class ActionCall extends FlowNode {
                 .endOfStatement();
 
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+
     }
 }

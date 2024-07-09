@@ -22,6 +22,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.Map;
+
 /**
  * Represents the properties of a return node.
  *
@@ -30,7 +32,6 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class Return extends FlowNode {
 
     public static final String LABEL = "Return";
-    private static final String RETURN_EXPRESSION = "Expression";
     private static final String RETURN_EXPRESSION_KEY = "expression";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
     public static final String DESCRIPTION = "Return a value";
@@ -55,5 +56,10 @@ public class Return extends FlowNode {
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(RETURN_EXPRESSION_DOC));
     }
 }

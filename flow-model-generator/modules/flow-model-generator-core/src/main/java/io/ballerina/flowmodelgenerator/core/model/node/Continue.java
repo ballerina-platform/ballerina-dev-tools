@@ -42,4 +42,9 @@ public class Continue extends FlowNode {
     public String toSource() {
         return SyntaxKind.CONTINUE_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
+
+    @Override
+    public void setTemplateData() {
+
+    }
 }

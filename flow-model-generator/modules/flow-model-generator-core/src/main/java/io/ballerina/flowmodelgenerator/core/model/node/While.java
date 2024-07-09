@@ -23,6 +23,8 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.Map;
+
 /**
  * Represents the properties of a while node in the flow model.
  *
@@ -31,17 +33,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class While extends FlowNode {
 
     public static final String WHILE_LABEL = "While";
-    public static final String WHILE_CONDITION = "Condition";
     public static final String WHILE_CONDITION_KEY = "condition";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
     public static final String DESCRIPTION = "Loop over a block of code.";
-    private static final Expression DEFAULT_CONDITION = Expression.Builder.getInstance()
-            .label(WHILE_CONDITION)
-            .value("")
-            .documentation(WHILE_CONDITION_DOC)
-            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-            .editable()
-            .build();
 
     @Override
     protected void setConstData() {
@@ -84,5 +78,11 @@ public class While extends FlowNode {
         }
 
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties =
+                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(WHILE_CONDITION_DOC));
     }
 }

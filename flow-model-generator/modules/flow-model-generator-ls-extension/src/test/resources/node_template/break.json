@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "BREAK",
   "output": {
-    "id": "0",
     "label": "Break",
+    "description": "Exit the current loop",
     "kind": "BREAK",
     "returning": false,
-    "fixed": false,
     "flags": 0
   }
 }

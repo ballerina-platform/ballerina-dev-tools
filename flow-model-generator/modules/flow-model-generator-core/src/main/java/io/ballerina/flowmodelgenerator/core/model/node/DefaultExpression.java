@@ -54,4 +54,9 @@ public class DefaultExpression extends FlowNode {
                 .endOfStatement();
         return sourceBuilder.build(false);
     }
+
+    @Override
+    public void setTemplateData() {
+
+    }
 }

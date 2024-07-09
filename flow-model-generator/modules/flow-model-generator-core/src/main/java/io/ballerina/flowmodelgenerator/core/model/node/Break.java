@@ -42,4 +42,9 @@ public class Break extends FlowNode {
     public String toSource() {
         return SyntaxKind.BREAK_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
+
+    @Override
+    public void setTemplateData() {
+
+    }
 }

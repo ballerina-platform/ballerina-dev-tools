@@ -124,12 +124,13 @@ public abstract class FlowNode {
 
     public abstract String toSource();
 
+    public abstract void setTemplateData();
+
     public static final int NODE_FLAG_CHECKED = 1 << 0;
     public static final int NODE_FLAG_CHECKPANIC = 1 << 1;
     public static final int NODE_FLAG_FINAL = 1 << 2;
     public static final int NODE_FLAG_REMOTE = 1 << 10;
     public static final int NODE_FLAG_RESOURCE = 1 << 11;
-    public static final String DEFAULT_ID = "0";
 
     public enum Kind {
         EVENT_HTTP_API,

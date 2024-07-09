@@ -45,6 +45,10 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
             new Branch(ON_FAIL_LABEL, BranchKind.BLOCK, new ArrayList<>(), null);
 
+    public static Branch getEmptyBranch(String label) {
+        return new Branch(label, BranchKind.BLOCK, new ArrayList<>(), null);
+    }
+
     public enum BranchKind {
         BLOCK
     }

@@ -45,4 +45,9 @@ public class HttpApiEvent extends FlowNode {
     public String toSource() {
         return null;
     }
+
+    @Override
+    public void setTemplateData() {
+
+    }
 }

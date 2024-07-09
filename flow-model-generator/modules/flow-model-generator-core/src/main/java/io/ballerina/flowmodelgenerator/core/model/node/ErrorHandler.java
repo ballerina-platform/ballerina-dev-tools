@@ -23,6 +23,8 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.List;
+
 /**
  * Represents the properties of an error handler node in the flow model.
  *
@@ -71,5 +73,10 @@ public class ErrorHandler extends FlowNode {
         }
 
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }
