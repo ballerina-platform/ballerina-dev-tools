@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "PANIC",
   "output": {
-    "id": "0",
     "label": "Panic",
+    "description": "Panic and stop the execution",
     "kind": "PANIC",
     "returning": false,
-    "fixed": false,
     "nodeProperties": {
       "expression": {
         "label": "Expression",

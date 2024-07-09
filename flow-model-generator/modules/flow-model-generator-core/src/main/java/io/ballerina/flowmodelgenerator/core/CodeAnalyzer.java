@@ -358,11 +358,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
-        nodeBuilder.lineRange(panicStatementNode)
-                .metadata(Panic.PANIC_LABEL, FlowNode.Kind.PANIC, null, null, Panic::new)
+        startNode(Panic::new)
+                .lineRange(panicStatementNode)
                 .properties()
                 .setExpressionNode(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
-        appendNode();
+        endNode();
     }
 
     @Override
