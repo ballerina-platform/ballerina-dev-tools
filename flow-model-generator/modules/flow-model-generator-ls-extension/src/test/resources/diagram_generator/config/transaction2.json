@@ -15,6 +15,8 @@
       {
         "id": "38038",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "38826",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 14
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -73,6 +73,8 @@
       {
         "id": "40863",
         "label": "Transaction",
+        "description": "Handle transaction.",
+        "kind": "TRANSACTION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -84,9 +86,7 @@
             "offset": 5
           }
         },
-        "kind": "TRANSACTION",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -95,6 +95,8 @@
               {
                 "id": "41943",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -106,9 +108,7 @@
                     "offset": 31
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -139,6 +139,8 @@
       {
         "id": "44831",
         "label": "Transaction",
+        "description": "Handle transaction.",
+        "kind": "TRANSACTION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -150,9 +152,7 @@
             "offset": 5
           }
         },
-        "kind": "TRANSACTION",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -161,6 +161,8 @@
               {
                 "id": "45911",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -172,9 +174,7 @@
                     "offset": 31
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -205,6 +205,8 @@
       {
         "id": "47753",
         "label": "Return",
+        "description": "Return a value",
+        "kind": "RETURN",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -216,9 +218,7 @@
             "offset": 13
           }
         },
-        "kind": "RETURN",
         "returning": true,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",

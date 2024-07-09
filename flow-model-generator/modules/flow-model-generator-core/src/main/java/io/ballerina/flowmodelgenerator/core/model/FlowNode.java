@@ -38,13 +38,14 @@ import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
@@ -62,6 +63,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Supplier;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
@@ -77,29 +79,17 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
  */
 public abstract class FlowNode {
 
-    String id;
-    String label;
-    LineRange lineRange;
-    Kind kind;
-    boolean returning;
-    boolean fixed;
-    List<Branch> branches;
-    Map<String, Expression> nodeProperties;
-    int flags;
+    protected String id;
+    protected String label;
+    protected String description;
+    protected Kind kind;
+    protected LineRange lineRange;
+    protected boolean returning;
+    protected List<Branch> branches;
+    protected Map<String, Expression> nodeProperties;
+    protected int flags;
 
-    protected FlowNode(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                       LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        this.id = id;
-        this.label = label;
-        this.kind = kind;
-        this.fixed = fixed;
-        this.lineRange = lineRange;
-        this.returning = returning;
-        this.branches = branches.isEmpty() ? null : branches;
-        this.flags = flags;
-        if (nodeProperties == null || !nodeProperties.isEmpty()) {
-            this.nodeProperties = nodeProperties;
-        }
+    protected FlowNode() {
     }
 
     public Kind kind() {
@@ -130,14 +120,17 @@ public abstract class FlowNode {
         return returning;
     }
 
+    public abstract void setConstData();
+
     public abstract String toSource();
+
+    public abstract void setTemplateData();
 
     public static final int NODE_FLAG_CHECKED = 1 << 0;
     public static final int NODE_FLAG_CHECKPANIC = 1 << 1;
     public static final int NODE_FLAG_FINAL = 1 << 2;
     public static final int NODE_FLAG_REMOTE = 1 << 10;
     public static final int NODE_FLAG_RESOURCE = 1 << 11;
-    public static final String DEFAULT_ID = "0";
 
     public enum Kind {
         EVENT_HTTP_API,
@@ -150,15 +143,8 @@ public abstract class FlowNode {
         WHILE,
         CONTINUE,
         BREAK,
+        PANIC,
         TRANSACTION
-    }
-
-    @FunctionalInterface
-    public interface Constructor<T> {
-
-        T construct(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                    LineRange lineRange, boolean returning,
-                    List<Branch> branches, int flags);
     }
 
     /**
@@ -168,39 +154,26 @@ public abstract class FlowNode {
      */
     public static final class NodeBuilder {
 
-        private LineRange lineRange;
-        private String label;
-        private Kind kind;
-        private boolean returning;
-        private boolean fixed;
         private int flags;
-        private String description;
-        private String category;
         private final List<Branch> branches;
         private PropertiesBuilder propertiesBuilder;
         private final SemanticModel semanticModel;
-        private Constructor<? extends FlowNode> constructor;
+        private final FlowNode flowNode;
 
-        public <T extends FlowNode> NodeBuilder(SemanticModel semanticModel) {
+        public <T extends FlowNode> NodeBuilder(SemanticModel semanticModel, Supplier<? extends FlowNode> constructor) {
             this.branches = new ArrayList<>();
             this.flags = 0;
             this.semanticModel = semanticModel;
+            this.flowNode = constructor.get();
         }
 
         public NodeBuilder returning() {
-            this.returning = true;
-            return this;
-        }
-
-        public NodeBuilder fixed() {
-            this.fixed = true;
+            flowNode.returning = true;
             return this;
         }
 
         public NodeBuilder lineRange(Node node) {
-            if (this.lineRange == null) {
-                this.lineRange = node.lineRange();
-            }
+            flowNode.lineRange = node.lineRange();
             return this;
         }
 
@@ -211,6 +184,16 @@ public abstract class FlowNode {
 
         public NodeBuilder flag(int flag) {
             this.flags |= flag;
+            return this;
+        }
+
+        public NodeBuilder kind(Kind kind) {
+            flowNode.kind = kind;
+            return this;
+        }
+
+        public NodeBuilder label(String label) {
+            flowNode.label = label;
             return this;
         }
 
@@ -226,19 +209,12 @@ public abstract class FlowNode {
         }
 
         public FlowNode build() {
-            return constructor.construct(String.valueOf(Objects.hash(lineRange)), label, kind, fixed,
-                    propertiesBuilder == null ? null : propertiesBuilder.build(), lineRange, returning, branches,
-                    flags);
-        }
-
-        public <T extends FlowNode> NodeBuilder metadata(String label, Kind kind, String description,
-                                                         String category, Constructor<T> constructor) {
-            this.label = label;
-            this.kind = kind;
-            this.description = description;
-            this.category = category;
-            this.constructor = constructor;
-            return this;
+            flowNode.id = String.valueOf(Objects.hash(flowNode.lineRange));
+            flowNode.nodeProperties = propertiesBuilder == null ? null : propertiesBuilder.build();
+            flowNode.branches = branches.isEmpty() ? null : branches;
+            flowNode.flags = flags;
+            flowNode.setConstData();
+            return flowNode;
         }
     }
 
@@ -262,15 +238,13 @@ public abstract class FlowNode {
         public static final String CONDITION_KEY = "condition";
         public static final String CONDITION_DOC = "Boolean Condition";
 
-        private String label;
-        private Kind kind;
         private final Map<String, Expression> nodeProperties;
         private final SemanticModel semanticModel;
         protected Expression.Builder expressionBuilder;
 
         public PropertiesBuilder(SemanticModel semanticModel) {
             this.nodeProperties = new LinkedHashMap<>();
-            this.expressionBuilder = new Expression.Builder();
+            this.expressionBuilder = Expression.Builder.getInstance();
             this.semanticModel = semanticModel;
         }
 
@@ -306,7 +280,7 @@ public abstract class FlowNode {
         }
 
         public PropertiesBuilder callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
-            Expression client = new Expression.Builder()
+            Expression client = Expression.Builder.getInstance()
                     .label(info.label())
                     .type(info.type())
                     .value(expressionNode.toString())
@@ -337,7 +311,7 @@ public abstract class FlowNode {
                 }
             }
 
-            expressionBuilder = new Expression.Builder();
+            expressionBuilder = Expression.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -534,6 +508,7 @@ public abstract class FlowNode {
                 case WHILE -> context.deserialize(jsonObject, While.class);
                 case CONTINUE -> context.deserialize(jsonObject, Continue.class);
                 case BREAK -> context.deserialize(jsonObject, Break.class);
+                case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
             };

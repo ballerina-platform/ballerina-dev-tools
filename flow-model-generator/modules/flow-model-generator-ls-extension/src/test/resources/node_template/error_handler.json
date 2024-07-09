@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "ERROR_HANDLER",
   "output": {
-    "id": "0",
     "label": "ErrorHandler",
+    "description": "Catch and handle errors",
     "kind": "ERROR_HANDLER",
     "returning": false,
-    "fixed": false,
     "branches": [
       {
         "label": "Body",

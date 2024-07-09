@@ -15,6 +15,8 @@
       {
         "id": "45137",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -26,14 +28,13 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "45807",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -45,9 +46,7 @@
             "offset": 51
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -88,8 +87,10 @@
         "flags": 1
       },
       {
-        "id": "46777",
+        "id": "46776",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -98,17 +99,17 @@
           },
           "endLine": {
             "line": 15,
-            "offset": 29
+            "offset": 28
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "48794",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -120,9 +121,7 @@
             "offset": 62
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -148,6 +147,7 @@
       {
         "id": "49773",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -159,9 +159,7 @@
             "offset": 49
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -204,6 +202,8 @@
       {
         "id": "50745",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -215,9 +215,7 @@
             "offset": 29
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -241,8 +239,10 @@
         "flags": 0
       },
       {
-        "id": "51736",
+        "id": "51735",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -251,12 +251,10 @@
           },
           "endLine": {
             "line": 20,
-            "offset": 28
+            "offset": 27
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       }
     ],

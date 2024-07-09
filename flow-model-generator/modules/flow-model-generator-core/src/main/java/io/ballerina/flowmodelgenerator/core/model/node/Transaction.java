@@ -33,20 +33,20 @@ import java.util.Map;
  * @since 1.4.0
  */
 public class Transaction extends FlowNode {
-    public static final String TRANSACTION_LABEL = "Transaction";
-    public static final String TRANSACTION_BODY = "Body";
-    public static final FlowNode DEFAULT_NODE =
-            new ErrorHandler(DEFAULT_ID, TRANSACTION_LABEL, Kind.TRANSACTION, false,
-                    Map.of(), null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
-    public Transaction(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                          LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    public static final String LABEL = "Transaction";
+    public static final String DESCRIPTION = "Handle transaction.";
+
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.TRANSACTION;
+        this.description = DESCRIPTION;
     }
 
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Branch body = getBranch(TRANSACTION_BODY);
+        Branch body = getBranch(Branch.BODY_LABEL);
         sourceBuilder
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
                 .openBrace()
@@ -70,5 +70,10 @@ public class Transaction extends FlowNode {
         }
 
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }

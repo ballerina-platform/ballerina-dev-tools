@@ -1,44 +1,110 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "40863",
+    "id": "51868",
     "label": "Transaction",
+    "description": "Handle transaction.",
+    "kind": "TRANSACTION",
     "lineRange": {
       "fileName": "transaction.bal",
       "startLine": {
-        "line": 9,
+        "line": 20,
         "offset": 4
       },
       "endLine": {
-        "line": 11,
+        "line": 25,
         "offset": 5
       }
     },
-    "kind": "TRANSACTION",
     "returning": false,
-    "fixed": false,
     "branches": [
       {
         "label": "Body",
         "kind": "BLOCK",
         "children": [
           {
-            "id": "41943",
-            "label": "Custom Expression",
+            "id": "52895",
+            "label": "Transaction",
+            "description": "Handle transaction.",
+            "kind": "TRANSACTION",
             "lineRange": {
               "fileName": "transaction.bal",
               "startLine": {
-                "line": 10,
+                "line": 21,
                 "offset": 8
               },
               "endLine": {
-                "line": 10,
+                "line": 23,
+                "offset": 9
+              }
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Body",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "53975",
+                    "label": "Custom Expression",
+                    "description": "Represents a custom Ballerina expression",
+                    "kind": "EXPRESSION",
+                    "lineRange": {
+                      "fileName": "transaction.bal",
+                      "startLine": {
+                        "line": 22,
+                        "offset": 12
+                      },
+                      "endLine": {
+                        "line": 22,
+                        "offset": 35
+                      }
+                    },
+                    "returning": false,
+                    "nodeProperties": {
+                      "expression": {
+                        "label": "Expression",
+                        "type": "()",
+                        "value": "check commit",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Expression"
+                      },
+                      "variable": {
+                        "label": "Variable",
+                        "type": "()",
+                        "value": "res ",
+                        "typeKind": "BTYPE",
+                        "optional": false,
+                        "editable": true,
+                        "documentation": "Result Variable"
+                      }
+                    },
+                    "flags": 1
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          },
+          {
+            "id": "55831",
+            "label": "Custom Expression",
+            "description": "Represents a custom Ballerina expression",
+            "kind": "EXPRESSION",
+            "lineRange": {
+              "fileName": "transaction.bal",
+              "startLine": {
+                "line": 24,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 24,
                 "offset": 31
               }
             },
-            "kind": "EXPRESSION",
             "returning": false,
-            "fixed": false,
             "nodeProperties": {
               "expression": {
                 "label": "Expression",
@@ -70,15 +136,15 @@
     {
       "range": {
         "start": {
-          "line": 9,
+          "line": 20,
           "character": 4
         },
         "end": {
-          "line": 11,
+          "line": 25,
           "character": 5
         }
       },
-      "newText": "transaction {\n    () res = check commit;\n}"
+      "newText": "transaction {\n    transaction {\n        () res = check commit;\n    }\n    () res = check commit;\n}"
     }
   ]
 }

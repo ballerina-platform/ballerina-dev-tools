@@ -20,8 +20,8 @@ function testTransaction2(int i) returns int|error {
 function testTransaction3() returns error? {
     transaction {
         transaction {
-            check commit;
+            var res = check commit;
         }
-        check commit;
+        var res = check commit;
     }
 }

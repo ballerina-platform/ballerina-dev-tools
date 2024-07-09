@@ -18,13 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a HttpApiEvent node.
@@ -33,7 +27,7 @@ import java.util.Map;
  */
 public class HttpApiEvent extends FlowNode {
 
-    public static final String EVENT_HTTP_API_LABEL = "HTTP API";
+    public static final String LABEL = "HTTP API";
     public static final String EVENT_HTTP_API_METHOD = "Method";
     public static final String EVENT_HTTP_API_METHOD_KEY = "method";
     public static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
@@ -41,14 +35,19 @@ public class HttpApiEvent extends FlowNode {
     public static final String EVENT_HTTP_API_PATH_KEY = "path";
     public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
-    public HttpApiEvent(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                        LineRange lineRange, boolean returning,
-                        List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.EVENT_HTTP_API;
     }
 
     @Override
     public String toSource() {
         return null;
+    }
+
+    @Override
+    public void setTemplateData() {
+
     }
 }

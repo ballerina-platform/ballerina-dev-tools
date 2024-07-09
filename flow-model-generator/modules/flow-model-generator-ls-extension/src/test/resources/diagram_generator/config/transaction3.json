@@ -15,6 +15,8 @@
       {
         "id": "50810",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "51868",
         "label": "Transaction",
+        "description": "Handle transaction.",
+        "kind": "TRANSACTION",
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 5
           }
         },
-        "kind": "TRANSACTION",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -56,6 +56,8 @@
               {
                 "id": "52895",
                 "label": "Transaction",
+                "description": "Handle transaction.",
+                "kind": "TRANSACTION",
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -67,17 +69,17 @@
                     "offset": 9
                   }
                 },
-                "kind": "TRANSACTION",
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Body",
                     "kind": "BLOCK",
                     "children": [
                       {
-                        "id": "53965",
+                        "id": "53975",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
                         "lineRange": {
                           "fileName": "transaction.bal",
                           "startLine": {
@@ -86,12 +88,30 @@
                           },
                           "endLine": {
                             "line": 22,
-                            "offset": 25
+                            "offset": 35
                           }
                         },
-                        "kind": "EXPRESSION",
                         "returning": false,
-                        "fixed": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "()",
+                            "value": "check commit",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "()",
+                            "value": "res ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          }
+                        },
                         "flags": 1
                       }
                     ]
@@ -100,8 +120,10 @@
                 "flags": 0
               },
               {
-                "id": "55821",
+                "id": "55831",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -110,12 +132,30 @@
                   },
                   "endLine": {
                     "line": 24,
-                    "offset": 21
+                    "offset": 31
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "()",
+                    "value": "check commit",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "()",
+                    "value": "res ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  }
+                },
                 "flags": 1
               }
             ]

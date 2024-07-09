@@ -15,6 +15,7 @@
       {
         "id": "68670",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "69743",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 55
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -89,22 +88,21 @@
         "flags": 1
       },
       {
-        "id": "70742",
+        "id": "70958",
         "label": "HTTP POST",
+        "kind": "HTTP_API_POST_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
             "line": 39,
-            "offset": 8
+            "offset": 15
           },
           "endLine": {
             "line": 39,
-            "offset": 62
+            "offset": 61
           }
         },
-        "kind": "HTTP_API_POST_CALL",
         "returning": true,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",

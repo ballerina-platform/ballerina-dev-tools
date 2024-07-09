@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "TRANSACTION",
   "output": {
-    "id": "0",
     "label": "Transaction",
+    "description": "Handle transaction.",
     "kind": "TRANSACTION",
     "returning": false,
-    "fixed": false,
     "branches": [
       {
         "label": "Body",

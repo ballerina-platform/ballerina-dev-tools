@@ -3,6 +3,8 @@
   "diagram": {
     "id": "32927",
     "label": "Transaction",
+    "description": "Handle transaction.",
+    "kind": "TRANSACTION",
     "lineRange": {
       "fileName": "transaction.bal",
       "startLine": {
@@ -14,9 +16,7 @@
         "offset": 5
       }
     },
-    "kind": "TRANSACTION",
     "returning": false,
-    "fixed": false,
     "branches": [
       {
         "label": "Body",
@@ -25,6 +25,8 @@
           {
             "id": "34007",
             "label": "Custom Expression",
+            "description": "Represents a custom Ballerina expression",
+            "kind": "EXPRESSION",
             "lineRange": {
               "fileName": "transaction.bal",
               "startLine": {
@@ -36,9 +38,7 @@
                 "offset": 31
               }
             },
-            "kind": "EXPRESSION",
             "returning": false,
-            "fixed": false,
             "nodeProperties": {
               "expression": {
                 "label": "Expression",
