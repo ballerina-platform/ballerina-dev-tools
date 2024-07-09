@@ -1,0 +1,22 @@
+{
+  "description": "Sample diagram node",
+  "kind": "FAIL",
+  "output": {
+    "id": "0",
+    "label": "Fail",
+    "kind": "FAIL",
+    "returning": false,
+    "fixed": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "value": "",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Fail value"
+      }
+    },
+    "flags": 0
+  }
+}
