@@ -137,7 +137,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
 
-        if (emptyNodeBuilder()) {
+        if (isNodeUnidentified()) {
             startNode(Return::new).lineRange(returnStatementNode);
             expression.ifPresent(expressionNode -> nodeBuilder.properties()
                     .setExpressionNode(expressionNode, Return.RETURN_EXPRESSION_DOC));
@@ -266,7 +266,7 @@ class CodeAnalyzer extends NodeVisitor {
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
-        if (emptyNodeBuilder()) {
+        if (isNodeUnidentified()) {
             startNode(DefaultExpression::new)
                     .lineRange(variableDeclarationNode)
                     .properties()
@@ -284,7 +284,7 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = assignmentStatementNode.expression();
         expression.accept(this);
 
-        if (emptyNodeBuilder()) {
+        if (isNodeUnidentified()) {
             startNode(DefaultExpression::new)
                     .lineRange(assignmentStatementNode)
                     .properties()
@@ -436,7 +436,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(CheckExpressionNode checkExpressionNode) {
         checkExpressionNode.expression().accept(this);
-        if (emptyNodeBuilder()) {
+        if (isNodeUnidentified()) {
             startNode(DefaultExpression::new)
                     .properties()
                     .expression(checkExpressionNode);
@@ -497,7 +497,7 @@ class CodeAnalyzer extends NodeVisitor {
         nodeBuilder.branch(branchBuilder.build());
     }
 
-    private boolean emptyNodeBuilder() {
+    private boolean isNodeUnidentified() {
         return this.nodeBuilder == null;
     }
 
