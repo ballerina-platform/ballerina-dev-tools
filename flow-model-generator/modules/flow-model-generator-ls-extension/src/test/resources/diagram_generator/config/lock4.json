@@ -15,6 +15,8 @@
       {
         "id": "54747",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "55805",
         "label": "Lock",
+        "description": "Allow to access mutable states safely",
+        "kind": "LOCK",
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 5
           }
         },
-        "kind": "LOCK",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -56,6 +56,8 @@
               {
                 "id": "56828",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -67,9 +69,7 @@
                     "offset": 36
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "flags": 0
               }
             ]
@@ -81,6 +81,8 @@
               {
                 "id": "58793",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -92,9 +94,7 @@
                     "offset": 17
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

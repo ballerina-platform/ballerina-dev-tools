@@ -374,10 +374,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        nodeBuilder.lineRange(lockStatementNode)
-                .metadata(Lock.LOCK_LABEL, FlowNode.Kind.LOCK, null, null,
-                        Lock::new);
-
+        startNode(Lock::new).lineRange(lockStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
             statement.accept(this);
@@ -397,7 +394,7 @@ class CodeAnalyzer extends NodeVisitor {
             endBranch(onFailBranchBuilder);
         }
 
-        appendNode();
+        endNode();
     }
 
     @Override

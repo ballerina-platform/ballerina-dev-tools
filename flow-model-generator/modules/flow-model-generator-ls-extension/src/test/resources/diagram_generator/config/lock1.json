@@ -15,6 +15,8 @@
       {
         "id": "31869",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "32927",
         "label": "Lock",
+        "description": "Allow to access mutable states safely",
+        "kind": "LOCK",
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 5
           }
         },
-        "kind": "LOCK",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -56,6 +56,8 @@
               {
                 "id": "33994",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -67,19 +69,8 @@
                     "offset": 18
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
-                  "variable": {
-                    "label": "Variable",
-                    "type": "int",
-                    "value": "i ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
-                  },
                   "expression": {
                     "label": "Expression",
                     "type": "int",
@@ -88,6 +79,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "i ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 0
