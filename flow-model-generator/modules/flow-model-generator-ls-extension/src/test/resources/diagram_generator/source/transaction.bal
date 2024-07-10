@@ -25,3 +25,30 @@ function testTransaction3() returns error? {
         var res = check commit;
     }
 }
+
+function transactionWithOnFail1() returns error? {
+    transaction {
+        var _ = check commit;
+    } on fail {
+        return error("Found error");
+    }
+}
+
+function transactionWithOnFail2() returns error? {
+    transaction {
+        var _ = check commit;
+    } on fail error e {
+        return e;
+    }
+}
+
+function transactionWithOnFail3() returns error? {
+    transaction {
+        transaction {
+            var _ = check commit;
+        }
+        var _ = check commit;
+    } on fail error e {
+        return e;
+    }
+}
