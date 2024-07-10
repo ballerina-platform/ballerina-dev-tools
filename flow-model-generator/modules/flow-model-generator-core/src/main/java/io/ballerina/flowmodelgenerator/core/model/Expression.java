@@ -46,8 +46,30 @@ public record Expression(String label, String type, String value, ExpressionType
         URI_PATH
     }
 
-    public record Info() {
+    public static final String CONDITION_LABEL = "Condition";
+    public static final String CONDITION_KEY = "condition";
 
+    public static final String EXPRESSION_LABEL = "Expression";
+    public static final String EXPRESSION_KEY = "expression";
+
+    public static Expression getDefaultConditionExpression(String doc) {
+        return Expression.Builder.getInstance()
+                .label(CONDITION_LABEL)
+                .value("")
+                .documentation(doc)
+                .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                .editable()
+                .build();
+    }
+
+    public static Expression getDefaultExpression(String doc) {
+        return Expression.Builder.getInstance()
+                .label(EXPRESSION_LABEL)
+                .value("")
+                .documentation(doc)
+                .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                .editable()
+                .build();
     }
 
     /**
@@ -65,14 +87,17 @@ public record Expression(String label, String type, String value, ExpressionType
         private boolean editable;
         private String documentation;
 
-        private static Builder instance = null;
+        private Builder() {
+
+        }
+
+        private static final class InstanceHolder {
+
+            private static final Builder instance = new Builder();
+        }
 
         public static Builder getInstance() {
-            // TODO: Make this method concurrent safe
-            if (instance == null) {
-                instance = new Builder();
-            }
-            return instance;
+            return InstanceHolder.instance;
         }
 
         public Builder label(String key) {

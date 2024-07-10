@@ -15,6 +15,7 @@
       {
         "id": "37205",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -50,22 +49,22 @@
         "flags": 2048
       },
       {
-        "id": "37964",
+        "id": "38954",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
-            "line": 6,
+            "line": 7,
             "offset": 8
           },
           "endLine": {
-            "line": 6,
-            "offset": 20
+            "line": 7,
+            "offset": 18
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -91,6 +90,8 @@
       {
         "id": "40185",
         "label": "While",
+        "description": "Loop over a block of code.",
+        "kind": "WHILE",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -102,9 +103,7 @@
             "offset": 9
           }
         },
-        "kind": "WHILE",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -113,6 +112,7 @@
               {
                 "id": "41121",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -124,9 +124,7 @@
                     "offset": 77
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -169,6 +167,8 @@
               {
                 "id": "42173",
                 "label": "If",
+                "description": "Add conditional branch to the integration flow.",
+                "kind": "IF",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -180,9 +180,7 @@
                     "offset": 13
                   }
                 },
-                "kind": "IF",
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Then",
@@ -191,6 +189,8 @@
                       {
                         "id": "43236",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -202,9 +202,7 @@
                             "offset": 84
                           }
                         },
-                        "kind": "EXPRESSION",
                         "returning": false,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -236,6 +234,8 @@
                       {
                         "id": "45226",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -247,9 +247,7 @@
                             "offset": 90
                           }
                         },
-                        "kind": "EXPRESSION",
                         "returning": false,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -291,6 +289,8 @@
               {
                 "id": "47018",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -302,9 +302,7 @@
                     "offset": 22
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

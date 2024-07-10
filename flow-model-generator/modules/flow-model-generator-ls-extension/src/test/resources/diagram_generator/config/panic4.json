@@ -1,0 +1,106 @@
+{
+  "start": {
+    "line": 16,
+    "offset": 0
+  },
+  "end": {
+    "line": 19,
+    "offset": 1
+  },
+  "source": "panic.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "panic.bal",
+    "nodes": [
+      {
+        "id": "47710",
+        "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "48770",
+        "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 38
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "error(\"AssertionError\")",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "annotations:error",
+            "value": "e ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "49736",
+        "label": "Panic",
+        "description": "Panic and stop the execution",
+        "kind": "PANIC",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 12
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "e",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Panic value"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

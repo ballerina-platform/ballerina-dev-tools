@@ -15,6 +15,7 @@
       {
         "id": "68081",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "69139",
         "label": "If",
+        "description": "Add conditional branch to the integration flow.",
+        "kind": "IF",
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 9
           }
         },
-        "kind": "IF",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Then",
@@ -74,6 +73,8 @@
               {
                 "id": "69847",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -85,9 +86,7 @@
                     "offset": 35
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -113,6 +112,8 @@
               {
                 "id": "70828",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -124,9 +125,7 @@
                     "offset": 24
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -149,6 +148,8 @@
               {
                 "id": "72239",
                 "label": "If",
+                "description": "Add conditional branch to the integration flow.",
+                "kind": "IF",
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -160,9 +161,7 @@
                     "offset": 9
                   }
                 },
-                "kind": "IF",
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Then",
@@ -171,6 +170,8 @@
                       {
                         "id": "72925",
                         "label": "If",
+                        "description": "Add conditional branch to the integration flow.",
+                        "kind": "IF",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -182,9 +183,7 @@
                             "offset": 13
                           }
                         },
-                        "kind": "IF",
                         "returning": false,
-                        "fixed": false,
                         "branches": [
                           {
                             "label": "Then",
@@ -193,6 +192,8 @@
                               {
                                 "id": "73945",
                                 "label": "Custom Expression",
+                                "description": "Represents a custom Ballerina expression",
+                                "kind": "EXPRESSION",
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -204,9 +205,7 @@
                                     "offset": 41
                                   }
                                 },
-                                "kind": "EXPRESSION",
                                 "returning": false,
-                                "fixed": false,
                                 "nodeProperties": {
                                   "expression": {
                                     "label": "Expression",
@@ -238,6 +237,8 @@
                               {
                                 "id": "75931",
                                 "label": "Custom Expression",
+                                "description": "Represents a custom Ballerina expression",
+                                "kind": "EXPRESSION",
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -249,9 +250,7 @@
                                     "offset": 43
                                   }
                                 },
-                                "kind": "EXPRESSION",
                                 "returning": false,
-                                "fixed": false,
                                 "nodeProperties": {
                                   "expression": {
                                     "label": "Expression",
@@ -293,6 +292,8 @@
                       {
                         "id": "77787",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -304,14 +305,14 @@
                             "offset": 39
                           }
                         },
-                        "kind": "EXPRESSION",
                         "returning": false,
-                        "fixed": false,
                         "flags": 0
                       },
                       {
                         "id": "78764",
                         "label": "Return",
+                        "description": "Return a value",
+                        "kind": "RETURN",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -323,9 +324,7 @@
                             "offset": 24
                           }
                         },
-                        "kind": "RETURN",
                         "returning": true,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -348,6 +347,8 @@
                       {
                         "id": "80763",
                         "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -359,9 +360,7 @@
                             "offset": 39
                           }
                         },
-                        "kind": "EXPRESSION",
                         "returning": false,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -387,6 +386,8 @@
                       {
                         "id": "81740",
                         "label": "Return",
+                        "description": "Return a value",
+                        "kind": "RETURN",
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -398,9 +399,7 @@
                             "offset": 24
                           }
                         },
-                        "kind": "RETURN",
                         "returning": true,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",

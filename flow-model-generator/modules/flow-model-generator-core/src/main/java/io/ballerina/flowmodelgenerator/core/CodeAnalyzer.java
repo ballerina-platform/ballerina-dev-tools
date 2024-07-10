@@ -68,14 +68,15 @@ import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
+import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
@@ -83,6 +84,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.function.Supplier;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -103,7 +105,6 @@ class CodeAnalyzer extends NodeVisitor {
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
         this.clientBuilder = new Client.Builder();
-        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.clients = new ArrayList<>();
@@ -118,52 +119,45 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
-                nodeBuilder
-                        .metadata(HttpApiEvent.EVENT_HTTP_API_LABEL, FlowNode.Kind.EVENT_HTTP_API, null, null,
-                                HttpApiEvent::new)
+                startNode(HttpApiEvent::new)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
-                        .fixed()
                         .properties()
                         .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
-                nodeBuilder.metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                        DefaultExpression::new);
+                startNode(DefaultExpression::new);
             }
         }
         nodeBuilder.lineRange(functionDefinitionNode);
-
-        appendNode();
+        endNode();
         super.visit(functionDefinitionNode);
     }
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
         Optional<ExpressionNode> expression = returnStatementNode.expression();
-        nodeBuilder.lineRange(returnStatementNode)
-                .metadata(Return.RETURN_LABEL, FlowNode.Kind.RETURN, null, null, Return::new);
-
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
-        if (nodeBuilder.isDefault()) {
+
+        if (isNodeUnidentified()) {
+            startNode(Return::new).lineRange(returnStatementNode);
             expression.ifPresent(expressionNode -> nodeBuilder.properties()
                     .setExpressionNode(expressionNode, Return.RETURN_EXPRESSION_DOC));
         }
         nodeBuilder.returning();
-        appendNode();
+        endNode();
     }
 
     @Override
     public void visit(RemoteMethodCallActionNode remoteMethodCallActionNode) {
-        nodeBuilder.lineRange(remoteMethodCallActionNode);
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
         handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes, null);
+        nodeBuilder.lineRange(remoteMethodCallActionNode);
     }
 
     @Override
     public void visit(ClientResourceAccessActionNode clientResourceAccessActionNode) {
-        nodeBuilder.lineRange(clientResourceAccessActionNode);
         String methodName = clientResourceAccessActionNode.methodName()
                 .map(simpleNameReference -> simpleNameReference.name().text()).orElse("");
         ExpressionNode expression = clientResourceAccessActionNode.expression();
@@ -172,6 +166,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes,
                 clientResourceAccessActionNode.resourceAccessPath());
+        nodeBuilder.lineRange(clientResourceAccessActionNode);
     }
 
     private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
@@ -188,7 +183,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (moduleName.equals("http")) {
             NodeAttributes.Info info = NodeAttributes.get(methodName);
-            nodeBuilder.metadata(info.label(), info.kind(), null, null, ActionCall::new)
+            startNode(ActionCall::new)
+                    .kind(info.kind())
+                    .label(info.label())
                     .properties()
                     .callExpression(expressionNode, ExpressionAttributes.HTTP_CLIENT)
                     .variable(this.typedBindingPatternNode);
@@ -199,8 +196,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        nodeBuilder
-                .metadata(If.IF_LABEL, FlowNode.Kind.IF, null, null, If::new)
+        startNode(If::new)
                 .lineRange(ifElseStatementNode)
                 .properties().setConditionExpression(ifElseStatementNode.condition());
 
@@ -219,7 +215,7 @@ class CodeAnalyzer extends NodeVisitor {
             endBranch(elseBranchBuilder);
         }
 
-        appendNode();
+        endNode();
     }
 
     private List<FlowNode> analyzeElseBody(Node elseBody) {
@@ -263,25 +259,24 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
-        nodeBuilder.lineRange(variableDeclarationNode)
-                .metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                        DefaultExpression::new);
         if (initializer.isEmpty()) {
             return;
         }
-        variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         ExpressionNode initializerNode = initializer.get();
         this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
-        if (nodeBuilder.isDefault()) {
-            nodeBuilder.properties()
-                    .expression(initializerNode)
-                    .variable(this.typedBindingPatternNode);
+        if (isNodeUnidentified()) {
+            startNode(DefaultExpression::new)
+                    .lineRange(variableDeclarationNode)
+                    .properties()
+                    .expression(initializerNode);
         }
-
-        appendNode();
+        nodeBuilder.properties().variable(variableDeclarationNode.typedBindingPattern());
+        variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
+        nodeBuilder.lineRange(variableDeclarationNode);
+        endNode();
         this.typedBindingPatternNode = null;
     }
 
@@ -290,16 +285,15 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = assignmentStatementNode.expression();
         expression.accept(this);
 
-        if (nodeBuilder.isDefault()) {
-            nodeBuilder.lineRange(assignmentStatementNode)
-                    .metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                            DefaultExpression::new)
+        if (isNodeUnidentified()) {
+            startNode(DefaultExpression::new)
+                    .lineRange(assignmentStatementNode)
                     .properties()
                     .expression(expression)
                     .variable(assignmentStatementNode.varRef());
         }
 
-        appendNode();
+        endNode();
     }
 
     @Override
@@ -314,9 +308,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(BreakStatementNode breakStatementNode) {
-        nodeBuilder.lineRange(breakStatementNode)
-                .metadata(Break.BREAK_LABEL, FlowNode.Kind.BREAK, null, null, Break::new);
-        appendNode();
+        startNode(Break::new).lineRange(breakStatementNode);
+        endNode();
     }
 
     @Override
@@ -335,16 +328,14 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ContinueStatementNode continueStatementNode) {
-        nodeBuilder.lineRange(continueStatementNode)
-                .metadata(Continue.CONTINUE_LABEL, FlowNode.Kind.CONTINUE, null, null,
-                        Continue::new);
-        appendNode();
+        startNode(Continue::new).lineRange(continueStatementNode);
+        endNode();
     }
 
     @Override
     public void visit(WhileStatementNode whileStatementNode) {
-        nodeBuilder.lineRange(whileStatementNode)
-                .metadata(While.WHILE_LABEL, FlowNode.Kind.WHILE, null, null, While::new)
+        startNode(While::new)
+                .lineRange(whileStatementNode)
                 .properties().setConditionExpression(whileStatementNode.condition());
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
@@ -367,12 +358,16 @@ class CodeAnalyzer extends NodeVisitor {
             endBranch(onFailBranchBuilder);
         }
 
-        appendNode();
+        endNode();
     }
 
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
-        handleDefaultStatementNode(panicStatementNode, () -> super.visit(panicStatementNode));
+        startNode(Panic::new)
+                .lineRange(panicStatementNode)
+                .properties()
+                .setExpressionNode(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
+        endNode();
     }
 
     @Override
@@ -424,9 +419,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        nodeBuilder.lineRange(doStatementNode)
-                .metadata(ErrorHandler.ERROR_HANDLER_LABEL, FlowNode.Kind.ERROR_HANDLER, null, null,
-                        ErrorHandler::new);
+        startNode(ErrorHandler::new).lineRange(doStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : doStatementNode.blockStatement().statements()) {
             statement.accept(this);
@@ -442,19 +435,25 @@ class CodeAnalyzer extends NodeVisitor {
             onFailBranchBuilder.node(buildNode());
         }
         endBranch(onFailBranchBuilder);
-        appendNode();
+        endNode();
     }
 
     @Override
     public void visit(CheckExpressionNode checkExpressionNode) {
-        nodeBuilder.lineRange(checkExpressionNode);
+        checkExpressionNode.expression().accept(this);
+        if (isNodeUnidentified()) {
+            startNode(DefaultExpression::new)
+                    .properties()
+                    .expression(checkExpressionNode);
+        }
+
         switch (checkExpressionNode.checkKeyword().text()) {
             case Constants.CHECK -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKED);
             case Constants.CHECKPANIC -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKPANIC);
             default -> {
             }
         }
-        checkExpressionNode.expression().accept(this);
+        nodeBuilder.lineRange(checkExpressionNode);
     }
 
     // Utility methods
@@ -463,10 +462,27 @@ class CodeAnalyzer extends NodeVisitor {
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
      * only adds the node to the diagram if there is no active parent node which is building its branches.
      */
-    private void appendNode() {
+    private void endNode() {
+
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
         }
+    }
+
+    private FlowNode.NodeBuilder startNode(Supplier<? extends FlowNode> constructor) {
+        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel, constructor);
+        return this.nodeBuilder;
+    }
+
+    /**
+     * Builds the flow node and resets the node builder.
+     *
+     * @return the built flow node
+     */
+    private FlowNode buildNode() {
+        FlowNode node = nodeBuilder.build();
+        this.nodeBuilder = null;
+        return node;
     }
 
     /**
@@ -474,7 +490,7 @@ class CodeAnalyzer extends NodeVisitor {
      */
     private Branch.Builder startBranch(String label, Branch.BranchKind kind) {
         this.flowNodeBuilderStack.push(nodeBuilder);
-        nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
+        this.nodeBuilder = null;
         return new Branch.Builder(semanticModel).label(label).kind(kind);
     }
 
@@ -486,15 +502,8 @@ class CodeAnalyzer extends NodeVisitor {
         nodeBuilder.branch(branchBuilder.build());
     }
 
-    /**
-     * Builds the flow node and resets the node builder.
-     *
-     * @return the built flow node
-     */
-    private FlowNode buildNode() {
-        FlowNode flowNode = nodeBuilder.build();
-        nodeBuilder = new FlowNode.NodeBuilder(semanticModel);
-        return flowNode;
+    private boolean isNodeUnidentified() {
+        return this.nodeBuilder == null;
     }
 
     /**
@@ -504,11 +513,9 @@ class CodeAnalyzer extends NodeVisitor {
      * @param runnable      The runnable to be called to analyze the child nodes.
      */
     private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
-        nodeBuilder.lineRange(statementNode)
-                .metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                        DefaultExpression::new);
+        startNode(DefaultExpression::new).lineRange(statementNode);
         runnable.run();
-        appendNode();
+        endNode();
     }
 
     /**
@@ -517,15 +524,14 @@ class CodeAnalyzer extends NodeVisitor {
      * @param bodyNode the block statement node
      */
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        nodeBuilder.metadata(DefaultExpression.EXPRESSION_LABEL, FlowNode.Kind.EXPRESSION, null, null,
-                DefaultExpression::new);
+        startNode(DefaultExpression::new).lineRange(bodyNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : bodyNode.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder);
-        appendNode();
+        endNode();
     }
 
     public List<FlowNode> getFlowNodes() {
