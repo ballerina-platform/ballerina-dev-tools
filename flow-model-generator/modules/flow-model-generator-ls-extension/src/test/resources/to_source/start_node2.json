@@ -1,22 +1,22 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "54730",
+    "id": "55411",
     "label": "Start",
+    "description": "Execute a function or a method invocation in a new strand",
+    "kind": "START",
     "lineRange": {
       "fileName": "start.bal",
       "startLine": {
         "line": 23,
-        "offset": 4
+        "offset": 26
       },
       "endLine": {
         "line": 23,
-        "offset": 46
+        "offset": 45
       }
     },
-    "kind": "START",
     "returning": false,
-    "fixed": false,
     "nodeProperties": {
       "expression": {
         "label": "Expression",
@@ -35,11 +35,11 @@
       "range": {
         "start": {
           "line": 23,
-          "character": 4
+          "character": 26
         },
         "end": {
           "line": 23,
-          "character": 46
+          "character": 45
         }
       },
       "newText": "start f1->getName();"

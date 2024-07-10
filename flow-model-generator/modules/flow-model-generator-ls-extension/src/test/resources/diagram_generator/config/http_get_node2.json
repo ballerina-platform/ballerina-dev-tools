@@ -15,6 +15,7 @@
       {
         "id": "61726",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,7 @@
       {
         "id": "62796",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -63,9 +63,7 @@
             "offset": 52
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -108,6 +106,7 @@
       {
         "id": "63799",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -119,9 +118,7 @@
             "offset": 63
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",

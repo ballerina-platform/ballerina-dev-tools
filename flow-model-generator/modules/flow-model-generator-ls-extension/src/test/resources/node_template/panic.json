@@ -1,19 +1,19 @@
 {
   "description": "Sample diagram node",
-  "kind": "WHILE",
+  "kind": "PANIC",
   "output": {
-    "label": "While",
-    "description": "Loop over a block of code.",
-    "kind": "WHILE",
+    "label": "Panic",
+    "description": "Panic and stop the execution",
+    "kind": "PANIC",
     "returning": false,
     "nodeProperties": {
-      "condition": {
-        "label": "Condition",
+      "expression": {
+        "label": "Expression",
         "value": "",
         "typeKind": "BTYPE",
         "optional": false,
         "editable": true,
-        "documentation": "Boolean Condition"
+        "documentation": "Panic value"
       }
     },
     "flags": 0

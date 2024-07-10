@@ -28,7 +28,7 @@ public class NodeTemplateTest extends AbstractLSTest {
 
         if (!nodeTemplate.equals(testConfig.output())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.kind(), nodeTemplate);
-//            updateConfig(config, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

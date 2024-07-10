@@ -19,12 +19,9 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,25 +30,15 @@ import java.util.Map;
  * @since 1.4.0
  */
 public class Start extends FlowNode {
-    public static final String START_LABEL = "Start";
-    private static final String START_EXPRESSION = "Expression";
-    private static final String START_EXPRESSION_KEY = "expression";
+    public static final String LABEL = "Start";
+    public static final String DESCRIPTION = "Execute a function or a method invocation in a new strand";
     public static final String START_EXPRESSION_DOC = "Call action or expression";
 
-    public static final FlowNode DEFAULT_NODE = new Start(DEFAULT_ID, START_LABEL, Kind.START, false,
-            Map.of(START_EXPRESSION_KEY,
-                    Expression.Builder.getInstance()
-                            .label(START_EXPRESSION)
-                            .value("")
-                            .documentation(START_EXPRESSION_DOC)
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                            .editable()
-                            .build()
-            ), null, false, List.of(), 0);
-
-    public Start(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                 LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.START;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -59,7 +46,7 @@ public class Start extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.START_KEYWORD);
-        Expression expression = getProperty(START_EXPRESSION_KEY);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
                     .whiteSpace()
@@ -67,5 +54,10 @@ public class Start extends FlowNode {
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(START_EXPRESSION_DOC));
     }
 }

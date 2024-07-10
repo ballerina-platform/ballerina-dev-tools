@@ -1,30 +1,30 @@
 {
   "start": {
-    "line": 0,
+    "line": 16,
     "offset": 0
   },
   "end": {
-    "line": 2,
+    "line": 19,
     "offset": 1
   },
-  "source": "start.bal",
+  "source": "panic.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "start.bal",
+    "fileName": "panic.bal",
     "nodes": [
       {
-        "id": "31807",
+        "id": "47710",
         "label": "Custom Expression",
         "description": "Represents a custom Ballerina expression",
         "kind": "EXPRESSION",
         "lineRange": {
-          "fileName": "start.bal",
+          "fileName": "panic.bal",
           "startLine": {
-            "line": 0,
+            "line": 16,
             "offset": 0
           },
           "endLine": {
-            "line": 2,
+            "line": 19,
             "offset": 1
           }
         },
@@ -32,57 +32,27 @@
         "flags": 0
       },
       {
-        "id": "33649",
-        "label": "Start",
-        "description": "Execute a function or a method invocation in a new strand",
-        "kind": "START",
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 28
-          },
-          "endLine": {
-            "line": 1,
-            "offset": 45
-          }
-        },
-        "returning": false,
-        "nodeProperties": {
-          "expression": {
-            "label": "Expression",
-            "type": "int",
-            "value": "sum(40, 50)",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Call action or expression"
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "32906",
+        "id": "48770",
         "label": "Custom Expression",
         "description": "Represents a custom Ballerina expression",
         "kind": "EXPRESSION",
         "lineRange": {
-          "fileName": "start.bal",
+          "fileName": "panic.bal",
           "startLine": {
-            "line": 1,
+            "line": 17,
             "offset": 4
           },
           "endLine": {
-            "line": 1,
-            "offset": 46
+            "line": 17,
+            "offset": 38
           }
         },
         "returning": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
-            "type": "future<int>",
-            "value": "start sum(40, 50)",
+            "type": "annotations:error",
+            "value": "error(\"AssertionError\")",
             "typeKind": "BTYPE",
             "optional": false,
             "editable": true,
@@ -90,12 +60,42 @@
           },
           "variable": {
             "label": "Variable",
-            "type": "future<int>",
-            "value": "futureVar ",
+            "type": "annotations:error",
+            "value": "e ",
             "typeKind": "BTYPE",
             "optional": false,
             "editable": true,
             "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "49736",
+        "label": "Panic",
+        "description": "Panic and stop the execution",
+        "kind": "PANIC",
+        "lineRange": {
+          "fileName": "panic.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 12
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "annotations:error",
+            "value": "e",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Panic value"
           }
         },
         "flags": 0

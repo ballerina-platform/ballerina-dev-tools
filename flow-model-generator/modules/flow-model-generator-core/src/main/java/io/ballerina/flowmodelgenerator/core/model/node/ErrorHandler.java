@@ -22,10 +22,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of an error handler node in the flow model.
@@ -34,18 +32,15 @@ import java.util.Map;
  */
 public class ErrorHandler extends FlowNode {
 
-    public static final String ERROR_HANDLER_LABEL = "ErrorHandler";
+    public static final String LABEL = "ErrorHandler";
+    public static final String DESCRIPTION = "Catch and handle errors";
     public static final String ERROR_HANDLER_BODY = "Body";
 
-    public static final FlowNode DEFAULT_NODE =
-            new ErrorHandler(DEFAULT_ID, ERROR_HANDLER_LABEL, Kind.ERROR_HANDLER, false,
-                    Map.of(), null, false, List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH), 0);
-
-    public ErrorHandler(String id, String label, Kind kind, boolean fixed,
-                        Map<String, Expression> nodeProperties,
-                        LineRange lineRange, boolean returning, List<Branch> branches,
-                        int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.ERROR_HANDLER;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -78,5 +73,10 @@ public class ErrorHandler extends FlowNode {
         }
 
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }

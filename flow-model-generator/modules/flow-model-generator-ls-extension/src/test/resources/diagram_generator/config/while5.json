@@ -15,6 +15,7 @@
       {
         "id": "80171",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "80618",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 18
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -91,6 +90,8 @@
       {
         "id": "81621",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -102,9 +103,7 @@
             "offset": 29
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -130,6 +129,8 @@
       {
         "id": "83120",
         "label": "While",
+        "description": "Loop over a block of code.",
+        "kind": "WHILE",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -141,9 +142,7 @@
             "offset": 9
           }
         },
-        "kind": "WHILE",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -152,6 +151,7 @@
               {
                 "id": "83770",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -163,9 +163,7 @@
                     "offset": 70
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -208,6 +206,8 @@
               {
                 "id": "84736",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -219,14 +219,14 @@
                     "offset": 44
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "flags": 0
               },
               {
                 "id": "85703",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -238,9 +238,7 @@
                     "offset": 19
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "flags": 0
               }
             ]
@@ -252,6 +250,8 @@
               {
                 "id": "87697",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -263,9 +263,7 @@
                     "offset": 29
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -291,6 +289,8 @@
               {
                 "id": "88745",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -302,9 +302,7 @@
                     "offset": 85
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -330,6 +328,8 @@
               {
                 "id": "89727",
                 "label": "If",
+                "description": "Add conditional branch to the integration flow.",
+                "kind": "IF",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -341,9 +341,7 @@
                     "offset": 13
                   }
                 },
-                "kind": "IF",
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Then",
@@ -352,6 +350,8 @@
                       {
                         "id": "90836",
                         "label": "Return",
+                        "description": "Return a value",
+                        "kind": "RETURN",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -363,9 +363,7 @@
                             "offset": 68
                           }
                         },
-                        "kind": "RETURN",
                         "returning": true,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -398,6 +396,8 @@
               {
                 "id": "92796",
                 "label": "While",
+                "description": "Loop over a block of code.",
+                "kind": "WHILE",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -409,9 +409,7 @@
                     "offset": 13
                   }
                 },
-                "kind": "WHILE",
                 "returning": false,
-                "fixed": false,
                 "branches": [
                   {
                     "label": "Body",
@@ -420,6 +418,7 @@
                       {
                         "id": "93839",
                         "label": "HTTP POST",
+                        "kind": "HTTP_API_POST_CALL",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -431,9 +430,7 @@
                             "offset": 95
                           }
                         },
-                        "kind": "HTTP_API_POST_CALL",
                         "returning": false,
-                        "fixed": false,
                         "nodeProperties": {
                           "client": {
                             "label": "Client",
@@ -493,6 +490,8 @@
                       {
                         "id": "94822",
                         "label": "Return",
+                        "description": "Return a value",
+                        "kind": "RETURN",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -504,9 +503,7 @@
                             "offset": 86
                           }
                         },
-                        "kind": "RETURN",
                         "returning": true,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -529,6 +526,8 @@
                       {
                         "id": "96789",
                         "label": "Return",
+                        "description": "Return a value",
+                        "kind": "RETURN",
                         "lineRange": {
                           "fileName": "while.bal",
                           "startLine": {
@@ -540,9 +539,7 @@
                             "offset": 69
                           }
                         },
-                        "kind": "RETURN",
                         "returning": true,
-                        "fixed": false,
                         "nodeProperties": {
                           "expression": {
                             "label": "Expression",
@@ -575,6 +572,8 @@
               {
                 "id": "98644",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -586,9 +585,7 @@
                     "offset": 64
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -632,6 +629,8 @@
       {
         "id": "100464",
         "label": "Return",
+        "description": "Return a value",
+        "kind": "RETURN",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -643,9 +642,7 @@
             "offset": 24
           }
         },
-        "kind": "RETURN",
         "returning": true,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
