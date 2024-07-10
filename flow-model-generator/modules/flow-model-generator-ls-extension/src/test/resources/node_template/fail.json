@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "FAIL",
   "output": {
-    "id": "0",
     "label": "Fail",
+    "description": "Fail the execution",
     "kind": "FAIL",
     "returning": false,
-    "fixed": false,
     "nodeProperties": {
       "expression": {
         "label": "Expression",

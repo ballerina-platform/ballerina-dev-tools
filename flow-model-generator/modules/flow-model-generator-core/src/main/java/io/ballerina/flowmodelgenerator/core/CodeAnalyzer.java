@@ -314,11 +314,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FailStatementNode failStatementNode) {
-        nodeBuilder.lineRange(failStatementNode)
-                .metadata(Fail.FAIL_LABEL, FlowNode.Kind.FAIL, null, null, Fail::new)
+        startNode(Fail::new)
+                .lineRange(failStatementNode)
                 .properties()
                 .setExpressionNode(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
-        appendNode();
+        endNode();
     }
 
     @Override

@@ -3,6 +3,8 @@
   "diagram": {
     "id": "37974",
     "label": "Fail",
+    "description": "Fail the execution",
+    "kind": "FAIL",
     "lineRange": {
       "fileName": "fail.bal",
       "startLine": {
@@ -14,9 +16,7 @@
         "offset": 30
       }
     },
-    "kind": "FAIL",
     "returning": false,
-    "fixed": false,
     "nodeProperties": {
       "expression": {
         "label": "Expression",

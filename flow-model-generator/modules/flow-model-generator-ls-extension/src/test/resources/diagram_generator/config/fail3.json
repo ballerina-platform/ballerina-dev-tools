@@ -15,6 +15,8 @@
       {
         "id": "51802",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "fail.bal",
           "startLine": {
@@ -26,14 +28,14 @@
             "offset": 1
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "flags": 0
       },
       {
         "id": "52860",
         "label": "ErrorHandler",
+        "description": "Catch and handle errors",
+        "kind": "ERROR_HANDLER",
         "lineRange": {
           "fileName": "fail.bal",
           "startLine": {
@@ -45,9 +47,7 @@
             "offset": 5
           }
         },
-        "kind": "ERROR_HANDLER",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -56,6 +56,8 @@
               {
                 "id": "53917",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "fail.bal",
                   "startLine": {
@@ -67,19 +69,8 @@
                     "offset": 101
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
-                  "variable": {
-                    "label": "Variable",
-                    "type": "AssertionError",
-                    "value": "e ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
-                  },
                   "expression": {
                     "label": "Expression",
                     "type": "AssertionError",
@@ -88,6 +79,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "AssertionError",
+                    "value": "e ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
                   }
                 },
                 "flags": 0
@@ -95,6 +95,8 @@
               {
                 "id": "54823",
                 "label": "Fail",
+                "description": "Fail the execution",
+                "kind": "FAIL",
                 "lineRange": {
                   "fileName": "fail.bal",
                   "startLine": {
@@ -106,9 +108,7 @@
                     "offset": 15
                   }
                 },
-                "kind": "FAIL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -131,6 +131,8 @@
               {
                 "id": "56809",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "fail.bal",
                   "startLine": {
@@ -142,9 +144,7 @@
                     "offset": 17
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

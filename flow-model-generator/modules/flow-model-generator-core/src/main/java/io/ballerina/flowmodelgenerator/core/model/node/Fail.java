@@ -19,12 +19,9 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -34,25 +31,15 @@ import java.util.Map;
  * @since 1.4.0
  */
 public class Fail extends FlowNode {
-    public static final String FAIL_LABEL = "Fail";
-    private static final String FAIL_EXPRESSION = "Expression";
-    private static final String FAIL_EXPRESSION_KEY = "expression";
+    public static final String LABEL = "Fail";
+    public static final String DESCRIPTION = "Fail the execution";
     public static final String FAIL_EXPRESSION_DOC = "Fail value";
-    public static final Fail DEFAULT_NODE = new Fail(DEFAULT_ID, FAIL_LABEL, Kind.FAIL, false,
-            Map.of(
-                    FAIL_EXPRESSION_KEY,
-                    Expression.Builder.getInstance()
-                            .label(FAIL_EXPRESSION)
-                            .value("")
-                            .documentation(FAIL_EXPRESSION_DOC)
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                            .editable()
-                            .build()
-            ), null, false, List.of(), 0);
 
-    public Fail(String id, String label, Kind kind, boolean fixed, Map<String, Expression> nodeProperties,
-                LineRange lineRange, boolean returning, List<Branch> branches, int flags) {
-        super(id, label, kind, fixed, nodeProperties, lineRange, returning, branches, flags);
+    @Override
+    public void setConstData() {
+        this.label = LABEL;
+        this.kind = Kind.FAIL;
+        this.description = DESCRIPTION;
     }
 
     @Override
@@ -60,7 +47,7 @@ public class Fail extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.FAIL_KEYWORD);
-        Expression expression = getProperty(FAIL_EXPRESSION_KEY);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
         if (expression != null) {
             sourceBuilder
                     .whiteSpace()
@@ -68,5 +55,10 @@ public class Fail extends FlowNode {
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
+    }
+
+    @Override
+    public void setTemplateData() {
+        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(FAIL_EXPRESSION_DOC));
     }
 }
