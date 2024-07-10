@@ -15,6 +15,7 @@
       {
         "id": "45234",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,7 @@
       {
         "id": "45951",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -63,9 +63,7 @@
             "offset": 71
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -108,6 +106,7 @@
       {
         "id": "47059",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -119,9 +118,7 @@
             "offset": 63
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -155,6 +152,7 @@
       {
         "id": "48065",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -166,9 +164,7 @@
             "offset": 77
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -203,6 +199,7 @@
       {
         "id": "48916",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -214,9 +211,7 @@
             "offset": 60
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -250,6 +245,7 @@
       {
         "id": "49900",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -261,9 +257,7 @@
             "offset": 52
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -297,6 +291,7 @@
       {
         "id": "50886",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -308,9 +303,7 @@
             "offset": 46
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -344,6 +337,7 @@
       {
         "id": "51900",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -355,9 +349,7 @@
             "offset": 68
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -391,6 +383,7 @@
       {
         "id": "52876",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -402,9 +395,7 @@
             "offset": 52
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -438,6 +429,7 @@
       {
         "id": "53920",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -449,9 +441,7 @@
             "offset": 11
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -486,6 +476,7 @@
       {
         "id": "57836",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -497,9 +488,7 @@
             "offset": 52
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",
@@ -533,6 +522,7 @@
       {
         "id": "58846",
         "label": "HTTP GET",
+        "kind": "HTTP_API_GET_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -544,9 +534,7 @@
             "offset": 70
           }
         },
-        "kind": "HTTP_API_GET_CALL",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "client": {
             "label": "Client",

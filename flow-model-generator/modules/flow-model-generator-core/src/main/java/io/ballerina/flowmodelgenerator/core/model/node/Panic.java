@@ -22,41 +22,43 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
+import java.util.Map;
+
 /**
- * Represents the properties of a default expression node.
+ * Represents the properties of a panic node.
  *
  * @since 1.4.0
  */
-public class DefaultExpression extends FlowNode {
+public class Panic extends FlowNode {
 
-    public static final String LABEL = "Custom Expression";
-    public static final String DESCRIPTION = "Represents a custom Ballerina expression";
+    public static final String LABEL = "Panic";
+    public static final String DESCRIPTION = "Panic and stop the execution";
+    public static final String PANIC_EXPRESSION_DOC = "Panic value";
 
     @Override
     public void setConstData() {
         this.label = LABEL;
-        this.kind = Kind.EXPRESSION;
+        this.kind = Kind.PANIC;
         this.description = DESCRIPTION;
     }
 
     @Override
     public String toSource() {
-        Expression variable = getProperty(FlowNode.PropertiesBuilder.VARIABLE_KEY);
-        Expression expression = getProperty(FlowNode.PropertiesBuilder.EXPRESSION_RHS_KEY);
-
         SourceBuilder sourceBuilder = new SourceBuilder();
-        sourceBuilder
-                .expressionWithType(variable)
-                .whiteSpace()
-                .keyword(SyntaxKind.EQUAL_TOKEN)
-                .whiteSpace()
-                .expression(expression)
-                .endOfStatement();
+
+        sourceBuilder.keyword(SyntaxKind.PANIC_KEYWORD);
+        Expression expression = getProperty(Expression.EXPRESSION_KEY);
+        if (expression != null) {
+            sourceBuilder
+                    .whiteSpace()
+                    .expression(expression);
+        }
+        sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
     }
 
     @Override
     public void setTemplateData() {
-
+        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(PANIC_EXPRESSION_DOC));
     }
 }

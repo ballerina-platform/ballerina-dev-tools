@@ -2,11 +2,10 @@
   "description": "Sample diagram node",
   "kind": "CONTINUE",
   "output": {
-    "id": "0",
     "label": "Continue",
+    "description": "Skip the current iteration and continue with the next one",
     "kind": "CONTINUE",
     "returning": false,
-    "fixed": false,
     "flags": 0
   }
 }

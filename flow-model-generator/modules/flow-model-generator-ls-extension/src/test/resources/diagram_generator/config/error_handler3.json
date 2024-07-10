@@ -15,6 +15,7 @@
       {
         "id": "62842",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -52,6 +51,8 @@
       {
         "id": "63900",
         "label": "ErrorHandler",
+        "description": "Catch and handle errors",
+        "kind": "ERROR_HANDLER",
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -63,9 +64,7 @@
             "offset": 9
           }
         },
-        "kind": "ERROR_HANDLER",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -74,6 +73,7 @@
               {
                 "id": "64920",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -85,9 +85,7 @@
                     "offset": 68
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -130,6 +128,8 @@
               {
                 "id": "65878",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -141,9 +141,7 @@
                     "offset": 34
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -166,6 +164,8 @@
               {
                 "id": "67861",
                 "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -177,9 +177,7 @@
                     "offset": 33
                   }
                 },
-                "kind": "RETURN",
                 "returning": true,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

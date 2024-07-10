@@ -15,6 +15,7 @@
       {
         "id": "67895",
         "label": "HTTP API",
+        "kind": "EVENT_HTTP_API",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -26,9 +27,7 @@
             "offset": 5
           }
         },
-        "kind": "EVENT_HTTP_API",
         "returning": false,
-        "fixed": true,
         "nodeProperties": {
           "method": {
             "label": "Method",
@@ -50,22 +49,22 @@
         "flags": 2048
       },
       {
-        "id": "68716",
+        "id": "69706",
         "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
-            "line": 37,
+            "line": 38,
             "offset": 8
           },
           "endLine": {
-            "line": 37,
-            "offset": 20
+            "line": 38,
+            "offset": 18
           }
         },
-        "kind": "EXPRESSION",
         "returning": false,
-        "fixed": false,
         "nodeProperties": {
           "expression": {
             "label": "Expression",
@@ -91,6 +90,8 @@
       {
         "id": "70875",
         "label": "While",
+        "description": "Loop over a block of code.",
+        "kind": "WHILE",
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -102,9 +103,7 @@
             "offset": 9
           }
         },
-        "kind": "WHILE",
         "returning": false,
-        "fixed": false,
         "branches": [
           {
             "label": "Body",
@@ -113,6 +112,7 @@
               {
                 "id": "71862",
                 "label": "HTTP GET",
+                "kind": "HTTP_API_GET_CALL",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -124,9 +124,7 @@
                     "offset": 66
                   }
                 },
-                "kind": "HTTP_API_GET_CALL",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "client": {
                     "label": "Client",
@@ -169,6 +167,8 @@
               {
                 "id": "72868",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -180,9 +180,7 @@
                     "offset": 80
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
@@ -208,6 +206,8 @@
               {
                 "id": "73799",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -219,9 +219,7 @@
                     "offset": 19
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "flags": 0
               }
             ]
@@ -233,6 +231,8 @@
               {
                 "id": "75841",
                 "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -244,9 +244,7 @@
                     "offset": 77
                   }
                 },
-                "kind": "EXPRESSION",
                 "returning": false,
-                "fixed": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",

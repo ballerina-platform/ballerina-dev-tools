@@ -10,8 +10,13 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Generates the node template for the given node kind.
@@ -22,20 +27,31 @@ public class NodeTemplateGenerator {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    public JsonElement getNodeTemplate(String kind) {
-        FlowNode flowNode = switch (FlowNode.Kind.valueOf(kind)) {
-            case EVENT_HTTP_API -> null;
-            case IF -> If.DEFAULT_NODE;
-            case HTTP_API_GET_CALL -> null;
-            case HTTP_API_POST_CALL -> null;
-            case RETURN -> Return.DEFAULT_NODE;
-            case EXPRESSION -> DefaultExpression.DEFAULT_NODE;
-            case ERROR_HANDLER -> ErrorHandler.DEFAULT_NODE;
-            case WHILE -> While.DEFAULT_NODE;
-            case CONTINUE -> Continue.DEFAULT_NODE;
-            case BREAK -> Break.DEFAULT_NODE;
-            case LOCK -> Lock.DEFAULT_NODE;
-        };
+    private static final Map<FlowNode.Kind, FlowNode> nodeCache = new HashMap<>();
+
+    private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> constructorMap = Map.of(
+            FlowNode.Kind.IF, If::new,
+            FlowNode.Kind.RETURN, Return::new,
+            FlowNode.Kind.EXPRESSION, DefaultExpression::new,
+            FlowNode.Kind.ERROR_HANDLER, ErrorHandler::new,
+            FlowNode.Kind.WHILE, While::new,
+            FlowNode.Kind.CONTINUE, Continue::new,
+            FlowNode.Kind.BREAK, Break::new,
+            FlowNode.Kind.PANIC, Panic::new,
+            FlowNode.Kind.LOCK, Lock::new
+    );
+
+    public JsonElement getNodeTemplate(String kindStr) {
+        FlowNode.Kind kind = FlowNode.Kind.valueOf(kindStr);
+        FlowNode flowNode = nodeCache.get(kind);
+        if (flowNode != null) {
+            return gson.toJsonTree(flowNode);
+        }
+
+        flowNode = constructorMap.getOrDefault(kind, DefaultExpression::new).get();
+        flowNode.setConstData();
+        flowNode.setTemplateData();
+        nodeCache.put(flowNode.kind(), flowNode);
         return gson.toJsonTree(flowNode);
     }
 }
