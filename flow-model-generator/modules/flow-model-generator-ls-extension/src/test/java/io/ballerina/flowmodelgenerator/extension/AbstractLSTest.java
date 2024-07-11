@@ -126,6 +126,13 @@ abstract class AbstractLSTest {
         return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
     }
 
+    // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
+    protected JsonObject getResponse(Endpoint endpoint, Object request) {
+        CompletableFuture<?> result = endpoint.request("flowDesignService/" + getApiName(), request);
+        String response = TestUtil.getResponseString(result);
+        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+    }
+
     /**
      * Asserts the equality of the actual and expected arrays.
      *
