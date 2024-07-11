@@ -19,8 +19,11 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Item;
 
 import java.util.List;
 
@@ -31,17 +34,42 @@ import java.util.List;
  */
 public class AvailableNodesGenerator {
 
+    private final Category.Builder rootBuilder;
+
+    public AvailableNodesGenerator() {
+        this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
+        initializeCommonNodes();
+    }
+
     public JsonArray getAvailableNodes() {
         Gson gson = new Gson();
-        return gson.toJsonTree(
-                List.of(
-                        FlowNode.Kind.IF,
-                        FlowNode.Kind.HTTP_API_GET_CALL,
-                        FlowNode.Kind.HTTP_API_POST_CALL,
-                        FlowNode.Kind.RETURN,
-                        FlowNode.Kind.EXPRESSION,
-                        FlowNode.Kind.WHILE,
-                        FlowNode.Kind.ERROR_HANDLER
-                )).getAsJsonArray();
+        Category rootCategory = this.rootBuilder.build();
+        return gson.toJsonTree(rootCategory.items()).getAsJsonArray();
+    }
+
+    private void initializeCommonNodes() {
+        // Initialize the builder with the common nodes
+        this.rootBuilder
+                .stepIn(Category.Name.FLOW)
+                    .stepIn(Category.Name.BRANCH)
+                        .node(FlowNode.Kind.IF)
+                        .stepOut()
+                    .stepIn(Category.Name.ITERATION)
+                        .node(FlowNode.Kind.WHILE)
+                        .node(FlowNode.Kind.BREAK)
+                        .node(FlowNode.Kind.CONTINUE)
+                        .stepOut()
+                    .stepIn(Category.Name.CONTROL)
+                        .node(FlowNode.Kind.RETURN)
+                        .stepOut()
+                    .stepOut()
+                .stepIn(Category.Name.DATA)
+                    .stepOut()
+                .stepIn(Category.Name.ACTION)
+                    .stepIn(Category.Name.HTTP_API)
+                        .node(FlowNode.Kind.HTTP_API_GET_CALL)
+                        .node(FlowNode.Kind.HTTP_API_POST_CALL)
+                        .stepOut()
+                    .stepOut();
     }
 }

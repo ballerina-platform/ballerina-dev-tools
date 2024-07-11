@@ -89,6 +89,24 @@ public abstract class FlowNode {
     protected Map<String, Expression> nodeProperties;
     protected int flags;
 
+    private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{
+        put(FlowNode.Kind.IF, If::new);
+        put(FlowNode.Kind.RETURN, Return::new);
+        put(FlowNode.Kind.EXPRESSION, DefaultExpression::new);
+        put(FlowNode.Kind.ERROR_HANDLER, ErrorHandler::new);
+        put(FlowNode.Kind.WHILE, While::new);
+        put(FlowNode.Kind.CONTINUE, Continue::new);
+        put(FlowNode.Kind.BREAK, Break::new);
+        put(FlowNode.Kind.PANIC, Panic::new);
+        put(FlowNode.Kind.EVENT_HTTP_API, HttpApiEvent::new);
+        put(FlowNode.Kind.HTTP_API_GET_CALL, ActionCall::new);
+        put(FlowNode.Kind.HTTP_API_POST_CALL, ActionCall::new);
+    }};
+
+    public static FlowNode getNodeFromKind(Kind kind) {
+        return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
+    }
+
     protected FlowNode() {
     }
 
@@ -118,6 +136,11 @@ public abstract class FlowNode {
 
     public boolean returning() {
         return returning;
+    }
+
+    public AvailableNode extractAvailableNode() {
+        this.setConstData();
+        return new AvailableNode(kind.name(), label, description, null, true);
     }
 
     public abstract void setConstData();
