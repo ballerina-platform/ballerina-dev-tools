@@ -22,10 +22,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents the properties of a transaction node in the flow model.
