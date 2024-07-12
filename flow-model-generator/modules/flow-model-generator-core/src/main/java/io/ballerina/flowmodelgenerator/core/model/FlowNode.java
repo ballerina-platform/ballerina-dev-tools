@@ -90,17 +90,18 @@ public abstract class FlowNode {
     protected int flags;
 
     private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{
-        put(FlowNode.Kind.IF, If::new);
-        put(FlowNode.Kind.RETURN, Return::new);
-        put(FlowNode.Kind.EXPRESSION, DefaultExpression::new);
-        put(FlowNode.Kind.ERROR_HANDLER, ErrorHandler::new);
-        put(FlowNode.Kind.WHILE, While::new);
-        put(FlowNode.Kind.CONTINUE, Continue::new);
-        put(FlowNode.Kind.BREAK, Break::new);
-        put(FlowNode.Kind.PANIC, Panic::new);
-        put(FlowNode.Kind.EVENT_HTTP_API, HttpApiEvent::new);
-        put(FlowNode.Kind.HTTP_API_GET_CALL, ActionCall::new);
-        put(FlowNode.Kind.HTTP_API_POST_CALL, ActionCall::new);
+        put(Kind.IF, If::new);
+        put(Kind.RETURN, Return::new);
+        put(Kind.EXPRESSION, DefaultExpression::new);
+        put(Kind.ERROR_HANDLER, ErrorHandler::new);
+        put(Kind.WHILE, While::new);
+        put(Kind.CONTINUE, Continue::new);
+        put(Kind.BREAK, Break::new);
+        put(Kind.PANIC, Panic::new);
+        put(Kind.EVENT_HTTP_API, HttpApiEvent::new);
+        put(Kind.HTTP_API_GET_CALL, ActionCall::new);
+        put(Kind.HTTP_API_POST_CALL, ActionCall::new);
+        put(Kind.START, Start::new);
     }};
 
     public static FlowNode getNodeFromKind(Kind kind) {
