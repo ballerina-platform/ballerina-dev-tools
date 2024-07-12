@@ -19,13 +19,9 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.Item;
-
-import java.util.List;
 
 /**
  * Generates available nodes for a given position in the diagram.

@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 /**
- * Represents an item for an available node
+ * Represents an item in the available nodes.
  *
  * @since 1.4.0
  */
