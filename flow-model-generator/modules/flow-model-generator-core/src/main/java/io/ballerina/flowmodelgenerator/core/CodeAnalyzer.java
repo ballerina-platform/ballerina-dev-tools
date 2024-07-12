@@ -58,6 +58,7 @@ import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -77,6 +78,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
@@ -369,6 +371,15 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(LocalTypeDefinitionStatementNode localTypeDefinitionStatementNode) {
         handleDefaultStatementNode(localTypeDefinitionStatementNode,
                 () -> super.visit(localTypeDefinitionStatementNode));
+    }
+
+    @Override
+    public void visit(StartActionNode startActionNode) {
+        startNode(Start::new)
+                .lineRange(startActionNode)
+                .properties()
+                .setExpressionNode(startActionNode.expression(), Start.START_EXPRESSION_DOC);
+        endNode();
     }
 
     @Override

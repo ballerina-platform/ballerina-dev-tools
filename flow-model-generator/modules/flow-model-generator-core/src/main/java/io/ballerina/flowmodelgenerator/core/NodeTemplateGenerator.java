@@ -11,6 +11,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.HashMap;
@@ -36,7 +37,8 @@ public class NodeTemplateGenerator {
             FlowNode.Kind.WHILE, While::new,
             FlowNode.Kind.CONTINUE, Continue::new,
             FlowNode.Kind.BREAK, Break::new,
-            FlowNode.Kind.PANIC, Panic::new
+            FlowNode.Kind.PANIC, Panic::new,
+            FlowNode.Kind.START, Start::new
     );
 
     public JsonElement getNodeTemplate(String kindStr) {
