@@ -1,0 +1,57 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "49766",
+    "label": "New Data",
+    "description": "Create a new variable",
+    "kind": "NEW_DATA",
+    "lineRange": {
+      "fileName": "new_data.bal",
+      "startLine": {
+        "line": 18,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 18,
+        "offset": 42
+      }
+    },
+    "returning": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "map<json>",
+        "value": "{\"name\": \"John\", \"age\": 34}",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Expression"
+      },
+      "variable": {
+        "label": "Variable",
+        "type": "json",
+        "value": "j1 ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Result Variable"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 18,
+          "character": 4
+        },
+        "end": {
+          "line": 18,
+          "character": 42
+        }
+      },
+      "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
+    }
+  ]
+}

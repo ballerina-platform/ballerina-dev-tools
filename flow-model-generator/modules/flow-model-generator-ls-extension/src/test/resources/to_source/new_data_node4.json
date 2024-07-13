@@ -1,0 +1,57 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "54721",
+    "label": "New Data",
+    "description": "Create a new variable",
+    "kind": "NEW_DATA",
+    "lineRange": {
+      "fileName": "new_data.bal",
+      "startLine": {
+        "line": 23,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 23,
+        "offset": 37
+      }
+    },
+    "returning": false,
+    "nodeProperties": {
+      "expression": {
+        "label": "Expression",
+        "type": "xml:Element",
+        "value": "xml `<p>${content}</p>`",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Expression"
+      },
+      "variable": {
+        "label": "Variable",
+        "type": "xml",
+        "value": "x1 ",
+        "typeKind": "BTYPE",
+        "optional": false,
+        "editable": true,
+        "documentation": "Result Variable"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 23,
+          "character": 4
+        },
+        "end": {
+          "line": 23,
+          "character": 37
+        }
+      },
+      "newText": "xml x1 = xml `<p>${content}</p>`;"
+    }
+  ]
+}

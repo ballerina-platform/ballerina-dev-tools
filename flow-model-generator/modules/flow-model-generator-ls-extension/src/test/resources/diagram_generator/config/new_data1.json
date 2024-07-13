@@ -1,0 +1,330 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 10,
+    "offset": 1
+  },
+  "source": "new_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "new_data.bal",
+    "nodes": [
+      {
+        "id": "32874",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 1,
+            "offset": 14
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "2",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "i ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33871",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 19
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "float",
+            "value": "1.2f",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "float",
+            "value": "f ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34870",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 26
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "decimal",
+            "value": "100000.0d",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "decimal",
+            "value": "d ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "35855",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 4,
+            "offset": 19
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "decimal",
+            "value": "d",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "decimal",
+            "value": "d1 ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "37834",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 14
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "3",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "j ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "38830",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 18
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "i + j",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "k ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "39822",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 18
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "i + j",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "l ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "40814",
+        "label": "New Data",
+        "description": "Create a new variable",
+        "kind": "NEW_DATA",
+        "lineRange": {
+          "fileName": "new_data.bal",
+          "startLine": {
+            "line": 9,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 18
+          }
+        },
+        "returning": false,
+        "nodeProperties": {
+          "expression": {
+            "label": "Expression",
+            "type": "int",
+            "value": "k + l",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Expression"
+          },
+          "variable": {
+            "label": "Variable",
+            "type": "int",
+            "value": "_ ",
+            "typeKind": "BTYPE",
+            "optional": false,
+            "editable": true,
+            "documentation": "Result Variable"
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
