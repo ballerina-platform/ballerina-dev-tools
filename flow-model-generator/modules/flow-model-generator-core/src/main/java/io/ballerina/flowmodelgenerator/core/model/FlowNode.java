@@ -48,6 +48,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -89,6 +90,26 @@ public abstract class FlowNode {
     protected Map<String, Expression> nodeProperties;
     protected int flags;
 
+    private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{
+        put(Kind.IF, If::new);
+        put(Kind.RETURN, Return::new);
+        put(Kind.EXPRESSION, DefaultExpression::new);
+        put(Kind.ERROR_HANDLER, ErrorHandler::new);
+        put(Kind.WHILE, While::new);
+        put(Kind.CONTINUE, Continue::new);
+        put(Kind.BREAK, Break::new);
+        put(Kind.PANIC, Panic::new);
+        put(Kind.EVENT_HTTP_API, HttpApiEvent::new);
+        put(Kind.HTTP_API_GET_CALL, ActionCall::new);
+        put(Kind.HTTP_API_POST_CALL, ActionCall::new);
+        put(Kind.START, Start::new);
+        put(Kind.LOCK, Lock::new);
+    }};
+
+    public static FlowNode getNodeFromKind(Kind kind) {
+        return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
+    }
+
     protected FlowNode() {
     }
 
@@ -120,6 +141,11 @@ public abstract class FlowNode {
         return returning;
     }
 
+    public AvailableNode extractAvailableNode() {
+        this.setConstData();
+        return new AvailableNode(kind.name(), label, description, null, true);
+    }
+
     public abstract void setConstData();
 
     public abstract String toSource();
@@ -144,6 +170,7 @@ public abstract class FlowNode {
         CONTINUE,
         BREAK,
         PANIC,
+        START,
         LOCK
     }
 
@@ -509,6 +536,7 @@ public abstract class FlowNode {
                 case CONTINUE -> context.deserialize(jsonObject, Continue.class);
                 case BREAK -> context.deserialize(jsonObject, Break.class);
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
+                case START -> context.deserialize(jsonObject, Start.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case LOCK -> context.deserialize(jsonObject, Lock.class);
             };
