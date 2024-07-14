@@ -48,6 +48,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -102,6 +103,7 @@ public abstract class FlowNode {
         put(Kind.HTTP_API_GET_CALL, ActionCall::new);
         put(Kind.HTTP_API_POST_CALL, ActionCall::new);
         put(Kind.START, Start::new);
+        put(Kind.TRANSACTION, Transaction::new);
     }};
 
     public static FlowNode getNodeFromKind(Kind kind) {
@@ -168,7 +170,8 @@ public abstract class FlowNode {
         CONTINUE,
         BREAK,
         PANIC,
-        START
+        START,
+        TRANSACTION
     }
 
     /**
@@ -535,6 +538,7 @@ public abstract class FlowNode {
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case START -> context.deserialize(jsonObject, Start.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
+                case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
             };
         }
     }

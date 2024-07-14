@@ -1,0 +1,169 @@
+{
+  "start": {
+    "line": 19,
+    "offset": 0
+  },
+  "end": {
+    "line": 26,
+    "offset": 1
+  },
+  "source": "transaction.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "transaction.bal",
+    "nodes": [
+      {
+        "id": "50810",
+        "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "transaction.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "51868",
+        "label": "Transaction",
+        "description": "Handle transaction.",
+        "kind": "TRANSACTION",
+        "lineRange": {
+          "fileName": "transaction.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 25,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "52895",
+                "label": "Transaction",
+                "description": "Handle transaction.",
+                "kind": "TRANSACTION",
+                "lineRange": {
+                  "fileName": "transaction.bal",
+                  "startLine": {
+                    "line": 21,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 23,
+                    "offset": 9
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Body",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "53975",
+                        "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
+                        "lineRange": {
+                          "fileName": "transaction.bal",
+                          "startLine": {
+                            "line": 22,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 22,
+                            "offset": 35
+                          }
+                        },
+                        "returning": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "()",
+                            "value": "check commit",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "()",
+                            "value": "res ",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          }
+                        },
+                        "flags": 1
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "55831",
+                "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
+                "lineRange": {
+                  "fileName": "transaction.bal",
+                  "startLine": {
+                    "line": 24,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 24,
+                    "offset": 31
+                  }
+                },
+                "returning": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "()",
+                    "value": "check commit",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "()",
+                    "value": "res ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
