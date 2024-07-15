@@ -84,13 +84,13 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
 public abstract class FlowNode {
 
     protected String id;
-    protected String label;
-    protected String description;
-    protected Kind kind;
+    public String label;
+    public String description;
+    public Kind kind;
     protected LineRange lineRange;
     protected boolean returning;
-    protected List<Branch> branches;
-    protected Map<String, Expression> nodeProperties;
+    public List<Branch> branches;
+    public Map<String, Expression> nodeProperties;
     protected int flags;
 
     private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{

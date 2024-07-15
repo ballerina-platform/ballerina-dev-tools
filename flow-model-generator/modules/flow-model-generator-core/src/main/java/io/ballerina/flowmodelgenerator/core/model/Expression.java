@@ -72,6 +72,16 @@ public record Expression(String label, String type, String value, ExpressionType
                 .build();
     }
 
+    public static Expression getExpressionForInfo(ExpressionAttributes.Info info) {
+        return Builder.getInstance()
+                .label(info.label())
+                .value("")
+                .type(info.type())
+                .documentation(info.documentation())
+                .editable()
+                .build();
+    }
+
     /**
      * Represents a builder for the expression.
      *
