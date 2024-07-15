@@ -26,19 +26,18 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import java.util.List;
 
 /**
- * Represents the properties of lock node in the flow model.
+ * Represents the properties of a transaction node in the flow model.
  *
  * @since 1.4.0
  */
-public class Lock extends FlowNode {
-
-    public static final String LABEL = "Lock";
-    public static final String DESCRIPTION = "Allow to access mutable states safely";
+public class Transaction extends FlowNode {
+    public static final String LABEL = "Transaction";
+    public static final String DESCRIPTION = "Handle transaction.";
 
     @Override
     public void setConstData() {
         this.label = LABEL;
-        this.kind = Kind.LOCK;
+        this.kind = Kind.TRANSACTION;
         this.description = DESCRIPTION;
     }
 
@@ -47,7 +46,7 @@ public class Lock extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
         Branch body = getBranch(Branch.BODY_LABEL);
         sourceBuilder
-                .keyword(SyntaxKind.LOCK_KEYWORD)
+                .keyword(SyntaxKind.TRANSACTION_KEYWORD)
                 .openBrace()
                 .addChildren(body.children())
                 .closeBrace();
