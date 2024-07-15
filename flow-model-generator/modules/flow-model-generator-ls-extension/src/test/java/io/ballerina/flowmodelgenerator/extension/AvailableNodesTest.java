@@ -19,17 +19,14 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 /**
  * Test for the getting available nodes service.
@@ -37,9 +34,6 @@ import java.util.List;
  * @since 1.4.0
  */
 public class AvailableNodesTest extends AbstractLSTest {
-
-    private static final Type availableNodesType = new TypeToken<List<String>>() {
-    }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -51,10 +45,10 @@ public class AvailableNodesTest extends AbstractLSTest {
                 testConfig.parentNodeKind(), testConfig.branchLabel());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("availableNodes");
 
-        List<String> actualAvailableNodes = gson.fromJson(availableNodes, availableNodesType);
-        if (!assertArray("available nodes", actualAvailableNodes, testConfig.availableNodes())) {
+        JsonArray categories = availableNodes.getAsJsonArray();
+        if (!categories.equals(testConfig.categories())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.parentNodeLineRange(),
-                    testConfig.parentNodeKind(), testConfig.branchLabel(), actualAvailableNodes);
+                    testConfig.parentNodeKind(), testConfig.branchLabel(), categories);
 //            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -83,10 +77,10 @@ public class AvailableNodesTest extends AbstractLSTest {
      * @param parentNodeLineRange The line range of the parent node
      * @param parentNodeKind      The kind of the parent node
      * @param branchLabel         The branch label
-     * @param availableNodes      The available nodes for the given input
+     * @param categories          The available categories for the given input
      */
     private record TestConfig(String description, LineRange parentNodeLineRange, String parentNodeKind,
-                              String branchLabel, List<String> availableNodes) {
+                              String branchLabel, JsonArray categories) {
 
     }
 }

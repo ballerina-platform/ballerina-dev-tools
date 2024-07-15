@@ -2,13 +2,92 @@
   "description": "A simple example of a package",
   "parentNodeKind": "IF",
   "branchLabel": "THEN",
-  "availableNodes": [
-    "IF",
-    "HTTP_API_GET_CALL",
-    "HTTP_API_POST_CALL",
-    "RETURN",
-    "EXPRESSION",
-    "WHILE",
-    "ERROR_HANDLER"
+  "categories": [
+    {
+      "name": "Flow",
+      "description": "Flow control nodes",
+      "keywords": [
+        "Core",
+        "Control",
+        "Flow"
+      ],
+      "items": [
+        {
+          "name": "Branch",
+          "description": "Branching nodes",
+          "items": [
+            {
+              "id": "IF",
+              "name": "If",
+              "description": "Add conditional branch to the integration flow.",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "name": "Iteration",
+          "description": "Iteration nodes",
+          "items": [
+            {
+              "id": "WHILE",
+              "name": "While",
+              "description": "Loop over a block of code.",
+              "enabled": true
+            },
+            {
+              "id": "BREAK",
+              "name": "Break",
+              "description": "Exit the current loop",
+              "enabled": true
+            },
+            {
+              "id": "CONTINUE",
+              "name": "Continue",
+              "description": "Skip the current iteration and continue with the next one",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "name": "Control",
+          "description": "Control nodes",
+          "items": [
+            {
+              "id": "RETURN",
+              "name": "Return",
+              "description": "Return a value",
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Data",
+      "description": "Data nodes are used to create, read, update, delete, and transform data",
+      "items": []
+    },
+    {
+      "name": "Action",
+      "description": "Connect to different services, APIs, SaaS products, etc.",
+      "items": [
+        {
+          "name": "HTTP API",
+          "description": "Make HTTP requests",
+          "items": [
+            {
+              "id": "HTTP_API_GET_CALL",
+              "name": "HTTP GET",
+              "enabled": true
+            },
+            {
+              "id": "HTTP_API_POST_CALL",
+              "name": "HTTP POST",
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
