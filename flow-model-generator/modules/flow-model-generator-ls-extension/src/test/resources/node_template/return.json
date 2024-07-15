@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "RETURN",
+  "id": {
+    "kind": "RETURN"
+  },
   "output": {
     "label": "Return",
     "description": "Return a value",

@@ -14,17 +14,48 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-[ -z "$1" ] && { echo "Name not provided"; exit 1; } || NAME="${1}"
 PARENT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
-FILE_PATH="$PARENT_DIR/$NAME.json"
-if [ -f "$FILE_PATH" ]; then
-    echo "File already exists: $FILE_PATH"
+check_file_exists() {
+    if [ -f "$FILE_PATH" ]; then
+        echo "File already exists: $FILE_PATH"
+        exit 1
+    fi
+}
+
+if [ $# -eq 1 ]; then
+    NAME="$1"
+    
+    FILE_PATH="$PARENT_DIR/$NAME.json"
+    check_file_exists
+
+    echo '{
+    "description": "Sample diagram node",
+    "id": {
+        "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'"
+    },
+    "output": {}
+}' > "$FILE_PATH"
+
+elif [ $# -eq 3 ]; then
+    NAME="$1"
+    LIBRARY="$2"
+    CALL="$3"
+
+    FILE_PATH="$PARENT_DIR/$NAME-$LIBRARY-$CALL.json"
+    check_file_exists
+
+    echo '{
+    "description": "Sample diagram node",
+    "id": {
+        "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'",
+        "library": "'${LIBRARY}'",
+        "call": "'${CALL}'"
+    },
+    "output": {}
+}' > "$FILE_PATH"
+
+else
+    echo "Invalid number of parameters"
     exit 1
 fi
-
-echo '{
-    "description": "Sample diagram node",
-    "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'",
-    "output": {}
-}' > ""${NAME}.json""

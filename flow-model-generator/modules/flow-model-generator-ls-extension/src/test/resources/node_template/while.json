@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "WHILE",
+  "id": {
+    "kind": "WHILE"
+  },
   "output": {
     "label": "While",
     "description": "Loop over a block of code.",

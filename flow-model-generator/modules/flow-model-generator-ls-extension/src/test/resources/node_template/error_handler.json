@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "ERROR_HANDLER",
+  "id": {
+    "kind": "ERROR_HANDLER"
+  },
   "output": {
     "label": "ErrorHandler",
     "description": "Catch and handle errors",

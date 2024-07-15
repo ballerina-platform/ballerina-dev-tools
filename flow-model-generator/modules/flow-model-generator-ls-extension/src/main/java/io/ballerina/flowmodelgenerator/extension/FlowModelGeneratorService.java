@@ -135,7 +135,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             try {
                 NodeTemplateGenerator generator = new NodeTemplateGenerator();
-                JsonElement nodeTemplate = generator.getNodeTemplate(request.kind());
+                JsonElement nodeTemplate = generator.getNodeTemplate(request.id());
                 return new FlowModelNodeTemplateResponse(nodeTemplate);
             } catch (Throwable e) {
                 throw new RuntimeException(e);

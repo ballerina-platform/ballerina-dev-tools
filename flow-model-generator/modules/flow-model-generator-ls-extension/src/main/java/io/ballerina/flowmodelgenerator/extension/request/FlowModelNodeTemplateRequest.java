@@ -1,11 +1,13 @@
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import com.google.gson.JsonObject;
+
 /**
  * Represents a request to the flow model getNodeTemplate API.
  *
- * @param kind kind of the flow node
+ * @param id id of the available node
  * @since 1.4.0
  */
-public record FlowModelNodeTemplateRequest(String kind) {
+public record FlowModelNodeTemplateRequest(JsonObject id) {
 
 }
