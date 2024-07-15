@@ -255,9 +255,8 @@
                     "children": [
                       {
                         "id": "65073",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "label": "HTTP GET",
+                        "kind": "ACTION_CALL",
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -271,6 +270,15 @@
                         },
                         "returning": false,
                         "nodeProperties": {
+                          "client": {
+                            "label": "Client",
+                            "type": "http:Client",
+                            "value": "currencyClient",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Client Connection"
+                          },
                           "variable": {
                             "label": "Variable",
                             "type": "json",
@@ -279,6 +287,23 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Result Variable"
+                          },
+                          "path": {
+                            "label": "Path",
+                            "type": "string",
+                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "HTTP Path"
+                          },
+                          "headers": {
+                            "label": "Headers",
+                            "type": "map<string|string[]>?",
+                            "typeKind": "BTYPE",
+                            "optional": true,
+                            "editable": true,
+                            "documentation": "HTTP Headers"
                           }
                         },
                         "flags": 1
@@ -538,7 +563,7 @@
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
-                    "type": "$CompilationError$",
+                    "type": "ballerina/http:2.11.1:InternalServerError & readonly",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "typeKind": "BTYPE",
                     "optional": false,
@@ -552,7 +577,7 @@
             "properties": {
               "variable": {
                 "label": "Variable",
-                "type": "redis:ballerinax/redis:3.0.2:error|annotations:error|annotations:error",
+                "type": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ClientError|annotations:error",
                 "value": "e ",
                 "typeKind": "BTYPE",
                 "optional": false,
@@ -566,6 +591,25 @@
       }
     ],
     "clients": [
+      {
+        "id": "43246",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "main.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 18
+          },
+          "endLine": {
+            "line": 11,
+            "offset": 32
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "currencyClient",
+        "flags": 0
+      },
       {
         "id": "37323",
         "label": "Client",
