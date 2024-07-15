@@ -1,30 +1,30 @@
 {
   "start": {
-    "line": 23,
+    "line": 12,
     "offset": 0
   },
   "end": {
-    "line": 29,
+    "line": 18,
     "offset": 1
   },
-  "source": "lock.bal",
+  "source": "fail.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "lock.bal",
+    "fileName": "fail.bal",
     "nodes": [
       {
-        "id": "54747",
+        "id": "43835",
         "label": "Custom Expression",
         "description": "Represents a custom Ballerina expression",
         "kind": "EXPRESSION",
         "lineRange": {
-          "fileName": "lock.bal",
+          "fileName": "fail.bal",
           "startLine": {
-            "line": 23,
+            "line": 12,
             "offset": 0
           },
           "endLine": {
-            "line": 29,
+            "line": 18,
             "offset": 1
           }
         },
@@ -32,18 +32,18 @@
         "flags": 0
       },
       {
-        "id": "55805",
-        "label": "Lock",
-        "description": "Allow to access mutable states safely",
-        "kind": "LOCK",
+        "id": "44893",
+        "label": "ErrorHandler",
+        "description": "Catch and handle errors",
+        "kind": "ERROR_HANDLER",
         "lineRange": {
-          "fileName": "lock.bal",
+          "fileName": "fail.bal",
           "startLine": {
-            "line": 24,
+            "line": 13,
             "offset": 4
           },
           "endLine": {
-            "line": 28,
+            "line": 17,
             "offset": 5
           }
         },
@@ -54,27 +54,27 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "56828",
+                "id": "45967",
                 "label": "Fail",
                 "description": "Fail the execution",
                 "kind": "FAIL",
                 "lineRange": {
-                  "fileName": "lock.bal",
+                  "fileName": "fail.bal",
                   "startLine": {
-                    "line": 25,
+                    "line": 14,
                     "offset": 8
                   },
                   "endLine": {
-                    "line": 25,
-                    "offset": 36
+                    "line": 14,
+                    "offset": 87
                   }
                 },
                 "returning": false,
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
-                    "type": "annotations:error",
-                    "value": "error(\"Error Message\")",
+                    "type": "AssertionError",
+                    "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                     "typeKind": "BTYPE",
                     "optional": false,
                     "editable": true,
@@ -90,18 +90,18 @@
             "kind": "BLOCK",
             "children": [
               {
-                "id": "58793",
+                "id": "47881",
                 "label": "Return",
                 "description": "Return a value",
                 "kind": "RETURN",
                 "lineRange": {
-                  "fileName": "lock.bal",
+                  "fileName": "fail.bal",
                   "startLine": {
-                    "line": 27,
+                    "line": 16,
                     "offset": 8
                   },
                   "endLine": {
-                    "line": 27,
+                    "line": 16,
                     "offset": 17
                   }
                 },
@@ -109,7 +109,7 @@
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
-                    "type": "annotations:error",
+                    "type": ".:error",
                     "value": "e",
                     "typeKind": "BTYPE",
                     "optional": false,
@@ -123,7 +123,7 @@
             "properties": {
               "variable": {
                 "label": "Variable",
-                "type": "annotations:error",
+                "type": ".:error",
                 "value": "e ",
                 "typeKind": "BTYPE",
                 "optional": false,

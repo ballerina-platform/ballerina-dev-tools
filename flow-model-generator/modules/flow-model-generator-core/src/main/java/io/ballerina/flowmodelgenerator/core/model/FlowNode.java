@@ -43,6 +43,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
+import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
@@ -106,6 +107,7 @@ public abstract class FlowNode {
         put(Kind.START, Start::new);
         put(Kind.TRANSACTION, Transaction::new);
         put(Kind.LOCK, Lock::new);
+        put(Kind.FAIL, Fail::new);
     }};
 
     public static FlowNode getNodeFromKind(Kind kind) {
@@ -174,7 +176,8 @@ public abstract class FlowNode {
         PANIC,
         START,
         TRANSACTION,
-        LOCK
+        LOCK,
+        FAIL
     }
 
     /**
@@ -540,6 +543,7 @@ public abstract class FlowNode {
                 case BREAK -> context.deserialize(jsonObject, Break.class);
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case START -> context.deserialize(jsonObject, Start.class);
+                case FAIL -> context.deserialize(jsonObject, Fail.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
                 case LOCK -> context.deserialize(jsonObject, Lock.class);
