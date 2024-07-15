@@ -95,7 +95,7 @@
                       {
                         "id": "46195",
                         "label": "HTTP GET",
-                        "kind": "HTTP_API_GET_CALL",
+                        "kind": "ACTION_CALL",
                         "lineRange": {
                           "fileName": "nested_node.bal",
                           "startLine": {
@@ -156,7 +156,7 @@
                       {
                         "id": "48181",
                         "label": "HTTP GET",
-                        "kind": "HTTP_API_GET_CALL",
+                        "kind": "ACTION_CALL",
                         "lineRange": {
                           "fileName": "nested_node.bal",
                           "startLine": {

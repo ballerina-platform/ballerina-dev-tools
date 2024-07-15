@@ -34,7 +34,7 @@
       {
         "id": "45807",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -147,7 +147,7 @@
       {
         "id": "49773",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

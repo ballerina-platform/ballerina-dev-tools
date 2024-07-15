@@ -50,10 +50,10 @@ public class NodeAttributes {
     }
 
     public static final Info HTTP_GET =
-            new Info("http-get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-get", "HTTP GET", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_HEADERS));
     public static final Info HTTP_POST =
-            new Info("http-post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-post", "HTTP POST", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_MESSAGE,
                             ExpressionAttributes.HTTP_HEADERS, ExpressionAttributes.HTTP_MEDIA_TYPE));
 

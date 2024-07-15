@@ -90,7 +90,7 @@
       {
         "id": "70958",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {

@@ -73,7 +73,7 @@
               {
                 "id": "40115",
                 "label": "HTTP GET",
-                "kind": "HTTP_API_GET_CALL",
+                "kind": "ACTION_CALL",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -164,7 +164,7 @@
               {
                 "id": "43081",
                 "label": "HTTP GET",
-                "kind": "HTTP_API_GET_CALL",
+                "kind": "ACTION_CALL",
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {

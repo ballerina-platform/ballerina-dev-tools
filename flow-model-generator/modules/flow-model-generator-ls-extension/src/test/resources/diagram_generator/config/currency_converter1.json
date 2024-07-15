@@ -143,6 +143,15 @@
                     "optional": false,
                     "editable": true,
                     "documentation": "Result Variable"
+                  },
+                  "key": {
+                    "label": "Key",
+                    "type": "string",
+                    "value": "key",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Redis Key"
                   }
                 },
                 "flags": 1
@@ -377,6 +386,24 @@
                             "optional": false,
                             "editable": true,
                             "documentation": "Redis Client Connection"
+                          },
+                          "key": {
+                            "label": "Key",
+                            "type": "string",
+                            "value": "key",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Redis Key"
+                          },
+                          "value": {
+                            "label": "Value",
+                            "type": "string",
+                            "value": "convertedAmount.toString()",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Redis Value"
                           }
                         },
                         "flags": 1

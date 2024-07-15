@@ -546,7 +546,6 @@ public abstract class FlowNode {
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case START -> context.deserialize(jsonObject, Start.class);
                 case FAIL -> context.deserialize(jsonObject, Fail.class);
-                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
                 case LOCK -> context.deserialize(jsonObject, Lock.class);
             };

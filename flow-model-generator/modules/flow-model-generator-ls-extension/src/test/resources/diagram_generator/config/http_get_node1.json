@@ -51,7 +51,7 @@
       {
         "id": "45951",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -106,7 +106,7 @@
       {
         "id": "47059",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -152,7 +152,7 @@
       {
         "id": "48065",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -199,7 +199,7 @@
       {
         "id": "48916",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -245,7 +245,7 @@
       {
         "id": "49900",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -291,7 +291,7 @@
       {
         "id": "50886",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -337,7 +337,7 @@
       {
         "id": "51900",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -383,7 +383,7 @@
       {
         "id": "52876",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -429,7 +429,7 @@
       {
         "id": "53920",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -476,7 +476,7 @@
       {
         "id": "57836",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -522,7 +522,7 @@
       {
         "id": "58846",
         "label": "HTTP GET",
-        "kind": "HTTP_API_GET_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
