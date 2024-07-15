@@ -35,6 +35,7 @@ public class ActionCall extends FlowNode {
 
     @Override
     public void setConstData() {
+        this.kind = FlowNode.Kind.ACTION_CALL;
     }
 
     @Override

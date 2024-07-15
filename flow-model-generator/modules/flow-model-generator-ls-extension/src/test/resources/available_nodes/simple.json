@@ -76,16 +76,32 @@
           "description": "Make HTTP requests",
           "items": [
             {
-              "id": "HTTP_API_GET_CALL",
+              "id": "ACTION_CALL-http-get",
               "name": "HTTP GET",
               "enabled": true
             },
             {
-              "id": "HTTP_API_POST_CALL",
+              "id": "ACTION_CALL-http-post",
               "name": "HTTP POST",
               "enabled": true
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "Redis Client",
+      "description": "Interact with a Redis server",
+      "items": [
+        {
+          "id": "ACTION_CALL-redis-get",
+          "name": "Redis Get",
+          "enabled": true
+        },
+        {
+          "id": "ACTION_CALL-redis-set",
+          "name": "Redis Set",
+          "enabled": true
         }
       ]
     }

@@ -102,8 +102,7 @@ public abstract class FlowNode {
         put(Kind.BREAK, Break::new);
         put(Kind.PANIC, Panic::new);
         put(Kind.EVENT_HTTP_API, HttpApiEvent::new);
-        put(Kind.HTTP_API_GET_CALL, ActionCall::new);
-        put(Kind.HTTP_API_POST_CALL, ActionCall::new);
+        put(Kind.ACTION_CALL, ActionCall::new);
         put(Kind.START, Start::new);
         put(Kind.TRANSACTION, Transaction::new);
         put(Kind.LOCK, Lock::new);
@@ -165,8 +164,6 @@ public abstract class FlowNode {
     public enum Kind {
         EVENT_HTTP_API,
         IF,
-        HTTP_API_GET_CALL,
-        HTTP_API_POST_CALL,
         ACTION_CALL,
         RETURN,
         EXPRESSION,
