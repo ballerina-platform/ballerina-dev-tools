@@ -36,7 +36,7 @@
                 "offset": 66
               }
             },
-            "kind": "HTTP_API_GET_CALL",
+            "kind": "ACTION_CALL",
             "returning": false,
             "fixed": false,
             "nodeProperties": {
@@ -198,7 +198,7 @@
                         "offset": 103
                       }
                     },
-                    "kind": "HTTP_API_POST_CALL",
+                    "kind": "ACTION_CALL",
                     "returning": false,
                     "fixed": false,
                     "nodeProperties": {

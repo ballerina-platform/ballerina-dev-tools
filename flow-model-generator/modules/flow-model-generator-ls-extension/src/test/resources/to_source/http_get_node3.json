@@ -1,20 +1,5 @@
 {
   "description": "Sample diagram node",
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 36,
-          "character": 15
-        },
-        "end": {
-          "line": 36,
-          "character": 42
-        }
-      },
-      "newText": "return foodClient->get(\"/bananas\");"
-    }
-  ],
   "diagram": {
     "id": "67963",
     "label": "HTTP GET",
@@ -29,7 +14,7 @@
         "offset": 42
       }
     },
-    "kind": "HTTP_API_GET_CALL",
+    "kind": "ACTION_CALL",
     "returning": true,
     "fixed": false,
     "nodeProperties": {
@@ -61,5 +46,20 @@
       }
     },
     "flags": 0
-  }
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 36,
+          "character": 15
+        },
+        "end": {
+          "line": 36,
+          "character": 42
+        }
+      },
+      "newText": "return foodClient->get(\"/bananas\");"
+    }
+  ]
 }

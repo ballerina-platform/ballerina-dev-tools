@@ -41,6 +41,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 /**
  * Represents the abstract test class for the flow model generator service.
@@ -84,14 +85,15 @@ abstract class AbstractLSTest {
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try {
-            return Files.walk(resDir)
+        try (Stream<Path> stream = Files.walk(resDir)) {
+            return stream
                     .filter(path -> {
                         File file = path.toFile();
-                        return file.isFile() && file.getName().endsWith(".json")
+                        return file.isFile() && !file.getName().startsWith(".")
+                                && file.getName().endsWith(".json")
                                 && !skippedTests.contains(file.getName());
                     })
-                    .toArray();
+                    .toArray(Path[]::new);
         } catch (IOException e) {
             // If failed to load tests, then it's a failure
             Assert.fail("Unable to load test config", e);

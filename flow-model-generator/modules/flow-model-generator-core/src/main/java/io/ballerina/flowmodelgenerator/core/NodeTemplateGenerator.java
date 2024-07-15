@@ -35,7 +35,7 @@ public class NodeTemplateGenerator {
         flowNode.setConstData();
         flowNode.setTemplateData();
         if (nodeId.library() != null) {
-            NodeAttributes.Info info = NodeAttributes.get(nodeId.library() + "-" + nodeId.call());
+            NodeAttributes.Info info = NodeAttributes.getByKey(nodeId.library(), nodeId.call());
             flowNode.label = info.label();
 
             Map<String, Expression> nodeProperties = new HashMap<>();

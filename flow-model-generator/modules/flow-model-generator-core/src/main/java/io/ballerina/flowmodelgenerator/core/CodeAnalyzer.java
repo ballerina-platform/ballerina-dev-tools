@@ -185,7 +185,7 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
-        NodeAttributes.Info info = NodeAttributes.get(String.format("%s-%s", moduleName, methodName));
+        NodeAttributes.Info info = NodeAttributes.getByKey(moduleName, methodName);
         if (info != null) {
             startNode(ActionCall::new)
                     .kind(info.kind())

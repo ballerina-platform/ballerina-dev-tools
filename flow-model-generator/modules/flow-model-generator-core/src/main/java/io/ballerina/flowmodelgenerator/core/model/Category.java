@@ -105,7 +105,7 @@ public record Category(String name, String description, List<String> keywords, L
 
         public Builder node(FlowNode.Kind kind, String library, String call) {
             FlowNode flowNode = FlowNode.getNodeFromKind(kind);
-            NodeAttributes.Info info = NodeAttributes.get(library + "-" + call);
+            NodeAttributes.Info info = NodeAttributes.getByKey(library, call);
             flowNode.label = info.label();
             this.availableNodes.add(flowNode.extractAvailableNode(library, call));
             return this;

@@ -29,7 +29,7 @@
         "offset": 10
       }
     },
-    "kind": "HTTP_API_GET_CALL",
+    "kind": "ACTION_CALL",
     "returning": false,
     "fixed": false,
     "nodeProperties": {

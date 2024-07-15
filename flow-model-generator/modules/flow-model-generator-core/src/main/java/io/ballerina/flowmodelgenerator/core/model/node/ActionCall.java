@@ -57,12 +57,12 @@ public class ActionCall extends FlowNode {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        NodeAttributes.Info info = NodeAttributes.get(kind());
+        NodeAttributes.Info info = NodeAttributes.getByLabel(this.label);
         Expression client = getProperty(info.callExpression().key());
 
         sourceBuilder.expression(client)
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(info.key())
+                .name(info.method())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
         List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();

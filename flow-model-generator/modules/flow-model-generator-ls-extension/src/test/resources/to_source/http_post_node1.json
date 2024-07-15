@@ -1,20 +1,5 @@
 {
   "description": "Sample diagram node",
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 14,
-          "character": 8
-        },
-        "end": {
-          "line": 14,
-          "character": 85
-        }
-      },
-      "newText": "json res1 = check foodClient->post(\"/apples\", \"red apple\");"
-    }
-  ],
   "diagram": {
     "id": "45965",
     "label": "HTTP POST",
@@ -29,7 +14,7 @@
         "offset": 85
       }
     },
-    "kind": "HTTP_API_POST_CALL",
+    "kind": "ACTION_CALL",
     "returning": false,
     "fixed": false,
     "nodeProperties": {
@@ -87,5 +72,20 @@
       }
     },
     "flags": 1
-  }
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 14,
+          "character": 8
+        },
+        "end": {
+          "line": 14,
+          "character": 85
+        }
+      },
+      "newText": "json res1 = check foodClient->post(\"/apples\", \"red apple\");"
+    }
+  ]
 }
