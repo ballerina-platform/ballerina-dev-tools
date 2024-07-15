@@ -99,7 +99,7 @@ public record Category(String name, String description, List<String> keywords, L
 
         public Builder node(FlowNode.Kind kind) {
             FlowNode flowNode = FlowNode.getNodeFromKind(kind);
-            this.availableNodes.add(flowNode.extractAvailableNode(kind.name()));
+            this.availableNodes.add(flowNode.extractAvailableNode());
             return this;
         }
 
@@ -107,8 +107,7 @@ public record Category(String name, String description, List<String> keywords, L
             FlowNode flowNode = FlowNode.getNodeFromKind(kind);
             NodeAttributes.Info info = NodeAttributes.get(library + "-" + call);
             flowNode.label = info.label();
-            this.availableNodes.add(
-                    flowNode.extractAvailableNode(String.format("%s-%s-%s", kind.name(), library, call)));
+            this.availableNodes.add(flowNode.extractAvailableNode(library, call));
             return this;
         }
 

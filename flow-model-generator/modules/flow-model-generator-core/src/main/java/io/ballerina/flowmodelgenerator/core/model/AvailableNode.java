@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
+
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ import java.util.List;
  * @param enabled     whether the node is enabled
  * @since 1.4.0
  */
-public record AvailableNode(String id, String name, String description, List<String> keywords, boolean enabled)
+public record AvailableNode(NodeId id, String name, String description, List<String> keywords, boolean enabled)
         implements Item {
 
 }

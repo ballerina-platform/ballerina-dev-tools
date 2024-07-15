@@ -47,6 +47,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -146,7 +147,12 @@ public abstract class FlowNode {
 
     public AvailableNode extractAvailableNode() {
         this.setConstData();
-        return new AvailableNode(kind.name(), label, description, null, true);
+        return new AvailableNode(new NodeId(kind.name(), null, null), label, description, null, true);
+    }
+
+    public AvailableNode extractAvailableNode(String library, String call) {
+        this.setConstData();
+        return new AvailableNode(new NodeId(kind.name(), library, call), label, description, null, true);
     }
 
     public abstract void setConstData();
