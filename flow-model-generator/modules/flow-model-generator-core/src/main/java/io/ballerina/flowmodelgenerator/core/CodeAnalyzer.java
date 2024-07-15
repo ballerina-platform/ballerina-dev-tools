@@ -66,7 +66,6 @@ import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Client;
-import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
@@ -179,23 +178,26 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
+            startNode(DefaultExpression::new);
             return;
         }
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
-        if (moduleName.equals("http")) {
-            NodeAttributes.Info info = NodeAttributes.get(methodName);
+        NodeAttributes.Info info = NodeAttributes.get(String.format("%s-%s", moduleName, methodName));
+        if (info != null) {
             startNode(ActionCall::new)
                     .kind(info.kind())
                     .label(info.label())
                     .properties()
-                    .callExpression(expressionNode, ExpressionAttributes.HTTP_CLIENT)
+                    .callExpression(expressionNode, info.callExpression())
                     .variable(this.typedBindingPatternNode);
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     argumentNodes, params));
+            return;
         }
+        startNode(DefaultExpression::new);
     }
 
     @Override

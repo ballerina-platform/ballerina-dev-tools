@@ -50,6 +50,11 @@ public class ExpressionAttributes {
     public static final Info HTTP_MEDIA_TYPE =
             new Info("mediaType", "Media Type", "HTTP Post Media Type", "string?", false);
 
+    public static final Info REDIS_CLIENT =
+            new Info("client", "Client", "Redis Client Connection", "redis:Client", false);
+    public static final Info REDIS_KEY = new Info("key", "Key", "Redis Key", "string", false);
+    public static final Info REDIS_VALUE = new Info("value", "Value", "Redis Value", "string", false);
+
     static {
         addMapEntry(HTTP_PATH);
         addMapEntry(HTTP_HEADERS);

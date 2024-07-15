@@ -167,6 +167,7 @@ public abstract class FlowNode {
         IF,
         HTTP_API_GET_CALL,
         HTTP_API_POST_CALL,
+        ACTION_CALL,
         RETURN,
         EXPRESSION,
         ERROR_HANDLER,
@@ -536,6 +537,7 @@ public abstract class FlowNode {
                 case EXPRESSION -> context.deserialize(jsonObject, DefaultExpression.class);
                 case IF -> context.deserialize(jsonObject, If.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
+                case ACTION_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
                 case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandler.class);
                 case WHILE -> context.deserialize(jsonObject, While.class);

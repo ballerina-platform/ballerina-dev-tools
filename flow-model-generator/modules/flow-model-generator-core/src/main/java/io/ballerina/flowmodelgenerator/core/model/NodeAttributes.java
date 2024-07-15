@@ -50,15 +50,24 @@ public class NodeAttributes {
     }
 
     public static final Info HTTP_GET =
-            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_HEADERS));
     public static final Info HTTP_POST =
-            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_MESSAGE,
                             ExpressionAttributes.HTTP_HEADERS, ExpressionAttributes.HTTP_MEDIA_TYPE));
+
+    public static final Info REDIS_GET =
+            new Info("redis-get", "Redis Get", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.REDIS_CLIENT,
+                    List.of(ExpressionAttributes.REDIS_KEY));
+    public static final Info REDIS_SET =
+            new Info("redis-set", "Redis Set", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.REDIS_CLIENT,
+                    List.of(ExpressionAttributes.REDIS_KEY, ExpressionAttributes.REDIS_VALUE));
 
     static {
         nodeInfoMap.add(HTTP_GET);
         nodeInfoMap.add(HTTP_POST);
+        nodeInfoMap.add(REDIS_GET);
+        nodeInfoMap.add(REDIS_SET);
     }
 }
