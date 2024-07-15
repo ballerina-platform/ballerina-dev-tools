@@ -55,9 +55,9 @@
             "children": [
               {
                 "id": "56828",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "label": "Fail",
+                "description": "Fail the execution",
+                "kind": "FAIL",
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -70,6 +70,17 @@
                   }
                 },
                 "returning": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "annotations:error",
+                    "value": "error(\"Error Message\")",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Fail value"
+                  }
+                },
                 "flags": 0
               }
             ]
