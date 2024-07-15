@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "TRANSACTION",
+  "id": {
+    "kind": "TRANSACTION"
+  },
   "output": {
     "label": "Transaction",
     "description": "Handle transaction.",
