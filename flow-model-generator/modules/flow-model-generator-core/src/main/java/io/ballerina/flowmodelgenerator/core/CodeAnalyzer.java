@@ -76,6 +76,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -385,7 +386,27 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        handleDefaultStatementNode(lockStatementNode, () -> super.visit(lockStatementNode));
+        startNode(Lock::new).lineRange(lockStatementNode);
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
+        for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
+            statement.accept(this);
+            branchBuilder.node(buildNode());
+        }
+        endBranch(branchBuilder);
+
+        Optional<OnFailClauseNode> optOnFailClauseNode = lockStatementNode.onFailClause();
+        if (optOnFailClauseNode.isPresent()) {
+            OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
+            Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
+            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
+                statement.accept(this);
+                onFailBranchBuilder.node(buildNode());
+            }
+            endBranch(onFailBranchBuilder);
+        }
+
+        endNode();
     }
 
     @Override

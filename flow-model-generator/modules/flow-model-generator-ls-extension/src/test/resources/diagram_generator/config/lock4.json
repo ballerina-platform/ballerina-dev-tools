@@ -1,0 +1,130 @@
+{
+  "start": {
+    "line": 23,
+    "offset": 0
+  },
+  "end": {
+    "line": 29,
+    "offset": 1
+  },
+  "source": "lock.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "lock.bal",
+    "nodes": [
+      {
+        "id": "54747",
+        "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 23,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 29,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "55805",
+        "label": "Lock",
+        "description": "Allow to access mutable states safely",
+        "kind": "LOCK",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 24,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 28,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "56828",
+                "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 25,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 25,
+                    "offset": 36
+                  }
+                },
+                "returning": false,
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "58793",
+                "label": "Return",
+                "description": "Return a value",
+                "kind": "RETURN",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 27,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 27,
+                    "offset": 17
+                  }
+                },
+                "returning": true,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "annotations:error",
+                    "value": "e",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Return value"
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "properties": {
+              "variable": {
+                "label": "Variable",
+                "type": "annotations:error",
+                "value": "e ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            }
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
