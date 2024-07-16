@@ -28,12 +28,21 @@ import com.google.gson.JsonElement;
 public class FlowModelGeneratorResponse {
 
     private JsonElement flowDesignModel;
+    private String errorMsg;
 
     public void setFlowDesignModel(JsonElement flowDesignModel) {
         this.flowDesignModel = flowDesignModel;
     }
 
+    public void setError(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     public JsonElement flowDesignModel() {
         return flowDesignModel;
+    }
+
+    public String errorMsg() {
+        return errorMsg;
     }
 }

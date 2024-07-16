@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -123,16 +124,19 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request) throws IOException {
-        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/" + getApiName(), request);
-        String response = TestUtil.getResponseString(result);
-        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        return getResponse(this.serviceEndpoint, request);
     }
 
     // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
     protected JsonObject getResponse(Endpoint endpoint, Object request) {
         CompletableFuture<?> result = endpoint.request("flowDesignService/" + getApiName(), request);
         String response = TestUtil.getResponseString(result);
-        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
+        if (errorMsg != null) {
+            Assert.fail("Error occurred: " + errorMsg.getAsString());
+        }
+        return jsonObject;
     }
 
     /**
