@@ -186,35 +186,33 @@ abstract class AbstractLSTest {
         return hasCountMatch && hasAllExpectedTextEdits && hasRelevantTextEdits;
     }
 
-    protected void compareJsonElements(JsonElement json1, JsonElement json2) {
+    protected void compareJsonElements(JsonElement actualJson, JsonElement expectedJson) {
         log.info("Differences in JSON elements:");
-        compareJsonElementsRecursive(json1, json2, "");
+        compareJsonElementsRecursive(actualJson, expectedJson, "");
     }
 
-    private void compareJsonElementsRecursive(JsonElement json1, JsonElement json2, String path) {
-        if (json1.isJsonObject() && json2.isJsonObject()) {
-            compareJsonObjects(json1.getAsJsonObject(), json2.getAsJsonObject(), path);
-        } else if (json1.isJsonArray() && json2.isJsonArray()) {
-            compareJsonArrays(json1.getAsJsonArray(), json2.getAsJsonArray(), path);
-        } else if (!json1.equals(json2)) {
-            log.info("- Value mismatch at '" + path + "'");
-            log.info("  JSON1: " + json1);
-            log.info("  JSON2: " + json2);
+    private void compareJsonElementsRecursive(JsonElement actualJson, JsonElement expectedJson, String path) {
+        if (actualJson.isJsonObject() && expectedJson.isJsonObject()) {
+            compareJsonObjects(actualJson.getAsJsonObject(), expectedJson.getAsJsonObject(), path);
+        } else if (actualJson.isJsonArray() && expectedJson.isJsonArray()) {
+            compareJsonArrays(actualJson.getAsJsonArray(), expectedJson.getAsJsonArray(), path);
+        } else if (!actualJson.equals(expectedJson)) {
+            log.info("- Value mismatch at '" + path + "'\n  actual: " + actualJson + "\n  expected: " + expectedJson);
         }
     }
 
-    private void compareJsonObjects(JsonObject json1, JsonObject json2, String path) {
-        Set<Map.Entry<String, JsonElement>> entrySet1 = json1.entrySet();
-        Set<Map.Entry<String, JsonElement>> entrySet2 = json2.entrySet();
+    private void compareJsonObjects(JsonObject actualJson, JsonObject expectedJson, String path) {
+        Set<Map.Entry<String, JsonElement>> entrySet1 = actualJson.entrySet();
+        Set<Map.Entry<String, JsonElement>> entrySet2 = expectedJson.entrySet();
 
         for (Map.Entry<String, JsonElement> entry : entrySet1) {
             String key = entry.getKey();
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
-            if (!json2.has(key)) {
-                log.info("- Key '" + currentPath + "' is missing in the second JSON");
+            if (!expectedJson.has(key)) {
+                log.info("- Key '" + currentPath + "' is missing in the expected JSON");
             } else {
-                compareJsonElementsRecursive(entry.getValue(), json2.get(key), currentPath);
+                compareJsonElementsRecursive(entry.getValue(), expectedJson.get(key), currentPath);
             }
         }
 
@@ -222,28 +220,28 @@ abstract class AbstractLSTest {
             String key = entry.getKey();
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
-            if (!json1.has(key)) {
-                log.info("- Key '" + currentPath + "' is missing in the first JSON");
+            if (!actualJson.has(key)) {
+                log.info("- Key '" + currentPath + "' is missing in the actual JSON");
             }
         }
     }
 
-    private void compareJsonArrays(JsonArray array1, JsonArray array2, String path) {
-        int size1 = array1.size();
-        int size2 = array2.size();
+    private void compareJsonArrays(JsonArray actualArray, JsonArray expectedArray, String path) {
+        int size1 = actualArray.size();
+        int size2 = expectedArray.size();
         int minSize = Math.min(size1, size2);
 
         for (int i = 0; i < minSize; i++) {
-            compareJsonElementsRecursive(array1.get(i), array2.get(i), path + "[" + i + "]");
+            compareJsonElementsRecursive(actualArray.get(i), expectedArray.get(i), path + "[" + i + "]");
         }
 
         if (size1 > size2) {
             for (int i = size2; i < size1; i++) {
-                log.info("- Extra element in first JSON at '" + path + "[" + i + "]': " + array1.get(i));
+                log.info("- Extra element in actual JSON at '" + path + "[" + i + "]': " + actualArray.get(i));
             }
         } else if (size2 > size1) {
             for (int i = size1; i < size2; i++) {
-                log.info("- Extra element in second JSON at '" + path + "[" + i + "]': " + array2.get(i));
+                log.info("- Extra element in expected JSON at '" + path + "[" + i + "]': " + expectedArray.get(i));
             }
         }
     }
