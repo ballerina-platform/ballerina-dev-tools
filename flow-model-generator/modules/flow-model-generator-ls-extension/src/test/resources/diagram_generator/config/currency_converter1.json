@@ -563,7 +563,7 @@
                 "nodeProperties": {
                   "expression": {
                     "label": "Expression",
-                    "type": "ballerina/http:2.11.1:InternalServerError & readonly",
+                    "type": "ballerina/http:2.11.0:InternalServerError & readonly",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "typeKind": "BTYPE",
                     "optional": false,
@@ -577,7 +577,7 @@
             "properties": {
               "variable": {
                 "label": "Variable",
-                "type": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ClientError|annotations:error",
+                "type": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
                 "value": "e ",
                 "typeKind": "BTYPE",
                 "optional": false,

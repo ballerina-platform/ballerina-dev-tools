@@ -45,7 +45,7 @@ dependencies {
 
     testImplementation "org.testng:testng:${testngVersion}"
 
-    balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
+    balTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false
     }
 }
@@ -94,6 +94,23 @@ task copyStdlibs() {
         }
     }
 }
+
+// TODO: Remove this once the workspace manager is refactored to import modules where necessary.
+tasks.register('pullBallerinaRedisModule') {
+    doLast {
+        if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+            exec {
+                commandLine 'cmd', '/c', 'bal', 'pull', 'ballerinax/redis'
+            }
+        } else {
+            exec {
+                commandLine 'bal', 'pull', 'ballerinax/redis'
+            }
+        }
+    }
+}
+
+test.dependsOn pullBallerinaRedisModule
 
 test {
     dependsOn {
