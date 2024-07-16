@@ -1,0 +1,169 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 0
+  },
+  "end": {
+    "line": 13,
+    "offset": 1
+  },
+  "source": "lock.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "lock.bal",
+    "nodes": [
+      {
+        "id": "37914",
+        "label": "Custom Expression",
+        "description": "Represents a custom Ballerina expression",
+        "kind": "EXPRESSION",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 6,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 13,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "38972",
+        "label": "Lock",
+        "description": "Allow to access mutable states safely",
+        "kind": "LOCK",
+        "lineRange": {
+          "fileName": "lock.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 12,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "children": [
+              {
+                "id": "39946",
+                "label": "Custom Expression",
+                "description": "Represents a custom Ballerina expression",
+                "kind": "EXPRESSION",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 8,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 8,
+                    "offset": 18
+                  }
+                },
+                "returning": false,
+                "nodeProperties": {
+                  "expression": {
+                    "label": "Expression",
+                    "type": "int",
+                    "value": "0",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Expression"
+                  },
+                  "variable": {
+                    "label": "Variable",
+                    "type": "int",
+                    "value": "i ",
+                    "typeKind": "BTYPE",
+                    "optional": false,
+                    "editable": true,
+                    "documentation": "Result Variable"
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "40991",
+                "label": "Lock",
+                "description": "Allow to access mutable states safely",
+                "kind": "LOCK",
+                "lineRange": {
+                  "fileName": "lock.bal",
+                  "startLine": {
+                    "line": 9,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 11,
+                    "offset": 9
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Body",
+                    "kind": "BLOCK",
+                    "children": [
+                      {
+                        "id": "42054",
+                        "label": "Custom Expression",
+                        "description": "Represents a custom Ballerina expression",
+                        "kind": "EXPRESSION",
+                        "lineRange": {
+                          "fileName": "lock.bal",
+                          "startLine": {
+                            "line": 10,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 10,
+                            "offset": 18
+                          }
+                        },
+                        "returning": false,
+                        "nodeProperties": {
+                          "expression": {
+                            "label": "Expression",
+                            "type": "int",
+                            "value": "3",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Expression"
+                          },
+                          "variable": {
+                            "label": "Variable",
+                            "type": "int",
+                            "value": "i",
+                            "typeKind": "BTYPE",
+                            "optional": false,
+                            "editable": true,
+                            "documentation": "Result Variable"
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

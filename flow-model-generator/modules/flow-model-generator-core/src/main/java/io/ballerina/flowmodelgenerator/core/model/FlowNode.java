@@ -43,12 +43,15 @@ import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
+import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
@@ -103,6 +106,10 @@ public abstract class FlowNode {
         put(Kind.HTTP_API_GET_CALL, ActionCall::new);
         put(Kind.HTTP_API_POST_CALL, ActionCall::new);
         put(Kind.START, Start::new);
+        put(Kind.TRANSACTION, Transaction::new);
+        put(Kind.LOCK, Lock::new);
+        put(Kind.FAIL, Fail::new);
+        put(Kind.NEW_DATA, NewData::new);
     }};
 
     public static FlowNode getNodeFromKind(Kind kind) {
@@ -170,6 +177,9 @@ public abstract class FlowNode {
         BREAK,
         PANIC,
         START,
+        TRANSACTION,
+        LOCK,
+        FAIL,
         NEW_DATA
     }
 
@@ -536,7 +546,10 @@ public abstract class FlowNode {
                 case BREAK -> context.deserialize(jsonObject, Break.class);
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case START -> context.deserialize(jsonObject, Start.class);
+                case FAIL -> context.deserialize(jsonObject, Fail.class);
                 case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
+                case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
+                case LOCK -> context.deserialize(jsonObject, Lock.class);
                 case NEW_DATA -> context.deserialize(jsonObject, NewData.class);
             };
         }

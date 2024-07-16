@@ -1,0 +1,120 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "60765",
+    "label": "Transaction",
+    "description": "Handle transaction.",
+    "kind": "TRANSACTION",
+    "lineRange": {
+      "fileName": "transaction.bal",
+      "startLine": {
+        "line": 29,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 33,
+        "offset": 5
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "61781",
+            "label": "Custom Expression",
+            "description": "Represents a custom Ballerina expression",
+            "kind": "EXPRESSION",
+            "lineRange": {
+              "fileName": "transaction.bal",
+              "startLine": {
+                "line": 30,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 30,
+                "offset": 29
+              }
+            },
+            "returning": false,
+            "nodeProperties": {
+              "expression": {
+                "label": "Expression",
+                "type": "()",
+                "value": "check commit",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Expression"
+              },
+              "variable": {
+                "label": "Variable",
+                "type": "()",
+                "value": "_ ",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Result Variable"
+              }
+            },
+            "flags": 1
+          }
+        ]
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "63772",
+            "label": "Return",
+            "description": "Return a value",
+            "kind": "RETURN",
+            "lineRange": {
+              "fileName": "transaction.bal",
+              "startLine": {
+                "line": 32,
+                "offset": 8
+              },
+              "endLine": {
+                "line": 32,
+                "offset": 36
+              }
+            },
+            "returning": true,
+            "nodeProperties": {
+              "expression": {
+                "label": "Expression",
+                "type": "annotations:error",
+                "value": "error(\"Found error\")",
+                "typeKind": "BTYPE",
+                "optional": false,
+                "editable": true,
+                "documentation": "Return value"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 29,
+          "character": 4
+        },
+        "end": {
+          "line": 33,
+          "character": 5
+        }
+      },
+      "newText": "transaction {\n    () _ = check commit;\n}\non fail {\n    return error(\"Found error\");\n}"
+    }
+  ]
+}

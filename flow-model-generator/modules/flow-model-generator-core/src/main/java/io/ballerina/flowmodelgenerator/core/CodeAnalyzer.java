@@ -74,12 +74,15 @@ import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
+import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
@@ -316,7 +319,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FailStatementNode failStatementNode) {
-        handleDefaultStatementNode(failStatementNode, () -> super.visit(failStatementNode));
+        startNode(Fail::new)
+                .lineRange(failStatementNode)
+                .properties()
+                .setExpressionNode(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
+        endNode();
     }
 
     @Override
@@ -385,7 +392,27 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        handleDefaultStatementNode(lockStatementNode, () -> super.visit(lockStatementNode));
+        startNode(Lock::new).lineRange(lockStatementNode);
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
+        for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
+            statement.accept(this);
+            branchBuilder.node(buildNode());
+        }
+        endBranch(branchBuilder);
+
+        Optional<OnFailClauseNode> optOnFailClauseNode = lockStatementNode.onFailClause();
+        if (optOnFailClauseNode.isPresent()) {
+            OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
+            Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
+            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
+                statement.accept(this);
+                onFailBranchBuilder.node(buildNode());
+            }
+            endBranch(onFailBranchBuilder);
+        }
+
+        endNode();
     }
 
     @Override
@@ -395,7 +422,27 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
-        handleDefaultNodeWithBlock(transactionStatementNode.blockStatement());
+        startNode(Transaction::new)
+                .lineRange(transactionStatementNode);
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
+        for (StatementNode statement : transactionStatementNode.blockStatement().statements()) {
+            statement.accept(this);
+            branchBuilder.node(buildNode());
+        }
+        endBranch(branchBuilder);
+
+        Optional<OnFailClauseNode> optOnFailClauseNode = transactionStatementNode.onFailClause();
+        if (optOnFailClauseNode.isPresent()) {
+            OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
+            Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
+            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
+                statement.accept(this);
+                onFailBranchBuilder.node(buildNode());
+            }
+            endBranch(onFailBranchBuilder);
+        }
+        endNode();
     }
 
     @Override

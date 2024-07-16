@@ -49,15 +49,15 @@
         "flags": 2048
       },
       {
-        "id": "44494",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "id": "44122",
+        "label": "Transaction",
+        "description": "Handle transaction.",
+        "kind": "TRANSACTION",
         "lineRange": {
           "fileName": "nested_node.bal",
           "startLine": {
             "line": 12,
-            "offset": 20
+            "offset": 8
           },
           "endLine": {
             "line": 19,
