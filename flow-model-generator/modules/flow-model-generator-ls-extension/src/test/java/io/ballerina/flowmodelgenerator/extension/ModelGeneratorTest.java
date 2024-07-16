@@ -63,6 +63,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
             TestConfig updatedConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
                     testConfig.description(), modifiedDiagram);
 //            updateConfig(configJsonPath, updatedConfig);
+            compareJsonElements(modifiedDiagram, testConfig.diagram());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
         TestUtil.shutdownLanguageServer(endpoint);

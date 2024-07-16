@@ -20,6 +20,8 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
@@ -41,6 +43,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -180,6 +184,68 @@ abstract class AbstractLSTest {
         }
 
         return hasCountMatch && hasAllExpectedTextEdits && hasRelevantTextEdits;
+    }
+
+    protected void compareJsonElements(JsonElement json1, JsonElement json2) {
+        System.out.println("Differences in JSON elements:");
+        compareJsonElementsRecursive(json1, json2, "");
+    }
+
+    private void compareJsonElementsRecursive(JsonElement json1, JsonElement json2, String path) {
+        if (json1.isJsonObject() && json2.isJsonObject()) {
+            compareJsonObjects(json1.getAsJsonObject(), json2.getAsJsonObject(), path);
+        } else if (json1.isJsonArray() && json2.isJsonArray()) {
+            compareJsonArrays(json1.getAsJsonArray(), json2.getAsJsonArray(), path);
+        } else if (!json1.equals(json2)) {
+            System.out.println("- Value mismatch at '" + path + "'");
+            System.out.println("  JSON1: " + json1);
+            System.out.println("  JSON2: " + json2);
+        }
+    }
+
+    private void compareJsonObjects(JsonObject json1, JsonObject json2, String path) {
+        Set<Map.Entry<String, JsonElement>> entrySet1 = json1.entrySet();
+        Set<Map.Entry<String, JsonElement>> entrySet2 = json2.entrySet();
+
+        for (Map.Entry<String, JsonElement> entry : entrySet1) {
+            String key = entry.getKey();
+            String currentPath = path.isEmpty() ? key : path + "." + key;
+
+            if (!json2.has(key)) {
+                System.out.println("- Key '" + currentPath + "' is missing in the second JSON");
+            } else {
+                compareJsonElementsRecursive(entry.getValue(), json2.get(key), currentPath);
+            }
+        }
+
+        for (Map.Entry<String, JsonElement> entry : entrySet2) {
+            String key = entry.getKey();
+            String currentPath = path.isEmpty() ? key : path + "." + key;
+
+            if (!json1.has(key)) {
+                System.out.println("- Key '" + currentPath + "' is missing in the first JSON");
+            }
+        }
+    }
+
+    private void compareJsonArrays(JsonArray array1, JsonArray array2, String path) {
+        int size1 = array1.size();
+        int size2 = array2.size();
+        int minSize = Math.min(size1, size2);
+
+        for (int i = 0; i < minSize; i++) {
+            compareJsonElementsRecursive(array1.get(i), array2.get(i), path + "[" + i + "]");
+        }
+
+        if (size1 > size2) {
+            for (int i = size2; i < size1; i++) {
+                System.out.println("- Extra element in first JSON at '" + path + "[" + i + "]': " + array1.get(i));
+            }
+        } else if (size2 > size1) {
+            for (int i = size1; i < size2; i++) {
+                System.out.println("- Extra element in second JSON at '" + path + "[" + i + "]': " + array2.get(i));
+            }
+        }
     }
 
     /**
