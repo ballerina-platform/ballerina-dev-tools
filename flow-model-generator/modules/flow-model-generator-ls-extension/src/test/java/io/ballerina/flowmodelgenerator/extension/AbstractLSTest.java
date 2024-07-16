@@ -187,7 +187,7 @@ abstract class AbstractLSTest {
     }
 
     protected void compareJsonElements(JsonElement json1, JsonElement json2) {
-        System.out.println("Differences in JSON elements:");
+        log.info("Differences in JSON elements:");
         compareJsonElementsRecursive(json1, json2, "");
     }
 
@@ -197,9 +197,9 @@ abstract class AbstractLSTest {
         } else if (json1.isJsonArray() && json2.isJsonArray()) {
             compareJsonArrays(json1.getAsJsonArray(), json2.getAsJsonArray(), path);
         } else if (!json1.equals(json2)) {
-            System.out.println("- Value mismatch at '" + path + "'");
-            System.out.println("  JSON1: " + json1);
-            System.out.println("  JSON2: " + json2);
+            log.info("- Value mismatch at '" + path + "'");
+            log.info("  JSON1: " + json1);
+            log.info("  JSON2: " + json2);
         }
     }
 
@@ -212,7 +212,7 @@ abstract class AbstractLSTest {
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
             if (!json2.has(key)) {
-                System.out.println("- Key '" + currentPath + "' is missing in the second JSON");
+                log.info("- Key '" + currentPath + "' is missing in the second JSON");
             } else {
                 compareJsonElementsRecursive(entry.getValue(), json2.get(key), currentPath);
             }
@@ -223,7 +223,7 @@ abstract class AbstractLSTest {
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
             if (!json1.has(key)) {
-                System.out.println("- Key '" + currentPath + "' is missing in the first JSON");
+                log.info("- Key '" + currentPath + "' is missing in the first JSON");
             }
         }
     }
@@ -239,11 +239,11 @@ abstract class AbstractLSTest {
 
         if (size1 > size2) {
             for (int i = size2; i < size1; i++) {
-                System.out.println("- Extra element in first JSON at '" + path + "[" + i + "]': " + array1.get(i));
+                log.info("- Extra element in first JSON at '" + path + "[" + i + "]': " + array1.get(i));
             }
         } else if (size2 > size1) {
             for (int i = size1; i < size2; i++) {
-                System.out.println("- Extra element in second JSON at '" + path + "[" + i + "]': " + array2.get(i));
+                log.info("- Extra element in second JSON at '" + path + "[" + i + "]': " + array2.get(i));
             }
         }
     }
