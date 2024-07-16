@@ -25,7 +25,7 @@ import com.google.gson.JsonArray;
  *
  * @since 1.4.0
  */
-public class FlowModelAvailableNodesResponse {
+public class FlowModelAvailableNodesResponse extends AbstractFlowModelResponse {
 
     private JsonArray availableNodes;
 

@@ -25,7 +25,7 @@ import com.google.gson.JsonElement;
  *
  * @since 1.4.0
  */
-public class FlowModelSourceGeneratorResponse {
+public class FlowModelSourceGeneratorResponse extends AbstractFlowModelResponse {
 
     private JsonElement textEdits;
 

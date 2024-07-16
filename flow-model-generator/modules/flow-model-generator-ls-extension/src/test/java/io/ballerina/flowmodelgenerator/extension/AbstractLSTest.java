@@ -186,6 +186,12 @@ abstract class AbstractLSTest {
         return hasCountMatch && hasAllExpectedTextEdits && hasRelevantTextEdits;
     }
 
+    /**
+     * Compare the actual JSON with the expected JSON.
+     *
+     * @param actualJson   the actual JSON produced by the LS extension
+     * @param expectedJson the expected JSON
+     */
     protected void compareJsonElements(JsonElement actualJson, JsonElement expectedJson) {
         log.info("Differences in JSON elements:");
         compareJsonElementsRecursive(actualJson, expectedJson, "");

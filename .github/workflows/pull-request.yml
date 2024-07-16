@@ -1,6 +1,6 @@
 name: PR build
 
-on: [ push, pull_request ]
+on: [push, pull_request]
 
 jobs:
   ubuntu-build:
@@ -57,8 +57,6 @@ jobs:
         uses: ballerina-platform/setup-ballerina@v1.1.1
         with:
           version: latest
-      - name: Check Ballerina Version
-        run: bal -v
       - name: Build with Gradle
         env:
           packageUser: ${{ github.actor }}

@@ -49,7 +49,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(
                 sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
                 testConfig.end());
-        JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowDesignModel");
+        JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine
         String balFileName = Path.of(jsonModel.getAsJsonPrimitive("fileName").getAsString()).getFileName().toString();
@@ -81,7 +81,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
 
     @Override
     protected String getApiName() {
-        return "getFlowDesignModel";
+        return "getFlowModel";
     }
 
     /**
