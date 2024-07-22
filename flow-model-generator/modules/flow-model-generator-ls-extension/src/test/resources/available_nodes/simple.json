@@ -17,7 +17,9 @@
           "description": "Branching nodes",
           "items": [
             {
-              "id": "IF",
+              "id": {
+                "kind": "IF"
+              },
               "name": "If",
               "description": "Add conditional branch to the integration flow.",
               "enabled": true
@@ -29,19 +31,25 @@
           "description": "Iteration nodes",
           "items": [
             {
-              "id": "WHILE",
+              "id": {
+                "kind": "WHILE"
+              },
               "name": "While",
               "description": "Loop over a block of code.",
               "enabled": true
             },
             {
-              "id": "BREAK",
+              "id": {
+                "kind": "BREAK"
+              },
               "name": "Break",
               "description": "Exit the current loop",
               "enabled": true
             },
             {
-              "id": "CONTINUE",
+              "id": {
+                "kind": "CONTINUE"
+              },
               "name": "Continue",
               "description": "Skip the current iteration and continue with the next one",
               "enabled": true
@@ -53,7 +61,9 @@
           "description": "Control nodes",
           "items": [
             {
-              "id": "RETURN",
+              "id": {
+                "kind": "RETURN"
+              },
               "name": "Return",
               "description": "Return a value",
               "enabled": true
@@ -76,16 +86,48 @@
           "description": "Make HTTP requests",
           "items": [
             {
-              "id": "HTTP_API_GET_CALL",
+              "id": {
+                "kind": "ACTION_CALL",
+                "library": "http",
+                "call": "get"
+              },
               "name": "HTTP GET",
               "enabled": true
             },
             {
-              "id": "HTTP_API_POST_CALL",
+              "id": {
+                "kind": "ACTION_CALL",
+                "library": "http",
+                "call": "post"
+              },
               "name": "HTTP POST",
               "enabled": true
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "Redis Client",
+      "description": "Interact with a Redis server",
+      "items": [
+        {
+          "id": {
+            "kind": "ACTION_CALL",
+            "library": "redis",
+            "call": "get"
+          },
+          "name": "Redis Get",
+          "enabled": true
+        },
+        {
+          "id": {
+            "kind": "ACTION_CALL",
+            "library": "redis",
+            "call": "set"
+          },
+          "name": "Redis Set",
+          "enabled": true
         }
       ]
     }

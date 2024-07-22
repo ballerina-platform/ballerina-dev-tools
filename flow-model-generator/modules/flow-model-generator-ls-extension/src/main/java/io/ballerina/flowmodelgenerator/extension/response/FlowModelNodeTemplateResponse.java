@@ -7,11 +7,11 @@ import com.google.gson.JsonElement;
  *
  * @since 1.4.0
  */
-public class FlowModelNodeTemplateResponse {
+public class FlowModelNodeTemplateResponse extends AbstractFlowModelResponse {
 
-    private final JsonElement flowNode;
+    private JsonElement flowNode;
 
-    public FlowModelNodeTemplateResponse(JsonElement flowNode) {
+    public void setFlowNode(JsonElement flowNode) {
         this.flowNode = flowNode;
     }
 

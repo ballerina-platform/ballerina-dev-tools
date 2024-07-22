@@ -25,15 +25,15 @@ import com.google.gson.JsonArray;
  *
  * @since 1.4.0
  */
-public class FlowModelAvailableNodesResponse {
+public class FlowModelAvailableNodesResponse extends AbstractFlowModelResponse {
 
-    private JsonArray availableNodes;
+    private JsonArray categories;
 
-    public void setAvailableNodes(JsonArray availableNodes) {
-        this.availableNodes = availableNodes;
+    public void setCategories(JsonArray categories) {
+        this.categories = categories;
     }
 
     public JsonArray availableNodes() {
-        return availableNodes;
+        return categories;
     }
 }

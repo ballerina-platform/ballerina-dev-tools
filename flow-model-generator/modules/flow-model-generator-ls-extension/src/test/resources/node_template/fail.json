@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "FAIL",
+  "id": {
+    "kind": "FAIL"
+  },
   "output": {
     "label": "Fail",
     "description": "Fail the execution",

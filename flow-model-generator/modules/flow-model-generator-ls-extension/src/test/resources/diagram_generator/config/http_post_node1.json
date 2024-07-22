@@ -51,7 +51,7 @@
       {
         "id": "45965",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -123,7 +123,7 @@
       {
         "id": "47085",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -186,7 +186,7 @@
       {
         "id": "47944",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -249,7 +249,7 @@
       {
         "id": "48962",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -313,7 +313,7 @@
       {
         "id": "49908",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -376,7 +376,7 @@
       {
         "id": "50924",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -439,7 +439,7 @@
       {
         "id": "51936",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -503,7 +503,7 @@
       {
         "id": "55864",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -566,7 +566,7 @@
       {
         "id": "56876",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {

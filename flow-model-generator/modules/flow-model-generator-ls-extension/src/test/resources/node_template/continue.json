@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "CONTINUE",
+  "id": {
+    "kind": "CONTINUE"
+  },
   "output": {
     "label": "Continue",
     "description": "Skip the current iteration and continue with the next one",

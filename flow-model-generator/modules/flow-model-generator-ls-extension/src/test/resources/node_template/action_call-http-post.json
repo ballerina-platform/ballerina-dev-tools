@@ -1,0 +1,56 @@
+{
+  "description": "Sample diagram node",
+  "id": {
+    "kind": "ACTION_CALL",
+    "library": "http",
+    "call": "post"
+  },
+  "output": {
+    "label": "HTTP POST",
+    "kind": "ACTION_CALL",
+    "returning": false,
+    "nodeProperties": {
+      "path": {
+        "label": "Path",
+        "type": "string",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Path"
+      },
+      "headers": {
+        "label": "Headers",
+        "type": "map<string|string[]>?",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Headers"
+      },
+      "client": {
+        "label": "Client",
+        "type": "http:Client",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Client Connection"
+      },
+      "mediaType": {
+        "label": "Media Type",
+        "type": "string?",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Post Media Type"
+      },
+      "message": {
+        "label": "Message",
+        "type": "string",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "HTTP Post Message"
+      }
+    },
+    "flags": 0
+  }
+}

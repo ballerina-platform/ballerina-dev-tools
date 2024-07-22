@@ -51,7 +51,7 @@
       {
         "id": "60821",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -123,7 +123,7 @@
       {
         "id": "61821",
         "label": "HTTP POST",
-        "kind": "HTTP_API_POST_CALL",
+        "kind": "ACTION_CALL",
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {

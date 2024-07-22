@@ -16,24 +16,16 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.response;
-
-import com.google.gson.JsonElement;
+package io.ballerina.flowmodelgenerator.core.model.node;
 
 /**
- * Represents the response for the flow model getSourceCode API.
+ * Represents the properties that uniquely identifies a node in the diagram.
  *
- * @since 1.4.0
+ * @param kind    The kind of the node
+ * @param library The library which the node belongs to
+ * @param call    The call within the library
+ * @since 1.5.0
  */
-public class FlowModelGeneratorResponse extends AbstractFlowModelResponse {
+public record NodeId(String kind, String library, String call) {
 
-    private JsonElement flowModel;
-
-    public void setFlowDesignModel(JsonElement flowDesignModel) {
-        this.flowModel = flowDesignModel;
-    }
-
-    public JsonElement flowDesignModel() {
-        return flowModel;
-    }
 }

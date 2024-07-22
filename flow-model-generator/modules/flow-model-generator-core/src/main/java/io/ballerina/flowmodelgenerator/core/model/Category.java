@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,7 +48,8 @@ public record Category(String name, String description, List<String> keywords, L
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
-        HTTP_API("HTTP API", "Make HTTP requests", null);
+        HTTP_API("HTTP API", "Make HTTP requests", null),
+        REDIS_CLIENT("Redis Client", "Interact with a Redis server", null);
 
         final String name;
         final String description;
@@ -100,13 +99,15 @@ public record Category(String name, String description, List<String> keywords, L
 
         public Builder node(FlowNode.Kind kind) {
             FlowNode flowNode = FlowNode.getNodeFromKind(kind);
-            if (flowNode instanceof ActionCall) {
-                NodeAttributes.Info info = NodeAttributes.get(kind);
-                flowNode.kind = kind;
-                flowNode.label = info.label();
-            }
-            AvailableNode availableNode = flowNode.extractAvailableNode();
-            this.availableNodes.add(availableNode);
+            this.availableNodes.add(flowNode.extractAvailableNode());
+            return this;
+        }
+
+        public Builder node(FlowNode.Kind kind, String library, String call) {
+            FlowNode flowNode = FlowNode.getNodeFromKind(kind);
+            NodeAttributes.Info info = NodeAttributes.getByKey(library, call);
+            flowNode.label = info.label();
+            this.availableNodes.add(flowNode.extractAvailableNode(library, call));
             return this;
         }
 

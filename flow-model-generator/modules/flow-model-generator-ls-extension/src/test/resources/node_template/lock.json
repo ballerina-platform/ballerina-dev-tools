@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "LOCK",
+  "id": {
+    "kind": "LOCK"
+  },
   "output": {
     "label": "Lock",
     "description": "Allow to access mutable states safely",

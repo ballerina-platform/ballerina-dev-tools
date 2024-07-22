@@ -30,35 +30,45 @@ public class NodeAttributes {
 
     private static final List<Info> nodeInfoMap = new ArrayList<>();
 
-    public record Info(String key, String label, FlowNode.Kind kind, ExpressionAttributes.Info callExpression,
-                       List<ExpressionAttributes.Info> parameterExpressions) {
+    public record Info(String key, String method, String label, FlowNode.Kind kind,
+                       ExpressionAttributes.Info callExpression, List<ExpressionAttributes.Info> parameterExpressions) {
 
     }
 
-    public static Info get(String key) {
+    public static Info getByKey(String library, String method) {
+        String key = library + "-" + method;
         return nodeInfoMap.stream()
                 .filter(info -> info.key().equals(key))
                 .findFirst()
                 .orElse(null);
     }
 
-    public static Info get(FlowNode.Kind kind) {
+    public static Info getByLabel(String label) {
         return nodeInfoMap.stream()
-                .filter(info -> info.kind().equals(kind))
+                .filter(info -> info.label().equals(label))
                 .findFirst()
                 .orElse(null);
     }
 
     public static final Info HTTP_GET =
-            new Info("get", "HTTP GET", FlowNode.Kind.HTTP_API_GET_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-get", "get", "HTTP GET", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_HEADERS));
     public static final Info HTTP_POST =
-            new Info("post", "HTTP POST", FlowNode.Kind.HTTP_API_POST_CALL, ExpressionAttributes.HTTP_CLIENT,
+            new Info("http-post", "post", "HTTP POST", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.HTTP_CLIENT,
                     List.of(ExpressionAttributes.HTTP_PATH, ExpressionAttributes.HTTP_MESSAGE,
                             ExpressionAttributes.HTTP_HEADERS, ExpressionAttributes.HTTP_MEDIA_TYPE));
+
+    public static final Info REDIS_GET =
+            new Info("redis-get", "get", "Redis Get", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.REDIS_CLIENT,
+                    List.of(ExpressionAttributes.REDIS_KEY));
+    public static final Info REDIS_SET =
+            new Info("redis-set", "set", "Redis Set", FlowNode.Kind.ACTION_CALL, ExpressionAttributes.REDIS_CLIENT,
+                    List.of(ExpressionAttributes.REDIS_KEY, ExpressionAttributes.REDIS_VALUE));
 
     static {
         nodeInfoMap.add(HTTP_GET);
         nodeInfoMap.add(HTTP_POST);
+        nodeInfoMap.add(REDIS_GET);
+        nodeInfoMap.add(REDIS_SET);
     }
 }

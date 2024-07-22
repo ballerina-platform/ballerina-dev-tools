@@ -112,7 +112,7 @@
               {
                 "id": "137339",
                 "label": "HTTP GET",
-                "kind": "HTTP_API_GET_CALL",
+                "kind": "ACTION_CALL",
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {

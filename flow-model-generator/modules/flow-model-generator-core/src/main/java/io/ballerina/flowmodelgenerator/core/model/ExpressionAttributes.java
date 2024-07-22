@@ -42,13 +42,18 @@ public class ExpressionAttributes {
         parameterInfoMap.put(info.key(), info);
     }
 
+    public static final Info HTTP_CLIENT = new Info("client", "Client", "HTTP Client Connection", "http:Client", false);
     public static final Info HTTP_PATH = new Info("path", "Path", "HTTP Path", "string", false);
     public static final Info HTTP_HEADERS =
             new Info("headers", "Headers", "HTTP Headers", "map<string|string[]>?", false);
-    public static final Info HTTP_CLIENT = new Info("client", "Client", "HTTP Client Connection", "http:Client", false);
     public static final Info HTTP_MESSAGE = new Info("message", "Message", "HTTP Post Message", "string", true);
     public static final Info HTTP_MEDIA_TYPE =
             new Info("mediaType", "Media Type", "HTTP Post Media Type", "string?", false);
+
+    public static final Info REDIS_CLIENT =
+            new Info("client", "Client", "Redis Client Connection", "redis:Client", false);
+    public static final Info REDIS_KEY = new Info("key", "Key", "Redis Key", "string", false);
+    public static final Info REDIS_VALUE = new Info("value", "Value", "Redis Value", "string", false);
 
     static {
         addMapEntry(HTTP_PATH);
@@ -56,5 +61,8 @@ public class ExpressionAttributes {
         addMapEntry(HTTP_CLIENT);
         addMapEntry(HTTP_MESSAGE);
         addMapEntry(HTTP_MEDIA_TYPE);
+        addMapEntry(REDIS_CLIENT);
+        addMapEntry(REDIS_KEY);
+        addMapEntry(REDIS_VALUE);
     }
 }

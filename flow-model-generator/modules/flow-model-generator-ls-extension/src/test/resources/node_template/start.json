@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "START",
+  "id": {
+    "kind": "START"
+  },
   "output": {
     "label": "Start",
     "description": "Execute a function or a method invocation in a new strand",

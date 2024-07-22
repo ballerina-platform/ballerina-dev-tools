@@ -1,0 +1,40 @@
+{
+  "description": "Sample diagram node",
+  "id": {
+    "kind": "ACTION_CALL",
+    "library": "redis",
+    "call": "set"
+  },
+  "output": {
+    "label": "Redis Set",
+    "kind": "ACTION_CALL",
+    "returning": false,
+    "nodeProperties": {
+      "client": {
+        "label": "Client",
+        "type": "redis:Client",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "Redis Client Connection"
+      },
+      "value": {
+        "label": "Value",
+        "type": "string",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "Redis Value"
+      },
+      "key": {
+        "label": "Key",
+        "type": "string",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "documentation": "Redis Key"
+      }
+    },
+    "flags": 0
+  }
+}

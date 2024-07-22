@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "BREAK",
+  "id": {
+    "kind": "BREAK"
+  },
   "output": {
     "label": "Break",
     "description": "Exit the current loop",

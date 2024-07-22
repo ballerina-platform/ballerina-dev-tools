@@ -1,7 +1,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,11 +23,11 @@ public class NodeTemplateTest extends AbstractLSTest {
         Path configJsonPath = resDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelNodeTemplateRequest request = new FlowModelNodeTemplateRequest(testConfig.kind().name());
+        FlowModelNodeTemplateRequest request = new FlowModelNodeTemplateRequest(testConfig.id());
         JsonElement nodeTemplate = getResponse(request).get("flowNode");
 
         if (!nodeTemplate.equals(testConfig.output())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.kind(), nodeTemplate);
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.id(), nodeTemplate);
 //            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -52,10 +52,10 @@ public class NodeTemplateTest extends AbstractLSTest {
      * Represents the test configuration for the flow model getNodeTemplate API.
      *
      * @param description The description of the test
-     * @param kind        The kind of the node
+     * @param id          The id of the node
      * @param output      The expected output
      */
-    private record TestConfig(String description, FlowNode.Kind kind, JsonElement output) {
+    private record TestConfig(String description, JsonObject id, JsonElement output) {
 
         public String description() {
             return description == null ? "" : description;

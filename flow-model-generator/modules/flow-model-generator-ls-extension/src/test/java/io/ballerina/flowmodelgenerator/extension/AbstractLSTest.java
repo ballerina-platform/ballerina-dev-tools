@@ -20,8 +20,11 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -40,7 +43,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 /**
  * Represents the abstract test class for the flow model generator service.
@@ -84,14 +90,15 @@ abstract class AbstractLSTest {
     @DataProvider(name = "data-provider")
     protected Object[] getConfigsList() {
         List<String> skippedTests = Arrays.stream(this.skipList()).toList();
-        try {
-            return Files.walk(resDir)
+        try (Stream<Path> stream = Files.walk(resDir)) {
+            return stream
                     .filter(path -> {
                         File file = path.toFile();
-                        return file.isFile() && file.getName().endsWith(".json")
+                        return file.isFile() && !file.getName().startsWith(".")
+                                && file.getName().endsWith(".json")
                                 && !skippedTests.contains(file.getName());
                     })
-                    .toArray();
+                    .toArray(Path[]::new);
         } catch (IOException e) {
             // If failed to load tests, then it's a failure
             Assert.fail("Unable to load test config", e);
@@ -121,16 +128,19 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Object request) throws IOException {
-        CompletableFuture<?> result = this.serviceEndpoint.request("flowDesignService/" + getApiName(), request);
-        String response = TestUtil.getResponseString(result);
-        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        return getResponse(this.serviceEndpoint, request);
     }
 
     // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
     protected JsonObject getResponse(Endpoint endpoint, Object request) {
         CompletableFuture<?> result = endpoint.request("flowDesignService/" + getApiName(), request);
         String response = TestUtil.getResponseString(result);
-        return JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
+        JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
+        if (errorMsg != null) {
+            Assert.fail("Error occurred: " + errorMsg.getAsString());
+        }
+        return jsonObject;
     }
 
     /**
@@ -174,6 +184,72 @@ abstract class AbstractLSTest {
         }
 
         return hasCountMatch && hasAllExpectedTextEdits && hasRelevantTextEdits;
+    }
+
+    /**
+     * Compare the actual JSON with the expected JSON.
+     *
+     * @param actualJson   the actual JSON produced by the LS extension
+     * @param expectedJson the expected JSON
+     */
+    protected void compareJsonElements(JsonElement actualJson, JsonElement expectedJson) {
+        log.info("Differences in JSON elements:");
+        compareJsonElementsRecursive(actualJson, expectedJson, "");
+    }
+
+    private void compareJsonElementsRecursive(JsonElement actualJson, JsonElement expectedJson, String path) {
+        if (actualJson.isJsonObject() && expectedJson.isJsonObject()) {
+            compareJsonObjects(actualJson.getAsJsonObject(), expectedJson.getAsJsonObject(), path);
+        } else if (actualJson.isJsonArray() && expectedJson.isJsonArray()) {
+            compareJsonArrays(actualJson.getAsJsonArray(), expectedJson.getAsJsonArray(), path);
+        } else if (!actualJson.equals(expectedJson)) {
+            log.info("- Value mismatch at '" + path + "'\n  actual: " + actualJson + "\n  expected: " + expectedJson);
+        }
+    }
+
+    private void compareJsonObjects(JsonObject actualJson, JsonObject expectedJson, String path) {
+        Set<Map.Entry<String, JsonElement>> entrySet1 = actualJson.entrySet();
+        Set<Map.Entry<String, JsonElement>> entrySet2 = expectedJson.entrySet();
+
+        for (Map.Entry<String, JsonElement> entry : entrySet1) {
+            String key = entry.getKey();
+            String currentPath = path.isEmpty() ? key : path + "." + key;
+
+            if (!expectedJson.has(key)) {
+                log.info("- Key '" + currentPath + "' is missing in the expected JSON");
+            } else {
+                compareJsonElementsRecursive(entry.getValue(), expectedJson.get(key), currentPath);
+            }
+        }
+
+        for (Map.Entry<String, JsonElement> entry : entrySet2) {
+            String key = entry.getKey();
+            String currentPath = path.isEmpty() ? key : path + "." + key;
+
+            if (!actualJson.has(key)) {
+                log.info("- Key '" + currentPath + "' is missing in the actual JSON");
+            }
+        }
+    }
+
+    private void compareJsonArrays(JsonArray actualArray, JsonArray expectedArray, String path) {
+        int size1 = actualArray.size();
+        int size2 = expectedArray.size();
+        int minSize = Math.min(size1, size2);
+
+        for (int i = 0; i < minSize; i++) {
+            compareJsonElementsRecursive(actualArray.get(i), expectedArray.get(i), path + "[" + i + "]");
+        }
+
+        if (size1 > size2) {
+            for (int i = size2; i < size1; i++) {
+                log.info("- Extra element in actual JSON at '" + path + "[" + i + "]': " + actualArray.get(i));
+            }
+        } else if (size2 > size1) {
+            for (int i = size1; i < size2; i++) {
+                log.info("- Extra element in expected JSON at '" + path + "[" + i + "]': " + expectedArray.get(i));
+            }
+        }
     }
 
     /**

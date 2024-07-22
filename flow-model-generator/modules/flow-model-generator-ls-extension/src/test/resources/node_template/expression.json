@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "EXPRESSION",
+  "id": {
+    "kind": "EXPRESSION"
+  },
   "output": {
     "label": "Custom Expression",
     "description": "Represents a custom Ballerina expression",

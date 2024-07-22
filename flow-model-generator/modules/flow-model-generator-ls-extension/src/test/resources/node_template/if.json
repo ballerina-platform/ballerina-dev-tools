@@ -1,6 +1,8 @@
 {
   "description": "Sample diagram node",
-  "kind": "IF",
+  "id": {
+    "kind": "IF"
+  },
   "output": {
     "label": "If",
     "description": "Add conditional branch to the integration flow.",

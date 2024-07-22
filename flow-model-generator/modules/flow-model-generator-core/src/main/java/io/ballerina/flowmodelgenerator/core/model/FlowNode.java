@@ -47,6 +47,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -83,13 +84,13 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
 public abstract class FlowNode {
 
     protected String id;
-    protected String label;
-    protected String description;
-    protected Kind kind;
+    public String label;
+    public String description;
+    public Kind kind;
     protected LineRange lineRange;
     protected boolean returning;
-    protected List<Branch> branches;
-    protected Map<String, Expression> nodeProperties;
+    public List<Branch> branches;
+    public Map<String, Expression> nodeProperties;
     protected int flags;
 
     private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -102,8 +103,7 @@ public abstract class FlowNode {
         put(Kind.BREAK, Break::new);
         put(Kind.PANIC, Panic::new);
         put(Kind.EVENT_HTTP_API, HttpApiEvent::new);
-        put(Kind.HTTP_API_GET_CALL, ActionCall::new);
-        put(Kind.HTTP_API_POST_CALL, ActionCall::new);
+        put(Kind.ACTION_CALL, ActionCall::new);
         put(Kind.START, Start::new);
         put(Kind.TRANSACTION, Transaction::new);
         put(Kind.LOCK, Lock::new);
@@ -147,7 +147,12 @@ public abstract class FlowNode {
 
     public AvailableNode extractAvailableNode() {
         this.setConstData();
-        return new AvailableNode(kind.name(), label, description, null, true);
+        return new AvailableNode(new NodeId(kind.name(), null, null), label, description, null, true);
+    }
+
+    public AvailableNode extractAvailableNode(String library, String call) {
+        this.setConstData();
+        return new AvailableNode(new NodeId(kind.name(), library, call), label, description, null, true);
     }
 
     public abstract void setConstData();
@@ -165,8 +170,7 @@ public abstract class FlowNode {
     public enum Kind {
         EVENT_HTTP_API,
         IF,
-        HTTP_API_GET_CALL,
-        HTTP_API_POST_CALL,
+        ACTION_CALL,
         RETURN,
         EXPRESSION,
         ERROR_HANDLER,
@@ -536,6 +540,7 @@ public abstract class FlowNode {
                 case EXPRESSION -> context.deserialize(jsonObject, DefaultExpression.class);
                 case IF -> context.deserialize(jsonObject, If.class);
                 case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
+                case ACTION_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case RETURN -> context.deserialize(jsonObject, Return.class);
                 case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandler.class);
                 case WHILE -> context.deserialize(jsonObject, While.class);
@@ -544,7 +549,6 @@ public abstract class FlowNode {
                 case PANIC -> context.deserialize(jsonObject, Panic.class);
                 case START -> context.deserialize(jsonObject, Start.class);
                 case FAIL -> context.deserialize(jsonObject, Fail.class);
-                case HTTP_API_GET_CALL, HTTP_API_POST_CALL -> context.deserialize(jsonObject, ActionCall.class);
                 case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
                 case LOCK -> context.deserialize(jsonObject, Lock.class);
             };
