@@ -43,7 +43,7 @@ public class AvailableNodesTest extends AbstractLSTest {
 
         FlowModelAvailableNodesRequest request = new FlowModelAvailableNodesRequest(testConfig.parentNodeLineRange(),
                 testConfig.parentNodeKind(), testConfig.branchLabel());
-        JsonArray availableNodes = getResponse(request).getAsJsonArray("availableNodes");
+        JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
