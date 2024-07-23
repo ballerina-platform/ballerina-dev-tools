@@ -31,7 +31,7 @@ if [ $# -eq 1 ]; then
 
     echo '{
     "description": "Sample diagram node",
-    "id": {
+    "codedata": {
         "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'"
     },
     "output": {}
@@ -47,7 +47,7 @@ elif [ $# -eq 3 ]; then
 
     echo '{
     "description": "Sample diagram node",
-    "id": {
+    "codedata": {
         "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'",
         "library": "'${LIBRARY}'",
         "call": "'${CALL}'"

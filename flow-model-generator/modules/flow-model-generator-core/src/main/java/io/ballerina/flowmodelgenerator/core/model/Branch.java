@@ -36,7 +36,7 @@ import java.util.Map;
  * @param properties properties of the branch
  * @since 1.4.0
  */
-public record Branch(String label, BranchKind kind, List<FlowNode> children, Map<String, Expression> properties) {
+public record Branch(String label, BranchKind kind, List<FlowNode> children, Map<String, Property> properties) {
 
     public static final String BODY_LABEL = "Body";
     public static final String ON_FAIL_LABEL = "On Fail";
@@ -63,7 +63,7 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         private String label;
         private Branch.BranchKind kind;
         private final List<FlowNode> children;
-        private final Map<String, Expression> properties;
+        private final Map<String, Property> properties;
         private final SemanticModel semanticModel;
 
         public Builder(SemanticModel semanticModel) {
@@ -93,7 +93,7 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         }
 
         public Builder variable(Node node) {
-            Expression.Builder expressionBuilder = Expression.Builder.getInstance();
+            Property.Builder expressionBuilder = Property.Builder.getInstance();
             if (node == null) {
                 return this;
             }
@@ -102,7 +102,7 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
                     .label(FlowNode.PropertiesBuilder.VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(FlowNode.PropertiesBuilder.VARIABLE_DOC);
             properties.put(FlowNode.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
             return this;

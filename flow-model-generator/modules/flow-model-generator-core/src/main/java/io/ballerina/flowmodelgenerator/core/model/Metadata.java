@@ -16,16 +16,19 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.request;
 
-import com.google.gson.JsonElement;
+package io.ballerina.flowmodelgenerator.core.model;
+
+import java.util.List;
 
 /**
- * Represents a request to the flow model getSourceCode API.
+ * Represents the metadata of a diagram component.
  *
- * @param flowNode diagram node
- * @since 1.4.0
+ * @param label       The label of the component
+ * @param description The description of the component
+ * @param keywords    The keywords of the component
+ * @since 1.5.0
  */
-public record FlowModelSourceGeneratorRequest(JsonElement flowNode) {
+public record Metadata(String label, String description, List<String> keywords) {
 
 }

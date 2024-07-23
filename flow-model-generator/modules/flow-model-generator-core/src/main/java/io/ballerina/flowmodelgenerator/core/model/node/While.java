@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.Map;
@@ -46,7 +46,7 @@ public class While extends FlowNode {
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(Expression.CONDITION_KEY);
+        Property condition = getProperty(Property.CONDITION_KEY);
         Branch body = getBranch(Branch.BODY_LABEL);
 
         sourceBuilder
@@ -68,7 +68,7 @@ public class While extends FlowNode {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
+            Property variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
@@ -85,6 +85,6 @@ public class While extends FlowNode {
     @Override
     public void setConcreteTemplateData() {
         this.nodeProperties =
-                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(WHILE_CONDITION_DOC));
+                Map.of(Property.CONDITION_KEY, Property.getDefaultConditionExpression(WHILE_CONDITION_DOC));
     }
 }

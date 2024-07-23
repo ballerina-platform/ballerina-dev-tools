@@ -27,7 +27,7 @@ import java.util.Objects;
 /**
  * Represents a client.
  *
- * @param id        The id of the client
+ * @param id        The codedata of the client
  * @param label     The label of the client
  * @param kind      The kind of the client
  * @param lineRange The line range of the client

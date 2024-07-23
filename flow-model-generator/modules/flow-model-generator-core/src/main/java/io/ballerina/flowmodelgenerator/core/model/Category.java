@@ -26,13 +26,11 @@ import java.util.Map;
 /**
  * Represents a category of the available nodes.
  *
- * @param name        name of the category
- * @param description description of the category
- * @param keywords    keywords of the category
- * @param items       items in the category
+ * @param metadata metadata of the category
+ * @param items    items in the category
  * @since 1.4.0
  */
-public record Category(String name, String description, List<String> keywords, List<Item> items) implements Item {
+public record Category(Metadata metadata, List<Item> items) implements Item {
 
     /**
      * Represents the name of a category which contains the metadata of the category.
@@ -128,7 +126,7 @@ public record Category(String name, String description, List<String> keywords, L
             }
 
             // Create and return the new category with the built items
-            return new Category(name.name, name.description, name.keywords, items);
+            return new Category(new Metadata(name.name, name.description, name.keywords), items);
         }
     }
 }

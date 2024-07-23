@@ -30,7 +30,7 @@ import java.util.List;
  * @param optional whether the expression list is optional
  * @since 1.4.0
  */
-public record ExpressionList(String label, String type, List<Expression> value, boolean optional) {
+public record ExpressionList(String label, String type, List<Property> value, boolean optional) {
 
     /**
      * Represents a builder for the expression list.
@@ -41,7 +41,7 @@ public record ExpressionList(String label, String type, List<Expression> value, 
 
         private String key;
         private String type;
-        private List<Expression> value;
+        private List<Property> value;
         private boolean optional;
 
         public Builder() {
@@ -58,7 +58,7 @@ public record ExpressionList(String label, String type, List<Expression> value, 
             return this;
         }
 
-        public Builder value(Expression value) {
+        public Builder value(Property value) {
             this.value.add(value);
             return this;
         }

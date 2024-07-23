@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.List;
@@ -57,7 +57,7 @@ public class Transaction extends FlowNode {
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
+            Property variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }

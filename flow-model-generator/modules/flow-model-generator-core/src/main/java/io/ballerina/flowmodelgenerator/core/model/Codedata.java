@@ -21,11 +21,13 @@ package io.ballerina.flowmodelgenerator.core.model;
 /**
  * Represents the properties that uniquely identifies a node in the diagram.
  *
- * @param kind    The kind of the node
- * @param library The library which the node belongs to
- * @param call    The call within the library
+ * @param node   The kind of the component
+ * @param org    The organization which the component belongs to
+ * @param module The module which the component belongs to
+ * @param object The object of the component if it is a method or an action call
+ * @param symbol The symbol of the component
  * @since 1.5.0
  */
-public record NodeId(String kind, String library, String call) {
+public record Codedata(String node, String org, String module, String object, String symbol) {
 
 }

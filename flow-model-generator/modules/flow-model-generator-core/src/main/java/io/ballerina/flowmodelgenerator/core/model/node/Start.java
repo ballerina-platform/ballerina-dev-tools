@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.Map;
@@ -46,11 +46,11 @@ public class Start extends FlowNode {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.START_KEYWORD);
-        Expression expression = getProperty(Expression.EXPRESSION_KEY);
-        if (expression != null) {
+        Property property = getProperty(Property.EXPRESSION_KEY);
+        if (property != null) {
             sourceBuilder
                     .whiteSpace()
-                    .expression(expression);
+                    .expression(property);
         }
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
@@ -58,6 +58,6 @@ public class Start extends FlowNode {
 
     @Override
     public void setConcreteTemplateData() {
-        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(START_EXPRESSION_DOC));
+        this.nodeProperties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(START_EXPRESSION_DOC));
     }
 }

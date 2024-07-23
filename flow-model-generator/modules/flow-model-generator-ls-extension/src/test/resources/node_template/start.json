@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "START"
+  "codedata": {
+    "node": "START"
   },
   "output": {
     "id": "0",
@@ -11,12 +11,11 @@
     "returning": false,
     "nodeProperties": {
       "expression": {
-        "label": "Expression",
-        "value": "",
-        "typeKind": "BTYPE",
-        "optional": false,
-        "editable": true,
-        "documentation": "Call action or expression"
+        "metadata": {
+          "label": "Expression",
+          "description": "Call action or expression"
+        },
+        "value": ""
       }
     },
     "flags": 0

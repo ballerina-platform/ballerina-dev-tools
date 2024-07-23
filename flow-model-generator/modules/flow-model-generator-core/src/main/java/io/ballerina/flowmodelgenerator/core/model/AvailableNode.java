@@ -18,19 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import java.util.List;
-
 /**
  * Represents a node that is available to the given cursor position.
  *
- * @param id          the id of the node
- * @param name        the name of the node
- * @param description the description of the node
- * @param keywords    the keywords of the node
- * @param enabled     whether the node is enabled
+ * @param metadata the metadata of the node
+ * @param codedata the codedata of the node
+ * @param enabled  whether the node is enabled
  * @since 1.4.0
  */
-public record AvailableNode(NodeId id, String name, String description, List<String> keywords, boolean enabled)
+public record AvailableNode(Metadata metadata, Codedata codedata, boolean enabled)
         implements Item {
 
 }

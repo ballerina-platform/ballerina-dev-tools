@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "ERROR_HANDLER"
+  "codedata": {
+    "node": "ERROR_HANDLER"
   },
   "output": {
     "id": "0",

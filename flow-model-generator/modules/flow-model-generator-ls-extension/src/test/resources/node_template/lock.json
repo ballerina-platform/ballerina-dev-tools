@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "LOCK"
+  "codedata": {
+    "node": "LOCK"
   },
   "output": {
     "id": "0",

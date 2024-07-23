@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class If extends FlowNode {
     @Override
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(Expression.CONDITION_KEY);
+        Property condition = getProperty(Property.CONDITION_KEY);
 
         sourceBuilder
                 .keyword(SyntaxKind.IF_KEYWORD)
@@ -81,7 +81,7 @@ public class If extends FlowNode {
     @Override
     public void setConcreteTemplateData() {
         this.nodeProperties =
-                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(IF_CONDITION_DOC));
+                Map.of(Property.CONDITION_KEY, Property.getDefaultConditionExpression(IF_CONDITION_DOC));
         this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
     }
 }

@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "TRANSACTION"
+  "codedata": {
+    "node": "TRANSACTION"
   },
   "output": {
     "id": "0",

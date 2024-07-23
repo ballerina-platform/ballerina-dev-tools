@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "CONTINUE"
+  "codedata": {
+    "node": "CONTINUE"
   },
   "output": {
     "id": "0",

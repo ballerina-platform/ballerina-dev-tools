@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
@@ -42,7 +42,7 @@ public class ActionCall extends FlowNode {
     public String toSource() {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        Expression variable = getProperty(PropertiesBuilder.VARIABLE_KEY);
+        Property variable = getProperty(PropertiesBuilder.VARIABLE_KEY);
         if (variable != null) {
             sourceBuilder
                     .expressionWithType(variable)
@@ -58,7 +58,7 @@ public class ActionCall extends FlowNode {
         }
 
         NodeAttributes.Info info = NodeAttributes.getByLabel(this.label);
-        Expression client = getProperty(info.callExpression().key());
+        Property client = getProperty(info.callExpression().key());
 
         sourceBuilder.expression(client)
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
@@ -68,7 +68,7 @@ public class ActionCall extends FlowNode {
         List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
 
         if (!parameterExpressions.isEmpty()) {
-            Expression firstParameter = getProperty(parameterExpressions.get(0).key());
+            Property firstParameter = getProperty(parameterExpressions.get(0).key());
             if (firstParameter != null) {
                 sourceBuilder.expression(firstParameter);
             }
@@ -76,7 +76,7 @@ public class ActionCall extends FlowNode {
             boolean hasEmptyParam = false;
             for (int i = 1; i < parameterExpressions.size(); i++) {
                 String parameterKey = parameterExpressions.get(i).key();
-                Expression parameter = getProperty(parameterKey);
+                Property parameter = getProperty(parameterKey);
 
                 if (parameter == null || parameter.value() == null) {
                     hasEmptyParam = true;

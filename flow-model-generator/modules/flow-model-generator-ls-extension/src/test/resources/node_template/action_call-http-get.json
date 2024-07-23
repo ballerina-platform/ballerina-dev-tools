@@ -1,9 +1,9 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "ACTION_CALL",
-    "library": "http",
-    "call": "get"
+  "codedata": {
+    "node": "ACTION_CALL",
+    "module": "http",
+    "symbol": "get"
   },
   "output": {
     "id": "0",
@@ -12,28 +12,28 @@
     "returning": false,
     "nodeProperties": {
       "path": {
-        "label": "Path",
-        "type": "string",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Path"
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": ""
       },
       "headers": {
-        "label": "Headers",
-        "type": "map<string|string[]>?",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Headers"
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?",
+        "value": ""
       },
       "client": {
-        "label": "Client",
-        "type": "http:Client",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Client Connection"
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": ""
       }
     },
     "flags": 0

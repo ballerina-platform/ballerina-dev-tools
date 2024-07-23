@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "IF"
+  "codedata": {
+    "node": "IF"
   },
   "output": {
     "id": "0",
@@ -23,12 +23,11 @@
     ],
     "nodeProperties": {
       "condition": {
-        "label": "Condition",
-        "value": "",
-        "typeKind": "BTYPE",
-        "optional": false,
-        "editable": true,
-        "documentation": "Boolean Condition"
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "value": ""
       }
     },
     "flags": 0

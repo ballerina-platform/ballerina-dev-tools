@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "BREAK"
+  "codedata": {
+    "node": "BREAK"
   },
   "output": {
     "id": "0",

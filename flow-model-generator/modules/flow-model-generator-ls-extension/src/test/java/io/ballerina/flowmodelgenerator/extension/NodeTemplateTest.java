@@ -23,11 +23,11 @@ public class NodeTemplateTest extends AbstractLSTest {
         Path configJsonPath = resDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelNodeTemplateRequest request = new FlowModelNodeTemplateRequest(testConfig.id());
+        FlowModelNodeTemplateRequest request = new FlowModelNodeTemplateRequest(testConfig.codedata());
         JsonElement nodeTemplate = getResponse(request).get("flowNode");
 
         if (!nodeTemplate.equals(testConfig.output())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.id(), nodeTemplate);
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.codedata(), nodeTemplate);
 //            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -52,10 +52,10 @@ public class NodeTemplateTest extends AbstractLSTest {
      * Represents the test configuration for the flow model getNodeTemplate API.
      *
      * @param description The description of the test
-     * @param id          The id of the node
+     * @param codedata    The codedata of the node
      * @param output      The expected output
      */
-    private record TestConfig(String description, JsonObject id, JsonElement output) {
+    private record TestConfig(String description, JsonObject codedata, JsonElement output) {
 
         public String description() {
             return description == null ? "" : description;

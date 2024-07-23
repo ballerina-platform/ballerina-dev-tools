@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "WHILE"
+  "codedata": {
+    "node": "WHILE"
   },
   "output": {
     "id": "0",
@@ -11,12 +11,11 @@
     "returning": false,
     "nodeProperties": {
       "condition": {
-        "label": "Condition",
-        "value": "",
-        "typeKind": "BTYPE",
-        "optional": false,
-        "editable": true,
-        "documentation": "Boolean Condition"
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "value": ""
       }
     },
     "flags": 0

@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "EXPRESSION"
+  "codedata": {
+    "node": "EXPRESSION"
   },
   "output": {
     "id": "0",

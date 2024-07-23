@@ -24,17 +24,12 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 /**
  * Represents an expression in the flow model.
  *
- * @param label         label of the expression
- * @param type          type of the expression
- * @param value         value of the expression
- * @param typeKind      type kind of the expression
- * @param optional      whether the expression is optional
- * @param editable      whether the expression is editable
- * @param documentation the documentation of the expression
+ * @param metadata  metadata of the property
+ * @param valueType acceptable value types of the property
+ * @param value     value of the property
  * @since 1.4.0
  */
-public record Expression(String label, String type, String value, ExpressionTypeKind typeKind, boolean optional,
-                         boolean editable, String documentation) {
+public record Property(Metadata metadata, String valueType, String value) {
 
     public String toSourceCode() {
         return value;
@@ -52,27 +47,27 @@ public record Expression(String label, String type, String value, ExpressionType
     public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_KEY = "expression";
 
-    public static Expression getDefaultConditionExpression(String doc) {
-        return Expression.Builder.getInstance()
+    public static Property getDefaultConditionExpression(String doc) {
+        return Property.Builder.getInstance()
                 .label(CONDITION_LABEL)
                 .value("")
                 .documentation(doc)
-                .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                .typeKind(Property.ExpressionTypeKind.BTYPE)
                 .editable()
                 .build();
     }
 
-    public static Expression getDefaultExpression(String doc) {
-        return Expression.Builder.getInstance()
+    public static Property getDefaultExpression(String doc) {
+        return Property.Builder.getInstance()
                 .label(EXPRESSION_LABEL)
                 .value("")
                 .documentation(doc)
-                .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                .typeKind(Property.ExpressionTypeKind.BTYPE)
                 .editable()
                 .build();
     }
 
-    public static Expression getExpressionForInfo(ExpressionAttributes.Info info) {
+    public static Property getExpressionForInfo(ExpressionAttributes.Info info) {
         return Builder.getInstance()
                 .label(info.label())
                 .value("")
@@ -150,15 +145,15 @@ public record Expression(String label, String type, String value, ExpressionType
             return this;
         }
 
-        public Expression build() {
-            Expression expression = new Expression(label, type, value, typeKind, optional, editable, documentation);
+        public Property build() {
+            Property property = new Property(new Metadata(label, documentation, null), type, value);
             this.label = null;
             this.type = null;
             this.value = null;
             this.typeKind = null;
             this.optional = false;
             this.editable = false;
-            return expression;
+            return property;
         }
     }
 }

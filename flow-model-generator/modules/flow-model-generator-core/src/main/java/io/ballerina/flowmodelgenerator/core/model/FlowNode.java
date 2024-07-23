@@ -89,7 +89,7 @@ public abstract class FlowNode {
     protected LineRange lineRange;
     protected boolean returning;
     public List<Branch> branches;
-    public Map<String, Expression> nodeProperties;
+    public Map<String, Property> nodeProperties;
     protected int flags;
 
     private static final Map<FlowNode.Kind, Supplier<? extends FlowNode>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -120,7 +120,7 @@ public abstract class FlowNode {
         return kind;
     }
 
-    protected Expression getProperty(String key) {
+    protected Property getProperty(String key) {
         return nodeProperties != null ? nodeProperties.get(key) : null;
     }
 
@@ -128,7 +128,7 @@ public abstract class FlowNode {
         return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
     }
 
-    protected Expression getBranchProperty(Branch branch, String key) {
+    protected Property getBranchProperty(Branch branch, String key) {
         return branch.properties() != null ? branch.properties().get(key) : null;
     }
 
@@ -146,12 +146,14 @@ public abstract class FlowNode {
 
     public AvailableNode extractAvailableNode() {
         this.setConstData();
-        return new AvailableNode(new NodeId(kind.name(), null, null), label, description, null, true);
+        return new AvailableNode(new Metadata(label, description, null),
+                new Codedata(kind.name(), null, null, null, null), true);
     }
 
     public AvailableNode extractAvailableNode(String library, String call) {
         this.setConstData();
-        return new AvailableNode(new NodeId(kind.name(), library, call), label, description, null, true);
+        return new AvailableNode(new Metadata(label, description, null),
+                new Codedata(kind.name(), null, library, null, call), true);
     }
 
     public abstract void setConstData();
@@ -160,7 +162,7 @@ public abstract class FlowNode {
 
     public void setTemplateData() {
         this.id = "0";
-        setConcreteTemplateData();;
+        setConcreteTemplateData();
     }
 
     public abstract void setConcreteTemplateData();
@@ -279,13 +281,13 @@ public abstract class FlowNode {
         public static final String CONDITION_KEY = "condition";
         public static final String CONDITION_DOC = "Boolean Condition";
 
-        private final Map<String, Expression> nodeProperties;
+        private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
-        protected Expression.Builder expressionBuilder;
+        protected Property.Builder expressionBuilder;
 
         public PropertiesBuilder(SemanticModel semanticModel) {
             this.nodeProperties = new LinkedHashMap<>();
-            this.expressionBuilder = Expression.Builder.getInstance();
+            this.expressionBuilder = Property.Builder.getInstance();
             this.semanticModel = semanticModel;
         }
 
@@ -299,7 +301,7 @@ public abstract class FlowNode {
                     .label(VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(VARIABLE_DOC);
 
             addProperty(VARIABLE_KEY, expressionBuilder.build());
@@ -308,24 +310,24 @@ public abstract class FlowNode {
 
         public PropertiesBuilder expression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Expression expression = expressionBuilder
+            Property property = expressionBuilder
                     .label(EXPRESSION_RHS_LABEL)
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(EXPRESSION_RHS_DOC)
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
-            addProperty(EXPRESSION_RHS_KEY, expression);
+            addProperty(EXPRESSION_RHS_KEY, property);
             return this;
         }
 
         public PropertiesBuilder callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
-            Expression client = Expression.Builder.getInstance()
+            Property client = Property.Builder.getInstance()
                     .label(info.label())
                     .type(info.type())
                     .value(expressionNode.toString())
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .documentation(info.documentation())
                     .build();
@@ -352,7 +354,7 @@ public abstract class FlowNode {
                 }
             }
 
-            expressionBuilder = Expression.Builder.getInstance();
+            expressionBuilder = Property.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -370,7 +372,7 @@ public abstract class FlowNode {
                     expressionBuilder
                             .label(info.label())
                             .documentation(info.documentation())
-                            .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                            .typeKind(Property.ExpressionTypeKind.BTYPE)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
@@ -402,7 +404,7 @@ public abstract class FlowNode {
         public PropertiesBuilder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             expressionBuilder
                     .label(EVENT_HTTP_API_METHOD)
-                    .typeKind(Expression.ExpressionTypeKind.IDENTIFIER)
+                    .typeKind(Property.ExpressionTypeKind.IDENTIFIER)
                     .editable()
                     .documentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
@@ -410,7 +412,7 @@ public abstract class FlowNode {
 
             expressionBuilder
                     .label(EVENT_HTTP_API_PATH)
-                    .typeKind(Expression.ExpressionTypeKind.URI_PATH)
+                    .typeKind(Property.ExpressionTypeKind.URI_PATH)
                     .editable()
                     .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
@@ -420,10 +422,10 @@ public abstract class FlowNode {
 
         public PropertiesBuilder setConditionExpression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Expression condition = expressionBuilder
+            Property condition = expressionBuilder
                     .label(CONDITION_LABEL)
                     .value(expressionNode.toSourceCode())
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(CONDITION_DOC)
                     .editable()
                     .build();
@@ -433,24 +435,24 @@ public abstract class FlowNode {
 
         public PropertiesBuilder setExpressionNode(ExpressionNode expressionNode, String expressionDoc) {
             semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Expression expression = expressionBuilder
+            Property property = expressionBuilder
                     .label(EXPRESSION_RHS_DOC)
                     .value(expressionNode.toSourceCode())
                     .documentation(expressionDoc)
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
-            addProperty(EXPRESSION_RHS_KEY, expression);
+            addProperty(EXPRESSION_RHS_KEY, property);
             return this;
         }
 
-        public final void addProperty(String key, Expression expression) {
-            if (expression != null) {
-                this.nodeProperties.put(key, expression);
+        public final void addProperty(String key, Property property) {
+            if (property != null) {
+                this.nodeProperties.put(key, property);
             }
         }
 
-        public Map<String, Expression> build() {
+        public Map<String, Property> build() {
             return this.nodeProperties;
         }
     }
@@ -482,13 +484,13 @@ public abstract class FlowNode {
             return this;
         }
 
-        public SourceBuilder expression(Expression expression) {
-            sb.append(expression.toSourceCode());
+        public SourceBuilder expression(Property property) {
+            sb.append(property.toSourceCode());
             return this;
         }
 
-        public SourceBuilder expressionWithType(Expression expression) {
-            sb.append(expression.type()).append(WHITE_SPACE).append(expression.toSourceCode());
+        public SourceBuilder expressionWithType(Property property) {
+            sb.append(property.valueType()).append(WHITE_SPACE).append(property.toSourceCode());
             return this;
         }
 
