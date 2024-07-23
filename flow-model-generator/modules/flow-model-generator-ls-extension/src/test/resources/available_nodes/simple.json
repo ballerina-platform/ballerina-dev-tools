@@ -4,68 +4,86 @@
   "branchLabel": "THEN",
   "categories": [
     {
-      "name": "Flow",
-      "description": "Flow control nodes",
-      "keywords": [
-        "Core",
-        "Control",
-        "Flow"
-      ],
+      "metadata": {
+        "label": "Flow",
+        "description": "Flow control nodes",
+        "keywords": [
+          "Core",
+          "Control",
+          "Flow"
+        ]
+      },
       "items": [
         {
-          "name": "Branch",
-          "description": "Branching nodes",
+          "metadata": {
+            "label": "Branch",
+            "description": "Branching nodes"
+          },
           "items": [
             {
-              "id": {
-                "kind": "IF"
+              "metadata": {
+                "label": "If",
+                "description": "Add conditional branch to the integration flow."
               },
-              "name": "If",
-              "description": "Add conditional branch to the integration flow.",
+              "codedata": {
+                "node": "IF"
+              },
               "enabled": true
             }
           ]
         },
         {
-          "name": "Iteration",
-          "description": "Iteration nodes",
+          "metadata": {
+            "label": "Iteration",
+            "description": "Iteration nodes"
+          },
           "items": [
             {
-              "id": {
-                "kind": "WHILE"
+              "metadata": {
+                "label": "While",
+                "description": "Loop over a block of code."
               },
-              "name": "While",
-              "description": "Loop over a block of code.",
+              "codedata": {
+                "node": "WHILE"
+              },
               "enabled": true
             },
             {
-              "id": {
-                "kind": "BREAK"
+              "metadata": {
+                "label": "Break",
+                "description": "Exit the current loop"
               },
-              "name": "Break",
-              "description": "Exit the current loop",
+              "codedata": {
+                "node": "BREAK"
+              },
               "enabled": true
             },
             {
-              "id": {
-                "kind": "CONTINUE"
+              "metadata": {
+                "label": "Continue",
+                "description": "Skip the current iteration and continue with the next one"
               },
-              "name": "Continue",
-              "description": "Skip the current iteration and continue with the next one",
+              "codedata": {
+                "node": "CONTINUE"
+              },
               "enabled": true
             }
           ]
         },
         {
-          "name": "Control",
-          "description": "Control nodes",
+          "metadata": {
+            "label": "Control",
+            "description": "Control nodes"
+          },
           "items": [
             {
-              "id": {
-                "kind": "RETURN"
+              "metadata": {
+                "label": "Return",
+                "description": "Return a value"
               },
-              "name": "Return",
-              "description": "Return a value",
+              "codedata": {
+                "node": "RETURN"
+              },
               "enabled": true
             }
           ]
@@ -73,34 +91,44 @@
       ]
     },
     {
-      "name": "Data",
-      "description": "Data nodes are used to create, read, update, delete, and transform data",
+      "metadata": {
+        "label": "Data",
+        "description": "Data nodes are used to create, read, update, delete, and transform data"
+      },
       "items": []
     },
     {
-      "name": "Action",
-      "description": "Connect to different services, APIs, SaaS products, etc.",
+      "metadata": {
+        "label": "Action",
+        "description": "Connect to different services, APIs, SaaS products, etc."
+      },
       "items": [
         {
-          "name": "HTTP API",
-          "description": "Make HTTP requests",
+          "metadata": {
+            "label": "HTTP API",
+            "description": "Make HTTP requests"
+          },
           "items": [
             {
-              "id": {
-                "kind": "ACTION_CALL",
-                "library": "http",
-                "call": "get"
+              "metadata": {
+                "label": "HTTP GET"
               },
-              "name": "HTTP GET",
+              "codedata": {
+                "node": "ACTION_CALL",
+                "module": "http",
+                "symbol": "get"
+              },
               "enabled": true
             },
             {
-              "id": {
-                "kind": "ACTION_CALL",
-                "library": "http",
-                "call": "post"
+              "metadata": {
+                "label": "HTTP POST"
               },
-              "name": "HTTP POST",
+              "codedata": {
+                "node": "ACTION_CALL",
+                "module": "http",
+                "symbol": "post"
+              },
               "enabled": true
             }
           ]
@@ -108,25 +136,31 @@
       ]
     },
     {
-      "name": "Redis Client",
-      "description": "Interact with a Redis server",
+      "metadata": {
+        "label": "Redis Client",
+        "description": "Interact with a Redis server"
+      },
       "items": [
         {
-          "id": {
-            "kind": "ACTION_CALL",
-            "library": "redis",
-            "call": "get"
+          "metadata": {
+            "label": "Redis Get"
           },
-          "name": "Redis Get",
+          "codedata": {
+            "node": "ACTION_CALL",
+            "module": "redis",
+            "symbol": "get"
+          },
           "enabled": true
         },
         {
-          "id": {
-            "kind": "ACTION_CALL",
-            "library": "redis",
-            "call": "set"
+          "metadata": {
+            "label": "Redis Set"
           },
-          "name": "Redis Set",
+          "codedata": {
+            "node": "ACTION_CALL",
+            "module": "redis",
+            "symbol": "set"
+          },
           "enabled": true
         }
       ]
