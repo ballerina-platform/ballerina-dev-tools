@@ -18,28 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
-import io.ballerina.flowmodelgenerator.core.model.node.Continue;
-import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
-import io.ballerina.flowmodelgenerator.core.model.node.Fail;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.Lock;
-import io.ballerina.flowmodelgenerator.core.model.node.Panic;
-import io.ballerina.flowmodelgenerator.core.model.node.Return;
-import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
-import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LineRange;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -65,7 +45,8 @@ public record FlowNode(
     }
 
     public Optional<Branch> getBranch(String label) {
-        return branches.stream().filter(branch -> branch.label().equals(label)).findFirst();
+        return Optional.ofNullable(branches)
+                .flatMap(bs -> bs.stream().filter(branch -> branch.label().equals(label)).findFirst());
     }
 
     public LineRange lineRange() {

@@ -58,7 +58,7 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        NodeAttributes.Info info = NodeAttributes.getByLabel(this.label);
+        NodeAttributes.Info info = NodeAttributes.getByLabel(node.metadata().label());
         Optional<Property> client = node.getProperty(info.callExpression().key());
 
         if (client.isEmpty()) {
