@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents a branch of the node.
@@ -53,8 +54,8 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         BLOCK
     }
 
-    public Property getProperty(String key) {
-        return properties != null ? properties.get(key) : null;
+    public Optional<Property> getProperty(String key) {
+        return Optional.ofNullable(properties).map(props -> props.get(key));
     }
 
     /**

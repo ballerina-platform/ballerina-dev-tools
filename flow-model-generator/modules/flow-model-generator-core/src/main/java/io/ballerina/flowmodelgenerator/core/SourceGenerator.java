@@ -40,7 +40,6 @@ public class SourceGenerator {
         gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .disableHtmlEscaping()
-                .registerTypeAdapter(FlowNode.class, new FlowNode.Deserializer())
                 .create();
     }
 

@@ -26,12 +26,12 @@
       }
     ],
     "properties": {
-      "expression": {
+      "condition": {
         "metadata": {
-          "label": "condition",
+          "label": "Condition",
           "description": "Boolean Condition"
         },
-        "value": ""
+        "value": "true"
       }
     },
     "flags": 0

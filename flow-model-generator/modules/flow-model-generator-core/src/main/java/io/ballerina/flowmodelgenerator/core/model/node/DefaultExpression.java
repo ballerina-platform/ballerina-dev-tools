@@ -24,6 +24,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Optional;
+
 /**
  * Represents the properties of a default expression node.
  *
@@ -43,16 +45,20 @@ public class DefaultExpression extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode node) {
-        Property variable = node.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
-        Property property = node.getProperty(NodeBuilder.PropertiesBuilder.EXPRESSION_KEY);
+        Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
+        Optional<Property> property = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+
+        if (variable.isEmpty() || property.isEmpty()) {
+            throw new IllegalStateException("Variable and property are required for a default expression");
+        }
 
         SourceBuilder sourceBuilder = new SourceBuilder();
         sourceBuilder
-                .expressionWithType(variable)
+                .expressionWithType(variable.get())
                 .whiteSpace()
                 .keyword(SyntaxKind.EQUAL_TOKEN)
                 .whiteSpace()
-                .expression(property)
+                .expression(property.get())
                 .endOfStatement();
         return sourceBuilder.build(false);
     }

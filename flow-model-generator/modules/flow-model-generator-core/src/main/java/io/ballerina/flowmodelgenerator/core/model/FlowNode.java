@@ -42,6 +42,7 @@ import io.ballerina.tools.text.LineRange;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents a node in the flow model.
@@ -59,12 +60,12 @@ public record FlowNode(
         int flags
 ) {
 
-    public Property getProperty(String key) {
-        return properties != null ? properties.get(key) : null;
+    public Optional<Property> getProperty(String key) {
+        return Optional.ofNullable(properties).map(props -> props.get(key));
     }
 
-    public Branch getBranch(String label) {
-        return branches.stream().filter(branch -> branch.label().equals(label)).findFirst().orElse(null);
+    public Optional<Branch> getBranch(String label) {
+        return branches.stream().filter(branch -> branch.label().equals(label)).findFirst();
     }
 
     public LineRange lineRange() {
@@ -100,37 +101,5 @@ public record FlowNode(
         TRANSACTION,
         LOCK,
         FAIL
-    }
-
-    /**
-     * Represents a deserializer for the flow node.
-     *
-     * @since 1.4.0
-     */
-    public static class Deserializer implements JsonDeserializer<FlowNode> {
-
-        @Override
-        public FlowNode deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            JsonObject jsonObject = json.getAsJsonObject();
-            FlowNode.Kind kind = context.deserialize(jsonObject.get("kind"), FlowNode.Kind.class);
-
-            return switch (kind) {
-                case EXPRESSION -> context.deserialize(jsonObject, DefaultExpression.class);
-                case IF -> context.deserialize(jsonObject, If.class);
-                case EVENT_HTTP_API -> context.deserialize(jsonObject, HttpApiEvent.class);
-                case ACTION_CALL -> context.deserialize(jsonObject, ActionCall.class);
-                case RETURN -> context.deserialize(jsonObject, Return.class);
-                case ERROR_HANDLER -> context.deserialize(jsonObject, ErrorHandler.class);
-                case WHILE -> context.deserialize(jsonObject, While.class);
-                case CONTINUE -> context.deserialize(jsonObject, Continue.class);
-                case BREAK -> context.deserialize(jsonObject, Break.class);
-                case PANIC -> context.deserialize(jsonObject, Panic.class);
-                case START -> context.deserialize(jsonObject, Start.class);
-                case FAIL -> context.deserialize(jsonObject, Fail.class);
-                case TRANSACTION -> context.deserialize(jsonObject, Transaction.class);
-                case LOCK -> context.deserialize(jsonObject, Lock.class);
-            };
-        }
     }
 }

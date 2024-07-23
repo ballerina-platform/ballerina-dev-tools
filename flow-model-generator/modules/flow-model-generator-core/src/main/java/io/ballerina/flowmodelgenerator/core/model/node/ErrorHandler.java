@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents the properties of an error handler node in the flow model.
@@ -48,29 +49,28 @@ public class ErrorHandler extends NodeBuilder {
     @Override
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Branch body = node.getBranch(ERROR_HANDLER_BODY);
+        Optional<Branch> body = node.getBranch(ERROR_HANDLER_BODY);
+
         sourceBuilder
                 .keyword(SyntaxKind.DO_KEYWORD)
-                .openBrace()
-                .addChildren(body.children())
-                .closeBrace();
+                .openBrace();
+        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
+        sourceBuilder.closeBrace();
 
-        Branch onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
-        if (onFailBranch != null) {
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch.isPresent()) {
             // Build the keywords
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Property variableProperty = onFailBranch.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
-            if (variableProperty != null) {
-                sourceBuilder.expressionWithType(variableProperty);
-            }
+            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
+            variableProperty.ifPresent(sourceBuilder::expressionWithType);
 
             // Build the body
             sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.children())
+                    .addChildren(onFailBranch.get().children())
                     .closeBrace();
         }
 

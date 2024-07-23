@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents the generalized action invocation node in the flow model.
@@ -44,12 +45,10 @@ public class ActionCall extends NodeBuilder {
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        Property variable = node.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
-        if (variable != null) {
-            sourceBuilder
-                    .expressionWithType(variable)
-                    .keyword(SyntaxKind.EQUAL_TOKEN);
-        }
+        Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
+        variable.ifPresent(property -> sourceBuilder
+                .expressionWithType(property)
+                .keyword(SyntaxKind.EQUAL_TOKEN));
 
         if (node.returning()) {
             sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
@@ -60,9 +59,12 @@ public class ActionCall extends NodeBuilder {
         }
 
         NodeAttributes.Info info = NodeAttributes.getByLabel(this.label);
-        Property client = node.getProperty(info.callExpression().key());
+        Optional<Property> client = node.getProperty(info.callExpression().key());
 
-        sourceBuilder.expression(client)
+        if (client.isEmpty()) {
+            throw new IllegalStateException("Client must be defined for an action call node");
+        }
+        sourceBuilder.expression(client.get())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(info.method())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
@@ -70,17 +72,15 @@ public class ActionCall extends NodeBuilder {
         List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
 
         if (!parameterExpressions.isEmpty()) {
-            Property firstParameter = node.getProperty(parameterExpressions.get(0).key());
-            if (firstParameter != null) {
-                sourceBuilder.expression(firstParameter);
-            }
+            Optional<Property> firstParameter = node.getProperty(parameterExpressions.get(0).key());
+            firstParameter.ifPresent(sourceBuilder::expression);
 
             boolean hasEmptyParam = false;
             for (int i = 1; i < parameterExpressions.size(); i++) {
                 String parameterKey = parameterExpressions.get(i).key();
-                Property parameter = node.getProperty(parameterKey);
+                Optional<Property> parameter = node.getProperty(parameterKey);
 
-                if (parameter == null || parameter.value() == null) {
+                if (parameter.isEmpty() || parameter.get().value() == null) {
                     hasEmptyParam = true;
                     continue;
                 }
@@ -92,7 +92,7 @@ public class ActionCall extends NodeBuilder {
                             .keyword(SyntaxKind.EQUAL_TOKEN);
                     hasEmptyParam = false;
                 }
-                sourceBuilder.expression(parameter);
+                sourceBuilder.expression(parameter.get());
             }
         }
 

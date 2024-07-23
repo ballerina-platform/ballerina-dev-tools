@@ -26,7 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents the properties of an if node in the flow model.
@@ -51,19 +51,21 @@ public class If extends NodeBuilder {
     @Override
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Property condition = node.getProperty(Property.CONDITION_KEY);
+        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
 
-        sourceBuilder
-                .keyword(SyntaxKind.IF_KEYWORD)
-                .expression(condition)
+        if (condition.isEmpty()) {
+            throw new IllegalStateException("If node does not have a condition");
+        }
+        sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
+                .expression(condition.get())
                 .openBrace();
 
-        Branch ifBranch = node.getBranch(IF_THEN_LABEL);
-        sourceBuilder.addChildren(ifBranch.children());
+        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
+        ifBranch.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
 
-        Branch elseBranch = node.getBranch(IF_ELSE_LABEL);
-        if (elseBranch != null) {
-            List<FlowNode> children = elseBranch.children();
+        Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
+        if (elseBranch.isPresent()) {
+            List<FlowNode> children = elseBranch.get().children();
             sourceBuilder
                     .closeBrace()
                     .whiteSpace()
@@ -82,7 +84,7 @@ public class If extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(PropertiesBuilder.CONDITION_KEY, PropertiesBuilder.CONDITION_DOC);;
+        properties().setDefaultCondition(PropertiesBuilder.CONDITION_DOC);
         this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
     }
 }

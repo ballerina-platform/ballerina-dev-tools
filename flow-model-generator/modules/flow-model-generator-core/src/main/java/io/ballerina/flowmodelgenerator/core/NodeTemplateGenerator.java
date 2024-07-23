@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 
 import java.util.HashMap;
@@ -34,17 +35,12 @@ public class NodeTemplateGenerator {
                 .setConstData()
                 .build();
         if (codedata.module() != null) {
-//            NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-//            flowNode.metadata().label() = info.label();
-//
-//            Map<String, Property> nodeProperties = new HashMap<>();
-//            ExpressionAttributes.Info callExpressionInfo = info.callExpression();
-//            nodeProperties.put(callExpressionInfo.key(), Property.getExpressionForInfo(callExpressionInfo));
-//            info.parameterExpressions().forEach(expressionInfo -> {
-//                Property property = Property.getExpressionForInfo(expressionInfo);
-//                nodeProperties.put(expressionInfo.key(), property);
-//            });
-//            flowNode.properties = nodeProperties;
+            NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
+            NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(FlowNode.Kind.ACTION_CALL).label(info.label());
+            nodeBuilder.properties().setDefaultExpression(info.callExpression());
+            info.parameterExpressions()
+                    .forEach(expressionInfo -> nodeBuilder.properties().setDefaultExpression(expressionInfo));
+            flowNode = nodeBuilder.build();
         }
 
         nodeCache.put(codedata, flowNode);

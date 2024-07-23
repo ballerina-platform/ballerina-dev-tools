@@ -24,6 +24,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Optional;
+
 /**
  * Represents the properties of a return node.
  *
@@ -47,18 +49,16 @@ public class Return extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
-        Property property = node.getProperty(Property.EXPRESSION_KEY);
-        if (property != null) {
-            sourceBuilder
-                    .whiteSpace()
-                    .expression(property);
-        }
+        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder
+                .whiteSpace()
+                .expression(value));
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
     }
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(PropertiesBuilder.EXPRESSION_KEY, RETURN_EXPRESSION_DOC);
+        properties().setDefaultExpression(RETURN_EXPRESSION_DOC);
     }
 }

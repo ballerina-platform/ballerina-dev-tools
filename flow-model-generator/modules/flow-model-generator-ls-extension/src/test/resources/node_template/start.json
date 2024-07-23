@@ -16,7 +16,7 @@
     "properties": {
       "expression": {
         "metadata": {
-          "label": "expression",
+          "label": "Expression",
           "description": "Call action or expression"
         },
         "value": ""

@@ -25,6 +25,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Optional;
+
 /**
  * Represents the properties of a while node in the flow model.
  *
@@ -46,36 +48,30 @@ public class While extends NodeBuilder {
     @Override
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Property condition = node.getProperty(Property.CONDITION_KEY);
-        Branch body = node.getBranch(Branch.BODY_LABEL);
+        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
+        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
 
-        sourceBuilder
-                .keyword(SyntaxKind.WHILE_KEYWORD)
-                .expression(condition)
-                .openBrace();
-
-        if (body != null) {
-            sourceBuilder.addChildren(body.children());
-        }
+        sourceBuilder.keyword(SyntaxKind.WHILE_KEYWORD);
+        condition.ifPresent(sourceBuilder::expression);
+        sourceBuilder.openBrace();
+        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
         sourceBuilder.closeBrace();
 
         // Handle the on fail branch
-        Branch onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
-        if (onFailBranch != null) {
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch.isPresent()) {
             // Build the keywords
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Property variableProperty = onFailBranch.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
-            if (variableProperty != null) {
-                sourceBuilder.expressionWithType(variableProperty);
-            }
+            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
+            variableProperty.ifPresent(sourceBuilder::expressionWithType);
 
             // Build the body
             sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.children())
+                    .addChildren(onFailBranch.get().children())
                     .closeBrace();
         }
 
@@ -84,6 +80,6 @@ public class While extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(PropertiesBuilder.CONDITION_KEY, WHILE_CONDITION_DOC);
+        properties().setDefaultExpression(WHILE_CONDITION_DOC);
     }
 }

@@ -402,15 +402,27 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setDefaultExpression(String label, String doc) {
+        public PropertiesBuilder setDefaultExpression(String doc) {
             Property property = propertyBuilder
-                    .label(label)
+                    .label(EXPRESSION_LABEL)
                     .value("")
                     .documentation(doc)
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder setDefaultCondition(String doc) {
+            Property property = propertyBuilder
+                    .label(CONDITION_LABEL)
+                    .value("true")
+                    .documentation(doc)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
+                    .editable()
+                    .build();
+            addProperty(CONDITION_KEY, property);
             return this;
         }
 

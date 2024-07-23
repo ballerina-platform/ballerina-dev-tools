@@ -16,7 +16,7 @@
     "properties": {
       "expression": {
         "metadata": {
-          "label": "condition",
+          "label": "Expression",
           "description": "Boolean Condition"
         },
         "value": ""
