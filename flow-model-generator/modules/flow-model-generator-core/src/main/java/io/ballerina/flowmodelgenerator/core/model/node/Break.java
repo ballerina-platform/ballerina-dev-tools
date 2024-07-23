@@ -20,26 +20,27 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 
 /**
  * Represents the properties of a break node.
  *
  * @since 1.4.0
  */
-public class Break extends FlowNode {
+public class Break extends NodeBuilder {
 
     public static final String LABEL = "Break";
     public static final String DESCRIPTION = "Exit the current loop";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = Kind.BREAK;
+        this.kind = FlowNode.Kind.BREAK;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         return SyntaxKind.BREAK_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
 

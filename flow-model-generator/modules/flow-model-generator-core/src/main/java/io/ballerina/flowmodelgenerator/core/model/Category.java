@@ -96,16 +96,19 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         }
 
         public Builder node(FlowNode.Kind kind) {
-            FlowNode flowNode = FlowNode.getNodeFromKind(kind);
-            this.availableNodes.add(flowNode.extractAvailableNode());
+            AvailableNode node = NodeBuilder.getNodeFromKind(kind).buildAvailableNode();
+            this.availableNodes.add(node);
             return this;
         }
 
-        public Builder node(FlowNode.Kind kind, String library, String call) {
-            FlowNode flowNode = FlowNode.getNodeFromKind(kind);
-            NodeAttributes.Info info = NodeAttributes.getByKey(library, call);
-            flowNode.label = info.label();
-            this.availableNodes.add(flowNode.extractAvailableNode(library, call));
+        public Builder node(FlowNode.Kind kind, String module, String symbol) {
+            NodeAttributes.Info info = NodeAttributes.getByKey(module, symbol);
+            AvailableNode node = NodeBuilder.getNodeFromKind(kind)
+                    .module(module)
+                    .label(info.label())
+                    .symbol(symbol)
+                    .buildAvailableNode();
+            this.availableNodes.add(node);
             return this;
         }
 

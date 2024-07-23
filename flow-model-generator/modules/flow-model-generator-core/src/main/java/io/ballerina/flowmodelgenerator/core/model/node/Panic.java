@@ -19,35 +19,35 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-
-import java.util.Map;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a panic node.
  *
  * @since 1.4.0
  */
-public class Panic extends FlowNode {
+public class Panic extends NodeBuilder {
 
     public static final String LABEL = "Panic";
     public static final String DESCRIPTION = "Panic and stop the execution";
     public static final String PANIC_EXPRESSION_DOC = "Panic value";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.PANIC;
+        this.kind = FlowNode.Kind.PANIC;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.PANIC_KEYWORD);
-        Property property = getProperty(Property.EXPRESSION_KEY);
+        Property property = node.getProperty(Property.EXPRESSION_KEY);
         if (property != null) {
             sourceBuilder
                     .whiteSpace()
@@ -59,6 +59,6 @@ public class Panic extends FlowNode {
 
     @Override
     public void setConcreteTemplateData() {
-        this.nodeProperties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(PANIC_EXPRESSION_DOC));
+//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(PANIC_EXPRESSION_DOC));
     }
 }

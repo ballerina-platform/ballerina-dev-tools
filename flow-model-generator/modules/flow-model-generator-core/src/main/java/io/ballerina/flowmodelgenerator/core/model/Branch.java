@@ -53,6 +53,10 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         BLOCK
     }
 
+    public Property getProperty(String key) {
+        return properties != null ? properties.get(key) : null;
+    }
+
     /**
      * Represents a builder for the branch.
      *
@@ -99,12 +103,12 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
             }
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
             expressionBuilder
-                    .label(FlowNode.PropertiesBuilder.VARIABLE_LABEL)
+                    .label(NodeBuilder.PropertiesBuilder.VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
-                    .documentation(FlowNode.PropertiesBuilder.VARIABLE_DOC);
-            properties.put(FlowNode.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
+                    .documentation(NodeBuilder.PropertiesBuilder.VARIABLE_DOC);
+            properties.put(NodeBuilder.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
             return this;
         }
 

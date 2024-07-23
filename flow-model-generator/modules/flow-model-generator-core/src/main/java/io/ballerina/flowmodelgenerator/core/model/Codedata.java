@@ -28,6 +28,6 @@ package io.ballerina.flowmodelgenerator.core.model;
  * @param symbol The symbol of the component
  * @since 1.5.0
  */
-public record Codedata(String node, String org, String module, String object, String symbol) {
+public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol) {
 
 }

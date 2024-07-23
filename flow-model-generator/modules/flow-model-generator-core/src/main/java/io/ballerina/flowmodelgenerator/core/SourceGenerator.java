@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.util.List;
@@ -52,7 +53,8 @@ public class SourceGenerator {
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
         List<TextEdit> textEdits = List.of(
-                new TextEdit(CommonUtils.toRange(flowNode.lineRange()), flowNode.toSource())
+                new TextEdit(CommonUtils.toRange(flowNode.lineRange()),
+                        NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(flowNode))
         );
         return gson.toJsonTree(textEdits);
     }

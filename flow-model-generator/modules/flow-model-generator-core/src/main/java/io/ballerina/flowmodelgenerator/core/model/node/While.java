@@ -20,34 +20,34 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-
-import java.util.Map;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a while node in the flow model.
  *
  * @since 1.4.0
  */
-public class While extends FlowNode {
+public class While extends NodeBuilder {
 
     public static final String LABEL = "While";
     public static final String DESCRIPTION = "Loop over a block of code.";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.WHILE;
+        this.kind = FlowNode.Kind.WHILE;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Property condition = getProperty(Property.CONDITION_KEY);
-        Branch body = getBranch(Branch.BODY_LABEL);
+        Property condition = node.getProperty(Property.CONDITION_KEY);
+        Branch body = node.getBranch(Branch.BODY_LABEL);
 
         sourceBuilder
                 .keyword(SyntaxKind.WHILE_KEYWORD)
@@ -60,7 +60,7 @@ public class While extends FlowNode {
         sourceBuilder.closeBrace();
 
         // Handle the on fail branch
-        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
+        Branch onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
         if (onFailBranch != null) {
             // Build the keywords
             sourceBuilder
@@ -68,7 +68,7 @@ public class While extends FlowNode {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Property variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
+            Property variableProperty = onFailBranch.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
@@ -84,7 +84,7 @@ public class While extends FlowNode {
 
     @Override
     public void setConcreteTemplateData() {
-        this.nodeProperties =
-                Map.of(Property.CONDITION_KEY, Property.getDefaultConditionExpression(WHILE_CONDITION_DOC));
+//        this.properties =
+//                Map.of(Property.CONDITION_KEY, Property.getDefaultConditionExpression(WHILE_CONDITION_DOC));
     }
 }

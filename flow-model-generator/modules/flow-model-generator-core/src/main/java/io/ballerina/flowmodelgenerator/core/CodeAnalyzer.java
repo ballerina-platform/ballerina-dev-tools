@@ -68,26 +68,17 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
-import io.ballerina.flowmodelgenerator.core.model.node.Continue;
-import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
-import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.function.Supplier;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -99,10 +90,10 @@ class CodeAnalyzer extends NodeVisitor {
     //TODO: Wrap the class variables inside another class
     private final List<FlowNode> flowNodeList;
     private final List<Client> clients;
-    private FlowNode.NodeBuilder nodeBuilder;
+    private NodeBuilder nodeBuilder;
     private final Client.Builder clientBuilder;
     private final SemanticModel semanticModel;
-    private final Stack<FlowNode.NodeBuilder> flowNodeBuilderStack;
+    private final Stack<NodeBuilder> flowNodeBuilderStack;
     private TypedBindingPatternNode typedBindingPatternNode;
 
     public CodeAnalyzer(SemanticModel semanticModel) {
@@ -122,13 +113,13 @@ class CodeAnalyzer extends NodeVisitor {
 
         switch (symbol.get().kind()) {
             case RESOURCE_METHOD -> {
-                startNode(HttpApiEvent::new)
+                startNode(FlowNode.Kind.EVENT_HTTP_API)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
                         .properties()
                         .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
-                startNode(DefaultExpression::new);
+                startNode(FlowNode.Kind.EXPRESSION);
             }
         }
         nodeBuilder.lineRange(functionDefinitionNode);
@@ -142,7 +133,7 @@ class CodeAnalyzer extends NodeVisitor {
         expression.ifPresent(expressionNode -> expressionNode.accept(this));
 
         if (isNodeUnidentified()) {
-            startNode(Return::new).lineRange(returnStatementNode);
+            startNode(FlowNode.Kind.RETURN).lineRange(returnStatementNode);
             expression.ifPresent(expressionNode -> nodeBuilder.properties()
                     .setExpressionNode(expressionNode, Return.RETURN_EXPRESSION_DOC));
         }
@@ -178,7 +169,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
-            startNode(DefaultExpression::new);
+            startNode(FlowNode.Kind.EXPRESSION);
             return;
         }
 
@@ -187,7 +178,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         NodeAttributes.Info info = NodeAttributes.getByKey(moduleName, methodName);
         if (info != null) {
-            startNode(ActionCall::new)
+            startNode(FlowNode.Kind.ACTION_CALL)
                     .kind(info.kind())
                     .label(info.label())
                     .properties()
@@ -197,12 +188,12 @@ class CodeAnalyzer extends NodeVisitor {
                     argumentNodes, params));
             return;
         }
-        startNode(DefaultExpression::new);
+        startNode(FlowNode.Kind.EXPRESSION);
     }
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        startNode(If::new)
+        startNode(FlowNode.Kind.IF)
                 .lineRange(ifElseStatementNode)
                 .properties().setConditionExpression(ifElseStatementNode.condition());
 
@@ -274,7 +265,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(DefaultExpression::new)
+            startNode(FlowNode.Kind.EXPRESSION)
                     .lineRange(variableDeclarationNode)
                     .properties()
                     .expression(initializerNode);
@@ -292,7 +283,7 @@ class CodeAnalyzer extends NodeVisitor {
         expression.accept(this);
 
         if (isNodeUnidentified()) {
-            startNode(DefaultExpression::new)
+            startNode(FlowNode.Kind.EXPRESSION)
                     .lineRange(assignmentStatementNode)
                     .properties()
                     .expression(expression)
@@ -314,13 +305,13 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(BreakStatementNode breakStatementNode) {
-        startNode(Break::new).lineRange(breakStatementNode);
+        startNode(FlowNode.Kind.BREAK).lineRange(breakStatementNode);
         endNode();
     }
 
     @Override
     public void visit(FailStatementNode failStatementNode) {
-        startNode(Fail::new)
+        startNode(FlowNode.Kind.FAIL)
                 .lineRange(failStatementNode)
                 .properties()
                 .setExpressionNode(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
@@ -334,13 +325,13 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ContinueStatementNode continueStatementNode) {
-        startNode(Continue::new).lineRange(continueStatementNode);
+        startNode(FlowNode.Kind.CONTINUE).lineRange(continueStatementNode);
         endNode();
     }
 
     @Override
     public void visit(WhileStatementNode whileStatementNode) {
-        startNode(While::new)
+        startNode(FlowNode.Kind.WHILE)
                 .lineRange(whileStatementNode)
                 .properties().setConditionExpression(whileStatementNode.condition());
 
@@ -369,7 +360,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
-        startNode(Panic::new)
+        startNode(FlowNode.Kind.PANIC)
                 .lineRange(panicStatementNode)
                 .properties()
                 .setExpressionNode(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
@@ -384,7 +375,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(StartActionNode startActionNode) {
-        startNode(Start::new)
+        startNode(FlowNode.Kind.START)
                 .lineRange(startActionNode)
                 .properties()
                 .setExpressionNode(startActionNode.expression(), Start.START_EXPRESSION_DOC);
@@ -393,7 +384,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(LockStatementNode lockStatementNode) {
-        startNode(Lock::new).lineRange(lockStatementNode);
+        startNode(FlowNode.Kind.LOCK).lineRange(lockStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
             statement.accept(this);
@@ -423,7 +414,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
-        startNode(Transaction::new)
+        startNode(FlowNode.Kind.TRANSACTION)
                 .lineRange(transactionStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : transactionStatementNode.blockStatement().statements()) {
@@ -474,7 +465,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        startNode(ErrorHandler::new).lineRange(doStatementNode);
+        startNode(FlowNode.Kind.ERROR_HANDLER).lineRange(doStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : doStatementNode.blockStatement().statements()) {
             statement.accept(this);
@@ -497,7 +488,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(CheckExpressionNode checkExpressionNode) {
         checkExpressionNode.expression().accept(this);
         if (isNodeUnidentified()) {
-            startNode(DefaultExpression::new)
+            startNode(FlowNode.Kind.EXPRESSION)
                     .properties()
                     .expression(checkExpressionNode);
         }
@@ -524,8 +515,8 @@ class CodeAnalyzer extends NodeVisitor {
         }
     }
 
-    private FlowNode.NodeBuilder startNode(Supplier<? extends FlowNode> constructor) {
-        this.nodeBuilder = new FlowNode.NodeBuilder(semanticModel, constructor);
+    private NodeBuilder startNode(FlowNode.Kind kind) {
+        this.nodeBuilder = NodeBuilder.getNodeFromKind(kind).semanticModel(semanticModel);
         return this.nodeBuilder;
     }
 
@@ -568,7 +559,7 @@ class CodeAnalyzer extends NodeVisitor {
      * @param runnable      The runnable to be called to analyze the child nodes.
      */
     private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
-        startNode(DefaultExpression::new).lineRange(statementNode);
+        startNode(FlowNode.Kind.EXPRESSION).lineRange(statementNode);
         runnable.run();
         endNode();
     }
@@ -579,7 +570,7 @@ class CodeAnalyzer extends NodeVisitor {
      * @param bodyNode the block statement node
      */
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        startNode(DefaultExpression::new).lineRange(bodyNode);
+        startNode(FlowNode.Kind.EXPRESSION).lineRange(bodyNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : bodyNode.statements()) {
             statement.accept(this);

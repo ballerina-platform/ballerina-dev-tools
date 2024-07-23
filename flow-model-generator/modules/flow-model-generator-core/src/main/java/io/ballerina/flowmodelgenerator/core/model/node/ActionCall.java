@@ -19,10 +19,12 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
 
@@ -31,34 +33,34 @@ import java.util.List;
  *
  * @since 1.4.0
  */
-public class ActionCall extends FlowNode {
+public class ActionCall extends NodeBuilder {
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.kind = FlowNode.Kind.ACTION_CALL;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        Property variable = getProperty(PropertiesBuilder.VARIABLE_KEY);
+        Property variable = node.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
         if (variable != null) {
             sourceBuilder
                     .expressionWithType(variable)
                     .keyword(SyntaxKind.EQUAL_TOKEN);
         }
 
-        if (returning()) {
+        if (node.returning()) {
             sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (hasFlag(NODE_FLAG_CHECKED)) {
+        if (node.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
         NodeAttributes.Info info = NodeAttributes.getByLabel(this.label);
-        Property client = getProperty(info.callExpression().key());
+        Property client = node.getProperty(info.callExpression().key());
 
         sourceBuilder.expression(client)
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
@@ -68,7 +70,7 @@ public class ActionCall extends FlowNode {
         List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
 
         if (!parameterExpressions.isEmpty()) {
-            Property firstParameter = getProperty(parameterExpressions.get(0).key());
+            Property firstParameter = node.getProperty(parameterExpressions.get(0).key());
             if (firstParameter != null) {
                 sourceBuilder.expression(firstParameter);
             }
@@ -76,7 +78,7 @@ public class ActionCall extends FlowNode {
             boolean hasEmptyParam = false;
             for (int i = 1; i < parameterExpressions.size(); i++) {
                 String parameterKey = parameterExpressions.get(i).key();
-                Property parameter = getProperty(parameterKey);
+                Property parameter = node.getProperty(parameterKey);
 
                 if (parameter == null || parameter.value() == null) {
                     hasEmptyParam = true;

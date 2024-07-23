@@ -20,8 +20,10 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
 
@@ -30,34 +32,34 @@ import java.util.List;
  *
  * @since 1.4.0
  */
-public class Transaction extends FlowNode {
+public class Transaction extends NodeBuilder {
     public static final String LABEL = "Transaction";
     public static final String DESCRIPTION = "Handle transaction.";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.TRANSACTION;
+        this.kind = FlowNode.Kind.TRANSACTION;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Branch body = getBranch(Branch.BODY_LABEL);
+        Branch body = node.getBranch(Branch.BODY_LABEL);
         sourceBuilder
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
                 .openBrace()
                 .addChildren(body.children())
                 .closeBrace();
 
-        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
+        Branch onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
         if (onFailBranch != null) {
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Property variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
+            Property variableProperty = onFailBranch.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }

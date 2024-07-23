@@ -19,30 +19,32 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a default expression node.
  *
  * @since 1.4.0
  */
-public class DefaultExpression extends FlowNode {
+public class DefaultExpression extends NodeBuilder {
 
     public static final String LABEL = "Custom Expression";
     public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.EXPRESSION;
+        this.kind = FlowNode.Kind.EXPRESSION;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
-        Property variable = getProperty(FlowNode.PropertiesBuilder.VARIABLE_KEY);
-        Property property = getProperty(FlowNode.PropertiesBuilder.EXPRESSION_RHS_KEY);
+    public String toSource(FlowNode node) {
+        Property variable = node.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
+        Property property = node.getProperty(NodeBuilder.PropertiesBuilder.EXPRESSION_RHS_KEY);
 
         SourceBuilder sourceBuilder = new SourceBuilder();
         sourceBuilder

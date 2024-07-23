@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,21 +29,22 @@ public class NodeTemplateGenerator {
             return gson.toJsonTree(flowNode);
         }
 
-        flowNode = FlowNode.getNodeFromKind(FlowNode.Kind.valueOf(codedata.node()));
-        flowNode.setConstData();
-        flowNode.setTemplateData();
+        flowNode = NodeBuilder.getNodeFromKind(codedata.node())
+                .setTemplateData()
+                .setConstData()
+                .build();
         if (codedata.module() != null) {
-            NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-            flowNode.label = info.label();
-
-            Map<String, Property> nodeProperties = new HashMap<>();
-            ExpressionAttributes.Info callExpressionInfo = info.callExpression();
-            nodeProperties.put(callExpressionInfo.key(), Property.getExpressionForInfo(callExpressionInfo));
-            info.parameterExpressions().forEach(expressionInfo -> {
-                Property property = Property.getExpressionForInfo(expressionInfo);
-                nodeProperties.put(expressionInfo.key(), property);
-            });
-            flowNode.nodeProperties = nodeProperties;
+//            NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
+//            flowNode.metadata().label() = info.label();
+//
+//            Map<String, Property> nodeProperties = new HashMap<>();
+//            ExpressionAttributes.Info callExpressionInfo = info.callExpression();
+//            nodeProperties.put(callExpressionInfo.key(), Property.getExpressionForInfo(callExpressionInfo));
+//            info.parameterExpressions().forEach(expressionInfo -> {
+//                Property property = Property.getExpressionForInfo(expressionInfo);
+//                nodeProperties.put(expressionInfo.key(), property);
+//            });
+//            flowNode.properties = nodeProperties;
         }
 
         nodeCache.put(codedata, flowNode);

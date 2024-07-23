@@ -19,34 +19,35 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-
-import java.util.Map;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a start node in the flow model.
  *
  * @since 1.4.0
  */
-public class Start extends FlowNode {
+public class Start extends NodeBuilder {
+
     public static final String LABEL = "Start";
     public static final String DESCRIPTION = "Execute a function or a method invocation in a new strand";
     public static final String START_EXPRESSION_DOC = "Call action or expression";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.START;
+        this.kind = FlowNode.Kind.START;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.START_KEYWORD);
-        Property property = getProperty(Property.EXPRESSION_KEY);
+        Property property = node.getProperty(Property.EXPRESSION_KEY);
         if (property != null) {
             sourceBuilder
                     .whiteSpace()
@@ -58,6 +59,6 @@ public class Start extends FlowNode {
 
     @Override
     public void setConcreteTemplateData() {
-        this.nodeProperties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(START_EXPRESSION_DOC));
+//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(START_EXPRESSION_DOC));
     }
 }

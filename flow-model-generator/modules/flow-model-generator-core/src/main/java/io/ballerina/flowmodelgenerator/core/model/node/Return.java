@@ -19,35 +19,35 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-
-import java.util.Map;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a return node.
  *
  * @since 1.4.0
  */
-public class Return extends FlowNode {
+public class Return extends NodeBuilder {
 
     public static final String LABEL = "Return";
     public static final String DESCRIPTION = "Return a value";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = Kind.RETURN;
+        this.kind = FlowNode.Kind.RETURN;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
-        Property property = getProperty(Property.EXPRESSION_KEY);
+        Property property = node.getProperty(Property.EXPRESSION_KEY);
         if (property != null) {
             sourceBuilder
                     .whiteSpace()
@@ -59,6 +59,6 @@ public class Return extends FlowNode {
 
     @Override
     public void setConcreteTemplateData() {
-        this.nodeProperties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(RETURN_EXPRESSION_DOC));
+//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(RETURN_EXPRESSION_DOC));
     }
 }

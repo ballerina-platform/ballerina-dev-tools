@@ -20,8 +20,10 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
 
@@ -30,30 +32,30 @@ import java.util.List;
  *
  * @since 1.4.0
  */
-public class ErrorHandler extends FlowNode {
+public class ErrorHandler extends NodeBuilder {
 
     public static final String LABEL = "ErrorHandler";
     public static final String DESCRIPTION = "Catch and handle errors";
     public static final String ERROR_HANDLER_BODY = "Body";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.ERROR_HANDLER;
+        this.kind = FlowNode.Kind.ERROR_HANDLER;
         this.description = DESCRIPTION;
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Branch body = getBranch(ERROR_HANDLER_BODY);
+        Branch body = node.getBranch(ERROR_HANDLER_BODY);
         sourceBuilder
                 .keyword(SyntaxKind.DO_KEYWORD)
                 .openBrace()
                 .addChildren(body.children())
                 .closeBrace();
 
-        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
+        Branch onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
         if (onFailBranch != null) {
             // Build the keywords
             sourceBuilder
@@ -61,7 +63,7 @@ public class ErrorHandler extends FlowNode {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Property variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
+            Property variableProperty = onFailBranch.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
             if (variableProperty != null) {
                 sourceBuilder.expressionWithType(variableProperty);
             }
