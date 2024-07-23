@@ -59,6 +59,6 @@ public class Return extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(RETURN_EXPRESSION_DOC);
+        properties().defaultExpression(RETURN_EXPRESSION_DOC);
     }
 }

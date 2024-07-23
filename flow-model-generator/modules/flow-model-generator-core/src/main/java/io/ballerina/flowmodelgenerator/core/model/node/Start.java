@@ -59,6 +59,6 @@ public class Start extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(START_EXPRESSION_DOC);
+        properties().defaultExpression(START_EXPRESSION_DOC);
     }
 }

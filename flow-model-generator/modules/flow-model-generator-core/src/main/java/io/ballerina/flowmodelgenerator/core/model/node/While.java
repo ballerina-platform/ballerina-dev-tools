@@ -80,6 +80,6 @@ public class While extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(WHILE_CONDITION_DOC);
+        properties().defaultExpression(WHILE_CONDITION_DOC);
     }
 }

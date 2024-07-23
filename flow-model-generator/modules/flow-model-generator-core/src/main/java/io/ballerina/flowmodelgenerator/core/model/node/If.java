@@ -84,7 +84,7 @@ public class If extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultCondition(PropertiesBuilder.CONDITION_DOC);
+        properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
         this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
     }
 }

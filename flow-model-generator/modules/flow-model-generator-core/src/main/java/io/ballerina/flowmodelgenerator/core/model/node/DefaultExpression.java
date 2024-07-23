@@ -36,6 +36,10 @@ public class DefaultExpression extends NodeBuilder {
     public static final String LABEL = "Custom Expression";
     public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
+    public static final String STATEMENT_KEY = "statement";
+    public static final String STATEMENT_LABEL = "Statement";
+    public static final String STATEMENT_DOC = "Ballerina statement";
+
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
@@ -45,20 +49,28 @@ public class DefaultExpression extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode node) {
+        SourceBuilder sourceBuilder = new SourceBuilder();
         Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
-        Optional<Property> property = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+        Optional<Property> expression = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
 
-        if (variable.isEmpty() || property.isEmpty()) {
-            throw new IllegalStateException("Variable and property are required for a default expression");
+        if (variable.isPresent() && expression.isPresent()) {
+            sourceBuilder
+                    .expressionWithType(variable.get())
+                    .whiteSpace()
+                    .keyword(SyntaxKind.EQUAL_TOKEN)
+                    .whiteSpace()
+                    .expression(expression.get())
+                    .endOfStatement();
+            return sourceBuilder.build(false);
         }
 
-        SourceBuilder sourceBuilder = new SourceBuilder();
+        Optional<Property> statement = node.getProperty(STATEMENT_KEY);
+        if (statement.isEmpty()) {
+            throw new IllegalStateException(
+                    "One of from the following properties is required: variable, expression, statement");
+        }
         sourceBuilder
-                .expressionWithType(variable.get())
-                .whiteSpace()
-                .keyword(SyntaxKind.EQUAL_TOKEN)
-                .whiteSpace()
-                .expression(property.get())
+                .expression(statement.get())
                 .endOfStatement();
         return sourceBuilder.build(false);
     }

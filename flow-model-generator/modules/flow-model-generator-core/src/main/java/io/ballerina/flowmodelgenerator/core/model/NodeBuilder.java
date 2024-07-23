@@ -376,7 +376,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setConditionExpression(ExpressionNode expressionNode) {
+        public PropertiesBuilder condition(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property condition = propertyBuilder
                     .label(CONDITION_LABEL)
@@ -389,7 +389,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setExpressionNode(ExpressionNode expressionNode, String expressionDoc) {
+        public PropertiesBuilder expression(ExpressionNode expressionNode, String expressionDoc) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .label(EXPRESSION_DOC)
@@ -402,7 +402,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setDefaultExpression(String doc) {
+        public PropertiesBuilder defaultExpression(String doc) {
             Property property = propertyBuilder
                     .label(EXPRESSION_LABEL)
                     .value("")
@@ -414,7 +414,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setDefaultCondition(String doc) {
+        public PropertiesBuilder defaultCondition(String doc) {
             Property property = propertyBuilder
                     .label(CONDITION_LABEL)
                     .value("true")
@@ -426,7 +426,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder setDefaultExpression(ExpressionAttributes.Info info) {
+        public PropertiesBuilder defaultExpression(ExpressionAttributes.Info info) {
             Property property = propertyBuilder
                     .label(info.label())
                     .value("")
@@ -435,6 +435,21 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(info.key(), property);
+            return this;
+        }
+
+        public PropertiesBuilder statement(Node node) {
+            if (node == null) {
+                return this;
+            }
+            Property property = propertyBuilder
+                    .label(DefaultExpression.STATEMENT_LABEL)
+                    .value(node.toSourceCode())
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
+                    .documentation(DefaultExpression.STATEMENT_DOC)
+                    .editable()
+                    .build();
+            addProperty(DefaultExpression.STATEMENT_KEY, property);
             return this;
         }
 

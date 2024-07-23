@@ -59,6 +59,6 @@ public class Panic extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().setDefaultExpression(PANIC_EXPRESSION_DOC);
+        properties().defaultExpression(PANIC_EXPRESSION_DOC);
     }
 }

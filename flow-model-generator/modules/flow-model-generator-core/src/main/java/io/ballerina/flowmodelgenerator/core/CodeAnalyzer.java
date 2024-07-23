@@ -135,7 +135,7 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.RETURN).lineRange(returnStatementNode);
             expression.ifPresent(expressionNode -> nodeBuilder.properties()
-                    .setExpressionNode(expressionNode, Return.RETURN_EXPRESSION_DOC));
+                    .expression(expressionNode, Return.RETURN_EXPRESSION_DOC));
         }
         nodeBuilder.returning();
         endNode();
@@ -195,7 +195,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(IfElseStatementNode ifElseStatementNode) {
         startNode(FlowNode.Kind.IF)
                 .lineRange(ifElseStatementNode)
-                .properties().setConditionExpression(ifElseStatementNode.condition());
+                .properties().condition(ifElseStatementNode.condition());
 
         Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK);
         for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
@@ -314,7 +314,7 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.FAIL)
                 .lineRange(failStatementNode)
                 .properties()
-                .setExpressionNode(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
+                .expression(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
         endNode();
     }
 
@@ -333,7 +333,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(WhileStatementNode whileStatementNode) {
         startNode(FlowNode.Kind.WHILE)
                 .lineRange(whileStatementNode)
-                .properties().setConditionExpression(whileStatementNode.condition());
+                .properties().condition(whileStatementNode.condition());
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK);
@@ -363,7 +363,7 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.PANIC)
                 .lineRange(panicStatementNode)
                 .properties()
-                .setExpressionNode(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
+                .expression(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
         endNode();
     }
 
@@ -378,7 +378,7 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.START)
                 .lineRange(startActionNode)
                 .properties()
-                .setExpressionNode(startActionNode.expression(), Start.START_EXPRESSION_DOC);
+                .expression(startActionNode.expression(), Start.START_EXPRESSION_DOC);
         endNode();
     }
 
@@ -558,8 +558,11 @@ class CodeAnalyzer extends NodeVisitor {
      * @param statementNode the statement node
      * @param runnable      The runnable to be called to analyze the child nodes.
      */
-    private void handleDefaultStatementNode(NonTerminalNode statementNode, Runnable runnable) {
-        startNode(FlowNode.Kind.EXPRESSION).lineRange(statementNode);
+    private void handleDefaultStatementNode(NonTerminalNode statementNode,
+                                            Runnable runnable) {
+        startNode(FlowNode.Kind.EXPRESSION)
+                .lineRange(statementNode)
+                .properties().statement(statementNode);
         runnable.run();
         endNode();
     }
