@@ -4,10 +4,14 @@
     "node": "BREAK"
   },
   "output": {
-    "id": "0",
-    "label": "Break",
-    "description": "Exit the current loop",
-    "kind": "BREAK",
+    "id": "31",
+    "metadata": {
+      "label": "Break",
+      "description": "Exit the current loop"
+    },
+    "codedata": {
+      "node": "BREAK"
+    },
     "returning": false,
     "flags": 0
   }

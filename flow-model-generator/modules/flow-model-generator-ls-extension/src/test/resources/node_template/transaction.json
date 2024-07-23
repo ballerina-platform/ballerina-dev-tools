@@ -4,10 +4,14 @@
     "node": "TRANSACTION"
   },
   "output": {
-    "id": "0",
-    "label": "Transaction",
-    "description": "Handle transaction.",
-    "kind": "TRANSACTION",
+    "id": "31",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION"
+    },
     "returning": false,
     "branches": [
       {

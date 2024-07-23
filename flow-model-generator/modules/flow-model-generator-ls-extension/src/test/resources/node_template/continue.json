@@ -4,10 +4,14 @@
     "node": "CONTINUE"
   },
   "output": {
-    "id": "0",
-    "label": "Continue",
-    "description": "Skip the current iteration and continue with the next one",
-    "kind": "CONTINUE",
+    "id": "31",
+    "metadata": {
+      "label": "Continue",
+      "description": "Skip the current iteration and continue with the next one"
+    },
+    "codedata": {
+      "node": "CONTINUE"
+    },
     "returning": false,
     "flags": 0
   }

@@ -6,11 +6,15 @@
     "symbol": "get"
   },
   "output": {
-    "id": "0",
-    "label": "Redis Get",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "Redis Get"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "client": {
         "metadata": {
           "label": "Client",

@@ -83,6 +83,8 @@ public abstract class NodeBuilder {
     protected List<Branch> branches;
     protected PropertiesBuilder propertiesBuilder;
     protected int flags;
+    protected boolean returning;
+    protected LineRange lineRange;
     protected SemanticModel semanticModel;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -101,8 +103,6 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.LOCK, Lock::new);
         put(FlowNode.Kind.FAIL, Fail::new);
     }};
-    protected boolean returning;
-    protected LineRange lineRange;
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
         return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
@@ -229,9 +229,9 @@ public abstract class NodeBuilder {
         public static final String VARIABLE_KEY = "variable";
         public static final String VARIABLE_DOC = "Result Variable";
 
-        public static final String EXPRESSION_RHS_LABEL = "Expression";
-        public static final String EXPRESSION_RHS_KEY = "expression";
-        public static final String EXPRESSION_RHS_DOC = "Expression";
+        public static final String EXPRESSION_LABEL = "Expression";
+        public static final String EXPRESSION_KEY = "expression";
+        public static final String EXPRESSION_DOC = "Expression";
 
         public static final String CONDITION_LABEL = "Condition";
         public static final String CONDITION_KEY = "condition";
@@ -239,11 +239,11 @@ public abstract class NodeBuilder {
 
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
-        protected Property.Builder expressionBuilder;
+        protected Property.Builder propertyBuilder;
 
         public PropertiesBuilder(SemanticModel semanticModel) {
             this.nodeProperties = new LinkedHashMap<>();
-            this.expressionBuilder = Property.Builder.getInstance();
+            this.propertyBuilder = Property.Builder.getInstance();
             this.semanticModel = semanticModel;
         }
 
@@ -252,29 +252,29 @@ public abstract class NodeBuilder {
             if (node == null) {
                 return (T) this;
             }
-            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
-            expressionBuilder
+            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
+            propertyBuilder
                     .label(VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(VARIABLE_DOC);
 
-            addProperty(VARIABLE_KEY, expressionBuilder.build());
+            addProperty(VARIABLE_KEY, propertyBuilder.build());
             return (T) this;
         }
 
         public PropertiesBuilder expression(ExpressionNode expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Property property = expressionBuilder
-                    .label(EXPRESSION_RHS_LABEL)
+            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
+            Property property = propertyBuilder
+                    .label(EXPRESSION_LABEL)
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
-                    .documentation(EXPRESSION_RHS_DOC)
+                    .documentation(EXPRESSION_DOC)
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
-            addProperty(EXPRESSION_RHS_KEY, property);
+            addProperty(EXPRESSION_KEY, property);
             return this;
         }
 
@@ -310,7 +310,7 @@ public abstract class NodeBuilder {
                 }
             }
 
-            expressionBuilder = Property.Builder.getInstance();
+            propertyBuilder = Property.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -325,7 +325,7 @@ public abstract class NodeBuilder {
 
                 ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
                 if (info != null) {
-                    expressionBuilder
+                    propertyBuilder
                             .label(info.label())
                             .documentation(info.documentation())
                             .typeKind(Property.ExpressionTypeKind.BTYPE)
@@ -333,7 +333,7 @@ public abstract class NodeBuilder {
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                     if (paramValue != null) {
-                        expressionBuilder.value(paramValue.toSourceCode());
+                        propertyBuilder.value(paramValue.toSourceCode());
                     }
 
                     String staticType = info.type();
@@ -342,43 +342,43 @@ public abstract class NodeBuilder {
 
                     if (info.dynamicType() && valueType.isPresent()) {
                         // Obtain the type from the value if the dynamic type is set
-                        expressionBuilder.type(valueType.get());
+                        propertyBuilder.type(valueType.get());
                     } else if (staticType != null) {
                         // Set the static type
-                        expressionBuilder.type(staticType);
+                        propertyBuilder.type(staticType);
                     } else {
                         // Set the type of the symbol if none of types were found
-                        expressionBuilder.type(parameterSymbol.typeDescriptor());
+                        propertyBuilder.type(parameterSymbol.typeDescriptor());
                     }
 
-                    addProperty(parameterName, expressionBuilder.build());
+                    addProperty(parameterName, propertyBuilder.build());
                 }
             }
             return this;
         }
 
         public PropertiesBuilder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
-            expressionBuilder
+            propertyBuilder
                     .label(EVENT_HTTP_API_METHOD)
                     .typeKind(Property.ExpressionTypeKind.IDENTIFIER)
                     .editable()
                     .documentation(EVENT_HTTP_API_METHOD_DOC);
-            resourceMethodSymbol.getName().ifPresent(name -> expressionBuilder.value(name));
-            addProperty(EVENT_HTTP_API_METHOD_KEY, expressionBuilder.build());
+            resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
+            addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
 
-            expressionBuilder
+            propertyBuilder
                     .label(EVENT_HTTP_API_PATH)
                     .typeKind(Property.ExpressionTypeKind.URI_PATH)
                     .editable()
                     .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
-            addProperty(EVENT_HTTP_API_PATH_KEY, expressionBuilder.build());
+            addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
             return this;
         }
 
         public PropertiesBuilder setConditionExpression(ExpressionNode expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Property condition = expressionBuilder
+            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
+            Property condition = propertyBuilder
                     .label(CONDITION_LABEL)
                     .value(expressionNode.toSourceCode())
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
@@ -390,15 +390,39 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder setExpressionNode(ExpressionNode expressionNode, String expressionDoc) {
-            semanticModel.typeOf(expressionNode).ifPresent(expressionBuilder::type);
-            Property property = expressionBuilder
-                    .label(EXPRESSION_RHS_DOC)
+            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
+            Property property = propertyBuilder
+                    .label(EXPRESSION_DOC)
                     .value(expressionNode.toSourceCode())
                     .documentation(expressionDoc)
                     .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
-            addProperty(EXPRESSION_RHS_KEY, property);
+            addProperty(EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder setDefaultExpression(String label, String doc) {
+            Property property = propertyBuilder
+                    .label(label)
+                    .value("")
+                    .documentation(doc)
+                    .typeKind(Property.ExpressionTypeKind.BTYPE)
+                    .editable()
+                    .build();
+            addProperty(EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder setDefaultExpression(ExpressionAttributes.Info info) {
+            Property property = propertyBuilder
+                    .label(info.label())
+                    .value("")
+                    .type(info.type())
+                    .documentation(info.documentation())
+                    .editable()
+                    .build();
+            addProperty(info.key(), property);
             return this;
         }
 

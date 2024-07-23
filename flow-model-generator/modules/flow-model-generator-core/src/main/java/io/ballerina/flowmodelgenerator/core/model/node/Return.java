@@ -59,6 +59,6 @@ public class Return extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(RETURN_EXPRESSION_DOC));
+        properties().setDefaultExpression(PropertiesBuilder.EXPRESSION_KEY, RETURN_EXPRESSION_DOC);
     }
 }

@@ -47,35 +47,8 @@ public record Property(Metadata metadata, String valueType, String value) {
     public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_KEY = "expression";
 
-    public static Property getDefaultConditionExpression(String doc) {
-        return Property.Builder.getInstance()
-                .label(CONDITION_LABEL)
-                .value("")
-                .documentation(doc)
-                .typeKind(Property.ExpressionTypeKind.BTYPE)
-                .editable()
-                .build();
-    }
 
-    public static Property getDefaultExpression(String doc) {
-        return Property.Builder.getInstance()
-                .label(EXPRESSION_LABEL)
-                .value("")
-                .documentation(doc)
-                .typeKind(Property.ExpressionTypeKind.BTYPE)
-                .editable()
-                .build();
-    }
 
-    public static Property getExpressionForInfo(ExpressionAttributes.Info info) {
-        return Builder.getInstance()
-                .label(info.label())
-                .value("")
-                .type(info.type())
-                .documentation(info.documentation())
-                .editable()
-                .build();
-    }
 
     /**
      * Represents a builder for the expression.

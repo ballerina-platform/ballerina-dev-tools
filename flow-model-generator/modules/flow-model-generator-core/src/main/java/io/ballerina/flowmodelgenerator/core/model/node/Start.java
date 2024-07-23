@@ -59,6 +59,6 @@ public class Start extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(START_EXPRESSION_DOC));
+        properties().setDefaultExpression(PropertiesBuilder.EXPRESSION_KEY, START_EXPRESSION_DOC);
     }
 }

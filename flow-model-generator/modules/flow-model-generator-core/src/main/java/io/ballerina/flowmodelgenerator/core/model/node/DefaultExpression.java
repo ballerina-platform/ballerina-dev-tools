@@ -44,7 +44,7 @@ public class DefaultExpression extends NodeBuilder {
     @Override
     public String toSource(FlowNode node) {
         Property variable = node.getProperty(NodeBuilder.PropertiesBuilder.VARIABLE_KEY);
-        Property property = node.getProperty(NodeBuilder.PropertiesBuilder.EXPRESSION_RHS_KEY);
+        Property property = node.getProperty(NodeBuilder.PropertiesBuilder.EXPRESSION_KEY);
 
         SourceBuilder sourceBuilder = new SourceBuilder();
         sourceBuilder

@@ -6,11 +6,23 @@
     "symbol": "get"
   },
   "output": {
-    "id": "0",
-    "label": "HTTP GET",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "HTTP GET"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": ""
+      },
       "path": {
         "metadata": {
           "label": "Path",
@@ -25,14 +37,6 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": ""
-      },
-      "client": {
-        "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
-        },
-        "valueType": "http:Client",
         "value": ""
       }
     },

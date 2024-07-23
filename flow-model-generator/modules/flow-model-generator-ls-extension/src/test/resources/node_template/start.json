@@ -4,15 +4,19 @@
     "node": "START"
   },
   "output": {
-    "id": "0",
-    "label": "Start",
-    "description": "Execute a function or a method invocation in a new strand",
-    "kind": "START",
+    "id": "31",
+    "metadata": {
+      "label": "Start",
+      "description": "Execute a function or a method invocation in a new strand"
+    },
+    "codedata": {
+      "node": "START"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
         "metadata": {
-          "label": "Expression",
+          "label": "expression",
           "description": "Call action or expression"
         },
         "value": ""

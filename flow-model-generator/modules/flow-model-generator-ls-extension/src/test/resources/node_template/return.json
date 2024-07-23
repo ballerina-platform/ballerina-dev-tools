@@ -4,15 +4,19 @@
     "node": "RETURN"
   },
   "output": {
-    "id": "0",
-    "label": "Return",
-    "description": "Return a value",
-    "kind": "RETURN",
+    "id": "31",
+    "metadata": {
+      "label": "Return",
+      "description": "Return a value"
+    },
+    "codedata": {
+      "node": "RETURN"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
         "metadata": {
-          "label": "Expression",
+          "label": "expression",
           "description": "Return value"
         },
         "value": ""

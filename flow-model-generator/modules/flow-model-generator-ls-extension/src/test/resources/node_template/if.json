@@ -4,10 +4,14 @@
     "node": "IF"
   },
   "output": {
-    "id": "0",
-    "label": "If",
-    "description": "Add conditional branch to the integration flow.",
-    "kind": "IF",
+    "id": "31",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF"
+    },
     "returning": false,
     "branches": [
       {
@@ -21,10 +25,10 @@
         "children": []
       }
     ],
-    "nodeProperties": {
-      "condition": {
+    "properties": {
+      "expression": {
         "metadata": {
-          "label": "Condition",
+          "label": "condition",
           "description": "Boolean Condition"
         },
         "value": ""

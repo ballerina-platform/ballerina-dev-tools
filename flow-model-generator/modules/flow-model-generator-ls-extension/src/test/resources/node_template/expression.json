@@ -4,10 +4,14 @@
     "node": "EXPRESSION"
   },
   "output": {
-    "id": "0",
-    "label": "Custom Expression",
-    "description": "Represents a custom Ballerina expression",
-    "kind": "EXPRESSION",
+    "id": "31",
+    "metadata": {
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
+    },
+    "codedata": {
+      "node": "EXPRESSION"
+    },
     "returning": false,
     "flags": 0
   }

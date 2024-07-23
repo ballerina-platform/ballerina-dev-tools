@@ -6,11 +6,15 @@
     "symbol": "set"
   },
   "output": {
-    "id": "0",
-    "label": "Redis Set",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "Redis Set"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "client": {
         "metadata": {
           "label": "Client",
@@ -19,18 +23,18 @@
         "valueType": "redis:Client",
         "value": ""
       },
-      "value": {
-        "metadata": {
-          "label": "Value",
-          "description": "Redis Value"
-        },
-        "valueType": "string",
-        "value": ""
-      },
       "key": {
         "metadata": {
           "label": "Key",
           "description": "Redis Key"
+        },
+        "valueType": "string",
+        "value": ""
+      },
+      "value": {
+        "metadata": {
+          "label": "Value",
+          "description": "Redis Value"
         },
         "valueType": "string",
         "value": ""

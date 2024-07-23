@@ -84,7 +84,6 @@ public class While extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-//        this.properties =
-//                Map.of(Property.CONDITION_KEY, Property.getDefaultConditionExpression(WHILE_CONDITION_DOC));
+        properties().setDefaultExpression(PropertiesBuilder.CONDITION_KEY, WHILE_CONDITION_DOC);
     }
 }

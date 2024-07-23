@@ -6,15 +6,35 @@
     "symbol": "post"
   },
   "output": {
-    "id": "0",
-    "label": "HTTP POST",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": ""
+      },
       "path": {
         "metadata": {
           "label": "Path",
           "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": ""
+      },
+      "message": {
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
         },
         "valueType": "string",
         "value": ""
@@ -27,28 +47,12 @@
         "valueType": "map<string|string[]>?",
         "value": ""
       },
-      "client": {
-        "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
-        },
-        "valueType": "http:Client",
-        "value": ""
-      },
       "mediaType": {
         "metadata": {
           "label": "Media Type",
           "description": "HTTP Post Media Type"
         },
         "valueType": "string?",
-        "value": ""
-      },
-      "message": {
-        "metadata": {
-          "label": "Message",
-          "description": "HTTP Post Message"
-        },
-        "valueType": "string",
         "value": ""
       }
     },

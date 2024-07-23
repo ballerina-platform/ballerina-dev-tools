@@ -4,15 +4,19 @@
     "node": "FAIL"
   },
   "output": {
-    "id": "0",
-    "label": "Fail",
-    "description": "Fail the execution",
-    "kind": "FAIL",
+    "id": "31",
+    "metadata": {
+      "label": "Fail",
+      "description": "Fail the execution"
+    },
+    "codedata": {
+      "node": "FAIL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
         "metadata": {
-          "label": "Expression",
+          "label": "expression",
           "description": "Fail value"
         },
         "value": ""

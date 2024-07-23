@@ -59,6 +59,6 @@ public class Fail extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-//        this.properties = Map.of(Property.EXPRESSION_KEY, Property.getDefaultExpression(FAIL_EXPRESSION_DOC));
+        properties().setDefaultExpression(PropertiesBuilder.EXPRESSION_KEY, FAIL_EXPRESSION_DOC);
     }
 }

@@ -4,15 +4,19 @@
     "node": "WHILE"
   },
   "output": {
-    "id": "0",
-    "label": "While",
-    "description": "Loop over a block of code.",
-    "kind": "WHILE",
+    "id": "31",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE"
+    },
     "returning": false,
-    "nodeProperties": {
-      "condition": {
+    "properties": {
+      "expression": {
         "metadata": {
-          "label": "Condition",
+          "label": "condition",
           "description": "Boolean Condition"
         },
         "value": ""
