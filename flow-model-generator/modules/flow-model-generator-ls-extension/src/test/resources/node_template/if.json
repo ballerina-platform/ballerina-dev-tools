@@ -4,6 +4,7 @@
     "kind": "IF"
   },
   "output": {
+    "id": "0",
     "label": "If",
     "description": "Add conditional branch to the integration flow.",
     "kind": "IF",

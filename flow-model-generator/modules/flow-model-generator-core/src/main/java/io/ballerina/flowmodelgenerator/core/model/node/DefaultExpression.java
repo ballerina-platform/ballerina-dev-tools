@@ -56,7 +56,7 @@ public class DefaultExpression extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
 
     }
 }

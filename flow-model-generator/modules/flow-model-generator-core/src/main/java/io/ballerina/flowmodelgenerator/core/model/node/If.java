@@ -79,7 +79,7 @@ public class If extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.nodeProperties =
                 Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(IF_CONDITION_DOC));
         this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));

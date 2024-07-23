@@ -4,6 +4,7 @@
     "kind": "ERROR_HANDLER"
   },
   "output": {
+    "id": "0",
     "label": "ErrorHandler",
     "description": "Catch and handle errors",
     "kind": "ERROR_HANDLER",

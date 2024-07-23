@@ -47,7 +47,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
-import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -159,7 +158,12 @@ public abstract class FlowNode {
 
     public abstract String toSource();
 
-    public abstract void setTemplateData();
+    public void setTemplateData() {
+        this.id = "0";
+        setConcreteTemplateData();;
+    }
+
+    public abstract void setConcreteTemplateData();
 
     public static final int NODE_FLAG_CHECKED = 1 << 0;
     public static final int NODE_FLAG_CHECKPANIC = 1 << 1;

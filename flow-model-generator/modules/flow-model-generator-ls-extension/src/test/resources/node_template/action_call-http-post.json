@@ -6,6 +6,7 @@
     "call": "post"
   },
   "output": {
+    "id": "0",
     "label": "HTTP POST",
     "kind": "ACTION_CALL",
     "returning": false,

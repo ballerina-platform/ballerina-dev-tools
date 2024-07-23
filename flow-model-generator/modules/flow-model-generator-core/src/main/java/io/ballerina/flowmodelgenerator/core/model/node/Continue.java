@@ -44,7 +44,7 @@ public class Continue extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
 
     }
 }

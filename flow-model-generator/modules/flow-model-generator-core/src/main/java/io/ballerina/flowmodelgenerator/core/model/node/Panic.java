@@ -58,7 +58,7 @@ public class Panic extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(PANIC_EXPRESSION_DOC));
     }
 }

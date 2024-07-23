@@ -4,6 +4,7 @@
     "kind": "EXPRESSION"
   },
   "output": {
+    "id": "0",
     "label": "Custom Expression",
     "description": "Represents a custom Ballerina expression",
     "kind": "EXPRESSION",

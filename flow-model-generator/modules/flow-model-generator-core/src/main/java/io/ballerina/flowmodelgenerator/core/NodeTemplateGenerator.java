@@ -8,7 +8,7 @@ import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
-import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
+import io.ballerina.flowmodelgenerator.core.model.NodeId;
 
 import java.util.HashMap;
 import java.util.Map;

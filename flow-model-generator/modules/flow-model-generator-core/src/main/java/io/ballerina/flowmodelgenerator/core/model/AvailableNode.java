@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import io.ballerina.flowmodelgenerator.core.model.node.NodeId;
-
 import java.util.List;
 
 /**

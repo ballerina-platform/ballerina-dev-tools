@@ -4,6 +4,7 @@
     "kind": "BREAK"
   },
   "output": {
+    "id": "0",
     "label": "Break",
     "description": "Exit the current loop",
     "kind": "BREAK",

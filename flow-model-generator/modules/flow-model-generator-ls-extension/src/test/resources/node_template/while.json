@@ -4,6 +4,7 @@
     "kind": "WHILE"
   },
   "output": {
+    "id": "0",
     "label": "While",
     "description": "Loop over a block of code.",
     "kind": "WHILE",

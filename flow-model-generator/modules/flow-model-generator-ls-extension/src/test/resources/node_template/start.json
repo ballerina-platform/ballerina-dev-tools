@@ -4,6 +4,7 @@
     "kind": "START"
   },
   "output": {
+    "id": "0",
     "label": "Start",
     "description": "Execute a function or a method invocation in a new strand",
     "kind": "START",

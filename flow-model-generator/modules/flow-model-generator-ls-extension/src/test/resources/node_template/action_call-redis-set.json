@@ -6,6 +6,7 @@
     "call": "set"
   },
   "output": {
+    "id": "0",
     "label": "Redis Set",
     "kind": "ACTION_CALL",
     "returning": false,

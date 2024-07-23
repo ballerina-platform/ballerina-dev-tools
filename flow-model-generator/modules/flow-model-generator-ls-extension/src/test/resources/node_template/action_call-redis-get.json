@@ -6,6 +6,7 @@
     "call": "get"
   },
   "output": {
+    "id": "0",
     "label": "Redis Get",
     "kind": "ACTION_CALL",
     "returning": false,

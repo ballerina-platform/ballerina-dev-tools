@@ -52,9 +52,12 @@ public class While extends FlowNode {
         sourceBuilder
                 .keyword(SyntaxKind.WHILE_KEYWORD)
                 .expression(condition)
-                .openBrace()
-                .addChildren(body.children())
-                .closeBrace();
+                .openBrace();
+
+        if (body != null) {
+            sourceBuilder.addChildren(body.children());
+        }
+        sourceBuilder.closeBrace();
 
         // Handle the on fail branch
         Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
@@ -80,7 +83,7 @@ public class While extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.nodeProperties =
                 Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(WHILE_CONDITION_DOC));
     }

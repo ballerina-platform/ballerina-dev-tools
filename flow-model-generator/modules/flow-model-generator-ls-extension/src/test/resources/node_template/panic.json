@@ -4,6 +4,7 @@
     "kind": "PANIC"
   },
   "output": {
+    "id": "0",
     "label": "Panic",
     "description": "Panic and stop the execution",
     "kind": "PANIC",

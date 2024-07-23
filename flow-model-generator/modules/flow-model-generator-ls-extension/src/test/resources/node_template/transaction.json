@@ -4,6 +4,7 @@
     "kind": "TRANSACTION"
   },
   "output": {
+    "id": "0",
     "label": "Transaction",
     "description": "Handle transaction.",
     "kind": "TRANSACTION",

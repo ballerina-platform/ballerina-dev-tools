@@ -58,7 +58,7 @@ public class Return extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(RETURN_EXPRESSION_DOC));
     }
 }

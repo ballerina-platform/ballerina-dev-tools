@@ -16,7 +16,7 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core.model.node;
+package io.ballerina.flowmodelgenerator.core.model;
 
 /**
  * Represents the properties that uniquely identifies a node in the diagram.

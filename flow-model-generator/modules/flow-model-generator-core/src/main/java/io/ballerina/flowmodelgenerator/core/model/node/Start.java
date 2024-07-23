@@ -57,7 +57,7 @@ public class Start extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(START_EXPRESSION_DOC));
     }
 }

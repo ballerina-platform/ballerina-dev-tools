@@ -4,6 +4,7 @@
     "kind": "RETURN"
   },
   "output": {
+    "id": "0",
     "label": "Return",
     "description": "Return a value",
     "kind": "RETURN",
