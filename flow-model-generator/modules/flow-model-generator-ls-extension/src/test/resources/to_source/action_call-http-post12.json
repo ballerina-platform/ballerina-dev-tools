@@ -1,0 +1,80 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65990",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "lineRange": {
+      "fileName": "http_post_node.bal",
+      "startLine": {
+        "line": 34,
+        "offset": 15
+      },
+      "endLine": {
+        "line": 34,
+        "offset": 53
+      }
+    },
+    "returning": true,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": "foodClient"
+      },
+      "path": {
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": "\"/bananas\""
+      },
+      "message": {
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
+        },
+        "valueType": "string",
+        "value": "\"banana\""
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?"
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "Media Type",
+          "description": "HTTP Post Media Type"
+        },
+        "valueType": "string?"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 34,
+          "character": 15
+        },
+        "end": {
+          "line": 34,
+          "character": 53
+        }
+      },
+      "newText": "return foodClient->post(\"/bananas\", \"banana\");"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "56876",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "lineRange": {
+      "fileName": "http_post_node.bal",
+      "startLine": {
+        "line": 25,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 25,
+        "offset": 84
+      }
+    },
+    "returning": false,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": "foodClient"
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "json",
+        "value": "res9 "
+      },
+      "message": {
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
+        },
+        "valueType": "string",
+        "value": "\"green apple\""
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?"
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "Media Type",
+          "description": "HTTP Post Media Type"
+        },
+        "valueType": "string?"
+      }
+    },
+    "flags": 1
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 25,
+          "character": 8
+        },
+        "end": {
+          "line": 25,
+          "character": 84
+        }
+      },
+      "newText": "json res9 = check foodClient->post(, \"green apple\");"
+    }
+  ]
+}

@@ -234,6 +234,15 @@
                   }
                 },
                 "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "value": "            finalMsg += response.toString();\n"
+                  }
+                },
                 "flags": 0
               },
               {
@@ -257,6 +266,15 @@
                   }
                 },
                 "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "value": "            i += 1;\n"
+                  }
+                },
                 "flags": 0
               }
             ]

@@ -14,12 +14,12 @@
     },
     "returning": false,
     "properties": {
-      "expression": {
+      "condition": {
         "metadata": {
-          "label": "Expression",
+          "label": "Condition",
           "description": "Boolean Condition"
         },
-        "value": ""
+        "value": "true"
       }
     },
     "flags": 0

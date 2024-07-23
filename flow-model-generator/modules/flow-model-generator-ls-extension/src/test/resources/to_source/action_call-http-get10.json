@@ -1,0 +1,65 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "57836",
+    "metadata": {
+      "label": "HTTP GET"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "lineRange": {
+      "fileName": "http_get_node.bal",
+      "startLine": {
+        "line": 26,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 26,
+        "offset": 52
+      }
+    },
+    "returning": false,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": "foodClient"
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "Food",
+        "value": "res8 "
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?"
+      }
+    },
+    "flags": 1
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 26,
+          "character": 8
+        },
+        "end": {
+          "line": 26,
+          "character": 52
+        }
+      },
+      "newText": "Food res8 = check foodClient->get();"
+    }
+  ]
+}

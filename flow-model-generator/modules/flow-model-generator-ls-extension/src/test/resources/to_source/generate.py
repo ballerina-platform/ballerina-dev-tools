@@ -18,6 +18,7 @@ under the License.
 
 import os
 import json
+import sys
 
 
 def write_json(output_node, output_filename):
@@ -34,8 +35,17 @@ def write_json(output_node, output_filename):
         json.dump(output_data, output_file)
 
 
-# Prompt the user for input
-user_input = input("File name: ")
+# Get the user input from the command line argument
+file_code = sys.argv[1]
+
+# Exit the program if the user input is empty
+if not file_code:
+    print("Please enter the node kind")
+    sys.exit(1)
+
+# Split the user input by "-"
+input_parts = file_code.split("-")
+input_node_name = input_parts[0]
 
 # Obtain the current path
 current_path = os.path.dirname(os.path.abspath(__file__))
@@ -43,10 +53,11 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 # Relative to this path, read the file
 diagram_dir_name = os.path.join(
     current_path, "..", "diagram_generator", "config")
-matching_files = [file for file in os.listdir(
-    diagram_dir_name) if file.startswith(user_input)]
+matching_files = sorted([file for file in os.listdir(
+    diagram_dir_name) if file.startswith(file_code)])
 
 # Iterate over the matching files
+index = 1
 for file_name in matching_files:
     # Construct the file path
     file_path = os.path.join(diagram_dir_name, file_name)
@@ -58,15 +69,15 @@ for file_name in matching_files:
         # Get the nodes array from the diagram property
         nodes = data['diagram']['nodes']
 
-        # Find the first node with the specified kind
+        # Find the nodes with the specified kind
         for node in nodes:
-            if node['codedata']['node'] == user_input.upper():
-                write_json(node, file_name)
-                break
+            if node['codedata']['node'] == input_node_name.upper():
+                write_json(node, f"{file_code}{index}.json")
+                index += 1
 
 # Add a test case for the template file
 template_file = os.path.join(
-    current_path, "..", "node_template", f"{user_input}.json")
+    current_path, "..", "node_template", f"{file_code}.json")
 
 # Read the JSON template file
 with open(template_file, 'r') as template_file:
@@ -77,4 +88,4 @@ with open(template_file, 'r') as template_file:
         "startLine": {"line": 0, "offset": 0},
         "endLine": {"line": 0, "offset": 0}
     }
-    write_json(output_property, f"{user_input}0.json")
+    write_json(output_property, f"{file_code}0.json")
