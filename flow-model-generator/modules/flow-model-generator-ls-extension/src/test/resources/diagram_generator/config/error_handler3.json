@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "62842",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "pineapples",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "pineapples"
           }
         },
         "flags": 2048
       },
       {
         "id": "63900",
-        "label": "ErrorHandler",
-        "description": "Catch and handle errors",
-        "kind": "ERROR_HANDLER",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER"
+        },
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -72,8 +78,12 @@
             "children": [
               {
                 "id": "64920",
-                "label": "HTTP GET",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "HTTP GET"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -86,50 +96,50 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "http:Client",
-                    "value": "foodClient",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Client Connection"
+                    "metadata": {
+                      "label": "Client",
+                      "description": "HTTP Client Connection"
+                    },
+                    "valueType": "http:Client",
+                    "value": "foodClient"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "json",
-                    "value": "res ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "json",
+                    "value": "res "
                   },
                   "path": {
-                    "label": "Path",
-                    "type": "string",
-                    "value": "\"/western/pineapples\"",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Path"
+                    "metadata": {
+                      "label": "Path",
+                      "description": "HTTP Path"
+                    },
+                    "valueType": "string",
+                    "value": "\"/western/pineapples\""
                   },
                   "headers": {
-                    "label": "Headers",
-                    "type": "map<string|string[]>?",
-                    "typeKind": "BTYPE",
-                    "optional": true,
-                    "editable": true,
-                    "documentation": "HTTP Headers"
+                    "metadata": {
+                      "label": "Headers",
+                      "description": "HTTP Headers"
+                    },
+                    "valueType": "map<string|string[]>?"
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "65878",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -142,15 +152,14 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "res.toString()",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "string",
+                    "value": "res.toString()"
                   }
                 },
                 "flags": 0
@@ -163,9 +172,13 @@
             "children": [
               {
                 "id": "67861",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -178,15 +191,14 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "err.message()",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "string",
+                    "value": "err.message()"
                   }
                 },
                 "flags": 0
@@ -194,13 +206,12 @@
             ],
             "properties": {
               "variable": {
-                "label": "Variable",
-                "type": "http:ClientError",
-                "value": "err ",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": true,
-                "documentation": "Result Variable"
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "http:ClientError",
+                "value": "err "
               }
             }
           }

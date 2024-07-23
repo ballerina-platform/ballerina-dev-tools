@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "47187",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "oranges",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "oranges"
           }
         },
         "flags": 2048
       },
       {
         "id": "49206",
-        "label": "ErrorHandler",
-        "description": "Catch and handle errors",
-        "kind": "ERROR_HANDLER",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER"
+        },
         "lineRange": {
           "fileName": "error_handler.bal",
           "startLine": {
@@ -72,8 +78,12 @@
             "children": [
               {
                 "id": "50038",
-                "label": "HTTP GET",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "HTTP GET"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -86,50 +96,50 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "http:Client",
-                    "value": "foodClient",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Client Connection"
+                    "metadata": {
+                      "label": "Client",
+                      "description": "HTTP Client Connection"
+                    },
+                    "valueType": "http:Client",
+                    "value": "foodClient"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "json",
-                    "value": "res3 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "json",
+                    "value": "res3 "
                   },
                   "path": {
-                    "label": "Path",
-                    "type": "string",
-                    "value": "\"/western/oranges\"",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Path"
+                    "metadata": {
+                      "label": "Path",
+                      "description": "HTTP Path"
+                    },
+                    "valueType": "string",
+                    "value": "\"/western/oranges\""
                   },
                   "headers": {
-                    "label": "Headers",
-                    "type": "map<string|string[]>?",
-                    "typeKind": "BTYPE",
-                    "optional": true,
-                    "editable": true,
-                    "documentation": "HTTP Headers"
+                    "metadata": {
+                      "label": "Headers",
+                      "description": "HTTP Headers"
+                    },
+                    "valueType": "map<string|string[]>?"
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "50998",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -142,24 +152,22 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "res3.toString()",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
+                    "value": "res3.toString()"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
-                    "value": "msg",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string|()",
+                    "value": "msg"
                   }
                 },
                 "flags": 0
@@ -172,9 +180,13 @@
             "children": [
               {
                 "id": "52995",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -187,33 +199,35 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "\"Failed to get the response\"",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
+                    "value": "\"Failed to get the response\""
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
-                    "value": "msg",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string|()",
+                    "value": "msg"
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "54108",
-                "label": "ErrorHandler",
-                "description": "Catch and handle errors",
-                "kind": "ERROR_HANDLER",
+                "metadata": {
+                  "label": "ErrorHandler",
+                  "description": "Catch and handle errors"
+                },
+                "codedata": {
+                  "node": "ERROR_HANDLER"
+                },
                 "lineRange": {
                   "fileName": "error_handler.bal",
                   "startLine": {
@@ -233,8 +247,12 @@
                     "children": [
                       {
                         "id": "55159",
-                        "label": "HTTP POST",
-                        "kind": "ACTION_CALL",
+                        "metadata": {
+                          "label": "HTTP POST"
+                        },
+                        "codedata": {
+                          "node": "ACTION_CALL"
+                        },
                         "lineRange": {
                           "fileName": "error_handler.bal",
                           "startLine": {
@@ -247,67 +265,65 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "client": {
-                            "label": "Client",
-                            "type": "http:Client",
-                            "value": "foodClient",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Client Connection"
+                            "metadata": {
+                              "label": "Client",
+                              "description": "HTTP Client Connection"
+                            },
+                            "valueType": "http:Client",
+                            "value": "foodClient"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
-                            "value": "res ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
+                            "value": "res "
                           },
                           "path": {
-                            "label": "Path",
-                            "type": "string",
-                            "value": "\"/log\"",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Path"
+                            "metadata": {
+                              "label": "Path",
+                              "description": "HTTP Path"
+                            },
+                            "valueType": "string",
+                            "value": "\"/log\""
                           },
                           "message": {
-                            "label": "Message",
-                            "type": "string",
-                            "value": "\"Error occurred while getting the response\"",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Post Message"
+                            "metadata": {
+                              "label": "Message",
+                              "description": "HTTP Post Message"
+                            },
+                            "valueType": "string",
+                            "value": "\"Error occurred while getting the response\""
                           },
                           "headers": {
-                            "label": "Headers",
-                            "type": "map<string|string[]>?",
-                            "typeKind": "BTYPE",
-                            "optional": true,
-                            "editable": true,
-                            "documentation": "HTTP Headers"
+                            "metadata": {
+                              "label": "Headers",
+                              "description": "HTTP Headers"
+                            },
+                            "valueType": "map<string|string[]>?"
                           },
                           "mediaType": {
-                            "label": "Media Type",
-                            "type": "string?",
-                            "typeKind": "BTYPE",
-                            "optional": true,
-                            "editable": true,
-                            "documentation": "HTTP Post Media Type"
+                            "metadata": {
+                              "label": "Media Type",
+                              "description": "HTTP Post Media Type"
+                            },
+                            "valueType": "string?"
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "56102",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "error_handler.bal",
                           "startLine": {
@@ -320,24 +336,22 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "string",
-                            "value": "msg.toString() + res.toString()",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "string",
+                            "value": "msg.toString() + res.toString()"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "string|()",
-                            "value": "msg",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "string|()",
+                            "value": "msg"
                           }
                         },
                         "flags": 0
@@ -350,9 +364,13 @@
                     "children": [
                       {
                         "id": "58095",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "error_handler.bal",
                           "startLine": {
@@ -365,24 +383,22 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "string",
-                            "value": "\"Error occurred while logging the error\"",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "string",
+                            "value": "\"Error occurred while logging the error\""
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "string|()",
-                            "value": "msg",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "string|()",
+                            "value": "msg"
                           }
                         },
                         "flags": 0

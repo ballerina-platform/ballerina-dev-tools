@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "43711",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "44848",
-        "label": "Panic",
-        "description": "Panic and stop the execution",
-        "kind": "PANIC",
+        "metadata": {
+          "label": "Panic",
+          "description": "Panic and stop the execution"
+        },
+        "codedata": {
+          "node": "PANIC"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -48,15 +56,14 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "AssertionError",
-            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Panic value"
+            "metadata": {
+              "label": "Expression",
+              "description": "Panic value"
+            },
+            "valueType": "AssertionError",
+            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")"
           }
         },
         "flags": 0

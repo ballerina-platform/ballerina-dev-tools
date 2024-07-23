@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "66655",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -28,30 +32,32 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "bananas",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "bananas"
           }
         },
         "flags": 2048
       },
       {
         "id": "67963",
-        "label": "HTTP GET",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "http_get_node.bal",
           "startLine": {
@@ -64,32 +70,29 @@
           }
         },
         "returning": true,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "foodClient",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient"
           },
           "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/bananas\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/bananas\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           }
         },
         "flags": 0

@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "85937",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "grapes",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "grapes"
           }
         },
         "flags": 2048
       },
       {
         "id": "86580",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -65,33 +71,35 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "int",
-            "value": "price % 4",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "price % 4"
           },
           "variable": {
-            "label": "Variable",
-            "type": "int",
-            "value": "mod ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "int",
+            "value": "mod "
           }
         },
         "flags": 0
       },
       {
         "id": "87956",
-        "label": "If",
-        "description": "Add conditional branch to the integration flow.",
-        "kind": "IF",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -111,9 +119,13 @@
             "children": [
               {
                 "id": "88679",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -136,9 +148,13 @@
             "children": [
               {
                 "id": "90843",
-                "label": "If",
-                "description": "Add conditional branch to the integration flow.",
-                "kind": "IF",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -158,9 +174,13 @@
                     "children": [
                       {
                         "id": "91901",
-                        "label": "If",
-                        "description": "Add conditional branch to the integration flow.",
-                        "kind": "IF",
+                        "metadata": {
+                          "label": "If",
+                          "description": "Add conditional branch to the integration flow."
+                        },
+                        "codedata": {
+                          "node": "IF"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -180,9 +200,13 @@
                             "children": [
                               {
                                 "id": "92959",
-                                "label": "If",
-                                "description": "Add conditional branch to the integration flow.",
-                                "kind": "IF",
+                                "metadata": {
+                                  "label": "If",
+                                  "description": "Add conditional branch to the integration flow."
+                                },
+                                "codedata": {
+                                  "node": "IF"
+                                },
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -202,9 +226,13 @@
                                     "children": [
                                       {
                                         "id": "94023",
-                                        "label": "Return",
-                                        "description": "Return a value",
-                                        "kind": "RETURN",
+                                        "metadata": {
+                                          "label": "Return",
+                                          "description": "Return a value"
+                                        },
+                                        "codedata": {
+                                          "node": "RETURN"
+                                        },
                                         "lineRange": {
                                           "fileName": "if_node.bal",
                                           "startLine": {
@@ -222,15 +250,14 @@
                                     ]
                                   }
                                 ],
-                                "nodeProperties": {
+                                "properties": {
                                   "condition": {
-                                    "label": "Condition",
-                                    "type": "boolean",
-                                    "value": "price < 10 && mod == 1 ",
-                                    "typeKind": "BTYPE",
-                                    "optional": false,
-                                    "editable": true,
-                                    "documentation": "Boolean Condition"
+                                    "metadata": {
+                                      "label": "Condition",
+                                      "description": "Boolean Condition"
+                                    },
+                                    "valueType": "boolean",
+                                    "value": "price < 10 && mod == 1 "
                                   }
                                 },
                                 "flags": 0
@@ -238,15 +265,14 @@
                             ]
                           }
                         ],
-                        "nodeProperties": {
+                        "properties": {
                           "condition": {
-                            "label": "Condition",
-                            "type": "boolean",
-                            "value": "price < 25 ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Boolean Condition"
+                            "metadata": {
+                              "label": "Condition",
+                              "description": "Boolean Condition"
+                            },
+                            "valueType": "boolean",
+                            "value": "price < 25 "
                           }
                         },
                         "flags": 0
@@ -254,24 +280,27 @@
                     ]
                   }
                 ],
-                "nodeProperties": {
+                "properties": {
                   "condition": {
-                    "label": "Condition",
-                    "type": "boolean",
-                    "value": "price < 50 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Boolean Condition"
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "price < 50 "
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "97663",
-                "label": "If",
-                "description": "Add conditional branch to the integration flow.",
-                "kind": "IF",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -291,9 +320,13 @@
                     "children": [
                       {
                         "id": "98727",
-                        "label": "Return",
-                        "description": "Return a value",
-                        "kind": "RETURN",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -311,15 +344,14 @@
                     ]
                   }
                 ],
-                "nodeProperties": {
+                "properties": {
                   "condition": {
-                    "label": "Condition",
-                    "type": "boolean",
-                    "value": "mod == 0 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Boolean Condition"
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "mod == 0 "
                   }
                 },
                 "flags": 0
@@ -327,15 +359,14 @@
             ]
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
-            "value": "price > 100 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "price > 100 "
           }
         },
         "flags": 0

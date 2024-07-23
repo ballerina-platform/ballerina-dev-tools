@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "51709",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "52725",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -48,33 +56,35 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "Foo1",
-            "value": "new(\"foo\")",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "Foo1",
+            "value": "new(\"foo\")"
           },
           "variable": {
-            "label": "Variable",
-            "type": "Foo1",
-            "value": "f1 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "Foo1",
+            "value": "f1 "
           }
         },
         "flags": 0
       },
       {
         "id": "55411",
-        "label": "Start",
-        "description": "Execute a function or a method invocation in a new strand",
-        "kind": "START",
+        "metadata": {
+          "label": "Start",
+          "description": "Execute a function or a method invocation in a new strand"
+        },
+        "codedata": {
+          "node": "START"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -87,24 +97,27 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "future<string>",
-            "value": "f1->getName()",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Call action or expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Call action or expression"
+            },
+            "valueType": "future<string>",
+            "value": "f1->getName()"
           }
         },
         "flags": 0
       },
       {
         "id": "54730",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -117,24 +130,22 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "future<string>",
-            "value": "start f1->getName()",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "future<string>",
+            "value": "start f1->getName()"
           },
           "variable": {
-            "label": "Variable",
-            "type": "future<string>",
-            "value": "name ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "future<string>",
+            "value": "name "
           }
         },
         "flags": 0

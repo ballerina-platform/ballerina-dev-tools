@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "68670",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "post",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "post"
           },
           "path": {
-            "label": "Path",
-            "value": "milkshake",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "milkshake"
           }
         },
         "flags": 2048
       },
       {
         "id": "69743",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -65,32 +71,34 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "http:Client",
-            "value": "new (\"/drink\")",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "http:Client",
+            "value": "new (\"/drink\")"
           },
           "variable": {
-            "label": "Variable",
-            "type": "http:Client",
-            "value": "drinkClient ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "http:Client",
+            "value": "drinkClient "
           }
         },
         "flags": 1
       },
       {
         "id": "70958",
-        "label": "HTTP POST",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -103,49 +111,44 @@
           }
         },
         "returning": true,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "drinkClient",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "drinkClient"
           },
           "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/milkshake\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/milkshake\""
           },
           "message": {
-            "label": "Message",
-            "type": "string",
-            "value": "\"mixed fruit\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Post Message"
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"mixed fruit\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           },
           "mediaType": {
-            "label": "Media Type",
-            "type": "string?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Post Media Type"
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?"
           }
         },
         "flags": 0

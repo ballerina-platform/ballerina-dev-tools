@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "68081",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "oranges",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "oranges"
           }
         },
         "flags": 2048
       },
       {
         "id": "69139",
-        "label": "If",
-        "description": "Add conditional branch to the integration flow.",
-        "kind": "IF",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -72,9 +78,13 @@
             "children": [
               {
                 "id": "69847",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -87,33 +97,35 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "\"cheap\"",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
+                    "value": "\"cheap\""
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string",
-                    "value": "food.comment",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string",
+                    "value": "food.comment"
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "70828",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -126,15 +138,14 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "Food",
-                    "value": "food",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "Food",
+                    "value": "food"
                   }
                 },
                 "flags": 0
@@ -147,9 +158,13 @@
             "children": [
               {
                 "id": "72239",
-                "label": "If",
-                "description": "Add conditional branch to the integration flow.",
-                "kind": "IF",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -169,9 +184,13 @@
                     "children": [
                       {
                         "id": "72925",
-                        "label": "If",
-                        "description": "Add conditional branch to the integration flow.",
-                        "kind": "IF",
+                        "metadata": {
+                          "label": "If",
+                          "description": "Add conditional branch to the integration flow."
+                        },
+                        "codedata": {
+                          "node": "IF"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -191,9 +210,13 @@
                             "children": [
                               {
                                 "id": "73945",
-                                "label": "Custom Expression",
-                                "description": "Represents a custom Ballerina expression",
-                                "kind": "EXPRESSION",
+                                "metadata": {
+                                  "label": "Custom Expression",
+                                  "description": "Represents a custom Ballerina expression"
+                                },
+                                "codedata": {
+                                  "node": "EXPRESSION"
+                                },
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -206,24 +229,22 @@
                                   }
                                 },
                                 "returning": false,
-                                "nodeProperties": {
+                                "properties": {
                                   "expression": {
-                                    "label": "Expression",
-                                    "type": "string",
-                                    "value": "\"fresh; \"",
-                                    "typeKind": "BTYPE",
-                                    "optional": false,
-                                    "editable": true,
-                                    "documentation": "Expression"
+                                    "metadata": {
+                                      "label": "Expression",
+                                      "description": "Expression"
+                                    },
+                                    "valueType": "string",
+                                    "value": "\"fresh; \""
                                   },
                                   "variable": {
-                                    "label": "Variable",
-                                    "type": "string",
-                                    "value": "food.comment",
-                                    "typeKind": "BTYPE",
-                                    "optional": false,
-                                    "editable": true,
-                                    "documentation": "Result Variable"
+                                    "metadata": {
+                                      "label": "Variable",
+                                      "description": "Result Variable"
+                                    },
+                                    "valueType": "string",
+                                    "value": "food.comment"
                                   }
                                 },
                                 "flags": 0
@@ -236,9 +257,13 @@
                             "children": [
                               {
                                 "id": "75931",
-                                "label": "Custom Expression",
-                                "description": "Represents a custom Ballerina expression",
-                                "kind": "EXPRESSION",
+                                "metadata": {
+                                  "label": "Custom Expression",
+                                  "description": "Represents a custom Ballerina expression"
+                                },
+                                "codedata": {
+                                  "node": "EXPRESSION"
+                                },
                                 "lineRange": {
                                   "fileName": "if_node.bal",
                                   "startLine": {
@@ -251,24 +276,22 @@
                                   }
                                 },
                                 "returning": false,
-                                "nodeProperties": {
+                                "properties": {
                                   "expression": {
-                                    "label": "Expression",
-                                    "type": "string",
-                                    "value": "\"expired; \"",
-                                    "typeKind": "BTYPE",
-                                    "optional": false,
-                                    "editable": true,
-                                    "documentation": "Expression"
+                                    "metadata": {
+                                      "label": "Expression",
+                                      "description": "Expression"
+                                    },
+                                    "valueType": "string",
+                                    "value": "\"expired; \""
                                   },
                                   "variable": {
-                                    "label": "Variable",
-                                    "type": "string",
-                                    "value": "food.comment",
-                                    "typeKind": "BTYPE",
-                                    "optional": false,
-                                    "editable": true,
-                                    "documentation": "Result Variable"
+                                    "metadata": {
+                                      "label": "Variable",
+                                      "description": "Result Variable"
+                                    },
+                                    "valueType": "string",
+                                    "value": "food.comment"
                                   }
                                 },
                                 "flags": 0
@@ -276,24 +299,27 @@
                             ]
                           }
                         ],
-                        "nodeProperties": {
+                        "properties": {
                           "condition": {
-                            "label": "Condition",
-                            "type": "boolean",
-                            "value": "food.remaining > 0 ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Boolean Condition"
+                            "metadata": {
+                              "label": "Condition",
+                              "description": "Boolean Condition"
+                            },
+                            "valueType": "boolean",
+                            "value": "food.remaining > 0 "
                           }
                         },
                         "flags": 0
                       },
                       {
                         "id": "77787",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -310,9 +336,13 @@
                       },
                       {
                         "id": "78764",
-                        "label": "Return",
-                        "description": "Return a value",
-                        "kind": "RETURN",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -325,15 +355,14 @@
                           }
                         },
                         "returning": true,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "Food",
-                            "value": "food",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Return value"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "Food",
+                            "value": "food"
                           }
                         },
                         "flags": 0
@@ -346,9 +375,13 @@
                     "children": [
                       {
                         "id": "80763",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -361,33 +394,35 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "string",
-                            "value": "\"expensive\"",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "string",
+                            "value": "\"expensive\""
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "string",
-                            "value": "food.comment",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "string",
+                            "value": "food.comment"
                           }
                         },
                         "flags": 0
                       },
                       {
                         "id": "81740",
-                        "label": "Return",
-                        "description": "Return a value",
-                        "kind": "RETURN",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN"
+                        },
                         "lineRange": {
                           "fileName": "if_node.bal",
                           "startLine": {
@@ -400,15 +435,14 @@
                           }
                         },
                         "returning": true,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "Food",
-                            "value": "food",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Return value"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "Food",
+                            "value": "food"
                           }
                         },
                         "flags": 0
@@ -416,15 +450,14 @@
                     ]
                   }
                 ],
-                "nodeProperties": {
+                "properties": {
                   "condition": {
-                    "label": "Condition",
-                    "type": "boolean",
-                    "value": "food.price < 200 ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Boolean Condition"
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "food.price < 200 "
                   }
                 },
                 "flags": 0
@@ -432,15 +465,14 @@
             ]
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
-            "value": "food.price < 100 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "food.price < 100 "
           }
         },
         "flags": 0

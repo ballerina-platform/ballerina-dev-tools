@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "45137",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -33,8 +37,12 @@
       },
       {
         "id": "45807",
-        "label": "HTTP GET",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -47,50 +55,50 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "moduleCl",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "moduleCl"
           },
           "variable": {
-            "label": "Variable",
-            "type": "json",
-            "value": "moduleVal ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "moduleVal "
           },
           "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/hello\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/hello\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           }
         },
         "flags": 1
       },
       {
         "id": "46776",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -107,9 +115,13 @@
       },
       {
         "id": "48794",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -122,32 +134,34 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "http:Client",
-            "value": "new (\"http://localhost:8080\")",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "http:Client",
+            "value": "new (\"http://localhost:8080\")"
           },
           "variable": {
-            "label": "Variable",
-            "type": "http:Client",
-            "value": "localCl ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "http:Client",
+            "value": "localCl "
           }
         },
         "flags": 1
       },
       {
         "id": "49773",
-        "label": "HTTP GET",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -160,50 +174,50 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "localCl",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "localCl"
           },
           "variable": {
-            "label": "Variable",
-            "type": "json",
-            "value": "localVal ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "localVal "
           },
           "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/hello\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/hello\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           }
         },
         "flags": 1
       },
       {
         "id": "50745",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {
@@ -216,33 +230,35 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "MyClient",
-            "value": "new",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "MyClient",
+            "value": "new"
           },
           "variable": {
-            "label": "Variable",
-            "type": "MyClient",
-            "value": "myLocalCl ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "MyClient",
+            "value": "myLocalCl "
           }
         },
         "flags": 0
       },
       {
         "id": "51735",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "clients.bal",
           "startLine": {

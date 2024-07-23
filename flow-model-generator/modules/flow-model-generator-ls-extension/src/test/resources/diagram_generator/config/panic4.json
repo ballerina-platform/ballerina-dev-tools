@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "47710",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "48770",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -48,33 +56,35 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "annotations:error",
-            "value": "error(\"AssertionError\")",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "annotations:error",
+            "value": "error(\"AssertionError\")"
           },
           "variable": {
-            "label": "Variable",
-            "type": "annotations:error",
-            "value": "e ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "annotations:error",
+            "value": "e "
           }
         },
         "flags": 0
       },
       {
         "id": "49736",
-        "label": "Panic",
-        "description": "Panic and stop the execution",
-        "kind": "PANIC",
+        "metadata": {
+          "label": "Panic",
+          "description": "Panic and stop the execution"
+        },
+        "codedata": {
+          "node": "PANIC"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -87,15 +97,14 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "annotations:error",
-            "value": "e",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Panic value"
+            "metadata": {
+              "label": "Expression",
+              "description": "Panic value"
+            },
+            "valueType": "annotations:error",
+            "value": "e"
           }
         },
         "flags": 0

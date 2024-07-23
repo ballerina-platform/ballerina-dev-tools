@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "31807",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "33649",
-        "label": "Start",
-        "description": "Execute a function or a method invocation in a new strand",
-        "kind": "START",
+        "metadata": {
+          "label": "Start",
+          "description": "Execute a function or a method invocation in a new strand"
+        },
+        "codedata": {
+          "node": "START"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -48,24 +56,27 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "int",
-            "value": "sum(40, 50)",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Call action or expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Call action or expression"
+            },
+            "valueType": "int",
+            "value": "sum(40, 50)"
           }
         },
         "flags": 0
       },
       {
         "id": "32906",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "start.bal",
           "startLine": {
@@ -78,24 +89,22 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "future<int>",
-            "value": "start sum(40, 50)",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "future<int>",
+            "value": "start sum(40, 50)"
           },
           "variable": {
-            "label": "Variable",
-            "type": "future<int>",
-            "value": "futureVar ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "future<int>",
+            "value": "futureVar "
           }
         },
         "flags": 0

@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "45978",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "apples",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "apples"
           }
         },
         "flags": 2048
       },
       {
         "id": "47036",
-        "label": "If",
-        "description": "Add conditional branch to the integration flow.",
-        "kind": "IF",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF"
+        },
         "lineRange": {
           "fileName": "if_node.bal",
           "startLine": {
@@ -72,9 +78,13 @@
             "children": [
               {
                 "id": "48010",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -87,24 +97,22 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "int",
-                    "value": "1",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "int",
+                    "value": "1"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "int",
-                    "value": "a ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "a "
                   }
                 },
                 "flags": 0
@@ -117,9 +125,13 @@
             "children": [
               {
                 "id": "49994",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -132,33 +144,35 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "int",
-                    "value": "2",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "int",
+                    "value": "2"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "int",
-                    "value": "b ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "b "
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "50992",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "if_node.bal",
                   "startLine": {
@@ -171,24 +185,22 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "\"12\"",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
+                    "value": "\"12\""
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string",
-                    "value": "c ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string",
+                    "value": "c "
                   }
                 },
                 "flags": 0
@@ -196,15 +208,14 @@
             ]
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
-            "value": "flag ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "flag "
           }
         },
         "flags": 0

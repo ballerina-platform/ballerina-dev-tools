@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "50814",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "nothing",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "nothing"
           }
         },
         "flags": 2048
       },
       {
         "id": "51872",
-        "label": "While",
-        "description": "Loop over a block of code.",
-        "kind": "WHILE",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE"
+        },
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -72,15 +78,14 @@
             "children": []
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
-            "value": "true ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "true "
           }
         },
         "flags": 0

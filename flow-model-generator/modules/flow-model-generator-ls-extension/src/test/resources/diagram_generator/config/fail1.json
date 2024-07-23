@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "35899",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "fail.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "36957",
-        "label": "ErrorHandler",
-        "description": "Catch and handle errors",
-        "kind": "ERROR_HANDLER",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER"
+        },
         "lineRange": {
           "fileName": "fail.bal",
           "startLine": {
@@ -55,9 +63,13 @@
             "children": [
               {
                 "id": "37974",
-                "label": "Fail",
-                "description": "Fail the execution",
-                "kind": "FAIL",
+                "metadata": {
+                  "label": "Fail",
+                  "description": "Fail the execution"
+                },
+                "codedata": {
+                  "node": "FAIL"
+                },
                 "lineRange": {
                   "fileName": "fail.bal",
                   "startLine": {
@@ -70,15 +82,14 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "annotations:error",
-                    "value": "error(\"Failing\")",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Fail value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Fail value"
+                    },
+                    "valueType": "annotations:error",
+                    "value": "error(\"Failing\")"
                   }
                 },
                 "flags": 0
@@ -91,9 +102,13 @@
             "children": [
               {
                 "id": "39945",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "fail.bal",
                   "startLine": {
@@ -106,15 +121,14 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "annotations:error",
-                    "value": "e",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "annotations:error",
+                    "value": "e"
                   }
                 },
                 "flags": 0
@@ -122,13 +136,12 @@
             ],
             "properties": {
               "variable": {
-                "label": "Variable",
-                "type": "annotations:error",
-                "value": "e ",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": true,
-                "documentation": "Result Variable"
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "annotations:error",
+                "value": "e "
               }
             }
           }

@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "48024",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "main.bal",
           "startLine": {
@@ -28,31 +32,33 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "get",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get"
           },
           "path": {
-            "label": "Path",
-            "value": "converter",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "converter"
           }
         },
         "flags": 2048
       },
       {
         "id": "50043",
-        "label": "ErrorHandler",
-        "description": "Catch and handle errors",
-        "kind": "ERROR_HANDLER",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER"
+        },
         "lineRange": {
           "fileName": "main.bal",
           "startLine": {
@@ -72,9 +78,13 @@
             "children": [
               {
                 "id": "51006",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "main.bal",
                   "startLine": {
@@ -87,32 +97,34 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
-                    "value": "'from + \"-\" + to",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
+                    "value": "'from + \"-\" + to"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string",
-                    "value": "key ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string",
+                    "value": "key "
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "53009",
-                "label": "Redis Get",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "Redis Get"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "main.bal",
                   "startLine": {
@@ -125,42 +137,43 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "redis:Client",
-                    "value": "redisClient",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Redis Client Connection"
+                    "metadata": {
+                      "label": "Client",
+                      "description": "Redis Client Connection"
+                    },
+                    "valueType": "redis:Client",
+                    "value": "redisClient"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
-                    "value": "cacheValue ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string|()",
+                    "value": "cacheValue "
                   },
                   "key": {
-                    "label": "Key",
-                    "type": "string",
-                    "value": "key",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Redis Key"
+                    "metadata": {
+                      "label": "Key",
+                      "description": "Redis Key"
+                    },
+                    "valueType": "string",
+                    "value": "key"
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "56712",
-                "label": "If",
-                "description": "Add conditional branch to the integration flow.",
-                "kind": "IF",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
                 "lineRange": {
                   "fileName": "main.bal",
                   "startLine": {
@@ -180,9 +193,13 @@
                     "children": [
                       {
                         "id": "58112",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -195,33 +212,35 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "decimal",
-                            "value": "calculate(amount, <string>cacheValue)\n",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "decimal",
+                            "value": "calculate(amount, <string>cacheValue)\n"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
-                            "value": "newData ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
+                            "value": "newData "
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "62031",
-                        "label": "Return",
-                        "description": "Return a value",
-                        "kind": "RETURN",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -234,15 +253,14 @@
                           }
                         },
                         "returning": true,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "json",
-                            "value": "newData",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Return value"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "json",
+                            "value": "newData"
                           }
                         },
                         "flags": 0
@@ -255,8 +273,12 @@
                     "children": [
                       {
                         "id": "65073",
-                        "label": "HTTP GET",
-                        "kind": "ACTION_CALL",
+                        "metadata": {
+                          "label": "HTTP GET"
+                        },
+                        "codedata": {
+                          "node": "ACTION_CALL"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -269,50 +291,50 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "client": {
-                            "label": "Client",
-                            "type": "http:Client",
-                            "value": "currencyClient",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Client Connection"
+                            "metadata": {
+                              "label": "Client",
+                              "description": "HTTP Client Connection"
+                            },
+                            "valueType": "http:Client",
+                            "value": "currencyClient"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
-                            "value": "response ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
+                            "value": "response "
                           },
                           "path": {
-                            "label": "Path",
-                            "type": "string",
-                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Path"
+                            "metadata": {
+                              "label": "Path",
+                              "description": "HTTP Path"
+                            },
+                            "valueType": "string",
+                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to"
                           },
                           "headers": {
-                            "label": "Headers",
-                            "type": "map<string|string[]>?",
-                            "typeKind": "BTYPE",
-                            "optional": true,
-                            "editable": true,
-                            "documentation": "HTTP Headers"
+                            "metadata": {
+                              "label": "Headers",
+                              "description": "HTTP Headers"
+                            },
+                            "valueType": "map<string|string[]>?"
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "68005",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -325,33 +347,35 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "decimal|annotations:error",
-                            "value": "response.value",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "decimal|annotations:error",
+                            "value": "response.value"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "decimal",
-                            "value": "value ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "decimal",
+                            "value": "value "
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "70020",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -364,32 +388,34 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "decimal",
-                            "value": "calculate(amount, value.toString())",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "decimal",
+                            "value": "calculate(amount, value.toString())"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "decimal",
-                            "value": "convertedAmount ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "decimal",
+                            "value": "convertedAmount "
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "73111",
-                        "label": "Redis Set",
-                        "kind": "ACTION_CALL",
+                        "metadata": {
+                          "label": "Redis Set"
+                        },
+                        "codedata": {
+                          "node": "ACTION_CALL"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -402,42 +428,43 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "client": {
-                            "label": "Client",
-                            "type": "redis:Client",
-                            "value": "redisClient",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Redis Client Connection"
+                            "metadata": {
+                              "label": "Client",
+                              "description": "Redis Client Connection"
+                            },
+                            "valueType": "redis:Client",
+                            "value": "redisClient"
                           },
                           "key": {
-                            "label": "Key",
-                            "type": "string",
-                            "value": "key",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Redis Key"
+                            "metadata": {
+                              "label": "Key",
+                              "description": "Redis Key"
+                            },
+                            "valueType": "string",
+                            "value": "key"
                           },
                           "value": {
-                            "label": "Value",
-                            "type": "string",
-                            "value": "convertedAmount.toString()",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Redis Value"
+                            "metadata": {
+                              "label": "Value",
+                              "description": "Redis Value"
+                            },
+                            "valueType": "string",
+                            "value": "convertedAmount.toString()"
                           }
                         },
                         "flags": 1
                       },
                       {
                         "id": "75968",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -450,33 +477,35 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "map<json>",
-                            "value": "{\n                    value\n                }",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "map<json>",
+                            "value": "{\n                    value\n                }"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
-                            "value": "newData ",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
+                            "value": "newData "
                           }
                         },
                         "flags": 0
                       },
                       {
                         "id": "79887",
-                        "label": "Return",
-                        "description": "Return a value",
-                        "kind": "RETURN",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN"
+                        },
                         "lineRange": {
                           "fileName": "main.bal",
                           "startLine": {
@@ -489,15 +518,14 @@
                           }
                         },
                         "returning": true,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "json",
-                            "value": "newData",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Return value"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "json",
+                            "value": "newData"
                           }
                         },
                         "flags": 0
@@ -505,15 +533,14 @@
                     ]
                   }
                 ],
-                "nodeProperties": {
+                "properties": {
                   "condition": {
-                    "label": "Condition",
-                    "type": "boolean",
-                    "value": "hasValue(cacheValue) ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Boolean Condition"
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "hasValue(cacheValue) "
                   }
                 },
                 "flags": 0
@@ -526,9 +553,13 @@
             "children": [
               {
                 "id": "83747",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "main.bal",
                   "startLine": {
@@ -545,9 +576,13 @@
               },
               {
                 "id": "85730",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "main.bal",
                   "startLine": {
@@ -560,15 +595,14 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "ballerina/http:2.11.0:InternalServerError & readonly",
-                    "value": "http:INTERNAL_SERVER_ERROR",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "ballerina/http:2.11.1:InternalServerError & readonly",
+                    "value": "http:INTERNAL_SERVER_ERROR"
                   }
                 },
                 "flags": 0
@@ -576,13 +610,12 @@
             ],
             "properties": {
               "variable": {
-                "label": "Variable",
-                "type": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "value": "e ",
-                "typeKind": "BTYPE",
-                "optional": false,
-                "editable": true,
-                "documentation": "Result Variable"
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.1:error|annotations:error",
+                "value": "e "
               }
             }
           }

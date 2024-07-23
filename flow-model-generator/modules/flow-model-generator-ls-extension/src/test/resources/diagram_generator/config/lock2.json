@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "37914",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "38972",
-        "label": "Lock",
-        "description": "Allow to access mutable states safely",
-        "kind": "LOCK",
+        "metadata": {
+          "label": "Lock",
+          "description": "Allow to access mutable states safely"
+        },
+        "codedata": {
+          "node": "LOCK"
+        },
         "lineRange": {
           "fileName": "lock.bal",
           "startLine": {
@@ -55,9 +63,13 @@
             "children": [
               {
                 "id": "39946",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -70,33 +82,35 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "int",
-                    "value": "0",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "int",
+                    "value": "0"
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "int",
-                    "value": "i ",
-                    "typeKind": "BTYPE",
-                    "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "i "
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "40991",
-                "label": "Lock",
-                "description": "Allow to access mutable states safely",
-                "kind": "LOCK",
+                "metadata": {
+                  "label": "Lock",
+                  "description": "Allow to access mutable states safely"
+                },
+                "codedata": {
+                  "node": "LOCK"
+                },
                 "lineRange": {
                   "fileName": "lock.bal",
                   "startLine": {
@@ -116,9 +130,13 @@
                     "children": [
                       {
                         "id": "42054",
-                        "label": "Custom Expression",
-                        "description": "Represents a custom Ballerina expression",
-                        "kind": "EXPRESSION",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION"
+                        },
                         "lineRange": {
                           "fileName": "lock.bal",
                           "startLine": {
@@ -131,24 +149,22 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "expression": {
-                            "label": "Expression",
-                            "type": "int",
-                            "value": "3",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Expression"
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "int",
+                            "value": "3"
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "int",
-                            "value": "i",
-                            "typeKind": "BTYPE",
-                            "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "int",
+                            "value": "i"
                           }
                         },
                         "flags": 0

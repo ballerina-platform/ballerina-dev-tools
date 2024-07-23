@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "59742",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -28,30 +32,32 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
-            "value": "post",
-            "typeKind": "IDENTIFIER",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "post"
           },
           "path": {
-            "label": "Path",
-            "value": "pears",
-            "typeKind": "URI_PATH",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "pears"
           }
         },
         "flags": 2048
       },
       {
         "id": "60821",
-        "label": "HTTP POST",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -64,66 +70,64 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "foodClient",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient"
           },
           "variable": {
-            "label": "Variable",
-            "type": "json|annotations:error",
-            "value": "res1 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|annotations:error",
+            "value": "res1 "
           },
           "path": {
-            "label": "Path",
-            "type": "string",
-            "value": "\"/pears\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/pears\""
           },
           "message": {
-            "label": "Message",
-            "type": "string",
-            "value": "\"pear\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Post Message"
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"pear\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           },
           "mediaType": {
-            "label": "Media Type",
-            "type": "string?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Post Media Type"
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?"
           }
         },
         "flags": 0
       },
       {
         "id": "61821",
-        "label": "HTTP POST",
-        "kind": "ACTION_CALL",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
         "lineRange": {
           "fileName": "http_post_node.bal",
           "startLine": {
@@ -136,49 +140,44 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "client": {
-            "label": "Client",
-            "type": "http:Client",
-            "value": "foodClient",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Client Connection"
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient"
           },
           "variable": {
-            "label": "Variable",
-            "type": "json|http:ClientError",
-            "value": "res2 ",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|http:ClientError",
+            "value": "res2 "
           },
           "message": {
-            "label": "Message",
-            "type": "string",
-            "value": "\"pear\"",
-            "typeKind": "BTYPE",
-            "optional": false,
-            "editable": true,
-            "documentation": "HTTP Post Message"
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"pear\""
           },
           "headers": {
-            "label": "Headers",
-            "type": "map<string|string[]>?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Headers"
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?"
           },
           "mediaType": {
-            "label": "Media Type",
-            "type": "string?",
-            "typeKind": "BTYPE",
-            "optional": true,
-            "editable": true,
-            "documentation": "HTTP Post Media Type"
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?"
           }
         },
         "flags": 0
