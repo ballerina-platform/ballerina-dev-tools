@@ -18,6 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.tools.text.LineRange;
+
 /**
  * Represents the properties that uniquely identifies a node in the diagram.
  *
@@ -28,7 +31,8 @@ package io.ballerina.flowmodelgenerator.core.model;
  * @param symbol The symbol of the component
  * @since 1.5.0
  */
-public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol) {
+public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,
+                       LineRange lineRange) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
@@ -37,6 +41,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         private String module;
         private String object;
         private String symbol;
+        private LineRange lineRange;
 
         protected Builder(T parentBuilder) {
             super(parentBuilder);
@@ -67,8 +72,13 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
             return this;
         }
 
+        public Builder<T> lineRange(Node node) {
+            this.lineRange = node.lineRange();
+            return this;
+        }
+
         public Codedata build() {
-            return new Codedata(node, org, module, object, symbol);
+            return new Codedata(node, org, module, object, symbol, lineRange);
         }
     }
 }

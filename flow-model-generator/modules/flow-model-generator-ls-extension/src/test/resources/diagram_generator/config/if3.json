@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 36,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 52,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 36,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 52,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Add conditional branch to the integration flow."
         },
         "codedata": {
-          "node": "IF"
-        },
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 37,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 51,
-            "offset": 9
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 37,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 51,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -88,17 +88,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 38,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 38,
-                    "offset": 35
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 38,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 38,
+                      "offset": 35
+                    }
                   }
                 },
                 "returning": false,
@@ -133,17 +133,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 39,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 39,
-                    "offset": 24
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 39,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 39,
+                      "offset": 24
+                    }
                   }
                 },
                 "returning": true,
@@ -175,17 +175,17 @@
                   "description": "Add conditional branch to the integration flow."
                 },
                 "codedata": {
-                  "node": "IF"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 40,
-                    "offset": 15
-                  },
-                  "endLine": {
-                    "line": 51,
-                    "offset": 9
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 40,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 51,
+                      "offset": 9
+                    }
                   }
                 },
                 "returning": false,
@@ -202,17 +202,17 @@
                           "description": "Add conditional branch to the integration flow."
                         },
                         "codedata": {
-                          "node": "IF"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 41,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 45,
-                            "offset": 13
+                          "node": "IF",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 41,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 45,
+                              "offset": 13
+                            }
                           }
                         },
                         "returning": false,
@@ -229,17 +229,17 @@
                                   "description": "Represents a custom Ballerina expression"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION"
-                                },
-                                "lineRange": {
-                                  "fileName": "if_node.bal",
-                                  "startLine": {
-                                    "line": 42,
-                                    "offset": 16
-                                  },
-                                  "endLine": {
-                                    "line": 42,
-                                    "offset": 41
+                                  "node": "EXPRESSION",
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 42,
+                                      "offset": 16
+                                    },
+                                    "endLine": {
+                                      "line": 42,
+                                      "offset": 41
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -281,17 +281,17 @@
                                   "description": "Represents a custom Ballerina expression"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION"
-                                },
-                                "lineRange": {
-                                  "fileName": "if_node.bal",
-                                  "startLine": {
-                                    "line": 44,
-                                    "offset": 16
-                                  },
-                                  "endLine": {
-                                    "line": 44,
-                                    "offset": 43
+                                  "node": "EXPRESSION",
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 44,
+                                      "offset": 16
+                                    },
+                                    "endLine": {
+                                      "line": 44,
+                                      "offset": 43
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -343,17 +343,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 46,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 46,
-                            "offset": 39
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 46,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 46,
+                              "offset": 39
+                            }
                           }
                         },
                         "returning": false,
@@ -377,17 +377,17 @@
                           "description": "Return a value"
                         },
                         "codedata": {
-                          "node": "RETURN"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 47,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 47,
-                            "offset": 24
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 47,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 47,
+                              "offset": 24
+                            }
                           }
                         },
                         "returning": true,
@@ -419,17 +419,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 49,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 49,
-                            "offset": 39
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 49,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 49,
+                              "offset": 39
+                            }
                           }
                         },
                         "returning": false,
@@ -464,17 +464,17 @@
                           "description": "Return a value"
                         },
                         "codedata": {
-                          "node": "RETURN"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 50,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 50,
-                            "offset": 24
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 50,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 50,
+                              "offset": 24
+                            }
                           }
                         },
                         "returning": true,

@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "error_handler.bal",
-          "startLine": {
-            "line": 5,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 13,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Catch and handle errors"
         },
         "codedata": {
-          "node": "ERROR_HANDLER"
-        },
-        "lineRange": {
-          "fileName": "error_handler.bal",
-          "startLine": {
-            "line": 7,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 12,
-            "offset": 9
+          "node": "ERROR_HANDLER",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -87,17 +87,17 @@
                   "label": "HTTP GET"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "error_handler.bal",
-                  "startLine": {
-                    "line": 8,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 8,
-                    "offset": 65
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "error_handler.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 65
+                    }
                   }
                 },
                 "returning": false,
@@ -151,17 +151,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "error_handler.bal",
-                  "startLine": {
-                    "line": 9,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 9,
-                    "offset": 34
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "error_handler.bal",
+                    "startLine": {
+                      "line": 9,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 9,
+                      "offset": 34
+                    }
                   }
                 },
                 "returning": false,
@@ -203,17 +203,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "error_handler.bal",
-                  "startLine": {
-                    "line": 11,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 11,
-                    "offset": 47
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "error_handler.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 47
+                    }
                   }
                 },
                 "returning": false,

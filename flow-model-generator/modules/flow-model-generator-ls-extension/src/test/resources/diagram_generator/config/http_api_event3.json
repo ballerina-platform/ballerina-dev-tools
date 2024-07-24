@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "http_api_event_node.bal",
-          "startLine": {
-            "line": 12,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 13,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "http_api_event_node.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 5
+            }
           }
         },
         "returning": false,

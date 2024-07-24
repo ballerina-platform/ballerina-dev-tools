@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "lock.bal",
-          "startLine": {
-            "line": 15,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Allow to access mutable states safely"
         },
         "codedata": {
-          "node": "LOCK"
-        },
-        "lineRange": {
-          "fileName": "lock.bal",
-          "startLine": {
-            "line": 16,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 20,
-            "offset": 5
+          "node": "LOCK",
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -69,17 +69,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "lock.bal",
-                  "startLine": {
-                    "line": 17,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 17,
-                    "offset": 18
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "lock.bal",
+                    "startLine": {
+                      "line": 17,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 17,
+                      "offset": 18
+                    }
                   }
                 },
                 "returning": false,
@@ -121,17 +121,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "lock.bal",
-                  "startLine": {
-                    "line": 19,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 19,
-                    "offset": 15
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "lock.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 15
+                    }
                   }
                 },
                 "returning": true,

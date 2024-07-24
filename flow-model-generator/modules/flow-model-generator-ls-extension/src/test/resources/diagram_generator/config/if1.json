@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 14,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Add conditional branch to the integration flow."
         },
         "codedata": {
-          "node": "IF"
-        },
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 15,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 20,
-            "offset": 9
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -88,17 +88,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 16,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 16,
-                    "offset": 22
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 16,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 22
+                    }
                   }
                 },
                 "returning": false,
@@ -140,17 +140,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 18,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 18,
-                    "offset": 22
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 18,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 18,
+                      "offset": 22
+                    }
                   }
                 },
                 "returning": false,
@@ -185,17 +185,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 19,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 19,
-                    "offset": 28
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 28
+                    }
                   }
                 },
                 "returning": false,

@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "transaction.bal",
-          "startLine": {
-            "line": 44,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 53,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 44,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 53,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Handle transaction."
         },
         "codedata": {
-          "node": "TRANSACTION"
-        },
-        "lineRange": {
-          "fileName": "transaction.bal",
-          "startLine": {
-            "line": 45,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 52,
-            "offset": 5
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 45,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 52,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -69,17 +69,17 @@
                   "description": "Handle transaction."
                 },
                 "codedata": {
-                  "node": "TRANSACTION"
-                },
-                "lineRange": {
-                  "fileName": "transaction.bal",
-                  "startLine": {
-                    "line": 46,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 48,
-                    "offset": 9
+                  "node": "TRANSACTION",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 46,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 48,
+                      "offset": 9
+                    }
                   }
                 },
                 "returning": false,
@@ -96,17 +96,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "transaction.bal",
-                          "startLine": {
-                            "line": 47,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 47,
-                            "offset": 33
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "transaction.bal",
+                            "startLine": {
+                              "line": 47,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 47,
+                              "offset": 33
+                            }
                           }
                         },
                         "returning": false,
@@ -146,17 +146,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "transaction.bal",
-                  "startLine": {
-                    "line": 49,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 49,
-                    "offset": 29
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 49,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 49,
+                      "offset": 29
+                    }
                   }
                 },
                 "returning": false,
@@ -210,17 +210,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "transaction.bal",
-                  "startLine": {
-                    "line": 51,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 51,
-                    "offset": 17
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 51,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 51,
+                      "offset": 17
+                    }
                   }
                 },
                 "returning": true,

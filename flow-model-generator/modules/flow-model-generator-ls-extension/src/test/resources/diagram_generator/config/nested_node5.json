@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "nested_node.bal",
-          "startLine": {
-            "line": 41,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 53,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 41,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 53,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "nested_node.bal",
-          "startLine": {
-            "line": 42,
-            "offset": 11
-          },
-          "endLine": {
-            "line": 52,
-            "offset": 9
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 42,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 52,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -88,17 +88,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "nested_node.bal",
-                  "startLine": {
-                    "line": 43,
-                    "offset": 15
-                  },
-                  "endLine": {
-                    "line": 51,
-                    "offset": 13
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "nested_node.bal",
+                    "startLine": {
+                      "line": 43,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 51,
+                      "offset": 13
+                    }
                   }
                 },
                 "returning": false,
@@ -115,17 +115,17 @@
                           "description": "Handle transaction."
                         },
                         "codedata": {
-                          "node": "TRANSACTION"
-                        },
-                        "lineRange": {
-                          "fileName": "nested_node.bal",
-                          "startLine": {
-                            "line": 44,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 47,
-                            "offset": 17
+                          "node": "TRANSACTION",
+                          "lineRange": {
+                            "fileName": "nested_node.bal",
+                            "startLine": {
+                              "line": 44,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 47,
+                              "offset": 17
+                            }
                           }
                         },
                         "returning": false,
@@ -141,17 +141,17 @@
                                   "label": "HTTP POST"
                                 },
                                 "codedata": {
-                                  "node": "ACTION_CALL"
-                                },
-                                "lineRange": {
-                                  "fileName": "nested_node.bal",
-                                  "startLine": {
-                                    "line": 45,
-                                    "offset": 20
-                                  },
-                                  "endLine": {
-                                    "line": 45,
-                                    "offset": 90
+                                  "node": "ACTION_CALL",
+                                  "lineRange": {
+                                    "fileName": "nested_node.bal",
+                                    "startLine": {
+                                      "line": 45,
+                                      "offset": 20
+                                    },
+                                    "endLine": {
+                                      "line": 45,
+                                      "offset": 90
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -218,23 +218,23 @@
                                 "flags": 1
                               },
                               {
-                                "id": "78028",
+                                "id": "78029",
                                 "metadata": {
                                   "label": "Custom Expression",
                                   "description": "Represents a custom Ballerina expression"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION"
-                                },
-                                "lineRange": {
-                                  "fileName": "nested_node.bal",
-                                  "startLine": {
-                                    "line": 46,
-                                    "offset": 20
-                                  },
-                                  "endLine": {
-                                    "line": 46,
-                                    "offset": 32
+                                  "node": "EXPRESSION",
+                                  "lineRange": {
+                                    "fileName": "nested_node.bal",
+                                    "startLine": {
+                                      "line": 46,
+                                      "offset": 20
+                                    },
+                                    "endLine": {
+                                      "line": 46,
+                                      "offset": 33
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -263,17 +263,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "nested_node.bal",
-                          "startLine": {
-                            "line": 48,
-                            "offset": 19
-                          },
-                          "endLine": {
-                            "line": 50,
-                            "offset": 17
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "nested_node.bal",
+                            "startLine": {
+                              "line": 48,
+                              "offset": 19
+                            },
+                            "endLine": {
+                              "line": 50,
+                              "offset": 17
+                            }
                           }
                         },
                         "returning": false,
@@ -289,17 +289,17 @@
                                   "label": "HTTP GET"
                                 },
                                 "codedata": {
-                                  "node": "ACTION_CALL"
-                                },
-                                "lineRange": {
-                                  "fileName": "nested_node.bal",
-                                  "startLine": {
-                                    "line": 49,
-                                    "offset": 20
-                                  },
-                                  "endLine": {
-                                    "line": 49,
-                                    "offset": 71
+                                  "node": "ACTION_CALL",
+                                  "lineRange": {
+                                    "fileName": "nested_node.bal",
+                                    "startLine": {
+                                      "line": 49,
+                                      "offset": 20
+                                    },
+                                    "endLine": {
+                                      "line": 49,
+                                      "offset": 71
+                                    }
                                   }
                                 },
                                 "returning": false,

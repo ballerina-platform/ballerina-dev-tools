@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "fail.bal",
-          "startLine": {
-            "line": 12,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 18,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Catch and handle errors"
         },
         "codedata": {
-          "node": "ERROR_HANDLER"
-        },
-        "lineRange": {
-          "fileName": "fail.bal",
-          "startLine": {
-            "line": 13,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 17,
-            "offset": 5
+          "node": "ERROR_HANDLER",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -69,17 +69,17 @@
                   "description": "Fail the execution"
                 },
                 "codedata": {
-                  "node": "FAIL"
-                },
-                "lineRange": {
-                  "fileName": "fail.bal",
-                  "startLine": {
-                    "line": 14,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 14,
-                    "offset": 87
+                  "node": "FAIL",
+                  "lineRange": {
+                    "fileName": "fail.bal",
+                    "startLine": {
+                      "line": 14,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 14,
+                      "offset": 87
+                    }
                   }
                 },
                 "returning": false,
@@ -123,17 +123,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "fail.bal",
-                  "startLine": {
-                    "line": 16,
-                    "offset": 8
-                  },
-                  "endLine": {
-                    "line": 16,
-                    "offset": 17
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "fail.bal",
+                    "startLine": {
+                      "line": 16,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 17
+                    }
                   }
                 },
                 "returning": true,

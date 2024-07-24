@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 37,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 40,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 37,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 40,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 38,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 38,
-            "offset": 55
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 38,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 38,
+              "offset": 55
+            }
           }
         },
         "returning": false,
@@ -100,22 +100,22 @@
         "flags": 1
       },
       {
-        "id": "70958",
+        "id": "70742",
         "metadata": {
           "label": "HTTP POST"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 39,
-            "offset": 15
-          },
-          "endLine": {
-            "line": 39,
-            "offset": 61
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 39,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 39,
+              "offset": 62
+            }
           }
         },
         "returning": true,

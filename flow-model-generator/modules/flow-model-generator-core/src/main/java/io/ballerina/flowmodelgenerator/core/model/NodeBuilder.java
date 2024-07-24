@@ -80,7 +80,6 @@ public abstract class NodeBuilder {
     protected PropertiesBuilder propertiesBuilder;
     protected int flags;
     protected boolean returning;
-    protected LineRange lineRange;
     protected SemanticModel semanticModel;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -135,11 +134,6 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder lineRange(Node node) {
-        this.lineRange = node.lineRange();
-        return this;
-    }
-
     public NodeBuilder branch(Branch branch) {
         this.branches.add(branch);
         return this;
@@ -176,11 +170,11 @@ public abstract class NodeBuilder {
 
     public FlowNode build() {
         this.setConstData();
+        Codedata codedata = codedataBuilder.build();
         return new FlowNode(
-                String.valueOf(Objects.hash(lineRange)),
+                String.valueOf(Objects.hash(codedata.lineRange())),
                 new Metadata(label, description, null),
                 codedataBuilder == null ? null : codedataBuilder.build(),
-                lineRange,
                 returning,
                 branches.isEmpty() ? null : branches,
                 propertiesBuilder == null ? null : propertiesBuilder.build(),

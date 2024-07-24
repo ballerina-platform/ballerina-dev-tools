@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 30,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 33,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 30,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 33,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -60,17 +60,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 31,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 31,
-            "offset": 52
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 31,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 31,
+              "offset": 52
+            }
           }
         },
         "returning": false,
@@ -123,17 +123,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 32,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 32,
-            "offset": 63
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 32,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 63
+            }
           }
         },
         "returning": false,

@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "nested_node.bal",
-          "startLine": {
-            "line": 5,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 9,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "nested_node.bal",
-          "startLine": {
-            "line": 6,
-            "offset": 11
-          },
-          "endLine": {
-            "line": 8,
-            "offset": 9
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -87,17 +87,17 @@
                   "label": "HTTP GET"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "nested_node.bal",
-                  "startLine": {
-                    "line": 7,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 7,
-                    "offset": 63
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "nested_node.bal",
+                    "startLine": {
+                      "line": 7,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 7,
+                      "offset": 63
+                    }
                   }
                 },
                 "returning": false,

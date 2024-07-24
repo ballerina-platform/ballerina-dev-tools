@@ -52,7 +52,7 @@ public class SourceGenerator {
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
         List<TextEdit> textEdits = List.of(
-                new TextEdit(CommonUtils.toRange(flowNode.lineRange()),
+                new TextEdit(CommonUtils.toRange(flowNode.codedata().lineRange()),
                         NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(flowNode))
         );
         return gson.toJsonTree(textEdits);
