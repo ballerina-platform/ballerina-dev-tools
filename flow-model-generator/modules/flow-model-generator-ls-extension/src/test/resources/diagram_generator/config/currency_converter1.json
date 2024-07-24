@@ -670,7 +670,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "ballerina/http:2.11.1:InternalServerError & readonly",
+                    "valueType": "ballerina/http:2.11.0:InternalServerError & readonly",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true
@@ -685,7 +685,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.1:error|annotations:error",
+                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
                 "value": "e ",
                 "optional": false,
                 "editable": true
