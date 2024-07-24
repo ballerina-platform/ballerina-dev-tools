@@ -7,33 +7,41 @@
       "description": "Allow to access mutable states safely"
     },
     "codedata": {
-      "node": "LOCK"
+      "node": "LOCK",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "branches": [
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "repeatable": "ONE",
         "children": []
       },
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],
-    "flags": 0,
-    "lineRange": {
-      "fileName": "test.bal",
-      "startLine": {
-        "line": 0,
-        "offset": 0
-      },
-      "endLine": {
-        "line": 0,
-        "offset": 0
-      }
-    }
+    "flags": 0
   },
   "output": [
     {

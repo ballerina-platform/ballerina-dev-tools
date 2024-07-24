@@ -7,17 +7,17 @@
       "description": "Catch and handle errors"
     },
     "codedata": {
-      "node": "ERROR_HANDLER"
-    },
-    "lineRange": {
-      "fileName": "fail.bal",
-      "startLine": {
-        "line": 13,
-        "offset": 4
-      },
-      "endLine": {
-        "line": 17,
-        "offset": 5
+      "node": "ERROR_HANDLER",
+      "lineRange": {
+        "fileName": "fail.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 17,
+          "offset": 5
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 7
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 5
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": [
           {
             "id": "45967",
@@ -33,17 +47,17 @@
               "description": "Fail the execution"
             },
             "codedata": {
-              "node": "FAIL"
-            },
-            "lineRange": {
-              "fileName": "fail.bal",
-              "startLine": {
-                "line": 14,
-                "offset": 8
-              },
-              "endLine": {
-                "line": 14,
-                "offset": 87
+              "node": "FAIL",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 14,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 14,
+                  "offset": 87
+                }
               }
             },
             "returning": false,
@@ -54,7 +68,9 @@
                   "description": "Fail value"
                 },
                 "valueType": "AssertionError",
-                "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")"
+                "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -64,6 +80,32 @@
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 20
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 5
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": ".:error",
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "47881",
@@ -72,17 +114,17 @@
               "description": "Return a value"
             },
             "codedata": {
-              "node": "RETURN"
-            },
-            "lineRange": {
-              "fileName": "fail.bal",
-              "startLine": {
-                "line": 16,
-                "offset": 8
-              },
-              "endLine": {
-                "line": 16,
-                "offset": 17
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 17
+                }
               }
             },
             "returning": true,
@@ -93,22 +135,14 @@
                   "description": "Return value"
                 },
                 "valueType": ".:error",
-                "value": "e"
+                "value": "e",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
           }
-        ],
-        "properties": {
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": ".:error",
-            "value": "e "
-          }
-        }
+        ]
       }
     ],
     "flags": 0

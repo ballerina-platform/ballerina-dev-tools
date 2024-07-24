@@ -46,7 +46,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -365,12 +364,9 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder statement(Node node) {
-            if (node == null) {
-                return this;
-            }
             Property property = propertyBuilder
                     .label(DefaultExpression.STATEMENT_LABEL)
-                    .value(node.toSourceCode())
+                    .value(node == null ? "" : node.toSourceCode())
                     .documentation(DefaultExpression.STATEMENT_DOC)
                     .editable()
                     .build();

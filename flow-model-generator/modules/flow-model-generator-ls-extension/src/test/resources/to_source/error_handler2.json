@@ -7,17 +7,17 @@
       "description": "Catch and handle errors"
     },
     "codedata": {
-      "node": "ERROR_HANDLER"
-    },
-    "lineRange": {
-      "fileName": "error_handler.bal",
-      "startLine": {
-        "line": 17,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 28,
-        "offset": 9
+      "node": "ERROR_HANDLER",
+      "lineRange": {
+        "fileName": "error_handler.bal",
+        "startLine": {
+          "line": 17,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 28,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 11
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": [
           {
             "id": "50038",
@@ -32,17 +46,17 @@
               "label": "HTTP GET"
             },
             "codedata": {
-              "node": "ACTION_CALL"
-            },
-            "lineRange": {
-              "fileName": "error_handler.bal",
-              "startLine": {
-                "line": 18,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 18,
-                "offset": 66
+              "node": "ACTION_CALL",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 66
+                }
               }
             },
             "returning": false,
@@ -53,7 +67,9 @@
                   "description": "HTTP Client Connection"
                 },
                 "valueType": "http:Client",
-                "value": "foodClient"
+                "value": "foodClient",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -61,7 +77,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "json",
-                "value": "res3 "
+                "value": "res3 ",
+                "optional": false,
+                "editable": true
               },
               "path": {
                 "metadata": {
@@ -69,14 +87,18 @@
                   "description": "HTTP Path"
                 },
                 "valueType": "string",
-                "value": "\"/western/oranges\""
+                "value": "\"/western/oranges\"",
+                "optional": false,
+                "editable": true
               },
               "headers": {
                 "metadata": {
                   "label": "Headers",
                   "description": "HTTP Headers"
                 },
-                "valueType": "map<string|string[]>?"
+                "valueType": "map<string|string[]>?",
+                "optional": true,
+                "editable": true
               }
             },
             "flags": 1
@@ -88,17 +110,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "error_handler.bal",
-              "startLine": {
-                "line": 19,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 19,
-                "offset": 34
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 34
+                }
               }
             },
             "returning": false,
@@ -109,7 +131,9 @@
                   "description": "Expression"
                 },
                 "valueType": "string",
-                "value": "res3.toString()"
+                "value": "res3.toString()",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -117,7 +141,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "string|()",
-                "value": "msg"
+                "value": "msg",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -127,6 +153,20 @@
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 18
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
         "children": [
           {
             "id": "52995",
@@ -135,17 +175,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "error_handler.bal",
-              "startLine": {
-                "line": 21,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 21,
-                "offset": 47
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 21,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 21,
+                  "offset": 47
+                }
               }
             },
             "returning": false,
@@ -156,7 +196,9 @@
                   "description": "Expression"
                 },
                 "valueType": "string",
-                "value": "\"Failed to get the response\""
+                "value": "\"Failed to get the response\"",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -164,7 +206,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "string|()",
-                "value": "msg"
+                "value": "msg",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -176,17 +220,17 @@
               "description": "Catch and handle errors"
             },
             "codedata": {
-              "node": "ERROR_HANDLER"
-            },
-            "lineRange": {
-              "fileName": "error_handler.bal",
-              "startLine": {
-                "line": 22,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 27,
-                "offset": 13
+              "node": "ERROR_HANDLER",
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 13
+                }
               }
             },
             "returning": false,
@@ -194,6 +238,20 @@
               {
                 "label": "Body",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "error_handler.bal",
+                    "startLine": {
+                      "line": 22,
+                      "offset": 15
+                    },
+                    "endLine": {
+                      "line": 25,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ONE",
                 "children": [
                   {
                     "id": "55159",
@@ -201,17 +259,17 @@
                       "label": "HTTP POST"
                     },
                     "codedata": {
-                      "node": "ACTION_CALL"
-                    },
-                    "lineRange": {
-                      "fileName": "error_handler.bal",
-                      "startLine": {
-                        "line": 23,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 23,
-                        "offset": 103
+                      "node": "ACTION_CALL",
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 23,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 23,
+                          "offset": 103
+                        }
                       }
                     },
                     "returning": false,
@@ -222,7 +280,9 @@
                           "description": "HTTP Client Connection"
                         },
                         "valueType": "http:Client",
-                        "value": "foodClient"
+                        "value": "foodClient",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -230,7 +290,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "json",
-                        "value": "res "
+                        "value": "res ",
+                        "optional": false,
+                        "editable": true
                       },
                       "path": {
                         "metadata": {
@@ -238,7 +300,9 @@
                           "description": "HTTP Path"
                         },
                         "valueType": "string",
-                        "value": "\"/log\""
+                        "value": "\"/log\"",
+                        "optional": false,
+                        "editable": true
                       },
                       "message": {
                         "metadata": {
@@ -246,21 +310,27 @@
                           "description": "HTTP Post Message"
                         },
                         "valueType": "string",
-                        "value": "\"Error occurred while getting the response\""
+                        "value": "\"Error occurred while getting the response\"",
+                        "optional": false,
+                        "editable": true
                       },
                       "headers": {
                         "metadata": {
                           "label": "Headers",
                           "description": "HTTP Headers"
                         },
-                        "valueType": "map<string|string[]>?"
+                        "valueType": "map<string|string[]>?",
+                        "optional": true,
+                        "editable": true
                       },
                       "mediaType": {
                         "metadata": {
                           "label": "Media Type",
                           "description": "HTTP Post Media Type"
                         },
-                        "valueType": "string?"
+                        "valueType": "string?",
+                        "optional": true,
+                        "editable": true
                       }
                     },
                     "flags": 1
@@ -272,17 +342,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "error_handler.bal",
-                      "startLine": {
-                        "line": 24,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 24,
-                        "offset": 54
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 24,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 24,
+                          "offset": 54
+                        }
                       }
                     },
                     "returning": false,
@@ -293,7 +363,9 @@
                           "description": "Expression"
                         },
                         "valueType": "string",
-                        "value": "msg.toString() + res.toString()"
+                        "value": "msg.toString() + res.toString()",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -301,7 +373,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "string|()",
-                        "value": "msg"
+                        "value": "msg",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -311,6 +385,20 @@
               {
                 "label": "On Fail",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "error_handler.bal",
+                    "startLine": {
+                      "line": 25,
+                      "offset": 22
+                    },
+                    "endLine": {
+                      "line": 27,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ZERO_OR_ONE",
                 "children": [
                   {
                     "id": "58095",
@@ -319,17 +407,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "error_handler.bal",
-                      "startLine": {
-                        "line": 26,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 26,
-                        "offset": 63
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 26,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 26,
+                          "offset": 63
+                        }
                       }
                     },
                     "returning": false,
@@ -340,7 +428,9 @@
                           "description": "Expression"
                         },
                         "valueType": "string",
-                        "value": "\"Error occurred while logging the error\""
+                        "value": "\"Error occurred while logging the error\"",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -348,7 +438,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "string|()",
-                        "value": "msg"
+                        "value": "msg",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0

@@ -6,7 +6,18 @@
       "label": "HTTP POST"
     },
     "codedata": {
-      "node": "ACTION_CALL"
+      "node": "ACTION_CALL",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -16,7 +27,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "path": {
         "metadata": {
@@ -24,7 +37,9 @@
           "description": "HTTP Path"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "message": {
         "metadata": {
@@ -32,7 +47,9 @@
           "description": "HTTP Post Message"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
@@ -40,7 +57,9 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "mediaType": {
         "metadata": {
@@ -48,21 +67,12 @@
           "description": "HTTP Post Media Type"
         },
         "valueType": "string?",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
-    "flags": 0,
-    "lineRange": {
-      "fileName": "test.bal",
-      "startLine": {
-        "line": 0,
-        "offset": 0
-      },
-      "endLine": {
-        "line": 0,
-        "offset": 0
-      }
-    }
+    "flags": 0
   },
   "output": [
     {

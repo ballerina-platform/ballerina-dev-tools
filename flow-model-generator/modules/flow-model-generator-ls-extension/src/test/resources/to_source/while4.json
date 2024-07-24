@@ -7,17 +7,17 @@
       "description": "Loop over a block of code."
     },
     "codedata": {
-      "node": "WHILE"
-    },
-    "lineRange": {
-      "fileName": "while.bal",
-      "startLine": {
-        "line": 39,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 45,
-        "offset": 9
+      "node": "WHILE",
+      "lineRange": {
+        "fileName": "while.bal",
+        "startLine": {
+          "line": 39,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 45,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 39,
+              "offset": 24
+            },
+            "endLine": {
+              "line": 43,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": [
           {
             "id": "71862",
@@ -32,17 +46,17 @@
               "label": "HTTP GET"
             },
             "codedata": {
-              "node": "ACTION_CALL"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 40,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 40,
-                "offset": 66
+              "node": "ACTION_CALL",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 40,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 40,
+                  "offset": 66
+                }
               }
             },
             "returning": false,
@@ -53,7 +67,9 @@
                   "description": "HTTP Client Connection"
                 },
                 "valueType": "http:Client",
-                "value": "foodClient"
+                "value": "foodClient",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -61,7 +77,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "json",
-                "value": "response "
+                "value": "response ",
+                "optional": false,
+                "editable": true
               },
               "path": {
                 "metadata": {
@@ -69,14 +87,18 @@
                   "description": "HTTP Path"
                 },
                 "valueType": "string",
-                "value": "\"/food/mangos\""
+                "value": "\"/food/mangos\"",
+                "optional": false,
+                "editable": true
               },
               "headers": {
                 "metadata": {
                   "label": "Headers",
                   "description": "HTTP Headers"
                 },
-                "valueType": "map<string|string[]>?"
+                "valueType": "map<string|string[]>?",
+                "optional": true,
+                "editable": true
               }
             },
             "flags": 1
@@ -88,17 +110,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 41,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 41,
-                "offset": 80
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 41,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 41,
+                  "offset": 80
+                }
               }
             },
             "returning": false,
@@ -109,7 +131,9 @@
                   "description": "Expression"
                 },
                 "valueType": "string",
-                "value": "\"Response received from food service: \" + response.toString()"
+                "value": "\"Response received from food service: \" + response.toString()",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -117,7 +141,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "string|()",
-                "value": "msg"
+                "value": "msg",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -129,17 +155,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 42,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 42,
-                "offset": 19
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 42,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 42,
+                  "offset": 19
+                }
               }
             },
             "returning": false,
@@ -149,7 +175,9 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
-                "value": "            i += 1;\n"
+                "value": "            i += 1;\n",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -159,6 +187,32 @@
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 43,
+              "offset": 37
+            },
+            "endLine": {
+              "line": 45,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "http:ClientError",
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "75841",
@@ -167,17 +221,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 44,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 44,
-                "offset": 77
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 44,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 44,
+                  "offset": 77
+                }
               }
             },
             "returning": false,
@@ -188,7 +242,9 @@
                   "description": "Expression"
                 },
                 "valueType": "string",
-                "value": "\"Error occurred while invoking food service\" + e.message()"
+                "value": "\"Error occurred while invoking food service\" + e.message()",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -196,22 +252,14 @@
                   "description": "Result Variable"
                 },
                 "valueType": "string|()",
-                "value": "msg"
+                "value": "msg",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
           }
-        ],
-        "properties": {
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "http:ClientError",
-            "value": "e "
-          }
-        }
+        ]
       }
     ],
     "properties": {
@@ -221,7 +269,9 @@
           "description": "Boolean Condition"
         },
         "valueType": "boolean",
-        "value": "i < count "
+        "value": "i < count ",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

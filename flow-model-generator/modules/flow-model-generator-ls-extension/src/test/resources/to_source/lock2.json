@@ -7,17 +7,17 @@
       "description": "Allow to access mutable states safely"
     },
     "codedata": {
-      "node": "LOCK"
-    },
-    "lineRange": {
-      "fileName": "lock.bal",
-      "startLine": {
-        "line": 7,
-        "offset": 4
-      },
-      "endLine": {
-        "line": 12,
-        "offset": 5
+      "node": "LOCK",
+      "lineRange": {
+        "fileName": "lock.bal",
+        "startLine": {
+          "line": 7,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 12,
+          "offset": 5
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "lock.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 9
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 5
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": [
           {
             "id": "39946",
@@ -33,17 +47,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "lock.bal",
-              "startLine": {
-                "line": 8,
-                "offset": 8
-              },
-              "endLine": {
-                "line": 8,
-                "offset": 18
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 8,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 8,
+                  "offset": 18
+                }
               }
             },
             "returning": false,
@@ -54,7 +68,9 @@
                   "description": "Expression"
                 },
                 "valueType": "int",
-                "value": "0"
+                "value": "0",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -62,7 +78,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "int",
-                "value": "i "
+                "value": "i ",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -74,17 +92,17 @@
               "description": "Allow to access mutable states safely"
             },
             "codedata": {
-              "node": "LOCK"
-            },
-            "lineRange": {
-              "fileName": "lock.bal",
-              "startLine": {
-                "line": 9,
-                "offset": 8
-              },
-              "endLine": {
-                "line": 11,
-                "offset": 9
+              "node": "LOCK",
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 9
+                }
               }
             },
             "returning": false,
@@ -92,6 +110,20 @@
               {
                 "label": "Body",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "lock.bal",
+                    "startLine": {
+                      "line": 9,
+                      "offset": 13
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 9
+                    }
+                  }
+                },
+                "repeatable": "ONE",
                 "children": [
                   {
                     "id": "42054",
@@ -100,17 +132,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "lock.bal",
-                      "startLine": {
-                        "line": 10,
-                        "offset": 12
-                      },
-                      "endLine": {
-                        "line": 10,
-                        "offset": 18
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "lock.bal",
+                        "startLine": {
+                          "line": 10,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 10,
+                          "offset": 18
+                        }
                       }
                     },
                     "returning": false,
@@ -121,7 +153,9 @@
                           "description": "Expression"
                         },
                         "valueType": "int",
-                        "value": "3"
+                        "value": "3",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -129,7 +163,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "int",
-                        "value": "i"
+                        "value": "i",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0

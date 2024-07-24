@@ -7,17 +7,17 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF"
-    },
-    "lineRange": {
-      "fileName": "if_node.bal",
-      "startLine": {
-        "line": 15,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 20,
-        "offset": 9
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 20,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Then",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE_OR_MORE",
         "children": [
           {
             "id": "48010",
@@ -33,17 +47,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 16,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 16,
-                "offset": 22
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 22
+                }
               }
             },
             "returning": false,
@@ -54,7 +68,9 @@
                   "description": "Expression"
                 },
                 "valueType": "int",
-                "value": "1"
+                "value": "1",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -62,7 +78,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "int",
-                "value": "a "
+                "value": "a ",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -72,6 +90,20 @@
       {
         "label": "Else",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 10
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
         "children": [
           {
             "id": "49994",
@@ -80,17 +112,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 18,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 18,
-                "offset": 22
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 22
+                }
               }
             },
             "returning": false,
@@ -101,7 +133,9 @@
                   "description": "Expression"
                 },
                 "valueType": "int",
-                "value": "2"
+                "value": "2",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -109,7 +143,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "int",
-                "value": "b "
+                "value": "b ",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -121,17 +157,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 19,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 19,
-                "offset": 28
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 19,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 28
+                }
               }
             },
             "returning": false,
@@ -142,7 +178,9 @@
                   "description": "Expression"
                 },
                 "valueType": "string",
-                "value": "\"12\""
+                "value": "\"12\"",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -150,7 +188,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "string",
-                "value": "c "
+                "value": "c ",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -165,7 +205,9 @@
           "description": "Boolean Condition"
         },
         "valueType": "boolean",
-        "value": "flag "
+        "value": "flag ",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

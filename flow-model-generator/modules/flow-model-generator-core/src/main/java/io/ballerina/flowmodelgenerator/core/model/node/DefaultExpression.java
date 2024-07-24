@@ -77,6 +77,6 @@ public class DefaultExpression extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-
+        properties().statement(null);
     }
 }
