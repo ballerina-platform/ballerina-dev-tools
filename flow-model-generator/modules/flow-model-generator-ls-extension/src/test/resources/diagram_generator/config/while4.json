@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "67895",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -28,31 +32,37 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
             "value": "get",
-            "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "editable": true
           },
           "path": {
-            "label": "Path",
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
             "value": "mangos",
-            "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "editable": true
           }
         },
         "flags": 2048
       },
       {
         "id": "69706",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -65,33 +75,39 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "int",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
             "value": "0",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "int",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "int",
             "value": "i ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 0
       },
       {
         "id": "70875",
-        "label": "While",
-        "description": "Loop over a block of code.",
-        "kind": "WHILE",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE"
+        },
         "lineRange": {
           "fileName": "while.bal",
           "startLine": {
@@ -108,11 +124,17 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "71862",
-                "label": "HTTP GET",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "HTTP GET"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -125,50 +147,58 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "http:Client",
+                    "metadata": {
+                      "label": "Client",
+                      "description": "HTTP Client Connection"
+                    },
+                    "valueType": "http:Client",
                     "value": "foodClient",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Client Connection"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "json",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "json",
                     "value": "response ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   },
                   "path": {
-                    "label": "Path",
-                    "type": "string",
+                    "metadata": {
+                      "label": "Path",
+                      "description": "HTTP Path"
+                    },
+                    "valueType": "string",
                     "value": "\"/food/mangos\"",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Path"
+                    "editable": true
                   },
                   "headers": {
-                    "label": "Headers",
-                    "type": "map<string|string[]>?",
-                    "typeKind": "BTYPE",
+                    "metadata": {
+                      "label": "Headers",
+                      "description": "HTTP Headers"
+                    },
+                    "valueType": "map<string|string[]>?",
                     "optional": true,
-                    "editable": true,
-                    "documentation": "HTTP Headers"
+                    "editable": true
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "72868",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -181,33 +211,39 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
                     "value": "\"Response received from food service: \" + response.toString()",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string|()",
                     "value": "msg",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "73799",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -220,6 +256,17 @@
                   }
                 },
                 "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "value": "            i += 1;\n",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]
@@ -227,12 +274,18 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "75841",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "while.bal",
                   "startLine": {
@@ -245,24 +298,26 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "string",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "string",
                     "value": "\"Error occurred while invoking food service\" + e.message()",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "string|()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "string|()",
                     "value": "msg",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -270,26 +325,28 @@
             ],
             "properties": {
               "variable": {
-                "label": "Variable",
-                "type": "http:ClientError",
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "http:ClientError",
                 "value": "e ",
-                "typeKind": "BTYPE",
                 "optional": false,
-                "editable": true,
-                "documentation": "Result Variable"
+                "editable": true
               }
             }
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
             "value": "i < count ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "editable": true
           }
         },
         "flags": 0

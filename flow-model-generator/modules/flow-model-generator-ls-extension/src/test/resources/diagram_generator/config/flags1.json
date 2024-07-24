@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "34969",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "35859",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -48,13 +56,28 @@
           }
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "value": "    check fnWithError();\n",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 1
       },
       {
         "id": "36856",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -67,13 +90,28 @@
           }
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "value": "    checkpanic fnWithError();\n",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 2
       },
       {
         "id": "38859",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -86,33 +124,39 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "boolean",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "boolean",
             "value": "fnWithErrorAndValue()",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "boolean",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "boolean",
             "value": "res1 ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 1
       },
       {
         "id": "39856",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -125,33 +169,39 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "boolean",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "boolean",
             "value": "fnWithErrorAndValue()",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "boolean",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "boolean",
             "value": "res2 ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 2
       },
       {
         "id": "40845",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -164,33 +214,39 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "boolean",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "boolean",
             "value": "fnWithErrorAndValue()",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "boolean",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "boolean",
             "value": "res3 ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 5
       },
       {
         "id": "41842",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -203,24 +259,26 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "boolean",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "boolean",
             "value": "fnWithErrorAndValue()",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "boolean",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "boolean",
             "value": "res4 ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 6

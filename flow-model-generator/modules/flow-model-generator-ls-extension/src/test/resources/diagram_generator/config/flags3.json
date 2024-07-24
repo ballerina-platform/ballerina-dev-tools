@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "51775",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "flags.bal",
           "startLine": {
@@ -28,22 +32,24 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
             "value": "accessor",
-            "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "editable": true
           },
           "path": {
-            "label": "Path",
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
             "value": "path",
-            "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "editable": true
           }
         },
         "flags": 2048

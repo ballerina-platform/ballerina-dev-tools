@@ -78,8 +78,8 @@ public class SourceGeneratorTest extends AbstractLSTest {
     protected String[] skipList() {
         //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
         return new String[]{
-                "http_get_node2.json",
-                "http_post_node2.json"
+                "action_call-http-get9.json",
+                "action_call-http-post7.json"
         };
     }
 

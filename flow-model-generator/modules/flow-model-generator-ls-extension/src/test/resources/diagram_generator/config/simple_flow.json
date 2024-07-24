@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "38073",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "simple_flow.bal",
           "startLine": {
@@ -28,31 +32,37 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
             "value": "get",
-            "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "editable": true
           },
           "path": {
-            "label": "Path",
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
             "value": "search/doctors/[string area]",
-            "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "editable": true
           }
         },
         "flags": 2048
       },
       {
         "id": "39131",
-        "label": "If",
-        "description": "Add conditional branch to the integration flow.",
-        "kind": "IF",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF"
+        },
         "lineRange": {
           "fileName": "simple_flow.bal",
           "startLine": {
@@ -69,11 +79,17 @@
           {
             "label": "Then",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE_OR_MORE",
             "children": [
               {
                 "id": "40115",
-                "label": "HTTP GET",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "HTTP GET"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -86,50 +102,58 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "http:Client",
+                    "metadata": {
+                      "label": "Client",
+                      "description": "HTTP Client Connection"
+                    },
+                    "valueType": "http:Client",
                     "value": "asiri",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Client Connection"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "json",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "json",
                     "value": "j ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   },
                   "path": {
-                    "label": "Path",
-                    "type": "string",
+                    "metadata": {
+                      "label": "Path",
+                      "description": "HTTP Path"
+                    },
+                    "valueType": "string",
                     "value": "\"/doctors/kandy\"",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Path"
+                    "editable": true
                   },
                   "headers": {
-                    "label": "Headers",
-                    "type": "map<string|string[]>?",
-                    "typeKind": "BTYPE",
+                    "metadata": {
+                      "label": "Headers",
+                      "description": "HTTP Headers"
+                    },
+                    "valueType": "map<string|string[]>?",
                     "optional": true,
-                    "editable": true,
-                    "documentation": "HTTP Headers"
+                    "editable": true
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "41065",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -142,15 +166,16 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "json",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "json",
                     "value": "j",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -160,11 +185,17 @@
           {
             "label": "Else",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "43081",
-                "label": "HTTP GET",
-                "kind": "ACTION_CALL",
+                "metadata": {
+                  "label": "HTTP GET"
+                },
+                "codedata": {
+                  "node": "ACTION_CALL"
+                },
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -177,50 +208,58 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "client": {
-                    "label": "Client",
-                    "type": "http:Client",
+                    "metadata": {
+                      "label": "Client",
+                      "description": "HTTP Client Connection"
+                    },
+                    "valueType": "http:Client",
                     "value": "nawaloka",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Client Connection"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "json",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "json",
                     "value": "j ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   },
                   "path": {
-                    "label": "Path",
-                    "type": "string",
+                    "metadata": {
+                      "label": "Path",
+                      "description": "HTTP Path"
+                    },
+                    "valueType": "string",
                     "value": "\"/doctors\"",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "HTTP Path"
+                    "editable": true
                   },
                   "headers": {
-                    "label": "Headers",
-                    "type": "map<string|string[]>?",
-                    "typeKind": "BTYPE",
+                    "metadata": {
+                      "label": "Headers",
+                      "description": "HTTP Headers"
+                    },
+                    "valueType": "map<string|string[]>?",
                     "optional": true,
-                    "editable": true,
-                    "documentation": "HTTP Headers"
+                    "editable": true
                   }
                 },
                 "flags": 1
               },
               {
                 "id": "44041",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "simple_flow.bal",
                   "startLine": {
@@ -233,15 +272,16 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "json",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "json",
                     "value": "j",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -249,15 +289,16 @@
             ]
           }
         ],
-        "nodeProperties": {
+        "properties": {
           "condition": {
-            "label": "Condition",
-            "type": "boolean",
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
             "value": "area == \"kandy\" ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Boolean Condition"
+            "editable": true
           }
         },
         "flags": 0

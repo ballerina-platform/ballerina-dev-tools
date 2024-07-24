@@ -1,0 +1,740 @@
+{
+  "start": {
+    "line": 13,
+    "offset": 0
+  },
+  "end": {
+    "line": 26,
+    "offset": 1
+  },
+  "source": "http_post_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_post_node.bal",
+    "nodes": [
+      {
+        "id": "45172",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "post",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "apples",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "45965",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 85
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "47085",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 89
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "47944",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 16,
+            "offset": 80
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"western red apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "48962",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 106
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res3 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "map<anydata>",
+            "value": "{\"type\": \"red apple\"}",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "value": "\"application/json\"",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "49908",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 60
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res4 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "50924",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 84
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res5 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "51936",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 23,
+            "offset": 11
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res7 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "55864",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 24,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 24,
+            "offset": 64
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "Food",
+            "value": "res8 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "56876",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 25,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 25,
+            "offset": 84
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res9 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

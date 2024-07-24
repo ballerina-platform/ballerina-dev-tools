@@ -19,46 +19,46 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents the properties of a return node.
  *
  * @since 1.4.0
  */
-public class Return extends FlowNode {
+public class Return extends NodeBuilder {
 
     public static final String LABEL = "Return";
     public static final String DESCRIPTION = "Return a value";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = Kind.RETURN;
+        codedata().node(FlowNode.Kind.RETURN);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
-        Expression expression = getProperty(Expression.EXPRESSION_KEY);
-        if (expression != null) {
-            sourceBuilder
-                    .whiteSpace()
-                    .expression(expression);
-        }
+        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder
+                .whiteSpace()
+                .expression(value));
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
     }
 
     @Override
-    public void setTemplateData() {
-        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(RETURN_EXPRESSION_DOC));
+    public void setConcreteTemplateData() {
+        properties().defaultExpression(RETURN_EXPRESSION_DOC);
     }
 }

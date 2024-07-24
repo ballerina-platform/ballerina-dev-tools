@@ -1,22 +1,37 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "LOCK"
+  "codedata": {
+    "node": "LOCK"
   },
   "output": {
-    "label": "Lock",
-    "description": "Allow to access mutable states safely",
-    "kind": "LOCK",
+    "id": "31",
+    "metadata": {
+      "label": "Lock",
+      "description": "Allow to access mutable states safely"
+    },
+    "codedata": {
+      "node": "LOCK"
+    },
     "returning": false,
     "branches": [
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "visible": false,
+        "repeatable": "ONE",
         "children": []
       },
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "visible": false,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

@@ -1,0 +1,675 @@
+{
+  "start": {
+    "line": 13,
+    "offset": 0
+  },
+  "end": {
+    "line": 28,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "45234",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 28,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "apples",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "45951",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 14,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 14,
+            "offset": 71
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "47059",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 15,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 15,
+            "offset": 63
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "48065",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 16,
+            "offset": 77
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "value": "()",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "48916",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 60
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "49900",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 52
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res3 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "50886",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 19,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 46
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res4 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "51900",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 20,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 20,
+            "offset": 68
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res5 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "52876",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 21,
+            "offset": 52
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res6 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "53920",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 22,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 25,
+            "offset": 11
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res7 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "57836",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 26,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 26,
+            "offset": 52
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "Food",
+            "value": "res8 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "58846",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 27,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 27,
+            "offset": 70
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "res9 ",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

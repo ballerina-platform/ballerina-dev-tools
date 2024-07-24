@@ -1,0 +1,186 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "63900",
+    "metadata": {
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
+    },
+    "codedata": {
+      "node": "ERROR_HANDLER"
+    },
+    "lineRange": {
+      "fileName": "error_handler.bal",
+      "startLine": {
+        "line": 32,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 37,
+        "offset": 9
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "64920",
+            "metadata": {
+              "label": "HTTP GET"
+            },
+            "codedata": {
+              "node": "ACTION_CALL"
+            },
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 33,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 33,
+                "offset": 68
+              }
+            },
+            "returning": false,
+            "properties": {
+              "client": {
+                "metadata": {
+                  "label": "Client",
+                  "description": "HTTP Client Connection"
+                },
+                "valueType": "http:Client",
+                "value": "foodClient"
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "json",
+                "value": "res "
+              },
+              "path": {
+                "metadata": {
+                  "label": "Path",
+                  "description": "HTTP Path"
+                },
+                "valueType": "string",
+                "value": "\"/western/pineapples\""
+              },
+              "headers": {
+                "metadata": {
+                  "label": "Headers",
+                  "description": "HTTP Headers"
+                },
+                "valueType": "map<string|string[]>?"
+              }
+            },
+            "flags": 1
+          },
+          {
+            "id": "65878",
+            "metadata": {
+              "label": "Return",
+              "description": "Return a value"
+            },
+            "codedata": {
+              "node": "RETURN"
+            },
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 34,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 34,
+                "offset": 34
+              }
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "string",
+                "value": "res.toString()"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "67861",
+            "metadata": {
+              "label": "Return",
+              "description": "Return a value"
+            },
+            "codedata": {
+              "node": "RETURN"
+            },
+            "lineRange": {
+              "fileName": "error_handler.bal",
+              "startLine": {
+                "line": 36,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 36,
+                "offset": 33
+              }
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "string",
+                "value": "err.message()"
+              }
+            },
+            "flags": 0
+          }
+        ],
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "http:ClientError",
+            "value": "err "
+          }
+        }
+      }
+    ],
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 32,
+          "character": 8
+        },
+        "end": {
+          "line": 37,
+          "character": 9
+        }
+      },
+      "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n}\non fail http:ClientError err {\n    return err.message();\n}"
+    }
+  ]
+}

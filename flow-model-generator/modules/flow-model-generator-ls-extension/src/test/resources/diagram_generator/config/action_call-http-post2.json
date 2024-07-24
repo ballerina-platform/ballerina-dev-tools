@@ -1,0 +1,234 @@
+{
+  "start": {
+    "line": 28,
+    "offset": 0
+  },
+  "end": {
+    "line": 31,
+    "offset": 1
+  },
+  "source": "http_post_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_post_node.bal",
+    "nodes": [
+      {
+        "id": "59742",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 28,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "post",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "pears",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "60821",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 29,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 29,
+            "offset": 61
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|annotations:error",
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/pears\"",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"pear\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "61821",
+        "metadata": {
+          "label": "HTTP POST"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 30,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 30,
+            "offset": 69
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|http:ClientError",
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "message": {
+            "metadata": {
+              "label": "Message",
+              "description": "HTTP Post Message"
+            },
+            "valueType": "string",
+            "value": "\"pear\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          },
+          "mediaType": {
+            "metadata": {
+              "label": "Media Type",
+              "description": "HTTP Post Media Type"
+            },
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_post_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

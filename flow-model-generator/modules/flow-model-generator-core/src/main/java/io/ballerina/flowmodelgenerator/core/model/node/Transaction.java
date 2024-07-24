@@ -20,50 +20,52 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents the properties of a transaction node in the flow model.
  *
  * @since 1.4.0
  */
-public class Transaction extends FlowNode {
+public class Transaction extends NodeBuilder {
+
     public static final String LABEL = "Transaction";
     public static final String DESCRIPTION = "Handle transaction.";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.TRANSACTION;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.TRANSACTION);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Branch body = getBranch(Branch.BODY_LABEL);
+        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
         sourceBuilder
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
-                .openBrace()
-                .addChildren(body.children())
-                .closeBrace();
+                .openBrace();
+        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
+        sourceBuilder.closeBrace();
 
-        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
-        if (onFailBranch != null) {
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch.isPresent()) {
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
-            if (variableProperty != null) {
-                sourceBuilder.expressionWithType(variableProperty);
-            }
+            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
+            variableProperty.ifPresent(sourceBuilder::expressionWithType);
 
             sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.children())
+                    .addChildren(onFailBranch.get().children())
                     .closeBrace();
         }
 
@@ -71,7 +73,7 @@ public class Transaction extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }

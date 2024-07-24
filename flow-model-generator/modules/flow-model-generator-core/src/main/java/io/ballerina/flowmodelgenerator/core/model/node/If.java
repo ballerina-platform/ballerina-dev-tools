@@ -20,18 +20,20 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents the properties of an if node in the flow model.
  *
  * @since 1.4.0
  */
-public class If extends FlowNode {
+public class If extends NodeBuilder {
 
     public static final String LABEL = "If";
     public static final String DESCRIPTION = "Add conditional branch to the integration flow.";
@@ -40,35 +42,37 @@ public class If extends FlowNode {
     private static final String IF_CONDITION_DOC = "Boolean Condition";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = Kind.IF;
+        codedata().node(FlowNode.Kind.IF);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(Expression.CONDITION_KEY);
+        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
 
-        sourceBuilder
-                .keyword(SyntaxKind.IF_KEYWORD)
-                .expression(condition)
+        if (condition.isEmpty()) {
+            throw new IllegalStateException("If node does not have a condition");
+        }
+        sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
+                .expression(condition.get())
                 .openBrace();
 
-        Branch ifBranch = getBranch(IF_THEN_LABEL);
-        sourceBuilder.addChildren(ifBranch.children());
+        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
+        ifBranch.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
 
-        Branch elseBranch = getBranch(IF_ELSE_LABEL);
-        if (elseBranch != null) {
-            List<FlowNode> children = elseBranch.children();
+        Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
+        if (elseBranch.isPresent()) {
+            List<FlowNode> children = elseBranch.get().children();
             sourceBuilder
                     .closeBrace()
                     .whiteSpace()
                     .keyword(SyntaxKind.ELSE_KEYWORD);
 
             // If there is only one child, and if that is an if node, generate an `else if` statement`
-            if (children.size() != 1 || children.get(0).kind() != Kind.IF) {
+            if (children.size() != 1 || children.get(0).codedata().node() != FlowNode.Kind.IF) {
                 sourceBuilder.openBrace();
             }
             sourceBuilder.addChildren(children);
@@ -79,9 +83,9 @@ public class If extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
-        this.nodeProperties =
-                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(IF_CONDITION_DOC));
-        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
+    public void setConcreteTemplateData() {
+        properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
+        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL, true),
+                Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE, false));
     }
 }

@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "38038",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "38826",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -48,33 +56,39 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "int",
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
             "value": "i",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Expression"
+            "editable": true
           },
           "variable": {
-            "label": "Variable",
-            "type": "int",
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "int",
             "value": "x ",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Result Variable"
+            "editable": true
           }
         },
         "flags": 0
       },
       {
         "id": "40863",
-        "label": "Transaction",
-        "description": "Handle transaction.",
-        "kind": "TRANSACTION",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -91,12 +105,18 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "41943",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -109,24 +129,26 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "()",
                     "value": "check commit",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "()",
                     "value": "res ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -138,9 +160,13 @@
       },
       {
         "id": "44831",
-        "label": "Transaction",
-        "description": "Handle transaction.",
-        "kind": "TRANSACTION",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -157,12 +183,18 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "45911",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -175,24 +207,26 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "()",
                     "value": "check commit",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "()",
                     "value": "res ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -204,9 +238,13 @@
       },
       {
         "id": "47753",
-        "label": "Return",
-        "description": "Return a value",
-        "kind": "RETURN",
+        "metadata": {
+          "label": "Return",
+          "description": "Return a value"
+        },
+        "codedata": {
+          "node": "RETURN"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -219,15 +257,16 @@
           }
         },
         "returning": true,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "int",
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "int",
             "value": "x",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Return value"
+            "editable": true
           }
         },
         "flags": 0

@@ -1,0 +1,66 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "53920",
+    "metadata": {
+      "label": "HTTP GET"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "lineRange": {
+      "fileName": "http_get_node.bal",
+      "startLine": {
+        "line": 22,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 25,
+        "offset": 11
+      }
+    },
+    "returning": false,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": "foodClient"
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "json",
+        "value": "res7 "
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?",
+        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+      }
+    },
+    "flags": 1
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 22,
+          "character": 8
+        },
+        "end": {
+          "line": 25,
+          "character": 11
+        }
+      },
+      "newText": "json res7 = check foodClient->get(, {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+    }
+  ]
+}

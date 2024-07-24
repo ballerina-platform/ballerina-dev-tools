@@ -1,0 +1,206 @@
+{
+  "start": {
+    "line": 30,
+    "offset": 0
+  },
+  "end": {
+    "line": 33,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "61726",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 30,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 33,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "pears",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "62796",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 31,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 31,
+            "offset": 52
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|annotations:error",
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/pears\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "63799",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 32,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 32,
+            "offset": 63
+          }
+        },
+        "returning": false,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json|http:ClientError",
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/pears\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      }
+    ]
+  }
+}

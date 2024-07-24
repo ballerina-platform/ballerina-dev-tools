@@ -1,21 +1,27 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "FAIL"
+  "codedata": {
+    "node": "FAIL"
   },
   "output": {
-    "label": "Fail",
-    "description": "Fail the execution",
-    "kind": "FAIL",
+    "id": "31",
+    "metadata": {
+      "label": "Fail",
+      "description": "Fail the execution"
+    },
+    "codedata": {
+      "node": "FAIL"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
-        "label": "Expression",
+        "metadata": {
+          "label": "Expression",
+          "description": "Fail value"
+        },
         "value": "",
-        "typeKind": "BTYPE",
         "optional": false,
-        "editable": true,
-        "documentation": "Fail value"
+        "editable": true
       }
     },
     "flags": 0

@@ -1,12 +1,17 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "EXPRESSION"
+  "codedata": {
+    "node": "EXPRESSION"
   },
   "output": {
-    "label": "Custom Expression",
-    "description": "Represents a custom Ballerina expression",
-    "kind": "EXPRESSION",
+    "id": "31",
+    "metadata": {
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
+    },
+    "codedata": {
+      "node": "EXPRESSION"
+    },
     "returning": false,
     "flags": 0
   }

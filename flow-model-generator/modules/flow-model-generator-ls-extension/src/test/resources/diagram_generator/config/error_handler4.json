@@ -1,0 +1,164 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 10,
+    "offset": 1
+  },
+  "source": "fail.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "fail.bal",
+    "nodes": [
+      {
+        "id": "35899",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 4,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 10,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "36957",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER"
+        },
+        "lineRange": {
+          "fileName": "fail.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 9,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "37974",
+                "metadata": {
+                  "label": "Fail",
+                  "description": "Fail the execution"
+                },
+                "codedata": {
+                  "node": "FAIL"
+                },
+                "lineRange": {
+                  "fileName": "fail.bal",
+                  "startLine": {
+                    "line": 6,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 6,
+                    "offset": 30
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Fail value"
+                    },
+                    "valueType": "annotations:error",
+                    "value": "error(\"Failing\")",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Fail",
+            "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "39945",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
+                "lineRange": {
+                  "fileName": "fail.bal",
+                  "startLine": {
+                    "line": 8,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 8,
+                    "offset": 17
+                  }
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "annotations:error",
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "annotations:error",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            }
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

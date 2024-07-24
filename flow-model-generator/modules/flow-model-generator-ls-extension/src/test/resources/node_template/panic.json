@@ -1,21 +1,27 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "PANIC"
+  "codedata": {
+    "node": "PANIC"
   },
   "output": {
-    "label": "Panic",
-    "description": "Panic and stop the execution",
-    "kind": "PANIC",
+    "id": "31",
+    "metadata": {
+      "label": "Panic",
+      "description": "Panic and stop the execution"
+    },
+    "codedata": {
+      "node": "PANIC"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
-        "label": "Expression",
+        "metadata": {
+          "label": "Expression",
+          "description": "Panic value"
+        },
         "value": "",
-        "typeKind": "BTYPE",
         "optional": false,
-        "editable": true,
-        "documentation": "Panic value"
+        "editable": true
       }
     },
     "flags": 0

@@ -19,13 +19,14 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 
 /**
  * Represents the properties of a HttpApiEvent node.
  *
  * @since 1.4.0
  */
-public class HttpApiEvent extends FlowNode {
+public class HttpApiEvent extends NodeBuilder {
 
     public static final String LABEL = "HTTP API";
     public static final String EVENT_HTTP_API_METHOD = "Method";
@@ -36,18 +37,18 @@ public class HttpApiEvent extends FlowNode {
     public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.EVENT_HTTP_API;
+        codedata().node(FlowNode.Kind.EVENT_HTTP_API);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         return null;
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
 
     }
 }

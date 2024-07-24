@@ -19,46 +19,46 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Map;
-
+import java.util.Optional;
 
 /**
  * Represents the properties of a fail node.
  *
  * @since 1.4.0
  */
-public class Fail extends FlowNode {
+public class Fail extends NodeBuilder {
+
     public static final String LABEL = "Fail";
     public static final String DESCRIPTION = "Fail the execution";
     public static final String FAIL_EXPRESSION_DOC = "Fail value";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.FAIL;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.FAIL);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         sourceBuilder.keyword(SyntaxKind.FAIL_KEYWORD);
-        Expression expression = getProperty(Expression.EXPRESSION_KEY);
-        if (expression != null) {
-            sourceBuilder
-                    .whiteSpace()
-                    .expression(expression);
-        }
+        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder
+                .whiteSpace()
+                .expression(value));
         sourceBuilder.endOfStatement();
         return sourceBuilder.build(false);
     }
 
     @Override
-    public void setTemplateData() {
-        this.nodeProperties = Map.of(Expression.EXPRESSION_KEY, Expression.getDefaultExpression(FAIL_EXPRESSION_DOC));
+    public void setConcreteTemplateData() {
+        properties().defaultExpression(FAIL_EXPRESSION_DOC);
     }
 }

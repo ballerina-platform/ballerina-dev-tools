@@ -1,54 +1,69 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "ACTION_CALL",
-    "library": "http",
-    "call": "post"
+  "codedata": {
+    "node": "ACTION_CALL",
+    "module": "http",
+    "symbol": "post"
   },
   "output": {
-    "label": "HTTP POST",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
-      "path": {
-        "label": "Path",
-        "type": "string",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Path"
-      },
-      "headers": {
-        "label": "Headers",
-        "type": "map<string|string[]>?",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Headers"
-      },
+    "properties": {
       "client": {
-        "label": "Client",
-        "type": "http:Client",
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
         "value": "",
         "optional": false,
-        "editable": true,
-        "documentation": "HTTP Client Connection"
+        "editable": true
       },
-      "mediaType": {
-        "label": "Media Type",
-        "type": "string?",
+      "path": {
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
         "value": "",
         "optional": false,
-        "editable": true,
-        "documentation": "HTTP Post Media Type"
+        "editable": true
       },
       "message": {
-        "label": "Message",
-        "type": "string",
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
+        },
+        "valueType": "string",
         "value": "",
         "optional": false,
-        "editable": true,
-        "documentation": "HTTP Post Message"
+        "editable": true
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "Media Type",
+          "description": "HTTP Post Media Type"
+        },
+        "valueType": "string?",
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

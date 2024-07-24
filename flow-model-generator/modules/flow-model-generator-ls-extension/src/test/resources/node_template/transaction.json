@@ -1,22 +1,37 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "TRANSACTION"
+  "codedata": {
+    "node": "TRANSACTION"
   },
   "output": {
-    "label": "Transaction",
-    "description": "Handle transaction.",
-    "kind": "TRANSACTION",
+    "id": "31",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION"
+    },
     "returning": false,
     "branches": [
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "visible": false,
+        "repeatable": "ONE",
         "children": []
       },
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "visible": false,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

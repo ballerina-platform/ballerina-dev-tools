@@ -1,21 +1,27 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "WHILE"
+  "codedata": {
+    "node": "WHILE"
   },
   "output": {
-    "label": "While",
-    "description": "Loop over a block of code.",
-    "kind": "WHILE",
+    "id": "31",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "condition": {
-        "label": "Condition",
-        "value": "",
-        "typeKind": "BTYPE",
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "value": "true",
         "optional": false,
-        "editable": true,
-        "documentation": "Boolean Condition"
+        "editable": true
       }
     },
     "flags": 0

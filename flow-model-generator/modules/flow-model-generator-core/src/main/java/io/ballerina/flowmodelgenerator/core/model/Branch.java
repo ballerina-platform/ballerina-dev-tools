@@ -19,38 +19,74 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.syntax.tree.Node;
-import io.ballerina.flowmodelgenerator.core.CommonUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents a branch of the node.
  *
  * @param label      label of the branch
  * @param kind       kind of the branch
- * @param children   children of the branch
+ * @param codedata   codedata of the branch
+ * @param visible    whether the branch is visible by default
+ * @param repeatable the repeatable pattern of the branch
  * @param properties properties of the branch
+ * @param children   children of the branch
  * @since 1.4.0
  */
-public record Branch(String label, BranchKind kind, List<FlowNode> children, Map<String, Expression> properties) {
+public record Branch(String label, BranchKind kind, Codedata codedata, boolean visible, Repeatable repeatable,
+                     Map<String, Property> properties, List<FlowNode> children) {
 
     public static final String BODY_LABEL = "Body";
     public static final String ON_FAIL_LABEL = "On Fail";
 
-    public static final Branch DEFAULT_BODY_BRANCH = new Branch(BODY_LABEL, BranchKind.BLOCK, new ArrayList<>(), null);
+    public static final Branch DEFAULT_BODY_BRANCH =
+            new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
+                    .codedata().node(FlowNode.Kind.BODY).stepOut().build();
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
-            new Branch(ON_FAIL_LABEL, BranchKind.BLOCK, new ArrayList<>(), null);
+            new Builder().label(ON_FAIL_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
+                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut().build();
 
-    public static Branch getEmptyBranch(String label) {
-        return new Branch(label, BranchKind.BLOCK, new ArrayList<>(), null);
+    public static Branch getEmptyBranch(String label, FlowNode.Kind kind, boolean visible) {
+        return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE).visible(visible)
+                .codedata().node(kind).stepOut().build();
     }
 
     public enum BranchKind {
         BLOCK
+    }
+
+    public enum Repeatable {
+        ONE_OR_MORE("1+"),
+        ZERO_OR_ONE("0..1"),
+        ONE("1"),
+        ZERO_OR_MORE("0+");
+
+        private final String value;
+
+        Repeatable(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public static Repeatable fromValue(String value) {
+            for (Repeatable repeatable : values()) {
+                if (repeatable.value.equals(value)) {
+                    return repeatable;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public Optional<Property> getProperty(String key) {
+        return Optional.ofNullable(properties).map(props -> props.get(key));
     }
 
     /**
@@ -63,13 +99,20 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
         private String label;
         private Branch.BranchKind kind;
         private final List<FlowNode> children;
-        private final Map<String, Expression> properties;
-        private final SemanticModel semanticModel;
+        private boolean visible;
+        private Repeatable repeatable;
 
-        public Builder(SemanticModel semanticModel) {
+        protected Codedata.Builder<Builder> codedataBuilder;
+        protected NodeBuilder.PropertiesBuilder propertiesBuilder;
+        private SemanticModel semanticModel;
+
+        public Builder() {
             children = new ArrayList<>();
-            properties = new HashMap<>();
+        }
+
+        public Builder semanticModel(SemanticModel semanticModel) {
             this.semanticModel = semanticModel;
+            return this;
         }
 
         public Builder label(String label) {
@@ -92,24 +135,33 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
             return this;
         }
 
-        public Builder variable(Node node) {
-            Expression.Builder expressionBuilder = Expression.Builder.getInstance();
-            if (node == null) {
-                return this;
-            }
-            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(expressionBuilder::type);
-            expressionBuilder
-                    .label(FlowNode.PropertiesBuilder.VARIABLE_LABEL)
-                    .value(CommonUtils.getVariableName(node))
-                    .editable()
-                    .typeKind(Expression.ExpressionTypeKind.BTYPE)
-                    .documentation(FlowNode.PropertiesBuilder.VARIABLE_DOC);
-            properties.put(FlowNode.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
+        public Builder visible(boolean visible) {
+            this.visible = visible;
             return this;
         }
 
+        public Builder repeatable(Repeatable repeatable) {
+            this.repeatable = repeatable;
+            return this;
+        }
+
+        public NodeBuilder.PropertiesBuilder properties() {
+            if (this.propertiesBuilder == null) {
+                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder(semanticModel);
+            }
+            return this.propertiesBuilder;
+        }
+
+        public Codedata.Builder<Builder> codedata() {
+            if (this.codedataBuilder == null) {
+                this.codedataBuilder = new Codedata.Builder<>(this);
+            }
+            return this.codedataBuilder;
+        }
+
         public Branch build() {
-            return new Branch(label, kind, children, properties.isEmpty() ? null : properties);
+            return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(), visible,
+                    repeatable, propertiesBuilder == null ? null : propertiesBuilder.build(), children);
         }
     }
 }

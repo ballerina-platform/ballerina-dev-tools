@@ -14,8 +14,12 @@
     "nodes": [
       {
         "id": "43064",
-        "label": "HTTP API",
-        "kind": "EVENT_HTTP_API",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
         "lineRange": {
           "fileName": "nested_node.bal",
           "startLine": {
@@ -28,31 +32,37 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "method": {
-            "label": "Method",
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
             "value": "get",
-            "typeKind": "IDENTIFIER",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Method"
+            "editable": true
           },
           "path": {
-            "label": "Path",
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
             "value": "path2",
-            "typeKind": "URI_PATH",
             "optional": false,
-            "editable": true,
-            "documentation": "HTTP Path"
+            "editable": true
           }
         },
         "flags": 2048
       },
       {
         "id": "44122",
-        "label": "Transaction",
-        "description": "Handle transaction.",
-        "kind": "TRANSACTION",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
         "lineRange": {
           "fileName": "nested_node.bal",
           "startLine": {
@@ -69,12 +79,18 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "45149",
-                "label": "If",
-                "description": "Add conditional branch to the integration flow.",
-                "kind": "IF",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
                 "lineRange": {
                   "fileName": "nested_node.bal",
                   "startLine": {
@@ -91,11 +107,17 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
                         "id": "46195",
-                        "label": "HTTP GET",
-                        "kind": "ACTION_CALL",
+                        "metadata": {
+                          "label": "HTTP GET"
+                        },
+                        "codedata": {
+                          "node": "ACTION_CALL"
+                        },
                         "lineRange": {
                           "fileName": "nested_node.bal",
                           "startLine": {
@@ -108,41 +130,45 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "client": {
-                            "label": "Client",
-                            "type": "http:Client",
+                            "metadata": {
+                              "label": "Client",
+                              "description": "HTTP Client Connection"
+                            },
+                            "valueType": "http:Client",
                             "value": "asiri",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Client Connection"
+                            "editable": true
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
                             "value": "j ",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "editable": true
                           },
                           "path": {
-                            "label": "Path",
-                            "type": "string",
+                            "metadata": {
+                              "label": "Path",
+                              "description": "HTTP Path"
+                            },
+                            "valueType": "string",
                             "value": "\"/doctors/kandy\"",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Path"
+                            "editable": true
                           },
                           "headers": {
-                            "label": "Headers",
-                            "type": "map<string|string[]>?",
-                            "typeKind": "BTYPE",
+                            "metadata": {
+                              "label": "Headers",
+                              "description": "HTTP Headers"
+                            },
+                            "valueType": "map<string|string[]>?",
                             "optional": true,
-                            "editable": true,
-                            "documentation": "HTTP Headers"
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -152,11 +178,17 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "visible": false,
+                    "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
                         "id": "48181",
-                        "label": "HTTP GET",
-                        "kind": "ACTION_CALL",
+                        "metadata": {
+                          "label": "HTTP GET"
+                        },
+                        "codedata": {
+                          "node": "ACTION_CALL"
+                        },
                         "lineRange": {
                           "fileName": "nested_node.bal",
                           "startLine": {
@@ -169,41 +201,45 @@
                           }
                         },
                         "returning": false,
-                        "nodeProperties": {
+                        "properties": {
                           "client": {
-                            "label": "Client",
-                            "type": "http:Client",
+                            "metadata": {
+                              "label": "Client",
+                              "description": "HTTP Client Connection"
+                            },
+                            "valueType": "http:Client",
                             "value": "asiri",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Client Connection"
+                            "editable": true
                           },
                           "variable": {
-                            "label": "Variable",
-                            "type": "json",
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "json",
                             "value": "j ",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "Result Variable"
+                            "editable": true
                           },
                           "path": {
-                            "label": "Path",
-                            "type": "string",
+                            "metadata": {
+                              "label": "Path",
+                              "description": "HTTP Path"
+                            },
+                            "valueType": "string",
                             "value": "\"/doctors/colombo\"",
-                            "typeKind": "BTYPE",
                             "optional": false,
-                            "editable": true,
-                            "documentation": "HTTP Path"
+                            "editable": true
                           },
                           "headers": {
-                            "label": "Headers",
-                            "type": "map<string|string[]>?",
-                            "typeKind": "BTYPE",
+                            "metadata": {
+                              "label": "Headers",
+                              "description": "HTTP Headers"
+                            },
+                            "valueType": "map<string|string[]>?",
                             "optional": true,
-                            "editable": true,
-                            "documentation": "HTTP Headers"
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -211,24 +247,29 @@
                     ]
                   }
                 ],
-                "nodeProperties": {
+                "properties": {
                   "condition": {
-                    "label": "Condition",
-                    "type": "boolean",
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
                     "value": "isKandy ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Boolean Condition"
+                    "editable": true
                   }
                 },
                 "flags": 0
               },
               {
                 "id": "50012",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "nested_node.bal",
                   "startLine": {
@@ -241,23 +282,25 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
                     "value": "commit",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "annotations:error|()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "annotations:error|()",
                     "value": "unionResult ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 0

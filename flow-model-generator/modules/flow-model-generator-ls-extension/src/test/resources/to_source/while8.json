@@ -1,0 +1,362 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "136533",
+    "metadata": {
+      "label": "While",
+      "description": "Loop over a block of code."
+    },
+    "codedata": {
+      "node": "WHILE"
+    },
+    "lineRange": {
+      "fileName": "while.bal",
+      "startLine": {
+        "line": 105,
+        "offset": 8
+      },
+      "endLine": {
+        "line": 117,
+        "offset": 9
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": [
+          {
+            "id": "137339",
+            "metadata": {
+              "label": "HTTP GET"
+            },
+            "codedata": {
+              "node": "ACTION_CALL"
+            },
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 106,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 106,
+                "offset": 71
+              }
+            },
+            "returning": false,
+            "properties": {
+              "client": {
+                "metadata": {
+                  "label": "Client",
+                  "description": "HTTP Client Connection"
+                },
+                "valueType": "http:Client",
+                "value": "foodClient"
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "json|annotations:error",
+                "value": "response "
+              },
+              "path": {
+                "metadata": {
+                  "label": "Path",
+                  "description": "HTTP Path"
+                },
+                "valueType": "string",
+                "value": "\"/food/watermelons\""
+              },
+              "headers": {
+                "metadata": {
+                  "label": "Headers",
+                  "description": "HTTP Headers"
+                },
+                "valueType": "map<string|string[]>?"
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "138428",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF"
+            },
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 107,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 112,
+                "offset": 13
+              }
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "139460",
+                    "metadata": {
+                      "label": "Custom Expression",
+                      "description": "Represents a custom Ballerina expression"
+                    },
+                    "codedata": {
+                      "node": "EXPRESSION"
+                    },
+                    "lineRange": {
+                      "fileName": "while.bal",
+                      "startLine": {
+                        "line": 108,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 108,
+                        "offset": 84
+                      }
+                    },
+                    "returning": false,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Expression"
+                        },
+                        "valueType": "string",
+                        "value": "\"Response received from food service: \" + response.toString()"
+                      },
+                      "variable": {
+                        "metadata": {
+                          "label": "Variable",
+                          "description": "Result Variable"
+                        },
+                        "valueType": "string|()",
+                        "value": "msg"
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "141450",
+                    "metadata": {
+                      "label": "Custom Expression",
+                      "description": "Represents a custom Ballerina expression"
+                    },
+                    "codedata": {
+                      "node": "EXPRESSION"
+                    },
+                    "lineRange": {
+                      "fileName": "while.bal",
+                      "startLine": {
+                        "line": 110,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 110,
+                        "offset": 90
+                      }
+                    },
+                    "returning": false,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Expression"
+                        },
+                        "valueType": "string",
+                        "value": "\"Error occurred while invoking food service: \" + response.message()"
+                      },
+                      "variable": {
+                        "metadata": {
+                          "label": "Variable",
+                          "description": "Result Variable"
+                        },
+                        "valueType": "string|()",
+                        "value": "msg"
+                      }
+                    },
+                    "flags": 0
+                  },
+                  {
+                    "id": "142377",
+                    "metadata": {
+                      "label": "Continue",
+                      "description": "Skip the current iteration and continue with the next one"
+                    },
+                    "codedata": {
+                      "node": "CONTINUE"
+                    },
+                    "lineRange": {
+                      "fileName": "while.bal",
+                      "startLine": {
+                        "line": 111,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 111,
+                        "offset": 25
+                      }
+                    },
+                    "returning": false,
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "(response is json) "
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "144287",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF"
+            },
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 113,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 115,
+                "offset": 13
+              }
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "children": [
+                  {
+                    "id": "145350",
+                    "metadata": {
+                      "label": "Break",
+                      "description": "Exit the current loop"
+                    },
+                    "codedata": {
+                      "node": "BREAK"
+                    },
+                    "lineRange": {
+                      "fileName": "while.bal",
+                      "startLine": {
+                        "line": 114,
+                        "offset": 16
+                      },
+                      "endLine": {
+                        "line": 114,
+                        "offset": 22
+                      }
+                    },
+                    "returning": false,
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "(i == 3) "
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "147207",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION"
+            },
+            "lineRange": {
+              "fileName": "while.bal",
+              "startLine": {
+                "line": 116,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 116,
+                "offset": 19
+              }
+            },
+            "returning": false,
+            "properties": {
+              "statement": {
+                "metadata": {
+                  "label": "Statement",
+                  "description": "Ballerina statement"
+                },
+                "value": "            i += 1;\n"
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "boolean",
+        "value": "i < count "
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 105,
+          "character": 8
+        },
+        "end": {
+          "line": 117,
+          "character": 9
+        }
+      },
+      "newText": "while i < count {\n    json|annotations: error response = foodClient->get(\"/food/watermelons\");\n    if (response is json) {\n        string|() msg = \"Response received from food service: \" + response.toString();\n    }\n    else {\n        string|() msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    if (i == 3) {\n        break;\n    }\n    i += 1;\n; }"
+    }
+  ]
+}

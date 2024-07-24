@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "35775",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "36848",
-        "label": "Panic",
-        "description": "Panic and stop the execution",
-        "kind": "PANIC",
+        "metadata": {
+          "label": "Panic",
+          "description": "Panic and stop the execution"
+        },
+        "codedata": {
+          "node": "PANIC"
+        },
         "lineRange": {
           "fileName": "panic.bal",
           "startLine": {
@@ -48,15 +56,16 @@
           }
         },
         "returning": false,
-        "nodeProperties": {
+        "properties": {
           "expression": {
-            "label": "Expression",
-            "type": "annotations:error",
+            "metadata": {
+              "label": "Expression",
+              "description": "Panic value"
+            },
+            "valueType": "annotations:error",
             "value": "error(\"\")",
-            "typeKind": "BTYPE",
             "optional": false,
-            "editable": true,
-            "documentation": "Panic value"
+            "editable": true
           }
         },
         "flags": 0

@@ -1,22 +1,37 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "ERROR_HANDLER"
+  "codedata": {
+    "node": "ERROR_HANDLER"
   },
   "output": {
-    "label": "ErrorHandler",
-    "description": "Catch and handle errors",
-    "kind": "ERROR_HANDLER",
+    "id": "31",
+    "metadata": {
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
+    },
+    "codedata": {
+      "node": "ERROR_HANDLER"
+    },
     "returning": false,
     "branches": [
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "visible": false,
+        "repeatable": "ONE",
         "children": []
       },
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "visible": false,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

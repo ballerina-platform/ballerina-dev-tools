@@ -1,38 +1,49 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "ACTION_CALL",
-    "library": "http",
-    "call": "get"
+  "codedata": {
+    "node": "ACTION_CALL",
+    "module": "http",
+    "symbol": "get"
   },
   "output": {
-    "label": "HTTP GET",
-    "kind": "ACTION_CALL",
+    "id": "31",
+    "metadata": {
+      "label": "HTTP GET"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
     "returning": false,
-    "nodeProperties": {
-      "path": {
-        "label": "Path",
-        "type": "string",
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
         "value": "",
         "optional": false,
-        "editable": true,
-        "documentation": "HTTP Path"
+        "editable": true
+      },
+      "path": {
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "headers": {
-        "label": "Headers",
-        "type": "map<string|string[]>?",
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?",
         "value": "",
         "optional": false,
-        "editable": true,
-        "documentation": "HTTP Headers"
-      },
-      "client": {
-        "label": "Client",
-        "type": "http:Client",
-        "value": "",
-        "optional": false,
-        "editable": true,
-        "documentation": "HTTP Client Connection"
+        "editable": true
       }
     },
     "flags": 0

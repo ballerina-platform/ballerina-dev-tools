@@ -1,21 +1,27 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "START"
+  "codedata": {
+    "node": "START"
   },
   "output": {
-    "label": "Start",
-    "description": "Execute a function or a method invocation in a new strand",
-    "kind": "START",
+    "id": "31",
+    "metadata": {
+      "label": "Start",
+      "description": "Execute a function or a method invocation in a new strand"
+    },
+    "codedata": {
+      "node": "START"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
-        "label": "Expression",
+        "metadata": {
+          "label": "Expression",
+          "description": "Call action or expression"
+        },
         "value": "",
-        "typeKind": "BTYPE",
         "optional": false,
-        "editable": true,
-        "documentation": "Call action or expression"
+        "editable": true
       }
     },
     "flags": 0

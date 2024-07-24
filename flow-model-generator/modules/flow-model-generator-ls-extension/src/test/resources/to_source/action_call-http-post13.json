@@ -1,0 +1,80 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "70958",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "lineRange": {
+      "fileName": "http_post_node.bal",
+      "startLine": {
+        "line": 39,
+        "offset": 15
+      },
+      "endLine": {
+        "line": 39,
+        "offset": 61
+      }
+    },
+    "returning": true,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": "drinkClient"
+      },
+      "path": {
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": "\"/milkshake\""
+      },
+      "message": {
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
+        },
+        "valueType": "string",
+        "value": "\"mixed fruit\""
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?"
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "Media Type",
+          "description": "HTTP Post Media Type"
+        },
+        "valueType": "string?"
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 39,
+          "character": 15
+        },
+        "end": {
+          "line": 39,
+          "character": 61
+        }
+      },
+      "newText": "return drinkClient->post(\"/milkshake\", \"mixed fruit\");"
+    }
+  ]
+}

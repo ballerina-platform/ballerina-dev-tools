@@ -14,9 +14,13 @@
     "nodes": [
       {
         "id": "59707",
-        "label": "Custom Expression",
-        "description": "Represents a custom Ballerina expression",
-        "kind": "EXPRESSION",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -33,9 +37,13 @@
       },
       {
         "id": "60765",
-        "label": "Transaction",
-        "description": "Handle transaction.",
-        "kind": "TRANSACTION",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
         "lineRange": {
           "fileName": "transaction.bal",
           "startLine": {
@@ -52,12 +60,18 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "61781",
-                "label": "Custom Expression",
-                "description": "Represents a custom Ballerina expression",
-                "kind": "EXPRESSION",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION"
+                },
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -70,24 +84,26 @@
                   }
                 },
                 "returning": false,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "()",
                     "value": "check commit",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Expression"
+                    "editable": true
                   },
                   "variable": {
-                    "label": "Variable",
-                    "type": "()",
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "()",
                     "value": "_ ",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Result Variable"
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -97,12 +113,18 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "63772",
-                "label": "Return",
-                "description": "Return a value",
-                "kind": "RETURN",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Return a value"
+                },
+                "codedata": {
+                  "node": "RETURN"
+                },
                 "lineRange": {
                   "fileName": "transaction.bal",
                   "startLine": {
@@ -115,15 +137,16 @@
                   }
                 },
                 "returning": true,
-                "nodeProperties": {
+                "properties": {
                   "expression": {
-                    "label": "Expression",
-                    "type": "annotations:error",
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "annotations:error",
                     "value": "error(\"Found error\")",
-                    "typeKind": "BTYPE",
                     "optional": false,
-                    "editable": true,
-                    "documentation": "Return value"
+                    "editable": true
                   }
                 },
                 "flags": 0

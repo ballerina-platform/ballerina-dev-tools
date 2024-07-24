@@ -20,59 +20,58 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents the properties of a while node in the flow model.
  *
  * @since 1.4.0
  */
-public class While extends FlowNode {
+public class While extends NodeBuilder {
 
     public static final String LABEL = "While";
     public static final String DESCRIPTION = "Loop over a block of code.";
     private static final String WHILE_CONDITION_DOC = "Boolean Condition";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.WHILE;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.WHILE);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Expression condition = getProperty(Expression.CONDITION_KEY);
-        Branch body = getBranch(Branch.BODY_LABEL);
+        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
+        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
 
-        sourceBuilder
-                .keyword(SyntaxKind.WHILE_KEYWORD)
-                .expression(condition)
-                .openBrace()
-                .addChildren(body.children())
-                .closeBrace();
+        sourceBuilder.keyword(SyntaxKind.WHILE_KEYWORD);
+        condition.ifPresent(sourceBuilder::expression);
+        sourceBuilder.openBrace();
+        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
+        sourceBuilder.closeBrace();
 
         // Handle the on fail branch
-        Branch onFailBranch = getBranch(Branch.ON_FAIL_LABEL);
-        if (onFailBranch != null) {
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        if (onFailBranch.isPresent()) {
             // Build the keywords
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Expression variableProperty = getBranchProperty(onFailBranch, PropertiesBuilder.VARIABLE_KEY);
-            if (variableProperty != null) {
-                sourceBuilder.expressionWithType(variableProperty);
-            }
+            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
+            variableProperty.ifPresent(sourceBuilder::expressionWithType);
 
             // Build the body
             sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.children())
+                    .addChildren(onFailBranch.get().children())
                     .closeBrace();
         }
 
@@ -80,8 +79,7 @@ public class While extends FlowNode {
     }
 
     @Override
-    public void setTemplateData() {
-        this.nodeProperties =
-                Map.of(Expression.CONDITION_KEY, Expression.getDefaultConditionExpression(WHILE_CONDITION_DOC));
+    public void setConcreteTemplateData() {
+        properties().defaultCondition(WHILE_CONDITION_DOC);
     }
 }

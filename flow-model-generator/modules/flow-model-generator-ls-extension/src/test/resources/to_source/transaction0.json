@@ -1,0 +1,53 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "children": []
+      },
+      {
+        "label": "On Fail",
+        "kind": "BLOCK",
+        "children": []
+      }
+    ],
+    "flags": 0,
+    "lineRange": {
+      "fileName": "test.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 0,
+        "offset": 0
+      }
+    }
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "transaction {\n}\non fail {\n}"
+    }
+  ]
+}

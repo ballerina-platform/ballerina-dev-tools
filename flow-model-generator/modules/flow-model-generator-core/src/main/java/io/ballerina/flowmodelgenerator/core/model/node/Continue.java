@@ -20,31 +20,32 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 
 /**
  * Represents the properties of a continue node.
  *
  * @since 1.4.0
  */
-public class Continue extends FlowNode {
+public class Continue extends NodeBuilder {
 
     public static final String LABEL = "Continue";
     public static final String DESCRIPTION = "Skip the current iteration and continue with the next one";
 
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.CONTINUE;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.CONTINUE);
     }
 
     @Override
-    public String toSource() {
+    public String toSource(FlowNode node) {
         return SyntaxKind.CONTINUE_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
 
     }
 }

@@ -19,44 +19,64 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Expression;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+
+import java.util.Optional;
 
 /**
  * Represents the properties of a default expression node.
  *
  * @since 1.4.0
  */
-public class DefaultExpression extends FlowNode {
+public class DefaultExpression extends NodeBuilder {
 
     public static final String LABEL = "Custom Expression";
     public static final String DESCRIPTION = "Represents a custom Ballerina expression";
 
+    public static final String STATEMENT_KEY = "statement";
+    public static final String STATEMENT_LABEL = "Statement";
+    public static final String STATEMENT_DOC = "Ballerina statement";
+
     @Override
-    public void setConstData() {
+    public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = Kind.EXPRESSION;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.EXPRESSION);
     }
 
     @Override
-    public String toSource() {
-        Expression variable = getProperty(FlowNode.PropertiesBuilder.VARIABLE_KEY);
-        Expression expression = getProperty(FlowNode.PropertiesBuilder.EXPRESSION_RHS_KEY);
-
+    public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
+        Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
+        Optional<Property> expression = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+
+        if (variable.isPresent() && expression.isPresent()) {
+            sourceBuilder
+                    .expressionWithType(variable.get())
+                    .whiteSpace()
+                    .keyword(SyntaxKind.EQUAL_TOKEN)
+                    .whiteSpace()
+                    .expression(expression.get())
+                    .endOfStatement();
+            return sourceBuilder.build(false);
+        }
+
+        Optional<Property> statement = node.getProperty(STATEMENT_KEY);
+        if (statement.isEmpty()) {
+            throw new IllegalStateException(
+                    "One of from the following properties is required: variable, expression, statement");
+        }
         sourceBuilder
-                .expressionWithType(variable)
-                .whiteSpace()
-                .keyword(SyntaxKind.EQUAL_TOKEN)
-                .whiteSpace()
-                .expression(expression)
+                .expression(statement.get())
                 .endOfStatement();
         return sourceBuilder.build(false);
     }
 
     @Override
-    public void setTemplateData() {
+    public void setConcreteTemplateData() {
 
     }
 }

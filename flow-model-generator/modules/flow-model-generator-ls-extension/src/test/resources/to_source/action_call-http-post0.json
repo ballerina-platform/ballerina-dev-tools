@@ -1,0 +1,82 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "HTTP POST"
+    },
+    "codedata": {
+      "node": "ACTION_CALL"
+    },
+    "returning": false,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "HTTP Client Connection"
+        },
+        "valueType": "http:Client",
+        "value": ""
+      },
+      "path": {
+        "metadata": {
+          "label": "Path",
+          "description": "HTTP Path"
+        },
+        "valueType": "string",
+        "value": ""
+      },
+      "message": {
+        "metadata": {
+          "label": "Message",
+          "description": "HTTP Post Message"
+        },
+        "valueType": "string",
+        "value": ""
+      },
+      "headers": {
+        "metadata": {
+          "label": "Headers",
+          "description": "HTTP Headers"
+        },
+        "valueType": "map<string|string[]>?",
+        "value": ""
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "Media Type",
+          "description": "HTTP Post Media Type"
+        },
+        "valueType": "string?",
+        "value": ""
+      }
+    },
+    "flags": 0,
+    "lineRange": {
+      "fileName": "test.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 0,
+        "offset": 0
+      }
+    }
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "->post(, , , );"
+    }
+  ]
+}

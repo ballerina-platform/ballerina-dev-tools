@@ -1,12 +1,17 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "BREAK"
+  "codedata": {
+    "node": "BREAK"
   },
   "output": {
-    "label": "Break",
-    "description": "Exit the current loop",
-    "kind": "BREAK",
+    "id": "31",
+    "metadata": {
+      "label": "Break",
+      "description": "Exit the current loop"
+    },
+    "codedata": {
+      "node": "BREAK"
+    },
     "returning": false,
     "flags": 0
   }

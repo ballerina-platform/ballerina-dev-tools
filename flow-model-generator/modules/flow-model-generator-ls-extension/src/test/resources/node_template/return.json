@@ -1,21 +1,27 @@
 {
   "description": "Sample diagram node",
-  "id": {
-    "kind": "RETURN"
+  "codedata": {
+    "node": "RETURN"
   },
   "output": {
-    "label": "Return",
-    "description": "Return a value",
-    "kind": "RETURN",
+    "id": "31",
+    "metadata": {
+      "label": "Return",
+      "description": "Return a value"
+    },
+    "codedata": {
+      "node": "RETURN"
+    },
     "returning": false,
-    "nodeProperties": {
+    "properties": {
       "expression": {
-        "label": "Expression",
+        "metadata": {
+          "label": "Expression",
+          "description": "Return value"
+        },
         "value": "",
-        "typeKind": "BTYPE",
         "optional": false,
-        "editable": true,
-        "documentation": "Return value"
+        "editable": true
       }
     },
     "flags": 0

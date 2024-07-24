@@ -1,0 +1,197 @@
+{
+  "start": {
+    "line": 39,
+    "offset": 0
+  },
+  "end": {
+    "line": 42,
+    "offset": 1
+  },
+  "source": "http_get_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "http_get_node.bal",
+    "nodes": [
+      {
+        "id": "70654",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 39,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 42,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "milkshake",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "71727",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 40,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 40,
+            "offset": 55
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "http:Client",
+            "value": "new (\"/drink\")",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "http:Client",
+            "value": "drinkClient ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "72926",
+        "metadata": {
+          "label": "HTTP GET"
+        },
+        "codedata": {
+          "node": "ACTION_CALL"
+        },
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 41,
+            "offset": 15
+          },
+          "endLine": {
+            "line": 41,
+            "offset": 45
+          }
+        },
+        "returning": true,
+        "properties": {
+          "client": {
+            "metadata": {
+              "label": "Client",
+              "description": "HTTP Client Connection"
+            },
+            "valueType": "http:Client",
+            "value": "drinkClient",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "string",
+            "value": "\"/milkshake\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "Headers",
+              "description": "HTTP Headers"
+            },
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": [
+      {
+        "id": "34122",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 2,
+            "offset": 12
+          },
+          "endLine": {
+            "line": 2,
+            "offset": 22
+          }
+        },
+        "scope": "GLOBAL",
+        "value": "foodClient",
+        "flags": 0
+      },
+      {
+        "id": "71703",
+        "label": "Client",
+        "kind": "HTTP",
+        "lineRange": {
+          "fileName": "http_get_node.bal",
+          "startLine": {
+            "line": 40,
+            "offset": 8
+          },
+          "endLine": {
+            "line": 40,
+            "offset": 31
+          }
+        },
+        "scope": "LOCAL",
+        "value": "drinkClient ",
+        "flags": 0
+      }
+    ]
+  }
+}

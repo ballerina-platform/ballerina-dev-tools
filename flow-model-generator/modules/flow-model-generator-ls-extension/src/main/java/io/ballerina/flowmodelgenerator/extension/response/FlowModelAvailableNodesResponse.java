@@ -33,7 +33,7 @@ public class FlowModelAvailableNodesResponse extends AbstractFlowModelResponse {
         this.categories = categories;
     }
 
-    public JsonArray availableNodes() {
+    public JsonArray categories() {
         return categories;
     }
 }
