@@ -1,0 +1,62 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Redis Get"
+    },
+    "codedata": {
+      "node": "ACTION_CALL",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "client": {
+        "metadata": {
+          "label": "Client",
+          "description": "Redis Client Connection"
+        },
+        "valueType": "redis:Client",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "key": {
+        "metadata": {
+          "label": "Key",
+          "description": "Redis Key"
+        },
+        "valueType": "string",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "->get();"
+    }
+  ]
+}
