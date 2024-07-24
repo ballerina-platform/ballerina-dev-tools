@@ -79,6 +79,8 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "51006",
@@ -204,6 +206,8 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
                         "id": "58112",
@@ -290,6 +294,8 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "visible": false,
+                    "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
                         "id": "65073",
@@ -600,6 +606,8 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "83747",

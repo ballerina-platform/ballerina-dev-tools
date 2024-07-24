@@ -60,6 +60,8 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "39946",
@@ -131,6 +133,8 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE",
                     "children": [
                       {
                         "id": "42054",

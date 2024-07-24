@@ -79,6 +79,8 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "75126",
@@ -105,6 +107,8 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE",
                     "children": [
                       {
                         "id": "75998",
@@ -131,6 +135,8 @@
                           {
                             "label": "Body",
                             "kind": "BLOCK",
+                            "visible": true,
+                            "repeatable": "ONE",
                             "children": [
                               {
                                 "id": "77094",
@@ -278,6 +284,8 @@
                           {
                             "label": "Body",
                             "kind": "BLOCK",
+                            "visible": true,
+                            "repeatable": "ONE",
                             "children": [
                               {
                                 "id": "81043",

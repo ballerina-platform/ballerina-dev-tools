@@ -169,6 +169,8 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
             "children": [
               {
                 "id": "83770",
@@ -306,6 +308,8 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "87697",
@@ -422,6 +426,8 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
                         "id": "90836",
@@ -500,6 +506,8 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE",
                     "children": [
                       {
                         "id": "93839",
@@ -623,6 +631,8 @@
                   {
                     "label": "On Fail",
                     "kind": "BLOCK",
+                    "visible": false,
+                    "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
                         "id": "96789",

@@ -79,6 +79,8 @@
           {
             "label": "Then",
             "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE_OR_MORE",
             "children": [
               {
                 "id": "40115",
@@ -183,6 +185,8 @@
           {
             "label": "Else",
             "kind": "BLOCK",
+            "visible": false,
+            "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "43081",
