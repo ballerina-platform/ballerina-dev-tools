@@ -169,11 +169,11 @@ public abstract class NodeBuilder {
 
     public FlowNode build() {
         this.setConstData();
-        Codedata codedata = codedataBuilder.build();
+        Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
-                String.valueOf(Objects.hash(codedata.lineRange())),
+                String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),
                 new Metadata(label, description, null),
-                codedataBuilder == null ? null : codedataBuilder.build(),
+                codedata,
                 returning,
                 branches.isEmpty() ? null : branches,
                 propertiesBuilder == null ? null : propertiesBuilder.build(),
