@@ -40,8 +40,8 @@ public class Panic extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.PANIC;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.PANIC);
     }
 
     @Override

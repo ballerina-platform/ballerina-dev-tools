@@ -74,13 +74,9 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
 public abstract class NodeBuilder {
 
     protected String label;
-    protected FlowNode.Kind kind;
     protected String description;
-    protected String org;
-    protected String module;
-    protected String object;
-    protected String symbol;
     protected List<Branch> branches;
+    protected Codedata.Builder<NodeBuilder> codedataBuilder;
     protected PropertiesBuilder propertiesBuilder;
     protected int flags;
     protected boolean returning;
@@ -155,11 +151,6 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder kind(FlowNode.Kind kind) {
-        this.kind = kind;
-        return this;
-    }
-
     public NodeBuilder label(String label) {
         this.label = label;
         return this;
@@ -170,26 +161,6 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder org(String org) {
-        this.org = org;
-        return this;
-    }
-
-    public NodeBuilder module(String module) {
-        this.module = module;
-        return this;
-    }
-
-    public NodeBuilder object(String object) {
-        this.object = object;
-        return this;
-    }
-
-    public NodeBuilder symbol(String symbol) {
-        this.symbol = symbol;
-        return this;
-    }
-
     public PropertiesBuilder properties() {
         if (this.propertiesBuilder == null) {
             this.propertiesBuilder = new PropertiesBuilder(semanticModel);
@@ -197,12 +168,19 @@ public abstract class NodeBuilder {
         return this.propertiesBuilder;
     }
 
+    public Codedata.Builder<NodeBuilder> codedata() {
+        if (this.codedataBuilder == null) {
+            this.codedataBuilder = new Codedata.Builder<>(this);
+        }
+        return this.codedataBuilder;
+    }
+
     public FlowNode build() {
         this.setConstData();
         return new FlowNode(
                 String.valueOf(Objects.hash(lineRange)),
                 new Metadata(label, description, null),
-                new Codedata(kind, org, module, object, symbol),
+                codedataBuilder == null ? null : codedataBuilder.build(),
                 lineRange,
                 returning,
                 branches.isEmpty() ? null : branches,
@@ -214,7 +192,7 @@ public abstract class NodeBuilder {
     public AvailableNode buildAvailableNode() {
         this.setConcreteConstData();
         return new AvailableNode(new Metadata(label, description, null),
-                new Codedata(kind, null, module, null, symbol), true);
+                codedataBuilder == null ? null : codedataBuilder.build(), true);
     }
 
     /**

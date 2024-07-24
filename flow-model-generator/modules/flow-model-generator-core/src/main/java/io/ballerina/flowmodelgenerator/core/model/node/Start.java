@@ -40,8 +40,8 @@ public class Start extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.START;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.START);
     }
 
     @Override

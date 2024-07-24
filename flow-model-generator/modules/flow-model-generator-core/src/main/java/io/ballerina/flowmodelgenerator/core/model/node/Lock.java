@@ -41,8 +41,8 @@ public class Lock extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.LOCK;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.LOCK);
     }
 
     @Override
@@ -62,9 +62,7 @@ public class Lock extends NodeBuilder {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
-            if (variableProperty.isPresent()) {
-                sourceBuilder.expressionWithType(variableProperty.get());
-            }
+            variableProperty.ifPresent(sourceBuilder::expressionWithType);
 
             sourceBuilder.openBrace()
                     .addChildren(onFailBranch.get().children())

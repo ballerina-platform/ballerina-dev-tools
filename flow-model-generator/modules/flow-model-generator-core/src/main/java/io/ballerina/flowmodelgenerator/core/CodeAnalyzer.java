@@ -179,7 +179,7 @@ class CodeAnalyzer extends NodeVisitor {
         NodeAttributes.Info info = NodeAttributes.getByKey(moduleName, methodName);
         if (info != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
-                    .kind(info.kind())
+                    .codedata().node(info.kind()).stepOut()
                     .label(info.label())
                     .properties()
                     .callExpression(expressionNode, info.callExpression())
@@ -347,7 +347,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (optOnFailClauseNode.isPresent()) {
             Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
             OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
-            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            if (onFailClauseNode.typedBindingPattern().isPresent()) {
+                onFailBranchBuilder.properties().variable(onFailClauseNode.typedBindingPattern().get());
+            }
             for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
                 statement.accept(this);
                 onFailBranchBuilder.node(buildNode());
@@ -396,7 +398,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (optOnFailClauseNode.isPresent()) {
             OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
             Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
-            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            if (onFailClauseNode.typedBindingPattern().isPresent()) {
+                onFailBranchBuilder.properties().variable(onFailClauseNode.typedBindingPattern().get());
+            }
             for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
                 statement.accept(this);
                 onFailBranchBuilder.node(buildNode());
@@ -427,7 +431,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (optOnFailClauseNode.isPresent()) {
             OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
             Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
-            onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+            if (onFailClauseNode.typedBindingPattern().isPresent()) {
+                onFailBranchBuilder.properties().variable(onFailClauseNode.typedBindingPattern().get());
+            }
             for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
                 statement.accept(this);
                 onFailBranchBuilder.node(buildNode());
@@ -475,7 +481,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         OnFailClauseNode onFailClauseNode = optOnFailClauseNode.get();
         Branch.Builder onFailBranchBuilder = startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK);
-        onFailClauseNode.typedBindingPattern().ifPresent(onFailBranchBuilder::variable);
+        if (onFailClauseNode.typedBindingPattern().isPresent()) {
+            onFailBranchBuilder.properties().variable(onFailClauseNode.typedBindingPattern().get());
+        }
         for (StatementNode statement : onFailClauseNode.blockStatement().statements()) {
             statement.accept(this);
             onFailBranchBuilder.node(buildNode());
@@ -537,7 +545,10 @@ class CodeAnalyzer extends NodeVisitor {
     private Branch.Builder startBranch(String label, Branch.BranchKind kind) {
         this.flowNodeBuilderStack.push(nodeBuilder);
         this.nodeBuilder = null;
-        return new Branch.Builder(semanticModel).label(label).kind(kind);
+        return new Branch.Builder()
+                .semanticModel(semanticModel)
+                .label(label)
+                .kind(kind);
     }
 
     /**

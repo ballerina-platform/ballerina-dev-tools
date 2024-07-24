@@ -17,11 +17,21 @@
       {
         "label": "Then",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL"
+        },
+        "visible": true,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       },
       {
         "label": "Else",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE"
+        },
+        "visible": false,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

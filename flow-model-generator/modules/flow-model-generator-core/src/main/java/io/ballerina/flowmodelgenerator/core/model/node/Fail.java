@@ -40,8 +40,8 @@ public class Fail extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.FAIL;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.FAIL);
     }
 
     @Override

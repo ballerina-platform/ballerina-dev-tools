@@ -41,8 +41,8 @@ public class While extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.WHILE;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.WHILE);
     }
 
     @Override

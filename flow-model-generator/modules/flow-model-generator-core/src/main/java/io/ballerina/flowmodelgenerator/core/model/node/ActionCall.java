@@ -38,7 +38,7 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.kind = FlowNode.Kind.ACTION_CALL;
+        codedata().node(FlowNode.Kind.ACTION_CALL);
     }
 
     @Override

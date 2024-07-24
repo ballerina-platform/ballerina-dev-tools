@@ -35,8 +35,8 @@ public class Continue extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.CONTINUE;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.CONTINUE);
     }
 
     @Override

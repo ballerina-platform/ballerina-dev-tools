@@ -41,8 +41,8 @@ public class Transaction extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.TRANSACTION;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.TRANSACTION);
     }
 
     @Override

@@ -104,9 +104,11 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         public Builder node(FlowNode.Kind kind, String module, String symbol) {
             NodeAttributes.Info info = NodeAttributes.getByKey(module, symbol);
             AvailableNode node = NodeBuilder.getNodeFromKind(kind)
+                    .codedata()
                     .module(module)
-                    .label(info.label())
                     .symbol(symbol)
+                    .stepOut()
+                    .label(info.label())
                     .buildAvailableNode();
             this.availableNodes.add(node);
             return this;

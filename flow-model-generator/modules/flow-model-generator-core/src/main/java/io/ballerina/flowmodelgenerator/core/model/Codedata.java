@@ -30,4 +30,45 @@ package io.ballerina.flowmodelgenerator.core.model;
  */
 public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol) {
 
+    public static class Builder<T> extends FacetedBuilder<T> {
+
+        private FlowNode.Kind node;
+        private String org;
+        private String module;
+        private String object;
+        private String symbol;
+
+        protected Builder(T parentBuilder) {
+            super(parentBuilder);
+        }
+
+        public Builder<T> node(FlowNode.Kind node) {
+            this.node = node;
+            return this;
+        }
+
+        public Builder<T> org(String org) {
+            this.org = org;
+            return this;
+        }
+
+        public Builder<T> module(String module) {
+            this.module = module;
+            return this;
+        }
+
+        public Builder<T> object(String object) {
+            this.object = object;
+            return this;
+        }
+
+        public Builder<T> symbol(String symbol) {
+            this.symbol = symbol;
+            return this;
+        }
+
+        public Codedata build() {
+            return new Codedata(node, org, module, object, symbol);
+        }
+    }
 }

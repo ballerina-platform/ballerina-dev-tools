@@ -41,7 +41,7 @@ public class Return extends NodeBuilder {
     public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = FlowNode.Kind.RETURN;
+        codedata().node(FlowNode.Kind.RETURN);
     }
 
     @Override

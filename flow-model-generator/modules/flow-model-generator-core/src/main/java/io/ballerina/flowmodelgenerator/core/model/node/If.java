@@ -45,7 +45,7 @@ public class If extends NodeBuilder {
     public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = FlowNode.Kind.IF;
+        codedata().node(FlowNode.Kind.IF);
     }
 
     @Override
@@ -85,6 +85,7 @@ public class If extends NodeBuilder {
     @Override
     public void setConcreteTemplateData() {
         properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
-        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL), Branch.getEmptyBranch(IF_ELSE_LABEL));
+        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL, true),
+                Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE, false));
     }
 }

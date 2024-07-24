@@ -42,8 +42,8 @@ public class ErrorHandler extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         this.label = LABEL;
-        this.kind = FlowNode.Kind.ERROR_HANDLER;
         this.description = DESCRIPTION;
+        codedata().node(FlowNode.Kind.ERROR_HANDLER);
     }
 
     @Override

@@ -17,11 +17,21 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY"
+        },
+        "visible": false,
+        "repeatable": "ONE",
         "children": []
       },
       {
         "label": "On Fail",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE"
+        },
+        "visible": false,
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],

@@ -36,7 +36,7 @@ public class Break extends NodeBuilder {
     public void setConcreteConstData() {
         this.label = LABEL;
         this.description = DESCRIPTION;
-        this.kind = FlowNode.Kind.BREAK;
+        codedata().node(FlowNode.Kind.BREAK);
     }
 
     @Override

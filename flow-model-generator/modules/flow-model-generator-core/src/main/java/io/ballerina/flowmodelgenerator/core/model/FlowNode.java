@@ -89,6 +89,10 @@ public record FlowNode(
         START,
         TRANSACTION,
         LOCK,
-        FAIL
+        FAIL,
+        CONDITIONAL,
+        ELSE,
+        ON_FAILURE,
+        BODY
     }
 }
