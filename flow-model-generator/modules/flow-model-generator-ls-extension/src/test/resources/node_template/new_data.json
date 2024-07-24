@@ -1,0 +1,18 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_DATA"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}

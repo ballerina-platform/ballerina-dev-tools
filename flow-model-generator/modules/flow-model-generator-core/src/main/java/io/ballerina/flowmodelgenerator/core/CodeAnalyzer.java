@@ -267,7 +267,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.EXPRESSION)
+            startNode(FlowNode.Kind.NEW_DATA)
                     .lineRange(variableDeclarationNode)
                     .properties()
                     .expression(initializerNode);

@@ -1,0 +1,63 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "49766",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA"
+    },
+    "lineRange": {
+      "fileName": "new_data.bal",
+      "startLine": {
+        "line": 18,
+        "offset": 4
+      },
+      "endLine": {
+        "line": 18,
+        "offset": 42
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "map<json>",
+        "value": "{\"name\": \"John\", \"age\": 34}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "json",
+        "value": "j1 ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 18,
+          "character": 4
+        },
+        "end": {
+          "line": 18,
+          "character": 42
+        }
+      },
+      "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
+    }
+  ]
+}

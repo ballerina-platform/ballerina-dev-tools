@@ -1,0 +1,27 @@
+{
+  "description": "Sample diagram node",
+  "output": [],
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA"
+    },
+    "returning": false,
+    "flags": 0,
+    "lineRange": {
+      "fileName": "test.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 0,
+        "offset": 0
+      }
+    }
+  }
+}

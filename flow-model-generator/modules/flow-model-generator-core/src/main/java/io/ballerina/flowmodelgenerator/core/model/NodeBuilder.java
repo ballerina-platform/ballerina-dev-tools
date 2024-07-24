@@ -32,20 +32,7 @@ import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
-import io.ballerina.flowmodelgenerator.core.model.node.Break;
-import io.ballerina.flowmodelgenerator.core.model.node.Continue;
-import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
-import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
-import io.ballerina.flowmodelgenerator.core.model.node.Fail;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
-import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.Lock;
-import io.ballerina.flowmodelgenerator.core.model.node.Panic;
-import io.ballerina.flowmodelgenerator.core.model.node.Return;
-import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
-import io.ballerina.flowmodelgenerator.core.model.node.While;
+import io.ballerina.flowmodelgenerator.core.model.node.*;
 import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
@@ -98,6 +85,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.TRANSACTION, Transaction::new);
         put(FlowNode.Kind.LOCK, Lock::new);
         put(FlowNode.Kind.FAIL, Fail::new);
+        put(FlowNode.Kind.NEW_DATA, NewData::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
