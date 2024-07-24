@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 29,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 38,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -106,6 +119,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "nested_node.bal",
+                        "startLine": {
+                          "line": 30,
+                          "offset": 15
+                        },
+                        "endLine": {
+                          "line": 36,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {
@@ -133,6 +159,19 @@
                           {
                             "label": "Body",
                             "kind": "BLOCK",
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "nested_node.bal",
+                                "startLine": {
+                                  "line": 31,
+                                  "offset": 28
+                                },
+                                "endLine": {
+                                  "line": 34,
+                                  "offset": 17
+                                }
+                              }
+                            },
                             "repeatable": "ONE",
                             "children": [
                               {

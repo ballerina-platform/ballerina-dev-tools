@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 50,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -205,6 +218,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 24,
+                          "offset": 36
+                        },
+                        "endLine": {
+                          "line": 31,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -292,6 +318,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 31,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 49,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
@@ -603,6 +642,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 26
+                },
+                "endLine": {
+                  "line": 55,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {

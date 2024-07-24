@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 20,
+                  "offset": 19
+                },
+                "endLine": {
+                  "line": 21,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": []
           }

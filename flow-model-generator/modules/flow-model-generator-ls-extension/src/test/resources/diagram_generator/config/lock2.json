@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 12,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -132,6 +145,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "lock.bal",
+                        "startLine": {
+                          "line": 9,
+                          "offset": 13
+                        },
+                        "endLine": {
+                          "line": 11,
+                          "offset": 9
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {

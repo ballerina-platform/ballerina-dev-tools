@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 24,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 26,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -102,6 +115,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 26,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {

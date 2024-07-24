@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 20,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 25,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -87,6 +100,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 21,
+                          "offset": 20
+                        },
+                        "endLine": {
+                          "line": 23,
+                          "offset": 9
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {

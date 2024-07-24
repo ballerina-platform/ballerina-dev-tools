@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 45,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 50,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -87,6 +100,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 46,
+                          "offset": 20
+                        },
+                        "endLine": {
+                          "line": 48,
+                          "offset": 9
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {
@@ -189,6 +215,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 52,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {

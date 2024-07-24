@@ -124,6 +124,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 90,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 99,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -214,6 +227,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 92,
+                          "offset": 34
+                        },
+                        "endLine": {
+                          "line": 94,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -266,6 +292,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 94,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 97,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {

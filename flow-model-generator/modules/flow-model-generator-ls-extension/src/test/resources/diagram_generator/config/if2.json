@@ -79,6 +79,19 @@
           {
             "label": "Then",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 24,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE_OR_MORE",
             "children": [
               {
@@ -106,6 +119,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 25,
+                          "offset": 27
+                        },
+                        "endLine": {
+                          "line": 28,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -193,6 +219,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 28,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 31,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {

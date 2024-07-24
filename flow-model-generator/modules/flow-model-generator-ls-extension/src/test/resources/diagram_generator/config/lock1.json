@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "lock.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 9
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {

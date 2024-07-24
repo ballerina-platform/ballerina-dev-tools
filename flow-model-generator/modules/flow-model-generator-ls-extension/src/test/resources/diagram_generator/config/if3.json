@@ -79,6 +79,19 @@
           {
             "label": "Then",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 37,
+                  "offset": 28
+                },
+                "endLine": {
+                  "line": 40,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE_OR_MORE",
             "children": [
               {
@@ -166,6 +179,19 @@
           {
             "label": "Else",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 40,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 51,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
@@ -193,6 +219,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 40,
+                          "offset": 35
+                        },
+                        "endLine": {
+                          "line": 48,
+                          "offset": 9
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -220,6 +259,19 @@
                           {
                             "label": "Then",
                             "kind": "BLOCK",
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "if_node.bal",
+                                "startLine": {
+                                  "line": 41,
+                                  "offset": 34
+                                },
+                                "endLine": {
+                                  "line": 43,
+                                  "offset": 13
+                                }
+                              }
+                            },
                             "repeatable": "ONE_OR_MORE",
                             "children": [
                               {
@@ -272,6 +324,19 @@
                           {
                             "label": "Else",
                             "kind": "BLOCK",
+                            "codedata": {
+                              "lineRange": {
+                                "fileName": "if_node.bal",
+                                "startLine": {
+                                  "line": 43,
+                                  "offset": 14
+                                },
+                                "endLine": {
+                                  "line": 45,
+                                  "offset": 13
+                                }
+                              }
+                            },
                             "repeatable": "ZERO_OR_ONE",
                             "children": [
                               {
@@ -410,6 +475,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 48,
+                          "offset": 10
+                        },
+                        "endLine": {
+                          "line": 51,
+                          "offset": 9
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {

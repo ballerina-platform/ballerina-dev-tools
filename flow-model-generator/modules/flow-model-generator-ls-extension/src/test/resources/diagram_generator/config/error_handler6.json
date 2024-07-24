@@ -60,6 +60,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 21,
+                  "offset": 7
+                },
+                "endLine": {
+                  "line": 24,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -147,6 +160,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 24,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 26,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {

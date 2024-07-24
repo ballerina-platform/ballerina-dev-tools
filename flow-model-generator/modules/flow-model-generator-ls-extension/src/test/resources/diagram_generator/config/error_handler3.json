@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 35,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -184,6 +197,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 35,
+                  "offset": 39
+                },
+                "endLine": {
+                  "line": 37,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {

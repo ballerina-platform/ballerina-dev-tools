@@ -79,6 +79,19 @@
           {
             "label": "Then",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 27
+                },
+                "endLine": {
+                  "line": 10,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE_OR_MORE",
             "children": [
               {
@@ -184,6 +197,19 @@
           {
             "label": "Else",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {

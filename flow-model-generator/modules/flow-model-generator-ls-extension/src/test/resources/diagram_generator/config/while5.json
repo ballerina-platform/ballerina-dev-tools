@@ -169,6 +169,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 51,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 55,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -307,6 +320,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 55,
+                  "offset": 37
+                },
+                "endLine": {
+                  "line": 68,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
               "variable": {
@@ -436,6 +462,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 58,
+                          "offset": 47
+                        },
+                        "endLine": {
+                          "line": 60,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -515,6 +554,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 61,
+                          "offset": 37
+                        },
+                        "endLine": {
+                          "line": 64,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {
@@ -639,6 +691,19 @@
                   {
                     "label": "On Fail",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 64,
+                          "offset": 22
+                        },
+                        "endLine": {
+                          "line": 66,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {

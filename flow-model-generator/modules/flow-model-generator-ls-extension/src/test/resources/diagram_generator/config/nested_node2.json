@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "nested_node.bal",
+                "startLine": {
+                  "line": 12,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 19,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -106,6 +119,19 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "nested_node.bal",
+                        "startLine": {
+                          "line": 13,
+                          "offset": 23
+                        },
+                        "endLine": {
+                          "line": 15,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -176,6 +202,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "nested_node.bal",
+                        "startLine": {
+                          "line": 15,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 17,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {

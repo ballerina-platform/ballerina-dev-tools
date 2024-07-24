@@ -37,6 +37,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 3,
+                  "offset": 5
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {

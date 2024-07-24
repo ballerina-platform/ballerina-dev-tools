@@ -79,6 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 20,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -194,6 +207,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "error_handler.bal",
+                "startLine": {
+                  "line": 20,
+                  "offset": 18
+                },
+                "endLine": {
+                  "line": 28,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
@@ -266,6 +292,19 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 22,
+                          "offset": 15
+                        },
+                        "endLine": {
+                          "line": 25,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE",
                     "children": [
                       {
@@ -400,6 +439,19 @@
                   {
                     "label": "On Fail",
                     "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "error_handler.bal",
+                        "startLine": {
+                          "line": 25,
+                          "offset": 22
+                        },
+                        "endLine": {
+                          "line": 27,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
