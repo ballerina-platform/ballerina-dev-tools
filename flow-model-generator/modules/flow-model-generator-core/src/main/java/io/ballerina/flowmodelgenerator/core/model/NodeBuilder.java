@@ -202,7 +202,7 @@ public abstract class NodeBuilder {
         return new FlowNode(
                 String.valueOf(Objects.hash(lineRange)),
                 new Metadata(label, description, null),
-                new Codedata(kind, null, module, null, symbol),
+                new Codedata(kind, org, module, object, symbol),
                 lineRange,
                 returning,
                 branches.isEmpty() ? null : branches,
@@ -257,7 +257,6 @@ public abstract class NodeBuilder {
                     .label(VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(VARIABLE_DOC);
 
             addProperty(VARIABLE_KEY, propertyBuilder.build());
@@ -268,7 +267,6 @@ public abstract class NodeBuilder {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .label(EXPRESSION_LABEL)
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(EXPRESSION_DOC)
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
@@ -283,7 +281,6 @@ public abstract class NodeBuilder {
                     .label(info.label())
                     .type(info.type())
                     .value(expressionNode.toString())
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .documentation(info.documentation())
                     .build();
@@ -328,7 +325,6 @@ public abstract class NodeBuilder {
                     propertyBuilder
                             .label(info.label())
                             .documentation(info.documentation())
-                            .typeKind(Property.ExpressionTypeKind.BTYPE)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
@@ -360,7 +356,6 @@ public abstract class NodeBuilder {
         public PropertiesBuilder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
                     .label(EVENT_HTTP_API_METHOD)
-                    .typeKind(Property.ExpressionTypeKind.IDENTIFIER)
                     .editable()
                     .documentation(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
@@ -368,7 +363,6 @@ public abstract class NodeBuilder {
 
             propertyBuilder
                     .label(EVENT_HTTP_API_PATH)
-                    .typeKind(Property.ExpressionTypeKind.URI_PATH)
                     .editable()
                     .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
@@ -381,7 +375,6 @@ public abstract class NodeBuilder {
             Property condition = propertyBuilder
                     .label(CONDITION_LABEL)
                     .value(expressionNode.toSourceCode())
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(CONDITION_DOC)
                     .editable()
                     .build();
@@ -395,7 +388,6 @@ public abstract class NodeBuilder {
                     .label(EXPRESSION_DOC)
                     .value(expressionNode.toSourceCode())
                     .documentation(expressionDoc)
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -407,7 +399,6 @@ public abstract class NodeBuilder {
                     .label(EXPRESSION_LABEL)
                     .value("")
                     .documentation(doc)
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -419,7 +410,6 @@ public abstract class NodeBuilder {
                     .label(CONDITION_LABEL)
                     .value("true")
                     .documentation(doc)
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .editable()
                     .build();
             addProperty(CONDITION_KEY, property);
@@ -445,7 +435,6 @@ public abstract class NodeBuilder {
             Property property = propertyBuilder
                     .label(DefaultExpression.STATEMENT_LABEL)
                     .value(node.toSourceCode())
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(DefaultExpression.STATEMENT_DOC)
                     .editable()
                     .build();

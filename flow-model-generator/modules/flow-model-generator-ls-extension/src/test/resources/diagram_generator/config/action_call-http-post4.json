@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "post"
+            "value": "post",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "milkshake"
+            "value": "milkshake",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -78,7 +82,9 @@
               "description": "Expression"
             },
             "valueType": "http:Client",
-            "value": "new (\"/drink\")"
+            "value": "new (\"/drink\")",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -86,7 +92,9 @@
               "description": "Result Variable"
             },
             "valueType": "http:Client",
-            "value": "drinkClient "
+            "value": "drinkClient ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -118,7 +126,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "drinkClient"
+            "value": "drinkClient",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
@@ -126,7 +136,9 @@
               "description": "HTTP Path"
             },
             "valueType": "string",
-            "value": "\"/milkshake\""
+            "value": "\"/milkshake\"",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -134,21 +146,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"mixed fruit\""
+            "value": "\"mixed fruit\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 0

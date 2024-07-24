@@ -63,7 +63,9 @@
               "description": "Panic value"
             },
             "valueType": "AssertionError",
-            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")"
+            "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

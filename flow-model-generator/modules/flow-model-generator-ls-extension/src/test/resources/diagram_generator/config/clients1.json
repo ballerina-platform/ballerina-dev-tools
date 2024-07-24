@@ -62,7 +62,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "moduleCl"
+            "value": "moduleCl",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -70,7 +72,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "moduleVal "
+            "value": "moduleVal ",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
@@ -78,14 +82,18 @@
               "description": "HTTP Path"
             },
             "valueType": "string",
-            "value": "\"/hello\""
+            "value": "\"/hello\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -141,7 +149,9 @@
               "description": "Expression"
             },
             "valueType": "http:Client",
-            "value": "new (\"http://localhost:8080\")"
+            "value": "new (\"http://localhost:8080\")",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -149,7 +159,9 @@
               "description": "Result Variable"
             },
             "valueType": "http:Client",
-            "value": "localCl "
+            "value": "localCl ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -181,7 +193,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "localCl"
+            "value": "localCl",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -189,7 +203,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "localVal "
+            "value": "localVal ",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
@@ -197,14 +213,18 @@
               "description": "HTTP Path"
             },
             "valueType": "string",
-            "value": "\"/hello\""
+            "value": "\"/hello\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -237,7 +257,9 @@
               "description": "Expression"
             },
             "valueType": "MyClient",
-            "value": "new"
+            "value": "new",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -245,7 +267,9 @@
               "description": "Result Variable"
             },
             "valueType": "MyClient",
-            "value": "myLocalCl "
+            "value": "myLocalCl ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

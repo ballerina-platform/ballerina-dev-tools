@@ -89,7 +89,9 @@
                       "description": "Expression"
                     },
                     "valueType": "()",
-                    "value": "check commit"
+                    "value": "check commit",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -97,7 +99,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "()",
-                    "value": "_ "
+                    "value": "_ ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -136,7 +140,9 @@
                       "description": "Return value"
                     },
                     "valueType": "annotations:error",
-                    "value": "e"
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -149,7 +155,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "annotations:error",
-                "value": "e "
+                "value": "e ",
+                "optional": false,
+                "editable": true
               }
             }
           }

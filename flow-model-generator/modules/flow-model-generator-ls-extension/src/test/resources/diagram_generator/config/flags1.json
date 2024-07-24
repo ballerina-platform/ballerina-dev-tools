@@ -62,7 +62,9 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
-            "value": "    check fnWithError();\n"
+            "value": "    check fnWithError();\n",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -94,7 +96,9 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
-            "value": "    checkpanic fnWithError();\n"
+            "value": "    checkpanic fnWithError();\n",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2
@@ -127,7 +131,9 @@
               "description": "Expression"
             },
             "valueType": "boolean",
-            "value": "fnWithErrorAndValue()"
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -135,7 +141,9 @@
               "description": "Result Variable"
             },
             "valueType": "boolean",
-            "value": "res1 "
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -168,7 +176,9 @@
               "description": "Expression"
             },
             "valueType": "boolean",
-            "value": "fnWithErrorAndValue()"
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -176,7 +186,9 @@
               "description": "Result Variable"
             },
             "valueType": "boolean",
-            "value": "res2 "
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2
@@ -209,7 +221,9 @@
               "description": "Expression"
             },
             "valueType": "boolean",
-            "value": "fnWithErrorAndValue()"
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -217,7 +231,9 @@
               "description": "Result Variable"
             },
             "valueType": "boolean",
-            "value": "res3 "
+            "value": "res3 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 5
@@ -250,7 +266,9 @@
               "description": "Expression"
             },
             "valueType": "boolean",
-            "value": "fnWithErrorAndValue()"
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -258,7 +276,9 @@
               "description": "Result Variable"
             },
             "valueType": "boolean",
-            "value": "res4 "
+            "value": "res4 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 6

@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "converter"
+            "value": "converter",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -104,7 +108,9 @@
                       "description": "Expression"
                     },
                     "valueType": "string",
-                    "value": "'from + \"-\" + to"
+                    "value": "'from + \"-\" + to",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -112,7 +118,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "string",
-                    "value": "key "
+                    "value": "key ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -144,7 +152,9 @@
                       "description": "Redis Client Connection"
                     },
                     "valueType": "redis:Client",
-                    "value": "redisClient"
+                    "value": "redisClient",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -152,7 +162,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "string|()",
-                    "value": "cacheValue "
+                    "value": "cacheValue ",
+                    "optional": false,
+                    "editable": true
                   },
                   "key": {
                     "metadata": {
@@ -160,7 +172,9 @@
                       "description": "Redis Key"
                     },
                     "valueType": "string",
-                    "value": "key"
+                    "value": "key",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -219,7 +233,9 @@
                               "description": "Expression"
                             },
                             "valueType": "decimal",
-                            "value": "calculate(amount, <string>cacheValue)\n"
+                            "value": "calculate(amount, <string>cacheValue)\n",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -227,7 +243,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "newData "
+                            "value": "newData ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -260,7 +278,9 @@
                               "description": "Return value"
                             },
                             "valueType": "json",
-                            "value": "newData"
+                            "value": "newData",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -298,7 +318,9 @@
                               "description": "HTTP Client Connection"
                             },
                             "valueType": "http:Client",
-                            "value": "currencyClient"
+                            "value": "currencyClient",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -306,7 +328,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "response "
+                            "value": "response ",
+                            "optional": false,
+                            "editable": true
                           },
                           "path": {
                             "metadata": {
@@ -314,14 +338,18 @@
                               "description": "HTTP Path"
                             },
                             "valueType": "string",
-                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to"
+                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
+                            "optional": false,
+                            "editable": true
                           },
                           "headers": {
                             "metadata": {
                               "label": "Headers",
                               "description": "HTTP Headers"
                             },
-                            "valueType": "map<string|string[]>?"
+                            "valueType": "map<string|string[]>?",
+                            "optional": true,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -354,7 +382,9 @@
                               "description": "Expression"
                             },
                             "valueType": "decimal|annotations:error",
-                            "value": "response.value"
+                            "value": "response.value",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -362,7 +392,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "decimal",
-                            "value": "value "
+                            "value": "value ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -395,7 +427,9 @@
                               "description": "Expression"
                             },
                             "valueType": "decimal",
-                            "value": "calculate(amount, value.toString())"
+                            "value": "calculate(amount, value.toString())",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -403,7 +437,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "decimal",
-                            "value": "convertedAmount "
+                            "value": "convertedAmount ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -435,7 +471,9 @@
                               "description": "Redis Client Connection"
                             },
                             "valueType": "redis:Client",
-                            "value": "redisClient"
+                            "value": "redisClient",
+                            "optional": false,
+                            "editable": true
                           },
                           "key": {
                             "metadata": {
@@ -443,7 +481,9 @@
                               "description": "Redis Key"
                             },
                             "valueType": "string",
-                            "value": "key"
+                            "value": "key",
+                            "optional": false,
+                            "editable": true
                           },
                           "value": {
                             "metadata": {
@@ -451,7 +491,9 @@
                               "description": "Redis Value"
                             },
                             "valueType": "string",
-                            "value": "convertedAmount.toString()"
+                            "value": "convertedAmount.toString()",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -484,7 +526,9 @@
                               "description": "Expression"
                             },
                             "valueType": "map<json>",
-                            "value": "{\n                    value\n                }"
+                            "value": "{\n                    value\n                }",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -492,7 +536,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "newData "
+                            "value": "newData ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -525,7 +571,9 @@
                               "description": "Return value"
                             },
                             "valueType": "json",
-                            "value": "newData"
+                            "value": "newData",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -540,7 +588,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "hasValue(cacheValue) "
+                    "value": "hasValue(cacheValue) ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -578,7 +628,9 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "value": "            // library call - log error\n            log:printError(\"error occured\", e);\n"
+                    "value": "            // library call - log error\n            log:printError(\"error occured\", e);\n",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -611,7 +663,9 @@
                       "description": "Return value"
                     },
                     "valueType": "ballerina/http:2.11.1:InternalServerError & readonly",
-                    "value": "http:INTERNAL_SERVER_ERROR"
+                    "value": "http:INTERNAL_SERVER_ERROR",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -624,7 +678,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.1:error|annotations:error",
-                "value": "e "
+                "value": "e ",
+                "optional": false,
+                "editable": true
               }
             }
           }

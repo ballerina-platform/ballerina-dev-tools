@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "post"
+            "value": "post",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "menu/[int year]/[boolean... flags]"
+            "value": "menu/[int year]/[boolean... flags]",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048

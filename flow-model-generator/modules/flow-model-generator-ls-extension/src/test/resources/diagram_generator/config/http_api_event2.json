@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "menu/[int year]"
+            "value": "menu/[int year]",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048

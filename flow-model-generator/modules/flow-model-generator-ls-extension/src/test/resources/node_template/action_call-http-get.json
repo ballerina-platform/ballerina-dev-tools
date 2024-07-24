@@ -21,7 +21,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "path": {
         "metadata": {
@@ -29,7 +31,9 @@
           "description": "HTTP Path"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
@@ -37,7 +41,9 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

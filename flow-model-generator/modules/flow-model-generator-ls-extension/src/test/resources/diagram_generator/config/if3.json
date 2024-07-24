@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "oranges"
+            "value": "oranges",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -104,7 +108,9 @@
                       "description": "Expression"
                     },
                     "valueType": "string",
-                    "value": "\"cheap\""
+                    "value": "\"cheap\"",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -112,7 +118,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "string",
-                    "value": "food.comment"
+                    "value": "food.comment",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -145,7 +153,9 @@
                       "description": "Return value"
                     },
                     "valueType": "Food",
-                    "value": "food"
+                    "value": "food",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -236,7 +246,9 @@
                                       "description": "Expression"
                                     },
                                     "valueType": "string",
-                                    "value": "\"fresh; \""
+                                    "value": "\"fresh; \"",
+                                    "optional": false,
+                                    "editable": true
                                   },
                                   "variable": {
                                     "metadata": {
@@ -244,7 +256,9 @@
                                       "description": "Result Variable"
                                     },
                                     "valueType": "string",
-                                    "value": "food.comment"
+                                    "value": "food.comment",
+                                    "optional": false,
+                                    "editable": true
                                   }
                                 },
                                 "flags": 0
@@ -283,7 +297,9 @@
                                       "description": "Expression"
                                     },
                                     "valueType": "string",
-                                    "value": "\"expired; \""
+                                    "value": "\"expired; \"",
+                                    "optional": false,
+                                    "editable": true
                                   },
                                   "variable": {
                                     "metadata": {
@@ -291,7 +307,9 @@
                                       "description": "Result Variable"
                                     },
                                     "valueType": "string",
-                                    "value": "food.comment"
+                                    "value": "food.comment",
+                                    "optional": false,
+                                    "editable": true
                                   }
                                 },
                                 "flags": 0
@@ -306,7 +324,9 @@
                               "description": "Boolean Condition"
                             },
                             "valueType": "boolean",
-                            "value": "food.remaining > 0 "
+                            "value": "food.remaining > 0 ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -338,7 +358,9 @@
                               "label": "Statement",
                               "description": "Ballerina statement"
                             },
-                            "value": "            food.comment += \"moderate\";\n"
+                            "value": "            food.comment += \"moderate\";\n",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -371,7 +393,9 @@
                               "description": "Return value"
                             },
                             "valueType": "Food",
-                            "value": "food"
+                            "value": "food",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -410,7 +434,9 @@
                               "description": "Expression"
                             },
                             "valueType": "string",
-                            "value": "\"expensive\""
+                            "value": "\"expensive\"",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -418,7 +444,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "string",
-                            "value": "food.comment"
+                            "value": "food.comment",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -451,7 +479,9 @@
                               "description": "Return value"
                             },
                             "valueType": "Food",
-                            "value": "food"
+                            "value": "food",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -466,7 +496,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "food.price < 200 "
+                    "value": "food.price < 200 ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -481,7 +513,9 @@
               "description": "Boolean Condition"
             },
             "valueType": "boolean",
-            "value": "food.price < 100 "
+            "value": "food.price < 100 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "options"
+            "value": "options",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "path"
+            "value": "path",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048

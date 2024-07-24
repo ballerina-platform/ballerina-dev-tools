@@ -21,7 +21,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "path": {
         "metadata": {
@@ -29,7 +31,9 @@
           "description": "HTTP Path"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "message": {
         "metadata": {
@@ -37,7 +41,9 @@
           "description": "HTTP Post Message"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
@@ -45,7 +51,9 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "mediaType": {
         "metadata": {
@@ -53,7 +61,9 @@
           "description": "HTTP Post Media Type"
         },
         "valueType": "string?",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

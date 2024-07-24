@@ -89,7 +89,9 @@
                       "description": "Expression"
                     },
                     "valueType": "AssertionError",
-                    "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")"
+                    "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -97,7 +99,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "AssertionError",
-                    "value": "e "
+                    "value": "e ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -130,7 +134,9 @@
                       "description": "Fail value"
                     },
                     "valueType": "AssertionError",
-                    "value": "e"
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -169,7 +175,9 @@
                       "description": "Return value"
                     },
                     "valueType": ".:error",
-                    "value": "e"
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -182,7 +190,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": ".:error",
-                "value": "e "
+                "value": "e ",
+                "optional": false,
+                "editable": true
               }
             }
           }

@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "path2"
+            "value": "path2",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -129,7 +133,9 @@
                               "description": "HTTP Client Connection"
                             },
                             "valueType": "http:Client",
-                            "value": "asiri"
+                            "value": "asiri",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -137,7 +143,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "j "
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
                           },
                           "path": {
                             "metadata": {
@@ -145,14 +153,18 @@
                               "description": "HTTP Path"
                             },
                             "valueType": "string",
-                            "value": "\"/doctors/kandy\""
+                            "value": "\"/doctors/kandy\"",
+                            "optional": false,
+                            "editable": true
                           },
                           "headers": {
                             "metadata": {
                               "label": "Headers",
                               "description": "HTTP Headers"
                             },
-                            "valueType": "map<string|string[]>?"
+                            "valueType": "map<string|string[]>?",
+                            "optional": true,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -190,7 +202,9 @@
                               "description": "HTTP Client Connection"
                             },
                             "valueType": "http:Client",
-                            "value": "asiri"
+                            "value": "asiri",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -198,7 +212,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "j "
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
                           },
                           "path": {
                             "metadata": {
@@ -206,14 +222,18 @@
                               "description": "HTTP Path"
                             },
                             "valueType": "string",
-                            "value": "\"/doctors/colombo\""
+                            "value": "\"/doctors/colombo\"",
+                            "optional": false,
+                            "editable": true
                           },
                           "headers": {
                             "metadata": {
                               "label": "Headers",
                               "description": "HTTP Headers"
                             },
-                            "valueType": "map<string|string[]>?"
+                            "valueType": "map<string|string[]>?",
+                            "optional": true,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -228,7 +248,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "isKandy "
+                    "value": "isKandy ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -260,7 +282,9 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "value": "commit"
+                    "value": "commit",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -268,7 +292,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "annotations:error|()",
-                    "value": "unionResult "
+                    "value": "unionResult ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0

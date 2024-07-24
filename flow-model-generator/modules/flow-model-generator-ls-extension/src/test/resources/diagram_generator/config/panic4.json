@@ -63,7 +63,9 @@
               "description": "Expression"
             },
             "valueType": "annotations:error",
-            "value": "error(\"AssertionError\")"
+            "value": "error(\"AssertionError\")",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -71,7 +73,9 @@
               "description": "Result Variable"
             },
             "valueType": "annotations:error",
-            "value": "e "
+            "value": "e ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -104,7 +108,9 @@
               "description": "Panic value"
             },
             "valueType": "annotations:error",
-            "value": "e"
+            "value": "e",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

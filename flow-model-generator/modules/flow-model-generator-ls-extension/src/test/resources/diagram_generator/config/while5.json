@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "pineapples"
+            "value": "pineapples",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -78,7 +82,9 @@
               "description": "Expression"
             },
             "valueType": "int",
-            "value": "0"
+            "value": "0",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -86,7 +92,9 @@
               "description": "Result Variable"
             },
             "valueType": "int",
-            "value": "i "
+            "value": "i ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -119,7 +127,9 @@
               "description": "Expression"
             },
             "valueType": "string",
-            "value": "\"\""
+            "value": "\"\"",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -127,7 +137,9 @@
               "description": "Result Variable"
             },
             "valueType": "string",
-            "value": "finalMsg "
+            "value": "finalMsg ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -185,7 +197,9 @@
                       "description": "HTTP Client Connection"
                     },
                     "valueType": "http:Client",
-                    "value": "foodClient"
+                    "value": "foodClient",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -193,7 +207,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "json",
-                    "value": "response "
+                    "value": "response ",
+                    "optional": false,
+                    "editable": true
                   },
                   "path": {
                     "metadata": {
@@ -201,14 +217,18 @@
                       "description": "HTTP Path"
                     },
                     "valueType": "string",
-                    "value": "\"/food/pineapples\""
+                    "value": "\"/food/pineapples\"",
+                    "optional": false,
+                    "editable": true
                   },
                   "headers": {
                     "metadata": {
                       "label": "Headers",
                       "description": "HTTP Headers"
                     },
-                    "valueType": "map<string|string[]>?"
+                    "valueType": "map<string|string[]>?",
+                    "optional": true,
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -240,7 +260,9 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "value": "            finalMsg += response.toString();\n"
+                    "value": "            finalMsg += response.toString();\n",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -272,7 +294,9 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "value": "            i += 1;\n"
+                    "value": "            i += 1;\n",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -311,7 +335,9 @@
                       "description": "Expression"
                     },
                     "valueType": "int",
-                    "value": "0"
+                    "value": "0",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -319,7 +345,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "int",
-                    "value": "attempts "
+                    "value": "attempts ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -352,7 +380,9 @@
                       "description": "Expression"
                     },
                     "valueType": "http:Client|http:ClientError",
-                    "value": "new (\"http://localhost:9090\")"
+                    "value": "new (\"http://localhost:9090\")",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -360,7 +390,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "http:Client|http:ClientError",
-                    "value": "adminClient "
+                    "value": "adminClient ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -419,7 +451,9 @@
                               "description": "Return value"
                             },
                             "valueType": "string",
-                            "value": "\"Error occurred while creating admin client\""
+                            "value": "\"Error occurred while creating admin client\"",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -434,7 +468,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "adminClient is http:ClientError "
+                    "value": "adminClient is http:ClientError ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -492,7 +528,9 @@
                               "description": "HTTP Client Connection"
                             },
                             "valueType": "http:Client",
-                            "value": "adminClient"
+                            "value": "adminClient",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -500,7 +538,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "json",
-                            "value": "response "
+                            "value": "response ",
+                            "optional": false,
+                            "editable": true
                           },
                           "path": {
                             "metadata": {
@@ -508,7 +548,9 @@
                               "description": "HTTP Path"
                             },
                             "valueType": "string",
-                            "value": "\"/admin/restart\""
+                            "value": "\"/admin/restart\"",
+                            "optional": false,
+                            "editable": true
                           },
                           "message": {
                             "metadata": {
@@ -516,21 +558,27 @@
                               "description": "HTTP Post Message"
                             },
                             "valueType": "map<anydata>",
-                            "value": "{body: e.message()}"
+                            "value": "{body: e.message()}",
+                            "optional": false,
+                            "editable": true
                           },
                           "headers": {
                             "metadata": {
                               "label": "Headers",
                               "description": "HTTP Headers"
                             },
-                            "valueType": "map<string|string[]>?"
+                            "valueType": "map<string|string[]>?",
+                            "optional": true,
+                            "editable": true
                           },
                           "mediaType": {
                             "metadata": {
                               "label": "Media Type",
                               "description": "HTTP Post Media Type"
                             },
-                            "valueType": "string?"
+                            "valueType": "string?",
+                            "optional": true,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -563,7 +611,9 @@
                               "description": "Return value"
                             },
                             "valueType": "string",
-                            "value": "\"Response received from admin service: \" + response.toString()"
+                            "value": "\"Response received from admin service: \" + response.toString()",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -602,7 +652,9 @@
                               "description": "Return value"
                             },
                             "valueType": "string",
-                            "value": "\"Error occurred while invoking admin service\""
+                            "value": "\"Error occurred while invoking admin service\"",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -617,7 +669,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "attempts < retries "
+                    "value": "attempts < retries ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -650,7 +704,9 @@
                       "description": "Return value"
                     },
                     "valueType": "string",
-                    "value": "\"Error occurred while invoking food service\""
+                    "value": "\"Error occurred while invoking food service\"",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -663,7 +719,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "http:ClientError",
-                "value": "e "
+                "value": "e ",
+                "optional": false,
+                "editable": true
               }
             }
           }
@@ -675,7 +733,9 @@
               "description": "Boolean Condition"
             },
             "valueType": "boolean",
-            "value": "i < count "
+            "value": "i < count ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -708,7 +768,9 @@
               "description": "Return value"
             },
             "valueType": "string",
-            "value": "finalMsg"
+            "value": "finalMsg",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

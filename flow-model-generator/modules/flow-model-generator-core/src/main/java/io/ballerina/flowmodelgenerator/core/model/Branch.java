@@ -107,7 +107,6 @@ public record Branch(String label, BranchKind kind, List<FlowNode> children, Map
                     .label(NodeBuilder.PropertiesBuilder.VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
-                    .typeKind(Property.ExpressionTypeKind.BTYPE)
                     .documentation(NodeBuilder.PropertiesBuilder.VARIABLE_DOC);
             properties.put(NodeBuilder.PropertiesBuilder.VARIABLE_KEY, expressionBuilder.build());
             return this;

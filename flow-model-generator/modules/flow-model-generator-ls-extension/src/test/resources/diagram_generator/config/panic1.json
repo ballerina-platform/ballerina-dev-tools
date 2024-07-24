@@ -63,7 +63,9 @@
               "description": "Panic value"
             },
             "valueType": "annotations:error",
-            "value": "error(\"\")"
+            "value": "error(\"\")",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

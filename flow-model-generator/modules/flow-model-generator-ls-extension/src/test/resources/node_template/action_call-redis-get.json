@@ -21,7 +21,9 @@
           "description": "Redis Client Connection"
         },
         "valueType": "redis:Client",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       },
       "key": {
         "metadata": {
@@ -29,7 +31,9 @@
           "description": "Redis Key"
         },
         "valueType": "string",
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

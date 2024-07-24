@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "bananas"
+            "value": "bananas",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -78,7 +82,9 @@
               "description": "Expression"
             },
             "valueType": "int",
-            "value": "0"
+            "value": "0",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -86,7 +92,9 @@
               "description": "Result Variable"
             },
             "valueType": "int",
-            "value": "i "
+            "value": "i ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -144,7 +152,9 @@
                       "description": "HTTP Client Connection"
                     },
                     "valueType": "http:Client",
-                    "value": "foodClient"
+                    "value": "foodClient",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -152,7 +162,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "json|annotations:error",
-                    "value": "response "
+                    "value": "response ",
+                    "optional": false,
+                    "editable": true
                   },
                   "path": {
                     "metadata": {
@@ -160,14 +172,18 @@
                       "description": "HTTP Path"
                     },
                     "valueType": "string",
-                    "value": "\"/food/bananas\""
+                    "value": "\"/food/bananas\"",
+                    "optional": false,
+                    "editable": true
                   },
                   "headers": {
                     "metadata": {
                       "label": "Headers",
                       "description": "HTTP Headers"
                     },
-                    "valueType": "map<string|string[]>?"
+                    "valueType": "map<string|string[]>?",
+                    "optional": true,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -226,7 +242,9 @@
                               "description": "Expression"
                             },
                             "valueType": "string",
-                            "value": "\"Response received from food service: \" + response.toString()"
+                            "value": "\"Response received from food service: \" + response.toString()",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -234,7 +252,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "string|()",
-                            "value": "msg"
+                            "value": "msg",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -273,7 +293,9 @@
                               "description": "Expression"
                             },
                             "valueType": "string",
-                            "value": "\"Error occurred while invoking food service: \" + response.message()"
+                            "value": "\"Error occurred while invoking food service: \" + response.message()",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -281,7 +303,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "string|()",
-                            "value": "msg"
+                            "value": "msg",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -319,7 +343,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "(response is json) "
+                    "value": "(response is json) ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -351,7 +377,9 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
-                    "value": "            i += 1;\n"
+                    "value": "            i += 1;\n",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -366,7 +394,9 @@
               "description": "Boolean Condition"
             },
             "valueType": "boolean",
-            "value": "i < count "
+            "value": "i < count ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

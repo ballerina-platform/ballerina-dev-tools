@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "pineapples"
+            "value": "pineapples",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -103,7 +107,9 @@
                       "description": "HTTP Client Connection"
                     },
                     "valueType": "http:Client",
-                    "value": "foodClient"
+                    "value": "foodClient",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -111,7 +117,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "json",
-                    "value": "res "
+                    "value": "res ",
+                    "optional": false,
+                    "editable": true
                   },
                   "path": {
                     "metadata": {
@@ -119,14 +127,18 @@
                       "description": "HTTP Path"
                     },
                     "valueType": "string",
-                    "value": "\"/western/pineapples\""
+                    "value": "\"/western/pineapples\"",
+                    "optional": false,
+                    "editable": true
                   },
                   "headers": {
                     "metadata": {
                       "label": "Headers",
                       "description": "HTTP Headers"
                     },
-                    "valueType": "map<string|string[]>?"
+                    "valueType": "map<string|string[]>?",
+                    "optional": true,
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -159,7 +171,9 @@
                       "description": "Return value"
                     },
                     "valueType": "string",
-                    "value": "res.toString()"
+                    "value": "res.toString()",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -198,7 +212,9 @@
                       "description": "Return value"
                     },
                     "valueType": "string",
-                    "value": "err.message()"
+                    "value": "err.message()",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -211,7 +227,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "http:ClientError",
-                "value": "err "
+                "value": "err ",
+                "optional": false,
+                "editable": true
               }
             }
           }

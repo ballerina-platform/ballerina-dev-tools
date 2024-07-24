@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "grapes"
+            "value": "grapes",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -78,7 +82,9 @@
               "description": "Expression"
             },
             "valueType": "int",
-            "value": "price % 4"
+            "value": "price % 4",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -86,7 +92,9 @@
               "description": "Result Variable"
             },
             "valueType": "int",
-            "value": "mod "
+            "value": "mod ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -257,7 +265,9 @@
                                       "description": "Boolean Condition"
                                     },
                                     "valueType": "boolean",
-                                    "value": "price < 10 && mod == 1 "
+                                    "value": "price < 10 && mod == 1 ",
+                                    "optional": false,
+                                    "editable": true
                                   }
                                 },
                                 "flags": 0
@@ -272,7 +282,9 @@
                               "description": "Boolean Condition"
                             },
                             "valueType": "boolean",
-                            "value": "price < 25 "
+                            "value": "price < 25 ",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0
@@ -287,7 +299,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "price < 50 "
+                    "value": "price < 50 ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -351,7 +365,9 @@
                       "description": "Boolean Condition"
                     },
                     "valueType": "boolean",
-                    "value": "mod == 0 "
+                    "value": "mod == 0 ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -366,7 +382,9 @@
               "description": "Boolean Condition"
             },
             "valueType": "boolean",
-            "value": "price > 100 "
+            "value": "price > 100 ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "get"
+            "value": "get",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "apples"
+            "value": "apples",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -104,7 +108,9 @@
                       "description": "Expression"
                     },
                     "valueType": "int",
-                    "value": "1"
+                    "value": "1",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -112,7 +118,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "int",
-                    "value": "a "
+                    "value": "a ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -151,7 +159,9 @@
                       "description": "Expression"
                     },
                     "valueType": "int",
-                    "value": "2"
+                    "value": "2",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -159,7 +169,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "int",
-                    "value": "b "
+                    "value": "b ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -192,7 +204,9 @@
                       "description": "Expression"
                     },
                     "valueType": "string",
-                    "value": "\"12\""
+                    "value": "\"12\"",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -200,7 +214,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "string",
-                    "value": "c "
+                    "value": "c ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -215,7 +231,9 @@
               "description": "Boolean Condition"
             },
             "valueType": "boolean",
-            "value": "flag "
+            "value": "flag ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

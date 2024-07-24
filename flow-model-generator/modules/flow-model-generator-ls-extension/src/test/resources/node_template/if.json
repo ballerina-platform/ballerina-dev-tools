@@ -31,7 +31,9 @@
           "label": "Condition",
           "description": "Boolean Condition"
         },
-        "value": "true"
+        "value": "true",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

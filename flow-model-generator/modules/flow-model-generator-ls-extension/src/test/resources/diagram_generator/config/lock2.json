@@ -89,7 +89,9 @@
                       "description": "Expression"
                     },
                     "valueType": "int",
-                    "value": "0"
+                    "value": "0",
+                    "optional": false,
+                    "editable": true
                   },
                   "variable": {
                     "metadata": {
@@ -97,7 +99,9 @@
                       "description": "Result Variable"
                     },
                     "valueType": "int",
-                    "value": "i "
+                    "value": "i ",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -156,7 +160,9 @@
                               "description": "Expression"
                             },
                             "valueType": "int",
-                            "value": "3"
+                            "value": "3",
+                            "optional": false,
+                            "editable": true
                           },
                           "variable": {
                             "metadata": {
@@ -164,7 +170,9 @@
                               "description": "Result Variable"
                             },
                             "valueType": "int",
-                            "value": "i"
+                            "value": "i",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 0

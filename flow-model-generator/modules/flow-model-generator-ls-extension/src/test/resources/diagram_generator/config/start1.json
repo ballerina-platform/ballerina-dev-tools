@@ -63,7 +63,9 @@
               "description": "Call action or expression"
             },
             "valueType": "int",
-            "value": "sum(40, 50)"
+            "value": "sum(40, 50)",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -96,7 +98,9 @@
               "description": "Expression"
             },
             "valueType": "future<int>",
-            "value": "start sum(40, 50)"
+            "value": "start sum(40, 50)",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -104,7 +108,9 @@
               "description": "Result Variable"
             },
             "valueType": "future<int>",
-            "value": "futureVar "
+            "value": "futureVar ",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0

@@ -38,14 +38,18 @@
               "label": "Method",
               "description": "HTTP Method"
             },
-            "value": "post"
+            "value": "post",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
               "label": "Path",
               "description": "HTTP Path"
             },
-            "value": "apples"
+            "value": "apples",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 2048
@@ -77,7 +81,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -85,7 +91,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res1 "
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
@@ -93,7 +101,9 @@
               "description": "HTTP Path"
             },
             "valueType": "string",
-            "value": "\"/apples\""
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -101,21 +111,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"red apple\""
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -147,7 +163,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "path": {
             "metadata": {
@@ -155,7 +173,9 @@
               "description": "HTTP Path"
             },
             "valueType": "string",
-            "value": "\"/apples\""
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -163,21 +183,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"green apple\""
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -209,7 +235,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -217,7 +245,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res2 "
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -225,21 +255,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"western red apple\""
+            "value": "\"western red apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -271,7 +307,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -279,7 +317,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res3 "
+            "value": "res3 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -287,14 +327,18 @@
               "description": "HTTP Post Message"
             },
             "valueType": "map<anydata>",
-            "value": "{\"type\": \"red apple\"}"
+            "value": "{\"type\": \"red apple\"}",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
@@ -302,7 +346,9 @@
               "description": "HTTP Post Media Type"
             },
             "valueType": "string?",
-            "value": "\"application/json\""
+            "value": "\"application/json\"",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -334,7 +380,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -342,7 +390,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res4 "
+            "value": "res4 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -350,21 +400,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"green apple\""
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -396,7 +452,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -404,7 +462,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res5 "
+            "value": "res5 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -412,21 +472,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"green apple\""
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -458,7 +524,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -466,7 +534,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res7 "
+            "value": "res7 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -474,7 +544,9 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"red apple\""
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
@@ -482,14 +554,18 @@
               "description": "HTTP Headers"
             },
             "valueType": "map<string|string[]>?",
-            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -521,7 +597,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -529,7 +607,9 @@
               "description": "Result Variable"
             },
             "valueType": "Food",
-            "value": "res8 "
+            "value": "res8 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -537,21 +617,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"red apple\""
+            "value": "\"red apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
@@ -583,7 +669,9 @@
               "description": "HTTP Client Connection"
             },
             "valueType": "http:Client",
-            "value": "foodClient"
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
           },
           "variable": {
             "metadata": {
@@ -591,7 +679,9 @@
               "description": "Result Variable"
             },
             "valueType": "json",
-            "value": "res9 "
+            "value": "res9 ",
+            "optional": false,
+            "editable": true
           },
           "message": {
             "metadata": {
@@ -599,21 +689,27 @@
               "description": "HTTP Post Message"
             },
             "valueType": "string",
-            "value": "\"green apple\""
+            "value": "\"green apple\"",
+            "optional": false,
+            "editable": true
           },
           "headers": {
             "metadata": {
               "label": "Headers",
               "description": "HTTP Headers"
             },
-            "valueType": "map<string|string[]>?"
+            "valueType": "map<string|string[]>?",
+            "optional": true,
+            "editable": true
           },
           "mediaType": {
             "metadata": {
               "label": "Media Type",
               "description": "HTTP Post Media Type"
             },
-            "valueType": "string?"
+            "valueType": "string?",
+            "optional": true,
+            "editable": true
           }
         },
         "flags": 1
