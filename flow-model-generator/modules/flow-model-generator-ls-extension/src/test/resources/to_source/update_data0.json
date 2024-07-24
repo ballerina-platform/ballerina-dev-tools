@@ -1,0 +1,1 @@
+{"description": "Sample diagram node", "output": [], "diagram": {"id": "31", "metadata": {"label": "UpdateData", "description": "Update the value of a variable"}, "codedata": {"node": "UPDATE_DATA"}, "returning": false, "flags": 0, "lineRange": {"fileName": "test.bal", "startLine": {"line": 0, "offset": 0}, "endLine": {"line": 0, "offset": 0}}}}

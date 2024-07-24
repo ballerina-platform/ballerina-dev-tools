@@ -94,6 +94,7 @@ public record FlowNode(
         ELSE,
         ON_FAILURE,
         BODY,
-        NEW_DATA
+        NEW_DATA,
+        UPDATE_DATA
     }
 }

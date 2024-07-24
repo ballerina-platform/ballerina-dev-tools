@@ -285,7 +285,7 @@ class CodeAnalyzer extends NodeVisitor {
         expression.accept(this);
 
         if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.EXPRESSION)
+            startNode(FlowNode.Kind.UPDATE_DATA)
                     .lineRange(assignmentStatementNode)
                     .properties()
                     .expression(expression)

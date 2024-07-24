@@ -1,0 +1,18 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "UPDATE_DATA"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "UpdateData",
+      "description": "Update the value of a variable"
+    },
+    "codedata": {
+      "node": "UPDATE_DATA"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}

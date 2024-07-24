@@ -1,0 +1,131 @@
+{
+  "start": {
+    "line": 16,
+    "offset": 0
+  },
+  "end": {
+    "line": 19,
+    "offset": 1
+  },
+  "source": "update_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "update_data.bal",
+    "nodes": [
+      {
+        "id": "47710",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
+        "lineRange": {
+          "fileName": "update_data.bal",
+          "startLine": {
+            "line": 16,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "48766",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA"
+        },
+        "lineRange": {
+          "fileName": "update_data.bal",
+          "startLine": {
+            "line": 17,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 34
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "xml:Element",
+            "value": "xml `<p>content</p>`",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "xml",
+            "value": "x1 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "49767",
+        "metadata": {
+          "label": "UpdateData",
+          "description": "Update the value of a variable"
+        },
+        "codedata": {
+          "node": "UPDATE_DATA"
+        },
+        "lineRange": {
+          "fileName": "update_data.bal",
+          "startLine": {
+            "line": 18,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 43
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "xml:Element",
+            "value": "xml `<book>The Lost World</book>`",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "xml",
+            "value": "x1",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
