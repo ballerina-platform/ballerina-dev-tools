@@ -112,7 +112,6 @@ public abstract class NodeBuilder {
     public abstract void setConcreteConstData();
 
     public NodeBuilder setTemplateData() {
-//        this.id = "0";
         setConcreteTemplateData();
         return this;
     }
@@ -196,8 +195,7 @@ public abstract class NodeBuilder {
     }
 
     /**
-     * Represents a builder for the node properties of a flow node. Each concrete flow node override this class to build
-     * its properties.
+     * Represents a builder for the node properties of a flow node.
      *
      * @since 1.4.0
      */
@@ -372,6 +370,20 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder statement(Node node) {
+            if (node == null) {
+                return this;
+            }
+            Property property = propertyBuilder
+                    .label(DefaultExpression.STATEMENT_LABEL)
+                    .value(node.toSourceCode())
+                    .documentation(DefaultExpression.STATEMENT_DOC)
+                    .editable()
+                    .build();
+            addProperty(DefaultExpression.STATEMENT_KEY, property);
+            return this;
+        }
+
         public PropertiesBuilder defaultExpression(String doc) {
             Property property = propertyBuilder
                     .label(EXPRESSION_LABEL)
@@ -403,20 +415,6 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(info.key(), property);
-            return this;
-        }
-
-        public PropertiesBuilder statement(Node node) {
-            if (node == null) {
-                return this;
-            }
-            Property property = propertyBuilder
-                    .label(DefaultExpression.STATEMENT_LABEL)
-                    .value(node.toSourceCode())
-                    .documentation(DefaultExpression.STATEMENT_DOC)
-                    .editable()
-                    .build();
-            addProperty(DefaultExpression.STATEMENT_KEY, property);
             return this;
         }
 
