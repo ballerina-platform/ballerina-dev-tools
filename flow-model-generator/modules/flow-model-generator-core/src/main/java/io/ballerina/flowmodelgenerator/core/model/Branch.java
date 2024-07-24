@@ -30,12 +30,15 @@ import java.util.Optional;
  *
  * @param label      label of the branch
  * @param kind       kind of the branch
- * @param children   children of the branch
+ * @param codedata   codedata of the branch
+ * @param visible    whether the branch is visible by default
+ * @param repeatable the repeatable pattern of the branch
  * @param properties properties of the branch
+ * @param children   children of the branch
  * @since 1.4.0
  */
 public record Branch(String label, BranchKind kind, Codedata codedata, boolean visible, Repeatable repeatable,
-                     List<FlowNode> children, Map<String, Property> properties) {
+                     Map<String, Property> properties, List<FlowNode> children) {
 
     public static final String BODY_LABEL = "Body";
     public static final String ON_FAIL_LABEL = "On Fail";
@@ -158,7 +161,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, boolean v
 
         public Branch build() {
             return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(), visible,
-                    repeatable, children, propertiesBuilder == null ? null : propertiesBuilder.build());
+                    repeatable, propertiesBuilder == null ? null : propertiesBuilder.build(), children);
         }
     }
 }
