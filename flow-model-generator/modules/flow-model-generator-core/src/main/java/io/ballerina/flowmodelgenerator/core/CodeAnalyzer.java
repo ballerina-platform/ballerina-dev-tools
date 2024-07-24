@@ -198,7 +198,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties().condition(ifElseStatementNode.condition());
 
         Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE_OR_MORE).visible(true);
+                Branch.Repeatable.ONE_OR_MORE);
         for (StatementNode statement : ifElseStatementNode.ifBody().statements()) {
             statement.accept(this);
             thenBranchBuilder.node(buildNode());
@@ -208,7 +208,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
             Branch.Builder elseBranchBuilder = startBranch(If.IF_ELSE_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                    Branch.Repeatable.ZERO_OR_ONE).visible(false);
+                    Branch.Repeatable.ZERO_OR_ONE);
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             elseBranchBuilder.nodes(elseBodyChildNodes);
             endBranch(elseBranchBuilder);
@@ -339,7 +339,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE).visible(true);
+                Branch.Repeatable.ONE);
         for (StatementNode statement : whileBody.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -392,7 +392,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(LockStatementNode lockStatementNode) {
         startNode(FlowNode.Kind.LOCK).lineRange(lockStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE).visible(true);
+                Branch.Repeatable.ONE);
         for (StatementNode statement : lockStatementNode.blockStatement().statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -427,7 +427,7 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.TRANSACTION)
                 .lineRange(transactionStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE).visible(true);
+                Branch.Repeatable.ONE);
         for (StatementNode statement : transactionStatementNode.blockStatement().statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -481,7 +481,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         startNode(FlowNode.Kind.ERROR_HANDLER).lineRange(doStatementNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE).visible(true);
+                Branch.Repeatable.ONE);
         for (StatementNode statement : doStatementNode.blockStatement().statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -596,7 +596,7 @@ class CodeAnalyzer extends NodeVisitor {
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
         startNode(FlowNode.Kind.EXPRESSION).lineRange(bodyNode);
         Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE).visible(true);
+                Branch.Repeatable.ONE);
         for (StatementNode statement : bodyNode.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());

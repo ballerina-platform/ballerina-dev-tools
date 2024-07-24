@@ -79,7 +79,6 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
             "repeatable": "ONE",
             "children": [
               {
@@ -206,7 +205,6 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
-                    "visible": true,
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -294,7 +292,6 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
-                    "visible": false,
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
@@ -606,8 +603,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
-            "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "83747",
@@ -678,19 +686,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "flags": 0

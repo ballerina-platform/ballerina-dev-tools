@@ -79,7 +79,6 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
             "repeatable": "ONE",
             "children": [
               {
@@ -185,8 +184,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
-            "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "http:ClientError",
+                "value": "err ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "67861",
@@ -223,19 +233,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "http:ClientError",
-                "value": "err ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "flags": 0

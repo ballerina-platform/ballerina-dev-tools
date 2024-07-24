@@ -20,7 +20,6 @@
         "codedata": {
           "node": "CONDITIONAL"
         },
-        "visible": true,
         "repeatable": "ZERO_OR_ONE",
         "children": []
       },
@@ -30,7 +29,6 @@
         "codedata": {
           "node": "ELSE"
         },
-        "visible": false,
         "repeatable": "ZERO_OR_ONE",
         "children": []
       }

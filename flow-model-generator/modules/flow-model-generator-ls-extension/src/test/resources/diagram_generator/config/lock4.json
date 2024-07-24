@@ -60,7 +60,6 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
             "repeatable": "ONE",
             "children": [
               {
@@ -103,8 +102,19 @@
           {
             "label": "On Fail",
             "kind": "BLOCK",
-            "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "annotations:error",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "58793",
@@ -141,19 +151,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "annotations:error",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "flags": 0

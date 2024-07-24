@@ -60,7 +60,6 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
             "repeatable": "ONE",
             "children": [
               {
@@ -88,7 +87,6 @@
                   {
                     "label": "Body",
                     "kind": "BLOCK",
-                    "visible": true,
                     "repeatable": "ONE",
                     "children": [
                       {

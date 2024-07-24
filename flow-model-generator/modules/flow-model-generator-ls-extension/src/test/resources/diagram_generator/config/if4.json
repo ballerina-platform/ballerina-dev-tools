@@ -124,7 +124,6 @@
           {
             "label": "Then",
             "kind": "BLOCK",
-            "visible": true,
             "repeatable": "ONE_OR_MORE",
             "children": [
               {
@@ -155,7 +154,6 @@
           {
             "label": "Else",
             "kind": "BLOCK",
-            "visible": false,
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
@@ -183,7 +181,6 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
-                    "visible": true,
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
@@ -211,7 +208,6 @@
                           {
                             "label": "Then",
                             "kind": "BLOCK",
-                            "visible": true,
                             "repeatable": "ONE_OR_MORE",
                             "children": [
                               {
@@ -239,7 +235,6 @@
                                   {
                                     "label": "Then",
                                     "kind": "BLOCK",
-                                    "visible": true,
                                     "repeatable": "ONE_OR_MORE",
                                     "children": [
                                       {
@@ -341,7 +336,6 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
-                    "visible": true,
                     "repeatable": "ONE_OR_MORE",
                     "children": [
                       {
