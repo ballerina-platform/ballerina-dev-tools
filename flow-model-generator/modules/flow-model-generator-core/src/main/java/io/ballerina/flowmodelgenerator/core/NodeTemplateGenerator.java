@@ -36,7 +36,8 @@ public class NodeTemplateGenerator {
                 .build();
         if (codedata.module() != null) {
             NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-            NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(FlowNode.Kind.ACTION_CALL).label(info.label());
+            NodeBuilder nodeBuilder =
+                    NodeBuilder.getNodeFromKind(FlowNode.Kind.ACTION_CALL).metadata().label(info.label()).stepOut();
             nodeBuilder.properties()
                     .defaultExpression(info.callExpression())
                     .defaultVariable();

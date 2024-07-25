@@ -38,7 +38,7 @@ public class HttpApiEvent extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.EVENT_HTTP_API);
     }
 

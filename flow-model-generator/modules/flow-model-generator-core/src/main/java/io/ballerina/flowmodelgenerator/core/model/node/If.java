@@ -43,8 +43,7 @@ public class If extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
+        metadata().label(LABEL).description(DESCRIPTION);
         codedata().node(FlowNode.Kind.IF);
     }
 

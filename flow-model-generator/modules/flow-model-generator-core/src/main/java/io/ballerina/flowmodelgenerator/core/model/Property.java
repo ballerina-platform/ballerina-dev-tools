@@ -50,12 +50,11 @@ public record Property(Metadata metadata, String valueType, String value, boolea
      */
     public static class Builder {
 
-        private String label;
         private String type;
         private String value;
         private boolean optional;
         private boolean editable;
-        private String description;
+        private Metadata.Builder<Builder> metadataBuilder;
 
         private Builder() {
 
@@ -68,11 +67,6 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
         public static Builder getInstance() {
             return InstanceHolder.instance;
-        }
-
-        public Builder label(String key) {
-            this.label = key;
-            return this;
         }
 
         public Builder type(TypeSymbol typeSymbol) {
@@ -100,14 +94,17 @@ public record Property(Metadata metadata, String valueType, String value, boolea
             return this;
         }
 
-        public Builder description(String description) {
-            this.description = description;
-            return this;
+        public Metadata.Builder<Builder> metadata() {
+            if (this.metadataBuilder == null) {
+                this.metadataBuilder = new Metadata.Builder<>(this);
+            }
+            return this.metadataBuilder;
         }
 
         public Property build() {
-            Property property = new Property(new Metadata(label, description, null), type, value, optional, editable);
-            this.label = null;
+            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value,
+                    optional, editable);
+            this.metadataBuilder = null;
             this.type = null;
             this.value = null;
             this.optional = false;

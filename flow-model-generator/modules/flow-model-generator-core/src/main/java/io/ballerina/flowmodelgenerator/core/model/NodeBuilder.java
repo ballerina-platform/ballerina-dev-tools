@@ -74,9 +74,8 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
  */
 public abstract class NodeBuilder {
 
-    protected String label;
-    protected String description;
     protected List<Branch> branches;
+    protected Metadata.Builder<NodeBuilder> metadataBuilder;
     protected Codedata.Builder<NodeBuilder> codedataBuilder;
     protected PropertiesBuilder<NodeBuilder> propertiesBuilder;
     protected int flags;
@@ -145,21 +144,11 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder label(String label) {
-        this.label = label;
-        return this;
-    }
-
-    public NodeBuilder description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public PropertiesBuilder<NodeBuilder> properties() {
-        if (this.propertiesBuilder == null) {
-            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, this);
+    public Metadata.Builder<NodeBuilder> metadata() {
+        if (this.metadataBuilder == null) {
+            this.metadataBuilder = new Metadata.Builder<>(this);
         }
-        return this.propertiesBuilder;
+        return this.metadataBuilder;
     }
 
     public Codedata.Builder<NodeBuilder> codedata() {
@@ -169,12 +158,19 @@ public abstract class NodeBuilder {
         return this.codedataBuilder;
     }
 
+    public PropertiesBuilder<NodeBuilder> properties() {
+        if (this.propertiesBuilder == null) {
+            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, this);
+        }
+        return this.propertiesBuilder;
+    }
+
     public FlowNode build() {
         this.setConstData();
         Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
                 String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),
-                new Metadata(label, description, null),
+                metadataBuilder == null ? null : metadataBuilder.build(),
                 codedata,
                 returning,
                 branches.isEmpty() ? null : branches,
@@ -185,13 +181,14 @@ public abstract class NodeBuilder {
 
     public AvailableNode buildAvailableNode() {
         this.setConcreteConstData();
-        return new AvailableNode(new Metadata(label, description, null),
+        return new AvailableNode(metadataBuilder == null ? null : metadataBuilder.build(),
                 codedataBuilder == null ? null : codedataBuilder.build(), true);
     }
 
     /**
      * Represents a builder for the node properties of a flow node.
      *
+     * @param <T> Parent builder type
      * @since 1.4.0
      */
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
@@ -237,10 +234,12 @@ public abstract class NodeBuilder {
             }
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
             propertyBuilder
+                    .metadata()
                     .label(VARIABLE_LABEL)
+                    .description(VARIABLE_DOC)
+                    .stepOut()
                     .value(CommonUtils.getVariableName(node))
-                    .editable()
-                    .description(VARIABLE_DOC);
+                    .editable();
 
             addProperty(VARIABLE_KEY, propertyBuilder.build());
             return this;
@@ -249,8 +248,10 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
+                    .metadata()
                     .label(EXPRESSION_LABEL)
                     .description(EXPRESSION_DOC)
+                    .stepOut()
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
@@ -261,18 +262,20 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
             Property client = Property.Builder.getInstance()
+                    .metadata()
                     .label(info.label())
+                    .description(info.documentation())
+                    .stepOut()
                     .type(info.type())
                     .value(expressionNode.toString())
                     .editable()
-                    .description(info.documentation())
                     .build();
             addProperty(info.key(), client);
             return this;
         }
 
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                                   List<ParameterSymbol> parameterSymbols) {
+                                                      List<ParameterSymbol> parameterSymbols) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
@@ -306,8 +309,10 @@ public abstract class NodeBuilder {
                 ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
                 if (info != null) {
                     propertyBuilder
+                            .metadata()
                             .label(info.label())
                             .description(info.documentation())
+                            .stepOut()
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
@@ -338,16 +343,20 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
+                    .metadata()
                     .label(EVENT_HTTP_API_METHOD)
-                    .editable()
-                    .description(EVENT_HTTP_API_METHOD_DOC);
+                    .description(EVENT_HTTP_API_METHOD_DOC)
+                    .stepOut()
+                    .editable();
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
             addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
 
             propertyBuilder
+                    .metadata()
                     .label(EVENT_HTTP_API_PATH)
-                    .editable()
                     .description(EVENT_HTTP_API_PATH_DOC)
+                    .stepOut()
+                    .editable()
                     .value(resourceMethodSymbol.resourcePath().signature());
             addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
             return this;
@@ -356,9 +365,11 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> condition(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property condition = propertyBuilder
+                    .metadata()
                     .label(CONDITION_LABEL)
-                    .value(expressionNode.toSourceCode())
                     .description(CONDITION_DOC)
+                    .stepOut()
+                    .value(expressionNode.toSourceCode())
                     .editable()
                     .build();
             addProperty(CONDITION_KEY, condition);
@@ -368,9 +379,11 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
+                    .metadata()
                     .label(EXPRESSION_DOC)
-                    .value(expressionNode.toSourceCode())
                     .description(expressionDoc)
+                    .stepOut()
+                    .value(expressionNode.toSourceCode())
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -379,9 +392,11 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> statement(Node node) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(DefaultExpression.STATEMENT_LABEL)
-                    .value(node == null ? "" : node.toSourceCode())
                     .description(DefaultExpression.STATEMENT_DOC)
+                    .stepOut()
+                    .value(node == null ? "" : node.toSourceCode())
                     .editable()
                     .build();
             addProperty(DefaultExpression.STATEMENT_KEY, property);
@@ -390,9 +405,11 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> ignore() {
             Property property = propertyBuilder
+                    .metadata()
                     .label(IGNORE_LABEL)
-                    .value("true")
                     .description(IGNORE_DOC)
+                    .stepOut()
+                    .value("true")
                     .editable()
                     .build();
             addProperty(IGNORE_KEY, property);
@@ -402,9 +419,11 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
             BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
             Property value = propertyBuilder
+                    .metadata()
                     .label(ON_ERROR_VARIABLE_LABEL)
-                    .value(bindingPatternNode.toString())
                     .description(ON_ERROR_VARIABLE_DOC)
+                    .stepOut()
+                    .value(bindingPatternNode.toString())
                     .editable()
                     .build();
             addProperty(ON_ERROR_VARIABLE_KEY, value);
@@ -412,8 +431,10 @@ public abstract class NodeBuilder {
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                     .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
             Property type = propertyBuilder
+                    .metadata()
                     .label(ON_ERROR_TYPE_LABEL)
                     .description(ON_ERROR_TYPE_DOC)
+                    .stepOut()
                     .editable()
                     .build();
             addProperty(ON_ERROR_TYPE_KEY, type);
@@ -423,17 +444,21 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> defaultOnErrorVariable() {
             Property value = propertyBuilder
+                    .metadata()
                     .label(ON_ERROR_VARIABLE_LABEL)
-                    .value("err")
                     .description(ON_ERROR_VARIABLE_DOC)
+                    .stepOut()
+                    .value("err")
                     .editable()
                     .build();
             addProperty(ON_ERROR_VARIABLE_KEY, value);
 
             Property type = propertyBuilder
+                    .metadata()
                     .label(ON_ERROR_TYPE_LABEL)
-                    .value("error")
                     .description(ON_ERROR_TYPE_DOC)
+                    .stepOut()
+                    .value("error")
                     .editable()
                     .build();
             addProperty(ON_ERROR_TYPE_KEY, type);
@@ -443,9 +468,11 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> defaultExpression(String doc) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(EXPRESSION_LABEL)
-                    .value("")
                     .description(doc)
+                    .stepOut()
+                    .value("")
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -454,11 +481,13 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> defaultVariable() {
             propertyBuilder
+                    .metadata()
                     .label(VARIABLE_LABEL)
+                    .description(VARIABLE_DOC)
+                    .stepOut()
                     .value("item")
                     .editable()
-                    .optional(true)
-                    .description(VARIABLE_DOC);
+                    .optional(true);
 
             addProperty(VARIABLE_KEY, propertyBuilder.build());
             return this;
@@ -466,9 +495,11 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> defaultCondition(String doc) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(CONDITION_LABEL)
-                    .value("true")
                     .description(doc)
+                    .stepOut()
+                    .value("true")
                     .editable()
                     .build();
             addProperty(CONDITION_KEY, property);
@@ -477,10 +508,12 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> defaultExpression(ExpressionAttributes.Info info) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(info.label())
+                    .description(info.documentation())
+                    .stepOut()
                     .value("")
                     .type(info.type())
-                    .description(info.documentation())
                     .editable()
                     .build();
             addProperty(info.key(), property);

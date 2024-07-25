@@ -179,7 +179,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (info != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
                     .codedata().node(info.kind()).stepOut()
+                    .metadata()
                     .label(info.label())
+                    .stepOut()
                     .properties()
                     .callExpression(expressionNode, info.callExpression())
                     .variable(this.typedBindingPatternNode);
