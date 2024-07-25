@@ -1,0 +1,18 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "COMMIT"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Commit",
+      "description": "Commit transaction"
+    },
+    "codedata": {
+      "node": "COMMIT"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}

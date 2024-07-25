@@ -1,0 +1,185 @@
+{
+  "start": {
+    "line": 10,
+    "offset": 0
+  },
+  "end": {
+    "line": 18,
+    "offset": 1
+  },
+  "source": "rollback.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "rollback.bal",
+    "nodes": [
+      {
+        "id": "41913",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
+        "lineRange": {
+          "fileName": "rollback.bal",
+          "startLine": {
+            "line": 10,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 18,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "42971",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
+        "lineRange": {
+          "fileName": "rollback.bal",
+          "startLine": {
+            "line": 11,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 17,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "44029",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
+                "lineRange": {
+                  "fileName": "rollback.bal",
+                  "startLine": {
+                    "line": 12,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 16,
+                    "offset": 9
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE_OR_MORE",
+                    "children": [
+                      {
+                        "id": "45036",
+                        "metadata": {
+                          "label": "Commit",
+                          "description": "Commit transaction"
+                        },
+                        "codedata": {
+                          "node": "COMMIT"
+                        },
+                        "lineRange": {
+                          "fileName": "rollback.bal",
+                          "startLine": {
+                            "line": 13,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 13,
+                            "offset": 24
+                          }
+                        },
+                        "returning": false,
+                        "flags": 1
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "visible": false,
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "47051",
+                        "metadata": {
+                          "label": "Rollback",
+                          "description": "Rollback the transaction"
+                        },
+                        "codedata": {
+                          "node": "ROLLBACK"
+                        },
+                        "lineRange": {
+                          "fileName": "rollback.bal",
+                          "startLine": {
+                            "line": 15,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 15,
+                            "offset": 55
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Rollback transaction"
+                            },
+                            "valueType": "annotations:error",
+                            "value": "error(\"Rollback the transaction\")",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "i is () ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

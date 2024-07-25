@@ -1,0 +1,18 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "kind": "ROLLBACK"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
+    },
+    "codedata": {
+      "node": "EXPRESSION"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}

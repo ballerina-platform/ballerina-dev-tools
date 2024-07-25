@@ -34,6 +34,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
+import io.ballerina.flowmodelgenerator.core.model.node.Commit;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
@@ -43,6 +44,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
@@ -98,6 +100,8 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.TRANSACTION, Transaction::new);
         put(FlowNode.Kind.LOCK, Lock::new);
         put(FlowNode.Kind.FAIL, Fail::new);
+        put(FlowNode.Kind.COMMIT, Commit::new);
+        put(FlowNode.Kind.ROLLBACK, Rollback::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {

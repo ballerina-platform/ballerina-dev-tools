@@ -1,0 +1,41 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Commit",
+      "description": "Commit transaction"
+    },
+    "codedata": {
+      "node": "COMMIT"
+    },
+    "returning": false,
+    "flags": 0,
+    "lineRange": {
+      "fileName": "test.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 0,
+        "offset": 0
+      }
+    }
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "commit;"
+    }
+  ]
+}

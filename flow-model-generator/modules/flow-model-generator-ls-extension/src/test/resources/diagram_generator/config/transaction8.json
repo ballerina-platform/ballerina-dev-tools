@@ -1,0 +1,173 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 8,
+    "offset": 1
+  },
+  "source": "rollback.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "rollback.bal",
+    "nodes": [
+      {
+        "id": "31993",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION"
+        },
+        "lineRange": {
+          "fileName": "rollback.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 1
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "33051",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION"
+        },
+        "lineRange": {
+          "fileName": "rollback.bal",
+          "startLine": {
+            "line": 1,
+            "offset": 4
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 5
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "visible": true,
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "34109",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF"
+                },
+                "lineRange": {
+                  "fileName": "rollback.bal",
+                  "startLine": {
+                    "line": 2,
+                    "offset": 8
+                  },
+                  "endLine": {
+                    "line": 6,
+                    "offset": 9
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "visible": true,
+                    "repeatable": "ONE_OR_MORE",
+                    "children": [
+                      {
+                        "id": "35116",
+                        "metadata": {
+                          "label": "Commit",
+                          "description": "Commit transaction"
+                        },
+                        "codedata": {
+                          "node": "COMMIT"
+                        },
+                        "lineRange": {
+                          "fileName": "rollback.bal",
+                          "startLine": {
+                            "line": 3,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 3,
+                            "offset": 24
+                          }
+                        },
+                        "returning": false,
+                        "flags": 1
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "visible": false,
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "37097",
+                        "metadata": {
+                          "label": "Rollback",
+                          "description": "Rollback the transaction"
+                        },
+                        "codedata": {
+                          "node": "ROLLBACK"
+                        },
+                        "lineRange": {
+                          "fileName": "rollback.bal",
+                          "startLine": {
+                            "line": 5,
+                            "offset": 12
+                          },
+                          "endLine": {
+                            "line": 5,
+                            "offset": 21
+                          }
+                        },
+                        "returning": false,
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "i is () ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

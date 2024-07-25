@@ -93,6 +93,8 @@ public record FlowNode(
         CONDITIONAL,
         ELSE,
         ON_FAILURE,
-        BODY
+        BODY,
+        COMMIT,
+        ROLLBACK
     }
 }

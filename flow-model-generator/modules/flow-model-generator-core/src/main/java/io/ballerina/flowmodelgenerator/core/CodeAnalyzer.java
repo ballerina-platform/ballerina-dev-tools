@@ -29,6 +29,7 @@ import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
+import io.ballerina.compiler.syntax.tree.CommitActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
@@ -73,6 +74,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 
 import java.util.ArrayList;
@@ -458,12 +460,25 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RollbackStatementNode rollbackStatementNode) {
-        handleDefaultStatementNode(rollbackStatementNode, () -> super.visit(rollbackStatementNode));
+        startNode(FlowNode.Kind.ROLLBACK).lineRange(rollbackStatementNode);
+        Optional<ExpressionNode> optExpr = rollbackStatementNode.expression();
+        if (optExpr.isPresent()) {
+            ExpressionNode expr = optExpr.get();
+            expr.accept(this);
+            nodeBuilder.properties().expression(expr, Rollback.ROLLBACK_EXPRESSION_DOC);
+        }
+        endNode();
     }
 
     @Override
     public void visit(RetryStatementNode retryStatementNode) {
         handleDefaultStatementNode(retryStatementNode, () -> super.visit(retryStatementNode));
+    }
+
+    @Override
+    public void visit(CommitActionNode commitActionNode) {
+        startNode(FlowNode.Kind.COMMIT).lineRange(commitActionNode);
+        endNode();
     }
 
     @Override
