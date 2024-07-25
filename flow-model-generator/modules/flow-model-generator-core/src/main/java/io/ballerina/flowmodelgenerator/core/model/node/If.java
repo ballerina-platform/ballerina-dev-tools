@@ -84,7 +84,6 @@ public class If extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData() {
-        properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
         Branch.Builder thenBranchBuilder = new Branch.Builder()
                 .label(IF_THEN_LABEL)
                 .kind(Branch.BranchKind.BLOCK)
