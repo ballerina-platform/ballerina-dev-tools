@@ -205,7 +205,7 @@
             ]
           },
           {
-            "label": "On Fail",
+            "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
               "lineRange": {
@@ -437,7 +437,7 @@
                     ]
                   },
                   {
-                    "label": "On Fail",
+                    "label": "On Failure",
                     "kind": "BLOCK",
                     "codedata": {
                       "lineRange": {
