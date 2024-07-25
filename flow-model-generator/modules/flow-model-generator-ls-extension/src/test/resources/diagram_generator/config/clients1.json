@@ -232,11 +232,11 @@
       {
         "id": "50745",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "clients.bal",

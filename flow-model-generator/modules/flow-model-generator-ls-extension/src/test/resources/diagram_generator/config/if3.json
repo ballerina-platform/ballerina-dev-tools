@@ -85,11 +85,11 @@
               {
                 "id": "69847",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "if_node.bal",
@@ -229,11 +229,11 @@
                               {
                                 "id": "73945",
                                 "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
+                                  "label": "UpdateData",
+                                  "description": "Update the value of a variable"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION"
+                                  "node": "UPDATE_DATA"
                                 },
                                 "lineRange": {
                                   "fileName": "if_node.bal",
@@ -282,11 +282,11 @@
                               {
                                 "id": "75931",
                                 "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
+                                  "label": "UpdateData",
+                                  "description": "Update the value of a variable"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION"
+                                  "node": "UPDATE_DATA"
                                 },
                                 "lineRange": {
                                   "fileName": "if_node.bal",
@@ -421,11 +421,11 @@
                       {
                         "id": "80763",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "if_node.bal",

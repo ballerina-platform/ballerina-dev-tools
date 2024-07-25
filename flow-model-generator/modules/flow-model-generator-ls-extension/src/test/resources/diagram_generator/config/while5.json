@@ -57,11 +57,11 @@
       {
         "id": "80618",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "while.bal",
@@ -102,11 +102,11 @@
       {
         "id": "81621",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "while.bal",
@@ -310,15 +310,27 @@
             "kind": "BLOCK",
             "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "http:ClientError",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "87697",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "NEW_DATA"
                 },
                 "lineRange": {
                   "fileName": "while.bal",
@@ -359,11 +371,11 @@
               {
                 "id": "88745",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "NEW_DATA"
                 },
                 "lineRange": {
                   "fileName": "while.bal",
@@ -721,19 +733,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "http:ClientError",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "properties": {

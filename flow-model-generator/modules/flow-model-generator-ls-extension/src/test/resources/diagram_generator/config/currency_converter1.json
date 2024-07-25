@@ -85,11 +85,11 @@
               {
                 "id": "51006",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "NEW_DATA"
                 },
                 "lineRange": {
                   "fileName": "main.bal",
@@ -507,11 +507,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "NewData",
+                          "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "NEW_DATA"
                         },
                         "lineRange": {
                           "fileName": "main.bal",
@@ -608,6 +608,18 @@
             "kind": "BLOCK",
             "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "83747",
@@ -678,19 +690,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "flags": 0

@@ -148,11 +148,11 @@
               {
                 "id": "50998",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "error_handler.bal",
@@ -201,11 +201,11 @@
               {
                 "id": "52995",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "error_handler.bal",
@@ -356,11 +356,11 @@
                       {
                         "id": "56102",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "error_handler.bal",
@@ -409,11 +409,11 @@
                       {
                         "id": "58095",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "error_handler.bal",

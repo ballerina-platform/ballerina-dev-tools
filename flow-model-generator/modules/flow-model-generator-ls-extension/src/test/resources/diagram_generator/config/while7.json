@@ -57,11 +57,11 @@
       {
         "id": "120298",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "while.bal",
@@ -221,11 +221,11 @@
                       {
                         "id": "124580",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "while.bal",
@@ -274,11 +274,11 @@
                       {
                         "id": "126570",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "while.bal",

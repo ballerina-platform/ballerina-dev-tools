@@ -57,11 +57,11 @@
       {
         "id": "38954",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "while.bal",
@@ -221,11 +221,11 @@
                       {
                         "id": "43236",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "while.bal",
@@ -274,11 +274,11 @@
                       {
                         "id": "45226",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "while.bal",
@@ -336,11 +336,11 @@
               {
                 "id": "47018",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "while.bal",

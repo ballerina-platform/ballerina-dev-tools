@@ -57,11 +57,11 @@
       {
         "id": "69706",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION"
+          "node": "NEW_DATA"
         },
         "lineRange": {
           "fileName": "while.bal",
@@ -193,11 +193,11 @@
               {
                 "id": "72868",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "while.bal",
@@ -276,15 +276,27 @@
             "kind": "BLOCK",
             "visible": false,
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "variable": {
+                "metadata": {
+                  "label": "Variable",
+                  "description": "Result Variable"
+                },
+                "valueType": "http:ClientError",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "75841",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "UPDATE_DATA"
                 },
                 "lineRange": {
                   "fileName": "while.bal",
@@ -322,19 +334,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "http:ClientError",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "properties": {

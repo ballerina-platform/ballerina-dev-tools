@@ -66,11 +66,11 @@
               {
                 "id": "39946",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
+                  "node": "NEW_DATA"
                 },
                 "lineRange": {
                   "fileName": "lock.bal",
@@ -139,11 +139,11 @@
                       {
                         "id": "42054",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "UPDATE_DATA"
                         },
                         "lineRange": {
                           "fileName": "lock.bal",

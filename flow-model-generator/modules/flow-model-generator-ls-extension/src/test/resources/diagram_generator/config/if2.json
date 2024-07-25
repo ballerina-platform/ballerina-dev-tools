@@ -113,11 +113,11 @@
                       {
                         "id": "58059",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "NewData",
+                          "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "NEW_DATA"
                         },
                         "lineRange": {
                           "fileName": "if_node.bal",
@@ -201,11 +201,11 @@
                       {
                         "id": "61034",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "NewData",
+                          "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
+                          "node": "NEW_DATA"
                         },
                         "lineRange": {
                           "fileName": "if_node.bal",
