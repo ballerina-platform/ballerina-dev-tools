@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
@@ -31,6 +32,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
@@ -206,6 +208,18 @@ public abstract class NodeBuilder {
         public static final String CONDITION_KEY = "condition";
         public static final String CONDITION_DOC = "Boolean Condition";
 
+        public static final String IGNORE_LABEL = "Ignore";
+        public static final String IGNORE_KEY = "ignore";
+        public static final String IGNORE_DOC = "Ignore the error value";
+
+        public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
+        public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
+        public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
+
+        public static final String ON_ERROR_TYPE_LABEL = "Error Type";
+        public static final String ON_ERROR_TYPE_KEY = "errorType";
+        public static final String ON_ERROR_TYPE_DOC = "Type of the error";
+
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
@@ -216,27 +230,26 @@ public abstract class NodeBuilder {
             this.semanticModel = semanticModel;
         }
 
-        @SuppressWarnings("unchecked")
-        public <T extends PropertiesBuilder> T variable(Node node) {
+        public PropertiesBuilder variable(Node node) {
             if (node == null) {
-                return (T) this;
+                return this;
             }
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
             propertyBuilder
                     .label(VARIABLE_LABEL)
                     .value(CommonUtils.getVariableName(node))
                     .editable()
-                    .documentation(VARIABLE_DOC);
+                    .description(VARIABLE_DOC);
 
             addProperty(VARIABLE_KEY, propertyBuilder.build());
-            return (T) this;
+            return this;
         }
 
         public PropertiesBuilder expression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .label(EXPRESSION_LABEL)
-                    .documentation(EXPRESSION_DOC)
+                    .description(EXPRESSION_DOC)
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
@@ -251,7 +264,7 @@ public abstract class NodeBuilder {
                     .type(info.type())
                     .value(expressionNode.toString())
                     .editable()
-                    .documentation(info.documentation())
+                    .description(info.documentation())
                     .build();
             addProperty(info.key(), client);
             return this;
@@ -293,7 +306,7 @@ public abstract class NodeBuilder {
                 if (info != null) {
                     propertyBuilder
                             .label(info.label())
-                            .documentation(info.documentation())
+                            .description(info.documentation())
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
@@ -326,14 +339,14 @@ public abstract class NodeBuilder {
             propertyBuilder
                     .label(EVENT_HTTP_API_METHOD)
                     .editable()
-                    .documentation(EVENT_HTTP_API_METHOD_DOC);
+                    .description(EVENT_HTTP_API_METHOD_DOC);
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
             addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
 
             propertyBuilder
                     .label(EVENT_HTTP_API_PATH)
                     .editable()
-                    .documentation(EVENT_HTTP_API_PATH_DOC)
+                    .description(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
             addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
             return this;
@@ -344,7 +357,7 @@ public abstract class NodeBuilder {
             Property condition = propertyBuilder
                     .label(CONDITION_LABEL)
                     .value(expressionNode.toSourceCode())
-                    .documentation(CONDITION_DOC)
+                    .description(CONDITION_DOC)
                     .editable()
                     .build();
             addProperty(CONDITION_KEY, condition);
@@ -356,7 +369,7 @@ public abstract class NodeBuilder {
             Property property = propertyBuilder
                     .label(EXPRESSION_DOC)
                     .value(expressionNode.toSourceCode())
-                    .documentation(expressionDoc)
+                    .description(expressionDoc)
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -367,10 +380,43 @@ public abstract class NodeBuilder {
             Property property = propertyBuilder
                     .label(DefaultExpression.STATEMENT_LABEL)
                     .value(node == null ? "" : node.toSourceCode())
-                    .documentation(DefaultExpression.STATEMENT_DOC)
+                    .description(DefaultExpression.STATEMENT_DOC)
                     .editable()
                     .build();
             addProperty(DefaultExpression.STATEMENT_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder ignore() {
+            Property property = propertyBuilder
+                    .label(IGNORE_LABEL)
+                    .value("true")
+                    .description(IGNORE_DOC)
+                    .editable()
+                    .build();
+            addProperty(IGNORE_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
+            BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+            Property value = propertyBuilder
+                    .label(ON_ERROR_VARIABLE_LABEL)
+                    .value(bindingPatternNode.toString())
+                    .description(ON_ERROR_VARIABLE_DOC)
+                    .editable()
+                    .build();
+            addProperty(ON_ERROR_VARIABLE_KEY, value);
+
+            CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
+                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+            Property type = propertyBuilder
+                    .label(ON_ERROR_TYPE_LABEL)
+                    .description(ON_ERROR_TYPE_DOC)
+                    .editable()
+                    .build();
+            addProperty(ON_ERROR_TYPE_KEY, type);
+
             return this;
         }
 
@@ -378,7 +424,7 @@ public abstract class NodeBuilder {
             Property property = propertyBuilder
                     .label(EXPRESSION_LABEL)
                     .value("")
-                    .documentation(doc)
+                    .description(doc)
                     .editable()
                     .build();
             addProperty(EXPRESSION_KEY, property);
@@ -389,7 +435,7 @@ public abstract class NodeBuilder {
             Property property = propertyBuilder
                     .label(CONDITION_LABEL)
                     .value("true")
-                    .documentation(doc)
+                    .description(doc)
                     .editable()
                     .build();
             addProperty(CONDITION_KEY, property);
@@ -401,7 +447,7 @@ public abstract class NodeBuilder {
                     .label(info.label())
                     .value("")
                     .type(info.type())
-                    .documentation(info.documentation())
+                    .description(info.documentation())
                     .editable()
                     .build();
             addProperty(info.key(), property);

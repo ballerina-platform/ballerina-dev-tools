@@ -55,7 +55,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         private String value;
         private boolean optional;
         private boolean editable;
-        private String documentation;
+        private String description;
 
         private Builder() {
 
@@ -100,13 +100,13 @@ public record Property(Metadata metadata, String valueType, String value, boolea
             return this;
         }
 
-        public Builder documentation(String documentation) {
-            this.documentation = documentation;
+        public Builder description(String description) {
+            this.description = description;
             return this;
         }
 
         public Property build() {
-            Property property = new Property(new Metadata(label, documentation, null), type, value, optional, editable);
+            Property property = new Property(new Metadata(label, description, null), type, value, optional, editable);
             this.label = null;
             this.type = null;
             this.value = null;
