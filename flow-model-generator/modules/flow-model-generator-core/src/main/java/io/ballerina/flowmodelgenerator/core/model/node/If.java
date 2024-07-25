@@ -85,7 +85,13 @@ public class If extends NodeBuilder {
     @Override
     public void setConcreteTemplateData() {
         properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
-        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL),
-                Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE));
+        Branch.Builder thenBranchBuilder = new Branch.Builder()
+                .label(IF_THEN_LABEL)
+                .kind(Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE_OR_MORE)
+                .codedata().node(FlowNode.Kind.BODY).stepOut();
+        thenBranchBuilder.properties().defaultCondition(IF_CONDITION_DOC);
+
+        this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE));
     }
 }

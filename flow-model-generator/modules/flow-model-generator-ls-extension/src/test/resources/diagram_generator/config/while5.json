@@ -476,6 +476,18 @@
                       }
                     },
                     "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "adminClient is http:ClientError ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
                     "children": [
                       {
                         "id": "90836",
@@ -515,18 +527,6 @@
                     ]
                   }
                 ],
-                "properties": {
-                  "condition": {
-                    "metadata": {
-                      "label": "Condition",
-                      "description": "Boolean Condition"
-                    },
-                    "valueType": "boolean",
-                    "value": "adminClient is http:ClientError ",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
                 "flags": 0
               },
               {

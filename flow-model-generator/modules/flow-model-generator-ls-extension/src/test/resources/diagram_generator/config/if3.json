@@ -93,6 +93,18 @@
               }
             },
             "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "food.price < 100 ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "69847",
@@ -233,6 +245,18 @@
                       }
                     },
                     "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "food.price < 200 ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
                     "children": [
                       {
                         "id": "72925",
@@ -273,6 +297,18 @@
                               }
                             },
                             "repeatable": "ONE_OR_MORE",
+                            "properties": {
+                              "condition": {
+                                "metadata": {
+                                  "label": "Condition",
+                                  "description": "Boolean Condition"
+                                },
+                                "valueType": "boolean",
+                                "value": "food.remaining > 0 ",
+                                "optional": false,
+                                "editable": true
+                              }
+                            },
                             "children": [
                               {
                                 "id": "73945",
@@ -387,18 +423,6 @@
                             ]
                           }
                         ],
-                        "properties": {
-                          "condition": {
-                            "metadata": {
-                              "label": "Condition",
-                              "description": "Boolean Condition"
-                            },
-                            "valueType": "boolean",
-                            "value": "food.remaining > 0 ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
                         "flags": 0
                       },
                       {
@@ -573,35 +597,11 @@
                     ]
                   }
                 ],
-                "properties": {
-                  "condition": {
-                    "metadata": {
-                      "label": "Condition",
-                      "description": "Boolean Condition"
-                    },
-                    "valueType": "boolean",
-                    "value": "food.price < 200 ",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
                 "flags": 0
               }
             ]
           }
         ],
-        "properties": {
-          "condition": {
-            "metadata": {
-              "label": "Condition",
-              "description": "Boolean Condition"
-            },
-            "valueType": "boolean",
-            "value": "food.price < 100 ",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       }
     ],

@@ -192,11 +192,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
-        startNode(FlowNode.Kind.IF)
-                .properties().condition(ifElseStatementNode.condition());
+        startNode(FlowNode.Kind.IF);
 
-        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE_OR_MORE);
+        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE_OR_MORE);
+        thenBranchBuilder.properties().condition(ifElseStatementNode.condition());
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
