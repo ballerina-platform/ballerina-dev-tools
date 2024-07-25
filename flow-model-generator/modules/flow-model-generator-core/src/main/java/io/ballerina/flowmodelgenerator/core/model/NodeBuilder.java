@@ -452,6 +452,18 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> defaultVariable() {
+            propertyBuilder
+                    .label(VARIABLE_LABEL)
+                    .value("item")
+                    .editable()
+                    .optional(true)
+                    .description(VARIABLE_DOC);
+
+            addProperty(VARIABLE_KEY, propertyBuilder.build());
+            return this;
+        }
+
         public PropertiesBuilder<T> defaultCondition(String doc) {
             Property property = propertyBuilder
                     .label(CONDITION_LABEL)

@@ -37,7 +37,10 @@ public class NodeTemplateGenerator {
         if (codedata.module() != null) {
             NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
             NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(FlowNode.Kind.ACTION_CALL).label(info.label());
-            nodeBuilder.properties().defaultExpression(info.callExpression());
+            nodeBuilder.properties()
+                    .defaultExpression(info.callExpression())
+                    .defaultVariable();
+
             info.parameterExpressions()
                     .forEach(expressionInfo -> nodeBuilder.properties().defaultExpression(expressionInfo));
             flowNode = nodeBuilder.build();
