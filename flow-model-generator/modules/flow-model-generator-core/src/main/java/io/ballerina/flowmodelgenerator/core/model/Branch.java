@@ -47,7 +47,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
                     .codedata().node(FlowNode.Kind.BODY).stepOut().build();
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
             new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
-                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut().build();
+                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
+                    .properties().ignore().defaultOnErrorVariable().stepOut().build();
 
     public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {
         return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
@@ -101,7 +102,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         private Repeatable repeatable;
 
         protected Codedata.Builder<Builder> codedataBuilder;
-        protected NodeBuilder.PropertiesBuilder propertiesBuilder;
+        protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
 
         public Builder() {
@@ -138,9 +139,9 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
             return this;
         }
 
-        public NodeBuilder.PropertiesBuilder properties() {
+        public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
-                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder(semanticModel);
+                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, this);
             }
             return this.propertiesBuilder;
         }
