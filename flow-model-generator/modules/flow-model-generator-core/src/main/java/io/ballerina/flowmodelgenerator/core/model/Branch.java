@@ -40,13 +40,13 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
                      Map<String, Property> properties, List<FlowNode> children) {
 
     public static final String BODY_LABEL = "Body";
-    public static final String ON_FAIL_LABEL = "On Fail";
+    public static final String ON_FAILURE_LABEL = "On Failure";
 
     public static final Branch DEFAULT_BODY_BRANCH =
             new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
                     .codedata().node(FlowNode.Kind.BODY).stepOut().build();
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
-            new Builder().label(ON_FAIL_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
+            new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                     .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut().build();
 
     public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {

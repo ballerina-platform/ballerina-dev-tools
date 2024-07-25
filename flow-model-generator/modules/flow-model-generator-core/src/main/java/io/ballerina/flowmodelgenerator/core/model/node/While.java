@@ -58,7 +58,7 @@ public class While extends NodeBuilder {
         sourceBuilder.closeBrace();
 
         // Handle the on fail branch
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
         if (onFailBranch.isPresent()) {
             // Build the keywords
             sourceBuilder

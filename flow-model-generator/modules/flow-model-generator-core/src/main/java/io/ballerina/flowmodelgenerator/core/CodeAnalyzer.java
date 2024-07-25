@@ -347,7 +347,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void processOnFailClause(OnFailClauseNode onFailClauseNode) {
         Branch.Builder branchBuilder =
-                startBranch(Branch.ON_FAIL_LABEL, Branch.BranchKind.BLOCK).repeatable(Branch.Repeatable.ZERO_OR_ONE);
+                startBranch(Branch.ON_FAILURE_LABEL, Branch.BranchKind.BLOCK).repeatable(Branch.Repeatable.ZERO_OR_ONE);
         if (onFailClauseNode.typedBindingPattern().isPresent()) {
             branchBuilder.properties().ignore().onErrorVariable(onFailClauseNode.typedBindingPattern().get());
         }

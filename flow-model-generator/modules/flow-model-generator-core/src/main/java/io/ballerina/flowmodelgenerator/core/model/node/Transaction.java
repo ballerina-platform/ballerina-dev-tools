@@ -55,7 +55,7 @@ public class Transaction extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
         sourceBuilder.closeBrace();
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
         if (onFailBranch.isPresent()) {
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
