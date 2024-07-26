@@ -110,12 +110,12 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteConstData();
 
-    public NodeBuilder setTemplateData() {
-        setConcreteTemplateData();
+    public NodeBuilder setTemplateData(Codedata codedata) {
+        setConcreteTemplateData(codedata);
         return this;
     }
 
-    public abstract void setConcreteTemplateData();
+    public abstract void setConcreteTemplateData(Codedata codedata);
 
     public abstract String toSource(FlowNode flowNode);
 

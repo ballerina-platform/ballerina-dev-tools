@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
@@ -104,7 +105,14 @@ public class ActionCall extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData() {
+    public void setConcreteTemplateData(Codedata codedata) {
+        NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
+        metadata().label(info.label()).stepOut()
+                .properties()
+                .defaultExpression(info.callExpression())
+                .defaultVariable();
 
+        info.parameterExpressions()
+                .forEach(expressionInfo -> properties().defaultExpression(expressionInfo));
     }
 }

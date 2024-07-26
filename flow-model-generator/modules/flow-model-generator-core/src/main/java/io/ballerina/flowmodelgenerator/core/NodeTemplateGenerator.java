@@ -31,21 +31,9 @@ public class NodeTemplateGenerator {
         }
 
         flowNode = NodeBuilder.getNodeFromKind(codedata.node())
-                .setTemplateData()
                 .setConstData()
+                .setTemplateData(codedata)
                 .build();
-        if (codedata.module() != null) {
-            NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-            NodeBuilder nodeBuilder =
-                    NodeBuilder.getNodeFromKind(FlowNode.Kind.ACTION_CALL).metadata().label(info.label()).stepOut();
-            nodeBuilder.properties()
-                    .defaultExpression(info.callExpression())
-                    .defaultVariable();
-
-            info.parameterExpressions()
-                    .forEach(expressionInfo -> nodeBuilder.properties().defaultExpression(expressionInfo));
-            flowNode = nodeBuilder.build();
-        }
 
         nodeCache.put(codedata, flowNode);
         return gson.toJsonTree(flowNode);
