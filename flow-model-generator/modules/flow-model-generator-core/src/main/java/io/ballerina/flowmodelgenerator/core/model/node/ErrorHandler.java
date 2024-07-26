@@ -65,8 +65,8 @@ public class ErrorHandler extends NodeBuilder {
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
             // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(PropertiesBuilder.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(PropertiesBuilder.ON_ERROR_VARIABLE_KEY);
+            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
+            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
             if (onErrorType.isPresent() && onErrorValue.isPresent()) {
                 sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
             }

@@ -46,7 +46,7 @@ public class ActionCall extends NodeBuilder {
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
+        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
         variable.ifPresent(property -> sourceBuilder
                 .expressionWithType(property)
                 .keyword(SyntaxKind.EQUAL_TOKEN));

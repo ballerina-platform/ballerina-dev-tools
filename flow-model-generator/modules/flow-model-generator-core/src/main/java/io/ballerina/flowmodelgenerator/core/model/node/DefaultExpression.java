@@ -50,8 +50,8 @@ public class DefaultExpression extends NodeBuilder {
     @Override
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> variable = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
-        Optional<Property> expression = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
+        Optional<Property> expression = node.getProperty(Property.EXPRESSION_KEY);
 
         if (variable.isPresent() && expression.isPresent()) {
             sourceBuilder

@@ -33,15 +33,33 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  */
 public record Property(Metadata metadata, String valueType, String value, boolean optional, boolean editable) {
 
-    public String toSourceCode() {
-        return value;
-    }
-
-    public static final String CONDITION_LABEL = "Condition";
-    public static final String CONDITION_KEY = "condition";
+    public static final String VARIABLE_LABEL = "Variable";
+    public static final String VARIABLE_KEY = "variable";
+    public static final String VARIABLE_DOC = "Result Variable";
 
     public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_KEY = "expression";
+    public static final String EXPRESSION_DOC = "Expression";
+
+    public static final String CONDITION_LABEL = "Condition";
+    public static final String CONDITION_KEY = "condition";
+    public static final String CONDITION_DOC = "Boolean Condition";
+
+    public static final String IGNORE_LABEL = "Ignore";
+    public static final String IGNORE_KEY = "ignore";
+    public static final String IGNORE_DOC = "Ignore the error value";
+
+    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
+    public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
+    public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
+
+    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
+    public static final String ON_ERROR_TYPE_KEY = "errorType";
+    public static final String ON_ERROR_TYPE_DOC = "Type of the error";
+
+    public String toSourceCode() {
+        return value;
+    }
 
     /**
      * Represents a builder for the expression.

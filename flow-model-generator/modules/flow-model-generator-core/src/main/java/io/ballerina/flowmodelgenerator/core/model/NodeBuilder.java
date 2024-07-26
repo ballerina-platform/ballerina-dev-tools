@@ -193,30 +193,6 @@ public abstract class NodeBuilder {
      */
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
 
-        public static final String VARIABLE_LABEL = "Variable";
-        public static final String VARIABLE_KEY = "variable";
-        public static final String VARIABLE_DOC = "Result Variable";
-
-        public static final String EXPRESSION_LABEL = "Expression";
-        public static final String EXPRESSION_KEY = "expression";
-        public static final String EXPRESSION_DOC = "Expression";
-
-        public static final String CONDITION_LABEL = "Condition";
-        public static final String CONDITION_KEY = "condition";
-        public static final String CONDITION_DOC = "Boolean Condition";
-
-        public static final String IGNORE_LABEL = "Ignore";
-        public static final String IGNORE_KEY = "ignore";
-        public static final String IGNORE_DOC = "Ignore the error value";
-
-        public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
-        public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
-        public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
-
-        public static final String ON_ERROR_TYPE_LABEL = "Error Type";
-        public static final String ON_ERROR_TYPE_KEY = "errorType";
-        public static final String ON_ERROR_TYPE_DOC = "Type of the error";
-
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
@@ -235,13 +211,13 @@ public abstract class NodeBuilder {
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
             propertyBuilder
                     .metadata()
-                    .label(VARIABLE_LABEL)
-                    .description(VARIABLE_DOC)
+                    .label(Property.VARIABLE_LABEL)
+                    .description(Property.VARIABLE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
                     .editable();
 
-            addProperty(VARIABLE_KEY, propertyBuilder.build());
+            addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
             return this;
         }
 
@@ -249,14 +225,14 @@ public abstract class NodeBuilder {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .metadata()
-                    .label(EXPRESSION_LABEL)
-                    .description(EXPRESSION_DOC)
+                    .label(Property.EXPRESSION_LABEL)
+                    .description(Property.EXPRESSION_DOC)
                     .stepOut()
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
-            addProperty(EXPRESSION_KEY, property);
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
@@ -366,13 +342,13 @@ public abstract class NodeBuilder {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property condition = propertyBuilder
                     .metadata()
-                    .label(CONDITION_LABEL)
-                    .description(CONDITION_DOC)
+                    .label(Property.CONDITION_LABEL)
+                    .description(Property.CONDITION_DOC)
                     .stepOut()
                     .value(expressionNode.toSourceCode())
                     .editable()
                     .build();
-            addProperty(CONDITION_KEY, condition);
+            addProperty(Property.CONDITION_KEY, condition);
             return this;
         }
 
@@ -380,13 +356,13 @@ public abstract class NodeBuilder {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .metadata()
-                    .label(EXPRESSION_DOC)
+                    .label(Property.EXPRESSION_DOC)
                     .description(expressionDoc)
                     .stepOut()
                     .value(expressionNode.toSourceCode())
                     .editable()
                     .build();
-            addProperty(EXPRESSION_KEY, property);
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
@@ -406,13 +382,13 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> ignore() {
             Property property = propertyBuilder
                     .metadata()
-                    .label(IGNORE_LABEL)
-                    .description(IGNORE_DOC)
+                    .label(Property.IGNORE_LABEL)
+                    .description(Property.IGNORE_DOC)
                     .stepOut()
                     .value("true")
                     .editable()
                     .build();
-            addProperty(IGNORE_KEY, property);
+            addProperty(Property.IGNORE_KEY, property);
             return this;
         }
 
@@ -420,24 +396,24 @@ public abstract class NodeBuilder {
             BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
             Property value = propertyBuilder
                     .metadata()
-                    .label(ON_ERROR_VARIABLE_LABEL)
-                    .description(ON_ERROR_VARIABLE_DOC)
+                    .label(Property.ON_ERROR_VARIABLE_LABEL)
+                    .description(Property.ON_ERROR_VARIABLE_DOC)
                     .stepOut()
                     .value(bindingPatternNode.toString())
                     .editable()
                     .build();
-            addProperty(ON_ERROR_VARIABLE_KEY, value);
+            addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
 
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                     .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
             Property type = propertyBuilder
                     .metadata()
-                    .label(ON_ERROR_TYPE_LABEL)
-                    .description(ON_ERROR_TYPE_DOC)
+                    .label(Property.ON_ERROR_TYPE_LABEL)
+                    .description(Property.ON_ERROR_TYPE_DOC)
                     .stepOut()
                     .editable()
                     .build();
-            addProperty(ON_ERROR_TYPE_KEY, type);
+            addProperty(Property.ON_ERROR_TYPE_KEY, type);
 
             return this;
         }
@@ -445,23 +421,23 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> defaultOnErrorVariable() {
             Property value = propertyBuilder
                     .metadata()
-                    .label(ON_ERROR_VARIABLE_LABEL)
-                    .description(ON_ERROR_VARIABLE_DOC)
+                    .label(Property.ON_ERROR_VARIABLE_LABEL)
+                    .description(Property.ON_ERROR_VARIABLE_DOC)
                     .stepOut()
                     .value("err")
                     .editable()
                     .build();
-            addProperty(ON_ERROR_VARIABLE_KEY, value);
+            addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
 
             Property type = propertyBuilder
                     .metadata()
-                    .label(ON_ERROR_TYPE_LABEL)
-                    .description(ON_ERROR_TYPE_DOC)
+                    .label(Property.ON_ERROR_TYPE_LABEL)
+                    .description(Property.ON_ERROR_TYPE_DOC)
                     .stepOut()
                     .value("error")
                     .editable()
                     .build();
-            addProperty(ON_ERROR_TYPE_KEY, type);
+            addProperty(Property.ON_ERROR_TYPE_KEY, type);
 
             return this;
         }
@@ -469,40 +445,40 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> defaultExpression(String doc) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(EXPRESSION_LABEL)
+                    .label(Property.EXPRESSION_LABEL)
                     .description(doc)
                     .stepOut()
                     .value("")
                     .editable()
                     .build();
-            addProperty(EXPRESSION_KEY, property);
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
         public PropertiesBuilder<T> defaultVariable() {
             propertyBuilder
                     .metadata()
-                    .label(VARIABLE_LABEL)
-                    .description(VARIABLE_DOC)
+                    .label(Property.VARIABLE_LABEL)
+                    .description(Property.VARIABLE_DOC)
                     .stepOut()
                     .value("item")
                     .editable()
                     .optional(true);
 
-            addProperty(VARIABLE_KEY, propertyBuilder.build());
+            addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
             return this;
         }
 
         public PropertiesBuilder<T> defaultCondition(String doc) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(CONDITION_LABEL)
+                    .label(Property.CONDITION_LABEL)
                     .description(doc)
                     .stepOut()
                     .value("true")
                     .editable()
                     .build();
-            addProperty(CONDITION_KEY, property);
+            addProperty(Property.CONDITION_KEY, property);
             return this;
         }
 
