@@ -44,13 +44,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -89,13 +97,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "float",
             "value": "f ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "float",
             "optional": false,
             "editable": true
           }
@@ -134,13 +150,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "decimal",
             "value": "d ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "decimal",
             "optional": false,
             "editable": true
           }
@@ -179,13 +203,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "decimal",
             "value": "d1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "decimal",
             "optional": false,
             "editable": true
           }
@@ -224,13 +256,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "j ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -269,13 +309,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "k ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -314,13 +362,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "l ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -359,13 +415,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "_ ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }

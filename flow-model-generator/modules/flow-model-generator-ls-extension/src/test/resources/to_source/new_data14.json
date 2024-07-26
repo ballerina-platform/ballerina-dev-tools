@@ -1,7 +1,7 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "53726",
+    "id": "55723",
     "metadata": {
       "label": "NewData",
       "description": "Create new variable"
@@ -12,12 +12,12 @@
     "lineRange": {
       "fileName": "new_data.bal",
       "startLine": {
-        "line": 22,
+        "line": 24,
         "offset": 4
       },
       "endLine": {
-        "line": 22,
-        "offset": 34
+        "line": 24,
+        "offset": 47
       }
     },
     "returning": false,
@@ -27,8 +27,8 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "string",
-        "value": "\"create xml\"",
+        "valueType": "xml:Element",
+        "value": "xml `<book>The Lost World</book>`",
         "optional": false,
         "editable": true
       },
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "content ",
+        "value": "x2 ",
         "optional": false,
         "editable": true
       },
@@ -46,7 +46,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "string",
+        "value": "xml",
         "optional": false,
         "editable": true
       }
@@ -57,15 +57,15 @@
     {
       "range": {
         "start": {
-          "line": 22,
+          "line": 24,
           "character": 4
         },
         "end": {
-          "line": 22,
-          "character": 34
+          "line": 24,
+          "character": 47
         }
       },
-      "newText": "string content = \"create xml\";"
+      "newText": "xml x2 = xml `<book>The Lost World</book>`;"
     }
   ]
 }

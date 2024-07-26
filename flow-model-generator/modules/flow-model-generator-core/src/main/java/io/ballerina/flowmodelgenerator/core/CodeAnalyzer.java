@@ -272,7 +272,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties()
                     .expression(initializerNode);
         }
-        nodeBuilder.properties().variable(variableDeclarationNode.typedBindingPattern());
+        nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         nodeBuilder.lineRange(variableDeclarationNode);
         endNode();

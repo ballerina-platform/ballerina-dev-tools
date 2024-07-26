@@ -32,13 +32,21 @@
         "optional": false,
         "editable": true
       },
-      "variable": {
+      "dataVariable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "int",
         "value": "i ",
+        "optional": false,
+        "editable": true
+      },
+      "dataType": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "int",
         "optional": false,
         "editable": true
       }

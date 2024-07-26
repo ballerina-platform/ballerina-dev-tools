@@ -217,6 +217,14 @@ public abstract class NodeBuilder {
         public static final String CONDITION_KEY = "condition";
         public static final String CONDITION_DOC = "Boolean Condition";
 
+        public static final String DATA_VARIABLE_LABEL = "Data variable";
+        public static final String DATA_VARIABLE_KEY = "dataVariable";
+        public static final String DATA_VARIABLE_DOC = "Name of the variable";
+
+        public static final String DATA_TYPE_LABEL = "Data type";
+        public static final String DATA_TYPE_KEY = "dataType";
+        public static final String DATA_TYPE_DOC = "Type of the variable";
+
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
@@ -241,6 +249,48 @@ public abstract class NodeBuilder {
 
             addProperty(VARIABLE_KEY, propertyBuilder.build());
             return (T) this;
+        }
+
+        public PropertiesBuilder dataVariable(Node node) {
+            Property property = propertyBuilder
+                    .label(DATA_VARIABLE_LABEL)
+                    .documentation(DATA_VARIABLE_DOC)
+                    .editable()
+                    .value(CommonUtils.getVariableName(node))
+                    .build();
+            addProperty(DATA_VARIABLE_KEY, property);
+
+            propertyBuilder
+                    .label(DATA_TYPE_LABEL)
+                    .documentation(DATA_TYPE_DOC)
+                    .editable();
+
+            Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+            optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+
+            addProperty(DATA_TYPE_KEY, propertyBuilder.build());
+            
+            return this;
+        }
+
+        public PropertiesBuilder defaultDataVariable() {
+            Property variable = propertyBuilder
+                    .label(DATA_VARIABLE_LABEL)
+                    .documentation(DATA_VARIABLE_DOC)
+                    .editable()
+                    .value("item")
+                    .build();
+            addProperty(DATA_VARIABLE_KEY, variable);
+
+            Property type = propertyBuilder
+                    .label(DATA_TYPE_LABEL)
+                    .documentation(DATA_TYPE_DOC)
+                    .value("var")
+                    .editable()
+                    .build();
+            addProperty(DATA_TYPE_KEY, type);
+
+            return this;
         }
 
         public PropertiesBuilder expression(ExpressionNode expressionNode) {

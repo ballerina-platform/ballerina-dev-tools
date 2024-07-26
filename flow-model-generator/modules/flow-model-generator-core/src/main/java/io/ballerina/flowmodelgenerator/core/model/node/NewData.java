@@ -48,17 +48,20 @@ public class NewData extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         // TODO: check PropertiesBuilder.VARIABLE_KEY
-        Optional<Property> property = node.getProperty(PropertiesBuilder.VARIABLE_KEY);
-        property.ifPresent(value -> sourceBuilder.expressionWithType(value).keyword(SyntaxKind.EQUAL_TOKEN));
+        Optional<Property> dataType = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
+        Optional<Property> dataVariable = node.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
+        if (dataType.isPresent() && dataVariable.isPresent()) {
+            sourceBuilder.expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
+        }
 
-        property = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
+        Optional<Property> exprProperty = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+        exprProperty.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }
 
     @Override
     public void setConcreteTemplateData() {
-
+        properties().defaultDataVariable().defaultExpression(NEW_DATA_EXPRESSION_DOC);
     }
 }

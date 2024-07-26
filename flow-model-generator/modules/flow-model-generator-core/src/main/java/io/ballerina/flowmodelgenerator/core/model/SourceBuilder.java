@@ -59,6 +59,11 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder expressionWithType(Property type, Property variable) {
+        sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode());
+        return this;
+    }
+
     public SourceBuilder expressionWithType(Property property) {
         sb.append(property.valueType()).append(WHITE_SPACE).append(property.toSourceCode());
         return this;
