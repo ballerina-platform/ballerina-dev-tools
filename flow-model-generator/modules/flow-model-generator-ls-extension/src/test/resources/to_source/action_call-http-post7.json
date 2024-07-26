@@ -6,17 +6,17 @@
       "label": "HTTP POST"
     },
     "codedata": {
-      "node": "ACTION_CALL"
-    },
-    "lineRange": {
-      "fileName": "http_post_node.bal",
-      "startLine": {
-        "line": 20,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 23,
-        "offset": 11
+      "node": "ACTION_CALL",
+      "lineRange": {
+        "fileName": "http_post_node.bal",
+        "startLine": {
+          "line": 20,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 23,
+          "offset": 11
+        }
       }
     },
     "returning": false,
@@ -27,7 +27,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": "foodClient"
+        "value": "foodClient",
+        "optional": false,
+        "editable": true
       },
       "variable": {
         "metadata": {
@@ -35,7 +37,9 @@
           "description": "Result Variable"
         },
         "valueType": "json",
-        "value": "res7 "
+        "value": "res7 ",
+        "optional": false,
+        "editable": true
       },
       "message": {
         "metadata": {
@@ -43,7 +47,9 @@
           "description": "HTTP Post Message"
         },
         "valueType": "string",
-        "value": "\"red apple\""
+        "value": "\"red apple\"",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
@@ -51,14 +57,18 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+        "optional": true,
+        "editable": true
       },
       "mediaType": {
         "metadata": {
           "label": "Media Type",
           "description": "HTTP Post Media Type"
         },
-        "valueType": "string?"
+        "valueType": "string?",
+        "optional": true,
+        "editable": true
       }
     },
     "flags": 1

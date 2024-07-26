@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "simple_flow.bal",
-          "startLine": {
-            "line": 6,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 14,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Add conditional branch to the integration flow."
         },
         "codedata": {
-          "node": "IF"
-        },
-        "lineRange": {
-          "fileName": "simple_flow.bal",
-          "startLine": {
-            "line": 7,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 13,
-            "offset": 9
+          "node": "IF",
+          "lineRange": {
+            "fileName": "simple_flow.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -79,8 +79,32 @@
           {
             "label": "Then",
             "kind": "BLOCK",
-            "visible": true,
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 27
+                },
+                "endLine": {
+                  "line": 10,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "area == \"kandy\" ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "40115",
@@ -88,17 +112,17 @@
                   "label": "HTTP GET"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "simple_flow.bal",
-                  "startLine": {
-                    "line": 8,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 8,
-                    "offset": 63
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 63
+                    }
                   }
                 },
                 "returning": false,
@@ -152,17 +176,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "simple_flow.bal",
-                  "startLine": {
-                    "line": 9,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 9,
-                    "offset": 21
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 9,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 9,
+                      "offset": 21
+                    }
                   }
                 },
                 "returning": true,
@@ -185,7 +209,19 @@
           {
             "label": "Else",
             "kind": "BLOCK",
-            "visible": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "simple_flow.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 13,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
@@ -194,17 +230,17 @@
                   "label": "HTTP GET"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "simple_flow.bal",
-                  "startLine": {
-                    "line": 11,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 11,
-                    "offset": 53
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 11,
+                      "offset": 53
+                    }
                   }
                 },
                 "returning": false,
@@ -258,17 +294,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "simple_flow.bal",
-                  "startLine": {
-                    "line": 12,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 12,
-                    "offset": 21
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "simple_flow.bal",
+                    "startLine": {
+                      "line": 12,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 12,
+                      "offset": 21
+                    }
                   }
                 },
                 "returning": true,
@@ -289,18 +325,6 @@
             ]
           }
         ],
-        "properties": {
-          "condition": {
-            "metadata": {
-              "label": "Condition",
-              "description": "Boolean Condition"
-            },
-            "valueType": "boolean",
-            "value": "area == \"kandy\" ",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       }
     ],

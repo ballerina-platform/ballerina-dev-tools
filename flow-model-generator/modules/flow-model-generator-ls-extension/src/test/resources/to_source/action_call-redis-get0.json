@@ -1,21 +1,21 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "58846",
+    "id": "31",
     "metadata": {
-      "label": "HTTP GET"
+      "label": "Redis Get"
     },
     "codedata": {
       "node": "ACTION_CALL",
       "lineRange": {
-        "fileName": "http_get_node.bal",
+        "fileName": "test.bal",
         "startLine": {
-          "line": 27,
-          "offset": 8
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 27,
-          "offset": 70
+          "line": 0,
+          "offset": 0
         }
       }
     },
@@ -24,10 +24,10 @@
       "client": {
         "metadata": {
           "label": "Client",
-          "description": "HTTP Client Connection"
+          "description": "Redis Client Connection"
         },
-        "valueType": "http:Client",
-        "value": "foodClient",
+        "valueType": "redis:Client",
+        "value": "",
         "optional": false,
         "editable": true
       },
@@ -36,36 +36,36 @@
           "label": "Variable",
           "description": "Result Variable"
         },
-        "valueType": "json",
-        "value": "res9 ",
-        "optional": false,
+        "value": "item",
+        "optional": true,
         "editable": true
       },
-      "headers": {
+      "key": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "Key",
+          "description": "Redis Key"
         },
-        "valueType": "map<string|string[]>?",
-        "optional": true,
+        "valueType": "string",
+        "value": "",
+        "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": [
     {
       "range": {
         "start": {
-          "line": 27,
-          "character": 8
+          "line": 0,
+          "character": 0
         },
         "end": {
-          "line": 27,
-          "character": 70
+          "line": 0,
+          "character": 0
         }
       },
-      "newText": "json res9 = check foodClient->get();"
+      "newText": "null item = ->get();"
     }
   ]
 }

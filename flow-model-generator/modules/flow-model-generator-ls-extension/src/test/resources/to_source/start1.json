@@ -7,17 +7,17 @@
       "description": "Execute a function or a method invocation in a new strand"
     },
     "codedata": {
-      "node": "START"
-    },
-    "lineRange": {
-      "fileName": "start.bal",
-      "startLine": {
-        "line": 1,
-        "offset": 28
-      },
-      "endLine": {
-        "line": 1,
-        "offset": 45
+      "node": "START",
+      "lineRange": {
+        "fileName": "start.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 28
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 45
+        }
       }
     },
     "returning": false,
@@ -28,7 +28,9 @@
           "description": "Call action or expression"
         },
         "valueType": "int",
-        "value": "sum(40, 50)"
+        "value": "sum(40, 50)",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

@@ -7,7 +7,18 @@
       "description": "Panic and stop the execution"
     },
     "codedata": {
-      "node": "PANIC"
+      "node": "PANIC",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -16,21 +27,12 @@
           "label": "Expression",
           "description": "Panic value"
         },
-        "value": ""
+        "value": "",
+        "optional": false,
+        "editable": true
       }
     },
-    "flags": 0,
-    "lineRange": {
-      "fileName": "test.bal",
-      "startLine": {
-        "line": 0,
-        "offset": 0
-      },
-      "endLine": {
-        "line": 0,
-        "offset": 0
-      }
-    }
+    "flags": 0
   },
   "output": [
     {

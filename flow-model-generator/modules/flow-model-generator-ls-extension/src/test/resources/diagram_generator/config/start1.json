@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 0,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Execute a function or a method invocation in a new strand"
         },
         "codedata": {
-          "node": "START"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 28
-          },
-          "endLine": {
-            "line": 1,
-            "offset": 45
+          "node": "START",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 28
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 45
+            }
           }
         },
         "returning": false,
@@ -77,17 +77,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 1,
-            "offset": 46
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 46
+            }
           }
         },
         "returning": false,

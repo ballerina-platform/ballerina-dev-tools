@@ -7,42 +7,52 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF"
+      "node": "IF",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "branches": [
       {
         "label": "Then",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "value": "true",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": []
       },
       {
         "label": "Else",
         "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE"
+        },
+        "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "value": "true"
-      }
-    },
-    "flags": 0,
-    "lineRange": {
-      "fileName": "test.bal",
-      "startLine": {
-        "line": 0,
-        "offset": 0
-      },
-      "endLine": {
-        "line": 0,
-        "offset": 0
-      }
-    }
+    "flags": 0
   },
   "output": [
     {

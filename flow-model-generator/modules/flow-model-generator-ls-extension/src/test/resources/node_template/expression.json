@@ -13,6 +13,17 @@
       "node": "EXPRESSION"
     },
     "returning": false,
+    "properties": {
+      "statement": {
+        "metadata": {
+          "label": "Statement",
+          "description": "Ballerina statement"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
     "flags": 0
   }
 }

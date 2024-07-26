@@ -108,7 +108,9 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
                     .module(module)
                     .symbol(symbol)
                     .stepOut()
+                    .metadata()
                     .label(info.label())
+                    .stepOut()
                     .buildAvailableNode();
             this.availableNodes.add(node);
             return this;

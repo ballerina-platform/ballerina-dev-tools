@@ -7,17 +7,17 @@
       "description": "Execute a function or a method invocation in a new strand"
     },
     "codedata": {
-      "node": "START"
-    },
-    "lineRange": {
-      "fileName": "start.bal",
-      "startLine": {
-        "line": 23,
-        "offset": 26
-      },
-      "endLine": {
-        "line": 23,
-        "offset": 45
+      "node": "START",
+      "lineRange": {
+        "fileName": "start.bal",
+        "startLine": {
+          "line": 23,
+          "offset": 26
+        },
+        "endLine": {
+          "line": 23,
+          "offset": 45
+        }
       }
     },
     "returning": false,
@@ -28,7 +28,9 @@
           "description": "Call action or expression"
         },
         "valueType": "future<string>",
-        "value": "f1->getName()"
+        "value": "f1->getName()",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

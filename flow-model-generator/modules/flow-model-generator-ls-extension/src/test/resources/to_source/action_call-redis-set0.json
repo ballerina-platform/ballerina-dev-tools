@@ -1,21 +1,21 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "63799",
+    "id": "31",
     "metadata": {
-      "label": "HTTP GET"
+      "label": "Redis Set"
     },
     "codedata": {
       "node": "ACTION_CALL",
       "lineRange": {
-        "fileName": "http_get_node.bal",
+        "fileName": "test.bal",
         "startLine": {
-          "line": 32,
-          "offset": 8
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 32,
-          "offset": 63
+          "line": 0,
+          "offset": 0
         }
       }
     },
@@ -24,10 +24,10 @@
       "client": {
         "metadata": {
           "label": "Client",
-          "description": "HTTP Client Connection"
+          "description": "Redis Client Connection"
         },
-        "valueType": "http:Client",
-        "value": "foodClient",
+        "valueType": "redis:Client",
+        "value": "",
         "optional": false,
         "editable": true
       },
@@ -36,28 +36,28 @@
           "label": "Variable",
           "description": "Result Variable"
         },
-        "valueType": "json|http:ClientError",
-        "value": "res2 ",
-        "optional": false,
+        "value": "item",
+        "optional": true,
         "editable": true
       },
-      "path": {
+      "key": {
         "metadata": {
-          "label": "Path",
-          "description": "HTTP Path"
+          "label": "Key",
+          "description": "Redis Key"
         },
         "valueType": "string",
-        "value": "\"/pears\"",
+        "value": "",
         "optional": false,
         "editable": true
       },
-      "headers": {
+      "value": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "Value",
+          "description": "Redis Value"
         },
-        "valueType": "map<string|string[]>?",
-        "optional": true,
+        "valueType": "string",
+        "value": "",
+        "optional": false,
         "editable": true
       }
     },
@@ -67,15 +67,15 @@
     {
       "range": {
         "start": {
-          "line": 32,
-          "character": 8
+          "line": 0,
+          "character": 0
         },
         "end": {
-          "line": 32,
-          "character": 63
+          "line": 0,
+          "character": 0
         }
       },
-      "newText": "json|http:ClientError res2 = foodClient->get(\"/pears\");"
+      "newText": "null item = ->set(, );"
     }
   ]
 }

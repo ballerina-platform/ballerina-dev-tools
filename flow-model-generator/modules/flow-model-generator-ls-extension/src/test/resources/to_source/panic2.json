@@ -7,17 +7,17 @@
       "description": "Panic and stop the execution"
     },
     "codedata": {
-      "node": "PANIC"
-    },
-    "lineRange": {
-      "fileName": "panic.bal",
-      "startLine": {
-        "line": 9,
-        "offset": 4
-      },
-      "endLine": {
-        "line": 9,
-        "offset": 34
+      "node": "PANIC",
+      "lineRange": {
+        "fileName": "panic.bal",
+        "startLine": {
+          "line": 9,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 9,
+          "offset": 34
+        }
       }
     },
     "returning": false,
@@ -28,7 +28,9 @@
           "description": "Panic value"
         },
         "valueType": "annotations:error",
-        "value": "error(\"AssertionError\")"
+        "value": "error(\"AssertionError\")",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

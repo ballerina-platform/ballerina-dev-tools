@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 15,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 56,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 56,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Catch and handle errors"
         },
         "codedata": {
-          "node": "ERROR_HANDLER"
-        },
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 17,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 55,
-            "offset": 9
+          "node": "ERROR_HANDLER",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -79,7 +79,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 17,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 50,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -89,17 +101,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 19,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 19,
-                    "offset": 42
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 42
+                    }
                   }
                 },
                 "returning": false,
@@ -133,17 +145,17 @@
                   "label": "Redis Get"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 21,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 21,
-                    "offset": 61
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 21,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 21,
+                      "offset": 61
+                    }
                   }
                 },
                 "returning": false,
@@ -188,17 +200,17 @@
                   "description": "Add conditional branch to the integration flow."
                 },
                 "codedata": {
-                  "node": "IF"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 24,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 49,
-                    "offset": 13
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 24,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 49,
+                      "offset": 13
+                    }
                   }
                 },
                 "returning": false,
@@ -206,8 +218,32 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
-                    "visible": true,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 24,
+                          "offset": 36
+                        },
+                        "endLine": {
+                          "line": 31,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "hasValue(cacheValue) ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
                     "children": [
                       {
                         "id": "58112",
@@ -216,17 +252,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 26,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 28,
-                            "offset": 18
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 26,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 28,
+                              "offset": 18
+                            }
                           }
                         },
                         "returning": false,
@@ -261,17 +297,17 @@
                           "description": "Return a value"
                         },
                         "codedata": {
-                          "node": "RETURN"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 30,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 30,
-                            "offset": 31
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 30,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 30,
+                              "offset": 31
+                            }
                           }
                         },
                         "returning": true,
@@ -294,7 +330,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
-                    "visible": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "main.bal",
+                        "startLine": {
+                          "line": 31,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 49,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
@@ -303,17 +351,17 @@
                           "label": "HTTP GET"
                         },
                         "codedata": {
-                          "node": "ACTION_CALL"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 33,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 33,
-                            "offset": 97
+                          "node": "ACTION_CALL",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 33,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 33,
+                              "offset": 97
+                            }
                           }
                         },
                         "returning": false,
@@ -367,17 +415,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 36,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 36,
-                            "offset": 53
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 36,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 36,
+                              "offset": 53
+                            }
                           }
                         },
                         "returning": false,
@@ -412,17 +460,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 38,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 38,
-                            "offset": 84
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 38,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 38,
+                              "offset": 84
+                            }
                           }
                         },
                         "returning": false,
@@ -451,22 +499,22 @@
                         "flags": 1
                       },
                       {
-                        "id": "73111",
+                        "id": "72988",
                         "metadata": {
                           "label": "Redis Set"
                         },
                         "codedata": {
-                          "node": "ACTION_CALL"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 41,
-                            "offset": 20
-                          },
-                          "endLine": {
-                            "line": 41,
-                            "offset": 75
+                          "node": "ACTION_CALL",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 41,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 41,
+                              "offset": 76
+                            }
                           }
                         },
                         "returning": false,
@@ -511,17 +559,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 44,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 46,
-                            "offset": 18
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 44,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 46,
+                              "offset": 18
+                            }
                           }
                         },
                         "returning": false,
@@ -556,17 +604,17 @@
                           "description": "Return a value"
                         },
                         "codedata": {
-                          "node": "RETURN"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 48,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 48,
-                            "offset": 31
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 48,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 48,
+                              "offset": 31
+                            }
                           }
                         },
                         "returning": true,
@@ -587,27 +635,56 @@
                     ]
                   }
                 ],
-                "properties": {
-                  "condition": {
-                    "metadata": {
-                      "label": "Condition",
-                      "description": "Boolean Condition"
-                    },
-                    "valueType": "boolean",
-                    "value": "hasValue(cacheValue) ",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
                 "flags": 0
               }
             ]
           },
           {
-            "label": "On Fail",
+            "label": "On Failure",
             "kind": "BLOCK",
-            "visible": false,
+            "codedata": {
+              "lineRange": {
+                "fileName": "main.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 26
+                },
+                "endLine": {
+                  "line": 55,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "value": "true",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
                 "id": "83747",
@@ -616,17 +693,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 52,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 52,
-                    "offset": 47
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 52,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 47
+                    }
                   }
                 },
                 "returning": false,
@@ -650,17 +727,17 @@
                   "description": "Return a value"
                 },
                 "codedata": {
-                  "node": "RETURN"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 54,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 54,
-                    "offset": 46
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 54,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 54,
+                      "offset": 46
+                    }
                   }
                 },
                 "returning": true,
@@ -678,19 +755,7 @@
                 },
                 "flags": 0
               }
-            ],
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "value": "e ",
-                "optional": false,
-                "editable": true
-              }
-            }
+            ]
           }
         ],
         "flags": 0

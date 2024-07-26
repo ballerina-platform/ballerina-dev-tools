@@ -3,11 +3,11 @@
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Fail",
-      "description": "Fail the execution"
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
     },
     "codedata": {
-      "node": "FAIL",
+      "node": "EXPRESSION",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -22,10 +22,10 @@
     },
     "returning": false,
     "properties": {
-      "expression": {
+      "statement": {
         "metadata": {
-          "label": "Expression",
-          "description": "Fail value"
+          "label": "Statement",
+          "description": "Ballerina statement"
         },
         "value": "",
         "optional": false,
@@ -46,7 +46,7 @@
           "character": 0
         }
       },
-      "newText": "fail ;"
+      "newText": ";"
     }
   ]
 }

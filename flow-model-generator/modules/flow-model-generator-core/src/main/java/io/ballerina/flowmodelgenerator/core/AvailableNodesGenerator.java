@@ -66,7 +66,6 @@ public class AvailableNodesGenerator {
                         .node(FlowNode.Kind.ACTION_CALL, "http", "get")
                         .node(FlowNode.Kind.ACTION_CALL, "http", "post")
                         .stepOut()
-                    .stepOut()
                     .stepIn(Category.Name.REDIS_CLIENT)
                         .node(FlowNode.Kind.ACTION_CALL, "redis", "get")
                         .node(FlowNode.Kind.ACTION_CALL, "redis", "set")

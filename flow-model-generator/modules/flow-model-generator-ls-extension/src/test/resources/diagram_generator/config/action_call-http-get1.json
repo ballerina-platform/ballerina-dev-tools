@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 13,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 28,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 28,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -60,17 +60,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 14,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 14,
-            "offset": 71
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 71
+            }
           }
         },
         "returning": false,
@@ -118,22 +118,22 @@
         "flags": 1
       },
       {
-        "id": "47059",
+        "id": "46936",
         "metadata": {
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 15,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 15,
-            "offset": 63
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 64
+            }
           }
         },
         "returning": false,
@@ -171,22 +171,22 @@
         "flags": 1
       },
       {
-        "id": "48065",
+        "id": "47942",
         "metadata": {
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 16,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 16,
-            "offset": 77
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 78
+            }
           }
         },
         "returning": false,
@@ -230,17 +230,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 17,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 17,
-            "offset": 60
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 60
+            }
           }
         },
         "returning": false,
@@ -283,17 +283,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 18,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 18,
-            "offset": 52
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 52
+            }
           }
         },
         "returning": false,
@@ -336,17 +336,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 19,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 19,
-            "offset": 46
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 19,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 46
+            }
           }
         },
         "returning": false,
@@ -389,17 +389,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 20,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 20,
-            "offset": 68
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 68
+            }
           }
         },
         "returning": false,
@@ -442,17 +442,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 21,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 52
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 52
+            }
           }
         },
         "returning": false,
@@ -495,17 +495,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 22,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 25,
-            "offset": 11
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 11
+            }
           }
         },
         "returning": false,
@@ -549,17 +549,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 26,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 26,
-            "offset": 52
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 26,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 52
+            }
           }
         },
         "returning": false,
@@ -602,17 +602,17 @@
           "label": "HTTP GET"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 27,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 27,
-            "offset": 70
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 70
+            }
           }
         },
         "returning": false,
