@@ -39,6 +39,18 @@
           }
         },
         "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "price > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "57115",
@@ -79,6 +91,18 @@
                   }
                 },
                 "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "price > 100 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "58059",
@@ -263,35 +287,11 @@
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "price > 100 ",
-                "optional": false,
-                "editable": true
-              }
-            },
             "flags": 0
           }
         ]
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "valueType": "boolean",
-        "value": "price > 10 ",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   },
   "output": [

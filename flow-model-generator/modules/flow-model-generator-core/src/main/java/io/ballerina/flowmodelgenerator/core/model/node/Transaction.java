@@ -61,8 +61,12 @@ public class Transaction extends NodeBuilder {
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
-            variableProperty.ifPresent(sourceBuilder::expressionWithType);
+            // Build the parameters
+            Optional<Property> onErrorType = onFailBranch.get().getProperty(PropertiesBuilder.ON_ERROR_TYPE_KEY);
+            Optional<Property> onErrorValue = onFailBranch.get().getProperty(PropertiesBuilder.ON_ERROR_VARIABLE_KEY);
+            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
+                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
+            }
 
             sourceBuilder.openBrace()
                     .addChildren(onFailBranch.get().children())

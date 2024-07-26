@@ -32,12 +32,41 @@
         "children": []
       },
       {
-        "label": "On Fail",
+        "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
           "node": "ON_FAILURE"
         },
         "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "value": "true",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "value": "err",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "value": "error",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": []
       }
     ],
@@ -55,7 +84,7 @@
           "character": 0
         }
       },
-      "newText": "do {\n}\non fail {\n}"
+      "newText": "do {\n}\non fail error err {\n}"
     }
   ]
 }

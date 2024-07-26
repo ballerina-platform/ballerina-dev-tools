@@ -31,6 +31,15 @@
         "optional": false,
         "editable": true
       },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "value": "item",
+        "optional": true,
+        "editable": true
+      },
       "path": {
         "metadata": {
           "label": "Path",
@@ -86,7 +95,7 @@
           "character": 0
         }
       },
-      "newText": "->post(, , , );"
+      "newText": "null item = ->post(, , , );"
     }
   ]
 }

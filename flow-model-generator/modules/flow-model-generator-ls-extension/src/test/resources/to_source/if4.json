@@ -39,6 +39,18 @@
           }
         },
         "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "price > 100 ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "88679",
@@ -122,6 +134,18 @@
                   }
                 },
                 "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "price < 50 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "91901",
@@ -162,6 +186,18 @@
                           }
                         },
                         "repeatable": "ONE_OR_MORE",
+                        "properties": {
+                          "condition": {
+                            "metadata": {
+                              "label": "Condition",
+                              "description": "Boolean Condition"
+                            },
+                            "valueType": "boolean",
+                            "value": "price < 25 ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
                         "children": [
                           {
                             "id": "92959",
@@ -202,6 +238,18 @@
                                   }
                                 },
                                 "repeatable": "ONE_OR_MORE",
+                                "properties": {
+                                  "condition": {
+                                    "metadata": {
+                                      "label": "Condition",
+                                      "description": "Boolean Condition"
+                                    },
+                                    "valueType": "boolean",
+                                    "value": "price < 10 && mod == 1 ",
+                                    "optional": false,
+                                    "editable": true
+                                  }
+                                },
                                 "children": [
                                   {
                                     "id": "94023",
@@ -229,52 +277,16 @@
                                 ]
                               }
                             ],
-                            "properties": {
-                              "condition": {
-                                "metadata": {
-                                  "label": "Condition",
-                                  "description": "Boolean Condition"
-                                },
-                                "valueType": "boolean",
-                                "value": "price < 10 && mod == 1 ",
-                                "optional": false,
-                                "editable": true
-                              }
-                            },
                             "flags": 0
                           }
                         ]
                       }
                     ],
-                    "properties": {
-                      "condition": {
-                        "metadata": {
-                          "label": "Condition",
-                          "description": "Boolean Condition"
-                        },
-                        "valueType": "boolean",
-                        "value": "price < 25 ",
-                        "optional": false,
-                        "editable": true
-                      }
-                    },
                     "flags": 0
                   }
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "price < 50 ",
-                "optional": false,
-                "editable": true
-              }
-            },
             "flags": 0
           },
           {
@@ -316,6 +328,18 @@
                   }
                 },
                 "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "mod == 0 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "98727",
@@ -343,35 +367,11 @@
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "mod == 0 ",
-                "optional": false,
-                "editable": true
-              }
-            },
             "flags": 0
           }
         ]
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "valueType": "boolean",
-        "value": "price > 100 ",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   },
   "output": [

@@ -39,6 +39,18 @@
           }
         },
         "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "flag ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "48010",
@@ -198,18 +210,6 @@
         ]
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "valueType": "boolean",
-        "value": "flag ",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   },
   "output": [

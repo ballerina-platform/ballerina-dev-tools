@@ -28,7 +28,18 @@
         "codedata": {
           "node": "CONDITIONAL"
         },
-        "repeatable": "ZERO_OR_ONE",
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "value": "true",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": []
       },
       {
@@ -41,17 +52,6 @@
         "children": []
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "value": "true",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   },
   "output": [

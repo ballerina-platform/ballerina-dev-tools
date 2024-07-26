@@ -31,6 +31,15 @@
         "optional": false,
         "editable": true
       },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "value": "item",
+        "optional": true,
+        "editable": true
+      },
       "key": {
         "metadata": {
           "label": "Key",
@@ -56,7 +65,7 @@
           "character": 0
         }
       },
-      "newText": "->get();"
+      "newText": "null item = ->get();"
     }
   ]
 }
