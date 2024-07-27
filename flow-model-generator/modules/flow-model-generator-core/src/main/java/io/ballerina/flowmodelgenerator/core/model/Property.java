@@ -33,15 +33,33 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  */
 public record Property(Metadata metadata, String valueType, String value, boolean optional, boolean editable) {
 
-    public String toSourceCode() {
-        return value;
-    }
-
-    public static final String CONDITION_LABEL = "Condition";
-    public static final String CONDITION_KEY = "condition";
+    public static final String VARIABLE_LABEL = "Variable";
+    public static final String VARIABLE_KEY = "variable";
+    public static final String VARIABLE_DOC = "Result Variable";
 
     public static final String EXPRESSION_LABEL = "Expression";
     public static final String EXPRESSION_KEY = "expression";
+    public static final String EXPRESSION_DOC = "Expression";
+
+    public static final String CONDITION_LABEL = "Condition";
+    public static final String CONDITION_KEY = "condition";
+    public static final String CONDITION_DOC = "Boolean Condition";
+
+    public static final String IGNORE_LABEL = "Ignore";
+    public static final String IGNORE_KEY = "ignore";
+    public static final String IGNORE_DOC = "Ignore the error value";
+
+    public static final String ON_ERROR_VARIABLE_LABEL = "Error Variable";
+    public static final String ON_ERROR_VARIABLE_KEY = "errorVariable";
+    public static final String ON_ERROR_VARIABLE_DOC = "Name of the error variable";
+
+    public static final String ON_ERROR_TYPE_LABEL = "Error Type";
+    public static final String ON_ERROR_TYPE_KEY = "errorType";
+    public static final String ON_ERROR_TYPE_DOC = "Type of the error";
+
+    public String toSourceCode() {
+        return value;
+    }
 
     /**
      * Represents a builder for the expression.
@@ -50,12 +68,11 @@ public record Property(Metadata metadata, String valueType, String value, boolea
      */
     public static class Builder {
 
-        private String label;
         private String type;
         private String value;
         private boolean optional;
         private boolean editable;
-        private String documentation;
+        private Metadata.Builder<Builder> metadataBuilder;
 
         private Builder() {
 
@@ -68,11 +85,6 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
         public static Builder getInstance() {
             return InstanceHolder.instance;
-        }
-
-        public Builder label(String key) {
-            this.label = key;
-            return this;
         }
 
         public Builder type(TypeSymbol typeSymbol) {
@@ -100,14 +112,17 @@ public record Property(Metadata metadata, String valueType, String value, boolea
             return this;
         }
 
-        public Builder documentation(String documentation) {
-            this.documentation = documentation;
-            return this;
+        public Metadata.Builder<Builder> metadata() {
+            if (this.metadataBuilder == null) {
+                this.metadataBuilder = new Metadata.Builder<>(this);
+            }
+            return this.metadataBuilder;
         }
 
         public Property build() {
-            Property property = new Property(new Metadata(label, documentation, null), type, value, optional, editable);
-            this.label = null;
+            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value,
+                    optional, editable);
+            this.metadataBuilder = null;
             this.type = null;
             this.value = null;
             this.optional = false;

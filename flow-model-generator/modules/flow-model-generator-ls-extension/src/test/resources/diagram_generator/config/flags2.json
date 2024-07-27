@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "flags.bal",
-          "startLine": {
-            "line": 14,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 16,
-            "offset": 5
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "flags.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 5
+            }
           }
         },
         "returning": false,

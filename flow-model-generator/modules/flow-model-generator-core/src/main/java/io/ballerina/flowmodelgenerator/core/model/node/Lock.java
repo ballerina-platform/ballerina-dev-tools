@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -40,8 +41,7 @@ public class Lock extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
+        metadata().label(LABEL).description(DESCRIPTION);
         codedata().node(FlowNode.Kind.LOCK);
     }
 
@@ -55,14 +55,18 @@ public class Lock extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
         sourceBuilder.closeBrace();
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAIL_LABEL);
+        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
         if (onFailBranch.isPresent()) {
             sourceBuilder
                     .keyword(SyntaxKind.ON_KEYWORD)
                     .keyword(SyntaxKind.FAIL_KEYWORD);
 
-            Optional<Property> variableProperty = onFailBranch.get().getProperty(PropertiesBuilder.VARIABLE_KEY);
-            variableProperty.ifPresent(sourceBuilder::expressionWithType);
+            // Build the parameters
+            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
+            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
+            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
+                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
+            }
 
             sourceBuilder.openBrace()
                     .addChildren(onFailBranch.get().children())
@@ -73,7 +77,7 @@ public class Lock extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData() {
+    public void setConcreteTemplateData(Codedata codedata) {
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }

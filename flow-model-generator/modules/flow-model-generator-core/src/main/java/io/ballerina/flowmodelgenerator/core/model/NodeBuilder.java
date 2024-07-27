@@ -23,6 +23,7 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
@@ -31,6 +32,7 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
@@ -48,7 +50,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
-import io.ballerina.tools.text.LineRange;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,14 +76,12 @@ import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT
  */
 public abstract class NodeBuilder {
 
-    protected String label;
-    protected String description;
     protected List<Branch> branches;
+    protected Metadata.Builder<NodeBuilder> metadataBuilder;
     protected Codedata.Builder<NodeBuilder> codedataBuilder;
-    protected PropertiesBuilder propertiesBuilder;
+    protected PropertiesBuilder<NodeBuilder> propertiesBuilder;
     protected int flags;
     protected boolean returning;
-    protected LineRange lineRange;
     protected SemanticModel semanticModel;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
@@ -115,12 +114,12 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteConstData();
 
-    public NodeBuilder setTemplateData() {
-        setConcreteTemplateData();
+    public NodeBuilder setTemplateData(Codedata codedata) {
+        setConcreteTemplateData(codedata);
         return this;
     }
 
-    public abstract void setConcreteTemplateData();
+    public abstract void setConcreteTemplateData(Codedata codedata);
 
     public abstract String toSource(FlowNode flowNode);
 
@@ -139,11 +138,6 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder lineRange(Node node) {
-        this.lineRange = node.lineRange();
-        return this;
-    }
-
     public NodeBuilder branch(Branch branch) {
         this.branches.add(branch);
         return this;
@@ -154,21 +148,11 @@ public abstract class NodeBuilder {
         return this;
     }
 
-    public NodeBuilder label(String label) {
-        this.label = label;
-        return this;
-    }
-
-    public NodeBuilder description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public PropertiesBuilder properties() {
-        if (this.propertiesBuilder == null) {
-            this.propertiesBuilder = new PropertiesBuilder(semanticModel);
+    public Metadata.Builder<NodeBuilder> metadata() {
+        if (this.metadataBuilder == null) {
+            this.metadataBuilder = new Metadata.Builder<>(this);
         }
-        return this.propertiesBuilder;
+        return this.metadataBuilder;
     }
 
     public Codedata.Builder<NodeBuilder> codedata() {
@@ -178,13 +162,20 @@ public abstract class NodeBuilder {
         return this.codedataBuilder;
     }
 
+    public PropertiesBuilder<NodeBuilder> properties() {
+        if (this.propertiesBuilder == null) {
+            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, this);
+        }
+        return this.propertiesBuilder;
+    }
+
     public FlowNode build() {
         this.setConstData();
+        Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
-                String.valueOf(Objects.hash(lineRange)),
-                new Metadata(label, description, null),
-                codedataBuilder == null ? null : codedataBuilder.build(),
-                lineRange,
+                String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),
+                metadataBuilder == null ? null : metadataBuilder.build(),
+                codedata,
                 returning,
                 branches.isEmpty() ? null : branches,
                 propertiesBuilder == null ? null : propertiesBuilder.build(),
@@ -194,28 +185,17 @@ public abstract class NodeBuilder {
 
     public AvailableNode buildAvailableNode() {
         this.setConcreteConstData();
-        return new AvailableNode(new Metadata(label, description, null),
+        return new AvailableNode(metadataBuilder == null ? null : metadataBuilder.build(),
                 codedataBuilder == null ? null : codedataBuilder.build(), true);
     }
 
     /**
      * Represents a builder for the node properties of a flow node.
      *
+     * @param <T> Parent builder type
      * @since 1.4.0
      */
-    public static class PropertiesBuilder {
-
-        public static final String VARIABLE_LABEL = "Variable";
-        public static final String VARIABLE_KEY = "variable";
-        public static final String VARIABLE_DOC = "Result Variable";
-
-        public static final String EXPRESSION_LABEL = "Expression";
-        public static final String EXPRESSION_KEY = "expression";
-        public static final String EXPRESSION_DOC = "Expression";
-
-        public static final String CONDITION_LABEL = "Condition";
-        public static final String CONDITION_KEY = "condition";
-        public static final String CONDITION_DOC = "Boolean Condition";
+    public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
 
         public static final String DATA_VARIABLE_LABEL = "Data variable";
         public static final String DATA_VARIABLE_KEY = "dataVariable";
@@ -229,26 +209,28 @@ public abstract class NodeBuilder {
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
 
-        public PropertiesBuilder(SemanticModel semanticModel) {
+        public PropertiesBuilder(SemanticModel semanticModel, T parentBuilder) {
+            super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
             this.propertyBuilder = Property.Builder.getInstance();
             this.semanticModel = semanticModel;
         }
 
-        @SuppressWarnings("unchecked")
-        public <T extends PropertiesBuilder> T variable(Node node) {
+        public PropertiesBuilder<T> variable(Node node) {
             if (node == null) {
-                return (T) this;
+                return this;
             }
             CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
             propertyBuilder
-                    .label(VARIABLE_LABEL)
+                    .metadata()
+                    .label(Property.VARIABLE_LABEL)
+                    .description(Property.VARIABLE_DOC)
+                    .stepOut()
                     .value(CommonUtils.getVariableName(node))
-                    .editable()
-                    .documentation(VARIABLE_DOC);
+                    .editable();
 
-            addProperty(VARIABLE_KEY, propertyBuilder.build());
-            return (T) this;
+            addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
+            return this;
         }
 
         public PropertiesBuilder dataVariable(Node node) {
@@ -269,7 +251,7 @@ public abstract class NodeBuilder {
             optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
 
             addProperty(DATA_TYPE_KEY, propertyBuilder.build());
-            
+
             return this;
         }
 
@@ -296,30 +278,34 @@ public abstract class NodeBuilder {
         public PropertiesBuilder expression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
-                    .label(EXPRESSION_LABEL)
-                    .documentation(EXPRESSION_DOC)
+                    .metadata()
+                    .label(Property.EXPRESSION_LABEL)
+                    .description(Property.EXPRESSION_DOC)
+                    .stepOut()
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
-            addProperty(EXPRESSION_KEY, property);
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
-        public PropertiesBuilder callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
             Property client = Property.Builder.getInstance()
+                    .metadata()
                     .label(info.label())
+                    .description(info.documentation())
+                    .stepOut()
                     .type(info.type())
                     .value(expressionNode.toString())
                     .editable()
-                    .documentation(info.documentation())
                     .build();
             addProperty(info.key(), client);
             return this;
         }
 
-        public PropertiesBuilder functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                                   List<ParameterSymbol> parameterSymbols) {
+        public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
+                                                      List<ParameterSymbol> parameterSymbols) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
@@ -353,8 +339,10 @@ public abstract class NodeBuilder {
                 ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
                 if (info != null) {
                     propertyBuilder
+                            .metadata()
                             .label(info.label())
-                            .documentation(info.documentation())
+                            .description(info.documentation())
+                            .stepOut()
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
@@ -383,89 +371,179 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
+        public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
+                    .metadata()
                     .label(EVENT_HTTP_API_METHOD)
-                    .editable()
-                    .documentation(EVENT_HTTP_API_METHOD_DOC);
+                    .description(EVENT_HTTP_API_METHOD_DOC)
+                    .stepOut()
+                    .editable();
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
             addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
 
             propertyBuilder
+                    .metadata()
                     .label(EVENT_HTTP_API_PATH)
+                    .description(EVENT_HTTP_API_PATH_DOC)
+                    .stepOut()
                     .editable()
-                    .documentation(EVENT_HTTP_API_PATH_DOC)
                     .value(resourceMethodSymbol.resourcePath().signature());
             addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
             return this;
         }
 
-        public PropertiesBuilder condition(ExpressionNode expressionNode) {
+        public PropertiesBuilder<T> condition(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property condition = propertyBuilder
-                    .label(CONDITION_LABEL)
+                    .metadata()
+                    .label(Property.CONDITION_LABEL)
+                    .description(Property.CONDITION_DOC)
+                    .stepOut()
                     .value(expressionNode.toSourceCode())
-                    .documentation(CONDITION_DOC)
                     .editable()
                     .build();
-            addProperty(CONDITION_KEY, condition);
+            addProperty(Property.CONDITION_KEY, condition);
             return this;
         }
 
-        public PropertiesBuilder expression(ExpressionNode expressionNode, String expressionDoc) {
+        public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
-                    .label(EXPRESSION_DOC)
+                    .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
                     .value(expressionNode.toSourceCode())
-                    .documentation(expressionDoc)
                     .editable()
                     .build();
-            addProperty(EXPRESSION_KEY, property);
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
-        public PropertiesBuilder statement(Node node) {
-            if (node == null) {
-                return this;
-            }
+        public PropertiesBuilder<T> statement(Node node) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(DefaultExpression.STATEMENT_LABEL)
-                    .value(node.toSourceCode())
-                    .documentation(DefaultExpression.STATEMENT_DOC)
+                    .description(DefaultExpression.STATEMENT_DOC)
+                    .stepOut()
+                    .value(node == null ? "" : node.toSourceCode())
                     .editable()
                     .build();
             addProperty(DefaultExpression.STATEMENT_KEY, property);
             return this;
         }
 
-        public PropertiesBuilder defaultExpression(String doc) {
+        public PropertiesBuilder<T> ignore() {
             Property property = propertyBuilder
-                    .label(EXPRESSION_LABEL)
-                    .value("")
-                    .documentation(doc)
-                    .editable()
-                    .build();
-            addProperty(EXPRESSION_KEY, property);
-            return this;
-        }
-
-        public PropertiesBuilder defaultCondition(String doc) {
-            Property property = propertyBuilder
-                    .label(CONDITION_LABEL)
+                    .metadata()
+                    .label(Property.IGNORE_LABEL)
+                    .description(Property.IGNORE_DOC)
+                    .stepOut()
                     .value("true")
-                    .documentation(doc)
                     .editable()
                     .build();
-            addProperty(CONDITION_KEY, property);
+            addProperty(Property.IGNORE_KEY, property);
             return this;
         }
 
-        public PropertiesBuilder defaultExpression(ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
+            BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
+            Property value = propertyBuilder
+                    .metadata()
+                    .label(Property.ON_ERROR_VARIABLE_LABEL)
+                    .description(Property.ON_ERROR_VARIABLE_DOC)
+                    .stepOut()
+                    .value(bindingPatternNode.toString())
+                    .editable()
+                    .build();
+            addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
+
+            CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
+                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+            Property type = propertyBuilder
+                    .metadata()
+                    .label(Property.ON_ERROR_TYPE_LABEL)
+                    .description(Property.ON_ERROR_TYPE_DOC)
+                    .stepOut()
+                    .editable()
+                    .build();
+            addProperty(Property.ON_ERROR_TYPE_KEY, type);
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultOnErrorVariable() {
+            Property value = propertyBuilder
+                    .metadata()
+                    .label(Property.ON_ERROR_VARIABLE_LABEL)
+                    .description(Property.ON_ERROR_VARIABLE_DOC)
+                    .stepOut()
+                    .value("err")
+                    .editable()
+                    .build();
+            addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
+
+            Property type = propertyBuilder
+                    .metadata()
+                    .label(Property.ON_ERROR_TYPE_LABEL)
+                    .description(Property.ON_ERROR_TYPE_DOC)
+                    .stepOut()
+                    .value("error")
+                    .editable()
+                    .build();
+            addProperty(Property.ON_ERROR_TYPE_KEY, type);
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultExpression(String doc) {
             Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.EXPRESSION_LABEL)
+                    .description(doc)
+                    .stepOut()
+                    .value("")
+                    .editable()
+                    .build();
+            addProperty(Property.EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultVariable() {
+            propertyBuilder
+                    .metadata()
+                    .label(Property.VARIABLE_LABEL)
+                    .description(Property.VARIABLE_DOC)
+                    .stepOut()
+                    .value("item")
+                    .editable()
+                    .optional(true);
+
+            addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultCondition(String doc) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.CONDITION_LABEL)
+                    .description(doc)
+                    .stepOut()
+                    .value("true")
+                    .editable()
+                    .build();
+            addProperty(Property.CONDITION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultExpression(ExpressionAttributes.Info info) {
+            Property property = propertyBuilder
+                    .metadata()
                     .label(info.label())
+                    .description(info.documentation())
+                    .stepOut()
                     .value("")
                     .type(info.type())
-                    .documentation(info.documentation())
                     .editable()
                     .build();
             addProperty(info.key(), property);

@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "panic.bal",
-          "startLine": {
-            "line": 8,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 10,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Panic and stop the execution"
         },
         "codedata": {
-          "node": "PANIC"
-        },
-        "lineRange": {
-          "fileName": "panic.bal",
-          "startLine": {
-            "line": 9,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 9,
-            "offset": 34
+          "node": "PANIC",
+          "lineRange": {
+            "fileName": "panic.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 34
+            }
           }
         },
         "returning": false,

@@ -6,17 +6,17 @@
       "label": "HTTP GET"
     },
     "codedata": {
-      "node": "ACTION_CALL"
-    },
-    "lineRange": {
-      "fileName": "http_get_node.bal",
-      "startLine": {
-        "line": 22,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 25,
-        "offset": 11
+      "node": "ACTION_CALL",
+      "lineRange": {
+        "fileName": "http_get_node.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 25,
+          "offset": 11
+        }
       }
     },
     "returning": false,
@@ -27,7 +27,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": "foodClient"
+        "value": "foodClient",
+        "optional": false,
+        "editable": true
       },
       "variable": {
         "metadata": {
@@ -35,7 +37,9 @@
           "description": "Result Variable"
         },
         "valueType": "json",
-        "value": "res7 "
+        "value": "res7 ",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
@@ -43,7 +47,9 @@
           "description": "HTTP Headers"
         },
         "valueType": "map<string|string[]>?",
-        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }"
+        "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+        "optional": true,
+        "editable": true
       }
     },
     "flags": 1

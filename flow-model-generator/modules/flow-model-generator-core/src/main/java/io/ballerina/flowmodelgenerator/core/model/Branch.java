@@ -31,27 +31,27 @@ import java.util.Optional;
  * @param label      label of the branch
  * @param kind       kind of the branch
  * @param codedata   codedata of the branch
- * @param visible    whether the branch is visible by default
  * @param repeatable the repeatable pattern of the branch
  * @param properties properties of the branch
  * @param children   children of the branch
  * @since 1.4.0
  */
-public record Branch(String label, BranchKind kind, Codedata codedata, boolean visible, Repeatable repeatable,
+public record Branch(String label, BranchKind kind, Codedata codedata, Repeatable repeatable,
                      Map<String, Property> properties, List<FlowNode> children) {
 
     public static final String BODY_LABEL = "Body";
-    public static final String ON_FAIL_LABEL = "On Fail";
+    public static final String ON_FAILURE_LABEL = "On Failure";
 
     public static final Branch DEFAULT_BODY_BRANCH =
             new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
                     .codedata().node(FlowNode.Kind.BODY).stepOut().build();
     public static final Branch DEFAULT_ON_FAIL_BRANCH =
-            new Builder().label(ON_FAIL_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
-                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut().build();
+            new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
+                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
+                    .properties().ignore().defaultOnErrorVariable().stepOut().build();
 
-    public static Branch getEmptyBranch(String label, FlowNode.Kind kind, boolean visible) {
-        return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE).visible(visible)
+    public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {
+        return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(kind).stepOut().build();
     }
 
@@ -99,11 +99,10 @@ public record Branch(String label, BranchKind kind, Codedata codedata, boolean v
         private String label;
         private Branch.BranchKind kind;
         private final List<FlowNode> children;
-        private boolean visible;
         private Repeatable repeatable;
 
         protected Codedata.Builder<Builder> codedataBuilder;
-        protected NodeBuilder.PropertiesBuilder propertiesBuilder;
+        protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
 
         public Builder() {
@@ -135,19 +134,14 @@ public record Branch(String label, BranchKind kind, Codedata codedata, boolean v
             return this;
         }
 
-        public Builder visible(boolean visible) {
-            this.visible = visible;
-            return this;
-        }
-
         public Builder repeatable(Repeatable repeatable) {
             this.repeatable = repeatable;
             return this;
         }
 
-        public NodeBuilder.PropertiesBuilder properties() {
+        public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
-                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder(semanticModel);
+                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, this);
             }
             return this.propertiesBuilder;
         }
@@ -160,7 +154,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, boolean v
         }
 
         public Branch build() {
-            return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(), visible,
+            return new Branch(label, kind, codedataBuilder == null ? null : codedataBuilder.build(),
                     repeatable, propertiesBuilder == null ? null : propertiesBuilder.build(), children);
         }
     }

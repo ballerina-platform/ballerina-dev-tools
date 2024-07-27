@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 20,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 24,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -87,17 +87,17 @@
           "description": "Execute a function or a method invocation in a new strand"
         },
         "codedata": {
-          "node": "START"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 23,
-            "offset": 26
-          },
-          "endLine": {
-            "line": 23,
-            "offset": 45
+          "node": "START",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 26
+            },
+            "endLine": {
+              "line": 23,
+              "offset": 45
+            }
           }
         },
         "returning": false,

@@ -31,4 +31,33 @@ import java.util.List;
  */
 public record Metadata(String label, String description, List<String> keywords) {
 
+    public static class Builder<T> extends FacetedBuilder<T> {
+
+        private String label;
+        private String description;
+        private List<String> keywords;
+
+        public Builder(T parentBuilder) {
+            super(parentBuilder);
+        }
+
+        public Builder<T> label(String label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder<T> description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder<T> keywords(List<String> keywords) {
+            this.keywords = keywords;
+            return this;
+        }
+
+        public Metadata build() {
+            return new Metadata(label, description, keywords);
+        }
+    }
 }
