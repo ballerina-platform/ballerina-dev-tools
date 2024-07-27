@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "update_data.bal",
-          "startLine": {
-            "line": 6,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 9,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "update_data.bal",
-          "startLine": {
-            "line": 7,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 7,
-            "offset": 32
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 32
+            }
           }
         },
         "returning": false,
@@ -67,13 +67,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "string",
             "value": "str1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "string",
             "optional": false,
             "editable": true
           }
@@ -87,17 +95,17 @@
           "description": "Update the value of a variable"
         },
         "codedata": {
-          "node": "UPDATE_DATA"
-        },
-        "lineRange": {
-          "fileName": "update_data.bal",
-          "startLine": {
-            "line": 8,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 8,
-            "offset": 36
+          "node": "UPDATE_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 36
+            }
           }
         },
         "returning": false,

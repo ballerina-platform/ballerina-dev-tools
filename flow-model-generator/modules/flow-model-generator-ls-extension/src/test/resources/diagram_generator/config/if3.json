@@ -113,17 +113,17 @@
                   "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 38,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 38,
-                    "offset": 35
+                  "node": "UPDATE_DATA",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 38,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 38,
+                      "offset": 35
+                    }
                   }
                 },
                 "returning": false,
@@ -317,17 +317,17 @@
                                   "description": "Update the value of a variable"
                                 },
                                 "codedata": {
-                                  "node": "UPDATE_DATA"
-                                },
-                                "lineRange": {
-                                  "fileName": "if_node.bal",
-                                  "startLine": {
-                                    "line": 42,
-                                    "offset": 16
-                                  },
-                                  "endLine": {
-                                    "line": 42,
-                                    "offset": 41
+                                  "node": "UPDATE_DATA",
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 42,
+                                      "offset": 16
+                                    },
+                                    "endLine": {
+                                      "line": 42,
+                                      "offset": 41
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -382,17 +382,17 @@
                                   "description": "Update the value of a variable"
                                 },
                                 "codedata": {
-                                  "node": "UPDATE_DATA"
-                                },
-                                "lineRange": {
-                                  "fileName": "if_node.bal",
-                                  "startLine": {
-                                    "line": 44,
-                                    "offset": 16
-                                  },
-                                  "endLine": {
-                                    "line": 44,
-                                    "offset": 43
+                                  "node": "UPDATE_DATA",
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 44,
+                                      "offset": 16
+                                    },
+                                    "endLine": {
+                                      "line": 44,
+                                      "offset": 43
+                                    }
                                   }
                                 },
                                 "returning": false,
@@ -521,17 +521,17 @@
                           "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 49,
-                            "offset": 12
-                          },
-                          "endLine": {
-                            "line": 49,
-                            "offset": 39
+                          "node": "UPDATE_DATA",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 49,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 49,
+                              "offset": 39
+                            }
                           }
                         },
                         "returning": false,

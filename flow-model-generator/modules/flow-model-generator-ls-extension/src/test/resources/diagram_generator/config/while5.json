@@ -61,17 +61,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 49,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 49,
-            "offset": 18
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 49,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 49,
+              "offset": 18
+            }
           }
         },
         "returning": false,
@@ -86,13 +86,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -106,17 +114,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 50,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 50,
-            "offset": 29
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 50,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 50,
+              "offset": 29
+            }
           }
         },
         "returning": false,
@@ -131,13 +139,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "string",
             "value": "finalMsg ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "string",
             "optional": false,
             "editable": true
           }
@@ -242,6 +258,24 @@
                     },
                     "valueType": "map<string|string[]>?",
                     "optional": true,
+                    "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "response ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "json",
+                    "optional": false,
                     "editable": true
                   }
                 },
@@ -371,17 +405,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "while.bal",
-                  "startLine": {
-                    "line": 56,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 56,
-                    "offset": 29
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 56,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 56,
+                      "offset": 29
+                    }
                   }
                 },
                 "returning": false,
@@ -396,13 +430,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
                     "value": "attempts ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -416,17 +458,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "while.bal",
-                  "startLine": {
-                    "line": 57,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 57,
-                    "offset": 85
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 57,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 57,
+                      "offset": 85
+                    }
                   }
                 },
                 "returning": false,
@@ -441,13 +483,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "http:Client|http:ClientError",
                     "value": "adminClient ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "http:Client|http:ClientError",
                     "optional": false,
                     "editable": true
                   }
@@ -663,6 +713,24 @@
                             },
                             "valueType": "string?",
                             "optional": true,
+                            "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "response ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
                             "editable": true
                           }
                         },

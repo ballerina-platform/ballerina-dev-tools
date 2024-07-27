@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -38,8 +39,7 @@ public class NewData extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
+        metadata().label(LABEL).description(DESCRIPTION);
         codedata().node(FlowNode.Kind.NEW_DATA);
     }
 
@@ -47,21 +47,20 @@ public class NewData extends NodeBuilder {
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        // TODO: check PropertiesBuilder.VARIABLE_KEY
         Optional<Property> dataType = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
         Optional<Property> dataVariable = node.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
         if (dataType.isPresent() && dataVariable.isPresent()) {
             sourceBuilder.expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
         }
 
-        Optional<Property> exprProperty = node.getProperty(PropertiesBuilder.EXPRESSION_KEY);
+        Optional<Property> exprProperty = node.getProperty(Property.EXPRESSION_KEY);
         exprProperty.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }
 
     @Override
-    public void setConcreteTemplateData() {
+    public void setConcreteTemplateData(Codedata codedata) {
         properties().defaultDataVariable().defaultExpression(NEW_DATA_EXPRESSION_DOC);
     }
 }

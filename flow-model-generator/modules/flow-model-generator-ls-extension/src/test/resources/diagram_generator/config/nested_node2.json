@@ -205,6 +205,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -288,6 +306,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -304,17 +340,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "nested_node.bal",
-                  "startLine": {
-                    "line": 18,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 18,
-                    "offset": 40
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "nested_node.bal",
+                    "startLine": {
+                      "line": 18,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 18,
+                      "offset": 40
+                    }
                   }
                 },
                 "returning": false,
@@ -328,13 +364,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "annotations:error|()",
                     "value": "unionResult ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "annotations:error|()",
                     "optional": false,
                     "editable": true
                   }

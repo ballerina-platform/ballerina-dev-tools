@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 17,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 19,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 18,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 18,
-            "offset": 42
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 18,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 42
+            }
           }
         },
         "returning": false,

@@ -7,17 +7,17 @@
       "description": "Update the value of a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA"
-    },
-    "lineRange": {
-      "fileName": "update_data.bal",
-      "startLine": {
-        "line": 13,
-        "offset": 4
-      },
-      "endLine": {
-        "line": 13,
-        "offset": 38
+      "node": "UPDATE_DATA",
+      "lineRange": {
+        "fileName": "update_data.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 38
+        }
       }
     },
     "returning": false,

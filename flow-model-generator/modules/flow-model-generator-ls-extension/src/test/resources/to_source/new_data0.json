@@ -1,6 +1,5 @@
 {
   "description": "Sample diagram node",
-  "output": [],
   "diagram": {
     "id": "31",
     "metadata": {
@@ -8,20 +7,64 @@
       "description": "Create new variable"
     },
     "codedata": {
-      "node": "NEW_DATA"
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
-    "flags": 0,
-    "lineRange": {
-      "fileName": "test.bal",
-      "startLine": {
-        "line": 0,
-        "offset": 0
+    "properties": {
+      "dataVariable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "item",
+        "optional": false,
+        "editable": true
       },
-      "endLine": {
-        "line": 0,
-        "offset": 0
+      "dataType": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "var",
+        "optional": false,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new variable"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
       }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "var item = ;"
     }
-  }
+  ]
 }

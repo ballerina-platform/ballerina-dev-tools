@@ -113,6 +113,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -273,6 +291,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -325,6 +361,24 @@
             },
             "valueType": "map<string|string[]>?",
             "optional": true,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res3 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
             "editable": true
           }
         },
@@ -379,6 +433,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res4 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -432,6 +504,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res5 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -484,6 +574,24 @@
             },
             "valueType": "map<string|string[]>?",
             "optional": true,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res6 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
             "editable": true
           }
         },
@@ -539,6 +647,24 @@
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res7 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -592,6 +718,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res8 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "Food",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -644,6 +788,24 @@
             },
             "valueType": "map<string|string[]>?",
             "optional": true,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res9 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
             "editable": true
           }
         },

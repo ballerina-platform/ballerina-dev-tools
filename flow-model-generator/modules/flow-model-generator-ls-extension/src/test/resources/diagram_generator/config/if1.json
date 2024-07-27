@@ -113,17 +113,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 16,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 16,
-                    "offset": 22
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 16,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 16,
+                      "offset": 22
+                    }
                   }
                 },
                 "returning": false,
@@ -138,13 +138,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
                     "value": "a ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -178,17 +186,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 18,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 18,
-                    "offset": 22
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 18,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 18,
+                      "offset": 22
+                    }
                   }
                 },
                 "returning": false,
@@ -203,13 +211,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
                     "value": "b ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -223,17 +239,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "if_node.bal",
-                  "startLine": {
-                    "line": 19,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 19,
-                    "offset": 28
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 28
+                    }
                   }
                 },
                 "returning": false,
@@ -248,13 +264,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "string",
                     "value": "c ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "string",
                     "optional": false,
                     "editable": true
                   }

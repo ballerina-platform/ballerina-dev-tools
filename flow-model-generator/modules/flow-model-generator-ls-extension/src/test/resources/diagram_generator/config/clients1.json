@@ -94,6 +94,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "moduleVal ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -153,13 +171,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "http:Client",
             "value": "localCl ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
             "optional": false,
             "editable": true
           }
@@ -225,6 +251,24 @@
             "valueType": "map<string|string[]>?",
             "optional": true,
             "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "localVal ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 1
@@ -236,17 +280,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "clients.bal",
-          "startLine": {
-            "line": 19,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 19,
-            "offset": 29
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "clients.bal",
+            "startLine": {
+              "line": 19,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 29
+            }
           }
         },
         "returning": false,
@@ -261,13 +305,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "MyClient",
             "value": "myLocalCl ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "MyClient",
             "optional": false,
             "editable": true
           }

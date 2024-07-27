@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 21,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 25,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 22,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 22,
-            "offset": 34
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 34
+            }
           }
         },
         "returning": false,
@@ -95,17 +95,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 23,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 23,
-            "offset": 37
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 23,
+              "offset": 37
+            }
           }
         },
         "returning": false,
@@ -148,17 +148,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 24,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 24,
-            "offset": 47
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 47
+            }
           }
         },
         "returning": false,

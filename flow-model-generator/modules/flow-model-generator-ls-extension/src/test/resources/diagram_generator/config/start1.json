@@ -77,17 +77,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 1,
-            "offset": 46
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "start.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 46
+            }
           }
         },
         "returning": false,
@@ -102,13 +102,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "future<int>",
             "value": "futureVar ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "future<int>",
             "optional": false,
             "editable": true
           }

@@ -7,17 +7,17 @@
       "description": "Create new variable"
     },
     "codedata": {
-      "node": "NEW_DATA"
-    },
-    "lineRange": {
-      "fileName": "new_data.bal",
-      "startLine": {
-        "line": 13,
-        "offset": 4
-      },
-      "endLine": {
-        "line": 13,
-        "offset": 32
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 32
+        }
       }
     },
     "returning": false,

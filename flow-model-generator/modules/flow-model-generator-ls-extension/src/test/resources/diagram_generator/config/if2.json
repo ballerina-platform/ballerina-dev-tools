@@ -165,17 +165,17 @@
                           "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "NEW_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 26,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 26,
-                            "offset": 27
+                          "node": "NEW_DATA",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 26,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 26,
+                              "offset": 27
+                            }
                           }
                         },
                         "returning": false,
@@ -190,13 +190,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "int",
                             "value": "c ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "int",
                             "optional": false,
                             "editable": true
                           }
@@ -265,17 +273,17 @@
                           "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "NEW_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "if_node.bal",
-                          "startLine": {
-                            "line": 29,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 29,
-                            "offset": 26
+                          "node": "NEW_DATA",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 29,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 29,
+                              "offset": 26
+                            }
                           }
                         },
                         "returning": false,
@@ -290,13 +298,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "int",
                             "value": "b ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "int",
                             "optional": false,
                             "editable": true
                           }

@@ -19,17 +19,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 1,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 1,
-            "offset": 14
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 14
+            }
           }
         },
         "returning": false,
@@ -72,17 +72,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 19
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 19
+            }
           }
         },
         "returning": false,
@@ -125,17 +125,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 3,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 3,
-            "offset": 26
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 26
+            }
           }
         },
         "returning": false,
@@ -178,17 +178,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 4,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 4,
-            "offset": 19
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 19
+            }
           }
         },
         "returning": false,
@@ -231,17 +231,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 6,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 6,
-            "offset": 14
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 14
+            }
           }
         },
         "returning": false,
@@ -284,17 +284,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 7,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 7,
-            "offset": 18
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 18
+            }
           }
         },
         "returning": false,
@@ -337,17 +337,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 8,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 8,
-            "offset": 18
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 18
+            }
           }
         },
         "returning": false,
@@ -390,17 +390,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 9,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 9,
-            "offset": 18
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 18
+            }
           }
         },
         "returning": false,

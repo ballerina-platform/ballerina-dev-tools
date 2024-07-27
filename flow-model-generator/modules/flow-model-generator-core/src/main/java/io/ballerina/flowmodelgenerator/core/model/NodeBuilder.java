@@ -233,40 +233,46 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder dataVariable(Node node) {
+        public PropertiesBuilder<T> dataVariable(Node node) {
             Property property = propertyBuilder
+                    .metadata()
                     .label(DATA_VARIABLE_LABEL)
-                    .documentation(DATA_VARIABLE_DOC)
-                    .editable()
+                    .description(DATA_VARIABLE_DOC)
+                    .stepOut()
                     .value(CommonUtils.getVariableName(node))
+                    .editable()
                     .build();
             addProperty(DATA_VARIABLE_KEY, property);
 
             propertyBuilder
+                    .metadata()
                     .label(DATA_TYPE_LABEL)
-                    .documentation(DATA_TYPE_DOC)
+                    .description(DATA_TYPE_DOC)
+                    .stepOut()
                     .editable();
-
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
-
             addProperty(DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
         }
 
-        public PropertiesBuilder defaultDataVariable() {
+        public PropertiesBuilder<T> defaultDataVariable() {
             Property variable = propertyBuilder
+                    .metadata()
                     .label(DATA_VARIABLE_LABEL)
-                    .documentation(DATA_VARIABLE_DOC)
+                    .description(DATA_VARIABLE_DOC)
+                    .stepOut()
                     .editable()
                     .value("item")
                     .build();
             addProperty(DATA_VARIABLE_KEY, variable);
 
             Property type = propertyBuilder
+                    .metadata()
                     .label(DATA_TYPE_LABEL)
-                    .documentation(DATA_TYPE_DOC)
+                    .description(DATA_TYPE_DOC)
+                    .stepOut()
                     .value("var")
                     .editable()
                     .build();

@@ -61,17 +61,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 55,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 55,
-            "offset": 28
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 55,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 28
+            }
           }
         },
         "returning": false,
@@ -86,13 +86,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "mod ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }

@@ -19,17 +19,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 12,
-            "offset": 0
-          },
-          "endLine": {
-            "line": 15,
-            "offset": 1
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 1
+            }
           }
         },
         "returning": false,
@@ -42,17 +42,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 13,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 13,
-            "offset": 32
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 32
+            }
           }
         },
         "returning": false,
@@ -95,17 +95,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "new_data.bal",
-          "startLine": {
-            "line": 14,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 14,
-            "offset": 43
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 43
+            }
           }
         },
         "returning": false,

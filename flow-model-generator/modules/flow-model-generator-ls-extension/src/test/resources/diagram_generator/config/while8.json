@@ -61,17 +61,17 @@
           "description": "Create new variable"
         },
         "codedata": {
-          "node": "NEW_DATA"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 104,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 104,
-            "offset": 18
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 104,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 104,
+              "offset": 18
+            }
           }
         },
         "returning": false,
@@ -86,13 +86,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -198,6 +206,24 @@
                     "valueType": "map<string|string[]>?",
                     "optional": true,
                     "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "response ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "json|annotations:error",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -261,17 +287,17 @@
                           "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "while.bal",
-                          "startLine": {
-                            "line": 108,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 108,
-                            "offset": 84
+                          "node": "UPDATE_DATA",
+                          "lineRange": {
+                            "fileName": "while.bal",
+                            "startLine": {
+                              "line": 108,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 108,
+                              "offset": 84
+                            }
                           }
                         },
                         "returning": false,
@@ -326,17 +352,17 @@
                           "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "while.bal",
-                          "startLine": {
-                            "line": 110,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 110,
-                            "offset": 90
+                          "node": "UPDATE_DATA",
+                          "lineRange": {
+                            "fileName": "while.bal",
+                            "startLine": {
+                              "line": 110,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 110,
+                              "offset": 90
+                            }
                           }
                         },
                         "returning": false,

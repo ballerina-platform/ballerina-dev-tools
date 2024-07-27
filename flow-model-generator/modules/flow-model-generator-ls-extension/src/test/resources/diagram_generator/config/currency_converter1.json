@@ -101,17 +101,17 @@
                   "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA"
-                },
-                "lineRange": {
-                  "fileName": "main.bal",
-                  "startLine": {
-                    "line": 19,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 19,
-                    "offset": 42
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "main.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 42
+                    }
                   }
                 },
                 "returning": false,
@@ -126,13 +126,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "string",
                     "value": "key ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "string",
                     "optional": false,
                     "editable": true
                   }
@@ -187,6 +195,24 @@
                     },
                     "valueType": "string",
                     "value": "key",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "cacheValue ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "string|()",
                     "optional": false,
                     "editable": true
                   }
@@ -277,13 +303,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
                             "value": "newData ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
                             "optional": false,
                             "editable": true
                           }
@@ -404,6 +438,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "response ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -440,13 +492,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "decimal",
                             "value": "value ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "decimal",
                             "optional": false,
                             "editable": true
                           }
@@ -485,13 +545,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "decimal",
                             "value": "convertedAmount ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "decimal",
                             "optional": false,
                             "editable": true
                           }
@@ -559,17 +627,17 @@
                           "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "NEW_DATA"
-                        },
-                        "lineRange": {
-                          "fileName": "main.bal",
-                          "startLine": {
-                            "line": 44,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 46,
-                            "offset": 18
+                          "node": "NEW_DATA",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 44,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 46,
+                              "offset": 18
+                            }
                           }
                         },
                         "returning": false,
@@ -584,13 +652,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
                             "value": "newData ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
                             "optional": false,
                             "editable": true
                           }
@@ -681,24 +757,6 @@
                   "description": "Type of the error"
                 },
                 "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "optional": false,
-                "editable": true
-              }
-            ]
-          },
-          {
-            "label": "On Fail",
-            "kind": "BLOCK",
-            "visible": false,
-            "repeatable": "ZERO_OR_ONE",
-            "properties": {
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
-                "value": "e ",
                 "optional": false,
                 "editable": true
               }
