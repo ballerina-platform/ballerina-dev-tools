@@ -7,17 +7,17 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF"
-    },
-    "lineRange": {
-      "fileName": "if_node.bal",
-      "startLine": {
-        "line": 56,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 69,
-        "offset": 9
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 56,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 69,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,32 @@
       {
         "label": "Then",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 56,
+              "offset": 23
+            },
+            "endLine": {
+              "line": 58,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "price > 100 ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "88679",
@@ -33,17 +59,17 @@
               "description": "Return a value"
             },
             "codedata": {
-              "node": "RETURN"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 57,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 57,
-                "offset": 19
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 57,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 57,
+                  "offset": 19
+                }
               }
             },
             "returning": true,
@@ -54,6 +80,20 @@
       {
         "label": "Else",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 58,
+              "offset": 10
+            },
+            "endLine": {
+              "line": 69,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
         "children": [
           {
             "id": "90843",
@@ -62,17 +102,17 @@
               "description": "Add conditional branch to the integration flow."
             },
             "codedata": {
-              "node": "IF"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 59,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 65,
-                "offset": 13
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 59,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 65,
+                  "offset": 13
+                }
               }
             },
             "returning": false,
@@ -80,6 +120,32 @@
               {
                 "label": "Then",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 59,
+                      "offset": 26
+                    },
+                    "endLine": {
+                      "line": 65,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "price < 50 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "91901",
@@ -88,17 +154,17 @@
                       "description": "Add conditional branch to the integration flow."
                     },
                     "codedata": {
-                      "node": "IF"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 60,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 64,
-                        "offset": 17
+                      "node": "IF",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 60,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 64,
+                          "offset": 17
+                        }
                       }
                     },
                     "returning": false,
@@ -106,6 +172,32 @@
                       {
                         "label": "Then",
                         "kind": "BLOCK",
+                        "codedata": {
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 60,
+                              "offset": 30
+                            },
+                            "endLine": {
+                              "line": 64,
+                              "offset": 17
+                            }
+                          }
+                        },
+                        "repeatable": "ONE_OR_MORE",
+                        "properties": {
+                          "condition": {
+                            "metadata": {
+                              "label": "Condition",
+                              "description": "Boolean Condition"
+                            },
+                            "valueType": "boolean",
+                            "value": "price < 25 ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
                         "children": [
                           {
                             "id": "92959",
@@ -114,17 +206,17 @@
                               "description": "Add conditional branch to the integration flow."
                             },
                             "codedata": {
-                              "node": "IF"
-                            },
-                            "lineRange": {
-                              "fileName": "if_node.bal",
-                              "startLine": {
-                                "line": 61,
-                                "offset": 20
-                              },
-                              "endLine": {
-                                "line": 63,
-                                "offset": 21
+                              "node": "IF",
+                              "lineRange": {
+                                "fileName": "if_node.bal",
+                                "startLine": {
+                                  "line": 61,
+                                  "offset": 20
+                                },
+                                "endLine": {
+                                  "line": 63,
+                                  "offset": 21
+                                }
                               }
                             },
                             "returning": false,
@@ -132,6 +224,32 @@
                               {
                                 "label": "Then",
                                 "kind": "BLOCK",
+                                "codedata": {
+                                  "lineRange": {
+                                    "fileName": "if_node.bal",
+                                    "startLine": {
+                                      "line": 61,
+                                      "offset": 46
+                                    },
+                                    "endLine": {
+                                      "line": 63,
+                                      "offset": 21
+                                    }
+                                  }
+                                },
+                                "repeatable": "ONE_OR_MORE",
+                                "properties": {
+                                  "condition": {
+                                    "metadata": {
+                                      "label": "Condition",
+                                      "description": "Boolean Condition"
+                                    },
+                                    "valueType": "boolean",
+                                    "value": "price < 10 && mod == 1 ",
+                                    "optional": false,
+                                    "editable": true
+                                  }
+                                },
                                 "children": [
                                   {
                                     "id": "94023",
@@ -140,17 +258,17 @@
                                       "description": "Return a value"
                                     },
                                     "codedata": {
-                                      "node": "RETURN"
-                                    },
-                                    "lineRange": {
-                                      "fileName": "if_node.bal",
-                                      "startLine": {
-                                        "line": 62,
-                                        "offset": 24
-                                      },
-                                      "endLine": {
-                                        "line": 62,
-                                        "offset": 31
+                                      "node": "RETURN",
+                                      "lineRange": {
+                                        "fileName": "if_node.bal",
+                                        "startLine": {
+                                          "line": 62,
+                                          "offset": 24
+                                        },
+                                        "endLine": {
+                                          "line": 62,
+                                          "offset": 31
+                                        }
                                       }
                                     },
                                     "returning": true,
@@ -159,46 +277,16 @@
                                 ]
                               }
                             ],
-                            "properties": {
-                              "condition": {
-                                "metadata": {
-                                  "label": "Condition",
-                                  "description": "Boolean Condition"
-                                },
-                                "valueType": "boolean",
-                                "value": "price < 10 && mod == 1 "
-                              }
-                            },
                             "flags": 0
                           }
                         ]
                       }
                     ],
-                    "properties": {
-                      "condition": {
-                        "metadata": {
-                          "label": "Condition",
-                          "description": "Boolean Condition"
-                        },
-                        "valueType": "boolean",
-                        "value": "price < 25 "
-                      }
-                    },
                     "flags": 0
                   }
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "price < 50 "
-              }
-            },
             "flags": 0
           },
           {
@@ -208,17 +296,17 @@
               "description": "Add conditional branch to the integration flow."
             },
             "codedata": {
-              "node": "IF"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 66,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 68,
-                "offset": 13
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 66,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 68,
+                  "offset": 13
+                }
               }
             },
             "returning": false,
@@ -226,6 +314,32 @@
               {
                 "label": "Then",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 66,
+                      "offset": 24
+                    },
+                    "endLine": {
+                      "line": 68,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "mod == 0 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "98727",
@@ -234,17 +348,17 @@
                       "description": "Return a value"
                     },
                     "codedata": {
-                      "node": "RETURN"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 67,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 67,
-                        "offset": 23
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 67,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 67,
+                          "offset": 23
+                        }
                       }
                     },
                     "returning": true,
@@ -253,31 +367,11 @@
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "mod == 0 "
-              }
-            },
             "flags": 0
           }
         ]
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "valueType": "boolean",
-        "value": "price > 100 "
-      }
-    },
     "flags": 0
   },
   "output": [

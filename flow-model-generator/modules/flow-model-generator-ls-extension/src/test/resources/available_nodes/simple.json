@@ -132,36 +132,36 @@
               "enabled": true
             }
           ]
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Redis Client",
-        "description": "Interact with a Redis server"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Redis Get"
-          },
-          "codedata": {
-            "node": "ACTION_CALL",
-            "module": "redis",
-            "symbol": "get"
-          },
-          "enabled": true
         },
         {
           "metadata": {
-            "label": "Redis Set"
+            "label": "Redis Client",
+            "description": "Interact with a Redis server"
           },
-          "codedata": {
-            "node": "ACTION_CALL",
-            "module": "redis",
-            "symbol": "set"
-          },
-          "enabled": true
+          "items": [
+            {
+              "metadata": {
+                "label": "Redis Get"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "module": "redis",
+                "symbol": "get"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Redis Set"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "module": "redis",
+                "symbol": "set"
+              },
+              "enabled": true
+            }
+          ]
         }
       ]
     }

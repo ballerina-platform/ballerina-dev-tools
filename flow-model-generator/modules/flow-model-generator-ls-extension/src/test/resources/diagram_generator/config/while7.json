@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 87,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 100,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 87,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 100,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -61,17 +61,17 @@
           "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "EXPRESSION"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 89,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 89,
-            "offset": 18
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 89,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 89,
+              "offset": 18
+            }
           }
         },
         "returning": false,
@@ -106,17 +106,17 @@
           "description": "Loop over a block of code."
         },
         "codedata": {
-          "node": "WHILE"
-        },
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 90,
-            "offset": 8
-          },
-          "endLine": {
-            "line": 99,
-            "offset": 9
+          "node": "WHILE",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 90,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 99,
+              "offset": 9
+            }
           }
         },
         "returning": false,
@@ -124,7 +124,19 @@
           {
             "label": "Body",
             "kind": "BLOCK",
-            "visible": true,
+            "codedata": {
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 90,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 99,
+                  "offset": 9
+                }
+              }
+            },
             "repeatable": "ONE",
             "children": [
               {
@@ -133,17 +145,17 @@
                   "label": "HTTP GET"
                 },
                 "codedata": {
-                  "node": "ACTION_CALL"
-                },
-                "lineRange": {
-                  "fileName": "while.bal",
-                  "startLine": {
-                    "line": 91,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 91,
-                    "offset": 66
+                  "node": "ACTION_CALL",
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 91,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 91,
+                      "offset": 66
+                    }
                   }
                 },
                 "returning": false,
@@ -197,17 +209,17 @@
                   "description": "Add conditional branch to the integration flow."
                 },
                 "codedata": {
-                  "node": "IF"
-                },
-                "lineRange": {
-                  "fileName": "while.bal",
-                  "startLine": {
-                    "line": 92,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 97,
-                    "offset": 13
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 92,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 97,
+                      "offset": 13
+                    }
                   }
                 },
                 "returning": false,
@@ -215,8 +227,32 @@
                   {
                     "label": "Then",
                     "kind": "BLOCK",
-                    "visible": true,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 92,
+                          "offset": 34
+                        },
+                        "endLine": {
+                          "line": 94,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "(response is json) ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
                     "children": [
                       {
                         "id": "124580",
@@ -225,17 +261,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "while.bal",
-                          "startLine": {
-                            "line": 93,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 93,
-                            "offset": 84
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "while.bal",
+                            "startLine": {
+                              "line": 93,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 93,
+                              "offset": 84
+                            }
                           }
                         },
                         "returning": false,
@@ -268,7 +304,19 @@
                   {
                     "label": "Else",
                     "kind": "BLOCK",
-                    "visible": false,
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 94,
+                          "offset": 14
+                        },
+                        "endLine": {
+                          "line": 97,
+                          "offset": 13
+                        }
+                      }
+                    },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
@@ -278,17 +326,17 @@
                           "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "EXPRESSION"
-                        },
-                        "lineRange": {
-                          "fileName": "while.bal",
-                          "startLine": {
-                            "line": 95,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 95,
-                            "offset": 90
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "while.bal",
+                            "startLine": {
+                              "line": 95,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 95,
+                              "offset": 90
+                            }
                           }
                         },
                         "returning": false,
@@ -323,17 +371,17 @@
                           "description": "Exit the current loop"
                         },
                         "codedata": {
-                          "node": "BREAK"
-                        },
-                        "lineRange": {
-                          "fileName": "while.bal",
-                          "startLine": {
-                            "line": 96,
-                            "offset": 16
-                          },
-                          "endLine": {
-                            "line": 96,
-                            "offset": 22
+                          "node": "BREAK",
+                          "lineRange": {
+                            "fileName": "while.bal",
+                            "startLine": {
+                              "line": 96,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 96,
+                              "offset": 22
+                            }
                           }
                         },
                         "returning": false,
@@ -342,18 +390,6 @@
                     ]
                   }
                 ],
-                "properties": {
-                  "condition": {
-                    "metadata": {
-                      "label": "Condition",
-                      "description": "Boolean Condition"
-                    },
-                    "valueType": "boolean",
-                    "value": "(response is json) ",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
                 "flags": 0
               },
               {
@@ -363,17 +399,17 @@
                   "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "EXPRESSION"
-                },
-                "lineRange": {
-                  "fileName": "while.bal",
-                  "startLine": {
-                    "line": 98,
-                    "offset": 12
-                  },
-                  "endLine": {
-                    "line": 98,
-                    "offset": 19
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 98,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 98,
+                      "offset": 19
+                    }
                   }
                 },
                 "returning": false,

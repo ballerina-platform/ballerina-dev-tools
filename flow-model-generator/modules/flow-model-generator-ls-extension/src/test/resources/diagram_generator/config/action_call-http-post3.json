@@ -18,17 +18,17 @@
           "label": "HTTP API"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API"
-        },
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 33,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 35,
-            "offset": 5
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 33,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 35,
+              "offset": 5
+            }
           }
         },
         "returning": false,
@@ -55,22 +55,22 @@
         "flags": 2048
       },
       {
-        "id": "65990",
+        "id": "65774",
         "metadata": {
           "label": "HTTP POST"
         },
         "codedata": {
-          "node": "ACTION_CALL"
-        },
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 34,
-            "offset": 15
-          },
-          "endLine": {
-            "line": 34,
-            "offset": 53
+          "node": "ACTION_CALL",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 34,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 34,
+              "offset": 54
+            }
           }
         },
         "returning": true,

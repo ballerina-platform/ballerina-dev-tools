@@ -20,8 +20,18 @@
         "codedata": {
           "node": "CONDITIONAL"
         },
-        "visible": true,
-        "repeatable": "ZERO_OR_ONE",
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "value": "true",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": []
       },
       {
@@ -30,22 +40,10 @@
         "codedata": {
           "node": "ELSE"
         },
-        "visible": false,
         "repeatable": "ZERO_OR_ONE",
         "children": []
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "value": "true",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   }
 }

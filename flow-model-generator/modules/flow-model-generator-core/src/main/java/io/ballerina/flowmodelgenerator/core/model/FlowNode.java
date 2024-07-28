@@ -18,8 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
-import io.ballerina.tools.text.LineRange;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +28,6 @@ import java.util.Optional;
  * @param id         The unique identifier of the node.
  * @param metadata   The metadata of the node.
  * @param codedata   The code data of the node.
- * @param lineRange  The line range of the node.
  * @param returning  Whether the node is returning.
  * @param branches   The branches of the node.
  * @param properties The properties of the node.
@@ -41,7 +38,6 @@ public record FlowNode(
         String id,
         Metadata metadata,
         Codedata codedata,
-        LineRange lineRange,
         boolean returning,
         List<Branch> branches,
         Map<String, Property> properties,
@@ -57,16 +53,8 @@ public record FlowNode(
                 .flatMap(bs -> bs.stream().filter(branch -> branch.label().equals(label)).findFirst());
     }
 
-    public LineRange lineRange() {
-        return lineRange;
-    }
-
     public boolean hasFlag(int flag) {
         return (flags & flag) == flag;
-    }
-
-    public boolean returning() {
-        return returning;
     }
 
     public static final int NODE_FLAG_CHECKED = 1 << 0;

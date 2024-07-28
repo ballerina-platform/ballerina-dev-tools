@@ -1,22 +1,22 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "47059",
+    "id": "46936",
     "metadata": {
       "label": "HTTP GET"
     },
     "codedata": {
-      "node": "ACTION_CALL"
-    },
-    "lineRange": {
-      "fileName": "http_get_node.bal",
-      "startLine": {
-        "line": 15,
-        "offset": 12
-      },
-      "endLine": {
-        "line": 15,
-        "offset": 63
+      "node": "ACTION_CALL",
+      "lineRange": {
+        "fileName": "http_get_node.bal",
+        "startLine": {
+          "line": 15,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 15,
+          "offset": 64
+        }
       }
     },
     "returning": false,
@@ -27,7 +27,9 @@
           "description": "HTTP Client Connection"
         },
         "valueType": "http:Client",
-        "value": "foodClient"
+        "value": "foodClient",
+        "optional": false,
+        "editable": true
       },
       "path": {
         "metadata": {
@@ -35,14 +37,18 @@
           "description": "HTTP Path"
         },
         "valueType": "string",
-        "value": "\"/apples\""
+        "value": "\"/apples\"",
+        "optional": false,
+        "editable": true
       },
       "headers": {
         "metadata": {
           "label": "Headers",
           "description": "HTTP Headers"
         },
-        "valueType": "map<string|string[]>?"
+        "valueType": "map<string|string[]>?",
+        "optional": true,
+        "editable": true
       }
     },
     "flags": 1
@@ -52,11 +58,11 @@
       "range": {
         "start": {
           "line": 15,
-          "character": 12
+          "character": 8
         },
         "end": {
           "line": 15,
-          "character": 63
+          "character": 64
         }
       },
       "newText": "check foodClient->get(\"/apples\");"

@@ -7,17 +7,17 @@
       "description": "Loop over a block of code."
     },
     "codedata": {
-      "node": "WHILE"
-    },
-    "lineRange": {
-      "fileName": "while.bal",
-      "startLine": {
-        "line": 20,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 21,
-        "offset": 9
+      "node": "WHILE",
+      "lineRange": {
+        "fileName": "while.bal",
+        "startLine": {
+          "line": 20,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 19
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": []
       }
     ],
@@ -35,7 +49,9 @@
           "description": "Boolean Condition"
         },
         "valueType": "boolean",
-        "value": "true "
+        "value": "true ",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

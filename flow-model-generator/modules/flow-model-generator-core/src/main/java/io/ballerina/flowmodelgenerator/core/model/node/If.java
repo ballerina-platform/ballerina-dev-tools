@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -43,25 +44,26 @@ public class If extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
+        metadata().label(LABEL).description(DESCRIPTION);
         codedata().node(FlowNode.Kind.IF);
     }
 
     @Override
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
 
+        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
+        if (ifBranch.isEmpty()) {
+            throw new IllegalStateException("If node does not have a then branch");
+        }
+        Optional<Property> condition = ifBranch.get().getProperty(Property.CONDITION_KEY);
         if (condition.isEmpty()) {
             throw new IllegalStateException("If node does not have a condition");
         }
         sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
                 .expression(condition.get())
-                .openBrace();
-
-        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
-        ifBranch.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
+                .openBrace()
+                .addChildren(ifBranch.get().children());
 
         Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
         if (elseBranch.isPresent()) {
@@ -83,9 +85,14 @@ public class If extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData() {
-        properties().defaultCondition(PropertiesBuilder.CONDITION_DOC);
-        this.branches = List.of(Branch.getEmptyBranch(IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL, true),
-                Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE, false));
+    public void setConcreteTemplateData(Codedata codedata) {
+        Branch.Builder thenBranchBuilder = new Branch.Builder()
+                .label(IF_THEN_LABEL)
+                .kind(Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE_OR_MORE)
+                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut();
+        thenBranchBuilder.properties().defaultCondition(IF_CONDITION_DOC);
+
+        this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE));
     }
 }

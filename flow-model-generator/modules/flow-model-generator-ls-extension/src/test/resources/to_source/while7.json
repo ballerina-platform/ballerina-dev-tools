@@ -7,17 +7,17 @@
       "description": "Loop over a block of code."
     },
     "codedata": {
-      "node": "WHILE"
-    },
-    "lineRange": {
-      "fileName": "while.bal",
-      "startLine": {
-        "line": 90,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 99,
-        "offset": 9
+      "node": "WHILE",
+      "lineRange": {
+        "fileName": "while.bal",
+        "startLine": {
+          "line": 90,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 99,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,20 @@
       {
         "label": "Body",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 90,
+              "offset": 24
+            },
+            "endLine": {
+              "line": 99,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE",
         "children": [
           {
             "id": "122454",
@@ -32,17 +46,17 @@
               "label": "HTTP GET"
             },
             "codedata": {
-              "node": "ACTION_CALL"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 91,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 91,
-                "offset": 66
+              "node": "ACTION_CALL",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 91,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 91,
+                  "offset": 66
+                }
               }
             },
             "returning": false,
@@ -53,7 +67,9 @@
                   "description": "HTTP Client Connection"
                 },
                 "valueType": "http:Client",
-                "value": "foodClient"
+                "value": "foodClient",
+                "optional": false,
+                "editable": true
               },
               "variable": {
                 "metadata": {
@@ -61,7 +77,9 @@
                   "description": "Result Variable"
                 },
                 "valueType": "json|annotations:error",
-                "value": "response "
+                "value": "response ",
+                "optional": false,
+                "editable": true
               },
               "path": {
                 "metadata": {
@@ -69,14 +87,18 @@
                   "description": "HTTP Path"
                 },
                 "valueType": "string",
-                "value": "\"/food/grapes\""
+                "value": "\"/food/grapes\"",
+                "optional": false,
+                "editable": true
               },
               "headers": {
                 "metadata": {
                   "label": "Headers",
                   "description": "HTTP Headers"
                 },
-                "valueType": "map<string|string[]>?"
+                "valueType": "map<string|string[]>?",
+                "optional": true,
+                "editable": true
               }
             },
             "flags": 0
@@ -88,17 +110,17 @@
               "description": "Add conditional branch to the integration flow."
             },
             "codedata": {
-              "node": "IF"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 92,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 97,
-                "offset": 13
+              "node": "IF",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 92,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 97,
+                  "offset": 13
+                }
               }
             },
             "returning": false,
@@ -106,6 +128,32 @@
               {
                 "label": "Then",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 92,
+                      "offset": 34
+                    },
+                    "endLine": {
+                      "line": 94,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "(response is json) ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "124580",
@@ -114,17 +162,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "while.bal",
-                      "startLine": {
-                        "line": 93,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 93,
-                        "offset": 84
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 93,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 93,
+                          "offset": 84
+                        }
                       }
                     },
                     "returning": false,
@@ -135,7 +183,9 @@
                           "description": "Expression"
                         },
                         "valueType": "string",
-                        "value": "\"Response received from food service: \" + response.toString()"
+                        "value": "\"Response received from food service: \" + response.toString()",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -143,7 +193,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "string|()",
-                        "value": "msg"
+                        "value": "msg",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -153,6 +205,20 @@
               {
                 "label": "Else",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "while.bal",
+                    "startLine": {
+                      "line": 94,
+                      "offset": 14
+                    },
+                    "endLine": {
+                      "line": 97,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ZERO_OR_ONE",
                 "children": [
                   {
                     "id": "126570",
@@ -161,17 +227,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "while.bal",
-                      "startLine": {
-                        "line": 95,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 95,
-                        "offset": 90
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 95,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 95,
+                          "offset": 90
+                        }
                       }
                     },
                     "returning": false,
@@ -182,7 +248,9 @@
                           "description": "Expression"
                         },
                         "valueType": "string",
-                        "value": "\"Error occurred while invoking food service: \" + response.message()"
+                        "value": "\"Error occurred while invoking food service: \" + response.message()",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -190,7 +258,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "string|()",
-                        "value": "msg"
+                        "value": "msg",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -202,17 +272,17 @@
                       "description": "Exit the current loop"
                     },
                     "codedata": {
-                      "node": "BREAK"
-                    },
-                    "lineRange": {
-                      "fileName": "while.bal",
-                      "startLine": {
-                        "line": 96,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 96,
-                        "offset": 22
+                      "node": "BREAK",
+                      "lineRange": {
+                        "fileName": "while.bal",
+                        "startLine": {
+                          "line": 96,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 96,
+                          "offset": 22
+                        }
                       }
                     },
                     "returning": false,
@@ -221,16 +291,6 @@
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "(response is json) "
-              }
-            },
             "flags": 0
           },
           {
@@ -240,17 +300,17 @@
               "description": "Represents a custom Ballerina expression"
             },
             "codedata": {
-              "node": "EXPRESSION"
-            },
-            "lineRange": {
-              "fileName": "while.bal",
-              "startLine": {
-                "line": 98,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 98,
-                "offset": 19
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "while.bal",
+                "startLine": {
+                  "line": 98,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 98,
+                  "offset": 19
+                }
               }
             },
             "returning": false,
@@ -260,7 +320,9 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
-                "value": "            i += 1;\n"
+                "value": "            i += 1;\n",
+                "optional": false,
+                "editable": true
               }
             },
             "flags": 0
@@ -275,7 +337,9 @@
           "description": "Boolean Condition"
         },
         "valueType": "boolean",
-        "value": "i < count "
+        "value": "i < count ",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0

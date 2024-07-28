@@ -7,17 +7,17 @@
       "description": "Add conditional branch to the integration flow."
     },
     "codedata": {
-      "node": "IF"
-    },
-    "lineRange": {
-      "fileName": "if_node.bal",
-      "startLine": {
-        "line": 24,
-        "offset": 8
-      },
-      "endLine": {
-        "line": 32,
-        "offset": 9
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 24,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 32,
+          "offset": 9
+        }
       }
     },
     "returning": false,
@@ -25,6 +25,32 @@
       {
         "label": "Then",
         "kind": "BLOCK",
+        "codedata": {
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 32,
+              "offset": 9
+            }
+          }
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "price > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
         "children": [
           {
             "id": "57115",
@@ -33,17 +59,17 @@
               "description": "Add conditional branch to the integration flow."
             },
             "codedata": {
-              "node": "IF"
-            },
-            "lineRange": {
-              "fileName": "if_node.bal",
-              "startLine": {
-                "line": 25,
-                "offset": 12
-              },
-              "endLine": {
-                "line": 31,
-                "offset": 13
+              "node": "IF",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 31,
+                  "offset": 13
+                }
               }
             },
             "returning": false,
@@ -51,6 +77,32 @@
               {
                 "label": "Then",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 25,
+                      "offset": 27
+                    },
+                    "endLine": {
+                      "line": 28,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "boolean",
+                    "value": "price > 100 ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "children": [
                   {
                     "id": "58059",
@@ -59,17 +111,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 26,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 26,
-                        "offset": 27
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 26,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 26,
+                          "offset": 27
+                        }
                       }
                     },
                     "returning": false,
@@ -80,7 +132,9 @@
                           "description": "Expression"
                         },
                         "valueType": "int",
-                        "value": "12"
+                        "value": "12",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -88,7 +142,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "int",
-                        "value": "c "
+                        "value": "c ",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -100,17 +156,17 @@
                       "description": "Return a value"
                     },
                     "codedata": {
-                      "node": "RETURN"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 27,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 27,
-                        "offset": 35
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 27,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 27,
+                          "offset": 35
+                        }
                       }
                     },
                     "returning": true,
@@ -121,7 +177,9 @@
                           "description": "Return value"
                         },
                         "valueType": "string",
-                        "value": "\"expensive\""
+                        "value": "\"expensive\"",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -131,6 +189,20 @@
               {
                 "label": "Else",
                 "kind": "BLOCK",
+                "codedata": {
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 28,
+                      "offset": 14
+                    },
+                    "endLine": {
+                      "line": 31,
+                      "offset": 13
+                    }
+                  }
+                },
+                "repeatable": "ZERO_OR_ONE",
                 "children": [
                   {
                     "id": "61034",
@@ -139,17 +211,17 @@
                       "description": "Represents a custom Ballerina expression"
                     },
                     "codedata": {
-                      "node": "EXPRESSION"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 29,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 29,
-                        "offset": 26
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 29,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 29,
+                          "offset": 26
+                        }
                       }
                     },
                     "returning": false,
@@ -160,7 +232,9 @@
                           "description": "Expression"
                         },
                         "valueType": "int",
-                        "value": "2"
+                        "value": "2",
+                        "optional": false,
+                        "editable": true
                       },
                       "variable": {
                         "metadata": {
@@ -168,7 +242,9 @@
                           "description": "Result Variable"
                         },
                         "valueType": "int",
-                        "value": "b "
+                        "value": "b ",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -180,17 +256,17 @@
                       "description": "Return a value"
                     },
                     "codedata": {
-                      "node": "RETURN"
-                    },
-                    "lineRange": {
-                      "fileName": "if_node.bal",
-                      "startLine": {
-                        "line": 30,
-                        "offset": 16
-                      },
-                      "endLine": {
-                        "line": 30,
-                        "offset": 34
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 30,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 30,
+                          "offset": 34
+                        }
                       }
                     },
                     "returning": true,
@@ -201,7 +277,9 @@
                           "description": "Return value"
                         },
                         "valueType": "string",
-                        "value": "\"moderate\""
+                        "value": "\"moderate\"",
+                        "optional": false,
+                        "editable": true
                       }
                     },
                     "flags": 0
@@ -209,31 +287,11 @@
                 ]
               }
             ],
-            "properties": {
-              "condition": {
-                "metadata": {
-                  "label": "Condition",
-                  "description": "Boolean Condition"
-                },
-                "valueType": "boolean",
-                "value": "price > 100 "
-              }
-            },
             "flags": 0
           }
         ]
       }
     ],
-    "properties": {
-      "condition": {
-        "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
-        },
-        "valueType": "boolean",
-        "value": "price > 10 "
-      }
-    },
     "flags": 0
   },
   "output": [
