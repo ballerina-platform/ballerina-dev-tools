@@ -174,10 +174,10 @@
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "Redis Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
                     "value": "redisClient",
@@ -403,10 +403,10 @@
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
                             "valueType": "EXPRESSION",
                             "value": "currencyClient",
@@ -594,10 +594,10 @@
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "Redis Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
                             "valueType": "EXPRESSION",
                             "value": "redisClient",

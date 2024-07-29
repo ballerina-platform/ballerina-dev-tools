@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -43,10 +44,15 @@
           {
             "id": "50038",
             "metadata": {
-              "label": "HTTP GET"
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
             },
             "codedata": {
               "node": "ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -61,43 +67,60 @@
             },
             "returning": false,
             "properties": {
-              "client": {
+              "connection": {
                 "metadata": {
-                  "label": "Client",
-                  "description": "HTTP Client Connection"
+                  "label": "Connection",
+                  "description": "Connection to use"
                 },
-                "valueType": "http:Client",
+                "valueType": "EXPRESSION",
                 "value": "foodClient",
                 "optional": false,
                 "editable": true
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "json",
                 "value": "res3 ",
                 "optional": false,
                 "editable": true
               },
               "path": {
                 "metadata": {
-                  "label": "Path",
-                  "description": "HTTP Path"
+                  "label": "path",
+                  "description": "Request path\n"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"/western/oranges\"",
                 "optional": false,
                 "editable": true
               },
               "headers": {
                 "metadata": {
-                  "label": "Headers",
-                  "description": "HTTP Headers"
+                  "label": "headers",
+                  "description": "The entity headers\n"
                 },
-                "valueType": "map<string|string[]>?",
+                "valueType": "EXPRESSION",
                 "optional": true,
+                "editable": true
+              },
+              "targetType": {
+                "metadata": {
+                  "label": "targetType",
+                  "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                },
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "json",
+                "optional": false,
                 "editable": true
               }
             },
@@ -106,11 +129,11 @@
           {
             "id": "50998",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -154,6 +177,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -171,11 +195,11 @@
           {
             "id": "52995",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -239,6 +263,7 @@
                 "label": "Body",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "BODY",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -256,10 +281,15 @@
                   {
                     "id": "55159",
                     "metadata": {
-                      "label": "HTTP POST"
+                      "label": "post",
+                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
                     },
                     "codedata": {
                       "node": "ACTION_CALL",
+                      "org": "ballerina",
+                      "module": "http",
+                      "object": "Client",
+                      "symbol": "post",
                       "lineRange": {
                         "fileName": "error_handler.bal",
                         "startLine": {
@@ -274,62 +304,79 @@
                     },
                     "returning": false,
                     "properties": {
-                      "client": {
+                      "connection": {
                         "metadata": {
-                          "label": "Client",
-                          "description": "HTTP Client Connection"
+                          "label": "Connection",
+                          "description": "Connection to use"
                         },
-                        "valueType": "http:Client",
+                        "valueType": "EXPRESSION",
                         "value": "foodClient",
                         "optional": false,
                         "editable": true
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
+                          "label": "Data variable",
+                          "description": "Name of the variable"
                         },
-                        "valueType": "json",
                         "value": "res ",
                         "optional": false,
                         "editable": true
                       },
                       "path": {
                         "metadata": {
-                          "label": "Path",
-                          "description": "HTTP Path"
+                          "label": "path",
+                          "description": "Resource path\n"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"/log\"",
                         "optional": false,
                         "editable": true
                       },
                       "message": {
                         "metadata": {
-                          "label": "Message",
-                          "description": "HTTP Post Message"
+                          "label": "message",
+                          "description": "An HTTP outbound request or any allowed payload\n"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Error occurred while getting the response\"",
                         "optional": false,
                         "editable": true
                       },
                       "headers": {
                         "metadata": {
-                          "label": "Headers",
-                          "description": "HTTP Headers"
+                          "label": "headers",
+                          "description": "The entity headers\n"
                         },
-                        "valueType": "map<string|string[]>?",
+                        "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true
                       },
                       "mediaType": {
                         "metadata": {
-                          "label": "Media Type",
-                          "description": "HTTP Post Media Type"
+                          "label": "mediaType",
+                          "description": "The MIME type header of the request entity\n"
                         },
-                        "valueType": "string?",
+                        "valueType": "EXPRESSION",
                         "optional": true,
+                        "editable": true
+                      },
+                      "targetType": {
+                        "metadata": {
+                          "label": "targetType",
+                          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                        },
+                        "valueType": "EXPRESSION",
+                        "optional": true,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "value": "json",
+                        "optional": false,
                         "editable": true
                       }
                     },
@@ -338,11 +385,11 @@
                   {
                     "id": "56102",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "UpdateData",
+                      "description": "Update the value of a variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "UPDATE_DATA",
                       "lineRange": {
                         "fileName": "error_handler.bal",
                         "startLine": {
@@ -386,6 +433,7 @@
                 "label": "On Failure",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "ON_FAILURE",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -403,11 +451,11 @@
                   {
                     "id": "58095",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "UpdateData",
+                      "description": "Update the value of a variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "UPDATE_DATA",
                       "lineRange": {
                         "fileName": "error_handler.bal",
                         "startLine": {
@@ -467,7 +515,7 @@
           "character": 9
         }
       },
-      "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    string|() msg = res3.toString();\n}\non fail {\n    string|() msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        string|() msg = msg.toString() + res.toString();\n    }\non fail {\n        string|() msg = \"Error occurred while logging the error\";\n    }\n}"
+      "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    }\non fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
     }
   ]
 }

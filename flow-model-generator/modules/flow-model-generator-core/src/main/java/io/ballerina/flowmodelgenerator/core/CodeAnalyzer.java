@@ -200,7 +200,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .symbol(nodeTemplate.codedata().symbol())
                     .stepOut()
                     .properties()
-                    .callExpression(expressionNode, info.callExpression())
+                    .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
                     .variable(this.typedBindingPatternNode);
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     argumentNodes, params, nodeTemplate.properties()));

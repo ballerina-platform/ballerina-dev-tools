@@ -61,10 +61,10 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
             "value": "moduleCl",
@@ -222,10 +222,10 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
             "value": "localCl",

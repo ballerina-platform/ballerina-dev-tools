@@ -26,6 +26,7 @@
         "label": "Then",
         "kind": "BLOCK",
         "codedata": {
+          "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -78,6 +79,7 @@
                 "label": "Then",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "CONDITIONAL",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -107,11 +109,11 @@
                   {
                     "id": "58059",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "NewData",
+                      "description": "Create new variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "NEW_DATA",
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
@@ -138,11 +140,19 @@
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
+                          "label": "Data variable",
+                          "description": "Name of the variable"
                         },
-                        "valueType": "int",
                         "value": "c ",
+                        "optional": false,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "value": "int",
                         "optional": false,
                         "editable": true
                       }
@@ -190,6 +200,7 @@
                 "label": "Else",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "ELSE",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -207,11 +218,11 @@
                   {
                     "id": "61034",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "NewData",
+                      "description": "Create new variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "NEW_DATA",
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
@@ -238,11 +249,19 @@
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
+                          "label": "Data variable",
+                          "description": "Name of the variable"
                         },
-                        "valueType": "int",
                         "value": "b ",
+                        "optional": false,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "value": "int",
                         "optional": false,
                         "editable": true
                       }

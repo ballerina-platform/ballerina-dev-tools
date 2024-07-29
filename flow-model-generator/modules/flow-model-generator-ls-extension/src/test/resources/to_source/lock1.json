@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "lock.bal",
             "startLine": {
@@ -43,11 +44,11 @@
           {
             "id": "33994",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "NewData",
+              "description": "Create new variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "NEW_DATA",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -74,11 +75,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "int",
                 "value": "i ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "int",
                 "optional": false,
                 "editable": true
               }

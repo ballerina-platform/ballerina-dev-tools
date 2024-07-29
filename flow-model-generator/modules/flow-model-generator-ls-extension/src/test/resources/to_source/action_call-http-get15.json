@@ -3,10 +3,15 @@
   "diagram": {
     "id": "72710",
     "metadata": {
-      "label": "HTTP GET"
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
     },
     "codedata": {
       "node": "ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
       "lineRange": {
         "fileName": "http_get_node.bal",
         "startLine": {
@@ -21,32 +26,41 @@
     },
     "returning": true,
     "properties": {
-      "client": {
+      "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
+          "label": "Connection",
+          "description": "Connection to use"
         },
-        "valueType": "http:Client",
+        "valueType": "EXPRESSION",
         "value": "drinkClient",
         "optional": false,
         "editable": true
       },
       "path": {
         "metadata": {
-          "label": "Path",
-          "description": "HTTP Path"
+          "label": "path",
+          "description": "Request path\n"
         },
-        "valueType": "string",
+        "valueType": "EXPRESSION",
         "value": "\"/milkshake\"",
         "optional": false,
         "editable": true
       },
       "headers": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "headers",
+          "description": "The entity headers\n"
         },
-        "valueType": "map<string|string[]>?",
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+        },
+        "valueType": "EXPRESSION",
         "optional": true,
         "editable": true
       }

@@ -322,17 +322,17 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key, Property propertyTemplate) {
             Property client = Property.Builder.getInstance()
                     .metadata()
-                    .label(info.label())
-                    .description(info.documentation())
+                    .label(propertyTemplate.metadata().label())
+                    .description(propertyTemplate.metadata().description())
                     .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
                     .editable()
                     .build();
-            addProperty(info.key(), client);
+            addProperty(key, client);
             return this;
         }
 

@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -43,10 +44,15 @@
           {
             "id": "83770",
             "metadata": {
-              "label": "HTTP GET"
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
             },
             "codedata": {
               "node": "ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -61,43 +67,60 @@
             },
             "returning": false,
             "properties": {
-              "client": {
+              "connection": {
                 "metadata": {
-                  "label": "Client",
-                  "description": "HTTP Client Connection"
+                  "label": "Connection",
+                  "description": "Connection to use"
                 },
-                "valueType": "http:Client",
+                "valueType": "EXPRESSION",
                 "value": "foodClient",
                 "optional": false,
                 "editable": true
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "json",
                 "value": "response ",
                 "optional": false,
                 "editable": true
               },
               "path": {
                 "metadata": {
-                  "label": "Path",
-                  "description": "HTTP Path"
+                  "label": "path",
+                  "description": "Request path\n"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"/food/pineapples\"",
                 "optional": false,
                 "editable": true
               },
               "headers": {
                 "metadata": {
-                  "label": "Headers",
-                  "description": "HTTP Headers"
+                  "label": "headers",
+                  "description": "The entity headers\n"
                 },
-                "valueType": "map<string|string[]>?",
+                "valueType": "EXPRESSION",
                 "optional": true,
+                "editable": true
+              },
+              "targetType": {
+                "metadata": {
+                  "label": "targetType",
+                  "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                },
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "json",
+                "optional": false,
                 "editable": true
               }
             },
@@ -177,6 +200,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -223,11 +247,11 @@
           {
             "id": "87697",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "NewData",
+              "description": "Create new variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "NEW_DATA",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -254,11 +278,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "int",
                 "value": "attempts ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "int",
                 "optional": false,
                 "editable": true
               }
@@ -268,11 +300,11 @@
           {
             "id": "88745",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "NewData",
+              "description": "Create new variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "NEW_DATA",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -299,11 +331,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "http:Client|http:ClientError",
                 "value": "adminClient ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "http:Client|http:ClientError",
                 "optional": false,
                 "editable": true
               }
@@ -336,6 +376,7 @@
                 "label": "Then",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "CONDITIONAL",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -428,6 +469,7 @@
                 "label": "Body",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "CONDITIONAL",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -445,10 +487,15 @@
                   {
                     "id": "93839",
                     "metadata": {
-                      "label": "HTTP POST"
+                      "label": "post",
+                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
                     },
                     "codedata": {
                       "node": "ACTION_CALL",
+                      "org": "ballerina",
+                      "module": "http",
+                      "object": "Client",
+                      "symbol": "post",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -463,62 +510,79 @@
                     },
                     "returning": false,
                     "properties": {
-                      "client": {
+                      "connection": {
                         "metadata": {
-                          "label": "Client",
-                          "description": "HTTP Client Connection"
+                          "label": "Connection",
+                          "description": "Connection to use"
                         },
-                        "valueType": "http:Client",
+                        "valueType": "EXPRESSION",
                         "value": "adminClient",
                         "optional": false,
                         "editable": true
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
+                          "label": "Data variable",
+                          "description": "Name of the variable"
                         },
-                        "valueType": "json",
                         "value": "response ",
                         "optional": false,
                         "editable": true
                       },
                       "path": {
                         "metadata": {
-                          "label": "Path",
-                          "description": "HTTP Path"
+                          "label": "path",
+                          "description": "Resource path\n"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"/admin/restart\"",
                         "optional": false,
                         "editable": true
                       },
                       "message": {
                         "metadata": {
-                          "label": "Message",
-                          "description": "HTTP Post Message"
+                          "label": "message",
+                          "description": "An HTTP outbound request or any allowed payload\n"
                         },
-                        "valueType": "map<anydata>",
+                        "valueType": "EXPRESSION",
                         "value": "{body: e.message()}",
                         "optional": false,
                         "editable": true
                       },
                       "headers": {
                         "metadata": {
-                          "label": "Headers",
-                          "description": "HTTP Headers"
+                          "label": "headers",
+                          "description": "The entity headers\n"
                         },
-                        "valueType": "map<string|string[]>?",
+                        "valueType": "EXPRESSION",
                         "optional": true,
                         "editable": true
                       },
                       "mediaType": {
                         "metadata": {
-                          "label": "Media Type",
-                          "description": "HTTP Post Media Type"
+                          "label": "mediaType",
+                          "description": "The MIME type header of the request entity\n"
                         },
-                        "valueType": "string?",
+                        "valueType": "EXPRESSION",
                         "optional": true,
+                        "editable": true
+                      },
+                      "targetType": {
+                        "metadata": {
+                          "label": "targetType",
+                          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                        },
+                        "valueType": "EXPRESSION",
+                        "optional": true,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "value": "json",
+                        "optional": false,
                         "editable": true
                       }
                     },
@@ -565,6 +629,7 @@
                 "label": "On Failure",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "ON_FAILURE",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {

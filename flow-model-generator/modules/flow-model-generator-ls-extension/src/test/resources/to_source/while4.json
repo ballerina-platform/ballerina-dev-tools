@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -43,10 +44,15 @@
           {
             "id": "71862",
             "metadata": {
-              "label": "HTTP GET"
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
             },
             "codedata": {
               "node": "ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -61,43 +67,60 @@
             },
             "returning": false,
             "properties": {
-              "client": {
+              "connection": {
                 "metadata": {
-                  "label": "Client",
-                  "description": "HTTP Client Connection"
+                  "label": "Connection",
+                  "description": "Connection to use"
                 },
-                "valueType": "http:Client",
+                "valueType": "EXPRESSION",
                 "value": "foodClient",
                 "optional": false,
                 "editable": true
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "json",
                 "value": "response ",
                 "optional": false,
                 "editable": true
               },
               "path": {
                 "metadata": {
-                  "label": "Path",
-                  "description": "HTTP Path"
+                  "label": "path",
+                  "description": "Request path\n"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"/food/mangos\"",
                 "optional": false,
                 "editable": true
               },
               "headers": {
                 "metadata": {
-                  "label": "Headers",
-                  "description": "HTTP Headers"
+                  "label": "headers",
+                  "description": "The entity headers\n"
                 },
-                "valueType": "map<string|string[]>?",
+                "valueType": "EXPRESSION",
                 "optional": true,
+                "editable": true
+              },
+              "targetType": {
+                "metadata": {
+                  "label": "targetType",
+                  "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                },
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "json",
+                "optional": false,
                 "editable": true
               }
             },
@@ -106,11 +129,11 @@
           {
             "id": "72868",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -188,6 +211,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -234,11 +258,11 @@
           {
             "id": "75841",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -305,7 +329,7 @@
           "character": 9
         }
       },
-      "newText": "while i < count {\n    json response = check foodClient->get(\"/food/mangos\");\n    string|() msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; }\non fail http:ClientError e {\n    string|() msg = \"Error occurred while invoking food service\" + e.message();\n}"
+      "newText": "while i < count {\n    json response = check foodClient->get(\"/food/mangos\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; }\non fail http:ClientError e {\n    msg = \"Error occurred while invoking food service\" + e.message();\n}"
     }
   ]
 }

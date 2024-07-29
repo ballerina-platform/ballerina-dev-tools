@@ -22,15 +22,14 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.List;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents the generalized action invocation node in the flow model.
@@ -51,9 +50,11 @@ public class ActionCall extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
-        variable.ifPresent(property -> sourceBuilder
-                .expressionWithType(property)
-                .keyword(SyntaxKind.EQUAL_TOKEN));
+        Optional<Property> type = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+            sourceBuilder.expressionWithType(type.get(), variable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
+        }
 
         if (node.returning()) {
             sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
@@ -63,29 +64,43 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        NodeAttributes.Info info = NodeAttributes.getByLabel(node.metadata().label());
-        Optional<Property> client = node.getProperty(info.callExpression().key());
+        FlowNode nodeTemplate =
+                central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, node.codedata().module(), node.codedata().symbol());
+        Optional<Property> client = node.getProperty("connection");
 
         if (client.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-        sourceBuilder.expression(client.get())
+        sourceBuilder.name(client.get().value())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(info.method())
+                .name(nodeTemplate.metadata().label())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
-        List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
+        Set<String> keys = nodeTemplate.properties().keySet();
+        keys.remove("connection");
+        keys.remove("variable");
+        keys.remove("type");
+        keys.remove("targetType");
 
-        if (!parameterExpressions.isEmpty()) {
-            Optional<Property> firstParameter = node.getProperty(parameterExpressions.get(0).key());
-            firstParameter.ifPresent(sourceBuilder::expression);
+        Iterator<String> iterator = keys.iterator();
+
+        if (!keys.isEmpty()) {
+            String firstKey = iterator.next();
+            Optional<Property> firstParameter = node.getProperty(firstKey);
+            Optional<Property> firstTemplateParameter = nodeTemplate.getProperty(firstKey);
+            if (firstParameter.isPresent() && firstTemplateParameter.isPresent() &&
+                    !isDefaultValue(firstParameter.get(), firstTemplateParameter.get())) {
+                sourceBuilder.expression(firstParameter.get());
+            }
 
             boolean hasEmptyParam = false;
-            for (int i = 1; i < parameterExpressions.size(); i++) {
-                String parameterKey = parameterExpressions.get(i).key();
+            while (iterator.hasNext()) {
+                String parameterKey = iterator.next();
                 Optional<Property> parameter = node.getProperty(parameterKey);
+                Optional<Property> templateParameter = nodeTemplate.getProperty(parameterKey);
 
-                if (parameter.isEmpty() || parameter.get().value() == null) {
+                if (parameter.isEmpty() || templateParameter.isEmpty() || parameter.get().value() == null ||
+                        isDefaultValue(parameter.get(), templateParameter.get())) {
                     hasEmptyParam = true;
                     continue;
                 }
@@ -106,6 +121,10 @@ public class ActionCall extends NodeBuilder {
                 .endOfStatement();
 
         return sourceBuilder.build(false);
+    }
+
+    private boolean isDefaultValue(Property node, Property templateNode) {
+        return node.optional() && node.value().equals(templateNode.value());
     }
 
     @Override

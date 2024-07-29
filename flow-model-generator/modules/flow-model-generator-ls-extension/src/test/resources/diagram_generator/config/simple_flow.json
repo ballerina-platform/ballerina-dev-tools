@@ -133,10 +133,10 @@
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "HTTP Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
                     "value": "asiri",
@@ -274,10 +274,10 @@
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "HTTP Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
                     "valueType": "EXPRESSION",
                     "value": "nawaloka",
