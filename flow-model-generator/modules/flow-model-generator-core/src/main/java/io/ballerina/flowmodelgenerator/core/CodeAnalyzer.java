@@ -268,11 +268,11 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.EXPRESSION)
+            startNode(FlowNode.Kind.NEW_DATA)
                     .properties()
                     .expression(initializerNode);
         }
-        nodeBuilder.properties().variable(variableDeclarationNode.typedBindingPattern());
+        nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
@@ -284,7 +284,7 @@ class CodeAnalyzer extends NodeVisitor {
         expression.accept(this);
 
         if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.EXPRESSION)
+            startNode(FlowNode.Kind.UPDATE_DATA)
                     .properties()
                     .expression(expression)
                     .variable(assignmentStatementNode.varRef());

@@ -205,6 +205,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -288,6 +306,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "j ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -300,11 +336,11 @@
               {
                 "id": "50012",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "NEW_DATA",
                   "lineRange": {
                     "fileName": "nested_node.bal",
                     "startLine": {
@@ -328,13 +364,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "annotations:error|()",
                     "value": "unionResult ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "annotations:error|()",
                     "optional": false,
                     "editable": true
                   }

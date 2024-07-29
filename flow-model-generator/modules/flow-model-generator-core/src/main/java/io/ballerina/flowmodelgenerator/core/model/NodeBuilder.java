@@ -43,10 +43,12 @@ import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
+import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
@@ -97,6 +99,8 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.TRANSACTION, Transaction::new);
         put(FlowNode.Kind.LOCK, Lock::new);
         put(FlowNode.Kind.FAIL, Fail::new);
+        put(FlowNode.Kind.NEW_DATA, NewData::new);
+        put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -193,6 +197,14 @@ public abstract class NodeBuilder {
      */
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
 
+        public static final String DATA_VARIABLE_LABEL = "Data variable";
+        public static final String DATA_VARIABLE_KEY = "dataVariable";
+        public static final String DATA_VARIABLE_DOC = "Name of the variable";
+
+        public static final String DATA_TYPE_LABEL = "Data type";
+        public static final String DATA_TYPE_KEY = "dataType";
+        public static final String DATA_TYPE_DOC = "Type of the variable";
+
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
@@ -221,7 +233,55 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
+        public PropertiesBuilder<T> dataVariable(Node node) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(DATA_VARIABLE_LABEL)
+                    .description(DATA_VARIABLE_DOC)
+                    .stepOut()
+                    .value(CommonUtils.getVariableName(node))
+                    .editable()
+                    .build();
+            addProperty(DATA_VARIABLE_KEY, property);
+
+            propertyBuilder
+                    .metadata()
+                    .label(DATA_TYPE_LABEL)
+                    .description(DATA_TYPE_DOC)
+                    .stepOut()
+                    .editable();
+            Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+            optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+            addProperty(DATA_TYPE_KEY, propertyBuilder.build());
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultDataVariable() {
+            Property variable = propertyBuilder
+                    .metadata()
+                    .label(DATA_VARIABLE_LABEL)
+                    .description(DATA_VARIABLE_DOC)
+                    .stepOut()
+                    .editable()
+                    .value("item")
+                    .build();
+            addProperty(DATA_VARIABLE_KEY, variable);
+
+            Property type = propertyBuilder
+                    .metadata()
+                    .label(DATA_TYPE_LABEL)
+                    .description(DATA_TYPE_DOC)
+                    .stepOut()
+                    .value("var")
+                    .editable()
+                    .build();
+            addProperty(DATA_TYPE_KEY, type);
+
+            return this;
+        }
+
+        public PropertiesBuilder expression(ExpressionNode expressionNode) {
             semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .metadata()

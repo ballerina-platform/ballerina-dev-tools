@@ -1,0 +1,47 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_DATA"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA"
+    },
+    "returning": false,
+    "properties": {
+      "dataVariable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "dataType": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "var",
+        "optional": false,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new variable"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "source": "update_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "update_data.bal",
+    "nodes": [
+      {
+        "id": "31869",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "32874",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 14
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "2",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33862",
+        "metadata": {
+          "label": "UpdateData",
+          "description": "Update the value of a variable"
+        },
+        "codedata": {
+          "node": "UPDATE_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 10
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "int",
+            "value": "i",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34854",
+        "metadata": {
+          "label": "UpdateData",
+          "description": "Update the value of a variable"
+        },
+        "codedata": {
+          "node": "UPDATE_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 10
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "4",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "any",
+            "value": "_",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

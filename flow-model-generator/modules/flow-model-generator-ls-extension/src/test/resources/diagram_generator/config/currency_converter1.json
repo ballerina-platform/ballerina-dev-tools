@@ -97,11 +97,11 @@
               {
                 "id": "51006",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "NEW_DATA",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -126,13 +126,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "string",
                     "value": "key ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "string",
                     "optional": false,
                     "editable": true
                   }
@@ -187,6 +195,24 @@
                     },
                     "valueType": "string",
                     "value": "key",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "cacheValue ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "string|()",
                     "optional": false,
                     "editable": true
                   }
@@ -277,13 +303,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
                             "value": "newData ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
                             "optional": false,
                             "editable": true
                           }
@@ -404,6 +438,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "response ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -440,13 +492,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "decimal",
                             "value": "value ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "decimal",
                             "optional": false,
                             "editable": true
                           }
@@ -485,13 +545,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "decimal",
                             "value": "convertedAmount ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "decimal",
                             "optional": false,
                             "editable": true
                           }
@@ -555,11 +623,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "NewData",
+                          "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "NEW_DATA",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -584,13 +652,21 @@
                             "optional": false,
                             "editable": true
                           },
-                          "variable": {
+                          "dataVariable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
                             "value": "newData ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
                             "optional": false,
                             "editable": true
                           }

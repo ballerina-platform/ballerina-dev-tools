@@ -73,11 +73,11 @@
       {
         "id": "32906",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "NEW_DATA",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -102,13 +102,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "future<int>",
             "value": "futureVar ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "future<int>",
             "optional": false,
             "editable": true
           }

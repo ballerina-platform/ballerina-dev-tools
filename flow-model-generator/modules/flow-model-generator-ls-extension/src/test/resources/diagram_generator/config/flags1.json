@@ -135,13 +135,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "boolean",
             "value": "res1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "boolean",
             "optional": false,
             "editable": true
           }
@@ -180,13 +188,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "boolean",
             "value": "res2 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "boolean",
             "optional": false,
             "editable": true
           }
@@ -225,13 +241,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "boolean",
             "value": "res3 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "boolean",
             "optional": false,
             "editable": true
           }
@@ -270,13 +294,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "boolean",
             "value": "res4 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "boolean",
             "optional": false,
             "editable": true
           }

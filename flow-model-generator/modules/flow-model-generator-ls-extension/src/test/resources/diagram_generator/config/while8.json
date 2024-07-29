@@ -57,11 +57,11 @@
       {
         "id": "135178",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "NewData",
+          "description": "Create new variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "NEW_DATA",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -86,13 +86,21 @@
             "optional": false,
             "editable": true
           },
-          "variable": {
+          "dataVariable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "int",
             "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -198,6 +206,24 @@
                     "valueType": "map<string|string[]>?",
                     "optional": true,
                     "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "response ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "json|annotations:error",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 0
@@ -257,11 +283,11 @@
                       {
                         "id": "139460",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "UPDATE_DATA",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -322,11 +348,11 @@
                       {
                         "id": "141450",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "UpdateData",
+                          "description": "Update the value of a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "UPDATE_DATA",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {

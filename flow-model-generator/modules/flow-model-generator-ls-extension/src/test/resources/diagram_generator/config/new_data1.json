@@ -1,0 +1,442 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 10,
+    "offset": 1
+  },
+  "source": "new_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "new_data.bal",
+    "nodes": [
+      {
+        "id": "32874",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 14
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "2",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "i ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33871",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 19
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "float",
+            "value": "1.2f",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "f ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "float",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34870",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 26
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "decimal",
+            "value": "100000.0d",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "d ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "decimal",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "35855",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 19
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "decimal",
+            "value": "d",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "d1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "decimal",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "37834",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 14
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "j ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "38830",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 18
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "i + j",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "k ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "39822",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 18
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "i + j",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "l ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "40814",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 18
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "k + l",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "_ ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

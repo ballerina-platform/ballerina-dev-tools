@@ -252,6 +252,24 @@
                                     "valueType": "string?",
                                     "optional": true,
                                     "editable": true
+                                  },
+                                  "dataVariable": {
+                                    "metadata": {
+                                      "label": "Data variable",
+                                      "description": "Name of the variable"
+                                    },
+                                    "value": "j ",
+                                    "optional": false,
+                                    "editable": true
+                                  },
+                                  "dataType": {
+                                    "metadata": {
+                                      "label": "Data type",
+                                      "description": "Type of the variable"
+                                    },
+                                    "value": "json",
+                                    "optional": false,
+                                    "editable": true
                                   }
                                 },
                                 "flags": 1
@@ -354,6 +372,24 @@
                             "valueType": "map<string|string[]>?",
                             "optional": true,
                             "editable": true
+                          },
+                          "dataVariable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "k ",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "dataType": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "json",
+                            "optional": false,
+                            "editable": true
                           }
                         },
                         "flags": 1
@@ -421,6 +457,24 @@
                     },
                     "valueType": "map<string|string[]>?",
                     "optional": true,
+                    "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "l ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "json",
+                    "optional": false,
                     "editable": true
                   }
                 },

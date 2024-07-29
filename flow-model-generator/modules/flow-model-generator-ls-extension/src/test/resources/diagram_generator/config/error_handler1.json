@@ -153,6 +153,24 @@
                     "valueType": "map<string|string[]>?",
                     "optional": true,
                     "editable": true
+                  },
+                  "dataVariable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "res2 ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "json",
+                    "optional": false,
+                    "editable": true
                   }
                 },
                 "flags": 1
@@ -160,11 +178,11 @@
               {
                 "id": "41078",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "UPDATE_DATA",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -225,11 +243,11 @@
               {
                 "id": "43075",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "UpdateData",
+                  "description": "Update the value of a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "UPDATE_DATA",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {

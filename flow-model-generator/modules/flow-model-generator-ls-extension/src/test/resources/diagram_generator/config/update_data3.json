@@ -1,0 +1,139 @@
+{
+  "start": {
+    "line": 11,
+    "offset": 0
+  },
+  "end": {
+    "line": 14,
+    "offset": 1
+  },
+  "source": "update_data.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "update_data.bal",
+    "nodes": [
+      {
+        "id": "42750",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 14,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "43814",
+        "metadata": {
+          "label": "NewData",
+          "description": "Create new variable"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 42
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "map<json>",
+            "value": "{\"name\": \"John\", \"age\": 34}",
+            "optional": false,
+            "editable": true
+          },
+          "dataVariable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "j1 ",
+            "optional": false,
+            "editable": true
+          },
+          "dataType": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "44802",
+        "metadata": {
+          "label": "UpdateData",
+          "description": "Update the value of a variable"
+        },
+        "codedata": {
+          "node": "UPDATE_DATA",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 13,
+              "offset": 38
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "map<json>",
+            "value": "{\"name\": \"Marry\", \"age\": 33}",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "json",
+            "value": "j1",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}

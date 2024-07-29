@@ -78,11 +78,11 @@
               {
                 "id": "48874",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "NewData",
+                  "description": "Create new variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "NEW_DATA",
                   "lineRange": {
                     "fileName": "lock.bal",
                     "startLine": {
@@ -107,13 +107,21 @@
                     "optional": false,
                     "editable": true
                   },
-                  "variable": {
+                  "dataVariable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
                     "value": "i ",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "dataType": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }

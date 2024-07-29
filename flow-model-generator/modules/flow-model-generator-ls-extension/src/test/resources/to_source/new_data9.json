@@ -1,0 +1,71 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "44796",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 13,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 13,
+          "offset": 32
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "string",
+        "value": "\"Hello world\"",
+        "optional": false,
+        "editable": true
+      },
+      "dataVariable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "str1 ",
+        "optional": false,
+        "editable": true
+      },
+      "dataType": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "string",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 13,
+          "character": 4
+        },
+        "end": {
+          "line": 13,
+          "character": 32
+        }
+      },
+      "newText": "string str1 = \"Hello world\";"
+    }
+  ]
+}
