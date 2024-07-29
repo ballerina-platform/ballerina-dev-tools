@@ -144,6 +144,82 @@
         "flags": 0
       },
       {
+        "id": "48794",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "clients.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 62
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:8080\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "localCl ",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
         "id": "49773",
         "metadata": {
           "label": "get",
@@ -373,66 +449,33 @@
         "flags": 1
       },
       {
-        "id": "48794",
+        "id": "41709",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
-              "line": 17,
-              "offset": 4
+              "line": 10,
+              "offset": 0
             },
             "endLine": {
-              "line": 17,
-              "offset": 62
+              "line": 10,
+              "offset": 45
             }
           }
         },
         "returning": false,
         "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"http://localhost:8080\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "localCl ",
+            "value": "myExplicitModuleCl ",
             "optional": false,
             "editable": true
           },
@@ -441,12 +484,55 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
-            "value": "http:Client",
+            "value": "MyClient",
             "optional": false,
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
+      },
+      {
+        "id": "40698",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "clients.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 26
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "myModuleCl ",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "MyClient",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
       }
     ]
   }
