@@ -43,6 +43,7 @@ import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,18 +88,15 @@ public class ModelGenerator {
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
+                        .sorted(Comparator.comparing(flowNode -> flowNode.codedata().node()))
                         .toList();
 
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
         canvasNode.accept(codeAnalyzer);
 
-        // Combine the module-level connections with the connections found in diagram
-        List<FlowNode> connections = new ArrayList<>(moduleConnections);
-        connections.addAll(codeAnalyzer.getConnections());
-
         // Generate the flow model
-        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), connections);
+        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), moduleConnections);
         return gson.toJsonTree(diagram);
     }
 
@@ -122,7 +120,7 @@ public class ModelGenerator {
         }
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
         node.parent().parent().accept(codeAnalyzer);
-        List<FlowNode> connections = codeAnalyzer.getConnections();
+        List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();
     }
 }

@@ -268,7 +268,8 @@ public abstract class NodeBuilder {
                     .stepOut()
                     .editable();
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
-            optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+            optTypeSymbol.ifPresent(
+                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
             addProperty(DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
@@ -470,7 +471,7 @@ public abstract class NodeBuilder {
             addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
 
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
-                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, false)));
             Property type = propertyBuilder
                     .metadata()
                     .label(Property.ON_ERROR_TYPE_LABEL)

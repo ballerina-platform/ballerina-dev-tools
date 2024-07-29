@@ -99,7 +99,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Builder type(TypeSymbol typeSymbol) {
-            this.type = CommonUtils.getTypeSignature(typeSymbol);
+            this.type = CommonUtils.getTypeSignature(null, typeSymbol, false);
             return this;
         }
 

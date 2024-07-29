@@ -24,8 +24,10 @@ import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -96,7 +98,6 @@ class CodeAnalyzer extends NodeVisitor {
 
     //TODO: Wrap the class variables inside another class
     private final List<FlowNode> flowNodeList;
-    private final List<FlowNode> connections;
     private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
@@ -108,7 +109,6 @@ class CodeAnalyzer extends NodeVisitor {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.connections = new ArrayList<>();
         this.central = new CentralProxy();
         this.buildConnection = false;
     }
@@ -282,10 +282,19 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void checkForPossibleClient(NewExpressionNode newExpressionNode,
                                         SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
-        Optional<TypeSymbol> typeSymbol = CommonUtils.getTypeSymbol(semanticModel, newExpressionNode);
+        Optional<TypeSymbol> typeSymbol =
+                CommonUtils.getTypeSymbol(semanticModel, newExpressionNode).flatMap(symbol -> {
+                    if (symbol.typeKind() == TypeDescKind.UNION) {
+                        return ((UnionTypeSymbol) symbol).memberTypeDescriptors().stream()
+                                .filter(tSymbol -> !tSymbol.subtypeOf(semanticModel.types().ERROR))
+                                .findFirst();
+                    }
+                    return Optional.of(symbol);
+                });
         if (typeSymbol.isEmpty()) {
             return;
         }
+
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
         FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.NEW_CONNECTION, moduleName, "init");
         if (nodeTemplate != null) {
@@ -614,11 +623,6 @@ class CodeAnalyzer extends NodeVisitor {
     private void endNode(Node node) {
         nodeBuilder.codedata().lineRange(node);
 
-        if (buildConnection) {
-            connections.add(buildNode());
-            buildConnection = false;
-            return;
-        }
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
         }
@@ -701,9 +705,5 @@ class CodeAnalyzer extends NodeVisitor {
 
     public List<FlowNode> getFlowNodes() {
         return flowNodeList;
-    }
-
-    public List<FlowNode> getConnections() {
-        return connections;
     }
 }

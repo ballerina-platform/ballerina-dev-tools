@@ -389,7 +389,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
-                    "value": "annotations:error",
+                    "value": "()",
                     "optional": false,
                     "editable": true
                   }

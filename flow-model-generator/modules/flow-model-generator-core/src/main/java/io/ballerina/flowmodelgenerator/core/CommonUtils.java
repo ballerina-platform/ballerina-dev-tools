@@ -21,7 +21,6 @@ package io.ballerina.flowmodelgenerator.core;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
@@ -40,7 +39,6 @@ import io.ballerina.tools.text.TextRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -66,7 +64,7 @@ public class CommonUtils {
      * @param typeSymbol the type symbol
      * @return the type signature
      */
-    public static String getTypeSignature(TypeSymbol typeSymbol) {
+    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
@@ -75,19 +73,21 @@ public class CommonUtils {
                                 .flatMap(Symbol::getName)
                                 .map(prefix -> ".".equals(prefix) ? name : prefix + ":" + name)
                                 .orElse(name))
-                        .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()));
+                        .orElseGet(() -> getTypeSignature(semanticModel, typeReferenceTypeSymbol.typeDescriptor(),
+                                ignoreError));
             }
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
                 yield unionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(CommonUtils::getTypeSignature)
+                        .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
                         .reduce((s1, s2) -> s1 + "|" + s2)
                         .orElse(unionTypeSymbol.signature());
             }
             case TYPEDESC -> {
                 TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
                 yield typeDescTypeSymbol.typeParameter()
-                        .map(CommonUtils::getTypeSignature)
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
                         .orElse(typeDescTypeSymbol.signature());
             }
             default -> {
@@ -164,24 +164,15 @@ public class CommonUtils {
 
             Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
             if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
-                return reduceSymbol((TypeSymbol) typeDescriptorSymbol.get());
+                return Optional.of((TypeSymbol) typeDescriptorSymbol.get());
             }
 
             Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
             if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
-                return reduceSymbol(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+                return Optional.ofNullable(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
             }
         }
-        return semanticModel.typeOf(node).flatMap(CommonUtils::reduceSymbol);
-    }
-
-    private static Optional<TypeSymbol> reduceSymbol(TypeSymbol typeSymbol) {
-        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
-            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
-            List<TypeSymbol> typeSymbols = unionTypeSymbol.memberTypeDescriptors();
-            return Optional.ofNullable(typeSymbols.get(0));
-        }
-        return Optional.of(typeSymbol);
+        return semanticModel.typeOf(node);
     }
 
     /**

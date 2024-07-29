@@ -217,7 +217,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string",
+                    "valueType": "string|()",
                     "value": "msg",
                     "optional": false,
                     "editable": true
@@ -283,7 +283,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string",
+                    "valueType": "string|()",
                     "value": "msg",
                     "optional": false,
                     "editable": true
@@ -473,7 +473,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string",
+                            "valueType": "string|()",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -539,7 +539,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string",
+                            "valueType": "string|()",
                             "value": "msg",
                             "optional": false,
                             "editable": true
