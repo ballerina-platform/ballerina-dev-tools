@@ -6,45 +6,60 @@
     "symbol": "get"
   },
   "output": {
-    "id": "31",
     "metadata": {
-      "label": "Redis Get"
+      "label": "get",
+      "description": "Get value of key.\n\n"
     },
     "codedata": {
-      "node": "ACTION_CALL"
+      "node": "ACTION_CALL",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "get"
     },
     "returning": false,
     "properties": {
-      "client": {
+      "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "Redis Client Connection"
+          "label": "Connection",
+          "description": "Connection to use"
         },
-        "valueType": "redis:Client",
-        "value": "",
+        "valueType": "Identifier",
+        "value": "connection",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
           "label": "Variable",
-          "description": "Result Variable"
+          "description": "Variable to store the connection"
         },
-        "value": "item",
-        "optional": true,
+        "valueType": "Identifier",
+        "value": "res",
+        "optional": false,
         "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the result"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
       },
       "key": {
         "metadata": {
-          "label": "Key",
-          "description": "Redis Key"
+          "label": "key",
+          "description": "Key referring to a value\n"
         },
-        "valueType": "string",
+        "valueType": "Expression",
         "value": "",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 0
+    "flags": 1
   }
 }

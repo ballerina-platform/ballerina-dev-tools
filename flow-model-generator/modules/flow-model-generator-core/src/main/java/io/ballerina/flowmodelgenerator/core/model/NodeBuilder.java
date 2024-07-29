@@ -85,6 +85,7 @@ public abstract class NodeBuilder {
     protected int flags;
     protected boolean returning;
     protected SemanticModel semanticModel;
+    protected FlowNode cachedFlowNode;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(FlowNode.Kind.IF, If::new);
@@ -175,6 +176,12 @@ public abstract class NodeBuilder {
 
     public FlowNode build() {
         this.setConstData();
+
+        // Check if there is a pre-built node
+        if (cachedFlowNode != null) {
+            return cachedFlowNode;
+        }
+
         Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
                 String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),

@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.central;
 
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 
 import java.util.List;
@@ -30,9 +31,19 @@ import java.util.List;
 public interface Central {
 
     /**
+     * Get the node template for the given codedata.
+     *
+     * @param node   The node kind
+     * @param module The module name
+     * @param symbol The symbol name
+     * @return The node template
+     */
+    FlowNode getNodeTemplate(FlowNode.Kind node, String module, String symbol);
+
+    /**
      * Get the available connections.
      *
      * @return The available connections
      */
-    public List<Item> getAvailableConnections();
+    List<Item> getAvailableConnections();
 }

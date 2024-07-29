@@ -26,9 +26,11 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 
@@ -38,6 +40,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The proxy implementation of the central interface to obtain information about the connectors.
@@ -47,6 +50,7 @@ import java.util.List;
 public class CentralProxy implements Central {
 
     private final Gson gson;
+    private Map<String, FlowNode> templateCache;
 
     public CentralProxy() {
         this.gson = new GsonBuilder()
@@ -55,6 +59,26 @@ public class CentralProxy implements Central {
                 .create();
     }
 
+    @Override
+    public FlowNode getNodeTemplate(FlowNode.Kind node, String module, String symbol) {
+        if (templateCache == null) {
+            initializeTemplateCache();
+        }
+        String key = String.format("%s:%s:Client:%s", node, module, symbol);
+        return templateCache.get(key);
+    }
+
+    private void initializeTemplateCache() {
+        try (JsonReader reader = new JsonReader(
+                new FileReader(Paths.get("src", "main", "resources", "node_templates.json").toFile()))) {
+            templateCache = new Gson().fromJson(reader, new TypeToken<Map<String, FlowNode>>() {
+            }.getType());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public List<Item> getAvailableConnections() {
         try (JsonReader reader = new JsonReader(
                 new FileReader(Paths.get("src", "main", "resources", "connections.json").toFile()))) {
@@ -74,7 +98,7 @@ public class CentralProxy implements Central {
 
             if (jsonObject.has("items")) {
                 return context.deserialize(jsonObject, Category.class);
-            } else if (jsonObject.has("codedata")) {
+            } else if (jsonObject.has("enabled")) {
                 return context.deserialize(jsonObject, AvailableNode.class);
             } else {
                 throw new JsonParseException("Unknown type of Item");

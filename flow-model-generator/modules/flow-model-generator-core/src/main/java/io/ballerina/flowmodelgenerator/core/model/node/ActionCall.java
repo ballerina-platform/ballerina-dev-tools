@@ -19,6 +19,8 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.central.Central;
+import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -36,6 +38,8 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class ActionCall extends NodeBuilder {
+
+    private static final Central central = new CentralProxy();
 
     @Override
     public void setConcreteConstData() {
@@ -106,13 +110,6 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-        NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-        metadata().label(info.label()).stepOut()
-                .properties()
-                .defaultExpression(info.callExpression())
-                .defaultVariable();
-
-        info.parameterExpressions()
-                .forEach(expressionInfo -> properties().defaultExpression(expressionInfo));
+        this.cachedFlowNode = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, codedata.module(), codedata.symbol());
     }
 }
