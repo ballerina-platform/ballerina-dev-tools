@@ -36,13 +36,13 @@ import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +88,7 @@ public class ModelGenerator {
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
-                        .sorted(Comparator.comparing(flowNode -> flowNode.codedata().node()))
+                        .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
                         .toList();
 
         // Analyze the code block to find the flow nodes
