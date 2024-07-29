@@ -34,10 +34,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +69,7 @@ public class CentralProxy implements Central {
 
     private void initializeTemplateCache() {
         try (JsonReader reader = new JsonReader(
-                new FileReader(Paths.get("src", "main", "resources", "node_templates.json").toFile()))) {
+                new InputStreamReader(getClass().getResourceAsStream("/node_templates.json")))) {
             templateCache = new Gson().fromJson(reader, new TypeToken<Map<String, FlowNode>>() {
             }.getType());
         } catch (IOException e) {
@@ -80,8 +79,7 @@ public class CentralProxy implements Central {
 
     @Override
     public List<Item> getAvailableConnections() {
-        try (JsonReader reader = new JsonReader(
-                new FileReader(Paths.get("src", "main", "resources", "connections.json").toFile()))) {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/connections.json")))) {
             Category connections = gson.fromJson(reader, Category.class);
             return connections.items();
         } catch (IOException e) {
