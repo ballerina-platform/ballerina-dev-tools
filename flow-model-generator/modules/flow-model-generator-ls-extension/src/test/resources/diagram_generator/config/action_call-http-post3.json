@@ -57,10 +57,15 @@
       {
         "id": "65774",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -80,46 +85,55 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Resource path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/bananas\"",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"banana\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           }

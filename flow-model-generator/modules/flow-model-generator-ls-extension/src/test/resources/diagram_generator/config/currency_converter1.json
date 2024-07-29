@@ -127,7 +127,7 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
@@ -136,7 +136,7 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -151,10 +151,15 @@
               {
                 "id": "53009",
                 "metadata": {
-                  "label": "Redis Get"
+                  "label": "get",
+                  "description": "Get value of key.\n\n"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
+                  "org": "ballerinax",
+                  "module": "redis",
+                  "object": "Client",
+                  "symbol": "get",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -174,32 +179,12 @@
                       "label": "Client",
                       "description": "Redis Client Connection"
                     },
-                    "valueType": "redis:Client",
+                    "valueType": "EXPRESSION",
                     "value": "redisClient",
                     "optional": false,
                     "editable": true
                   },
                   "variable": {
-                    "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
-                    },
-                    "valueType": "string|()",
-                    "value": "cacheValue ",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "key": {
-                    "metadata": {
-                      "label": "Key",
-                      "description": "Redis Key"
-                    },
-                    "valueType": "string",
-                    "value": "key",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "dataVariable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
@@ -208,7 +193,17 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "key": {
+                    "metadata": {
+                      "label": "key",
+                      "description": "Key referring to a value\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "key",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -305,7 +300,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
@@ -314,7 +309,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -385,10 +380,15 @@
                       {
                         "id": "65073",
                         "metadata": {
-                          "label": "HTTP GET"
+                          "label": "get",
+                          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "get",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -408,41 +408,12 @@
                               "label": "Client",
                               "description": "HTTP Client Connection"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "currencyClient",
                             "optional": false,
                             "editable": true
                           },
                           "variable": {
-                            "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
-                            },
-                            "valueType": "json",
-                            "value": "response ",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "path": {
-                            "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
-                            },
-                            "valueType": "string",
-                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "headers": {
-                            "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
-                            },
-                            "valueType": "map<string|string[]>?",
-                            "optional": true,
-                            "editable": true
-                          },
-                          "dataVariable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
@@ -451,7 +422,35 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "path": {
+                            "metadata": {
+                              "label": "path",
+                              "description": "Request path\n"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "headers": {
+                            "metadata": {
+                              "label": "headers",
+                              "description": "The entity headers\n"
+                            },
+                            "valueType": "EXPRESSION",
+                            "optional": true,
+                            "editable": true
+                          },
+                          "targetType": {
+                            "metadata": {
+                              "label": "targetType",
+                              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                            },
+                            "valueType": "EXPRESSION",
+                            "optional": true,
+                            "editable": true
+                          },
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -495,7 +494,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
@@ -504,7 +503,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -548,7 +547,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
@@ -557,7 +556,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -572,10 +571,15 @@
                       {
                         "id": "72988",
                         "metadata": {
-                          "label": "Redis Set"
+                          "label": "set",
+                          "description": "Set the value of a key.\n\n"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerinax",
+                          "module": "redis",
+                          "object": "Client",
+                          "symbol": "set",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -595,27 +599,27 @@
                               "label": "Client",
                               "description": "Redis Client Connection"
                             },
-                            "valueType": "redis:Client",
+                            "valueType": "EXPRESSION",
                             "value": "redisClient",
                             "optional": false,
                             "editable": true
                           },
                           "key": {
                             "metadata": {
-                              "label": "Key",
-                              "description": "Redis Key"
+                              "label": "key",
+                              "description": "Key referring to a value\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "key",
                             "optional": false,
                             "editable": true
                           },
                           "value": {
                             "metadata": {
-                              "label": "Value",
-                              "description": "Redis Value"
+                              "label": "value",
+                              "description": "Values\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "convertedAmount.toString()",
                             "optional": false,
                             "editable": true
@@ -655,7 +659,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
@@ -664,7 +668,7 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -760,7 +764,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
-                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
+                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.3:error|annotations:error",
                 "optional": false,
                 "editable": true
               }
@@ -827,7 +831,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "ballerina/http:2.11.0:InternalServerError & readonly",
+                    "valueType": "ballerina/http:2.11.3:InternalServerError & readonly",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true

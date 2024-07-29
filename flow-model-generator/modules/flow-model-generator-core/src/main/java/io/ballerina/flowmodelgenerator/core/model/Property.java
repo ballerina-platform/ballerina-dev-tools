@@ -65,6 +65,11 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         return value;
     }
 
+    public enum ValueType {
+        EXPRESSION,
+        IDENTIFIER
+    }
+
     /**
      * Represents a builder for the expression.
      *
@@ -96,8 +101,8 @@ public record Property(Metadata metadata, String valueType, String value, boolea
             return this;
         }
 
-        public Builder type(String type) {
-            this.type = type;
+        public Builder type(ValueType type) {
+            this.type = type.name();
             return this;
         }
 
@@ -124,8 +129,9 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Property build() {
-            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value,
-                    optional, editable);
+            Property property =
+                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value, optional,
+                            editable);
             this.metadataBuilder = null;
             this.type = null;
             this.value = null;

@@ -209,11 +209,11 @@ public abstract class NodeBuilder {
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
 
         public static final String DATA_VARIABLE_LABEL = "Data variable";
-        public static final String DATA_VARIABLE_KEY = "dataVariable";
+        public static final String DATA_VARIABLE_KEY = "variable";
         public static final String DATA_VARIABLE_DOC = "Name of the variable";
 
         public static final String DATA_TYPE_LABEL = "Data type";
-        public static final String DATA_TYPE_KEY = "dataType";
+        public static final String DATA_TYPE_KEY = "type";
         public static final String DATA_TYPE_DOC = "Type of the variable";
 
         private final Map<String, Property> nodeProperties;
@@ -328,7 +328,7 @@ public abstract class NodeBuilder {
                     .label(info.label())
                     .description(info.documentation())
                     .stepOut()
-                    .type(info.type())
+                    .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
                     .editable()
                     .build();
@@ -337,7 +337,8 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                                      List<ParameterSymbol> parameterSymbols) {
+                                                      List<ParameterSymbol> parameterSymbols,
+                                                      Map<String, Property> properties) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
@@ -368,33 +369,19 @@ public abstract class NodeBuilder {
                 String parameterName = name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
-                ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
-                if (info != null) {
+                Property propertyTemplate = properties.get(parameterName);
+                if (propertyTemplate != null) {
                     propertyBuilder
                             .metadata()
-                            .label(info.label())
-                            .description(info.documentation())
+                            .label(propertyTemplate.metadata().label())
+                            .description(propertyTemplate.metadata().description())
                             .stepOut()
+                            .type(Property.ValueType.EXPRESSION)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                     if (paramValue != null) {
                         propertyBuilder.value(paramValue.toSourceCode());
-                    }
-
-                    String staticType = info.type();
-                    Optional<TypeSymbol> valueType =
-                            paramValue != null ? semanticModel.typeOf(paramValue) : Optional.empty();
-
-                    if (info.dynamicType() && valueType.isPresent()) {
-                        // Obtain the type from the value if the dynamic type is set
-                        propertyBuilder.type(valueType.get());
-                    } else if (staticType != null) {
-                        // Set the static type
-                        propertyBuilder.type(staticType);
-                    } else {
-                        // Set the type of the symbol if none of types were found
-                        propertyBuilder.type(parameterSymbol.typeDescriptor());
                     }
 
                     addProperty(parameterName, propertyBuilder.build());
@@ -575,7 +562,7 @@ public abstract class NodeBuilder {
                     .description(info.documentation())
                     .stepOut()
                     .value("")
-                    .type(info.type())
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(info.key(), property);

@@ -67,6 +67,8 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
+import io.ballerina.flowmodelgenerator.core.central.Central;
+import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -182,18 +184,26 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
+        Central central = new CentralProxy();
+        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, moduleName, methodName);
         NodeAttributes.Info info = NodeAttributes.getByKey(moduleName, methodName);
         if (info != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
-                    .codedata().node(info.kind()).stepOut()
                     .metadata()
-                    .label(info.label())
+                    .label(nodeTemplate.metadata().label())
+                    .description(nodeTemplate.metadata().description())
+                    .stepOut()
+                    .codedata()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
                     .stepOut()
                     .properties()
                     .callExpression(expressionNode, info.callExpression())
                     .variable(this.typedBindingPatternNode);
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    argumentNodes, params));
+                    argumentNodes, params, nodeTemplate.properties()));
             return;
         }
         startNode(FlowNode.Kind.EXPRESSION);

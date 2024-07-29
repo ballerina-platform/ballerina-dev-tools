@@ -57,10 +57,15 @@
       {
         "id": "45951",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -80,41 +85,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res1 ",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "string",
-            "value": "\"/apples\"",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -123,7 +99,36 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "path": {
+            "metadata": {
+              "label": "path",
+              "description": "Request path\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "json",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -138,10 +143,15 @@
       {
         "id": "46936",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -161,27 +171,37 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Request path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "json",
             "optional": true,
             "editable": true
           }
@@ -191,10 +211,15 @@
       {
         "id": "47942",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -214,28 +239,38 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Request path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "value": "()",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "json",
             "optional": true,
             "editable": true
           }
@@ -245,10 +280,15 @@
       {
         "id": "48916",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -268,31 +308,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res2 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -301,7 +322,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -316,10 +355,15 @@
       {
         "id": "49900",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -339,31 +383,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res3 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -372,7 +397,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -387,10 +430,15 @@
       {
         "id": "50886",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -410,31 +458,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res4 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -443,7 +472,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -458,10 +505,15 @@
       {
         "id": "51900",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -481,31 +533,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res5 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -514,7 +547,26 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "json",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -529,10 +581,15 @@
       {
         "id": "52876",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -552,31 +609,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res6 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -585,7 +623,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -600,10 +656,15 @@
       {
         "id": "53920",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -623,32 +684,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res7 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -657,7 +698,26 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -672,10 +732,15 @@
       {
         "id": "57836",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -695,31 +760,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "Food",
-            "value": "res8 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -728,7 +774,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -743,10 +807,15 @@
       {
         "id": "58846",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -766,31 +835,12 @@
               "label": "Client",
               "description": "HTTP Client Connection"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "json",
-            "value": "res9 ",
-            "optional": false,
-            "editable": true
-          },
-          "headers": {
-            "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
-            },
-            "valueType": "map<string|string[]>?",
-            "optional": true,
-            "editable": true
-          },
-          "dataVariable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
@@ -799,7 +849,25 @@
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
