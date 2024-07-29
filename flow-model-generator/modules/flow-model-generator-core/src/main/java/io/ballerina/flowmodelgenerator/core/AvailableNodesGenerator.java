@@ -20,8 +20,13 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.flowmodelgenerator.core.central.Central;
+import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Item;
+
+import java.util.List;
 
 /**
  * Generates available nodes for a given position in the diagram.
@@ -31,16 +36,20 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class AvailableNodesGenerator {
 
     private final Category.Builder rootBuilder;
+    private final Gson gson;
+    private final Central central;
 
     public AvailableNodesGenerator() {
         this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
+        this.gson = new Gson();
+        central = new CentralProxy();
         initializeCommonNodes();
     }
 
     public JsonArray getAvailableNodes() {
-        Gson gson = new Gson();
-        Category rootCategory = this.rootBuilder.build();
-        return gson.toJsonTree(rootCategory.items()).getAsJsonArray();
+        List<Item> items = this.rootBuilder.build().items();
+        items.addAll(central.getAvailableConnections());
+        return gson.toJsonTree(items).getAsJsonArray();
     }
 
     private void initializeCommonNodes() {
@@ -61,15 +70,6 @@ public class AvailableNodesGenerator {
                         .stepOut()
                     .stepOut()
                 .stepIn(Category.Name.DATA)
-                    .stepOut()
-                .stepIn(Category.Name.ACTION)
-                    .stepIn(Category.Name.HTTP_API)
-                        .node(FlowNode.Kind.ACTION_CALL, "http", "get")
-                        .node(FlowNode.Kind.ACTION_CALL, "http", "post")
-                        .stepOut()
-                    .stepIn(Category.Name.REDIS_CLIENT)
-                        .node(FlowNode.Kind.ACTION_CALL, "redis", "get")
-                        .node(FlowNode.Kind.ACTION_CALL, "redis", "set")
-                    .stepOut();
+                .stepOut();
     }
 }
