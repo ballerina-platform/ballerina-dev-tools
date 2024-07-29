@@ -44,6 +44,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
+        ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
         HTTP_API("HTTP API", "Make HTTP requests", null),

@@ -105,7 +105,84 @@
         "label": "Data",
         "description": "Data nodes are used to create, read, update, delete, and transform data"
       },
-      "items": []
+      "items": [
+        {
+          "metadata": {
+            "label": "NewData",
+            "description": "Create new variable"
+          },
+          "codedata": {
+            "node": "NEW_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "UpdateData",
+            "description": "Update the value of a variable"
+          },
+          "codedata": {
+            "node": "UPDATE_DATA"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Error Handling",
+        "description": "Handle errors that occur during execution"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "ErrorHandler",
+            "description": "Catch and handle errors"
+          },
+          "codedata": {
+            "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Panic",
+            "description": "Panic and stop the execution"
+          },
+          "codedata": {
+            "node": "PANIC"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Concurrency",
+        "description": "Concurrency nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        }
+      ]
     },
     {
       "metadata": {
