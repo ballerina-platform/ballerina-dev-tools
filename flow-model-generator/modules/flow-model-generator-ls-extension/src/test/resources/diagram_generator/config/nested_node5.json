@@ -80,6 +80,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "nested_node.bal",
                 "startLine": {
@@ -120,6 +121,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "BODY",
                       "lineRange": {
                         "fileName": "nested_node.bal",
                         "startLine": {
@@ -160,6 +162,7 @@
                             "label": "Body",
                             "kind": "BLOCK",
                             "codedata": {
+                              "node": "BODY",
                               "lineRange": {
                                 "fileName": "nested_node.bal",
                                 "startLine": {
@@ -339,6 +342,7 @@
                             "label": "Body",
                             "kind": "BLOCK",
                             "codedata": {
+                              "node": "BODY",
                               "lineRange": {
                                 "fileName": "nested_node.bal",
                                 "startLine": {

@@ -80,6 +80,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "main.bal",
                 "startLine": {
@@ -245,6 +246,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "main.bal",
                         "startLine": {
@@ -365,6 +367,7 @@
                     "label": "Else",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ELSE",
                       "lineRange": {
                         "fileName": "main.bal",
                         "startLine": {
@@ -719,6 +722,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "main.bal",
                 "startLine": {

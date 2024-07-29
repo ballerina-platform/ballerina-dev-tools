@@ -203,9 +203,14 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(IfElseStatementNode ifElseStatementNode) {
         startNode(FlowNode.Kind.IF);
 
-        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, Branch.BranchKind.BLOCK)
-                .repeatable(Branch.Repeatable.ONE_OR_MORE);
-        thenBranchBuilder.properties().condition(ifElseStatementNode.condition());
+        Branch.Builder thenBranchBuilder =
+                startBranch(If.IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
+                        Branch.Repeatable.ONE_OR_MORE);
+        thenBranchBuilder.label(If.IF_THEN_LABEL)
+                .kind(Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE_OR_MORE)
+                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
+                .properties().condition(ifElseStatementNode.condition());
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
@@ -215,8 +220,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
         if (elseBody.isPresent()) {
-            Branch.Builder elseBranchBuilder = startBranch(If.IF_ELSE_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                    Branch.Repeatable.ZERO_OR_ONE);
+            Branch.Builder elseBranchBuilder =
+                    startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
+                            Branch.Repeatable.ZERO_OR_ONE);
             List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
             elseBranchBuilder.nodes(elseBodyChildNodes);
             endBranch(elseBranchBuilder, elseBody.get());
@@ -341,8 +347,9 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties().condition(whileStatementNode.condition());
 
         BlockStatementNode whileBody = whileStatementNode.whileBody();
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
+                        Branch.Repeatable.ONE);
         for (StatementNode statement : whileBody.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -356,7 +363,8 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void processOnFailClause(OnFailClauseNode onFailClauseNode) {
         Branch.Builder branchBuilder =
-                startBranch(Branch.ON_FAILURE_LABEL, Branch.BranchKind.BLOCK).repeatable(Branch.Repeatable.ZERO_OR_ONE);
+                startBranch(Branch.ON_FAILURE_LABEL, FlowNode.Kind.ON_FAILURE, Branch.BranchKind.BLOCK,
+                        Branch.Repeatable.ZERO_OR_ONE);
         if (onFailClauseNode.typedBindingPattern().isPresent()) {
             branchBuilder.properties().ignore().onErrorVariable(onFailClauseNode.typedBindingPattern().get());
         }
@@ -393,8 +401,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(LockStatementNode lockStatementNode) {
         startNode(FlowNode.Kind.LOCK);
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode lockBody = lockStatementNode.blockStatement();
         for (StatementNode statement : lockBody.statements()) {
             statement.accept(this);
@@ -415,8 +423,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(TransactionStatementNode transactionStatementNode) {
         startNode(FlowNode.Kind.TRANSACTION);
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
         for (StatementNode statement : blockStatementNode.statements()) {
             statement.accept(this);
@@ -475,8 +483,8 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         startNode(FlowNode.Kind.ERROR_HANDLER);
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         for (StatementNode statement : blockStatementNode.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());
@@ -568,13 +576,16 @@ class CodeAnalyzer extends NodeVisitor {
     /**
      * Starts a new branch and sets the node builder to the starting node of the branch.
      */
-    private Branch.Builder startBranch(String label, Branch.BranchKind kind) {
+    private Branch.Builder startBranch(String label, FlowNode.Kind node, Branch.BranchKind kind,
+                                       Branch.Repeatable repeatable) {
         this.flowNodeBuilderStack.push(nodeBuilder);
         this.nodeBuilder = null;
         return new Branch.Builder()
                 .semanticModel(semanticModel)
+                .codedata().node(node).stepOut()
                 .label(label)
-                .kind(kind);
+                .kind(kind)
+                .repeatable(repeatable);
     }
 
     /**
@@ -611,8 +622,8 @@ class CodeAnalyzer extends NodeVisitor {
      */
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
         startNode(FlowNode.Kind.EXPRESSION);
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK).repeatable(
-                Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         for (StatementNode statement : bodyNode.statements()) {
             statement.accept(this);
             branchBuilder.node(buildNode());

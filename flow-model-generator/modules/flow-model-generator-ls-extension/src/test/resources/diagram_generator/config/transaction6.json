@@ -61,6 +61,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -101,6 +102,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "BODY",
                       "lineRange": {
                         "fileName": "transaction.bal",
                         "startLine": {
@@ -232,6 +234,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {

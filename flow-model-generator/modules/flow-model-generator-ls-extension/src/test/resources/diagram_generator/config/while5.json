@@ -186,6 +186,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -355,6 +356,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -530,6 +532,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -622,6 +625,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -777,6 +781,7 @@
                     "label": "On Failure",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ON_FAILURE",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
