@@ -151,11 +151,11 @@
               {
                 "id": "50855",
                 "metadata": {
-                  "label": "Return",
-                  "description": "Return a value"
+                  "label": "Stop",
+                  "description": "Stop the flow"
                 },
                 "codedata": {
-                  "node": "RETURN",
+                  "node": "STOP",
                   "lineRange": {
                     "fileName": "lock.bal",
                     "startLine": {

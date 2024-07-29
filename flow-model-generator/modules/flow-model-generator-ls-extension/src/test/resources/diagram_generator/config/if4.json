@@ -162,11 +162,11 @@
               {
                 "id": "88679",
                 "metadata": {
-                  "label": "Return",
-                  "description": "Return a value"
+                  "label": "Stop",
+                  "description": "Stop the flow"
                 },
                 "codedata": {
-                  "node": "RETURN",
+                  "node": "STOP",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -361,11 +361,11 @@
                                       {
                                         "id": "94023",
                                         "metadata": {
-                                          "label": "Return",
-                                          "description": "Return a value"
+                                          "label": "Stop",
+                                          "description": "Stop the flow"
                                         },
                                         "codedata": {
-                                          "node": "RETURN",
+                                          "node": "STOP",
                                           "lineRange": {
                                             "fileName": "if_node.bal",
                                             "startLine": {
@@ -451,11 +451,11 @@
                       {
                         "id": "98727",
                         "metadata": {
-                          "label": "Return",
-                          "description": "Return a value"
+                          "label": "Stop",
+                          "description": "Stop the flow"
                         },
                         "codedata": {
-                          "node": "RETURN",
+                          "node": "STOP",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
