@@ -25,9 +25,9 @@ import java.util.List;
  *
  * @param fileName The name of the file
  * @param nodes    The nodes in the diagram
- * @param clients  The clients in the diagram
+ * @param connections  The connections in the diagram
  * @since 1.4.0
  */
-public record Diagram(String fileName, List<FlowNode> nodes, List<Client> clients) {
+public record Diagram(String fileName, List<FlowNode> nodes, List<FlowNode> connections) {
 
 }

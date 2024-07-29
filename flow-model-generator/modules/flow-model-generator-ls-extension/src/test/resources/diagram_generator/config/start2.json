@@ -38,11 +38,11 @@
       {
         "id": "52725",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -57,16 +57,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "Foo1",
-            "value": "new(\"foo\")",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
@@ -177,26 +167,6 @@
         "flags": 0
       }
     ],
-    "clients": [
-      {
-        "id": "52711",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 21,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 11
-          }
-        },
-        "scope": "LOCAL",
-        "value": "f1 ",
-        "flags": 0
-      }
-    ]
+    "connections": []
   }
 }

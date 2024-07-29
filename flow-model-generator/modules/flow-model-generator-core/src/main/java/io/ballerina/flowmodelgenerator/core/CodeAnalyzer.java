@@ -19,10 +19,13 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -48,6 +51,7 @@ import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
@@ -70,9 +74,7 @@ import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
@@ -94,19 +96,21 @@ class CodeAnalyzer extends NodeVisitor {
 
     //TODO: Wrap the class variables inside another class
     private final List<FlowNode> flowNodeList;
-    private final List<Client> clients;
+    private final List<FlowNode> connections;
     private NodeBuilder nodeBuilder;
-    private final Client.Builder clientBuilder;
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
+    private final Central central;
     private TypedBindingPatternNode typedBindingPatternNode;
+    private boolean buildConnection;
 
     public CodeAnalyzer(SemanticModel semanticModel) {
         this.flowNodeList = new ArrayList<>();
-        this.clientBuilder = new Client.Builder();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.clients = new ArrayList<>();
+        this.connections = new ArrayList<>();
+        this.central = new CentralProxy();
+        this.buildConnection = false;
     }
 
     @Override
@@ -184,10 +188,8 @@ class CodeAnalyzer extends NodeVisitor {
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
 
-        Central central = new CentralProxy();
         FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, moduleName, methodName);
-        NodeAttributes.Info info = NodeAttributes.getByKey(moduleName, methodName);
-        if (info != null) {
+        if (nodeTemplate != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
                     .metadata()
                     .label(nodeTemplate.metadata().label())
@@ -262,21 +264,56 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ImplicitNewExpressionNode implicitNewExpressionNode) {
-        checkForPossibleClient(implicitNewExpressionNode);
+        SeparatedNodeList<FunctionArgumentNode> argumentNodes =
+                implicitNewExpressionNode.parenthesizedArgList()
+                        .map(ParenthesizedArgList::arguments)
+                        .orElse(null);
+        checkForPossibleClient(implicitNewExpressionNode, argumentNodes);
         super.visit(implicitNewExpressionNode);
     }
 
     @Override
     public void visit(ExplicitNewExpressionNode explicitNewExpressionNode) {
-        checkForPossibleClient(explicitNewExpressionNode);
+        SeparatedNodeList<FunctionArgumentNode> argumentNodes =
+                explicitNewExpressionNode.parenthesizedArgList().arguments();
+        checkForPossibleClient(explicitNewExpressionNode, argumentNodes);
         super.visit(explicitNewExpressionNode);
     }
 
-    private void checkForPossibleClient(NewExpressionNode newExpressionNode) {
-        this.clientBuilder.setTypedBindingPattern(this.typedBindingPatternNode);
-        semanticModel.typeOf(CommonUtils.getExpressionWithCheck(newExpressionNode))
-                .flatMap(symbol -> CommonUtils.buildClient(this.clientBuilder, symbol, Client.ClientScope.LOCAL))
-                .ifPresent(clients::add);
+    private void checkForPossibleClient(NewExpressionNode newExpressionNode,
+                                        SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+        Optional<TypeSymbol> typeSymbol = CommonUtils.getTypeSymbol(semanticModel, newExpressionNode);
+        if (typeSymbol.isEmpty()) {
+            return;
+        }
+        String moduleName = CommonUtils.getModuleName(typeSymbol.get());
+        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.NEW_CONNECTION, moduleName, "init");
+        if (nodeTemplate != null) {
+            startNode(FlowNode.Kind.NEW_CONNECTION)
+                    .metadata()
+                    .description(nodeTemplate.metadata().description())
+                    .stepOut()
+                    .codedata()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
+                    .properties()
+                    .scope();
+            try {
+                MethodSymbol methodSymbol =
+                        ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
+                                .orElseThrow();
+                methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
+                        argumentNodes, params, nodeTemplate.properties()));
+
+            } catch (RuntimeException ignored) {
+            }
+            buildConnection = true;
+            return;
+        }
+        startNode(FlowNode.Kind.EXPRESSION);
     }
 
     @Override
@@ -298,6 +335,20 @@ class CodeAnalyzer extends NodeVisitor {
         nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
+        this.typedBindingPatternNode = null;
+    }
+
+    @Override
+    public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
+        Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
+        if (initializer.isEmpty()) {
+            return;
+        }
+        ExpressionNode initializerNode = initializer.get();
+        this.typedBindingPatternNode = moduleVariableDeclarationNode.typedBindingPattern();
+        initializerNode.accept(this);
+        nodeBuilder.properties().dataVariable(moduleVariableDeclarationNode.typedBindingPattern());
+        endNode(moduleVariableDeclarationNode);
         this.typedBindingPatternNode = null;
     }
 
@@ -562,6 +613,12 @@ class CodeAnalyzer extends NodeVisitor {
      */
     private void endNode(Node node) {
         nodeBuilder.codedata().lineRange(node);
+
+        if (buildConnection) {
+            connections.add(buildNode());
+            buildConnection = false;
+            return;
+        }
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
         }
@@ -646,7 +703,7 @@ class CodeAnalyzer extends NodeVisitor {
         return flowNodeList;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public List<FlowNode> getConnections() {
+        return connections;
     }
 }

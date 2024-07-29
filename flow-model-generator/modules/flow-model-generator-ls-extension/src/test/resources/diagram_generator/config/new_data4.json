@@ -115,7 +115,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "xml:Element",
+            "valueType": "lang.xml:Element",
             "value": "xml `<p>${content}</p>`",
             "optional": false,
             "editable": true
@@ -168,7 +168,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "xml:Element",
+            "valueType": "lang.xml:Element",
             "value": "xml `<book>The Lost World</book>`",
             "optional": false,
             "editable": true
@@ -195,6 +195,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

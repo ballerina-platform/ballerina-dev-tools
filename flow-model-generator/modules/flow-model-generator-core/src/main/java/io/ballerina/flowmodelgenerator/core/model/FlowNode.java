@@ -67,6 +67,7 @@ public record FlowNode(
         EVENT_HTTP_API,
         IF,
         ACTION_CALL,
+        NEW_CONNECTION,
         RETURN,
         EXPRESSION,
         ERROR_HANDLER,

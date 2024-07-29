@@ -208,7 +208,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
-                    "value": "string|()",
+                    "value": "string",
                     "optional": false,
                     "editable": true
                   }
@@ -764,7 +764,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
-                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.3:error|annotations:error",
+                "value": "redis:ballerinax/redis:3.0.2:error",
                 "optional": false,
                 "editable": true
               }
@@ -845,44 +845,148 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "43246",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 11,
-            "offset": 18
-          },
-          "endLine": {
-            "line": 11,
-            "offset": 32
+        "id": "36800",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "redis",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 3
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "currencyClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "configuration for the connector\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "redisClient ",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "redis:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       },
       {
-        "id": "37323",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 5,
-            "offset": 19
-          },
-          "endLine": {
-            "line": 5,
-            "offset": 30
+        "id": "42750",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 94
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "redisClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"https://api.exchangeratesapi.io/latest\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "currencyClient ",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       }
     ]
   }

@@ -18,11 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core;
 
-import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.ClassSymbol;
-import io.ballerina.compiler.api.symbols.ModuleSymbol;
-import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -32,16 +28,19 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -72,8 +71,9 @@ public class CommonUtils {
             case TYPE_REFERENCE -> {
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
-                        .map(name -> getModuleName(typeReferenceTypeSymbol)
-                                .map(prefix -> prefix + ":" + name)
+                        .map(name -> typeReferenceTypeSymbol.getModule()
+                                .flatMap(Symbol::getName)
+                                .map(prefix -> ".".equals(prefix) ? name : prefix + ":" + name)
                                 .orElse(name))
                         .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()));
             }
@@ -103,11 +103,8 @@ public class CommonUtils {
      * @param symbol the symbol to get the module name
      * @return the module name
      */
-    public static Optional<String> getModuleName(Symbol symbol) {
-        return symbol.getModule()
-                .map(ModuleSymbol::id)
-                .map(ModuleID::modulePrefix)
-                .filter(prefix -> !prefix.equals("."));
+    public static String getModuleName(Symbol symbol) {
+        return symbol.getModule().flatMap(Symbol::getName).orElse("");
     }
 
     /**
@@ -122,28 +119,15 @@ public class CommonUtils {
     }
 
     /**
-     * Builds a client from the given type symbol.
+     * Returns the node in the syntax tree for the given text range.
      *
-     * @param builder    the client builder
-     * @param typeSymbol the type symbol
-     * @param scope      the client scope
-     * @return the client if the type symbol is a client, otherwise empty
+     * @param syntaxTree the syntax tree in which the node resides
+     * @param textRange  the text range of the node
+     * @return the node in the syntax tree
      */
-    public static Optional<Client> buildClient(Client.Builder builder, TypeSymbol typeSymbol,
-                                               Client.ClientScope scope) {
-        if (typeSymbol.typeKind() != TypeDescKind.TYPE_REFERENCE) {
-            return Optional.empty();
-        }
-        TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-
-        if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
-                !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
-            return Optional.empty();
-        }
-
-        builder.setKind(CommonUtils.getTypeSignature(typeDescriptorSymbol));
-        builder.setScope(scope);
-        return Optional.of(builder.build());
+    public static NonTerminalNode getNode(SyntaxTree syntaxTree, TextRange textRange) {
+        ModulePartNode modulePartNode = syntaxTree.rootNode();
+        return modulePartNode.findNode(textRange, true);
     }
 
     /**
@@ -180,15 +164,24 @@ public class CommonUtils {
 
             Optional<Symbol> typeDescriptorSymbol = semanticModel.symbol(typedBindingPatternNode.typeDescriptor());
             if (typeDescriptorSymbol.isPresent() && typeDescriptorSymbol.get().kind() == SymbolKind.TYPE) {
-                return Optional.of((TypeSymbol) typeDescriptorSymbol.get());
+                return reduceSymbol((TypeSymbol) typeDescriptorSymbol.get());
             }
 
             Optional<Symbol> bindingPatternSymbol = semanticModel.symbol(bindingPatternNode);
             if (bindingPatternSymbol.isPresent() && bindingPatternSymbol.get().kind() == SymbolKind.VARIABLE) {
-                return Optional.of(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
+                return reduceSymbol(((VariableSymbol) bindingPatternSymbol.get()).typeDescriptor());
             }
         }
-        return semanticModel.typeOf(node);
+        return semanticModel.typeOf(node).flatMap(CommonUtils::reduceSymbol);
+    }
+
+    private static Optional<TypeSymbol> reduceSymbol(TypeSymbol typeSymbol) {
+        if (typeSymbol.typeKind() == TypeDescKind.UNION) {
+            UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+            List<TypeSymbol> typeSymbols = unionTypeSymbol.memberTypeDescriptors();
+            return Optional.ofNullable(typeSymbols.get(0));
+        }
+        return Optional.of(typeSymbol);
     }
 
     /**
