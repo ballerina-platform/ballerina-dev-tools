@@ -50,7 +50,7 @@ public class SourceBuilder {
      *     }
      * }</pre>
      */
-    public void addOnFailure(FlowNode flowNode) {
+    public void onFailure(FlowNode flowNode) {
         Optional<Branch> optOnFailureBranch = flowNode.getBranch(Branch.ON_FAILURE_LABEL);
         if (optOnFailureBranch.isEmpty()) {
             return;
@@ -88,7 +88,7 @@ public class SourceBuilder {
      * @param nodeTemplate      The <code>FlowNode</code> instance containing the template properties.
      * @param ignoredProperties A set of property keys to be ignored during the processing.
      */
-    public void addFunctionArguments(FlowNode flowNode, FlowNode nodeTemplate, Set<String> ignoredProperties) {
+    public void functionParameters(FlowNode flowNode, FlowNode nodeTemplate, Set<String> ignoredProperties) {
         tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
         Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
         keys.removeAll(ignoredProperties);

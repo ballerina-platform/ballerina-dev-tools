@@ -23,7 +23,6 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class Lock extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
         sourceBuilder.token().closeBrace();
 
-        sourceBuilder.addOnFailure( node);
+        sourceBuilder.onFailure( node);
 
         return sourceBuilder.build(false);
     }

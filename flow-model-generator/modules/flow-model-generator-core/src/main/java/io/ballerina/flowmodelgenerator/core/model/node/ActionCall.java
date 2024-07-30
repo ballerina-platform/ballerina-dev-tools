@@ -73,7 +73,7 @@ public class ActionCall extends NodeBuilder {
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label());
 
-        sourceBuilder.addFunctionArguments(node, nodeTemplate, Set.of("connection", "variable", "type", "targetType"));
+        sourceBuilder.functionParameters(node, nodeTemplate, Set.of("connection", "variable", "type", "targetType"));
         return sourceBuilder.build(false);
     }
 

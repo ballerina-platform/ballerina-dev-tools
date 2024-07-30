@@ -68,7 +68,7 @@ public class NewConnection extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        sourceBuilder.addFunctionArguments(flowNode, nodeTemplate,
+        sourceBuilder.functionParameters(flowNode, nodeTemplate,
                 Set.of("variable", "type", "scope"));
         return sourceBuilder.build(false);
     }

@@ -56,7 +56,7 @@ public class ErrorHandler extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
         sourceBuilder.token().closeBrace();
 
-        sourceBuilder.addOnFailure(node);
+        sourceBuilder.onFailure(node);
         return sourceBuilder.build(false);
     }
 

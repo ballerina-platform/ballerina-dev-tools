@@ -58,7 +58,7 @@ public class While extends NodeBuilder {
         sourceBuilder.token().closeBrace();
 
         // Handle the on fail branch
-        sourceBuilder.addOnFailure(node);
+        sourceBuilder.onFailure(node);
 
         return sourceBuilder.build(false);
     }
