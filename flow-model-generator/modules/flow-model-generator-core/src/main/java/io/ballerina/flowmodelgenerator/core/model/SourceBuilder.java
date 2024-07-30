@@ -26,6 +26,7 @@ import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a builder to generate a Ballerina source code.
@@ -102,5 +103,32 @@ public class SourceBuilder {
         Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
                 NodeParser.parseStatement(outputStr).apply(treeModifier);
         return modifiedNode.toSourceCode().strip();
+    }
+
+    /**
+     * Contains factory methods to apply common templates on the provided builder.
+     *
+     * @since 1.4.0
+     */
+    public static class TemplateFactory {
+
+        public static void addOnFailure(SourceBuilder sourceBuilder, Branch onFailBranch) {
+            // Build the keywords
+            sourceBuilder
+                    .keyword(SyntaxKind.ON_KEYWORD)
+                    .keyword(SyntaxKind.FAIL_KEYWORD);
+
+            // Build the parameters
+            Optional<Property> onErrorType = onFailBranch.getProperty(Property.ON_ERROR_TYPE_KEY);
+            Optional<Property> onErrorValue = onFailBranch.getProperty(Property.ON_ERROR_VARIABLE_KEY);
+            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
+                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
+            }
+
+            // Build the body
+            sourceBuilder.openBrace()
+                    .addChildren(onFailBranch.children())
+                    .closeBrace();
+        }
     }
 }

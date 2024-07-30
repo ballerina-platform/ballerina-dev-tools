@@ -56,22 +56,7 @@ public class Transaction extends NodeBuilder {
         sourceBuilder.closeBrace();
 
         Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
+        onFailBranch.ifPresent(branch -> SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, branch));
 
         return sourceBuilder.build(false);
     }
