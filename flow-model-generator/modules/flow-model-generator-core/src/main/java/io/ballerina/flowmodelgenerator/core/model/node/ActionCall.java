@@ -27,8 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -73,58 +71,11 @@ public class ActionCall extends NodeBuilder {
         }
         sourceBuilder.name(client.get().value())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(nodeTemplate.metadata().label())
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+                .name(nodeTemplate.metadata().label());
 
-        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
-        keys.remove("connection");
-        keys.remove("variable");
-        keys.remove("type");
-        keys.remove("targetType");
-
-        Iterator<String> iterator = keys.iterator();
-
-        if (!keys.isEmpty()) {
-            String firstKey = iterator.next();
-            Optional<Property> firstParameter = node.getProperty(firstKey);
-            Optional<Property> firstTemplateParameter = nodeTemplate.getProperty(firstKey);
-            if (firstParameter.isPresent() && firstTemplateParameter.isPresent() &&
-                    !isDefaultValue(firstParameter.get(), firstTemplateParameter.get())) {
-                sourceBuilder.expression(firstParameter.get());
-            }
-
-            boolean hasEmptyParam = false;
-            while (iterator.hasNext()) {
-                String parameterKey = iterator.next();
-                Optional<Property> parameter = node.getProperty(parameterKey);
-                Optional<Property> templateParameter = nodeTemplate.getProperty(parameterKey);
-
-                if (parameter.isEmpty() || templateParameter.isEmpty() || parameter.get().value() == null ||
-                        isDefaultValue(parameter.get(), templateParameter.get())) {
-                    hasEmptyParam = true;
-                    continue;
-                }
-
-                sourceBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-                if (hasEmptyParam) {
-                    sourceBuilder
-                            .name(parameterKey)
-                            .keyword(SyntaxKind.EQUAL_TOKEN);
-                    hasEmptyParam = false;
-                }
-                sourceBuilder.expression(parameter.get());
-            }
-        }
-
-        sourceBuilder
-                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                .endOfStatement();
-
+        SourceBuilder.TemplateFactory.addFunctionArguments(sourceBuilder, node, nodeTemplate,
+                Set.of("connection", "variable", "type", "targetType"));
         return sourceBuilder.build(false);
-    }
-
-    private boolean isDefaultValue(Property node, Property templateNode) {
-        return node.optional() && node.value().equals(templateNode.value());
     }
 
     @Override

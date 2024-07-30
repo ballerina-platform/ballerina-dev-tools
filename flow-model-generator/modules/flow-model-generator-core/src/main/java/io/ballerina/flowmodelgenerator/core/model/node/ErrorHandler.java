@@ -57,9 +57,7 @@ public class ErrorHandler extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
         sourceBuilder.closeBrace();
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        onFailBranch.ifPresent(branch -> SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, branch));
-
+        SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, node);
         return sourceBuilder.build(false);
     }
 

@@ -106,7 +106,7 @@
           "character": 80
         }
       },
-      "newText": "json res2 = check foodClient->post(, \"western red apple\");"
+      "newText": "json res2 = check foodClient->post(message = \"western red apple\");"
     }
   ]
 }

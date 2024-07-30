@@ -106,7 +106,7 @@
           "character": 60
         }
       },
-      "newText": "json res4 = check foodClient->post(, \"green apple\");"
+      "newText": "json res4 = check foodClient->post(message = \"green apple\");"
     }
   ]
 }

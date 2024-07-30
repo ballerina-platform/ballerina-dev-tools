@@ -27,8 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -66,53 +64,12 @@ public class NewConnection extends NodeBuilder {
                     .expressionWithType(type.get(), variable.get())
                     .keyword(SyntaxKind.EQUAL_TOKEN)
                     .keyword(SyntaxKind.CHECK_KEYWORD)
-                    .keyword(SyntaxKind.NEW_KEYWORD)
-                    .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+                    .keyword(SyntaxKind.NEW_KEYWORD);
         }
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
-        keys.remove("variable");
-        keys.remove("type");
-        keys.remove("scope");
-        Iterator<String> iterator = keys.iterator();
-
-        if (!keys.isEmpty()) {
-            String firstKey = iterator.next();
-            Optional<Property> firstParameter = flowNode.getProperty(firstKey);
-            Optional<Property> firstTemplateParameter = nodeTemplate.getProperty(firstKey);
-            if (firstParameter.isPresent() && firstTemplateParameter.isPresent() &&
-                    !isDefaultValue(firstParameter.get(), firstTemplateParameter.get())) {
-                sourceBuilder.expression(firstParameter.get());
-            }
-
-            boolean hasEmptyParam = false;
-            while (iterator.hasNext()) {
-                String parameterKey = iterator.next();
-                Optional<Property> parameter = flowNode.getProperty(parameterKey);
-                Optional<Property> templateParameter = nodeTemplate.getProperty(parameterKey);
-
-                if (parameter.isEmpty() || templateParameter.isEmpty() || parameter.get().value() == null ||
-                        isDefaultValue(parameter.get(), templateParameter.get())) {
-                    hasEmptyParam = true;
-                    continue;
-                }
-
-                sourceBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-                if (hasEmptyParam) {
-                    sourceBuilder
-                            .name(parameterKey)
-                            .keyword(SyntaxKind.EQUAL_TOKEN);
-                    hasEmptyParam = false;
-                }
-                sourceBuilder.expression(parameter.get());
-            }
-        }
-
-        sourceBuilder
-                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                .endOfStatement();
-
+        SourceBuilder.TemplateFactory.addFunctionArguments(sourceBuilder, flowNode, nodeTemplate,
+                Set.of("variable", "type", "scope"));
         return sourceBuilder.build(false);
     }
 

@@ -107,7 +107,7 @@
           "character": 106
         }
       },
-      "newText": "json res3 = check foodClient->post(, {\"type\": \"red apple\"}, mediaType = \"application/json\");"
+      "newText": "json res3 = check foodClient->post(message = {\"type\": \"red apple\"}, mediaType = \"application/json\");"
     }
   ]
 }
