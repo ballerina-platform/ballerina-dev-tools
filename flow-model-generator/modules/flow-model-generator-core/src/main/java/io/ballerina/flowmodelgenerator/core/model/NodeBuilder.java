@@ -48,6 +48,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
@@ -102,6 +103,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.FAIL, Fail::new);
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
+        put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
     }};
 

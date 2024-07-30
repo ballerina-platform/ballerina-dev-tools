@@ -128,13 +128,17 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ReturnStatementNode returnStatementNode) {
-        Optional<ExpressionNode> expression = returnStatementNode.expression();
-        expression.ifPresent(expressionNode -> expressionNode.accept(this));
-
-        if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.RETURN);
-            expression.ifPresent(expressionNode -> nodeBuilder.properties()
-                    .expression(expressionNode, Return.RETURN_EXPRESSION_DOC));
+        Optional<ExpressionNode> optExpr = returnStatementNode.expression();
+        if (optExpr.isEmpty()) {
+            startNode(FlowNode.Kind.STOP);
+        } else {
+            ExpressionNode expr = optExpr.get();
+            expr.accept(this);
+            if (isNodeUnidentified()) {
+                startNode(FlowNode.Kind.RETURN)
+                        .properties()
+                        .expression(expr, Return.RETURN_EXPRESSION_DOC);
+            }
         }
         nodeBuilder.returning();
         endNode(returnStatementNode);
