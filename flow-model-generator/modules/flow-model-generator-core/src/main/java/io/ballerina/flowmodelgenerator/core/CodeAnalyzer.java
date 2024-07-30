@@ -424,7 +424,23 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ForEachStatementNode forEachStatementNode) {
-        handleDefaultStatementNode(forEachStatementNode, () -> super.visit(forEachStatementNode));
+        startNode(FlowNode.Kind.FOREACH)
+                .properties()
+                .dataVariable(forEachStatementNode.typedBindingPattern())
+                .collection(forEachStatementNode.actionOrExpressionNode());
+        // TODO: Check whether we need to
+        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE);
+        BlockStatementNode blockStatementNode = forEachStatementNode.blockStatement();
+        for (StatementNode statement : blockStatementNode.statements()) {
+            statement.accept(this);
+            branchBuilder.node(buildNode());
+        }
+        endBranch(branchBuilder, blockStatementNode);
+
+        forEachStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+
+        endNode(forEachStatementNode);
     }
 
     @Override

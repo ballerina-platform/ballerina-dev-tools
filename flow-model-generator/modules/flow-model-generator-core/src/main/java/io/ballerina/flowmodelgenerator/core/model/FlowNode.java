@@ -83,6 +83,7 @@ public record FlowNode(
         ON_FAILURE,
         BODY,
         NEW_DATA,
-        UPDATE_DATA
+        UPDATE_DATA,
+        FOREACH
     }
 }
