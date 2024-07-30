@@ -65,8 +65,7 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate =
-                central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, node.codedata().module(), node.codedata().symbol());
+        FlowNode nodeTemplate = central.getNodeTemplate(node.codedata());
         Optional<Property> client = node.getProperty("connection");
 
         if (client.isEmpty()) {
@@ -130,6 +129,6 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, codedata.module(), codedata.symbol());
+        this.cachedFlowNode = central.getNodeTemplate(codedata);
     }
 }

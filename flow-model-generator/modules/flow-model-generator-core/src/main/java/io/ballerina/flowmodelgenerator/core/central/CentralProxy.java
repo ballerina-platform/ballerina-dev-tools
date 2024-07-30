@@ -30,11 +30,13 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -51,6 +53,8 @@ public class CentralProxy implements Central {
 
     private final Gson gson;
     private Map<String, FlowNode> templateCache;
+    private static final String NODE_TEMPLATES_JSON = "node_templates.json";
+    private static final String CONNECTIONS_JSON = "connections.json";
 
     public CentralProxy() {
         this.gson = new GsonBuilder()
@@ -68,23 +72,28 @@ public class CentralProxy implements Central {
         return templateCache.get(key);
     }
 
-    private void initializeTemplateCache() {
-        try (JsonReader reader = new JsonReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("/node_templates.json"),
-                        StandardCharsets.UTF_8))) {
-            templateCache = new Gson().fromJson(reader, new FlowNodeTypeToken().getType());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public FlowNode getNodeTemplate(Codedata codedata) {
+        return getNodeTemplate(codedata.node(), codedata.module(), codedata.symbol());
     }
 
     @Override
     public List<Item> getAvailableConnections() {
-        try (JsonReader reader = new JsonReader(
-                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("/connections.json"),
-                        StandardCharsets.UTF_8))) {
-            Category connections = gson.fromJson(reader, Category.class);
-            return connections.items();
+        Category connections = readJsonResource(CONNECTIONS_JSON, Category.class);
+        return connections.items();
+    }
+
+    private void initializeTemplateCache() {
+        templateCache = readJsonResource(NODE_TEMPLATES_JSON, new FlowNodeTypeToken().getType());
+    }
+
+    private <T> T readJsonResource(String resourcePath, Type type) {
+        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
+        if (resourceStream == null) {
+            throw new IllegalArgumentException("Resource not found: " + resourcePath);
+        }
+        try (JsonReader reader = new JsonReader(new InputStreamReader(resourceStream, StandardCharsets.UTF_8))) {
+            return gson.fromJson(reader, type);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

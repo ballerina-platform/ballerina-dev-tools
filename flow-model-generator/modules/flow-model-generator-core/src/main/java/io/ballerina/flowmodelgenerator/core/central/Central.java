@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.central;
 
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 
@@ -39,6 +40,14 @@ public interface Central {
      * @return The node template
      */
     FlowNode getNodeTemplate(FlowNode.Kind node, String module, String symbol);
+
+    /**
+     * Get the node template for the given codedata.
+     *
+     * @param codedata The codedata
+     * @return The node template
+     */
+    FlowNode getNodeTemplate(Codedata codedata);
 
     /**
      * Get the available connections.

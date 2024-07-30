@@ -50,7 +50,7 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = central.getNodeTemplate(codedata.node(), codedata.module(), codedata.symbol());
+        this.cachedFlowNode = central.getNodeTemplate(codedata);
     }
 
     @Override
@@ -70,8 +70,7 @@ public class NewConnection extends NodeBuilder {
                     .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
         }
 
-        FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata().node(), flowNode.codedata().module(),
-                flowNode.codedata().symbol());
+        FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
         Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
         keys.remove("variable");
         keys.remove("type");
