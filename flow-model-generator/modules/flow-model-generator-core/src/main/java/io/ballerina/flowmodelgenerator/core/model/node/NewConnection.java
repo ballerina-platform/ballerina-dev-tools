@@ -28,6 +28,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -71,7 +72,7 @@ public class NewConnection extends NodeBuilder {
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata().node(), flowNode.codedata().module(),
                 flowNode.codedata().symbol());
-        Set<String> keys = nodeTemplate.properties().keySet();
+        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
         keys.remove("variable");
         keys.remove("type");
         keys.remove("scope");

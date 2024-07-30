@@ -28,6 +28,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -76,7 +77,7 @@ public class ActionCall extends NodeBuilder {
                 .name(nodeTemplate.metadata().label())
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
 
-        Set<String> keys = nodeTemplate.properties().keySet();
+        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
         keys.remove("connection");
         keys.remove("variable");
         keys.remove("type");

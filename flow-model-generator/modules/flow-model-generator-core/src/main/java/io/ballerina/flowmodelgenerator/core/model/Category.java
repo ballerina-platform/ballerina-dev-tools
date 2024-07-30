@@ -102,21 +102,6 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return this;
         }
 
-        public Builder node(FlowNode.Kind kind, String module, String symbol) {
-            NodeAttributes.Info info = NodeAttributes.getByKey(module, symbol);
-            AvailableNode node = NodeBuilder.getNodeFromKind(kind)
-                    .codedata()
-                    .module(module)
-                    .symbol(symbol)
-                    .stepOut()
-                    .metadata()
-                    .label(info.label())
-                    .stepOut()
-                    .buildAvailableNode();
-            this.availableNodes.add(node);
-            return this;
-        }
-
         public Category build() {
             // Check for illegal state where both nodes and categories are present
             if (!this.availableNodes.isEmpty() && !this.childBuilders.isEmpty()) {

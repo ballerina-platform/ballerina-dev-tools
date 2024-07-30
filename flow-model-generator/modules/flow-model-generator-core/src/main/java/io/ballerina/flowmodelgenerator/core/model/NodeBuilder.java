@@ -551,17 +551,17 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> defaultExpression(ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> scope() {
             Property property = propertyBuilder
                     .metadata()
-                    .label(info.label())
-                    .description(info.documentation())
+                    .label(SCOPE_LABEL)
+                    .description(SCOPE_DOC)
                     .stepOut()
-                    .value("")
-                    .type(Property.ValueType.EXPRESSION)
+                    .type(Property.ValueType.ENUM)
+                    .value("Global")
                     .editable()
                     .build();
-            addProperty(info.key(), property);
+            addProperty(SCOPE_KEY, property);
             return this;
         }
 
@@ -577,20 +577,6 @@ public abstract class NodeBuilder {
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
             addProperty(Property.COLLECTION_KEY, property);
-            return this;
-        }
-
-        public PropertiesBuilder<T> scope() {
-            Property property = propertyBuilder
-                    .metadata()
-                    .label(SCOPE_LABEL)
-                    .description(SCOPE_DOC)
-                    .stepOut()
-                    .type(Property.ValueType.ENUM)
-                    .value("Global")
-                    .editable()
-                    .build();
-            addProperty(SCOPE_KEY, property);
             return this;
         }
 
