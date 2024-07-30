@@ -314,7 +314,9 @@ class CodeAnalyzer extends NodeVisitor {
                                 .orElseThrow();
                 methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                         argumentNodes, params, nodeTemplate.properties()));
-            } catch (RuntimeException ignored) {}
+            } catch (RuntimeException ignored) {
+
+            }
             return;
         }
         startNode(FlowNode.Kind.EXPRESSION);

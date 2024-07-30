@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,9 +70,9 @@ public class CentralProxy implements Central {
 
     private void initializeTemplateCache() {
         try (JsonReader reader = new JsonReader(
-                new InputStreamReader(getClass().getResourceAsStream("/node_templates.json")))) {
-            templateCache = new Gson().fromJson(reader, new TypeToken<Map<String, FlowNode>>() {
-            }.getType());
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("/node_templates.json"),
+                        StandardCharsets.UTF_8))) {
+            templateCache = new Gson().fromJson(reader, new FlowNodeTypeToken().getType());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,12 +80,18 @@ public class CentralProxy implements Central {
 
     @Override
     public List<Item> getAvailableConnections() {
-        try (JsonReader reader = new JsonReader(new InputStreamReader(getClass().getResourceAsStream("/connections.json")))) {
+        try (JsonReader reader = new JsonReader(
+                new InputStreamReader(getClass().getClassLoader().getResourceAsStream("/connections.json"),
+                        StandardCharsets.UTF_8))) {
             Category connections = gson.fromJson(reader, Category.class);
             return connections.items();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static class FlowNodeTypeToken extends TypeToken<Map<String, FlowNode>> {
+
     }
 
     private static class ItemDeserializer implements JsonDeserializer<Item> {
