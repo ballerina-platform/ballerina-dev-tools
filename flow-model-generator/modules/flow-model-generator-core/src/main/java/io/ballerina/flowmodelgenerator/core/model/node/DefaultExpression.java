@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -49,16 +48,12 @@ public class DefaultExpression extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
-        Optional<Property> expression = flowNode.getProperty(Property.EXPRESSION_KEY);
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
-        if (variable.isPresent() && expression.isPresent()) {
+        Optional<Property> expression = flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (expression.isPresent()) {
             sourceBuilder.token()
-                    .expressionWithType(variable.get())
-                    .whiteSpace()
-                    .keyword(SyntaxKind.EQUAL_TOKEN)
-                    .whiteSpace()
                     .expression(expression.get())
                     .endOfStatement();
             return sourceBuilder.build(false);

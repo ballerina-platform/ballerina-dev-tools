@@ -80,7 +80,7 @@
           "character": 0
         }
       },
-      "newText": "final redis:Client connection = check new ();"
+      "newText": "redis:Client connection = check new ();"
     }
   ]
 }

@@ -78,7 +78,7 @@
           "character": 42
         }
       },
-      "newText": "final redis:Client localRedisCl = check new ();"
+      "newText": "redis:Client localRedisCl = check new ();"
     }
   ]
 }

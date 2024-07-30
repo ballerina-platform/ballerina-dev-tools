@@ -27,7 +27,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -53,24 +52,16 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
-        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
-        Optional<Property> type = flowNode.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
-
-        if (type.isPresent() && variable.isPresent()) {
-            sourceBuilder.token()
-                    .keyword(SyntaxKind.FINAL_KEYWORD)
-                    .expressionWithType(type.get(), variable.get())
-                    .keyword(SyntaxKind.EQUAL_TOKEN)
-                    .keyword(SyntaxKind.CHECK_KEYWORD)
-                    .keyword(SyntaxKind.NEW_KEYWORD);
-        }
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        sourceBuilder.functionParameters(nodeTemplate,
-                Set.of("variable", "type", "scope"));
-        return sourceBuilder.build(false);
+        return sourceBuilder.token()
+                .keyword(SyntaxKind.CHECK_KEYWORD)
+                .keyword(SyntaxKind.NEW_KEYWORD)
+                .stepOut()
+                .functionParameters(nodeTemplate, Set.of("variable", "type", "scope"))
+                .build(false);
     }
 
     private boolean isDefaultValue(Property node, Property templateNode) {

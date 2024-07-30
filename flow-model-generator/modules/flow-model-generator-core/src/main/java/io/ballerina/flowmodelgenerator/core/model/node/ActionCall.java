@@ -58,12 +58,13 @@ public class ActionCall extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        Optional<Property> client = flowNode.getProperty("connection");
 
-        if (client.isEmpty()) {
+        Optional<Property> connection = flowNode.getProperty("connection");
+        if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-        sourceBuilder.token().name(client.get().value())
+        sourceBuilder.token()
+                .name(connection.get().value())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label());
 

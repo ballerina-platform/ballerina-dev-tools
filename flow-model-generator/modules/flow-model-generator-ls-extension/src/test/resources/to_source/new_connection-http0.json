@@ -90,7 +90,7 @@
           "character": 0
         }
       },
-      "newText": "final http:Client connection = check new (, );"
+      "newText": "http:Client connection = check new (, );"
     }
   ]
 }

@@ -45,13 +45,8 @@ public class NewData extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
-        Optional<Property> dataType = flowNode.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
-        Optional<Property> dataVariable = flowNode.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
-        if (dataType.isPresent() && dataVariable.isPresent()) {
-            sourceBuilder.token().expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
-        }
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
         Optional<Property> exprProperty = flowNode.getProperty(Property.EXPRESSION_KEY);
         exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
