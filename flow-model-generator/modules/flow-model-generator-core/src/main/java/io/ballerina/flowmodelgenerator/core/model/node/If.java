@@ -60,7 +60,7 @@ public class If extends NodeBuilder {
         if (condition.isEmpty()) {
             throw new IllegalStateException("If node does not have a condition");
         }
-        sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
+        sourceBuilder.token().keyword(SyntaxKind.IF_KEYWORD)
                 .expression(condition.get())
                 .openBrace()
                 .addChildren(ifBranch.get().children());
@@ -68,19 +68,19 @@ public class If extends NodeBuilder {
         Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
         if (elseBranch.isPresent()) {
             List<FlowNode> children = elseBranch.get().children();
-            sourceBuilder
+            sourceBuilder.token()
                     .closeBrace()
                     .whiteSpace()
                     .keyword(SyntaxKind.ELSE_KEYWORD);
 
             // If there is only one child, and if that is an if node, generate an `else if` statement`
             if (children.size() != 1 || children.get(0).codedata().node() != FlowNode.Kind.IF) {
-                sourceBuilder.openBrace();
+                sourceBuilder.token().openBrace();
             }
-            sourceBuilder.addChildren(children);
+            sourceBuilder.token().addChildren(children);
         }
 
-        sourceBuilder.closeBrace();
+        sourceBuilder.token().closeBrace();
         return sourceBuilder.build(false);
     }
 

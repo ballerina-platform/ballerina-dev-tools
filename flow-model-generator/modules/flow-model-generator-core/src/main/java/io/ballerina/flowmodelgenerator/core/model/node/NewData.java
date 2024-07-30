@@ -50,11 +50,11 @@ public class NewData extends NodeBuilder {
         Optional<Property> dataType = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
         Optional<Property> dataVariable = node.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
         if (dataType.isPresent() && dataVariable.isPresent()) {
-            sourceBuilder.expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
+            sourceBuilder.token().expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
         }
 
         Optional<Property> exprProperty = node.getProperty(Property.EXPRESSION_KEY);
-        exprProperty.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
+        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }

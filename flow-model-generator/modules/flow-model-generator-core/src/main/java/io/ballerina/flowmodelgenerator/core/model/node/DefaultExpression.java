@@ -54,7 +54,7 @@ public class DefaultExpression extends NodeBuilder {
         Optional<Property> expression = node.getProperty(Property.EXPRESSION_KEY);
 
         if (variable.isPresent() && expression.isPresent()) {
-            sourceBuilder
+            sourceBuilder.token()
                     .expressionWithType(variable.get())
                     .whiteSpace()
                     .keyword(SyntaxKind.EQUAL_TOKEN)
@@ -69,7 +69,7 @@ public class DefaultExpression extends NodeBuilder {
             throw new IllegalStateException(
                     "One of from the following properties is required: variable, expression, statement");
         }
-        sourceBuilder
+        sourceBuilder.token()
                 .expression(statement.get())
                 .endOfStatement();
         return sourceBuilder.build(false);

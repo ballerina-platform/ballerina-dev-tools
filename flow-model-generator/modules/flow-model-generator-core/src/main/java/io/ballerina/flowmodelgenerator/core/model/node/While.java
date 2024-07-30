@@ -51,14 +51,14 @@ public class While extends NodeBuilder {
         Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
         Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
 
-        sourceBuilder.keyword(SyntaxKind.WHILE_KEYWORD);
-        condition.ifPresent(sourceBuilder::expression);
-        sourceBuilder.openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+        sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
+        condition.ifPresent(expression -> sourceBuilder.token().expression(expression));
+        sourceBuilder.token().openBrace();
+        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
+        sourceBuilder.token().closeBrace();
 
         // Handle the on fail branch
-        SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, node);
+        sourceBuilder.addOnFailure(node);
 
         return sourceBuilder.build(false);
     }

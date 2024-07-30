@@ -59,7 +59,7 @@ public class NewConnection extends NodeBuilder {
         Optional<Property> type = flowNode.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
-            sourceBuilder
+            sourceBuilder.token()
                     .keyword(SyntaxKind.FINAL_KEYWORD)
                     .expressionWithType(type.get(), variable.get())
                     .keyword(SyntaxKind.EQUAL_TOKEN)
@@ -68,7 +68,7 @@ public class NewConnection extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        SourceBuilder.TemplateFactory.addFunctionArguments(sourceBuilder, flowNode, nodeTemplate,
+        sourceBuilder.addFunctionArguments(flowNode, nodeTemplate,
                 Set.of("variable", "type", "scope"));
         return sourceBuilder.build(false);
     }

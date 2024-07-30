@@ -49,13 +49,13 @@ public class Lock extends NodeBuilder {
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
         Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
-        sourceBuilder
+        sourceBuilder.token()
                 .keyword(SyntaxKind.LOCK_KEYWORD)
                 .openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
+        sourceBuilder.token().closeBrace();
 
-        SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, node);
+        sourceBuilder.addOnFailure( node);
 
         return sourceBuilder.build(false);
     }

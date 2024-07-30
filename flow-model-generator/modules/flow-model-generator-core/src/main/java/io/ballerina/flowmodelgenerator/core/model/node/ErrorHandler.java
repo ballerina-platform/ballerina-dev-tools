@@ -23,7 +23,6 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.List;
@@ -51,13 +50,13 @@ public class ErrorHandler extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder();
         Optional<Branch> body = node.getBranch(ERROR_HANDLER_BODY);
 
-        sourceBuilder
+        sourceBuilder.token()
                 .keyword(SyntaxKind.DO_KEYWORD)
                 .openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
+        sourceBuilder.token().closeBrace();
 
-        SourceBuilder.TemplateFactory.addOnFailure(sourceBuilder, node);
+        sourceBuilder.addOnFailure(node);
         return sourceBuilder.build(false);
     }
 

@@ -48,10 +48,10 @@ public class UpdateData extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
         Optional<Property> property = node.getProperty(Property.VARIABLE_KEY);
-        property.ifPresent(value -> sourceBuilder.expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
+        property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
 
         property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
+        property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }

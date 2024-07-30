@@ -48,12 +48,12 @@ public class Fail extends NodeBuilder {
     public String toSource(FlowNode node) {
         SourceBuilder sourceBuilder = new SourceBuilder();
 
-        sourceBuilder.keyword(SyntaxKind.FAIL_KEYWORD);
+        sourceBuilder.token().keyword(SyntaxKind.FAIL_KEYWORD);
         Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder
+        property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
-        sourceBuilder.endOfStatement();
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.build(false);
     }
 
