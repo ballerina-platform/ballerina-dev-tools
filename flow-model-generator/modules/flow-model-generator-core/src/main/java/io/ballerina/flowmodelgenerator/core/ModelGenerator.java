@@ -59,7 +59,6 @@ public class ModelGenerator {
     private final LineRange lineRange;
     private final Path filePath;
     private final Gson gson;
-    private final Central central;
 
     public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath) {
         this.semanticModel = model;
@@ -67,7 +66,6 @@ public class ModelGenerator {
         this.lineRange = lineRange;
         this.filePath = filePath;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-        this.central = new CentralProxy();
     }
 
     /**

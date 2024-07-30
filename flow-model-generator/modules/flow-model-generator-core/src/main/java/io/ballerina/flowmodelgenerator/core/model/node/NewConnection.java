@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.flowmodelgenerator.core.central.Central;
+import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -30,16 +32,17 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 public class NewConnection extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
+    private static final Central central = new CentralProxy();
 
     @Override
     public void setConcreteConstData() {
         metadata().label(NEW_CONNECTION_LABEL);
-        codedata().node(FlowNode.Kind.NEW_CONNECTION);
+        codedata().node(FlowNode.Kind.NEW_CONNECTION).symbol("init");
     }
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-
+        this.cachedFlowNode = central.getNodeTemplate(codedata.node(), codedata.module(), codedata.symbol());
     }
 
     @Override
