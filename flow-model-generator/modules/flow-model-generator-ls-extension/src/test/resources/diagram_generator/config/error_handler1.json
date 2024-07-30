@@ -205,7 +205,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Update variable"
                     },
                     "valueType": "string",
                     "value": "res2.toString()",
@@ -271,7 +271,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Update variable"
                     },
                     "valueType": "string",
                     "value": "\"Failed to get the response\"",

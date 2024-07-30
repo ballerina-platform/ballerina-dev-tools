@@ -13,6 +13,26 @@
       "node": "UPDATE_DATA"
     },
     "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "value": "item",
+        "optional": true,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Update variable"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
     "flags": 0
   }
 }

@@ -132,7 +132,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Update variable"
                     },
                     "valueType": "string",
                     "value": "\"cheap\"",
@@ -339,7 +339,7 @@
                                   "expression": {
                                     "metadata": {
                                       "label": "Expression",
-                                      "description": "Expression"
+                                      "description": "Update variable"
                                     },
                                     "valueType": "string",
                                     "value": "\"fresh; \"",
@@ -405,7 +405,7 @@
                                   "expression": {
                                     "metadata": {
                                       "label": "Expression",
-                                      "description": "Expression"
+                                      "description": "Update variable"
                                     },
                                     "valueType": "string",
                                     "value": "\"expired; \"",
@@ -545,7 +545,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Update variable"
                             },
                             "valueType": "string",
                             "value": "\"expensive\"",

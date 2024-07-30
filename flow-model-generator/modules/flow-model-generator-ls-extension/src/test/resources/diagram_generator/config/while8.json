@@ -311,7 +311,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Update variable"
                             },
                             "valueType": "string",
                             "value": "\"Response received from food service: \" + response.toString()",
@@ -377,7 +377,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Update variable"
                             },
                             "valueType": "string",
                             "value": "\"Error occurred while invoking food service: \" + response.message()",

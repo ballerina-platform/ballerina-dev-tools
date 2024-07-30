@@ -113,7 +113,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
             "valueType": "string",
             "value": "string `${str1} ${str1}`",

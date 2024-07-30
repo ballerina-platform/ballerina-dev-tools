@@ -58,6 +58,6 @@ public class UpdateData extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-
+        properties().defaultVariable().defaultExpression(UPDATE_DATA_EXPRESSION_DOC);
     }
 }

@@ -195,7 +195,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Expression"
+                              "description": "Update variable"
                             },
                             "valueType": "int",
                             "value": "3",

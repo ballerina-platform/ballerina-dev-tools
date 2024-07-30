@@ -83,6 +83,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
+import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -366,7 +367,7 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.UPDATE_DATA)
                     .properties()
-                    .expression(expression)
+                    .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
                     .variable(assignmentStatementNode.varRef());
         }
 

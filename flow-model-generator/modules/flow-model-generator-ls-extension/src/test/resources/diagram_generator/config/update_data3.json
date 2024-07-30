@@ -113,7 +113,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
             "valueType": "map<json>",
             "value": "{\"name\": \"Marry\", \"age\": 33}",
