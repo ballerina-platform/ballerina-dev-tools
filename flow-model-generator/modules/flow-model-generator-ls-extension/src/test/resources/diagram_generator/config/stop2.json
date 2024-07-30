@@ -1,0 +1,256 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 0
+  },
+  "end": {
+    "line": 11,
+    "offset": 1
+  },
+  "source": "stop.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "stop.bal",
+    "nodes": [
+      {
+        "id": "35930",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "36957",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "stop.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 7,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "x == 2 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "37959",
+                "metadata": {
+                  "label": "Stop",
+                  "description": "Stop the flow"
+                },
+                "codedata": {
+                  "node": "STOP",
+                  "lineRange": {
+                    "fileName": "stop.bal",
+                    "startLine": {
+                      "line": 6,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 6,
+                      "offset": 15
+                    }
+                  }
+                },
+                "returning": true,
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "lineRange": {
+                "fileName": "stop.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 6
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "39096",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "stop.bal",
+                    "startLine": {
+                      "line": 7,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 9,
+                      "offset": 5
+                    }
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "lineRange": {
+                        "fileName": "stop.bal",
+                        "startLine": {
+                          "line": 7,
+                          "offset": 21
+                        },
+                        "endLine": {
+                          "line": 9,
+                          "offset": 5
+                        }
+                      }
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "x == 3 ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "39945",
+                        "metadata": {
+                          "label": "Return",
+                          "description": "Return a value"
+                        },
+                        "codedata": {
+                          "node": "RETURN",
+                          "lineRange": {
+                            "fileName": "stop.bal",
+                            "startLine": {
+                              "line": 8,
+                              "offset": 8
+                            },
+                            "endLine": {
+                              "line": 8,
+                              "offset": 17
+                            }
+                          }
+                        },
+                        "returning": true,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Return value"
+                            },
+                            "valueType": "3",
+                            "value": "x",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "41799",
+        "metadata": {
+          "label": "Stop",
+          "description": "Stop the flow"
+        },
+        "codedata": {
+          "node": "STOP",
+          "lineRange": {
+            "fileName": "stop.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 11
+            }
+          }
+        },
+        "returning": true,
+        "flags": 0
+      }
+    ],
+    "clients": []
+  }
+}
