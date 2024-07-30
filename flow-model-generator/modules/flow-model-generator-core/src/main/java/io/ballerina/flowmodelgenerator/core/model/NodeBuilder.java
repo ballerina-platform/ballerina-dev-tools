@@ -335,16 +335,18 @@ public abstract class NodeBuilder {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
-            for (FunctionArgumentNode argument : arguments) {
-                switch (argument.kind()) {
-                    case NAMED_ARG -> {
-                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
-                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                namedArgument.expression());
-                    }
-                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
-                    default -> {
-                        // Ignore the default case
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
                     }
                 }
             }
@@ -471,7 +473,8 @@ public abstract class NodeBuilder {
             addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
 
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
-                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, false)));
+                    .ifPresent(typeSymbol -> propertyBuilder.value(
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false)));
             Property type = propertyBuilder
                     .metadata()
                     .label(Property.ON_ERROR_TYPE_LABEL)

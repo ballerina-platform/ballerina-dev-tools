@@ -1,0 +1,65 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "module": "redis",
+    "symbol": "init"
+  },
+  "output": {
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "init"
+    },
+    "returning": false,
+    "properties": {
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "Enum",
+        "value": "Global",
+        "optional": false,
+        "editable": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store the connection"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the connection"
+        },
+        "valueType": "Type",
+        "value": "redis:Client",
+        "optional": false,
+        "editable": false
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "configuration for the connector\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  }
+}
