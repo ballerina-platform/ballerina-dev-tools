@@ -67,6 +67,7 @@ public class AvailableNodesGenerator {
                     .stepOut()
                     .stepIn(Category.Name.CONTROL)
                         .node(FlowNode.Kind.RETURN)
+                        .node(FlowNode.Kind.STOP)
                     .stepOut()
                 .stepOut()
                 .stepIn(Category.Name.DATA)

@@ -95,6 +95,16 @@
                 "node": "RETURN"
               },
               "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Stop",
+                "description": "Stop the flow"
+              },
+              "codedata": {
+                "node": "STOP"
+              },
+              "enabled": true
             }
           ]
         }
@@ -201,6 +211,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
@@ -432,6 +443,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerina",
                 "module": "graphql",
                 "object": "Client",
@@ -481,6 +493,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerina",
                 "module": "grpc",
                 "object": "Client",
@@ -558,6 +571,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerina",
                 "module": "grpc",
                 "object": "StreamingClient",
@@ -635,6 +649,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerina",
                 "module": "websocket",
                 "object": "Client",
@@ -789,6 +804,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerinax",
                 "module": "mysql",
                 "object": "Client",
@@ -880,6 +896,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerinax",
                 "module": "redis",
                 "object": "Client",
@@ -2399,6 +2416,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerinax",
                 "module": "mssql",
                 "object": "Client",
@@ -2490,6 +2508,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerinax",
                 "module": "mongodb",
                 "object": "Client",
@@ -2553,6 +2572,7 @@
                 "description": "Create a new connection"
               },
               "codedata": {
+                "node": "NEW_CONNECTION",
                 "org": "ballerinax",
                 "module": "postgresql",
                 "object": "Client",
