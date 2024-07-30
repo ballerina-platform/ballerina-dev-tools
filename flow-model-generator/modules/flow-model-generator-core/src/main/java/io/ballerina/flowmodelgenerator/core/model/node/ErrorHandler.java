@@ -46,9 +46,9 @@ public class ErrorHandler extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Branch> body = node.getBranch(ERROR_HANDLER_BODY);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Branch> body = flowNode.getBranch(ERROR_HANDLER_BODY);
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.DO_KEYWORD)
@@ -56,7 +56,7 @@ public class ErrorHandler extends NodeBuilder {
         body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
         sourceBuilder.token().closeBrace();
 
-        sourceBuilder.onFailure(node);
+        sourceBuilder.onFailure();
         return sourceBuilder.build(false);
     }
 

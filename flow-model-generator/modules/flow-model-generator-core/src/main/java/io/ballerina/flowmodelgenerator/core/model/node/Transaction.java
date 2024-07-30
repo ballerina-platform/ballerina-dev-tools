@@ -45,16 +45,16 @@ public class Transaction extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
         sourceBuilder.token()
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
                 .openBrace();
         body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
         sourceBuilder.token().closeBrace();
 
-        sourceBuilder.onFailure( node);
+        sourceBuilder.onFailure();
 
         return sourceBuilder.build(false);
     }

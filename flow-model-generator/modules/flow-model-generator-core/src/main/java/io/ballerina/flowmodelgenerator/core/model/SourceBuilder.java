@@ -33,13 +33,26 @@ import java.util.Set;
 public class SourceBuilder {
 
     private final TokenBuilder tokenBuilder;
+    private final FlowNode flowNode;
 
-    public SourceBuilder() {
+    public SourceBuilder(FlowNode flowNode) {
         tokenBuilder = new TokenBuilder(this);
+        this.flowNode = flowNode;
     }
 
     public TokenBuilder token() {
         return tokenBuilder;
+    }
+
+    public SourceBuilder newVariable() {
+        Optional<Property> type = flowNode.getProperty(NodeBuilder.PropertiesBuilder.DATA_TYPE_KEY);
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+            tokenBuilder.expressionWithType(type.get(), variable.get())
+                    .keyword(SyntaxKind.EQUAL_TOKEN);
+        }
+        return this;
     }
 
     /**
@@ -50,10 +63,10 @@ public class SourceBuilder {
      *     }
      * }</pre>
      */
-    public void onFailure(FlowNode flowNode) {
+    public SourceBuilder onFailure() {
         Optional<Branch> optOnFailureBranch = flowNode.getBranch(Branch.ON_FAILURE_LABEL);
         if (optOnFailureBranch.isEmpty()) {
-            return;
+            return this;
         }
         Branch onFailureBranch = optOnFailureBranch.get();
 
@@ -73,6 +86,7 @@ public class SourceBuilder {
         tokenBuilder.openBrace()
                 .addChildren(onFailureBranch.children())
                 .closeBrace();
+        return this;
     }
 
     /**
@@ -84,11 +98,10 @@ public class SourceBuilder {
      *  (<mandatory-arg>..., <named_arg>=<default-value>...);
      * }</pre>
      *
-     * @param flowNode          The <code>FlowNode</code> instance containing the actual properties.
      * @param nodeTemplate      The <code>FlowNode</code> instance containing the template properties.
      * @param ignoredProperties A set of property keys to be ignored during the processing.
      */
-    public void functionParameters(FlowNode flowNode, FlowNode nodeTemplate, Set<String> ignoredProperties) {
+    public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties) {
         tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
         Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
         keys.removeAll(ignoredProperties);
@@ -124,6 +137,7 @@ public class SourceBuilder {
         tokenBuilder
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
                 .endOfStatement();
+        return this;
     }
 
     public String build(boolean isExpression) {

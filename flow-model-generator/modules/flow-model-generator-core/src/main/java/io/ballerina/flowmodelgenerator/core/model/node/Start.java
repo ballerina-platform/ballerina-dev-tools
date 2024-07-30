@@ -45,11 +45,11 @@ public class Start extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
         sourceBuilder.token().keyword(SyntaxKind.START_KEYWORD);
-        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> property = flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));

@@ -53,7 +53,7 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
         Optional<Property> type = flowNode.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
@@ -68,7 +68,7 @@ public class NewConnection extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
-        sourceBuilder.functionParameters(flowNode, nodeTemplate,
+        sourceBuilder.functionParameters(nodeTemplate,
                 Set.of("variable", "type", "scope"));
         return sourceBuilder.build(false);
     }

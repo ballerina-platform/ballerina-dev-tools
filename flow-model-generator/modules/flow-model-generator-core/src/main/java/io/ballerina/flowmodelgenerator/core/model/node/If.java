@@ -49,10 +49,10 @@ public class If extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
-        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
+        Optional<Branch> ifBranch = flowNode.getBranch(IF_THEN_LABEL);
         if (ifBranch.isEmpty()) {
             throw new IllegalStateException("If node does not have a then branch");
         }
@@ -65,7 +65,7 @@ public class If extends NodeBuilder {
                 .openBrace()
                 .addChildren(ifBranch.get().children());
 
-        Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
+        Optional<Branch> elseBranch = flowNode.getBranch(IF_ELSE_LABEL);
         if (elseBranch.isPresent()) {
             List<FlowNode> children = elseBranch.get().children();
             sourceBuilder.token()

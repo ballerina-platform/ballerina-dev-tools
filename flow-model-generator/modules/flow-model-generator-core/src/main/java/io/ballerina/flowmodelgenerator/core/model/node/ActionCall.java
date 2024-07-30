@@ -45,26 +45,20 @@ public class ActionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
-        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
-        Optional<Property> type = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
-
-        if (type.isPresent() && variable.isPresent()) {
-            sourceBuilder.token().expressionWithType(type.get(), variable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
-        }
-
-        if (node.returning()) {
+        if (flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (node.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = central.getNodeTemplate(node.codedata());
-        Optional<Property> client = node.getProperty("connection");
+        FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
+        Optional<Property> client = flowNode.getProperty("connection");
 
         if (client.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
@@ -73,7 +67,7 @@ public class ActionCall extends NodeBuilder {
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label());
 
-        sourceBuilder.functionParameters(node, nodeTemplate, Set.of("connection", "variable", "type", "targetType"));
+        sourceBuilder.functionParameters(nodeTemplate, Set.of("connection", "variable", "type", "targetType"));
         return sourceBuilder.build(false);
     }
 

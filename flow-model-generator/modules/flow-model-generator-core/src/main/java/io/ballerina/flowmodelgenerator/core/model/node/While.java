@@ -46,10 +46,10 @@ public class While extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Property> condition = flowNode.getProperty(Property.CONDITION_KEY);
+        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
 
         sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
         condition.ifPresent(expression -> sourceBuilder.token().expression(expression));
@@ -58,7 +58,7 @@ public class While extends NodeBuilder {
         sourceBuilder.token().closeBrace();
 
         // Handle the on fail branch
-        sourceBuilder.onFailure(node);
+        sourceBuilder.onFailure();
 
         return sourceBuilder.build(false);
     }
