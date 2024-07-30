@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -53,9 +54,7 @@ public class While extends NodeBuilder {
 
         sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
         condition.ifPresent(expression -> sourceBuilder.token().expression(expression));
-        sourceBuilder.token().openBrace();
-        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
-        sourceBuilder.token().closeBrace();
+        sourceBuilder.body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
         // Handle the on fail branch
         sourceBuilder.onFailure();

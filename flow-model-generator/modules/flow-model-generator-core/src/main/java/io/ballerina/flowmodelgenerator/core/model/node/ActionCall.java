@@ -63,13 +63,13 @@ public class ActionCall extends NodeBuilder {
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-        sourceBuilder.token()
+        return sourceBuilder.token()
                 .name(connection.get().value())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(nodeTemplate.metadata().label());
-
-        sourceBuilder.functionParameters(nodeTemplate, Set.of("connection", "variable", "type", "targetType"));
-        return sourceBuilder.build(false);
+                .name(nodeTemplate.metadata().label())
+                .stepOut()
+                .functionParameters(nodeTemplate, Set.of("connection", "variable", "type", "targetType"))
+                .build(false);
     }
 
     @Override

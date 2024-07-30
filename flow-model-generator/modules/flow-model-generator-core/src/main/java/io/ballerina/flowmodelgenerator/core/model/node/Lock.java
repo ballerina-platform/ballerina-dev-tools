@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,15 +49,12 @@ public class Lock extends NodeBuilder {
     public String toSource(FlowNode flowNode) {
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
         Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
-        sourceBuilder.token()
+        return sourceBuilder.token()
                 .keyword(SyntaxKind.LOCK_KEYWORD)
-                .openBrace();
-        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
-        sourceBuilder.token().closeBrace();
-
-        sourceBuilder.onFailure();
-
-        return sourceBuilder.build(false);
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                .onFailure()
+                .build(false);
     }
 
     @Override

@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +53,8 @@ public class ErrorHandler extends NodeBuilder {
 
         sourceBuilder.token()
                 .keyword(SyntaxKind.DO_KEYWORD)
-                .openBrace();
-        body.ifPresent(branch -> sourceBuilder.token().addChildren(branch.children()));
-        sourceBuilder.token().closeBrace();
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
         sourceBuilder.onFailure();
         return sourceBuilder.build(false);

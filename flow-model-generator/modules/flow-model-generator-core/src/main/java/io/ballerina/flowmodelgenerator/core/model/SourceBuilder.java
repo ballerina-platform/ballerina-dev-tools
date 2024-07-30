@@ -55,9 +55,23 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder body(List<FlowNode> flowNodes) {
+        tokenBuilder.openBrace();
+        children(flowNodes);
+        tokenBuilder.closeBrace();
+        return this;
+    }
+
+    public SourceBuilder children(List<FlowNode> flowNodes) {
+        flowNodes.forEach(childNode -> tokenBuilder.name(
+                NodeBuilder.getNodeFromKind(childNode.codedata().node()).toSource(childNode)));
+        return this;
+    }
+
     /**
      * Adds an <code>on fail</code> block to the provided <code>SourceBuilder</code>.
      * <pre>{@code
+     *
      *     on fail <errorType> <errorVariable> {
      *          <statement>...
      *     }
@@ -83,9 +97,7 @@ public class SourceBuilder {
         }
 
         // Build the body
-        tokenBuilder.openBrace()
-                .addChildren(onFailureBranch.children())
-                .closeBrace();
+        body(onFailureBranch.children());
         return this;
     }
 
@@ -196,12 +208,6 @@ public class SourceBuilder {
             sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
                     .append(System.lineSeparator());
-            return this;
-        }
-
-        public TokenBuilder addChildren(List<FlowNode> flowNodes) {
-            flowNodes.forEach(
-                    flowNode -> sb.append(NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(flowNode)));
             return this;
         }
 
