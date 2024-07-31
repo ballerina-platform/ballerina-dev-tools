@@ -1,0 +1,71 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "64637",
+    "metadata": {
+      "label": "NewData",
+      "description": "Create new variable"
+    },
+    "codedata": {
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 33,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 33,
+          "offset": 33
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "[int, int]",
+        "value": "[1, 2]",
+        "optional": false,
+        "editable": true
+      },
+      "dataVariable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "newData2 ",
+        "optional": false,
+        "editable": true
+      },
+      "dataType": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "[int, int]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 33,
+          "character": 4
+        },
+        "end": {
+          "line": 33,
+          "character": 33
+        }
+      },
+      "newText": "[int, int] newData2 = [1, 2];"
+    }
+  ]
+}

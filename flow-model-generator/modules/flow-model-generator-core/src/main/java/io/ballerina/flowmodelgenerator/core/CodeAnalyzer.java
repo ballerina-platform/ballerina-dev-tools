@@ -43,6 +43,7 @@ import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
+import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
@@ -501,6 +502,21 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties()
                     .expression(mappingCtrExprNode)
                     .variable(((AssignmentStatementNode) mappingCtrExprNode.parent()).varRef());
+        }
+    }
+
+    @Override
+    public void visit(ListConstructorExpressionNode listCtrExprNode) {
+        SyntaxKind kind = listCtrExprNode.parent().kind();
+        if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
+            startNode(FlowNode.Kind.NEW_DATA)
+                    .properties()
+                    .expression(listCtrExprNode);
+        } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
+            startNode(FlowNode.Kind.UPDATE_DATA)
+                    .properties()
+                    .expression(listCtrExprNode)
+                    .variable(((AssignmentStatementNode) listCtrExprNode.parent()).varRef());
         }
     }
 
