@@ -58,7 +58,8 @@
         "id": "45965",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -163,7 +164,8 @@
         "id": "46962",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -250,7 +252,8 @@
         "id": "47944",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -344,7 +347,8 @@
         "id": "48962",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -439,7 +443,8 @@
         "id": "49908",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -533,7 +538,8 @@
         "id": "50924",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -628,7 +634,8 @@
         "id": "51936",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -723,7 +730,8 @@
         "id": "55864",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -817,7 +825,8 @@
         "id": "56876",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",

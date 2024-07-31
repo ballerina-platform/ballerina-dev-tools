@@ -55,6 +55,7 @@ public class NewData extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
+        metadata().description(String.format(DESCRIPTION, "name", "var"));
         properties().defaultDataVariable().defaultExpression(NEW_DATA_EXPRESSION_DOC);
     }
 }

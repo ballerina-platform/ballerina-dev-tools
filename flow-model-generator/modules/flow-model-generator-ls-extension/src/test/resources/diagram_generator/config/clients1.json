@@ -39,7 +39,8 @@
         "id": "45807",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -223,7 +224,8 @@
         "id": "49773",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",

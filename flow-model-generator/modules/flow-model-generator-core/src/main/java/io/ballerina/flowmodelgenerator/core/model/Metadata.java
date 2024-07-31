@@ -27,15 +27,17 @@ import java.util.List;
  * @param label       The label of the component
  * @param description The description of the component
  * @param keywords    The keywords of the component
+ * @param icon        The icon of the component
  * @since 1.5.0
  */
-public record Metadata(String label, String description, List<String> keywords) {
+public record Metadata(String label, String description, List<String> keywords, String icon) {
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private String label;
         private String description;
         private List<String> keywords;
+        private String icon;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -56,8 +58,13 @@ public record Metadata(String label, String description, List<String> keywords) 
             return this;
         }
 
+        public Builder<T> icon(String icon) {
+            this.icon = icon;
+            return this;
+        }
+
         public Metadata build() {
-            return new Metadata(label, description, keywords);
+            return new Metadata(label, description, keywords, icon);
         }
     }
 }

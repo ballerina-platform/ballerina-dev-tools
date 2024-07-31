@@ -2,13 +2,15 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "NEW_CONNECTION",
+    "org": "ballerina",
     "module": "http",
     "symbol": "init"
   },
   "output": {
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection"
+      "description": "Create a new connection",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -45,7 +47,7 @@
           "description": "Type of the connection"
         },
         "valueType": "Type",
-        "value": "http:Client",
+        "value": "ClientError",
         "optional": false,
         "editable": false
       },

@@ -119,7 +119,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             }
 
             // Create and return the new category with the built items
-            return new Category(new Metadata(name.name, name.description, name.keywords), items);
+            return new Category(new Metadata(name.name, name.description, name.keywords, null), items);
         }
     }
 }

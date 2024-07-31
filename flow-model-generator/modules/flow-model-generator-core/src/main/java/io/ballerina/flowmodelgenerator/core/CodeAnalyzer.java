@@ -190,13 +190,15 @@ class CodeAnalyzer extends NodeVisitor {
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
+        String orgName = symbol.get().getModule().get().id().orgName();
 
-        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, moduleName, methodName);
+        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, orgName, moduleName, methodName);
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
                     .metadata()
                     .label(nodeTemplate.metadata().label())
                     .description(nodeTemplate.metadata().description())
+                    .icon(nodeTemplate.metadata().icon())
                     .stepOut()
                     .codedata()
                     .org(nodeTemplate.codedata().org())
@@ -299,7 +301,8 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
-        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.NEW_CONNECTION, moduleName, "init");
+        String orgName = typeSymbol.get().getModule().get().id().orgName();
+        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "init");
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.NEW_CONNECTION)
                     .metadata()

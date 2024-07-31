@@ -6,8 +6,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Return",
-      "description": "Return a value"
+      "label": "Return"
     },
     "codedata": {
       "node": "RETURN"
@@ -19,6 +18,7 @@
           "label": "Expression",
           "description": "Return value"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

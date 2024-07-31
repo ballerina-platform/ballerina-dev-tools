@@ -19,6 +19,7 @@
           "label": "Expression",
           "description": "Panic value"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

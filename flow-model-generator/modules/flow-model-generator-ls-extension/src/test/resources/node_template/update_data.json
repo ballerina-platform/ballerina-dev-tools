@@ -6,8 +6,8 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "UpdateData",
-      "description": "Update the value of a variable"
+      "label": "Update Variable",
+      "description": "Update the value of the variable 'name'"
     },
     "codedata": {
       "node": "UPDATE_DATA"
@@ -19,6 +19,7 @@
           "label": "Variable",
           "description": "Result Variable"
         },
+        "valueType": "IDENTIFIER",
         "value": "item",
         "optional": true,
         "editable": true
@@ -28,6 +29,7 @@
           "label": "Expression",
           "description": "Update variable"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

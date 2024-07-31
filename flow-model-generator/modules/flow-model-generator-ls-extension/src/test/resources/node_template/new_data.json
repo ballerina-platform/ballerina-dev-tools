@@ -7,7 +7,7 @@
     "id": "31",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'name' with type 'var'"
     },
     "codedata": {
       "node": "NEW_DATA"
@@ -37,6 +37,7 @@
           "label": "Expression",
           "description": "Create new variable"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

@@ -19,6 +19,7 @@
           "label": "Expression",
           "description": "Call action or expression"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

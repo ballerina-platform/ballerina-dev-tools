@@ -181,7 +181,8 @@
                                 "id": "77094",
                                 "metadata": {
                                   "label": "post",
-                                  "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+                                  "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                                 },
                                 "codedata": {
                                   "node": "ACTION_CALL",
@@ -365,7 +366,8 @@
                                 "id": "81043",
                                 "metadata": {
                                   "label": "get",
-                                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+                                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                                 },
                                 "codedata": {
                                   "node": "ACTION_CALL",

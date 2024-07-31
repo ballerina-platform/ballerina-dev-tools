@@ -58,6 +58,7 @@ public class UpdateData extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
+        metadata().description(String.format(DESCRIPTION, "name"));
         properties().defaultVariable().defaultExpression(UPDATE_DATA_EXPRESSION_DOC);
     }
 }

@@ -2,13 +2,15 @@
   "description": "Sample diagram node",
   "codedata": {
     "node": "ACTION_CALL",
+    "org": "ballerinax",
     "module": "redis",
     "symbol": "set"
   },
   "output": {
     "metadata": {
       "label": "set",
-      "description": "Set the value of a key.\n\n"
+      "description": "Set the value of a key.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
