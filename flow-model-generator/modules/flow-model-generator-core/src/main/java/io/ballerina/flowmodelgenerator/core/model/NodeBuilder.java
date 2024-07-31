@@ -570,7 +570,6 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> collection(Node expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
             Property property = propertyBuilder
                     .metadata()
                     .label(Property.COLLECTION_LABEL)
@@ -579,6 +578,7 @@ public abstract class NodeBuilder {
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.COLLECTION_KEY, property);
             return this;

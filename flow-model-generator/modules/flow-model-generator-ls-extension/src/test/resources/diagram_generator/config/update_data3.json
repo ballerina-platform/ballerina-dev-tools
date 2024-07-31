@@ -39,7 +39,7 @@
         "id": "43814",
         "metadata": {
           "label": "New Variable",
-          "description": "New variable 'j1' with type 'json'"
+          "description": "New variable 'j1' with type 'map'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -91,8 +91,7 @@
       {
         "id": "44802",
         "metadata": {
-          "label": "Update Variable",
-          "description": "Update the value of the variable 'j1'"
+          "label": "Update Variable"
         },
         "codedata": {
           "node": "UPDATE_DATA",
@@ -113,7 +112,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Update variable"
+              "description": "Expression"
             },
             "valueType": "map<json>",
             "value": "{\"name\": \"Marry\", \"age\": 33}",

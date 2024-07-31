@@ -272,8 +272,8 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "NewData",
-                          "description": "Create new variable"
+                          "label": "New Variable",
+                          "description": "New variable 'newData' with type 'map'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -634,7 +634,7 @@
                         "id": "75968",
                         "metadata": {
                           "label": "New Variable",
-                          "description": "New variable 'newData' with type 'json'"
+                          "description": "New variable 'newData' with type 'map'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",

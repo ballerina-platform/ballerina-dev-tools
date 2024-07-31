@@ -351,10 +351,8 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
-                    .description(String.format(NewData.DESCRIPTION,
-                            CommonUtils.getVariableName(variableDeclarationNode.typedBindingPattern()),
-                            CommonUtils.getVariableName(
-                                    variableDeclarationNode.typedBindingPattern().typeDescriptor())))
+                    .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
+                            variableDeclarationNode.typedBindingPattern().typeDescriptor())
                     .stepOut()
                     .properties()
                     .expression(initializerNode);
@@ -571,9 +569,8 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties()
                 .dataVariable(forEachStatementNode.typedBindingPattern())
                 .collection(forEachStatementNode.actionOrExpressionNode());
-        // TODO: Check whether we need to
-        Branch.Builder branchBuilder = startBranch(Branch.BODY_LABEL, Branch.BranchKind.BLOCK)
-                .repeatable(Branch.Repeatable.ONE);
+        Branch.Builder branchBuilder =
+                startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = forEachStatementNode.blockStatement();
         for (StatementNode statement : blockStatementNode.statements()) {
             statement.accept(this);
@@ -647,6 +644,7 @@ class CodeAnalyzer extends NodeVisitor {
         SyntaxKind kind = mappingCtrExprNode.parent().kind();
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
             startNode(FlowNode.Kind.NEW_DATA)
+                    .metadata().description(NewData.DESCRIPTION, this.typedBindingPatternNode, "map").stepOut()
                     .properties()
                     .expression(mappingCtrExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
@@ -662,6 +660,7 @@ class CodeAnalyzer extends NodeVisitor {
         SyntaxKind kind = listCtrExprNode.parent().kind();
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
             startNode(FlowNode.Kind.NEW_DATA)
+                    .metadata().description(NewData.DESCRIPTION, this.typedBindingPatternNode, "list").stepOut()
                     .properties()
                     .expression(listCtrExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {

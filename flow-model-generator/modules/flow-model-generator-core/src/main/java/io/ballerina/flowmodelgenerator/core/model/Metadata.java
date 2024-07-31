@@ -19,6 +19,9 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+
 import java.util.List;
 
 /**
@@ -50,6 +53,16 @@ public record Metadata(String label, String description, List<String> keywords, 
 
         public Builder<T> description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Builder<T> description(String format, Object... args) {
+            Object[] preprocessedArgs = new Object[args.length];
+            for (int i = 0; i < args.length; i++) {
+                Object arg = args[i];
+                preprocessedArgs[i] = (arg instanceof Node) ? CommonUtils.getVariableName((Node) arg) : arg;
+            }
+            this.description = String.format(format, preprocessedArgs);
             return this;
         }
 
