@@ -55,6 +55,16 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder typedBindingPattern() {
+        Optional<Property> type = flowNode.getProperty(NodeBuilder.PropertiesBuilder.DATA_TYPE_KEY);
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+            tokenBuilder.expressionWithType(type.get(), variable.get());
+        }
+        return this;
+    }
+
     public SourceBuilder body(List<FlowNode> flowNodes) {
         tokenBuilder.openBrace();
         children(flowNodes);
@@ -185,7 +195,7 @@ public class SourceBuilder {
         }
 
         public TokenBuilder expressionWithType(Property type, Property variable) {
-            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode());
+            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
             return this;
         }
 

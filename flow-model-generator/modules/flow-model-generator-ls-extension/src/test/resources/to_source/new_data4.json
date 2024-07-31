@@ -4,7 +4,7 @@
     "id": "35855",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'd1' with type 'decimal'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "d1 ",
+        "value": "d1",
         "optional": false,
         "editable": true
       },

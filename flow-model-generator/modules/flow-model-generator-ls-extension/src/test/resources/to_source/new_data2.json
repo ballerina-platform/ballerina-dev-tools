@@ -4,7 +4,7 @@
     "id": "33871",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'f' with type 'float'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "f ",
+        "value": "f",
         "optional": false,
         "editable": true
       },

@@ -4,7 +4,7 @@
     "id": "54721",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'x1' with type 'xml'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "x1 ",
+        "value": "x1",
         "optional": false,
         "editable": true
       },

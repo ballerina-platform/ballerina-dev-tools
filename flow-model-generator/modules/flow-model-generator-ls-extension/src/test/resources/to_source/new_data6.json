@@ -4,7 +4,7 @@
     "id": "38830",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'k' with type 'int'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "k ",
+        "value": "k",
         "optional": false,
         "editable": true
       },

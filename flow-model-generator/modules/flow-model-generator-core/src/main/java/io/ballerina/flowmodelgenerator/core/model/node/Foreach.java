@@ -50,7 +50,8 @@ public class Foreach extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder(node);
         sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
                 .stepOut()
-                .newVariable();
+                .typedBindingPattern()
+                .token().keyword(SyntaxKind.IN_KEYWORD);
 
 
         Optional<Property> exprProperty = node.getProperty(Property.COLLECTION_KEY);

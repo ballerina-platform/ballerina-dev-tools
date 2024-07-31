@@ -4,7 +4,7 @@
     "id": "53726",
     "metadata": {
       "label": "New Variable",
-      "description": "Create new variable"
+      "description": "New variable 'content' with type 'string'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -37,7 +37,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "content ",
+        "value": "content",
         "optional": false,
         "editable": true
       },
