@@ -18,3 +18,14 @@ function testNewDataXml() {
     xml x1 = xml `<p>content</p>`;
     x1 = xml `<book>The Lost World</book>`;
 }
+
+function testNewDataJson3(int amount) returns error? {
+    json newData1 = [check calculate(amount), check calculate(amount + 1)];
+    newData1 = [check calculate(amount), check calculate(amount + 1)];
+    [int, int] newData2 = [1, 2];
+    newData2 = [11, 22];
+}
+
+function calculate(int i) returns int|error {
+    return 3;
+}

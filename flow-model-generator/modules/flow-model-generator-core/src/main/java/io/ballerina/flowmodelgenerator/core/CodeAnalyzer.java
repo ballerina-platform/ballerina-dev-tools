@@ -43,8 +43,10 @@ import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
+import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
@@ -60,6 +62,7 @@ import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
@@ -501,6 +504,36 @@ class CodeAnalyzer extends NodeVisitor {
             }
         }
         nodeBuilder.codedata().lineRange(checkExpressionNode);
+    }
+
+    @Override
+    public void visit(MappingConstructorExpressionNode mappingCtrExprNode) {
+        SyntaxKind kind = mappingCtrExprNode.parent().kind();
+        if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
+            startNode(FlowNode.Kind.NEW_DATA)
+                    .properties()
+                    .expression(mappingCtrExprNode);
+        } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
+            startNode(FlowNode.Kind.UPDATE_DATA)
+                    .properties()
+                    .expression(mappingCtrExprNode)
+                    .variable(((AssignmentStatementNode) mappingCtrExprNode.parent()).varRef());
+        }
+    }
+
+    @Override
+    public void visit(ListConstructorExpressionNode listCtrExprNode) {
+        SyntaxKind kind = listCtrExprNode.parent().kind();
+        if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
+            startNode(FlowNode.Kind.NEW_DATA)
+                    .properties()
+                    .expression(listCtrExprNode);
+        } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
+            startNode(FlowNode.Kind.UPDATE_DATA)
+                    .properties()
+                    .expression(listCtrExprNode)
+                    .variable(((AssignmentStatementNode) listCtrExprNode.parent()).varRef());
+        }
     }
 
     // Utility methods
