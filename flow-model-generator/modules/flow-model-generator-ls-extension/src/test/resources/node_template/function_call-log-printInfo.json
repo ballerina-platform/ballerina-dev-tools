@@ -1,0 +1,26 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "log",
+    "object": "printInfo",
+    "symbol": "printInfo"
+  },
+  "output": { 
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo"
+    },
+    "returning": false,
+    "properties": {},
+    "flags": 1
+  }
+}

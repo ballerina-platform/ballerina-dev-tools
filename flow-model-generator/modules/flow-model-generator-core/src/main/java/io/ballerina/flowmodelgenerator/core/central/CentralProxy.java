@@ -55,6 +55,7 @@ public class CentralProxy implements Central {
     private Map<String, FlowNode> templateCache;
     private static final String NODE_TEMPLATES_JSON = "node_templates.json";
     private static final String CONNECTIONS_JSON = "connections.json";
+    private static final String FUNCTIONS_JSON = "functions.json";
 
     public CentralProxy() {
         this.gson = new GsonBuilder()
@@ -75,6 +76,12 @@ public class CentralProxy implements Central {
     public List<Item> getAvailableConnections() {
         Category connections = readJsonResource(CONNECTIONS_JSON, Category.class);
         return connections.items();
+    }
+
+    @Override
+    public List<Item> getFunctions() {
+        Category functions = readJsonResource(FUNCTIONS_JSON, Category.class);
+        return functions.items();
     }
 
     private void initializeTemplateCache() {

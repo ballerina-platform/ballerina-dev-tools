@@ -45,4 +45,11 @@ public interface Central {
      * @return The available connections
      */
     List<Item> getAvailableConnections();
+
+    /**
+     * Get the available functions.
+     *
+     * @return The available connections
+     */
+    List<Item> getFunctions();
 }

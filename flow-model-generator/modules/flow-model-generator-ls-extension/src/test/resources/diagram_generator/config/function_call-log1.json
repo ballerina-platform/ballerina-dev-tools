@@ -1,0 +1,472 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 4
+  },
+  "end": {
+    "line": 17,
+    "offset": 5
+  },
+  "source": "function_call.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "function_call.bal",
+    "nodes": [
+      {
+        "id": "38166",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "apples",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "39007",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 9
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 7,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 9
+                }
+              }
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "count > 20 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "40106",
+                "metadata": {
+                  "label": "printWarn",
+                  "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "log",
+                  "symbol": "printWarn",
+                  "lineRange": {
+                    "fileName": "function_call.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 54
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "41952",
+        "metadata": {
+          "label": "printInfo",
+          "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "log",
+          "symbol": "printInfo",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 40
+            }
+          }
+        },
+        "returning": false,
+        "properties": {},
+        "flags": 0
+      },
+      {
+        "id": "42990",
+        "metadata": {
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+        },
+        "codedata": {
+          "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 86
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "connection": {
+            "metadata": {
+              "label": "Connection",
+              "description": "Connection to use"
+            },
+            "valueType": "EXPRESSION",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "res",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "path",
+              "description": "Request path\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/western/apples?count=\" + count.toString()",
+            "optional": false,
+            "editable": true
+          },
+          "headers": {
+            "metadata": {
+              "label": "headers",
+              "description": "The entity headers\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "json",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "44029",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 9
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 12,
+                  "offset": 24
+                },
+                "endLine": {
+                  "line": 14,
+                  "offset": 9
+                }
+              }
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "res is error ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "45069",
+                "metadata": {
+                  "label": "printError",
+                  "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "log",
+                  "symbol": "printError",
+                  "lineRange": {
+                    "fileName": "function_call.bal",
+                    "startLine": {
+                      "line": 13,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 13,
+                      "offset": 57
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "function_call.bal",
+                "startLine": {
+                  "line": 14,
+                  "offset": 10
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 9
+                }
+              }
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "47052",
+                "metadata": {
+                  "label": "printInfo",
+                  "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "log",
+                  "symbol": "printInfo",
+                  "lineRange": {
+                    "fileName": "function_call.bal",
+                    "startLine": {
+                      "line": 15,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 56
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "34787",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 67
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

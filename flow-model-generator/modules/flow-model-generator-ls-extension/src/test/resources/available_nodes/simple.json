@@ -88,8 +88,7 @@
           "items": [
             {
               "metadata": {
-                "label": "Return",
-                "description": "Return a value"
+                "label": "Return"
               },
               "codedata": {
                 "node": "RETURN"
@@ -118,8 +117,7 @@
       "items": [
         {
           "metadata": {
-            "label": "New Variable",
-            "description": "Create new variable"
+            "label": "New Variable"
           },
           "codedata": {
             "node": "NEW_DATA"
@@ -128,8 +126,7 @@
         },
         {
           "metadata": {
-            "label": "UpdateData",
-            "description": "Update the value of a variable"
+            "label": "Update Variable"
           },
           "codedata": {
             "node": "UPDATE_DATA"
@@ -212,13 +209,15 @@
         {
           "metadata": {
             "label": "HTTP Connection",
-            "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.\n"
+            "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -232,7 +231,8 @@
             {
               "metadata": {
                 "label": "post",
-                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -246,7 +246,8 @@
             {
               "metadata": {
                 "label": "put",
-                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n"
+                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -260,7 +261,8 @@
             {
               "metadata": {
                 "label": "patch",
-                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n"
+                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -274,7 +276,8 @@
             {
               "metadata": {
                 "label": "delete",
-                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n"
+                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -288,7 +291,8 @@
             {
               "metadata": {
                 "label": "head",
-                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n"
+                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -302,7 +306,8 @@
             {
               "metadata": {
                 "label": "get",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -316,7 +321,8 @@
             {
               "metadata": {
                 "label": "options",
-                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n"
+                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -330,7 +336,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n"
+                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -344,7 +351,8 @@
             {
               "metadata": {
                 "label": "forward",
-                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n"
+                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -358,7 +366,8 @@
             {
               "metadata": {
                 "label": "submit",
-                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n"
+                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -372,7 +381,8 @@
             {
               "metadata": {
                 "label": "getResponse",
-                "description": "This just pass the request to actual network call.\n\n"
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -386,7 +396,8 @@
             {
               "metadata": {
                 "label": "hasPromise",
-                "description": "This just pass the request to actual network call.\n\n"
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -400,7 +411,8 @@
             {
               "metadata": {
                 "label": "getNextPromise",
-                "description": "This just pass the request to actual network call.\n\n"
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -414,7 +426,8 @@
             {
               "metadata": {
                 "label": "getPromisedResponse",
-                "description": "Passes the request to an actual network call.\n\n"
+                "description": "Passes the request to an actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -428,7 +441,8 @@
             {
               "metadata": {
                 "label": "rejectPromise",
-                "description": "This just pass the request to actual network call.\n\n"
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -444,13 +458,15 @@
         {
           "metadata": {
             "label": "GraphQL Connection",
-            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.\n"
+            "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.13.1.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.13.1.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -464,7 +480,8 @@
             {
               "metadata": {
                 "label": "executeWithType",
-                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data and extensions\nwhich is a subtype of GenericResponse.\n\n"
+                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data and extensions\nwhich is a subtype of GenericResponse.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.13.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -478,7 +495,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data, extensions and errors\nwhich is a subtype of GenericResponseWithErrors.\n\n"
+                "description": "Executes a GraphQL document and data binds the GraphQL response to a record with data, extensions and errors\nwhich is a subtype of GenericResponseWithErrors.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.13.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -494,13 +512,15 @@
         {
           "metadata": {
             "label": "gRPC Connection",
-            "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.\n"
+            "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -514,7 +534,8 @@
             {
               "metadata": {
                 "label": "executeSimpleRPC",
-                "description": "Calls when executing a unary gRPC service.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error result = grpcClient->executeSimpleRPC(\"HelloWorld/hello\", req, headers);\n```\n\n"
+                "description": "Calls when executing a unary gRPC service.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error result = grpcClient->executeSimpleRPC(\"HelloWorld/hello\", req, headers);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -528,7 +549,8 @@
             {
               "metadata": {
                 "label": "executeServerStreaming",
-                "description": "Calls when executing a server streaming call with a gRPC service.\n```ballerina\n[stream<anydata, grpc:Error?>, map<string|string[]>]|grpc:Error result = grpcClient->executeServerStreaming(\"HelloWorld/hello\", req, headers);\n```\n\n"
+                "description": "Calls when executing a server streaming call with a gRPC service.\n```ballerina\n[stream<anydata, grpc:Error?>, map<string|string[]>]|grpc:Error result = grpcClient->executeServerStreaming(\"HelloWorld/hello\", req, headers);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -542,7 +564,8 @@
             {
               "metadata": {
                 "label": "executeClientStreaming",
-                "description": "Calls when executing a client streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeClientStreaming(\"HelloWorld/hello\", headers);\n```\n\n"
+                "description": "Calls when executing a client streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeClientStreaming(\"HelloWorld/hello\", headers);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -556,7 +579,8 @@
             {
               "metadata": {
                 "label": "executeBidirectionalStreaming",
-                "description": "Calls when executing a bi-directional streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeBidirectionalStreaming(\"HelloWorld/hello\", headers);\n```\n\n"
+                "description": "Calls when executing a bi-directional streaming call with a gRPC service.\n```ballerina\ngrpc:StreamingClient|grpc:Error result = grpcClient->executeBidirectionalStreaming(\"HelloWorld/hello\", headers);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -572,13 +596,15 @@
         {
           "metadata": {
             "label": "gRPC Streaming Connection",
-            "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.\n"
+            "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -592,7 +618,8 @@
             {
               "metadata": {
                 "label": "send",
-                "description": "Sends the request message to the server.\n```ballerina\ngrpc:Error? err = sClient->send(message);\n```\n\n"
+                "description": "Sends the request message to the server.\n```ballerina\ngrpc:Error? err = sClient->send(message);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -606,7 +633,8 @@
             {
               "metadata": {
                 "label": "complete",
-                "description": "Informs the server when the caller has sent all the messages.\n```ballerina\ngrpc:Error? result = sClient->complete();\n```\n\n"
+                "description": "Informs the server when the caller has sent all the messages.\n```ballerina\ngrpc:Error? result = sClient->complete();\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -620,7 +648,8 @@
             {
               "metadata": {
                 "label": "sendError",
-                "description": "Sends an error message to the server.\n```ballerina\ngrpc:Error? result = sClient->sendError(error grpc:AbortedError(\"Operation aborted\"));\n```\n\n"
+                "description": "Sends an error message to the server.\n```ballerina\ngrpc:Error? result = sClient->sendError(error grpc:AbortedError(\"Operation aborted\"));\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -634,7 +663,8 @@
             {
               "metadata": {
                 "label": "receive",
-                "description": "Receives server responses in client streaming and bidirectional streaming.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error? result = streamingClient->receive();\n```\n\n"
+                "description": "Receives server responses in client streaming and bidirectional streaming.\n```ballerina\n[anydata, map<string|string[]>]|grpc:Error? result = streamingClient->receive();\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -650,13 +680,15 @@
         {
           "metadata": {
             "label": "WebSocket Connection",
-            "description": "Represents a WebSocket synchronous client endpoint.\n"
+            "description": "Represents a WebSocket synchronous client endpoint.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -670,7 +702,8 @@
             {
               "metadata": {
                 "label": "writeTextMessage",
-                "description": "Writes text messages to the connection. If an error occurs while sending the text message to the connection, that message\nwill be lost.\n\n"
+                "description": "Writes text messages to the connection. If an error occurs while sending the text message to the connection, that message\nwill be lost.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -684,7 +717,8 @@
             {
               "metadata": {
                 "label": "writeBinaryMessage",
-                "description": "Writes binary data to the connection. If an error occurs while sending the binary message to the connection,\nthat message will be lost.\n\n"
+                "description": "Writes binary data to the connection. If an error occurs while sending the binary message to the connection,\nthat message will be lost.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -698,7 +732,8 @@
             {
               "metadata": {
                 "label": "ping",
-                "description": "Pings the connection. If an error occurs while sending the ping frame to the server, that frame will be lost.\n\n"
+                "description": "Pings the connection. If an error occurs while sending the ping frame to the server, that frame will be lost.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -712,7 +747,8 @@
             {
               "metadata": {
                 "label": "pong",
-                "description": "Sends a pong message to the connection. If an error occurs while sending the pong frame to the connection, that\nthe frame will be lost.\n\n"
+                "description": "Sends a pong message to the connection. If an error occurs while sending the pong frame to the connection, that\nthe frame will be lost.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -726,7 +762,8 @@
             {
               "metadata": {
                 "label": "close",
-                "description": "Closes the connection.\n\n"
+                "description": "Closes the connection.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -740,7 +777,8 @@
             {
               "metadata": {
                 "label": "readTextMessage",
-                "description": "Reads text messages in a synchronous manner.\n\n"
+                "description": "Reads text messages in a synchronous manner.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -754,7 +792,8 @@
             {
               "metadata": {
                 "label": "readBinaryMessage",
-                "description": "Reads binary data in a synchronous manner.\n\n"
+                "description": "Reads binary data in a synchronous manner.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -768,7 +807,8 @@
             {
               "metadata": {
                 "label": "readMessage",
-                "description": "Reads data from the WebSocket connection.\n\n"
+                "description": "Reads data from the WebSocket connection.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -782,7 +822,8 @@
             {
               "metadata": {
                 "label": "writeMessage",
-                "description": "Writes messages to the connection. If an error occurs while sending the message to the connection, that message\nwill be lost.\n\n"
+                "description": "Writes messages to the connection. If an error occurs while sending the message to the connection, that message\nwill be lost.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -805,13 +846,15 @@
         {
           "metadata": {
             "label": "MySQL",
-            "description": "Represents a MySQL database client.\n"
+            "description": "Represents a MySQL database client.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -825,7 +868,8 @@
             {
               "metadata": {
                 "label": "query",
-                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n"
+                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -839,7 +883,8 @@
             {
               "metadata": {
                 "label": "queryRow",
-                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, `sql:NoRowsError` is returned.\n\n"
+                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, `sql:NoRowsError` is returned.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -853,7 +898,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n"
+                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -867,7 +913,8 @@
             {
               "metadata": {
                 "label": "batchExecute",
-                "description": "Executes an SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is returned (not results from the query).\nIf one of the commands in the batch fails (except syntax error), the `sql:BatchExecuteError` will be deferred until the remaining commands are completed.\n\n"
+                "description": "Executes an SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is returned (not results from the query).\nIf one of the commands in the batch fails (except syntax error), the `sql:BatchExecuteError` will be deferred until the remaining commands are completed.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -881,7 +928,8 @@
             {
               "metadata": {
                 "label": "call",
-                "description": "Executes an SQL query, which calls a stored procedure. This may or may not return results.\nOnce the results are processed, invoke the `close` method on the `sql:ProcedureCallResult`.\n\n"
+                "description": "Executes an SQL query, which calls a stored procedure. This may or may not return results.\nOnce the results are processed, invoke the `close` method on the `sql:ProcedureCallResult`.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -897,13 +945,15 @@
         {
           "metadata": {
             "label": "Redis",
-            "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n\n"
+            "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -917,7 +967,8 @@
             {
               "metadata": {
                 "label": "append",
-                "description": "Append a value to a key.\n\n"
+                "description": "Append a value to a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -931,7 +982,8 @@
             {
               "metadata": {
                 "label": "bitCount",
-                "description": "Count set bits in a string.\n\n"
+                "description": "Count set bits in a string.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -945,7 +997,8 @@
             {
               "metadata": {
                 "label": "bitOpAnd",
-                "description": "Perform bitwise AND between strings.\n\n"
+                "description": "Perform bitwise AND between strings.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -959,7 +1012,8 @@
             {
               "metadata": {
                 "label": "bitOpOr",
-                "description": "Perform bitwise OR between strings.\n\n"
+                "description": "Perform bitwise OR between strings.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -973,7 +1027,8 @@
             {
               "metadata": {
                 "label": "bitOpNot",
-                "description": "Perform bitwise NOT on a string.\n\n"
+                "description": "Perform bitwise NOT on a string.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -987,7 +1042,8 @@
             {
               "metadata": {
                 "label": "bitOpXor",
-                "description": "Perform bitwise XOR between strings.\n\n"
+                "description": "Perform bitwise XOR between strings.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1001,7 +1057,8 @@
             {
               "metadata": {
                 "label": "decr",
-                "description": "Decrement integer value of a key by one.\n\n"
+                "description": "Decrement integer value of a key by one.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1015,7 +1072,8 @@
             {
               "metadata": {
                 "label": "decrBy",
-                "description": "Decrement integer value of a key by the given number.\n\n"
+                "description": "Decrement integer value of a key by the given number.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1029,7 +1087,8 @@
             {
               "metadata": {
                 "label": "getBit",
-                "description": "Returns bit value at offset in the string value stored at key.\n\n"
+                "description": "Returns bit value at offset in the string value stored at key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1043,7 +1102,8 @@
             {
               "metadata": {
                 "label": "getRange",
-                "description": "Get substring of string stored at a key.\n\n"
+                "description": "Get substring of string stored at a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1057,7 +1117,8 @@
             {
               "metadata": {
                 "label": "getSet",
-                "description": "Set string value of key and return its existing value.\n\n"
+                "description": "Set string value of key and return its existing value.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1071,7 +1132,8 @@
             {
               "metadata": {
                 "label": "get",
-                "description": "Get value of key.\n\n"
+                "description": "Get value of key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1085,7 +1147,8 @@
             {
               "metadata": {
                 "label": "incr",
-                "description": "Increment integer value of a key by one.\n\n"
+                "description": "Increment integer value of a key by one.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1099,7 +1162,8 @@
             {
               "metadata": {
                 "label": "incrBy",
-                "description": "Increment integer value of key by the given amount.\n\n"
+                "description": "Increment integer value of key by the given amount.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1113,7 +1177,8 @@
             {
               "metadata": {
                 "label": "incrByFloat",
-                "description": "Increment integer value of key by the given float.\n\n"
+                "description": "Increment integer value of key by the given float.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1127,7 +1192,8 @@
             {
               "metadata": {
                 "label": "mGet",
-                "description": "Get values of all given keys.\n\n"
+                "description": "Get values of all given keys.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1141,7 +1207,8 @@
             {
               "metadata": {
                 "label": "mSet",
-                "description": "Set multiple keys to multiple values.\n\n"
+                "description": "Set multiple keys to multiple values.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1155,7 +1222,8 @@
             {
               "metadata": {
                 "label": "mSetNx",
-                "description": "Set multiple keys to multiple values, only if none of the keys exist.\n\n"
+                "description": "Set multiple keys to multiple values, only if none of the keys exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1169,7 +1237,8 @@
             {
               "metadata": {
                 "label": "pSetEx",
-                "description": "Set value and expiration in milliseconds of a key.\n\n"
+                "description": "Set value and expiration in milliseconds of a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1183,7 +1252,8 @@
             {
               "metadata": {
                 "label": "set",
-                "description": "Set the value of a key.\n\n"
+                "description": "Set the value of a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1197,7 +1267,8 @@
             {
               "metadata": {
                 "label": "setBit",
-                "description": "Sets or clears the bit at offset in the string value stored at key.\n\n"
+                "description": "Sets or clears the bit at offset in the string value stored at key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1211,7 +1282,8 @@
             {
               "metadata": {
                 "label": "setEx",
-                "description": "Set the value and expiration of a key.\n\n"
+                "description": "Set the value and expiration of a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1225,7 +1297,8 @@
             {
               "metadata": {
                 "label": "setNx",
-                "description": "Set value of a key, only if key does not exist.\n\n"
+                "description": "Set value of a key, only if key does not exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1239,7 +1312,8 @@
             {
               "metadata": {
                 "label": "setRange",
-                "description": "Overwrite part of string at key starting at the specified offset.\n\n"
+                "description": "Overwrite part of string at key starting at the specified offset.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1253,7 +1327,8 @@
             {
               "metadata": {
                 "label": "strLen",
-                "description": "Get length of value stored in a key.\n\n"
+                "description": "Get length of value stored in a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1267,7 +1342,8 @@
             {
               "metadata": {
                 "label": "lPush",
-                "description": "Prepend one or multiple values to list.\n\n"
+                "description": "Prepend one or multiple values to list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1281,7 +1357,8 @@
             {
               "metadata": {
                 "label": "lPop",
-                "description": "Remove and get the first element in a list.\n\n"
+                "description": "Remove and get the first element in a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1295,7 +1372,8 @@
             {
               "metadata": {
                 "label": "lPushX",
-                "description": "Prepend one or multiple values to a list, only if the list exists.\n\n"
+                "description": "Prepend one or multiple values to a list, only if the list exists.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1309,7 +1387,8 @@
             {
               "metadata": {
                 "label": "bLPop",
-                "description": "Remove and get the first element in a list, or block until one is available.\n\n"
+                "description": "Remove and get the first element in a list, or block until one is available.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1323,7 +1402,8 @@
             {
               "metadata": {
                 "label": "bRPop",
-                "description": "Remove and get the last element in a list, or block until one is available.\n\n"
+                "description": "Remove and get the last element in a list, or block until one is available.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1337,7 +1417,8 @@
             {
               "metadata": {
                 "label": "lIndex",
-                "description": "Get an element from list by its index.\n\n"
+                "description": "Get an element from list by its index.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1351,7 +1432,8 @@
             {
               "metadata": {
                 "label": "lInsert",
-                "description": "Insert an element before or after another element in a list.\n\n"
+                "description": "Insert an element before or after another element in a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1365,7 +1447,8 @@
             {
               "metadata": {
                 "label": "lLen",
-                "description": "Get length of a list.\n\n"
+                "description": "Get length of a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1379,7 +1462,8 @@
             {
               "metadata": {
                 "label": "lRange",
-                "description": "Get a range of elements from a list.\n\n"
+                "description": "Get a range of elements from a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1393,7 +1477,8 @@
             {
               "metadata": {
                 "label": "lRem",
-                "description": "Remove elements from list.\n\n"
+                "description": "Remove elements from list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1407,7 +1492,8 @@
             {
               "metadata": {
                 "label": "lSet",
-                "description": "Set the value of an element in a list by its index.\n\n"
+                "description": "Set the value of an element in a list by its index.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1421,7 +1507,8 @@
             {
               "metadata": {
                 "label": "lTrim",
-                "description": "Trim list to the specified range.\n\n"
+                "description": "Trim list to the specified range.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1435,7 +1522,8 @@
             {
               "metadata": {
                 "label": "rPop",
-                "description": "Remove and get the last element in a list.\n\n"
+                "description": "Remove and get the last element in a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1449,7 +1537,8 @@
             {
               "metadata": {
                 "label": "rPopLPush",
-                "description": "Remove the last element in a list, append it to another list and return it.\n\n"
+                "description": "Remove the last element in a list, append it to another list and return it.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1463,7 +1552,8 @@
             {
               "metadata": {
                 "label": "rPush",
-                "description": "Append one or multiple values to a list.\n\n"
+                "description": "Append one or multiple values to a list.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1477,7 +1567,8 @@
             {
               "metadata": {
                 "label": "rPushX",
-                "description": "Append one or multiple values to a list, only if the list exists.\n\n"
+                "description": "Append one or multiple values to a list, only if the list exists.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1491,7 +1582,8 @@
             {
               "metadata": {
                 "label": "sAdd",
-                "description": "Add one or more members to a set.\n\n"
+                "description": "Add one or more members to a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1505,7 +1597,8 @@
             {
               "metadata": {
                 "label": "sCard",
-                "description": "Get the number of members in a set\n\n"
+                "description": "Get the number of members in a set\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1519,7 +1612,8 @@
             {
               "metadata": {
                 "label": "sDiff",
-                "description": "Return set resulting from the difference between the first set and all the successive sets\n\n"
+                "description": "Return set resulting from the difference between the first set and all the successive sets\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1533,7 +1627,8 @@
             {
               "metadata": {
                 "label": "sDiffStore",
-                "description": "Obtain the set resulting from the difference between the first set and all the successive.\nsets and store at the provided destination.\n\n"
+                "description": "Obtain the set resulting from the difference between the first set and all the successive.\nsets and store at the provided destination.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1547,7 +1642,8 @@
             {
               "metadata": {
                 "label": "sInter",
-                "description": "Return the intersection of the provided sets.\n\n"
+                "description": "Return the intersection of the provided sets.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1561,7 +1657,8 @@
             {
               "metadata": {
                 "label": "sInterStore",
-                "description": "Obtain the intersection of the provided sets and store at the provided destination.\n\n"
+                "description": "Obtain the intersection of the provided sets and store at the provided destination.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1575,7 +1672,8 @@
             {
               "metadata": {
                 "label": "sIsMember",
-                "description": "Determine if a given value is a member of a set.\n\n"
+                "description": "Determine if a given value is a member of a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1589,7 +1687,8 @@
             {
               "metadata": {
                 "label": "sMembers",
-                "description": "Get all members in a set.\n\n"
+                "description": "Get all members in a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1603,7 +1702,8 @@
             {
               "metadata": {
                 "label": "sMove",
-                "description": "Move a member from one set to another.\n\n"
+                "description": "Move a member from one set to another.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1617,7 +1717,8 @@
             {
               "metadata": {
                 "label": "sPop",
-                "description": "Remove and return a random member from a set.\n\n"
+                "description": "Remove and return a random member from a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1631,7 +1732,8 @@
             {
               "metadata": {
                 "label": "sRandMember",
-                "description": "Get one or multiple random members from a set.\n\n"
+                "description": "Get one or multiple random members from a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1645,7 +1747,8 @@
             {
               "metadata": {
                 "label": "sRem",
-                "description": "Remove one or more members from a set.\n\n"
+                "description": "Remove one or more members from a set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1659,7 +1762,8 @@
             {
               "metadata": {
                 "label": "sUnion",
-                "description": "Return the union of multiple sets.\n\n"
+                "description": "Return the union of multiple sets.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1673,7 +1777,8 @@
             {
               "metadata": {
                 "label": "sUnionStore",
-                "description": "Return the union of multiple sets.\n\n"
+                "description": "Return the union of multiple sets.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1687,7 +1792,8 @@
             {
               "metadata": {
                 "label": "zAdd",
-                "description": "Add one or more members to a sorted set, or update its score if it already exist.\n\n"
+                "description": "Add one or more members to a sorted set, or update its score if it already exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1701,7 +1807,8 @@
             {
               "metadata": {
                 "label": "zCard",
-                "description": "Get the number of members in a sorted set.\n\n"
+                "description": "Get the number of members in a sorted set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1715,7 +1822,8 @@
             {
               "metadata": {
                 "label": "zCount",
-                "description": "Count the members in a sorted set with scores within the given range.\n\n"
+                "description": "Count the members in a sorted set with scores within the given range.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1729,7 +1837,8 @@
             {
               "metadata": {
                 "label": "zIncrBy",
-                "description": "Increment the score of a member in a sorted set.\n\n"
+                "description": "Increment the score of a member in a sorted set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1743,7 +1852,8 @@
             {
               "metadata": {
                 "label": "zInterStore",
-                "description": "Intersect multiple sorted sets and store the resulting sorted set in a new key.\n\n"
+                "description": "Intersect multiple sorted sets and store the resulting sorted set in a new key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1757,7 +1867,8 @@
             {
               "metadata": {
                 "label": "zLexCount",
-                "description": "Count the members in a sorted set within the given lexicographical range.\n\n"
+                "description": "Count the members in a sorted set within the given lexicographical range.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1771,7 +1882,8 @@
             {
               "metadata": {
                 "label": "zRange",
-                "description": "Return a range of members in a sorted set, by index.\n\n"
+                "description": "Return a range of members in a sorted set, by index.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1785,7 +1897,8 @@
             {
               "metadata": {
                 "label": "zRangeByLex",
-                "description": "Return a range of members in a sorted set, by lexicographical range from lowest to highest.\n\n"
+                "description": "Return a range of members in a sorted set, by lexicographical range from lowest to highest.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1799,7 +1912,8 @@
             {
               "metadata": {
                 "label": "zRevRangeByLex",
-                "description": "Return a range of members in a sorted set, by lexicographical range ordered from highest to\nlowest.\n\n"
+                "description": "Return a range of members in a sorted set, by lexicographical range ordered from highest to\nlowest.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1813,7 +1927,8 @@
             {
               "metadata": {
                 "label": "zRangeByScore",
-                "description": "Return a range of members in a sorted set, by score from lowest to highest.\n\n"
+                "description": "Return a range of members in a sorted set, by score from lowest to highest.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1827,7 +1942,8 @@
             {
               "metadata": {
                 "label": "zRank",
-                "description": "Determine index of a member in a sorted set.\n\n"
+                "description": "Determine index of a member in a sorted set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1841,7 +1957,8 @@
             {
               "metadata": {
                 "label": "zRem",
-                "description": "Remove one or more members from a sorted set\n\n"
+                "description": "Remove one or more members from a sorted set\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1855,7 +1972,8 @@
             {
               "metadata": {
                 "label": "zRemRangeByLex",
-                "description": "Remove all members in a sorted set between the given lexicographical range.\n\n"
+                "description": "Remove all members in a sorted set between the given lexicographical range.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1869,7 +1987,8 @@
             {
               "metadata": {
                 "label": "zRemRangeByRank",
-                "description": "Remove all members in a sorted set within the given indices.\n\n"
+                "description": "Remove all members in a sorted set within the given indices.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1883,7 +2002,8 @@
             {
               "metadata": {
                 "label": "zRemRangeByScore",
-                "description": "Remove all members in a sorted set within the given scores.\n\n"
+                "description": "Remove all members in a sorted set within the given scores.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1897,7 +2017,8 @@
             {
               "metadata": {
                 "label": "zRevRange",
-                "description": "Return a range of members in a sorted set, by index, ordered highest to lowest.\n\n"
+                "description": "Return a range of members in a sorted set, by index, ordered highest to lowest.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1911,7 +2032,8 @@
             {
               "metadata": {
                 "label": "zRevRangeByScore",
-                "description": "Return a range of members in a sorted set, by score from highest to lowest.\n\n"
+                "description": "Return a range of members in a sorted set, by score from highest to lowest.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1925,7 +2047,8 @@
             {
               "metadata": {
                 "label": "zRevRank",
-                "description": "Determine the index of a member in a sorted set\n\n"
+                "description": "Determine the index of a member in a sorted set\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1939,7 +2062,8 @@
             {
               "metadata": {
                 "label": "zScore",
-                "description": "Determine the score of a member in a sorted set\n\n"
+                "description": "Determine the score of a member in a sorted set\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1953,7 +2077,8 @@
             {
               "metadata": {
                 "label": "zUnionStore",
-                "description": "Return the union of multiple sorted sets\n\n"
+                "description": "Return the union of multiple sorted sets\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1967,7 +2092,8 @@
             {
               "metadata": {
                 "label": "hDel",
-                "description": "Delete one or more hash fields.\n\n"
+                "description": "Delete one or more hash fields.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1981,7 +2107,8 @@
             {
               "metadata": {
                 "label": "hExists",
-                "description": "Determine if a hash field exists.\n\n"
+                "description": "Determine if a hash field exists.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -1995,7 +2122,8 @@
             {
               "metadata": {
                 "label": "hGet",
-                "description": "Get the value of a hash field.\n\n"
+                "description": "Get the value of a hash field.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2009,7 +2137,8 @@
             {
               "metadata": {
                 "label": "hGetAll",
-                "description": "Get the all values of a hash.\n\n"
+                "description": "Get the all values of a hash.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2023,7 +2152,8 @@
             {
               "metadata": {
                 "label": "hIncrBy",
-                "description": "Increment the integer value of a hash field by the given number.\n\n"
+                "description": "Increment the integer value of a hash field by the given number.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2037,7 +2167,8 @@
             {
               "metadata": {
                 "label": "hIncrByFloat",
-                "description": "Increment the float value of a hash field by the given number.\n\n"
+                "description": "Increment the float value of a hash field by the given number.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2051,7 +2182,8 @@
             {
               "metadata": {
                 "label": "hKeys",
-                "description": "Get all the fields in a hash.\n\n"
+                "description": "Get all the fields in a hash.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2065,7 +2197,8 @@
             {
               "metadata": {
                 "label": "hLen",
-                "description": "Get the number of fields in a hash.\n\n"
+                "description": "Get the number of fields in a hash.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2079,7 +2212,8 @@
             {
               "metadata": {
                 "label": "hMGet",
-                "description": "Get the values of all the given hash fields.\n\n"
+                "description": "Get the values of all the given hash fields.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2093,7 +2227,8 @@
             {
               "metadata": {
                 "label": "hMSet",
-                "description": "Set multiple hash fields to multiple values.\n\n"
+                "description": "Set multiple hash fields to multiple values.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2107,7 +2242,8 @@
             {
               "metadata": {
                 "label": "hSet",
-                "description": "Set the string value of a hash field.\n\n"
+                "description": "Set the string value of a hash field.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2121,7 +2257,8 @@
             {
               "metadata": {
                 "label": "hSetNx",
-                "description": "Set the string value of a hash field, only if the field does not exist.\n\n"
+                "description": "Set the string value of a hash field, only if the field does not exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2135,7 +2272,8 @@
             {
               "metadata": {
                 "label": "hStrLen",
-                "description": "Get the string length of the field value in a hash.\n\n"
+                "description": "Get the string length of the field value in a hash.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2149,7 +2287,8 @@
             {
               "metadata": {
                 "label": "hVals",
-                "description": "Get all the values in a hash.\n\n"
+                "description": "Get all the values in a hash.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2163,7 +2302,8 @@
             {
               "metadata": {
                 "label": "del",
-                "description": "Delete one or more keys.\n\n"
+                "description": "Delete one or more keys.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2177,7 +2317,8 @@
             {
               "metadata": {
                 "label": "exists",
-                "description": "Determine how many keys exist.\n\n"
+                "description": "Determine how many keys exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2191,7 +2332,8 @@
             {
               "metadata": {
                 "label": "expire",
-                "description": "Set a key's time to live in seconds.\n\n"
+                "description": "Set a key's time to live in seconds.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2205,7 +2347,8 @@
             {
               "metadata": {
                 "label": "keys",
-                "description": "Find all keys matching the given pattern.\n\n"
+                "description": "Find all keys matching the given pattern.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2219,7 +2362,8 @@
             {
               "metadata": {
                 "label": "move",
-                "description": "Move a key to another database.\n\n"
+                "description": "Move a key to another database.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2233,7 +2377,8 @@
             {
               "metadata": {
                 "label": "persist",
-                "description": "Remove the expiration from a key.\n\n"
+                "description": "Remove the expiration from a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2247,7 +2392,8 @@
             {
               "metadata": {
                 "label": "pExpire",
-                "description": "Set a key's time to live in milliseconds.\n\n"
+                "description": "Set a key's time to live in milliseconds.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2261,7 +2407,8 @@
             {
               "metadata": {
                 "label": "pTtl",
-                "description": "Get the time to live for a key in milliseconds.\n\n"
+                "description": "Get the time to live for a key in milliseconds.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2275,7 +2422,8 @@
             {
               "metadata": {
                 "label": "randomKey",
-                "description": "Return a random key from the keyspace.\n\n"
+                "description": "Return a random key from the keyspace.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2289,7 +2437,8 @@
             {
               "metadata": {
                 "label": "rename",
-                "description": "Rename a key.\n\n"
+                "description": "Rename a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2303,7 +2452,8 @@
             {
               "metadata": {
                 "label": "renameNx",
-                "description": "Rename a key, only if the new key does not exist.\n\n"
+                "description": "Rename a key, only if the new key does not exist.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2317,7 +2467,8 @@
             {
               "metadata": {
                 "label": "sort",
-                "description": "Sort elements in a list, set or sorted set.\n\n"
+                "description": "Sort elements in a list, set or sorted set.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2331,7 +2482,8 @@
             {
               "metadata": {
                 "label": "ttl",
-                "description": "Get the time to live for a key.\n\n"
+                "description": "Get the time to live for a key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2345,7 +2497,8 @@
             {
               "metadata": {
                 "label": "redisType",
-                "description": "Determine the type stored at key.\n\n"
+                "description": "Determine the type stored at key.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2359,7 +2512,8 @@
             {
               "metadata": {
                 "label": "clusterInfo",
-                "description": "Retrieve information and statistics about the cluster observed by the current node.\nThis command is exclusively available in cluster mode. If the connection is in a non-clustered mode,\nthe API will return a `redis:Error`. Other errors will also be appropriately handled.\n\n"
+                "description": "Retrieve information and statistics about the cluster observed by the current node.\nThis command is exclusively available in cluster mode. If the connection is in a non-clustered mode,\nthe API will return a `redis:Error`. Other errors will also be appropriately handled.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2373,7 +2527,8 @@
             {
               "metadata": {
                 "label": "ping",
-                "description": "Ping the server.\n\n"
+                "description": "Ping the server.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2387,7 +2542,8 @@
             {
               "metadata": {
                 "label": "auth",
-                "description": "Authenticate to the server.\n\n"
+                "description": "Authenticate to the server.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2401,7 +2557,8 @@
             {
               "metadata": {
                 "label": "echo",
-                "description": "Echo the given string.\n\n"
+                "description": "Echo the given string.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2417,13 +2574,15 @@
         {
           "metadata": {
             "label": "MS SQL",
-            "description": "Represents an MSSQL database client.\n"
+            "description": "Represents an MSSQL database client.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -2437,7 +2596,8 @@
             {
               "metadata": {
                 "label": "query",
-                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n"
+                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2451,7 +2611,8 @@
             {
               "metadata": {
                 "label": "queryRow",
-                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, an `sql:NoRowsError` is returned.\n\n"
+                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, an `sql:NoRowsError` is returned.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2465,7 +2626,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n"
+                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2479,7 +2641,8 @@
             {
               "metadata": {
                 "label": "batchExecute",
-                "description": "Executes an SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is\nreturned (not results from the query). If one of the commands in the batch fails (except syntax error),\nthe `sql:BatchExecuteError` will be deferred until the remaining commands are completed.\n\n"
+                "description": "Executes an SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is\nreturned (not results from the query). If one of the commands in the batch fails (except syntax error),\nthe `sql:BatchExecuteError` will be deferred until the remaining commands are completed.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2493,7 +2656,8 @@
             {
               "metadata": {
                 "label": "call",
-                "description": "Executes an SQL query, which calls a stored procedure. This may or may not\nreturn results. Once the results are processed, the `close` method on `sql:ProcedureCallResult` must be called.\n\n"
+                "description": "Executes an SQL query, which calls a stored procedure. This may or may not\nreturn results. Once the results are processed, the `close` method on `sql:ProcedureCallResult` must be called.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2508,14 +2672,115 @@
         },
         {
           "metadata": {
-            "label": "MongoDB",
-            "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.\n"
+            "label": "Oracle",
+            "description": "Represents a OracleDB client.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "NEW_CONNECTION",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "init"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "query",
+                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "query"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "queryRow",
+                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, an `sql:NoRowsError` is returned.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "queryRow"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "execute",
+                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "execute"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "batchExecute",
+                "description": "Executes the SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is returned (not results from the query).\nIf one of the commands in the batch fails, the `sql:BatchExecuteError` will be returned immediately.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "batchExecute"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "call",
+                "description": "Executes an SQL query, which calls a stored procedure. This may or may not\nreturn results. Once the results are processed, the `close` method on `sql:ProcedureCallResult` must be called.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.0.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "oracledb",
+                "object": "Client",
+                "symbol": "call"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "MongoDB",
+            "description": "Represents a MongoDB client that can be used to interact with a MongoDB server.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "New Connection",
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -2529,7 +2794,8 @@
             {
               "metadata": {
                 "label": "listDatabaseNames",
-                "description": "Lists the database names in the MongoDB server.\n\n"
+                "description": "Lists the database names in the MongoDB server.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2543,7 +2809,8 @@
             {
               "metadata": {
                 "label": "getDatabase",
-                "description": "Retrieves a database from the MongoDB server.\n\n"
+                "description": "Retrieves a database from the MongoDB server.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2557,7 +2824,8 @@
             {
               "metadata": {
                 "label": "close",
-                "description": "Closes the client.\n\n> **Note:** Use a single client instance for the lifetime of the application and close it when the application is done.\n\n"
+                "description": "Closes the client.\n\n> **Note:** Use a single client instance for the lifetime of the application and close it when the application is done.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mongodb_5.0.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2573,13 +2841,15 @@
         {
           "metadata": {
             "label": "PostgreSQL",
-            "description": "Represents a PostgreSQL database client.\n"
+            "description": "Represents a PostgreSQL database client.\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
           },
           "items": [
             {
               "metadata": {
                 "label": "New Connection",
-                "description": "Create a new connection"
+                "description": "Create a new connection",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "NEW_CONNECTION",
@@ -2593,7 +2863,8 @@
             {
               "metadata": {
                 "label": "query",
-                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n"
+                "description": "Executes the query, which may return multiple results.\nWhen processing the stream, make sure to consume all fetched data or close the stream.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2607,7 +2878,8 @@
             {
               "metadata": {
                 "label": "queryRow",
-                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, an `sql:NoRowsError` is returned.\n\n"
+                "description": "Executes the query, which is expected to return at most one row of the result.\nIf the query does not return any results, an `sql:NoRowsError` is returned.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2621,7 +2893,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n"
+                "description": "Executes the SQL query. Only the metadata of the execution is returned (not the results from the query).\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2635,7 +2908,8 @@
             {
               "metadata": {
                 "label": "batchExecute",
-                "description": "Executes the SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is returned (not results from the query).\nIf one of the commands in the batch fails, the `sql:BatchExecuteError` will be returned immediately.\n\n"
+                "description": "Executes the SQL query with multiple sets of parameters in a batch. Only the metadata of the execution is returned (not results from the query).\nIf one of the commands in the batch fails, the `sql:BatchExecuteError` will be returned immediately.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2649,7 +2923,8 @@
             {
               "metadata": {
                 "label": "call",
-                "description": "Executes an SQL query, which calls a stored procedure. This may or may not\nreturn results. Once the results are processed, the `close` method on `sql:ProcedureCallResult` must be called.\n\n"
+                "description": "Executes an SQL query, which calls a stored procedure. This may or may not\nreturn results. Once the results are processed, the `close` method on `sql:ProcedureCallResult` must be called.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -2657,6 +2932,440 @@
                 "module": "postgresql",
                 "object": "Client",
                 "symbol": "call"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Logging"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Log Info"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printInfo",
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printInfo"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Log Error"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printError",
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printError"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Log Warn"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printWarn",
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printWarn"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Log Debug"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "printDebug",
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printDebug"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Data Conversion"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Schema To JSON"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "toJson",
+                "description": "Converts a value of type `anydata` to `json`.\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "toJson"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Schema To XML"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "toXml",
+                "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.xmldata",
+                "symbol": "toXml"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "JSON To Schema"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "parseAsType",
+                "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "parseAsType"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "XML To Schema"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "parseAsType",
+                "description": "Converts XML to record type with projection.\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.xmldata",
+                "symbol": "parseAsType"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "JSON"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Evaluate JSON Path"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "read",
+                "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "read"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "JSON Pretty Print"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "prettify",
+                "description": "Prettifies a `json` value to print it.\n\n",
+                "icon": ""
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "prettify"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "XML"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "XSLT Transform"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "transform",
+                "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "xslt",
+                "symbol": "transform"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "File Data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Read CSV"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileReadCsv",
+                "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadCsv"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Read JSON"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileReadJson",
+                "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadJson"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Read Bytes"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileReadBytes",
+                "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadBytes"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Read XML"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileReadXml",
+                "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileReadXml"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Write CSV"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileWriteCsv",
+                "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteCsv"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Write JSON"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileWriteJson",
+                "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteJson"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Write Bytes"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileWriteBytes",
+                "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteBytes"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Write XML"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "fileWriteXml",
+                "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "io",
+                "symbol": "fileWriteXml"
               },
               "enabled": true
             }
