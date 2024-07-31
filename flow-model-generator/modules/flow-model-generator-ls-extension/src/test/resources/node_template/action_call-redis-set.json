@@ -4,6 +4,7 @@
     "node": "ACTION_CALL",
     "org": "ballerinax",
     "module": "redis",
+    "object": "Client",
     "symbol": "set"
   },
   "output": {

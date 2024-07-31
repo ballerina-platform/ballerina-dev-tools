@@ -76,6 +76,7 @@ import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
@@ -192,7 +193,8 @@ class CodeAnalyzer extends NodeVisitor {
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
         String orgName = symbol.get().getModule().get().id().orgName();
 
-        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.ACTION_CALL, orgName, moduleName, methodName);
+        FlowNode nodeTemplate = central.getNodeTemplate(
+                new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null));
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
                     .metadata()
@@ -302,7 +304,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
         String orgName = typeSymbol.get().getModule().get().id().orgName();
-        FlowNode nodeTemplate = central.getNodeTemplate(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "init");
+        FlowNode nodeTemplate = central.getNodeTemplate(
+                new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null));
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.NEW_CONNECTION)
                     .metadata()

@@ -64,17 +64,11 @@ public class CentralProxy implements Central {
     }
 
     @Override
-    public FlowNode getNodeTemplate(FlowNode.Kind node, String org, String module, String symbol) {
+    public FlowNode getNodeTemplate(Codedata codedata) {
         if (templateCache == null) {
             initializeTemplateCache();
-        }
-        String key = String.format("%s:%s:%s:Client:%s", node, org, module, symbol);
-        return templateCache.get(key);
-    }
-
-    @Override
-    public FlowNode getNodeTemplate(Codedata codedata) {
-        return getNodeTemplate(codedata.node(), codedata.org(), codedata.module(), codedata.symbol());
+        };
+        return templateCache.get(codedata.toString());
     }
 
     @Override

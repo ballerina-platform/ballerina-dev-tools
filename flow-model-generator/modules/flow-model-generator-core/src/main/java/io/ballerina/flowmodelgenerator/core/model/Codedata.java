@@ -35,6 +35,23 @@ import io.ballerina.tools.text.LineRange;
 public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,
                        LineRange lineRange) {
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(node.toString());
+        String[] fields = {org, module, object, symbol};
+
+        for (String field : fields) {
+            if (field != null) {
+                sb.append(":").append(field);
+            }
+        }
+        return sb.toString();
+    }
+
+    private void appendField(StringBuilder sb, String field) {
+
+    }
+
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private FlowNode.Kind node;

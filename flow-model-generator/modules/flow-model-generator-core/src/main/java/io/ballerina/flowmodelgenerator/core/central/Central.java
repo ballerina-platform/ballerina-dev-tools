@@ -34,17 +34,6 @@ public interface Central {
     /**
      * Get the node template for the given codedata.
      *
-     * @param node   The node kind
-     * @param org    The organization name
-     * @param module The module name
-     * @param symbol The symbol name
-     * @return The node template
-     */
-    FlowNode getNodeTemplate(FlowNode.Kind node, String org, String module, String symbol);
-
-    /**
-     * Get the node template for the given codedata.
-     *
      * @param codedata The codedata
      * @return The node template
      */

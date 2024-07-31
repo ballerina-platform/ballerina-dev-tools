@@ -4,6 +4,7 @@
     "node": "ACTION_CALL",
     "org": "ballerina",
     "module": "http",
+    "object": "Client",
     "symbol": "get"
   },
   "output": {

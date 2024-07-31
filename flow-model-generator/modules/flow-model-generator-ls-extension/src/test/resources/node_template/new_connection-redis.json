@@ -4,6 +4,7 @@
     "node": "NEW_CONNECTION",
     "org": "ballerinax",
     "module": "redis",
+    "object": "Client",
     "symbol": "init"
   },
   "output": {
