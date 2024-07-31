@@ -52,6 +52,7 @@ public class AvailableNodesGenerator {
                         .stepOut()
                     .stepIn(Category.Name.ITERATION)
                         .node(FlowNode.Kind.WHILE)
+                        .node(FlowNode.Kind.FOREACH)
                         .node(FlowNode.Kind.BREAK)
                         .node(FlowNode.Kind.CONTINUE)
                         .stepOut()

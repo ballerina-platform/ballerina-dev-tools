@@ -40,6 +40,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
+import io.ballerina.flowmodelgenerator.core.model.node.Foreach;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
@@ -103,6 +104,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
         put(FlowNode.Kind.STOP, Stop::new);
+        put(FlowNode.Kind.FOREACH, Foreach::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -295,6 +297,21 @@ public abstract class NodeBuilder {
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> collection(Node expressionNode) {
+            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.COLLECTION_LABEL)
+                    .description(Property.COLLECTION_DOC)
+                    .stepOut()
+                    .editable()
+                    .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .build();
+            addProperty(Property.COLLECTION_KEY, property);
             return this;
         }
 
@@ -555,6 +572,19 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(info.key(), property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultCollection() {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.COLLECTION_LABEL)
+                    .description(Property.COLLECTION_DOC)
+                    .stepOut()
+                    .value("[]")
+                    .editable()
+                    .build();
+            addProperty(Property.COLLECTION_KEY, property);
             return this;
         }
 

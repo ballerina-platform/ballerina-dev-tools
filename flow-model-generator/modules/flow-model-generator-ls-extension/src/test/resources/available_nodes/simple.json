@@ -50,6 +50,16 @@
             },
             {
               "metadata": {
+                "label": "Foreach",
+                "description": "Iterate over a block of code."
+              },
+              "codedata": {
+                "node": "FOREACH"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
                 "label": "Break",
                 "description": "Exit the current loop"
               },

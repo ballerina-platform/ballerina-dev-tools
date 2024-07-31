@@ -57,6 +57,10 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static final String ON_ERROR_TYPE_KEY = "errorType";
     public static final String ON_ERROR_TYPE_DOC = "Type of the error";
 
+    public static final String COLLECTION_LABEL = "Collection";
+    public static final String COLLECTION_KEY = "collection";
+    public static final String COLLECTION_DOC = "Collection to iterate";
+
     public String toSourceCode() {
         return value;
     }
