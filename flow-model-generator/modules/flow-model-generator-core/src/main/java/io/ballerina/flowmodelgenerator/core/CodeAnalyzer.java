@@ -459,8 +459,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .org(nodeTemplate.codedata().org())
                     .module(nodeTemplate.codedata().module())
                     .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol())
-                    .stepOut();
+                    .symbol(nodeTemplate.codedata().symbol());
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));

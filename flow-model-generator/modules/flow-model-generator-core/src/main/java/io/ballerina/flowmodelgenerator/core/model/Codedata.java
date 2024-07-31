@@ -48,10 +48,6 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         return sb.toString();
     }
 
-    private void appendField(StringBuilder sb, String field) {
-
-    }
-
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private FlowNode.Kind node;

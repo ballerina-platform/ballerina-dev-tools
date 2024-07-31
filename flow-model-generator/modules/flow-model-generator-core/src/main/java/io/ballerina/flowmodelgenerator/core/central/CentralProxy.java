@@ -68,7 +68,7 @@ public class CentralProxy implements Central {
     public FlowNode getNodeTemplate(Codedata codedata) {
         if (templateCache == null) {
             initializeTemplateCache();
-        };
+        }
         return templateCache.get(codedata.toString());
     }
 
