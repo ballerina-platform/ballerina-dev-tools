@@ -35,12 +35,12 @@ import java.util.Optional;
 public class Return extends NodeBuilder {
 
     public static final String LABEL = "Return";
-    public static final String DESCRIPTION = "Return a value";
+    public static final String DESCRIPTION = "Value of '%s'";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.RETURN);
     }
 

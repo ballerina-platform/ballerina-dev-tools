@@ -145,6 +145,9 @@ class CodeAnalyzer extends NodeVisitor {
             expr.accept(this);
             if (isNodeUnidentified()) {
                 startNode(FlowNode.Kind.RETURN)
+                        .metadata()
+                        .description(String.format(Return.DESCRIPTION, expr))
+                        .stepOut()
                         .properties()
                         .expression(expr, Return.RETURN_EXPRESSION_DOC);
             }

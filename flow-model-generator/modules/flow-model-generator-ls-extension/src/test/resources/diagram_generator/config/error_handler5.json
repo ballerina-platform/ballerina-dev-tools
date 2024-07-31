@@ -165,7 +165,7 @@
                 "id": "47881",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'e'"
                 },
                 "codedata": {
                   "node": "RETURN",

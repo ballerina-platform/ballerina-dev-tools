@@ -184,7 +184,7 @@
                 "id": "65878",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'res.toString()'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -269,7 +269,7 @@
                 "id": "67861",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'err.message()'"
                 },
                 "codedata": {
                   "node": "RETURN",

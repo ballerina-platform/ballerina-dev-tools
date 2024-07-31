@@ -154,7 +154,7 @@
                 "id": "63772",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'error(\"Found error\")'"
                 },
                 "codedata": {
                   "node": "RETURN",

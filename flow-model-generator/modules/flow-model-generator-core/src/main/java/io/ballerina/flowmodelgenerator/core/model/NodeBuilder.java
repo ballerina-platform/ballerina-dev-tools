@@ -518,6 +518,7 @@ public abstract class NodeBuilder {
                     .description(doc)
                     .stepOut()
                     .value("")
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
@@ -531,6 +532,7 @@ public abstract class NodeBuilder {
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
                     .value("item")
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .optional(true);
 

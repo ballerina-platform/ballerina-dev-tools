@@ -217,7 +217,7 @@
                         "id": "59059",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"expensive\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -326,7 +326,7 @@
                         "id": "62034",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"moderate\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -371,7 +371,7 @@
         "id": "64751",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of '\"cheap\"'"
         },
         "codedata": {
           "node": "RETURN",

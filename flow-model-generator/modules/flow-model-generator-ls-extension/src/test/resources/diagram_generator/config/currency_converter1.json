@@ -325,7 +325,7 @@
                         "id": "62031",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'newData'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -684,7 +684,7 @@
                         "id": "79887",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'newData'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -808,7 +808,7 @@
                 "id": "85730",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'http:INTERNAL_SERVER_ERROR'"
                 },
                 "codedata": {
                   "node": "RETURN",

@@ -196,7 +196,7 @@
                 "id": "41065",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'j'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -337,7 +337,7 @@
                 "id": "44041",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'j'"
                 },
                 "codedata": {
                   "node": "RETURN",

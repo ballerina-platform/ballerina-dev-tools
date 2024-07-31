@@ -590,7 +590,7 @@
                         "id": "90836",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Error occurred while creating admin client\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -775,7 +775,7 @@
                         "id": "94822",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Response received from admin service: \" + response.toString()'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -831,7 +831,7 @@
                         "id": "96789",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Error occurred while invoking admin service\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -883,7 +883,7 @@
                 "id": "98644",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of '\"Error occurred while invoking food service\"'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -935,7 +935,7 @@
         "id": "100464",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of 'finalMsg'"
         },
         "codedata": {
           "node": "RETURN",

@@ -156,7 +156,7 @@
                 "id": "70828",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'food'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -468,7 +468,7 @@
                         "id": "78764",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'food'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -569,7 +569,7 @@
                         "id": "81740",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'food'"
                         },
                         "codedata": {
                           "node": "RETURN",

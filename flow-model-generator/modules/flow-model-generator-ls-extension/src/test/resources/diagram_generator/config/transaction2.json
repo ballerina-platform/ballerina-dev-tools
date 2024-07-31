@@ -290,7 +290,7 @@
         "id": "47753",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of 'x'"
         },
         "codedata": {
           "node": "RETURN",
