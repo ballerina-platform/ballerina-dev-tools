@@ -274,11 +274,11 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "NewData",
+                          "description": "Create new variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "NEW_DATA",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -298,8 +298,8 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "decimal",
-                            "value": "calculate(amount, <string>cacheValue)\n",
+                            "valueType": "map<json>",
+                            "value": "{\n                    value: check calculate(amount, <string>cacheValue)\n                }",
                             "optional": false,
                             "editable": true
                           },
@@ -322,7 +322,7 @@
                             "editable": true
                           }
                         },
-                        "flags": 1
+                        "flags": 0
                       },
                       {
                         "id": "62031",

@@ -24,3 +24,11 @@ function testNewDataXml() {
     xml x1 = xml `<p>${content}</p>`;
     xml x2 = xml `<book>The Lost World</book>`;
 }
+
+function testJson(int amount) returns error? {
+    json newData = {value: check calculate(amount)};
+}
+
+function calculate(int i) returns int|error {
+    return 3;
+}
