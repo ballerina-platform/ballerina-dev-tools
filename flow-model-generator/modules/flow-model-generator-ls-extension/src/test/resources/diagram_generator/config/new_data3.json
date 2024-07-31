@@ -39,7 +39,7 @@
         "id": "49766",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'j1' with type 'json'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "j1 ",
+            "value": "j1",
             "optional": false,
             "editable": true
           },

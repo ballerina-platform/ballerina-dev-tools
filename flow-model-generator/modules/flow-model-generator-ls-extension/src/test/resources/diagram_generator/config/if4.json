@@ -58,7 +58,7 @@
         "id": "86580",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'mod' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -91,7 +91,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "mod ",
+            "value": "mod",
             "optional": false,
             "editable": true
           },
@@ -549,7 +549,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

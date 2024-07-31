@@ -27,9 +27,11 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -183,7 +185,13 @@ public class CommonUtils {
      */
     public static String getVariableName(Node node) {
         if (node.kind() == SyntaxKind.TYPED_BINDING_PATTERN) {
-            return ((TypedBindingPatternNode) node).bindingPattern().toString();
+            return ((TypedBindingPatternNode) node).bindingPattern().toString().strip();
+        }
+        if (node instanceof BuiltinSimpleNameReferenceNode builtinSimpleNameReferenceNode) {
+            return builtinSimpleNameReferenceNode.name().text();
+        }
+        if (node instanceof SimpleNameReferenceNode simpleNameReferenceNode) {
+            return simpleNameReferenceNode.name().text();
         }
         return node.toString().strip();
     }

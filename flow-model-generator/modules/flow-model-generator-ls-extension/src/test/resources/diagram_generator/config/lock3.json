@@ -80,7 +80,7 @@
                 "id": "48874",
                 "metadata": {
                   "label": "New Variable",
-                  "description": "Create new variable"
+                  "description": "New variable 'i' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -113,7 +113,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "i ",
+                    "value": "i",
                     "optional": false,
                     "editable": true
                   },

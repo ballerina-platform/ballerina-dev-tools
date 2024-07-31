@@ -95,7 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "localHttpCl ",
+            "value": "localHttpCl",
             "optional": false,
             "editable": true
           },
@@ -161,7 +161,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "localRedisCl ",
+            "value": "localRedisCl",
             "optional": false,
             "editable": true
           },
@@ -239,7 +239,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleHttpCl ",
+            "value": "moduleHttpCl",
             "optional": false,
             "editable": true
           },
@@ -315,7 +315,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleHttpExCl ",
+            "value": "moduleHttpExCl",
             "optional": false,
             "editable": true
           },
@@ -381,7 +381,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleRedisCl ",
+            "value": "moduleRedisCl",
             "optional": false,
             "editable": true
           },
@@ -447,7 +447,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleRedisExCl ",
+            "value": "moduleRedisExCl",
             "optional": false,
             "editable": true
           },

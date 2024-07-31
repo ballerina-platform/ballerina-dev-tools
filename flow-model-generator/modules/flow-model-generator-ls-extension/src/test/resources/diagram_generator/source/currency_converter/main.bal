@@ -35,7 +35,7 @@ service / on new http:Listener(8080) {
 
                 // new data
                 decimal value = check response.value;
-                // new data
+                // function call
                 decimal convertedAmount = check calculate(amount, value.toString());
 
                 // action call - redis set call

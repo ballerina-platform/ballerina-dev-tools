@@ -154,7 +154,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "_ ",
+                            "value": "_",
                             "optional": false,
                             "editable": true
                           },
@@ -212,7 +212,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "_ ",
+                    "value": "_",
                     "optional": false,
                     "editable": true
                   },

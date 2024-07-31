@@ -183,7 +183,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

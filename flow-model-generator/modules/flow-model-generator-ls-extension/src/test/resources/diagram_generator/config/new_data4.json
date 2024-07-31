@@ -39,7 +39,7 @@
         "id": "53726",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'content' with type 'string'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "content ",
+            "value": "content",
             "optional": false,
             "editable": true
           },
@@ -92,7 +92,7 @@
         "id": "54721",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'x1' with type 'xml'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -125,7 +125,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x1 ",
+            "value": "x1",
             "optional": false,
             "editable": true
           },
@@ -145,7 +145,7 @@
         "id": "55723",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'x2' with type 'xml'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -178,7 +178,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x2 ",
+            "value": "x2",
             "optional": false,
             "editable": true
           },

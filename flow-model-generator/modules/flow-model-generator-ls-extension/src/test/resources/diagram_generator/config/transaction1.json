@@ -90,7 +90,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res ",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },

@@ -164,7 +164,7 @@
                         "id": "58059",
                         "metadata": {
                           "label": "New Variable",
-                          "description": "Create new variable"
+                          "description": "New variable 'c' with type 'int'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -197,7 +197,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "c ",
+                            "value": "c",
                             "optional": false,
                             "editable": true
                           },
@@ -273,7 +273,7 @@
                         "id": "61034",
                         "metadata": {
                           "label": "New Variable",
-                          "description": "Create new variable"
+                          "description": "New variable 'b' with type 'int'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -306,7 +306,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "b ",
+                            "value": "b",
                             "optional": false,
                             "editable": true
                           },
@@ -464,7 +464,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

@@ -33,12 +33,12 @@ import java.util.Optional;
  */
 public class NewData extends NodeBuilder {
     public static final String LABEL = "New Variable";
-    public static final String DESCRIPTION = "Create new variable";
+    public static final String DESCRIPTION = "New variable '%s' with type '%s'";
     public static final String NEW_DATA_EXPRESSION_DOC = "Create new variable";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.NEW_DATA);
     }
 

@@ -39,7 +39,7 @@
         "id": "48766",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'x1' with type 'xml'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x1 ",
+            "value": "x1",
             "optional": false,
             "editable": true
           },
@@ -91,8 +91,8 @@
       {
         "id": "49767",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'x1'"
         },
         "codedata": {
           "node": "UPDATE_DATA",

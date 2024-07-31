@@ -39,7 +39,7 @@
         "id": "43814",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'j1' with type 'json'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "j1 ",
+            "value": "j1",
             "optional": false,
             "editable": true
           },
@@ -91,8 +91,8 @@
       {
         "id": "44802",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'j1'"
         },
         "codedata": {
           "node": "UPDATE_DATA",

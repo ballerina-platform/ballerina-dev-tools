@@ -136,7 +136,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res3 ",
+                    "value": "res3",
                     "optional": false,
                     "editable": true
                   },
@@ -183,8 +183,8 @@
               {
                 "id": "50998",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'msg'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -249,8 +249,8 @@
               {
                 "id": "52995",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'msg'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -373,7 +373,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "res ",
+                            "value": "res",
                             "optional": false,
                             "editable": true
                           },
@@ -439,8 +439,8 @@
                       {
                         "id": "56102",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'msg'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",
@@ -505,8 +505,8 @@
                       {
                         "id": "58095",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'msg'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",
@@ -619,7 +619,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

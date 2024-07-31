@@ -39,7 +39,7 @@
         "id": "38844",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'str1' with type 'string'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "str1 ",
+            "value": "str1",
             "optional": false,
             "editable": true
           },
@@ -91,8 +91,8 @@
       {
         "id": "39840",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'str1'"
         },
         "codedata": {
           "node": "UPDATE_DATA",

@@ -161,7 +161,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "asiri ",
+            "value": "asiri",
             "optional": false,
             "editable": true
           },

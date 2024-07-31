@@ -95,7 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res1 ",
+            "value": "res1",
             "optional": false,
             "editable": true
           },
@@ -318,7 +318,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res2 ",
+            "value": "res2",
             "optional": false,
             "editable": true
           },
@@ -393,7 +393,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res3 ",
+            "value": "res3",
             "optional": false,
             "editable": true
           },
@@ -468,7 +468,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res4 ",
+            "value": "res4",
             "optional": false,
             "editable": true
           },
@@ -543,7 +543,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res5 ",
+            "value": "res5",
             "optional": false,
             "editable": true
           },
@@ -619,7 +619,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res6 ",
+            "value": "res6",
             "optional": false,
             "editable": true
           },
@@ -694,7 +694,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res7 ",
+            "value": "res7",
             "optional": false,
             "editable": true
           },
@@ -770,7 +770,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res8 ",
+            "value": "res8",
             "optional": false,
             "editable": true
           },
@@ -845,7 +845,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res9 ",
+            "value": "res9",
             "optional": false,
             "editable": true
           },
@@ -941,7 +941,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

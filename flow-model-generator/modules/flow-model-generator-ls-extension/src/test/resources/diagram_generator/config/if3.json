@@ -110,8 +110,8 @@
               {
                 "id": "69847",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'food.comment'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -317,8 +317,8 @@
                               {
                                 "id": "73945",
                                 "metadata": {
-                                  "label": "UpdateData",
-                                  "description": "Update the value of a variable"
+                                  "label": "Update Variable",
+                                  "description": "Update the value of the variable 'food.comment'"
                                 },
                                 "codedata": {
                                   "node": "UPDATE_DATA",
@@ -383,8 +383,8 @@
                               {
                                 "id": "75931",
                                 "metadata": {
-                                  "label": "UpdateData",
-                                  "description": "Update the value of a variable"
+                                  "label": "Update Variable",
+                                  "description": "Update the value of the variable 'food.comment'"
                                 },
                                 "codedata": {
                                   "node": "UPDATE_DATA",
@@ -523,8 +523,8 @@
                       {
                         "id": "80763",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'food.comment'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",
@@ -672,7 +672,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

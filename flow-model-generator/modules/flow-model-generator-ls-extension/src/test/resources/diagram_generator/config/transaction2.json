@@ -39,7 +39,7 @@
         "id": "38826",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'x' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -72,7 +72,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x ",
+            "value": "x",
             "optional": false,
             "editable": true
           },
@@ -166,7 +166,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res ",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },
@@ -265,7 +265,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res ",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },

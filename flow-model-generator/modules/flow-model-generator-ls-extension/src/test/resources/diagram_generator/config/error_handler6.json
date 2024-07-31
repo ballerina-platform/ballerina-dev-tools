@@ -80,7 +80,7 @@
                 "id": "53917",
                 "metadata": {
                   "label": "New Variable",
-                  "description": "Create new variable"
+                  "description": "New variable 'e' with type 'AssertionError'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -113,7 +113,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "e ",
+                    "value": "e",
                     "optional": false,
                     "editable": true
                   },

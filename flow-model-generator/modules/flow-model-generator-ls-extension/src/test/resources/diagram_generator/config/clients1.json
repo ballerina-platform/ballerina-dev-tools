@@ -76,7 +76,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleVal ",
+            "value": "moduleVal",
             "optional": false,
             "editable": true
           },
@@ -203,7 +203,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "localCl ",
+            "value": "localCl",
             "optional": false,
             "editable": true
           },
@@ -260,7 +260,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "localVal ",
+            "value": "localVal",
             "optional": false,
             "editable": true
           },
@@ -331,7 +331,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "myLocalCl ",
+            "value": "myLocalCl",
             "optional": false,
             "editable": true
           },
@@ -432,7 +432,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "moduleCl ",
+            "value": "moduleCl",
             "optional": false,
             "editable": true
           },
@@ -475,7 +475,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "myExplicitModuleCl ",
+            "value": "myExplicitModuleCl",
             "optional": false,
             "editable": true
           },
@@ -518,7 +518,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "myModuleCl ",
+            "value": "myModuleCl",
             "optional": false,
             "editable": true
           },

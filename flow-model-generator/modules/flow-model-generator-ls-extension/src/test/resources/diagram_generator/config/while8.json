@@ -58,7 +58,7 @@
         "id": "135178",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'i' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -91,7 +91,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "i ",
+            "value": "i",
             "optional": false,
             "editable": true
           },
@@ -189,7 +189,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "response ",
+                    "value": "response",
                     "optional": false,
                     "editable": true
                   },
@@ -289,8 +289,8 @@
                       {
                         "id": "139460",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'msg'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",
@@ -355,8 +355,8 @@
                       {
                         "id": "141450",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'msg'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",
@@ -619,7 +619,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

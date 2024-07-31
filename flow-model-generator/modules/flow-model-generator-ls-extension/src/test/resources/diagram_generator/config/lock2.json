@@ -80,7 +80,7 @@
                 "id": "39946",
                 "metadata": {
                   "label": "New Variable",
-                  "description": "Create new variable"
+                  "description": "New variable 'i' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -113,7 +113,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "i ",
+                    "value": "i",
                     "optional": false,
                     "editable": true
                   },
@@ -173,8 +173,8 @@
                       {
                         "id": "42054",
                         "metadata": {
-                          "label": "UpdateData",
-                          "description": "Update the value of a variable"
+                          "label": "Update Variable",
+                          "description": "Update the value of the variable 'i'"
                         },
                         "codedata": {
                           "node": "UPDATE_DATA",

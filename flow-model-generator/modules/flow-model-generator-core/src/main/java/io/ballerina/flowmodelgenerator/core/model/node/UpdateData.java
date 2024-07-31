@@ -33,13 +33,13 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class UpdateData extends NodeBuilder {
-    public static final String LABEL = "UpdateData";
-    public static final String DESCRIPTION = "Update the value of a variable";
+    public static final String LABEL = "Update Variable";
+    public static final String DESCRIPTION = "Update the value of the variable '%s'";
     public static final String UPDATE_DATA_EXPRESSION_DOC = "Update variable";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.UPDATE_DATA);
     }
 

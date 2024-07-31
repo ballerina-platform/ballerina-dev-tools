@@ -62,7 +62,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "f1 ",
+            "value": "f1",
             "optional": false,
             "editable": true
           },
@@ -117,7 +117,7 @@
         "id": "54730",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'name' with type 'future<string>'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -150,7 +150,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "name ",
+            "value": "name",
             "optional": false,
             "editable": true
           },

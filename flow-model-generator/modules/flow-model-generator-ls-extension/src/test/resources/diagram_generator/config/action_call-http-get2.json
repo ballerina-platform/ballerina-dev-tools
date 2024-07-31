@@ -95,7 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res1 ",
+            "value": "res1",
             "optional": false,
             "editable": true
           },
@@ -180,7 +180,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "res2 ",
+            "value": "res2",
             "optional": false,
             "editable": true
           },
@@ -286,7 +286,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

@@ -74,7 +74,7 @@
         "id": "32906",
         "metadata": {
           "label": "New Variable",
-          "description": "Create new variable"
+          "description": "New variable 'futureVar' with type 'future<int>'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -107,7 +107,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "futureVar ",
+            "value": "futureVar",
             "optional": false,
             "editable": true
           },

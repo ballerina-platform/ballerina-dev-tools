@@ -189,7 +189,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "j ",
+                            "value": "j",
                             "optional": false,
                             "editable": true
                           },
@@ -295,7 +295,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "j ",
+                            "value": "j",
                             "optional": false,
                             "editable": true
                           },
@@ -348,7 +348,7 @@
                 "id": "50012",
                 "metadata": {
                   "label": "New Variable",
-                  "description": "Create new variable"
+                  "description": "New variable 'unionResult' with type 'error?'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -380,7 +380,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "unionResult ",
+                    "value": "unionResult",
                     "optional": false,
                     "editable": true
                   },
@@ -463,7 +463,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "asiri ",
+            "value": "asiri",
             "optional": false,
             "editable": true
           },

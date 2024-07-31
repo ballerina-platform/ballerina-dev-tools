@@ -99,7 +99,7 @@
                 "id": "51006",
                 "metadata": {
                   "label": "New Variable",
-                  "description": "Create new variable"
+                  "description": "New variable 'key' with type 'string'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -132,7 +132,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "key ",
+                    "value": "key",
                     "optional": false,
                     "editable": true
                   },
@@ -189,7 +189,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "cacheValue ",
+                    "value": "cacheValue",
                     "optional": false,
                     "editable": true
                   },
@@ -305,7 +305,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "newData ",
+                            "value": "newData",
                             "optional": false,
                             "editable": true
                           },
@@ -418,7 +418,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "response ",
+                            "value": "response",
                             "optional": false,
                             "editable": true
                           },
@@ -499,7 +499,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "value ",
+                            "value": "value",
                             "optional": false,
                             "editable": true
                           },
@@ -552,7 +552,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "convertedAmount ",
+                            "value": "convertedAmount",
                             "optional": false,
                             "editable": true
                           },
@@ -631,7 +631,7 @@
                         "id": "75968",
                         "metadata": {
                           "label": "New Variable",
-                          "description": "Create new variable"
+                          "description": "New variable 'newData' with type 'json'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -664,7 +664,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "newData ",
+                            "value": "newData",
                             "optional": false,
                             "editable": true
                           },
@@ -906,7 +906,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "currencyClient ",
+            "value": "currencyClient",
             "optional": false,
             "editable": true
           },
@@ -972,7 +972,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "redisClient ",
+            "value": "redisClient",
             "optional": false,
             "editable": true
           },

@@ -148,7 +148,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "j ",
+                    "value": "j",
                     "optional": false,
                     "editable": true
                   },
@@ -289,7 +289,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "j ",
+                    "value": "j",
                     "optional": false,
                     "editable": true
                   },
@@ -435,7 +435,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "asiri ",
+            "value": "asiri",
             "optional": false,
             "editable": true
           },
@@ -511,7 +511,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "nawaloka ",
+            "value": "nawaloka",
             "optional": false,
             "editable": true
           },

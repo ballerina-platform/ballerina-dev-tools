@@ -136,7 +136,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res2 ",
+                    "value": "res2",
                     "optional": false,
                     "editable": true
                   },
@@ -183,8 +183,8 @@
               {
                 "id": "41078",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'msg'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -249,8 +249,8 @@
               {
                 "id": "43075",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'msg'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -358,7 +358,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "foodClient ",
+            "value": "foodClient",
             "optional": false,
             "editable": true
           },

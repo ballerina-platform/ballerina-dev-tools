@@ -80,6 +80,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -336,6 +337,12 @@ class CodeAnalyzer extends NodeVisitor {
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.NEW_DATA)
+                    .metadata()
+                    .description(String.format(NewData.DESCRIPTION,
+                            CommonUtils.getVariableName(variableDeclarationNode.typedBindingPattern()),
+                            CommonUtils.getVariableName(
+                                    variableDeclarationNode.typedBindingPattern().typeDescriptor())))
+                    .stepOut()
                     .properties()
                     .expression(initializerNode);
         }
@@ -366,6 +373,10 @@ class CodeAnalyzer extends NodeVisitor {
 
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.UPDATE_DATA)
+                    .metadata()
+                    .description(String.format(UpdateData.DESCRIPTION,
+                            CommonUtils.getVariableName(assignmentStatementNode.varRef())))
+                    .stepOut()
                     .properties()
                     .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
                     .variable(assignmentStatementNode.varRef());
