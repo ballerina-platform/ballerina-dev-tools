@@ -81,6 +81,7 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.CONCURRENCY)
                     .node(FlowNode.Kind.TRANSACTION)
                     .node(FlowNode.Kind.LOCK)
+                    .node(FlowNode.Kind.START)
                 .stepOut();
     }
 }

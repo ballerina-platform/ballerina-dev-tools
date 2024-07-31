@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -33,7 +32,7 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class NewData extends NodeBuilder {
-    public static final String LABEL = "NewData";
+    public static final String LABEL = "New Variable";
     public static final String DESCRIPTION = "Create new variable";
     public static final String NEW_DATA_EXPRESSION_DOC = "Create new variable";
 
