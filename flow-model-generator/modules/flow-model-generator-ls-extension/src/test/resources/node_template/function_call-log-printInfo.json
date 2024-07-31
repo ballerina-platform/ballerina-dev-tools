@@ -4,10 +4,9 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "log",
-    "object": "printInfo",
     "symbol": "printInfo"
   },
-  "output": { 
+  "output": {
     "metadata": {
       "label": "printInfo",
       "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
@@ -20,7 +19,68 @@
       "symbol": "printInfo"
     },
     "returning": false,
-    "properties": {},
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store the connection"
+        },
+        "valueType": "Identifier",
+        "value": "res",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the result"
+        },
+        "valueType": "Type",
+        "value": "",
+        "optional": false,
+        "editable": false
+      },
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "'error": {
+        "metadata": {
+          "label": "'error",
+          "description": "The error struct to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "keyValues": {
+        "metadata": {
+          "label": "keyValues",
+          "description": "The key-value pairs to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
     "flags": 1
   }
 }
