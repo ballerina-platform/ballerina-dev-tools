@@ -132,7 +132,45 @@
                   }
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "msg": {
+                    "metadata": {
+                      "label": "msg",
+                      "description": "The message to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"Count is greater than 20\"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "'error": {
+                    "metadata": {
+                      "label": "'error",
+                      "description": "The error struct to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "stackTrace": {
+                    "metadata": {
+                      "label": "stackTrace",
+                      "description": "The error stack trace to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "keyValues": {
+                    "metadata": {
+                      "label": "keyValues",
+                      "description": "The key-value pairs to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]
@@ -165,7 +203,45 @@
           }
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "msg": {
+            "metadata": {
+              "label": "msg",
+              "description": "The message to be logged\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"Getting apples\"",
+            "optional": false,
+            "editable": true
+          },
+          "'error": {
+            "metadata": {
+              "label": "'error",
+              "description": "The error struct to be logged\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "stackTrace": {
+            "metadata": {
+              "label": "stackTrace",
+              "description": "The error stack trace to be logged\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "keyValues": {
+            "metadata": {
+              "label": "keyValues",
+              "description": "The key-value pairs to be logged\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -332,7 +408,45 @@
                   }
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "msg": {
+                    "metadata": {
+                      "label": "msg",
+                      "description": "The message to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"Failed to get the response\"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "'error": {
+                    "metadata": {
+                      "label": "'error",
+                      "description": "The error struct to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "stackTrace": {
+                    "metadata": {
+                      "label": "stackTrace",
+                      "description": "The error stack trace to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "keyValues": {
+                    "metadata": {
+                      "label": "keyValues",
+                      "description": "The key-value pairs to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]
@@ -381,7 +495,45 @@
                   }
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "msg": {
+                    "metadata": {
+                      "label": "msg",
+                      "description": "The message to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"Response: \"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "'error": {
+                    "metadata": {
+                      "label": "'error",
+                      "description": "The error struct to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "stackTrace": {
+                    "metadata": {
+                      "label": "stackTrace",
+                      "description": "The error stack trace to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "keyValues": {
+                    "metadata": {
+                      "label": "keyValues",
+                      "description": "The key-value pairs to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]

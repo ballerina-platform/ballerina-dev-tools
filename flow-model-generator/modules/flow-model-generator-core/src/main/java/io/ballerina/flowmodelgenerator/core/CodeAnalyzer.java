@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -440,6 +441,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         String orgName = symbol.flatMap(s -> s.getModule().map(m -> m.id().orgName())).orElse("");
 
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
@@ -447,7 +449,7 @@ class CodeAnalyzer extends NodeVisitor {
             String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
             FlowNode nodeTemplate = central.getNodeTemplate(
-                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, functionName, functionName, null));
+                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, null, functionName, null));
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()
@@ -460,8 +462,10 @@ class CodeAnalyzer extends NodeVisitor {
                     .module(nodeTemplate.codedata().module())
                     .object(nodeTemplate.codedata().object())
                     .symbol(nodeTemplate.codedata().symbol())
-                    .stepOut()
-                    .properties();
+                    .stepOut();
+
+            functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
+                    functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
         }
     }
 

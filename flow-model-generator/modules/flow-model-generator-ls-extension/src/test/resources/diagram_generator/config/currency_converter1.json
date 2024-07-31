@@ -776,11 +776,15 @@
               {
                 "id": "83747",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "printError",
+                  "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "log",
+                  "symbol": "printError",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -795,12 +799,41 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "msg": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "msg",
+                      "description": "The message to be logged\n"
                     },
-                    "value": "            // library call - log error\n            log:printError(\"error occured\", e);\n",
+                    "valueType": "EXPRESSION",
+                    "value": "\"error occured\"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "'error": {
+                    "metadata": {
+                      "label": "'error",
+                      "description": "The error struct to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "e",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "stackTrace": {
+                    "metadata": {
+                      "label": "stackTrace",
+                      "description": "The error stack trace to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "keyValues": {
+                    "metadata": {
+                      "label": "keyValues",
+                      "description": "The key-value pairs to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
                     "optional": false,
                     "editable": true
                   }
