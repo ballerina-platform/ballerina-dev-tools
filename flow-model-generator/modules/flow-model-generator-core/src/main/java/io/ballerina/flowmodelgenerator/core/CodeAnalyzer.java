@@ -45,6 +45,7 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
 import io.ballerina.compiler.syntax.tree.ImplicitNewExpressionNode;
@@ -54,6 +55,7 @@ import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
@@ -61,6 +63,7 @@ import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
+import io.ballerina.compiler.syntax.tree.QualifiedNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.RemoteMethodCallActionNode;
 import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
@@ -427,6 +430,39 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ContinueStatementNode continueStatementNode) {
         startNode(FlowNode.Kind.CONTINUE);
         endNode(continueStatementNode);
+    }
+
+    @Override
+    public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
+        Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode);
+        if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
+            startNode(FlowNode.Kind.EXPRESSION);
+            return;
+        }
+
+        String orgName = symbol.flatMap(s -> s.getModule().map(m -> m.id().orgName())).orElse("");
+
+        NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
+        if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
+            String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
+            String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
+            FlowNode nodeTemplate = central.getNodeTemplate(
+                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, functionName, functionName, null));
+
+            startNode(FlowNode.Kind.FUNCTION_CALL)
+                    .metadata()
+                    .label(nodeTemplate.metadata().label())
+                    .description(nodeTemplate.metadata().description())
+                    .icon(nodeTemplate.metadata().icon())
+                    .stepOut()
+                    .codedata()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
+                    .properties();
+        }
     }
 
     @Override
