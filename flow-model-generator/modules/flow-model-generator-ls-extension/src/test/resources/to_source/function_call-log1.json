@@ -1,0 +1,84 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "41952",
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 10,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 40
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"Getting apples\"",
+        "optional": false,
+        "editable": true
+      },
+      "'error": {
+        "metadata": {
+          "label": "'error",
+          "description": "The error struct to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "keyValues": {
+        "metadata": {
+          "label": "keyValues",
+          "description": "The key-value pairs to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 10,
+          "character": 8
+        },
+        "end": {
+          "line": 10,
+          "character": 40
+        }
+      },
+      "newText": "printInfo(\"Getting apples\");"
+    }
+  ]
+}
