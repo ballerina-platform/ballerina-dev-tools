@@ -118,7 +118,7 @@
       "items": [
         {
           "metadata": {
-            "label": "NewData",
+            "label": "New Variable",
             "description": "Create new variable"
           },
           "codedata": {
@@ -189,6 +189,16 @@
           },
           "codedata": {
             "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
           },
           "enabled": true
         }

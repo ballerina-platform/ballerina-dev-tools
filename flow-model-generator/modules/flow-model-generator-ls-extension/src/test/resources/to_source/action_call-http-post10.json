@@ -97,7 +97,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "json|annotations:error",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -116,7 +116,7 @@
           "character": 61
         }
       },
-      "newText": "json|annotations: error res1 = foodClient->post(\"/pears\", \"pear\");"
+      "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "diagram": {
     "id": "55723",
     "metadata": {
-      "label": "NewData",
+      "label": "New Variable",
       "description": "Create new variable"
     },
     "codedata": {
@@ -27,7 +27,7 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "xml:Element",
+        "valueType": "lang.xml:Element",
         "value": "xml `<book>The Lost World</book>`",
         "optional": false,
         "editable": true

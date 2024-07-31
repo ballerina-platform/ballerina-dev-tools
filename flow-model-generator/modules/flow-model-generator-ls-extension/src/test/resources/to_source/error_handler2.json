@@ -151,7 +151,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "string",
                 "value": "res3.toString()",
@@ -217,7 +217,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "string",
                 "value": "\"Failed to get the response\"",
@@ -407,7 +407,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Update variable"
                         },
                         "valueType": "string",
                         "value": "msg.toString() + res.toString()",
@@ -473,7 +473,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Update variable"
                         },
                         "valueType": "string",
                         "value": "\"Error occurred while logging the error\"",

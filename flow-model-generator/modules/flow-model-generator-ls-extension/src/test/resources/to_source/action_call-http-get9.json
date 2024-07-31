@@ -88,7 +88,7 @@
           "character": 11
         }
       },
-      "newText": "json res7 = check foodClient->get(, {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+      "newText": "json res7 = check foodClient->get(headers = {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
     }
   ]
 }

@@ -44,7 +44,7 @@
           {
             "id": "48874",
             "metadata": {
-              "label": "NewData",
+              "label": "New Variable",
               "description": "Create new variable"
             },
             "codedata": {
@@ -118,11 +118,11 @@
           {
             "id": "50855",
             "metadata": {
-              "label": "Return",
-              "description": "Return a value"
+              "label": "Stop",
+              "description": "Stop the flow"
             },
             "codedata": {
-              "node": "RETURN",
+              "node": "STOP",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {

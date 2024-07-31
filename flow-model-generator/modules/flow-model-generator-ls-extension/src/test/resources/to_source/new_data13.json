@@ -3,7 +3,7 @@
   "diagram": {
     "id": "54721",
     "metadata": {
-      "label": "NewData",
+      "label": "New Variable",
       "description": "Create new variable"
     },
     "codedata": {
@@ -27,7 +27,7 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "xml:Element",
+        "valueType": "lang.xml:Element",
         "value": "xml `<p>${content}</p>`",
         "optional": false,
         "editable": true

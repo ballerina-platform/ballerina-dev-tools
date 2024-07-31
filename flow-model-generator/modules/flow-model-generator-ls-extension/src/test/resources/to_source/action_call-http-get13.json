@@ -78,7 +78,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "json|http:ClientError",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -97,7 +97,7 @@
           "character": 63
         }
       },
-      "newText": "json|http:ClientError res2 = foodClient->get(\"/pears\");"
+      "newText": "json res2 = foodClient->get(\"/pears\");"
     }
   ]
 }

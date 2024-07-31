@@ -247,7 +247,7 @@
           {
             "id": "87697",
             "metadata": {
-              "label": "NewData",
+              "label": "New Variable",
               "description": "Create new variable"
             },
             "codedata": {
@@ -300,11 +300,15 @@
           {
             "id": "88745",
             "metadata": {
-              "label": "NewData",
-              "description": "Create new variable"
+              "label": "New Connection",
+              "description": "Create a new connection"
             },
             "codedata": {
-              "node": "NEW_DATA",
+              "node": "NEW_CONNECTION",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "init",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -319,13 +323,32 @@
             },
             "returning": false,
             "properties": {
-              "expression": {
+              "scope": {
                 "metadata": {
-                  "label": "Expression",
-                  "description": "Expression"
+                  "label": "Connection Scope",
+                  "description": "Scope of the connection, Global or Local"
                 },
-                "valueType": "http:Client|http:ClientError",
-                "value": "new (\"http://localhost:9090\")",
+                "valueType": "ENUM",
+                "value": "Global",
+                "optional": false,
+                "editable": true
+              },
+              "url": {
+                "metadata": {
+                  "label": "url",
+                  "description": "URL of the target service\n"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"http://localhost:9090\"",
+                "optional": false,
+                "editable": true
+              },
+              "config": {
+                "metadata": {
+                  "label": "config",
+                  "description": "The configurations to be used when initializing the `client`\n"
+                },
+                "valueType": "EXPRESSION",
                 "optional": false,
                 "editable": true
               },
@@ -343,7 +366,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
-                "value": "http:Client|http:ClientError",
+                "value": "http:Client",
                 "optional": false,
                 "editable": true
               }
@@ -760,7 +783,7 @@
           "character": 9
         }
       },
-      "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n;i += 1;\n; }\non fail http:ClientError e {\n    int attempts = 0;\n    http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    }\non fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
+      "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n;i += 1;\n; }\non fail http:ClientError e {\n    int attempts = 0;\n    http:Client adminClient = check new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    }\non fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
     }
   ]
 }

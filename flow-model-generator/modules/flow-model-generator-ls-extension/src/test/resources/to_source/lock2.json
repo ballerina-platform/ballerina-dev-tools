@@ -44,7 +44,7 @@
           {
             "id": "39946",
             "metadata": {
-              "label": "NewData",
+              "label": "New Variable",
               "description": "Create new variable"
             },
             "codedata": {
@@ -160,7 +160,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Update variable"
                         },
                         "valueType": "int",
                         "value": "3",

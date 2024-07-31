@@ -25,9 +25,9 @@
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Expression"
+          "description": "Update variable"
         },
-        "valueType": "xml:Element",
+        "valueType": "lang.xml:Element",
         "value": "xml `<book>The Lost World</book>`",
         "optional": false,
         "editable": true

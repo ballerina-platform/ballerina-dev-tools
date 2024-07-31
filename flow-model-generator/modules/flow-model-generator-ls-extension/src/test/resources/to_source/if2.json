@@ -109,7 +109,7 @@
                   {
                     "id": "58059",
                     "metadata": {
-                      "label": "NewData",
+                      "label": "New Variable",
                       "description": "Create new variable"
                     },
                     "codedata": {
@@ -218,7 +218,7 @@
                   {
                     "id": "61034",
                     "metadata": {
-                      "label": "NewData",
+                      "label": "New Variable",
                       "description": "Create new variable"
                     },
                     "codedata": {

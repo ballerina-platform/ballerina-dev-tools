@@ -107,7 +107,7 @@
           "character": 11
         }
       },
-      "newText": "json res7 = check foodClient->post(, \"red apple\", {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+      "newText": "json res7 = check foodClient->post(message = \"red apple\", {\n\"first-header\": \"first\",\n\"second-header\": \"second\"\n});"
     }
   ]
 }
