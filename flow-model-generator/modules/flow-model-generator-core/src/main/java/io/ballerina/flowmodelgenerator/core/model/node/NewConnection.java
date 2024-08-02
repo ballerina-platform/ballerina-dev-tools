@@ -36,7 +36,6 @@ import java.util.Set;
 public class NewConnection extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
-    private static final Central central = new CentralProxy();
 
     @Override
     public void setConcreteConstData() {
@@ -46,7 +45,7 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = central.getNodeTemplate(codedata);
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class NewConnection extends NodeBuilder {
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
                 .newVariable();
 
-        FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
         return sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)

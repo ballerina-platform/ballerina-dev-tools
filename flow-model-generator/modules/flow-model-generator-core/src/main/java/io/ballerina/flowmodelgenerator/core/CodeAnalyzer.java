@@ -115,7 +115,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.central = new CentralProxy();
+        this.central = CentralProxy.getInstance();
     }
 
     @Override

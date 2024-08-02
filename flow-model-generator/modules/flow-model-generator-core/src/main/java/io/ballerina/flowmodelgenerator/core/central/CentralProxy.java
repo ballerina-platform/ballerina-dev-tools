@@ -56,8 +56,16 @@ public class CentralProxy implements Central {
     private static final String NODE_TEMPLATES_JSON = "node_templates.json";
     private static final String CONNECTIONS_JSON = "connections.json";
     private static final String FUNCTIONS_JSON = "functions.json";
+    private static CentralProxy instance;
 
-    public CentralProxy() {
+    public static CentralProxy getInstance() {
+        if (instance == null) {
+            instance = new CentralProxy();
+        }
+        return instance;
+    }
+
+    private CentralProxy() {
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemDeserializer())
                 .registerTypeAdapter(Category.class, new CategoryDeserializer())

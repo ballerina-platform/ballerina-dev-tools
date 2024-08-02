@@ -42,7 +42,7 @@ public class AvailableNodesGenerator {
     public AvailableNodesGenerator() {
         this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
         this.gson = new Gson();
-        central = new CentralProxy();
+        central = CentralProxy.getInstance();
         initializeCommonNodes();
     }
 

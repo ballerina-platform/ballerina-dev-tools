@@ -37,8 +37,6 @@ import java.util.Set;
  */
 public class ActionCall extends NodeBuilder {
 
-    private static final Central central = new CentralProxy();
-
     @Override
     public void setConcreteConstData() {
         codedata().node(FlowNode.Kind.ACTION_CALL);
@@ -57,7 +55,7 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = central.getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
 
         Optional<Property> connection = flowNode.getProperty("connection");
         if (connection.isEmpty()) {
@@ -74,6 +72,6 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = central.getNodeTemplate(codedata);
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
     }
 }
