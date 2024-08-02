@@ -263,7 +263,7 @@
                           "description": "Boolean Condition"
                         },
                         "valueType": "boolean",
-                        "value": "hasValue(cacheValue) ",
+                        "value": "cacheValue is string ",
                         "optional": false,
                         "editable": true
                       }
@@ -297,7 +297,7 @@
                               "description": "Expression"
                             },
                             "valueType": "map<json>",
-                            "value": "{\n                    value: check calculate(amount, <string>cacheValue)\n                }",
+                            "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
                             "optional": false,
                             "editable": true
                           },

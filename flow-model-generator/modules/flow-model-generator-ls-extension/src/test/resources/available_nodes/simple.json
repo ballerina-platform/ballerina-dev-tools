@@ -2946,87 +2946,59 @@
       "items": [
         {
           "metadata": {
-            "label": "Log Info"
+            "label": "printInfo",
+            "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "printInfo",
-                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "log",
-                "symbol": "printInfo"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printInfo"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Log Error"
+            "label": "printError",
+            "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "printError",
-                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "log",
-                "symbol": "printError"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printError"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Log Warn"
+            "label": "printWarn",
+            "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "printWarn",
-                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "log",
-                "symbol": "printWarn"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printWarn"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Log Debug"
+            "label": "printDebug",
+            "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "printDebug",
-                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "log",
-                "symbol": "printDebug"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printDebug"
+          },
+          "enabled": true
         }
       ]
     },
@@ -3037,87 +3009,59 @@
       "items": [
         {
           "metadata": {
-            "label": "Schema To JSON"
+            "label": "toJson",
+            "description": "Converts a value of type `anydata` to `json`.\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "toJson",
-                "description": "Converts a value of type `anydata` to `json`.\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "toJson"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "toJson"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Schema To XML"
+            "label": "toXml",
+            "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "toXml",
-                "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.xmldata",
-                "symbol": "toXml"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "toXml"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "JSON To Schema"
+            "label": "parseAsType",
+            "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "parseAsType",
-                "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "parseAsType"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "parseAsType"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "XML To Schema"
+            "label": "parseAsType",
+            "description": "Converts XML to record type with projection.\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "parseAsType",
-                "description": "Converts XML to record type with projection.\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.xmldata",
-                "symbol": "parseAsType"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "parseAsType"
+          },
+          "enabled": true
         }
       ]
     },
@@ -3128,45 +3072,31 @@
       "items": [
         {
           "metadata": {
-            "label": "Evaluate JSON Path"
+            "label": "read",
+            "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "read",
-                "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "read"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "read"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "JSON Pretty Print"
+            "label": "prettify",
+            "description": "Prettifies a `json` value to print it.\n\n",
+            "icon": ""
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "prettify",
-                "description": "Prettifies a `json` value to print it.\n\n",
-                "icon": ""
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "data.jsondata",
-                "symbol": "prettify"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "prettify"
+          },
+          "enabled": true
         }
       ]
     },
@@ -3177,24 +3107,17 @@
       "items": [
         {
           "metadata": {
-            "label": "XSLT Transform"
+            "label": "transform",
+            "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "transform",
-                "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "xslt",
-                "symbol": "transform"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "xslt",
+            "symbol": "transform"
+          },
+          "enabled": true
         }
       ]
     },
@@ -3205,171 +3128,115 @@
       "items": [
         {
           "metadata": {
-            "label": "Read CSV"
+            "label": "fileReadCsv",
+            "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileReadCsv",
-                "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileReadCsv"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadCsv"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Read JSON"
+            "label": "fileReadJson",
+            "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileReadJson",
-                "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileReadJson"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadJson"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Read Bytes"
+            "label": "fileReadBytes",
+            "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileReadBytes",
-                "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileReadBytes"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadBytes"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Read XML"
+            "label": "fileReadXml",
+            "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileReadXml",
-                "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileReadXml"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadXml"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Write CSV"
+            "label": "fileWriteCsv",
+            "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileWriteCsv",
-                "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileWriteCsv"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteCsv"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Write JSON"
+            "label": "fileWriteJson",
+            "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileWriteJson",
-                "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileWriteJson"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteJson"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Write Bytes"
+            "label": "fileWriteBytes",
+            "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileWriteBytes",
-                "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileWriteBytes"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteBytes"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Write XML"
+            "label": "fileWriteXml",
+            "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "fileWriteXml",
-                "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "io",
-                "symbol": "fileWriteXml"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteXml"
+          },
+          "enabled": true
         }
       ]
     }

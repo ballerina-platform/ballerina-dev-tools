@@ -22,10 +22,10 @@ service / on new http:Listener(8080) {
             string? cacheValue = check redisClient->get(key);
 
             // if node
-            if hasValue(cacheValue) {
+            if cacheValue is string {
                 // new data
                 json newData = {
-                    value: check calculate(amount, <string>cacheValue)
+                    value: check calculate(amount, cacheValue)
                 };
                 // return
                 return newData;
@@ -58,6 +58,4 @@ service / on new http:Listener(8080) {
 }
 
 function calculate(decimal amount, string cacheValue) returns decimal|error 
-    => amount * check decimal:fromString(<string>cacheValue);
-
-function hasValue(any val) returns boolean => val != ();
+    => amount * check decimal:fromString(cacheValue);
