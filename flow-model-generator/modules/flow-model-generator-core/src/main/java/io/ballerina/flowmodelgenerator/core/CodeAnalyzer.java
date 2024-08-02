@@ -130,7 +130,7 @@ class CodeAnalyzer extends NodeVisitor {
                 startNode(FlowNode.Kind.EVENT_HTTP_API)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
                         .properties()
-                        .resourceSymbol((ResourceMethodSymbol) symbol.get());
+                            .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
                 startNode(FlowNode.Kind.EXPRESSION);
@@ -151,10 +151,10 @@ class CodeAnalyzer extends NodeVisitor {
             if (isNodeUnidentified()) {
                 startNode(FlowNode.Kind.RETURN)
                         .metadata()
-                        .description(String.format(Return.DESCRIPTION, expr))
-                        .stepOut()
+                            .description(String.format(Return.DESCRIPTION, expr))
+                            .stepOut()
                         .properties()
-                        .expression(expr, Return.RETURN_EXPRESSION_DOC);
+                            .expression(expr, Return.RETURN_EXPRESSION_DOC);
             }
         }
         nodeBuilder.returning();
@@ -166,7 +166,7 @@ class CodeAnalyzer extends NodeVisitor {
         String methodName = remoteMethodCallActionNode.methodName().name().text();
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
-        handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes, null);
+        handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes);
         nodeBuilder.codedata().lineRange(remoteMethodCallActionNode);
     }
 
@@ -177,15 +177,12 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = clientResourceAccessActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
                 clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
-
-        handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes,
-                clientResourceAccessActionNode.resourceAccessPath());
+        handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
         nodeBuilder.codedata().lineRange(clientResourceAccessActionNode);
     }
 
     private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
-                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes,
-                                  SeparatedNodeList<Node> resourceAccessPathNodes) {
+                                  SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
@@ -202,19 +199,19 @@ class CodeAnalyzer extends NodeVisitor {
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.ACTION_CALL)
                     .metadata()
-                    .label(nodeTemplate.metadata().label())
-                    .description(nodeTemplate.metadata().description())
-                    .icon(nodeTemplate.metadata().icon())
-                    .stepOut()
+                        .label(nodeTemplate.metadata().label())
+                        .description(nodeTemplate.metadata().description())
+                        .icon(nodeTemplate.metadata().icon())
+                        .stepOut()
                     .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol())
-                    .stepOut()
+                        .org(nodeTemplate.codedata().org())
+                        .module(nodeTemplate.codedata().module())
+                        .object(nodeTemplate.codedata().object())
+                        .symbol(nodeTemplate.codedata().symbol())
+                        .stepOut()
                     .properties()
-                    .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
-                    .variable(this.typedBindingPatternNode);
+                        .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
+                        .variable(this.typedBindingPatternNode);
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     argumentNodes, params, nodeTemplate.properties()));
             return;
@@ -279,7 +276,7 @@ class CodeAnalyzer extends NodeVisitor {
                 implicitNewExpressionNode.parenthesizedArgList()
                         .map(ParenthesizedArgList::arguments)
                         .orElse(null);
-        checkForPossibleClient(implicitNewExpressionNode, argumentNodes);
+        checkForNewConnection(implicitNewExpressionNode, argumentNodes);
         super.visit(implicitNewExpressionNode);
     }
 
@@ -287,12 +284,12 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ExplicitNewExpressionNode explicitNewExpressionNode) {
         SeparatedNodeList<FunctionArgumentNode> argumentNodes =
                 explicitNewExpressionNode.parenthesizedArgList().arguments();
-        checkForPossibleClient(explicitNewExpressionNode, argumentNodes);
+        checkForNewConnection(explicitNewExpressionNode, argumentNodes);
         super.visit(explicitNewExpressionNode);
     }
 
-    private void checkForPossibleClient(NewExpressionNode newExpressionNode,
-                                        SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
+    private void checkForNewConnection(NewExpressionNode newExpressionNode,
+                                       SeparatedNodeList<FunctionArgumentNode> argumentNodes) {
         Optional<TypeSymbol> typeSymbol =
                 CommonUtils.getTypeSymbol(semanticModel, newExpressionNode).flatMap(symbol -> {
                     if (symbol.typeKind() == TypeDescKind.UNION) {
@@ -312,17 +309,14 @@ class CodeAnalyzer extends NodeVisitor {
                 new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null));
         if (nodeTemplate != null) {
             startNode(FlowNode.Kind.NEW_CONNECTION)
-                    .metadata()
-                    .description(nodeTemplate.metadata().description())
-                    .stepOut()
+                    .metadata().description(nodeTemplate.metadata().description()).stepOut()
                     .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol())
-                    .stepOut()
-                    .properties()
-                    .scope();
+                        .org(nodeTemplate.codedata().org())
+                        .module(nodeTemplate.codedata().module())
+                        .object(nodeTemplate.codedata().object())
+                        .symbol(nodeTemplate.codedata().symbol())
+                        .stepOut()
+                    .properties().scope();
             try {
                 MethodSymbol methodSymbol =
                         ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
@@ -351,11 +345,10 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
-                    .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
+                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
                             variableDeclarationNode.typedBindingPattern().typeDescriptor())
-                    .stepOut()
-                    .properties()
-                    .expression(initializerNode);
+                        .stepOut()
+                    .properties().expression(initializerNode);
         }
         nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
@@ -385,12 +378,12 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.UPDATE_DATA)
                     .metadata()
-                    .description(String.format(UpdateData.DESCRIPTION,
+                        .description(String.format(UpdateData.DESCRIPTION,
                             CommonUtils.getVariableName(assignmentStatementNode.varRef())))
-                    .stepOut()
+                        .stepOut()
                     .properties()
-                    .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
-                    .variable(assignmentStatementNode.varRef());
+                        .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
+                        .variable(assignmentStatementNode.varRef());
         }
 
         endNode(assignmentStatementNode);
@@ -415,8 +408,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FailStatementNode failStatementNode) {
         startNode(FlowNode.Kind.FAIL)
-                .properties()
-                .expression(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
+                .properties().expression(failStatementNode.expression(), Fail.FAIL_EXPRESSION_DOC);
         endNode(failStatementNode);
     }
 
@@ -441,8 +433,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         String orgName = CommonUtils.getOrgName(functionSymbol);
-
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
+
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
             String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
@@ -451,15 +443,15 @@ class CodeAnalyzer extends NodeVisitor {
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()
-                    .label(nodeTemplate.metadata().label())
-                    .description(nodeTemplate.metadata().description())
-                    .icon(nodeTemplate.metadata().icon())
-                    .stepOut()
+                        .label(nodeTemplate.metadata().label())
+                        .description(nodeTemplate.metadata().description())
+                        .icon(nodeTemplate.metadata().icon())
+                        .stepOut()
                     .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol());
+                        .org(nodeTemplate.codedata().org())
+                        .module(nodeTemplate.codedata().module())
+                        .object(nodeTemplate.codedata().object())
+                        .symbol(nodeTemplate.codedata().symbol());
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
@@ -480,9 +472,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder, whileBody);
-
         whileStatementNode.onFailClause().ifPresent(this::processOnFailClause);
-
         endNode(whileStatementNode);
     }
 
@@ -504,8 +494,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(PanicStatementNode panicStatementNode) {
         startNode(FlowNode.Kind.PANIC)
-                .properties()
-                .expression(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
+                .properties().expression(panicStatementNode.expression(), Panic.PANIC_EXPRESSION_DOC);
         endNode(panicStatementNode);
     }
 
@@ -518,8 +507,7 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(StartActionNode startActionNode) {
         startNode(FlowNode.Kind.START)
-                .properties()
-                .expression(startActionNode.expression(), Start.START_EXPRESSION_DOC);
+                .properties().expression(startActionNode.expression(), Start.START_EXPRESSION_DOC);
         endNode(startActionNode);
     }
 
@@ -534,9 +522,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder, lockBody);
-
         lockStatementNode.onFailClause().ifPresent(this::processOnFailClause);
-
         endNode(lockStatementNode);
     }
 
@@ -556,9 +542,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder, blockStatementNode);
-
         transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
-
         endNode(transactionStatementNode);
     }
 
@@ -576,9 +560,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder, blockStatementNode);
-
         forEachStatementNode.onFailClause().ifPresent(this::processOnFailClause);
-
         endNode(forEachStatementNode);
     }
 
@@ -614,9 +596,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.node(buildNode());
         }
         endBranch(branchBuilder, blockStatementNode);
-
         processOnFailClause(optOnFailClauseNode.get());
-
         endNode(doStatementNode);
     }
 
@@ -629,44 +609,38 @@ class CodeAnalyzer extends NodeVisitor {
                     .expression(checkExpressionNode);
         }
 
-        switch (checkExpressionNode.checkKeyword().text()) {
+        String checkText = checkExpressionNode.checkKeyword().text();
+        switch (checkText) {
             case Constants.CHECK -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKED);
             case Constants.CHECKPANIC -> nodeBuilder.flag(FlowNode.NODE_FLAG_CHECKPANIC);
-            default -> {
-            }
+            default -> throw new IllegalStateException("Unexpected value: " + checkText);
+
         }
         nodeBuilder.codedata().lineRange(checkExpressionNode);
     }
 
     @Override
     public void visit(MappingConstructorExpressionNode mappingCtrExprNode) {
-        SyntaxKind kind = mappingCtrExprNode.parent().kind();
-        if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
-            startNode(FlowNode.Kind.NEW_DATA)
-                    .metadata().description(NewData.DESCRIPTION, this.typedBindingPatternNode, "map").stepOut()
-                    .properties()
-                    .expression(mappingCtrExprNode);
-        } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
-            startNode(FlowNode.Kind.UPDATE_DATA)
-                    .properties()
-                    .expression(mappingCtrExprNode)
-                    .variable(((AssignmentStatementNode) mappingCtrExprNode.parent()).varRef());
-        }
+        handleConstructorExpressionNode(mappingCtrExprNode, "map");
     }
 
     @Override
     public void visit(ListConstructorExpressionNode listCtrExprNode) {
-        SyntaxKind kind = listCtrExprNode.parent().kind();
+        handleConstructorExpressionNode(listCtrExprNode, "list");
+    }
+
+    private void handleConstructorExpressionNode(ExpressionNode constructorExprNode, String typeDescription) {
+        SyntaxKind kind = constructorExprNode.parent().kind();
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
             startNode(FlowNode.Kind.NEW_DATA)
-                    .metadata().description(NewData.DESCRIPTION, this.typedBindingPatternNode, "list").stepOut()
-                    .properties()
-                    .expression(listCtrExprNode);
+                    .metadata()
+                        .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
+                        .stepOut()
+                    .properties().expression(constructorExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
-            startNode(FlowNode.Kind.UPDATE_DATA)
-                    .properties()
-                    .expression(listCtrExprNode)
-                    .variable(((AssignmentStatementNode) listCtrExprNode.parent()).varRef());
+            startNode(FlowNode.Kind.UPDATE_DATA).properties()
+                    .expression(constructorExprNode)
+                    .variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
         }
     }
 
