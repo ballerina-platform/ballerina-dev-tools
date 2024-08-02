@@ -195,7 +195,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
-        String orgName = symbol.get().getModule().get().id().orgName();
+        String orgName = CommonUtils.getOrgName(methodSymbol);
 
         FlowNode nodeTemplate = central.getNodeTemplate(
                 new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null));
@@ -307,7 +307,7 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
-        String orgName = typeSymbol.get().getModule().get().id().orgName();
+        String orgName = CommonUtils.getOrgName(typeSymbol.get());
         FlowNode nodeTemplate = central.getNodeTemplate(
                 new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null));
         if (nodeTemplate != null) {
@@ -440,7 +440,7 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
-        String orgName = symbol.flatMap(s -> s.getModule().map(m -> m.id().orgName())).orElse("");
+        String orgName = CommonUtils.getOrgName(functionSymbol);
 
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {

@@ -73,9 +73,11 @@ public class CommonUtils {
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()
                                 .flatMap(Symbol::getName)
-                                .map(prefix -> ".".equals(prefix) ? name : prefix + ":" + name)
+                                .filter(prefix -> !".".equals(prefix))
+                                .map(prefix -> prefix + ":" + name)
                                 .orElse(name))
-                        .orElseGet(() -> getTypeSignature(semanticModel, typeReferenceTypeSymbol.typeDescriptor(),
+                        .orElseGet(() -> getTypeSignature(semanticModel,
+                                typeReferenceTypeSymbol.typeDescriptor(),
                                 ignoreError));
             }
             case UNION -> {
@@ -107,6 +109,18 @@ public class CommonUtils {
      */
     public static String getModuleName(Symbol symbol) {
         return symbol.getModule().flatMap(Symbol::getName).orElse("");
+    }
+
+    /**
+     * Returns the organization name of the given symbol.
+     *
+     * @param symbol the symbol to get the organization name
+     * @return the organization name
+     */
+    public static String getOrgName(Symbol symbol) {
+        return symbol.getModule()
+                .map(module -> module.id().orgName())
+                .orElse("");
     }
 
     /**
