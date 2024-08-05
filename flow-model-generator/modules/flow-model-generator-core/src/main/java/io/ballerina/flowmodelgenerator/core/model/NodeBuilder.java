@@ -212,18 +212,6 @@ public abstract class NodeBuilder {
      */
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
 
-        public static final String DATA_VARIABLE_LABEL = "Data variable";
-        public static final String DATA_VARIABLE_KEY = "variable";
-        public static final String DATA_VARIABLE_DOC = "Name of the variable";
-
-        public static final String DATA_TYPE_LABEL = "Data type";
-        public static final String DATA_TYPE_KEY = "type";
-        public static final String DATA_TYPE_DOC = "Type of the variable";
-
-        public static final String SCOPE_LABEL = "Connection Scope";
-        public static final String SCOPE_KEY = "scope";
-        public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
-
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
@@ -255,24 +243,24 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> dataVariable(Node node) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(DATA_VARIABLE_LABEL)
-                    .description(DATA_VARIABLE_DOC)
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
                     .editable()
                     .build();
-            addProperty(DATA_VARIABLE_KEY, property);
+            addProperty(Property.DATA_VARIABLE_KEY, property);
 
             propertyBuilder
                     .metadata()
-                    .label(DATA_TYPE_LABEL)
-                    .description(DATA_TYPE_DOC)
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .editable();
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(
                     typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
-            addProperty(DATA_TYPE_KEY, propertyBuilder.build());
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
         }
@@ -280,23 +268,23 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> defaultDataVariable() {
             Property variable = propertyBuilder
                     .metadata()
-                    .label(DATA_VARIABLE_LABEL)
-                    .description(DATA_VARIABLE_DOC)
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
                     .stepOut()
                     .editable()
                     .value("item")
                     .build();
-            addProperty(DATA_VARIABLE_KEY, variable);
+            addProperty(Property.DATA_VARIABLE_KEY, variable);
 
             Property type = propertyBuilder
                     .metadata()
-                    .label(DATA_TYPE_LABEL)
-                    .description(DATA_TYPE_DOC)
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .value("var")
                     .editable()
                     .build();
-            addProperty(DATA_TYPE_KEY, type);
+            addProperty(Property.DATA_TYPE_KEY, type);
 
             return this;
         }
@@ -558,14 +546,14 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> scope() {
             Property property = propertyBuilder
                     .metadata()
-                    .label(SCOPE_LABEL)
-                    .description(SCOPE_DOC)
+                    .label(Property.SCOPE_LABEL)
+                    .description(Property.SCOPE_DOC)
                     .stepOut()
                     .type(Property.ValueType.ENUM)
                     .value("Global")
                     .editable()
                     .build();
-            addProperty(SCOPE_KEY, property);
+            addProperty(Property.SCOPE_KEY, property);
             return this;
         }
 

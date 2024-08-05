@@ -36,6 +36,8 @@ import java.util.Set;
  */
 public class ActionCall extends NodeBuilder {
 
+    public static final String TARGET_TYPE_KEY = "targetType";
+
     @Override
     public void setConcreteConstData() {
         codedata().node(FlowNode.Kind.ACTION_CALL);
@@ -56,7 +58,7 @@ public class ActionCall extends NodeBuilder {
 
         FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
 
-        Optional<Property> connection = flowNode.getProperty("connection");
+        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
@@ -65,7 +67,8 @@ public class ActionCall extends NodeBuilder {
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label())
                 .stepOut()
-                .functionParameters(nodeTemplate, Set.of("connection", "variable", "type", "targetType"))
+                .functionParameters(nodeTemplate,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
                 .build(false);
     }
 

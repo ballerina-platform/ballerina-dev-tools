@@ -61,6 +61,21 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static final String COLLECTION_KEY = "collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
+    public static final String DATA_VARIABLE_LABEL = "Data variable";
+    public static final String DATA_VARIABLE_KEY = "variable";
+    public static final String DATA_VARIABLE_DOC = "Name of the variable";
+
+    public static final String DATA_TYPE_LABEL = "Data type";
+    public static final String DATA_TYPE_KEY = "type";
+    public static final String DATA_TYPE_DOC = "Type of the variable";
+
+    public static final String SCOPE_LABEL = "Connection Scope";
+    public static final String SCOPE_KEY = "scope";
+    public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
+
+    public static final String CONNECTION_KEY = "connection";
+
+
     public String toSourceCode() {
         return value;
     }

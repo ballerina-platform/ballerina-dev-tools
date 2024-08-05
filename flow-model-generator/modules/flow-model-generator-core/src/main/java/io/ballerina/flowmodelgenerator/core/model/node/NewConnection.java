@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 import java.util.Set;
@@ -57,7 +58,8 @@ public class NewConnection extends NodeBuilder {
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
-                .functionParameters(nodeTemplate, Set.of("variable", "type", "scope"))
+                .functionParameters(nodeTemplate,
+                        Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY))
                 .build(false);
     }
 }

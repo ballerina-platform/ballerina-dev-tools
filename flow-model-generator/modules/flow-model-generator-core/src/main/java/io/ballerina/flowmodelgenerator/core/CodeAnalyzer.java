@@ -83,6 +83,7 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
@@ -214,7 +215,8 @@ class CodeAnalyzer extends NodeVisitor {
                     .symbol(nodeTemplate.codedata().symbol())
                     .stepOut()
                 .properties()
-                    .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
+                    .callExpression(expressionNode, Property.CONNECTION_KEY,
+                        nodeTemplate.properties().get(Property.CONNECTION_KEY))
                     .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, nodeTemplate.properties()));

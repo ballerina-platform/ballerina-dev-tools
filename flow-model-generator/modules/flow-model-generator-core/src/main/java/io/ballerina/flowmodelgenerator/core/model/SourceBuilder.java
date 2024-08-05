@@ -45,7 +45,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable() {
-        Optional<Property> type = flowNode.getProperty(NodeBuilder.PropertiesBuilder.DATA_TYPE_KEY);
+        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
@@ -56,7 +56,7 @@ public class SourceBuilder {
     }
 
     public SourceBuilder typedBindingPattern() {
-        Optional<Property> type = flowNode.getProperty(NodeBuilder.PropertiesBuilder.DATA_TYPE_KEY);
+        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
