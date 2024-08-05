@@ -56,13 +56,14 @@ public class CentralProxy implements Central {
     private static final String NODE_TEMPLATES_JSON = "node_templates.json";
     private static final String CONNECTIONS_JSON = "connections.json";
     private static final String FUNCTIONS_JSON = "functions.json";
-    private static CentralProxy instance;
+
+    private static final class CentralProxyHolder {
+
+        private static final CentralProxy instance = new CentralProxy();
+    }
 
     public static CentralProxy getInstance() {
-        if (instance == null) {
-            instance = new CentralProxy();
-        }
-        return instance;
+        return CentralProxyHolder.instance;
     }
 
     private CentralProxy() {

@@ -196,41 +196,41 @@ class CodeAnalyzer extends NodeVisitor {
 
         FlowNode nodeTemplate = central.getNodeTemplate(
                 new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null));
-        if (nodeTemplate != null) {
-            startNode(FlowNode.Kind.ACTION_CALL)
-                    .metadata()
-                        .label(nodeTemplate.metadata().label())
-                        .description(nodeTemplate.metadata().description())
-                        .icon(nodeTemplate.metadata().icon())
-                        .stepOut()
-                    .codedata()
-                        .org(nodeTemplate.codedata().org())
-                        .module(nodeTemplate.codedata().module())
-                        .object(nodeTemplate.codedata().object())
-                        .symbol(nodeTemplate.codedata().symbol())
-                        .stepOut()
-                    .properties()
-                        .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
-                        .variable(this.typedBindingPatternNode);
-            methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, nodeTemplate.properties()));
+        if (nodeTemplate == null) {
+            startNode(FlowNode.Kind.EXPRESSION);
             return;
         }
-        startNode(FlowNode.Kind.EXPRESSION);
+
+        startNode(FlowNode.Kind.ACTION_CALL)
+                .metadata()
+                    .label(nodeTemplate.metadata().label())
+                    .description(nodeTemplate.metadata().description())
+                    .icon(nodeTemplate.metadata().icon())
+                    .stepOut()
+                .codedata()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
+                .properties()
+                    .callExpression(expressionNode, "connection", nodeTemplate.properties().get("connection"))
+                    .variable(this.typedBindingPatternNode);
+        methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
+                argumentNodes, params, nodeTemplate.properties()));
     }
 
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         startNode(FlowNode.Kind.IF);
 
-        Branch.Builder thenBranchBuilder =
-                startBranch(If.IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
-                        Branch.Repeatable.ONE_OR_MORE);
-        thenBranchBuilder.label(If.IF_THEN_LABEL)
+        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL,
+                Branch.BranchKind.BLOCK, Branch.Repeatable.ONE_OR_MORE)
+                .label(If.IF_THEN_LABEL)
                 .kind(Branch.BranchKind.BLOCK)
                 .repeatable(Branch.Repeatable.ONE_OR_MORE)
                 .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
-                .properties().condition(ifElseStatementNode.condition());
+                .properties().condition(ifElseStatementNode.condition()).stepOut();
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         for (StatementNode statement : ifBody.statements()) {
             statement.accept(this);
@@ -307,28 +307,28 @@ class CodeAnalyzer extends NodeVisitor {
         String orgName = CommonUtils.getOrgName(typeSymbol.get());
         FlowNode nodeTemplate = central.getNodeTemplate(
                 new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null));
-        if (nodeTemplate != null) {
-            startNode(FlowNode.Kind.NEW_CONNECTION)
-                    .metadata().description(nodeTemplate.metadata().description()).stepOut()
-                    .codedata()
-                        .org(nodeTemplate.codedata().org())
-                        .module(nodeTemplate.codedata().module())
-                        .object(nodeTemplate.codedata().object())
-                        .symbol(nodeTemplate.codedata().symbol())
-                        .stepOut()
-                    .properties().scope();
-            try {
-                MethodSymbol methodSymbol =
-                        ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
-                                .orElseThrow();
-                methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                        argumentNodes, params, nodeTemplate.properties()));
-            } catch (RuntimeException ignored) {
-
-            }
+        if (nodeTemplate == null) {
+            startNode(FlowNode.Kind.EXPRESSION);
             return;
         }
-        startNode(FlowNode.Kind.EXPRESSION);
+        startNode(FlowNode.Kind.NEW_CONNECTION)
+                .metadata().description(nodeTemplate.metadata().description()).stepOut()
+                .codedata()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
+                .properties().scope();
+        try {
+            MethodSymbol methodSymbol =
+                    ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
+                            .orElseThrow();
+            methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
+                    argumentNodes, params, nodeTemplate.properties()));
+        } catch (RuntimeException ignored) {
+
+        }
     }
 
     @Override

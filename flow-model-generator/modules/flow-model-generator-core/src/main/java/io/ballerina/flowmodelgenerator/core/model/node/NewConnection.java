@@ -19,7 +19,6 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
