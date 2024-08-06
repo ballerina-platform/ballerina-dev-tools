@@ -3,10 +3,15 @@
   "diagram": {
     "id": "61821",
     "metadata": {
-      "label": "HTTP POST"
+      "label": "post",
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
     },
     "codedata": {
       "node": "ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "post",
       "lineRange": {
         "fileName": "http_post_node.bal",
         "startLine": {
@@ -21,52 +26,69 @@
     },
     "returning": false,
     "properties": {
-      "client": {
+      "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
+          "label": "Connection",
+          "description": "Connection to use"
         },
-        "valueType": "http:Client",
+        "valueType": "EXPRESSION",
         "value": "foodClient",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "json|http:ClientError",
         "value": "res2 ",
         "optional": false,
         "editable": true
       },
       "message": {
         "metadata": {
-          "label": "Message",
-          "description": "HTTP Post Message"
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload\n"
         },
-        "valueType": "string",
+        "valueType": "EXPRESSION",
         "value": "\"pear\"",
         "optional": false,
         "editable": true
       },
       "headers": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "headers",
+          "description": "The entity headers\n"
         },
-        "valueType": "map<string|string[]>?",
+        "valueType": "EXPRESSION",
         "optional": true,
         "editable": true
       },
       "mediaType": {
         "metadata": {
-          "label": "Media Type",
-          "description": "HTTP Post Media Type"
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity\n"
         },
-        "valueType": "string?",
+        "valueType": "EXPRESSION",
         "optional": true,
+        "editable": true
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "json",
+        "optional": false,
         "editable": true
       }
     },
@@ -84,7 +106,7 @@
           "character": 69
         }
       },
-      "newText": "json|http:ClientError res2 = foodClient->post(, \"pear\");"
+      "newText": "json res2 = foodClient->post(message = \"pear\");"
     }
   ]
 }

@@ -1,12 +1,16 @@
 {
   "description": "Sample diagram node",
   "diagram": {
-    "id": "31",
     "metadata": {
-      "label": "HTTP GET"
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
     },
     "codedata": {
       "node": "ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -21,47 +25,68 @@
     },
     "returning": false,
     "properties": {
-      "client": {
+      "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
+          "label": "Connection",
+          "description": "Connection to use"
         },
-        "valueType": "http:Client",
-        "value": "",
+        "valueType": "Identifier",
+        "value": "connection",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
           "label": "Variable",
-          "description": "Result Variable"
+          "description": "Variable to store the connection"
         },
-        "value": "item",
-        "optional": true,
+        "valueType": "Identifier",
+        "value": "res",
+        "optional": false,
         "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the result"
+        },
+        "valueType": "Type",
+        "value": "map<json>",
+        "optional": false,
+        "editable": false
       },
       "path": {
         "metadata": {
-          "label": "Path",
-          "description": "HTTP Path"
+          "label": "path",
+          "description": "Request path\n"
         },
-        "valueType": "string",
+        "valueType": "Expression",
         "value": "",
         "optional": false,
         "editable": true
       },
       "headers": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "headers",
+          "description": "The entity headers\n"
         },
-        "valueType": "map<string|string[]>?",
-        "value": "",
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+        },
+        "valueType": "Expression",
+        "value": "<>",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 0
+    "flags": 1
   },
   "output": [
     {
@@ -75,7 +100,7 @@
           "character": 0
         }
       },
-      "newText": "null item = ->get(, );"
+      "newText": "map<json> res = check connection->get();"
     }
   ]
 }

@@ -38,11 +38,11 @@
       {
         "id": "52725",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -57,26 +57,16 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "Foo1",
-            "value": "new(\"foo\")",
-            "optional": false,
-            "editable": true
-          },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "f1 ",
+            "value": "f1",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -126,8 +116,8 @@
       {
         "id": "54730",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'name' with type 'future<string>'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -155,16 +145,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "name ",
+            "value": "name",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -177,26 +167,6 @@
         "flags": 0
       }
     ],
-    "clients": [
-      {
-        "id": "52711",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 21,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 11
-          }
-        },
-        "scope": "LOCAL",
-        "value": "f1 ",
-        "flags": 0
-      }
-    ]
+    "connections": []
   }
 }

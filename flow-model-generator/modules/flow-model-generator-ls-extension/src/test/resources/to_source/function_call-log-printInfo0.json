@@ -1,0 +1,106 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store the connection"
+        },
+        "valueType": "Identifier",
+        "value": "res",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the result"
+        },
+        "valueType": "Type",
+        "value": "",
+        "optional": false,
+        "editable": false
+      },
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "'error": {
+        "metadata": {
+          "label": "'error",
+          "description": "The error struct to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "keyValues": {
+        "metadata": {
+          "label": "keyValues",
+          "description": "The key-value pairs to be logged\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "res = check printInfo(, keyValues = );"
+    }
+  ]
+}

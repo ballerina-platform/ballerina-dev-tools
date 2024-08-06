@@ -23,9 +23,9 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,36 +47,16 @@ public class ErrorHandler extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Branch> body = node.getBranch(ERROR_HANDLER_BODY);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Branch> body = flowNode.getBranch(ERROR_HANDLER_BODY);
 
-        sourceBuilder
+        sourceBuilder.token()
                 .keyword(SyntaxKind.DO_KEYWORD)
-                .openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            // Build the keywords
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            // Build the body
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
-
+        sourceBuilder.onFailure();
         return sourceBuilder.build(false);
     }
 

@@ -57,10 +57,16 @@
       {
         "id": "45965",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -75,74 +81,74 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res1 ",
+            "value": "res1",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Resource path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res1 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "value": "json",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -157,10 +163,16 @@
       {
         "id": "46962",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -175,51 +187,61 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Resource path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/apples\"",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "json",
             "optional": true,
             "editable": true
           }
@@ -229,10 +251,16 @@
       {
         "id": "47944",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -247,64 +275,63 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res2 ",
+            "value": "res2",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"western red apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res2 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -319,10 +346,16 @@
       {
         "id": "48962",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -337,65 +370,64 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res3 ",
+            "value": "res3",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "map<anydata>",
+            "valueType": "EXPRESSION",
             "value": "{\"type\": \"red apple\"}",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "value": "\"application/json\"",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res3 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -410,10 +442,16 @@
       {
         "id": "49908",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -428,64 +466,63 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res4 ",
+            "value": "res4",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res4 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -500,10 +537,16 @@
       {
         "id": "50924",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -518,64 +561,64 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res5 ",
+            "value": "res5",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res5 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "value": "json",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -590,10 +633,16 @@
       {
         "id": "51936",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -608,65 +657,64 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res7 ",
+            "value": "res7",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res7 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -681,10 +729,16 @@
       {
         "id": "55864",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -699,64 +753,63 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "Food",
-            "value": "res8 ",
+            "value": "res8",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"red apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res8 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -771,10 +824,16 @@
       {
         "id": "56876",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -789,64 +848,63 @@
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
+              "label": "Data variable",
+              "description": "Name of the variable"
             },
-            "valueType": "json",
-            "value": "res9 ",
+            "value": "res9",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"green apple\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
-          "dataVariable": {
+          "targetType": {
             "metadata": {
-              "label": "Data variable",
-              "description": "Name of the variable"
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
-            "value": "res9 ",
-            "optional": false,
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -859,25 +917,82 @@
         "flags": 1
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       }
     ]
   }

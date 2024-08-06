@@ -63,7 +63,7 @@
       }
     ],
     "properties": {
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
@@ -72,7 +72,7 @@
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"

@@ -41,9 +41,11 @@ import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.Foreach;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
@@ -85,6 +87,7 @@ public abstract class NodeBuilder {
     protected int flags;
     protected boolean returning;
     protected SemanticModel semanticModel;
+    protected FlowNode cachedFlowNode;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(FlowNode.Kind.IF, If::new);
@@ -97,6 +100,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.PANIC, Panic::new);
         put(FlowNode.Kind.EVENT_HTTP_API, HttpApiEvent::new);
         put(FlowNode.Kind.ACTION_CALL, ActionCall::new);
+        put(FlowNode.Kind.NEW_CONNECTION, NewConnection::new);
         put(FlowNode.Kind.START, Start::new);
         put(FlowNode.Kind.TRANSACTION, Transaction::new);
         put(FlowNode.Kind.LOCK, Lock::new);
@@ -104,6 +108,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
         put(FlowNode.Kind.STOP, Stop::new);
+        put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
     }};
 
@@ -175,6 +180,12 @@ public abstract class NodeBuilder {
 
     public FlowNode build() {
         this.setConstData();
+
+        // Check if there is a pre-built node
+        if (cachedFlowNode != null) {
+            return cachedFlowNode;
+        }
+
         Codedata codedata = codedataBuilder == null ? null : codedataBuilder.build();
         return new FlowNode(
                 String.valueOf(Objects.hash(codedata != null ? codedata.lineRange() : null)),
@@ -200,14 +211,6 @@ public abstract class NodeBuilder {
      * @since 1.4.0
      */
     public static class PropertiesBuilder<T> extends FacetedBuilder<T> {
-
-        public static final String DATA_VARIABLE_LABEL = "Data variable";
-        public static final String DATA_VARIABLE_KEY = "dataVariable";
-        public static final String DATA_VARIABLE_DOC = "Name of the variable";
-
-        public static final String DATA_TYPE_LABEL = "Data type";
-        public static final String DATA_TYPE_KEY = "dataType";
-        public static final String DATA_TYPE_DOC = "Type of the variable";
 
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
@@ -240,23 +243,24 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> dataVariable(Node node) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(DATA_VARIABLE_LABEL)
-                    .description(DATA_VARIABLE_DOC)
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
                     .editable()
                     .build();
-            addProperty(DATA_VARIABLE_KEY, property);
+            addProperty(Property.DATA_VARIABLE_KEY, property);
 
             propertyBuilder
                     .metadata()
-                    .label(DATA_TYPE_LABEL)
-                    .description(DATA_TYPE_DOC)
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .editable();
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
-            optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
-            addProperty(DATA_TYPE_KEY, propertyBuilder.build());
+            optTypeSymbol.ifPresent(
+                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
         }
@@ -264,23 +268,23 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> defaultDataVariable() {
             Property variable = propertyBuilder
                     .metadata()
-                    .label(DATA_VARIABLE_LABEL)
-                    .description(DATA_VARIABLE_DOC)
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
                     .stepOut()
                     .editable()
                     .value("item")
                     .build();
-            addProperty(DATA_VARIABLE_KEY, variable);
+            addProperty(Property.DATA_VARIABLE_KEY, variable);
 
             Property type = propertyBuilder
                     .metadata()
-                    .label(DATA_TYPE_LABEL)
-                    .description(DATA_TYPE_DOC)
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .value("var")
                     .editable()
                     .build();
-            addProperty(DATA_TYPE_KEY, type);
+            addProperty(Property.DATA_TYPE_KEY, type);
 
             return this;
         }
@@ -300,50 +304,39 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> collection(Node expressionNode) {
-            semanticModel.typeOf(expressionNode).ifPresent(propertyBuilder::type);
-            Property property = propertyBuilder
-                    .metadata()
-                    .label(Property.COLLECTION_LABEL)
-                    .description(Property.COLLECTION_DOC)
-                    .stepOut()
-                    .editable()
-                    .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
-                    .build();
-            addProperty(Property.COLLECTION_KEY, property);
-            return this;
-        }
-
-        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key,
+                                                   Property propertyTemplate) {
             Property client = Property.Builder.getInstance()
                     .metadata()
-                    .label(info.label())
-                    .description(info.documentation())
+                    .label(propertyTemplate.metadata().label())
+                    .description(propertyTemplate.metadata().description())
                     .stepOut()
-                    .type(info.type())
+                    .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
                     .editable()
                     .build();
-            addProperty(info.key(), client);
+            addProperty(key, client);
             return this;
         }
 
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
-                                                      List<ParameterSymbol> parameterSymbols) {
+                                                      List<ParameterSymbol> parameterSymbols,
+                                                      Map<String, Property> properties) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
-            for (FunctionArgumentNode argument : arguments) {
-                switch (argument.kind()) {
-                    case NAMED_ARG -> {
-                        NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
-                        namedArgValueMap.put(namedArgument.argumentName().name().text(),
-                                namedArgument.expression());
-                    }
-                    case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
-                    default -> {
-                        // Ignore the default case
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
                     }
                 }
             }
@@ -361,33 +354,19 @@ public abstract class NodeBuilder {
                 String parameterName = name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
-                ExpressionAttributes.Info info = ExpressionAttributes.get(parameterName);
-                if (info != null) {
+                Property propertyTemplate = properties.get(parameterName);
+                if (propertyTemplate != null) {
                     propertyBuilder
                             .metadata()
-                            .label(info.label())
-                            .description(info.documentation())
+                            .label(propertyTemplate.metadata().label())
+                            .description(propertyTemplate.metadata().description())
                             .stepOut()
+                            .type(Property.ValueType.EXPRESSION)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                     if (paramValue != null) {
                         propertyBuilder.value(paramValue.toSourceCode());
-                    }
-
-                    String staticType = info.type();
-                    Optional<TypeSymbol> valueType =
-                            paramValue != null ? semanticModel.typeOf(paramValue) : Optional.empty();
-
-                    if (info.dynamicType() && valueType.isPresent()) {
-                        // Obtain the type from the value if the dynamic type is set
-                        propertyBuilder.type(valueType.get());
-                    } else if (staticType != null) {
-                        // Set the static type
-                        propertyBuilder.type(staticType);
-                    } else {
-                        // Set the type of the symbol if none of types were found
-                        propertyBuilder.type(parameterSymbol.typeDescriptor());
                     }
 
                     addProperty(parameterName, propertyBuilder.build());
@@ -484,7 +463,8 @@ public abstract class NodeBuilder {
             addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
 
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
-                    .ifPresent(typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(typeSymbol)));
+                    .ifPresent(typeSymbol -> propertyBuilder.value(
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false)));
             Property type = propertyBuilder
                     .metadata()
                     .label(Property.ON_ERROR_TYPE_LABEL)
@@ -528,6 +508,7 @@ public abstract class NodeBuilder {
                     .description(doc)
                     .stepOut()
                     .value("")
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
@@ -541,6 +522,7 @@ public abstract class NodeBuilder {
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
                     .value("item")
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .optional(true);
 
@@ -561,17 +543,32 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> defaultExpression(ExpressionAttributes.Info info) {
+        public PropertiesBuilder<T> scope() {
             Property property = propertyBuilder
                     .metadata()
-                    .label(info.label())
-                    .description(info.documentation())
+                    .label(Property.SCOPE_LABEL)
+                    .description(Property.SCOPE_DOC)
                     .stepOut()
-                    .value("")
-                    .type(info.type())
+                    .type(Property.ValueType.ENUM)
+                    .value("Global")
                     .editable()
                     .build();
-            addProperty(info.key(), property);
+            addProperty(Property.SCOPE_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> collection(Node expressionNode) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.COLLECTION_LABEL)
+                    .description(Property.COLLECTION_DOC)
+                    .stepOut()
+                    .editable()
+                    .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .type(Property.ValueType.EXPRESSION)
+                    .build();
+            addProperty(Property.COLLECTION_KEY, property);
             return this;
         }
 

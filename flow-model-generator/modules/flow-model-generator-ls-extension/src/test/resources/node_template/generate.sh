@@ -32,7 +32,7 @@ if [ $# -eq 1 ]; then
     echo '{
     "description": "Sample diagram node",
     "codedata": {
-        "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'"
+        "node": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'"
     },
     "output": {}
 }' > "$FILE_PATH"
@@ -48,7 +48,7 @@ elif [ $# -eq 3 ]; then
     echo '{
     "description": "Sample diagram node",
     "codedata": {
-        "kind": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'",
+        "node": "'$(echo "$NAME" | tr '[:lower:]' '[:upper:]')'",
         "library": "'${LIBRARY}'",
         "call": "'${CALL}'"
     },

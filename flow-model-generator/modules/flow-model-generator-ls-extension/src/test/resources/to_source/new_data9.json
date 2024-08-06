@@ -3,8 +3,8 @@
   "diagram": {
     "id": "44796",
     "metadata": {
-      "label": "NewData",
-      "description": "Create new variable"
+      "label": "New Variable",
+      "description": "New variable 'str1' with type 'string'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -32,16 +32,16 @@
         "optional": false,
         "editable": true
       },
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "str1 ",
+        "value": "str1",
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"

@@ -3,8 +3,8 @@
   "diagram": {
     "id": "55723",
     "metadata": {
-      "label": "NewData",
-      "description": "Create new variable"
+      "label": "New Variable",
+      "description": "New variable 'x2' with type 'xml'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -27,21 +27,21 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "xml:Element",
+        "valueType": "lang.xml:Element",
         "value": "xml `<book>The Lost World</book>`",
         "optional": false,
         "editable": true
       },
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "x2 ",
+        "value": "x2",
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"

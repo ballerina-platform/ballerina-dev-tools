@@ -38,8 +38,8 @@
       {
         "id": "32874",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'i' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,16 +67,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "i ",
+            "value": "i",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -91,8 +91,8 @@
       {
         "id": "33862",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'i'"
         },
         "codedata": {
           "node": "UPDATE_DATA",
@@ -113,7 +113,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
             "valueType": "int",
             "value": "3",
@@ -136,8 +136,8 @@
       {
         "id": "34854",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable '_'"
         },
         "codedata": {
           "node": "UPDATE_DATA",
@@ -158,7 +158,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
             "valueType": "int",
             "value": "4",
@@ -179,6 +179,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

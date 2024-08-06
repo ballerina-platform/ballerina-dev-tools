@@ -22,22 +22,28 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
-import io.ballerina.flowmodelgenerator.core.model.Client;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Generator for the flow model.
@@ -74,30 +80,43 @@ public class ModelGenerator {
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
 
-        // Obtain the clients visible at the module-level
-        Client.Builder clientBuilder = new Client.Builder();
-        List<Client> moduleClients = semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine())
-                .stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                .map(symbol -> {
-                    VariableSymbol variableSymbol = (VariableSymbol) symbol;
-                    clientBuilder.setVariableSymbol(variableSymbol);
-                    return (variableSymbol).typeDescriptor();
-                })
-                .flatMap(symbol -> CommonUtils.buildClient(clientBuilder, symbol, Client.ClientScope.GLOBAL).stream())
-                .sorted(Comparator.comparing(Client::value))
-                .toList();
+        // Obtain the connections visible at the module-level
+        List<FlowNode> moduleConnections =
+                semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
+                        .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
+                        .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
+                        .toList();
 
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
         canvasNode.accept(codeAnalyzer);
 
-        // Combine the module-level clients with the clients found in diagram
-        List<Client> clients = new ArrayList<>(moduleClients);
-        clients.addAll(codeAnalyzer.getClients());
-
         // Generate the flow model
-        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), clients);
+        Diagram diagram = new Diagram(filePath.toString(), codeAnalyzer.getFlowNodes(), moduleConnections);
         return gson.toJsonTree(diagram);
+    }
+
+    /**
+     * Builds a client from the given type symbol.
+     *
+     * @return the client if the type symbol is a client, otherwise empty
+     */
+    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol) {
+        NonTerminalNode node;
+        try {
+            TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
+            TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
+            if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
+                    !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+                return Optional.empty();
+            }
+            node = symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+        } catch (RuntimeException ignored) {
+            return Optional.empty();
+        }
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
+        node.parent().parent().accept(codeAnalyzer);
+        List<FlowNode> connections = codeAnalyzer.getFlowNodes();
+        return connections.stream().findFirst();
     }
 }

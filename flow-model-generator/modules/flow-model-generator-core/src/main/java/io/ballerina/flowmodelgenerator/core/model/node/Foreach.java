@@ -47,45 +47,22 @@ public class Foreach extends NodeBuilder {
 
     @Override
     public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+        SourceBuilder sourceBuilder = new SourceBuilder(node);
+        sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
+                .stepOut()
+                .typedBindingPattern()
+                .token().keyword(SyntaxKind.IN_KEYWORD);
 
-        sourceBuilder.keyword(SyntaxKind.FOREACH_KEYWORD);
-
-        Optional<Property> dataType = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
-        Optional<Property> dataVariable = node.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
-        if (dataType.isPresent() && dataVariable.isPresent()) {
-            sourceBuilder.expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.IN_KEYWORD);
-        }
 
         Optional<Property> exprProperty = node.getProperty(Property.COLLECTION_KEY);
-        exprProperty.ifPresent(sourceBuilder::expression);
+        exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
 
-        sourceBuilder.openBrace();
         Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+        body.ifPresent(branch -> sourceBuilder.body(branch.children()));
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            // Build the keywords
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            // Build the body
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
-
-        return sourceBuilder.build(false);
+        return sourceBuilder
+                .onFailure()
+                .build(false);
     }
 
     @Override

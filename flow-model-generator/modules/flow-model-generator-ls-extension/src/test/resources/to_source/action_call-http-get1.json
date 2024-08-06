@@ -3,10 +3,15 @@
   "diagram": {
     "id": "45951",
     "metadata": {
-      "label": "HTTP GET"
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
     },
     "codedata": {
       "node": "ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get",
       "lineRange": {
         "fileName": "http_get_node.bal",
         "startLine": {
@@ -21,43 +26,61 @@
     },
     "returning": false,
     "properties": {
-      "client": {
+      "connection": {
         "metadata": {
-          "label": "Client",
-          "description": "HTTP Client Connection"
+          "label": "Connection",
+          "description": "Connection to use"
         },
-        "valueType": "http:Client",
+        "valueType": "EXPRESSION",
         "value": "foodClient",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "json",
         "value": "res1 ",
         "optional": false,
         "editable": true
       },
       "path": {
         "metadata": {
-          "label": "Path",
-          "description": "HTTP Path"
+          "label": "path",
+          "description": "Request path\n"
         },
-        "valueType": "string",
+        "valueType": "EXPRESSION",
         "value": "\"/apples\"",
         "optional": false,
         "editable": true
       },
       "headers": {
         "metadata": {
-          "label": "Headers",
-          "description": "HTTP Headers"
+          "label": "headers",
+          "description": "The entity headers\n"
         },
-        "valueType": "map<string|string[]>?",
+        "valueType": "EXPRESSION",
         "optional": true,
+        "editable": true
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "json",
+        "optional": true,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "json",
+        "optional": false,
         "editable": true
       }
     },

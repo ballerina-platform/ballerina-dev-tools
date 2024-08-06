@@ -80,6 +80,7 @@
             "label": "Then",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -109,8 +110,8 @@
               {
                 "id": "48010",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'a' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -138,16 +139,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "a ",
+                    "value": "a",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -165,6 +166,7 @@
             "label": "Else",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ELSE",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -182,8 +184,8 @@
               {
                 "id": "49994",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'b' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -211,16 +213,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "b ",
+                    "value": "b",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -235,8 +237,8 @@
               {
                 "id": "50992",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'c' with type 'string'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -264,16 +266,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "c ",
+                    "value": "c",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -291,25 +293,82 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       }
     ]
   }

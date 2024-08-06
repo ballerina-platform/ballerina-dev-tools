@@ -57,8 +57,8 @@
       {
         "id": "80618",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'i' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -86,16 +86,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "i ",
+            "value": "i",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -110,8 +110,8 @@
       {
         "id": "81621",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'finalMsg' with type 'string'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -139,16 +139,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "finalMsg ",
+            "value": "finalMsg",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -186,6 +186,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -203,10 +204,16 @@
               {
                 "id": "83770",
                 "metadata": {
-                  "label": "HTTP GET"
+                  "label": "get",
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "get",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -221,55 +228,54 @@
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "HTTP Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
-                    "valueType": "http:Client",
+                    "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
                     "editable": true
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "json",
-                    "value": "response ",
+                    "value": "response",
                     "optional": false,
                     "editable": true
                   },
                   "path": {
                     "metadata": {
-                      "label": "Path",
-                      "description": "HTTP Path"
+                      "label": "path",
+                      "description": "Request path\n"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"/food/pineapples\"",
                     "optional": false,
                     "editable": true
                   },
                   "headers": {
                     "metadata": {
-                      "label": "Headers",
-                      "description": "HTTP Headers"
+                      "label": "headers",
+                      "description": "The entity headers\n"
                     },
-                    "valueType": "map<string|string[]>?",
+                    "valueType": "EXPRESSION",
                     "optional": true,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "targetType": {
                     "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
+                      "label": "targetType",
+                      "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
                     },
-                    "value": "response ",
-                    "optional": false,
+                    "valueType": "EXPRESSION",
+                    "optional": true,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -355,6 +361,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -401,8 +408,8 @@
               {
                 "id": "87697",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'attempts' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -430,16 +437,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "attempts ",
+                    "value": "attempts",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -454,11 +461,15 @@
               {
                 "id": "88745",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Connection",
+                  "description": "Create a new connection"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "NEW_CONNECTION",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "init",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -473,31 +484,50 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "scope": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
+                      "label": "Connection Scope",
+                      "description": "Scope of the connection, Global or Local"
                     },
-                    "valueType": "http:Client|http:ClientError",
-                    "value": "new (\"http://localhost:9090\")",
+                    "valueType": "ENUM",
+                    "value": "Global",
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "url": {
+                    "metadata": {
+                      "label": "url",
+                      "description": "URL of the target service\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"http://localhost:9090\"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "config": {
+                    "metadata": {
+                      "label": "config",
+                      "description": "The configurations to be used when initializing the `client`\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "adminClient ",
+                    "value": "adminClient",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
-                    "value": "http:Client|http:ClientError",
+                    "value": "http:Client",
                     "optional": false,
                     "editable": true
                   }
@@ -530,6 +560,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -560,7 +591,7 @@
                         "id": "90836",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Error occurred while creating admin client\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -622,6 +653,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -639,10 +671,16 @@
                       {
                         "id": "93839",
                         "metadata": {
-                          "label": "HTTP POST"
+                          "label": "post",
+                          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "post",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -657,74 +695,73 @@
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "adminClient",
                             "optional": false,
                             "editable": true
                           },
                           "variable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
-                            "value": "response ",
+                            "value": "response",
                             "optional": false,
                             "editable": true
                           },
                           "path": {
                             "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
+                              "label": "path",
+                              "description": "Resource path\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"/admin/restart\"",
                             "optional": false,
                             "editable": true
                           },
                           "message": {
                             "metadata": {
-                              "label": "Message",
-                              "description": "HTTP Post Message"
+                              "label": "message",
+                              "description": "An HTTP outbound request or any allowed payload\n"
                             },
-                            "valueType": "map<anydata>",
+                            "valueType": "EXPRESSION",
                             "value": "{body: e.message()}",
                             "optional": false,
                             "editable": true
                           },
                           "headers": {
                             "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
+                              "label": "headers",
+                              "description": "The entity headers\n"
                             },
-                            "valueType": "map<string|string[]>?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
                             "editable": true
                           },
                           "mediaType": {
                             "metadata": {
-                              "label": "Media Type",
-                              "description": "HTTP Post Media Type"
+                              "label": "mediaType",
+                              "description": "The MIME type header of the request entity\n"
                             },
-                            "valueType": "string?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "targetType": {
                             "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
+                              "label": "targetType",
+                              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
                             },
-                            "value": "response ",
-                            "optional": false,
+                            "valueType": "EXPRESSION",
+                            "optional": true,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -740,7 +777,7 @@
                         "id": "94822",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Response received from admin service: \" + response.toString()'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -777,6 +814,7 @@
                     "label": "On Failure",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ON_FAILURE",
                       "lineRange": {
                         "fileName": "while.bal",
                         "startLine": {
@@ -795,7 +833,7 @@
                         "id": "96789",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of '\"Error occurred while invoking admin service\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -847,7 +885,7 @@
                 "id": "98644",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of '\"Error occurred while invoking food service\"'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -899,7 +937,7 @@
         "id": "100464",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of 'finalMsg'"
         },
         "codedata": {
           "node": "RETURN",
@@ -931,25 +969,82 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "while.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+        "id": "33789",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 61
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       }
     ]
   }

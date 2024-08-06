@@ -25,82 +25,212 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-/**
- * Represents a builder to generate a Ballerina source code.
- *
- * @since 1.4.0
- */
 public class SourceBuilder {
 
-    private static final String WHITE_SPACE = " ";
+    private final TokenBuilder tokenBuilder;
+    private final FlowNode flowNode;
 
-    private static final FormattingTreeModifier
-            treeModifier = new FormattingTreeModifier(FormattingOptions.builder().build(), (LineRange) null);
-    private final StringBuilder sb;
-
-    public SourceBuilder() {
-        sb = new StringBuilder();
+    public SourceBuilder(FlowNode flowNode) {
+        tokenBuilder = new TokenBuilder(this);
+        this.flowNode = flowNode;
     }
 
-    public SourceBuilder keyword(SyntaxKind keyword) {
-        sb.append(keyword.stringValue()).append(WHITE_SPACE);
+    public TokenBuilder token() {
+        return tokenBuilder;
+    }
+
+    public SourceBuilder newVariable() {
+        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+            tokenBuilder.expressionWithType(type.get(), variable.get())
+                    .keyword(SyntaxKind.EQUAL_TOKEN);
+        }
         return this;
     }
 
-    public SourceBuilder name(String name) {
-        sb.append(name);
+    public SourceBuilder typedBindingPattern() {
+        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+            tokenBuilder.expressionWithType(type.get(), variable.get());
+        }
         return this;
     }
 
-    public SourceBuilder expression(Property property) {
-        sb.append(property.toSourceCode());
+    public SourceBuilder body(List<FlowNode> flowNodes) {
+        tokenBuilder.openBrace();
+        children(flowNodes);
+        tokenBuilder.closeBrace();
         return this;
     }
 
-    public SourceBuilder expressionWithType(Property type, Property variable) {
-        sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode());
+    public SourceBuilder children(List<FlowNode> flowNodes) {
+        flowNodes.forEach(childNode -> tokenBuilder.name(
+                NodeBuilder.getNodeFromKind(childNode.codedata().node()).toSource(childNode)));
         return this;
     }
 
-    public SourceBuilder expressionWithType(Property property) {
-        sb.append(property.valueType()).append(WHITE_SPACE).append(property.toSourceCode());
+    /**
+     * Adds an <code>on fail</code> block to the provided <code>SourceBuilder</code>.
+     * <pre>{@code
+     *
+     *     on fail <errorType> <errorVariable> {
+     *          <statement>...
+     *     }
+     * }</pre>
+     */
+    public SourceBuilder onFailure() {
+        Optional<Branch> optOnFailureBranch = flowNode.getBranch(Branch.ON_FAILURE_LABEL);
+        if (optOnFailureBranch.isEmpty()) {
+            return this;
+        }
+        Branch onFailureBranch = optOnFailureBranch.get();
+
+        // Build the keywords
+        tokenBuilder
+                .keyword(SyntaxKind.ON_KEYWORD)
+                .keyword(SyntaxKind.FAIL_KEYWORD);
+
+        // Build the parameters
+        Optional<Property> onErrorType = onFailureBranch.getProperty(Property.ON_ERROR_TYPE_KEY);
+        Optional<Property> onErrorValue = onFailureBranch.getProperty(Property.ON_ERROR_VARIABLE_KEY);
+        if (onErrorType.isPresent() && onErrorValue.isPresent()) {
+            tokenBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
+        }
+
+        // Build the body
+        body(onFailureBranch.children());
         return this;
     }
 
-    public SourceBuilder whiteSpace() {
-        sb.append(WHITE_SPACE);
-        return this;
-    }
+    /**
+     * Adds function arguments to the provided <code>SourceBuilder</code>. This method processes the properties of the
+     * <code>flowNode</code> and adds them as arguments to the <code>tokenBuilder</code>. it skips properties that are
+     * either empty or have default values.
+     *
+     * <pre>{@code
+     *  (<mandatory-arg>..., <named_arg>=<default-value>...);
+     * }</pre>
+     *
+     * @param nodeTemplate      The <code>FlowNode</code> instance containing the template properties.
+     * @param ignoredProperties A set of property keys to be ignored during the processing.
+     */
+    public SourceBuilder functionParameters(FlowNode nodeTemplate, Set<String> ignoredProperties) {
+        tokenBuilder.keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+        Set<String> keys = new LinkedHashSet<>(nodeTemplate.properties().keySet());
+        keys.removeAll(ignoredProperties);
 
-    public SourceBuilder openBrace() {
-        sb.append(SyntaxKind.OPEN_BRACE_TOKEN.stringValue()).append(System.lineSeparator());
-        return this;
-    }
+        boolean hasEmptyParam = false;
+        boolean firstParamAdded = false;
+        for (String key : keys) {
+            Optional<Property> property = flowNode.getProperty(key);
+            Optional<Property> templateProperty = nodeTemplate.getProperty(key);
 
-    public SourceBuilder closeBrace() {
-        sb.append(WHITE_SPACE)
-                .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
-                .append(System.lineSeparator());
-        return this;
-    }
+            if (property.isEmpty() || templateProperty.isEmpty() || property.get().value() == null ||
+                    (property.get().optional() && property.get().value().equals(templateProperty.get().value()))) {
+                hasEmptyParam = true;
+                continue;
+            }
 
-    public SourceBuilder addChildren(List<FlowNode> flowNodes) {
-        flowNodes.forEach(
-                flowNode -> sb.append(NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(flowNode)));
-        return this;
-    }
+            if (firstParamAdded) {
+                tokenBuilder.keyword(SyntaxKind.COMMA_TOKEN);
+            } else {
+                firstParamAdded = true;
+            }
 
-    public SourceBuilder endOfStatement() {
-        sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
+            if (hasEmptyParam) {
+                tokenBuilder
+                        .name(key)
+                        .keyword(SyntaxKind.EQUAL_TOKEN);
+                hasEmptyParam = false;
+            }
+
+            tokenBuilder.expression(property.get());
+        }
+
+        tokenBuilder
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .endOfStatement();
         return this;
     }
 
     public String build(boolean isExpression) {
-        String outputStr = sb.toString();
-        Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
-                NodeParser.parseStatement(outputStr).apply(treeModifier);
-        return modifiedNode.toSourceCode().strip();
+        return token().build(isExpression);
+    }
+
+    public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {
+
+        private static final String WHITE_SPACE = " ";
+
+        private static final FormattingTreeModifier
+                treeModifier = new FormattingTreeModifier(FormattingOptions.builder().build(), (LineRange) null);
+        private final StringBuilder sb;
+
+        protected TokenBuilder(SourceBuilder parentBuilder) {
+            super(parentBuilder);
+            sb = new StringBuilder();
+        }
+
+        public TokenBuilder keyword(SyntaxKind keyword) {
+            sb.append(keyword.stringValue()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder name(String name) {
+            sb.append(name);
+            return this;
+        }
+
+        public TokenBuilder expression(Property property) {
+            sb.append(property.toSourceCode());
+            return this;
+        }
+
+        public TokenBuilder expressionWithType(Property type, Property variable) {
+            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder expressionWithType(Property property) {
+            sb.append(property.valueType()).append(WHITE_SPACE).append(property.toSourceCode());
+            return this;
+        }
+
+        public TokenBuilder whiteSpace() {
+            sb.append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder openBrace() {
+            sb.append(SyntaxKind.OPEN_BRACE_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
+        public TokenBuilder closeBrace() {
+            sb.append(WHITE_SPACE)
+                    .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
+                    .append(System.lineSeparator());
+            return this;
+        }
+
+        public TokenBuilder endOfStatement() {
+            sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
+            return this;
+        }
+
+        public String build(boolean isExpression) {
+            String outputStr = sb.toString();
+            Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
+                    NodeParser.parseStatement(outputStr).apply(treeModifier);
+            return modifiedNode.toSourceCode().strip();
+        }
     }
 }

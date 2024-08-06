@@ -33,31 +33,32 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class UpdateData extends NodeBuilder {
-    public static final String LABEL = "UpdateData";
-    public static final String DESCRIPTION = "Update the value of a variable";
+    public static final String LABEL = "Update Variable";
+    public static final String DESCRIPTION = "Update the value of the variable '%s'";
     public static final String UPDATE_DATA_EXPRESSION_DOC = "Update variable";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.UPDATE_DATA);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
-        Optional<Property> property = node.getProperty(Property.VARIABLE_KEY);
-        property.ifPresent(value -> sourceBuilder.expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
+        Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
+        property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
 
-        property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
+        property = flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
-
+        metadata().description(String.format(DESCRIPTION, "name"));
+        properties().defaultVariable().defaultExpression(UPDATE_DATA_EXPRESSION_DOC);
     }
 }

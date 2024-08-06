@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "lock.bal",
             "startLine": {
@@ -43,11 +44,11 @@
           {
             "id": "39946",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "New Variable",
+              "description": "Create new variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "NEW_DATA",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -74,11 +75,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "int",
                 "value": "i ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "int",
                 "optional": false,
                 "editable": true
               }
@@ -111,6 +120,7 @@
                 "label": "Body",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "BODY",
                   "lineRange": {
                     "fileName": "lock.bal",
                     "startLine": {
@@ -128,11 +138,11 @@
                   {
                     "id": "42054",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "UpdateData",
+                      "description": "Update the value of a variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "UPDATE_DATA",
                       "lineRange": {
                         "fileName": "lock.bal",
                         "startLine": {
@@ -150,7 +160,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Update variable"
                         },
                         "valueType": "int",
                         "value": "3",
@@ -192,7 +202,7 @@
           "character": 5
         }
       },
-      "newText": "lock {\n    int i = 0;\n    lock {\n        int i = 3;\n    }\n}"
+      "newText": "lock {\n    int i = 0;\n    lock {\n        i = 3;\n    }\n}"
     }
   ]
 }

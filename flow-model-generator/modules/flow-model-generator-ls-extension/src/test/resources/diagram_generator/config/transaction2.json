@@ -38,8 +38,8 @@
       {
         "id": "38826",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'x' with type 'int'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,16 +67,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x ",
+            "value": "x",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -114,6 +114,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -160,16 +161,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res ",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -212,6 +213,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -258,16 +260,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "res ",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -288,7 +290,7 @@
         "id": "47753",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of 'x'"
         },
         "codedata": {
           "node": "RETURN",
@@ -320,6 +322,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

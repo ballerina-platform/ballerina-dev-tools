@@ -1,0 +1,468 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 0
+  },
+  "end": {
+    "line": 17,
+    "offset": 1
+  },
+  "source": "new_connection.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "new_connection.bal",
+    "nodes": [
+      {
+        "id": "45726",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 17,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "46825",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 77
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:8080\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "localHttpCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "47797",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "redis",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 57
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "configuration for the connector\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "localRedisCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "redis:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "connections": [
+      {
+        "id": "34783",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 63
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "moduleHttpCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "42732",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 76
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "moduleHttpExCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "35751",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "redis",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 39
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "configuration for the connector\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "moduleRedisCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "redis:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "43704",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "redis",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 12,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 56
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "configuration for the connector\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "moduleRedisExCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "redis:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {
@@ -74,11 +75,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "()",
                 "value": "res ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "()",
                 "optional": false,
                 "editable": true
               }

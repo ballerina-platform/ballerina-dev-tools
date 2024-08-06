@@ -38,8 +38,8 @@
       {
         "id": "38844",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'str1' with type 'string'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,16 +67,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "str1 ",
+            "value": "str1",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -91,8 +91,8 @@
       {
         "id": "39840",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'str1'"
         },
         "codedata": {
           "node": "UPDATE_DATA",
@@ -113,7 +113,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
             "valueType": "string",
             "value": "string `${str1} ${str1}`",
@@ -134,6 +134,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

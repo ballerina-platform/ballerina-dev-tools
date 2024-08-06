@@ -44,6 +44,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
+        ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
         HTTP_API("HTTP API", "Make HTTP requests", null),
@@ -101,21 +102,6 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return this;
         }
 
-        public Builder node(FlowNode.Kind kind, String module, String symbol) {
-            NodeAttributes.Info info = NodeAttributes.getByKey(module, symbol);
-            AvailableNode node = NodeBuilder.getNodeFromKind(kind)
-                    .codedata()
-                    .module(module)
-                    .symbol(symbol)
-                    .stepOut()
-                    .metadata()
-                    .label(info.label())
-                    .stepOut()
-                    .buildAvailableNode();
-            this.availableNodes.add(node);
-            return this;
-        }
-
         public Category build() {
             // Check for illegal state where both nodes and categories are present
             if (!this.availableNodes.isEmpty() && !this.childBuilders.isEmpty()) {
@@ -133,7 +119,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             }
 
             // Create and return the new category with the built items
-            return new Category(new Metadata(name.name, name.description, name.keywords), items);
+            return new Category(new Metadata(name.name, name.description, name.keywords, null), items);
         }
     }
 }

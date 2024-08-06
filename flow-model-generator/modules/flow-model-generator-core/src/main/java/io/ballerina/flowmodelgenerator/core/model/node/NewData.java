@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -33,34 +32,30 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class NewData extends NodeBuilder {
-    public static final String LABEL = "NewData";
-    public static final String DESCRIPTION = "Create new variable";
+    public static final String LABEL = "New Variable";
+    public static final String DESCRIPTION = "New variable '%s' with type '%s'";
     public static final String NEW_DATA_EXPRESSION_DOC = "Create new variable";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.NEW_DATA);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
-        Optional<Property> dataType = node.getProperty(PropertiesBuilder.DATA_TYPE_KEY);
-        Optional<Property> dataVariable = node.getProperty(PropertiesBuilder.DATA_VARIABLE_KEY);
-        if (dataType.isPresent() && dataVariable.isPresent()) {
-            sourceBuilder.expressionWithType(dataType.get(), dataVariable.get()).keyword(SyntaxKind.EQUAL_TOKEN);
-        }
-
-        Optional<Property> exprProperty = node.getProperty(Property.EXPRESSION_KEY);
-        exprProperty.ifPresent(value -> sourceBuilder.expression(value).endOfStatement());
+        Optional<Property> exprProperty = flowNode.getProperty(Property.EXPRESSION_KEY);
+        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.build(false);
     }
 
     @Override
     public void setConcreteTemplateData(Codedata codedata) {
+        metadata().description(String.format(DESCRIPTION, "name", "var"));
         properties().defaultDataVariable().defaultExpression(NEW_DATA_EXPRESSION_DOC);
     }
 }

@@ -3,8 +3,8 @@
   "diagram": {
     "id": "54721",
     "metadata": {
-      "label": "NewData",
-      "description": "Create new variable"
+      "label": "New Variable",
+      "description": "New variable 'x1' with type 'xml'"
     },
     "codedata": {
       "node": "NEW_DATA",
@@ -27,21 +27,21 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "xml:Element",
+        "valueType": "lang.xml:Element",
         "value": "xml `<p>${content}</p>`",
         "optional": false,
         "editable": true
       },
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "x1 ",
+        "value": "x1",
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"

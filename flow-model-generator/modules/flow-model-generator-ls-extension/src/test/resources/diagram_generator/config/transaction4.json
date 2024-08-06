@@ -61,6 +61,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -107,16 +108,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "_ ",
+                    "value": "_",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -134,6 +135,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -152,7 +154,7 @@
                 "id": "63772",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'error(\"Found error\")'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -189,6 +191,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

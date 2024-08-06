@@ -61,6 +61,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -78,8 +79,8 @@
               {
                 "id": "48874",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'i' with type 'int'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -107,16 +108,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "i ",
+                    "value": "i",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -134,6 +135,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -177,6 +179,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

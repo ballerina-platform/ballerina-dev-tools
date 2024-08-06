@@ -61,6 +61,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "fail.bal",
                 "startLine": {
@@ -78,8 +79,8 @@
               {
                 "id": "53917",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'e' with type 'AssertionError'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -107,16 +108,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "e ",
+                    "value": "e",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -169,6 +170,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "fail.bal",
                 "startLine": {
@@ -216,7 +218,7 @@
                 "id": "56809",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'e'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -253,6 +255,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

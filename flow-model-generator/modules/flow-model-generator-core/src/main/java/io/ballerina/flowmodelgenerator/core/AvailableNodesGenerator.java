@@ -20,8 +20,13 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.flowmodelgenerator.core.central.Central;
+import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Item;
+
+import java.util.List;
 
 /**
  * Generates available nodes for a given position in the diagram.
@@ -31,16 +36,21 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 public class AvailableNodesGenerator {
 
     private final Category.Builder rootBuilder;
+    private final Gson gson;
+    private final Central central;
 
     public AvailableNodesGenerator() {
         this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
+        this.gson = new Gson();
+        central = CentralProxy.getInstance();
         initializeCommonNodes();
     }
 
     public JsonArray getAvailableNodes() {
-        Gson gson = new Gson();
-        Category rootCategory = this.rootBuilder.build();
-        return gson.toJsonTree(rootCategory.items()).getAsJsonArray();
+        List<Item> items = this.rootBuilder.build().items();
+        items.addAll(central.getAvailableConnections());
+        items.addAll(central.getFunctions());
+        return gson.toJsonTree(items).getAsJsonArray();
     }
 
     private void initializeCommonNodes() {
@@ -49,27 +59,30 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.FLOW)
                     .stepIn(Category.Name.BRANCH)
                         .node(FlowNode.Kind.IF)
-                        .stepOut()
+                    .stepOut()
                     .stepIn(Category.Name.ITERATION)
                         .node(FlowNode.Kind.WHILE)
                         .node(FlowNode.Kind.FOREACH)
                         .node(FlowNode.Kind.BREAK)
                         .node(FlowNode.Kind.CONTINUE)
-                        .stepOut()
+                    .stepOut()
                     .stepIn(Category.Name.CONTROL)
                         .node(FlowNode.Kind.RETURN)
-                        .stepOut()
+                        .node(FlowNode.Kind.STOP)
                     .stepOut()
+                .stepOut()
                 .stepIn(Category.Name.DATA)
-                    .stepOut()
-                .stepIn(Category.Name.ACTION)
-                    .stepIn(Category.Name.HTTP_API)
-                        .node(FlowNode.Kind.ACTION_CALL, "http", "get")
-                        .node(FlowNode.Kind.ACTION_CALL, "http", "post")
-                        .stepOut()
-                    .stepIn(Category.Name.REDIS_CLIENT)
-                        .node(FlowNode.Kind.ACTION_CALL, "redis", "get")
-                        .node(FlowNode.Kind.ACTION_CALL, "redis", "set")
-                    .stepOut();
+                    .node(FlowNode.Kind.NEW_DATA)
+                    .node(FlowNode.Kind.UPDATE_DATA)
+                .stepOut()
+                .stepIn(Category.Name.ERROR_HANDLING)
+                    .node(FlowNode.Kind.ERROR_HANDLER)
+                    .node(FlowNode.Kind.PANIC)
+                .stepOut()
+                .stepIn(Category.Name.CONCURRENCY)
+                    .node(FlowNode.Kind.TRANSACTION)
+                    .node(FlowNode.Kind.LOCK)
+                    .node(FlowNode.Kind.START)
+                .stepOut();
     }
 }

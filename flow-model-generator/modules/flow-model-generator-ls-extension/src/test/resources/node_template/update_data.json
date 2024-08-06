@@ -6,13 +6,35 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "UpdateData",
-      "description": "Update the value of a variable"
+      "label": "Update Variable",
+      "description": "Update the value of the variable 'name'"
     },
     "codedata": {
       "node": "UPDATE_DATA"
     },
     "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": true,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Update variable"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
     "flags": 0
   }
 }

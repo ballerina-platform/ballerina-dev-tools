@@ -38,8 +38,8 @@
       {
         "id": "49766",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'j1' with type 'map'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,16 +67,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "j1 ",
+            "value": "j1",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -89,6 +89,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

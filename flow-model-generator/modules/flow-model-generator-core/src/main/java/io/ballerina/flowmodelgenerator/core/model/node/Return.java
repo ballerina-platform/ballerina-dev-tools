@@ -35,25 +35,25 @@ import java.util.Optional;
 public class Return extends NodeBuilder {
 
     public static final String LABEL = "Return";
-    public static final String DESCRIPTION = "Return a value";
+    public static final String DESCRIPTION = "Value of '%s'";
     public static final String RETURN_EXPRESSION_DOC = "Return value";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
+        metadata().label(LABEL);
         codedata().node(FlowNode.Kind.RETURN);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
-        sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
-        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder
+        sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
+        Optional<Property> property = flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
-        sourceBuilder.endOfStatement();
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.build(false);
     }
 

@@ -61,8 +61,30 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static final String COLLECTION_KEY = "collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
+    public static final String DATA_VARIABLE_LABEL = "Data variable";
+    public static final String DATA_VARIABLE_KEY = "variable";
+    public static final String DATA_VARIABLE_DOC = "Name of the variable";
+
+    public static final String DATA_TYPE_LABEL = "Data type";
+    public static final String DATA_TYPE_KEY = "type";
+    public static final String DATA_TYPE_DOC = "Type of the variable";
+
+    public static final String SCOPE_LABEL = "Connection Scope";
+    public static final String SCOPE_KEY = "scope";
+    public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
+
+    public static final String CONNECTION_KEY = "connection";
+
+
     public String toSourceCode() {
         return value;
+    }
+
+    public enum ValueType {
+        EXPRESSION,
+        IDENTIFIER,
+        TYPE,
+        ENUM
     }
 
     /**
@@ -92,12 +114,12 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Builder type(TypeSymbol typeSymbol) {
-            this.type = CommonUtils.getTypeSignature(typeSymbol);
+            this.type = CommonUtils.getTypeSignature(null, typeSymbol, false);
             return this;
         }
 
-        public Builder type(String type) {
-            this.type = type;
+        public Builder type(ValueType type) {
+            this.type = type.name();
             return this;
         }
 
@@ -124,8 +146,9 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Property build() {
-            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value,
-                    optional, editable);
+            Property property =
+                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value, optional,
+                            editable);
             this.metadataBuilder = null;
             this.type = null;
             this.value = null;

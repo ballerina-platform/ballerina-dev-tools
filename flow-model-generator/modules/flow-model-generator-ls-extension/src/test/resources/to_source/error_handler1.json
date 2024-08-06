@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -43,10 +44,15 @@
           {
             "id": "40117",
             "metadata": {
-              "label": "HTTP GET"
+              "label": "get",
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
             },
             "codedata": {
               "node": "ACTION_CALL",
+              "org": "ballerina",
+              "module": "http",
+              "object": "Client",
+              "symbol": "get",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -61,43 +67,60 @@
             },
             "returning": false,
             "properties": {
-              "client": {
+              "connection": {
                 "metadata": {
-                  "label": "Client",
-                  "description": "HTTP Client Connection"
+                  "label": "Connection",
+                  "description": "Connection to use"
                 },
-                "valueType": "http:Client",
+                "valueType": "EXPRESSION",
                 "value": "foodClient",
                 "optional": false,
                 "editable": true
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "json",
                 "value": "res2 ",
                 "optional": false,
                 "editable": true
               },
               "path": {
                 "metadata": {
-                  "label": "Path",
-                  "description": "HTTP Path"
+                  "label": "path",
+                  "description": "Request path\n"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"/western/apples\"",
                 "optional": false,
                 "editable": true
               },
               "headers": {
                 "metadata": {
-                  "label": "Headers",
-                  "description": "HTTP Headers"
+                  "label": "headers",
+                  "description": "The entity headers\n"
                 },
-                "valueType": "map<string|string[]>?",
+                "valueType": "EXPRESSION",
                 "optional": true,
+                "editable": true
+              },
+              "targetType": {
+                "metadata": {
+                  "label": "targetType",
+                  "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+                },
+                "valueType": "EXPRESSION",
+                "optional": true,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "json",
+                "optional": false,
                 "editable": true
               }
             },
@@ -106,11 +129,11 @@
           {
             "id": "41078",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -128,7 +151,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "string",
                 "value": "res2.toString()",
@@ -154,6 +177,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -171,11 +195,11 @@
           {
             "id": "43075",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -193,7 +217,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "string",
                 "value": "\"Failed to get the response\"",
@@ -230,7 +254,7 @@
           "character": 9
         }
       },
-      "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    string|() msg = res2.toString();\n}\non fail {\n    string|() msg = \"Failed to get the response\";\n}"
+      "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n}"
     }
   ]
 }

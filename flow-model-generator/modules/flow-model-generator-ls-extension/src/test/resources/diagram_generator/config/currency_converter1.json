@@ -80,6 +80,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "main.bal",
                 "startLine": {
@@ -97,8 +98,8 @@
               {
                 "id": "51006",
                 "metadata": {
-                  "label": "NewData",
-                  "description": "Create new variable"
+                  "label": "New Variable",
+                  "description": "New variable 'key' with type 'string'"
                 },
                 "codedata": {
                   "node": "NEW_DATA",
@@ -126,16 +127,16 @@
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
+                  "variable": {
                     "metadata": {
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
-                    "value": "key ",
+                    "value": "key",
                     "optional": false,
                     "editable": true
                   },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -150,10 +151,16 @@
               {
                 "id": "53009",
                 "metadata": {
-                  "label": "Redis Get"
+                  "label": "get",
+                  "description": "Get value of key.\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
+                  "org": "ballerinax",
+                  "module": "redis",
+                  "object": "Client",
+                  "symbol": "get",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -168,46 +175,36 @@
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "Redis Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
-                    "valueType": "redis:Client",
+                    "valueType": "EXPRESSION",
                     "value": "redisClient",
                     "optional": false,
                     "editable": true
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
-                      "description": "Result Variable"
+                      "label": "Data variable",
+                      "description": "Name of the variable"
                     },
-                    "valueType": "string|()",
-                    "value": "cacheValue ",
+                    "value": "cacheValue",
                     "optional": false,
                     "editable": true
                   },
                   "key": {
                     "metadata": {
-                      "label": "Key",
-                      "description": "Redis Key"
+                      "label": "key",
+                      "description": "Key referring to a value\n"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "key",
                     "optional": false,
                     "editable": true
                   },
-                  "dataVariable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "value": "cacheValue ",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "dataType": {
+                  "type": {
                     "metadata": {
                       "label": "Data type",
                       "description": "Type of the variable"
@@ -245,6 +242,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "main.bal",
                         "startLine": {
@@ -265,7 +263,7 @@
                           "description": "Boolean Condition"
                         },
                         "valueType": "boolean",
-                        "value": "hasValue(cacheValue) ",
+                        "value": "cacheValue is string ",
                         "optional": false,
                         "editable": true
                       }
@@ -274,8 +272,8 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "NewData",
-                          "description": "Create new variable"
+                          "label": "New Variable",
+                          "description": "New variable 'newData' with type 'map'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -299,20 +297,20 @@
                               "description": "Expression"
                             },
                             "valueType": "map<json>",
-                            "value": "{\n                    value: check calculate(amount, <string>cacheValue)\n                }",
+                            "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "newData ",
+                            "value": "newData",
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -328,7 +326,7 @@
                         "id": "62031",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'newData'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -365,6 +363,7 @@
                     "label": "Else",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ELSE",
                       "lineRange": {
                         "fileName": "main.bal",
                         "startLine": {
@@ -382,10 +381,16 @@
                       {
                         "id": "65073",
                         "metadata": {
-                          "label": "HTTP GET"
+                          "label": "get",
+                          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "get",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -400,55 +405,54 @@
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "currencyClient",
                             "optional": false,
                             "editable": true
                           },
                           "variable": {
                             "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
+                              "label": "Data variable",
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
-                            "value": "response ",
+                            "value": "response",
                             "optional": false,
                             "editable": true
                           },
                           "path": {
                             "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
+                              "label": "path",
+                              "description": "Request path\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"/latest?base=\" + 'from + \"&to=\" + to",
                             "optional": false,
                             "editable": true
                           },
                           "headers": {
                             "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
+                              "label": "headers",
+                              "description": "The entity headers\n"
                             },
-                            "valueType": "map<string|string[]>?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "targetType": {
                             "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
+                              "label": "targetType",
+                              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
                             },
-                            "value": "response ",
-                            "optional": false,
+                            "valueType": "EXPRESSION",
+                            "optional": true,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -492,16 +496,16 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "value ",
+                            "value": "value",
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -545,16 +549,16 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "convertedAmount ",
+                            "value": "convertedAmount",
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -569,10 +573,16 @@
                       {
                         "id": "72988",
                         "metadata": {
-                          "label": "Redis Set"
+                          "label": "set",
+                          "description": "Set the value of a key.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerinax",
+                          "module": "redis",
+                          "object": "Client",
+                          "symbol": "set",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -587,32 +597,32 @@
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "Redis Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "redis:Client",
+                            "valueType": "EXPRESSION",
                             "value": "redisClient",
                             "optional": false,
                             "editable": true
                           },
                           "key": {
                             "metadata": {
-                              "label": "Key",
-                              "description": "Redis Key"
+                              "label": "key",
+                              "description": "Key referring to a value\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "key",
                             "optional": false,
                             "editable": true
                           },
                           "value": {
                             "metadata": {
-                              "label": "Value",
-                              "description": "Redis Value"
+                              "label": "value",
+                              "description": "Values\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "convertedAmount.toString()",
                             "optional": false,
                             "editable": true
@@ -623,8 +633,8 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "NewData",
-                          "description": "Create new variable"
+                          "label": "New Variable",
+                          "description": "New variable 'newData' with type 'map'"
                         },
                         "codedata": {
                           "node": "NEW_DATA",
@@ -652,16 +662,16 @@
                             "optional": false,
                             "editable": true
                           },
-                          "dataVariable": {
+                          "variable": {
                             "metadata": {
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
-                            "value": "newData ",
+                            "value": "newData",
                             "optional": false,
                             "editable": true
                           },
-                          "dataType": {
+                          "type": {
                             "metadata": {
                               "label": "Data type",
                               "description": "Type of the variable"
@@ -677,7 +687,7 @@
                         "id": "79887",
                         "metadata": {
                           "label": "Return",
-                          "description": "Return a value"
+                          "description": "Value of 'newData'"
                         },
                         "codedata": {
                           "node": "RETURN",
@@ -719,6 +729,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "main.bal",
                 "startLine": {
@@ -765,11 +776,15 @@
               {
                 "id": "83747",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "printError",
+                  "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "log",
+                  "symbol": "printError",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -784,12 +799,41 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "msg": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "msg",
+                      "description": "The message to be logged\n"
                     },
-                    "value": "            // library call - log error\n            log:printError(\"error occured\", e);\n",
+                    "valueType": "EXPRESSION",
+                    "value": "\"error occured\"",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "'error": {
+                    "metadata": {
+                      "label": "'error",
+                      "description": "The error struct to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "e",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "stackTrace": {
+                    "metadata": {
+                      "label": "stackTrace",
+                      "description": "The error stack trace to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
+                  "keyValues": {
+                    "metadata": {
+                      "label": "keyValues",
+                      "description": "The key-value pairs to be logged\n"
+                    },
+                    "valueType": "EXPRESSION",
                     "optional": false,
                     "editable": true
                   }
@@ -800,7 +844,7 @@
                 "id": "85730",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'http:INTERNAL_SERVER_ERROR'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -837,44 +881,148 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "43246",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 11,
-            "offset": 18
-          },
-          "endLine": {
-            "line": 11,
-            "offset": 32
+        "id": "42750",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 11,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 94
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "currencyClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"https://api.exchangeratesapi.io/latest\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "currencyClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       },
       {
-        "id": "37323",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "main.bal",
-          "startLine": {
-            "line": 5,
-            "offset": 19
-          },
-          "endLine": {
-            "line": 5,
-            "offset": 30
+        "id": "36800",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerinax",
+          "module": "redis",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 3
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "redisClient",
-        "flags": 0
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "configuration for the connector\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "redisClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "redis:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
       }
     ]
   }

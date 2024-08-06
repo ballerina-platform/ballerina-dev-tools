@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {
@@ -66,6 +67,7 @@
                 "label": "Body",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "BODY",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -114,11 +116,19 @@
                       },
                       "variable": {
                         "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
+                          "label": "Data variable",
+                          "description": "Name of the variable"
                         },
-                        "valueType": "()",
                         "value": "_ ",
+                        "optional": false,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "value": "()",
                         "optional": false,
                         "editable": true
                       }
@@ -164,11 +174,19 @@
               },
               "variable": {
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
+                  "label": "Data variable",
+                  "description": "Name of the variable"
                 },
-                "valueType": "()",
                 "value": "_ ",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "()",
                 "optional": false,
                 "editable": true
               }
@@ -181,6 +199,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {

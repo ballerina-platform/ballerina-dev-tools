@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -46,37 +47,17 @@ public class While extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> condition = node.getProperty(Property.CONDITION_KEY);
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Property> condition = flowNode.getProperty(Property.CONDITION_KEY);
+        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
 
-        sourceBuilder.keyword(SyntaxKind.WHILE_KEYWORD);
-        condition.ifPresent(sourceBuilder::expression);
-        sourceBuilder.openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+        sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
+        condition.ifPresent(expression -> sourceBuilder.token().expression(expression));
+        sourceBuilder.body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
         // Handle the on fail branch
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            // Build the keywords
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            // Build the body
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
+        sourceBuilder.onFailure();
 
         return sourceBuilder.build(false);
     }

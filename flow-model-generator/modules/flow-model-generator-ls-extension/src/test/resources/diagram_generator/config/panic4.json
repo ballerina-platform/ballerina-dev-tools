@@ -38,8 +38,8 @@
       {
         "id": "48770",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'e' with type 'error'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,16 +67,16 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "e ",
+            "value": "e",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -124,6 +124,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

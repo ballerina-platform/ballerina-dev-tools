@@ -38,8 +38,8 @@
       {
         "id": "64639",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'intArr' with type 'list'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -67,21 +67,21 @@
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "intArr ",
+            "value": "intArr",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
             },
-            "value": "int[]|annotations:error",
+            "value": "int[]",
             "optional": false,
             "editable": true
           }
@@ -114,6 +114,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "foreach.bal",
                 "startLine": {
@@ -131,8 +132,8 @@
               {
                 "id": "66729",
                 "metadata": {
-                  "label": "UpdateData",
-                  "description": "Update the value of a variable"
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable '_'"
                 },
                 "codedata": {
                   "node": "UPDATE_DATA",
@@ -153,7 +154,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Update variable"
                     },
                     "valueType": "int",
                     "value": "item",
@@ -177,16 +178,16 @@
           }
         ],
         "properties": {
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "item ",
+            "value": "item",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -200,7 +201,7 @@
               "label": "Collection",
               "description": "Collection to iterate"
             },
-            "valueType": "int[]",
+            "valueType": "EXPRESSION",
             "value": "intArr ",
             "optional": false,
             "editable": true
@@ -209,6 +210,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

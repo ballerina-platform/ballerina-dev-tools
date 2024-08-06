@@ -49,10 +49,10 @@ public class If extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
 
-        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
+        Optional<Branch> ifBranch = flowNode.getBranch(IF_THEN_LABEL);
         if (ifBranch.isEmpty()) {
             throw new IllegalStateException("If node does not have a then branch");
         }
@@ -60,27 +60,27 @@ public class If extends NodeBuilder {
         if (condition.isEmpty()) {
             throw new IllegalStateException("If node does not have a condition");
         }
-        sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
+        sourceBuilder.token()
+                .keyword(SyntaxKind.IF_KEYWORD)
                 .expression(condition.get())
-                .openBrace()
-                .addChildren(ifBranch.get().children());
+                .stepOut()
+                .body(ifBranch.get().children());
 
-        Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
+        Optional<Branch> elseBranch = flowNode.getBranch(IF_ELSE_LABEL);
         if (elseBranch.isPresent()) {
             List<FlowNode> children = elseBranch.get().children();
-            sourceBuilder
-                    .closeBrace()
+            sourceBuilder.token()
                     .whiteSpace()
                     .keyword(SyntaxKind.ELSE_KEYWORD);
 
             // If there is only one child, and if that is an if node, generate an `else if` statement`
             if (children.size() != 1 || children.get(0).codedata().node() != FlowNode.Kind.IF) {
-                sourceBuilder.openBrace();
+                sourceBuilder.token().openBrace();
             }
-            sourceBuilder.addChildren(children);
+            sourceBuilder.children(children)
+                    .token().closeBrace();
         }
 
-        sourceBuilder.closeBrace();
         return sourceBuilder.build(false);
     }
 

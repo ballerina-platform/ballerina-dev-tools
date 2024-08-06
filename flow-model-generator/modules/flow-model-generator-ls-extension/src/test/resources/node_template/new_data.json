@@ -6,15 +6,15 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "NewData",
-      "description": "Create new variable"
+      "label": "New Variable",
+      "description": "New variable 'name' with type 'var'"
     },
     "codedata": {
       "node": "NEW_DATA"
     },
     "returning": false,
     "properties": {
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
@@ -23,7 +23,7 @@
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"
@@ -37,6 +37,7 @@
           "label": "Expression",
           "description": "Create new variable"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true

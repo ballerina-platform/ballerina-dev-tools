@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
@@ -48,28 +47,24 @@ public class DefaultExpression extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
-        Optional<Property> expression = node.getProperty(Property.EXPRESSION_KEY);
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
+                .newVariable();
 
-        if (variable.isPresent() && expression.isPresent()) {
-            sourceBuilder
-                    .expressionWithType(variable.get())
-                    .whiteSpace()
-                    .keyword(SyntaxKind.EQUAL_TOKEN)
-                    .whiteSpace()
+        Optional<Property> expression = flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (expression.isPresent()) {
+            sourceBuilder.token()
                     .expression(expression.get())
                     .endOfStatement();
             return sourceBuilder.build(false);
         }
 
-        Optional<Property> statement = node.getProperty(STATEMENT_KEY);
+        Optional<Property> statement = flowNode.getProperty(STATEMENT_KEY);
         if (statement.isEmpty()) {
             throw new IllegalStateException(
                     "One of from the following properties is required: variable, expression, statement");
         }
-        sourceBuilder
+        sourceBuilder.token()
                 .expression(statement.get())
                 .endOfStatement();
         return sourceBuilder.build(false);

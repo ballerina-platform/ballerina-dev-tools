@@ -26,6 +26,7 @@
         "label": "Then",
         "kind": "BLOCK",
         "codedata": {
+          "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -55,11 +56,11 @@
           {
             "id": "69847",
             "metadata": {
-              "label": "Custom Expression",
-              "description": "Represents a custom Ballerina expression"
+              "label": "UpdateData",
+              "description": "Update the value of a variable"
             },
             "codedata": {
-              "node": "EXPRESSION",
+              "node": "UPDATE_DATA",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -77,7 +78,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "string",
                 "value": "\"cheap\"",
@@ -138,6 +139,7 @@
         "label": "Else",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ELSE",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -178,6 +180,7 @@
                 "label": "Then",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "CONDITIONAL",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -230,6 +233,7 @@
                         "label": "Then",
                         "kind": "BLOCK",
                         "codedata": {
+                          "node": "CONDITIONAL",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
@@ -259,11 +263,11 @@
                           {
                             "id": "73945",
                             "metadata": {
-                              "label": "Custom Expression",
-                              "description": "Represents a custom Ballerina expression"
+                              "label": "UpdateData",
+                              "description": "Update the value of a variable"
                             },
                             "codedata": {
-                              "node": "EXPRESSION",
+                              "node": "UPDATE_DATA",
                               "lineRange": {
                                 "fileName": "if_node.bal",
                                 "startLine": {
@@ -281,7 +285,7 @@
                               "expression": {
                                 "metadata": {
                                   "label": "Expression",
-                                  "description": "Expression"
+                                  "description": "Update variable"
                                 },
                                 "valueType": "string",
                                 "value": "\"fresh; \"",
@@ -307,6 +311,7 @@
                         "label": "Else",
                         "kind": "BLOCK",
                         "codedata": {
+                          "node": "ELSE",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
@@ -324,11 +329,11 @@
                           {
                             "id": "75931",
                             "metadata": {
-                              "label": "Custom Expression",
-                              "description": "Represents a custom Ballerina expression"
+                              "label": "UpdateData",
+                              "description": "Update the value of a variable"
                             },
                             "codedata": {
-                              "node": "EXPRESSION",
+                              "node": "UPDATE_DATA",
                               "lineRange": {
                                 "fileName": "if_node.bal",
                                 "startLine": {
@@ -346,7 +351,7 @@
                               "expression": {
                                 "metadata": {
                                   "label": "Expression",
-                                  "description": "Expression"
+                                  "description": "Update variable"
                                 },
                                 "valueType": "string",
                                 "value": "\"expired; \"",
@@ -446,6 +451,7 @@
                 "label": "Else",
                 "kind": "BLOCK",
                 "codedata": {
+                  "node": "ELSE",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -463,11 +469,11 @@
                   {
                     "id": "80763",
                     "metadata": {
-                      "label": "Custom Expression",
-                      "description": "Represents a custom Ballerina expression"
+                      "label": "UpdateData",
+                      "description": "Update the value of a variable"
                     },
                     "codedata": {
-                      "node": "EXPRESSION",
+                      "node": "UPDATE_DATA",
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
@@ -485,7 +491,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Update variable"
                         },
                         "valueType": "string",
                         "value": "\"expensive\"",
@@ -562,7 +568,7 @@
           "character": 9
         }
       },
-      "newText": "if food.price < 100 {\n    string food .comment     = \"cheap\";\n    return food;\n}\nelse if food.price < 200 {\n    if food.remaining > 0 {\n        string food .comment         = \"fresh; \";\n    }\n    else {\n        string food .comment         = \"expired; \";\n    }\n    food.comment += \"moderate\";\n;return food;\n}\nelse {\n    string food .comment     = \"expensive\";\n    return food;\n}}"
+      "newText": "if food.price < 100 {\n    food.comment = \"cheap\";\n    return food;\n}\nelse if food.price < 200 {\n    if food.remaining > 0 {\n        food.comment = \"fresh; \";\n    }\n    else {\n        food.comment = \"expired; \";\n    }\n    food.comment += \"moderate\";\n;return food;\n}\nelse {\n    food.comment = \"expensive\";\n    return food;\n}}"
     }
   ]
 }

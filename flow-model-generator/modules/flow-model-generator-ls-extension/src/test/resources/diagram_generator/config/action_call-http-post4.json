@@ -57,11 +57,15 @@
       {
         "id": "69743",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "New Connection",
+          "description": "Create a new connection"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -76,26 +80,45 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "scope": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "http:Client",
-            "value": "new (\"/drink\")",
+            "valueType": "ENUM",
+            "value": "Global",
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/drink\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "drinkClient ",
+            "value": "drinkClient",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -110,10 +133,16 @@
       {
         "id": "70742",
         "metadata": {
-          "label": "HTTP POST"
+          "label": "post",
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "post",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -128,51 +157,60 @@
         },
         "returning": true,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "drinkClient",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Resource path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/milkshake\"",
             "optional": false,
             "editable": true
           },
           "message": {
             "metadata": {
-              "label": "Message",
-              "description": "HTTP Post Message"
+              "label": "message",
+              "description": "An HTTP outbound request or any allowed payload\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"mixed fruit\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           },
           "mediaType": {
             "metadata": {
-              "label": "Media Type",
-              "description": "HTTP Post Media Type"
+              "label": "mediaType",
+              "description": "The MIME type header of the request entity\n"
             },
-            "valueType": "string?",
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+            },
+            "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
           }
@@ -180,44 +218,82 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
-          },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "http_post_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
-      },
-      {
-        "id": "69719",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "http_post_node.bal",
-          "startLine": {
-            "line": 38,
-            "offset": 8
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
           },
-          "endLine": {
-            "line": 38,
-            "offset": 31
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "LOCAL",
-        "value": "drinkClient ",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

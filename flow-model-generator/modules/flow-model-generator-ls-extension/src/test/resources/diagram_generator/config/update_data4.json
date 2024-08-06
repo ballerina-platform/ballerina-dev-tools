@@ -38,8 +38,8 @@
       {
         "id": "48766",
         "metadata": {
-          "label": "NewData",
-          "description": "Create new variable"
+          "label": "New Variable",
+          "description": "New variable 'x1' with type 'xml'"
         },
         "codedata": {
           "node": "NEW_DATA",
@@ -62,21 +62,21 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "xml:Element",
+            "valueType": "lang.xml:Element",
             "value": "xml `<p>content</p>`",
             "optional": false,
             "editable": true
           },
-          "dataVariable": {
+          "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
-            "value": "x1 ",
+            "value": "x1",
             "optional": false,
             "editable": true
           },
-          "dataType": {
+          "type": {
             "metadata": {
               "label": "Data type",
               "description": "Type of the variable"
@@ -91,8 +91,8 @@
       {
         "id": "49767",
         "metadata": {
-          "label": "UpdateData",
-          "description": "Update the value of a variable"
+          "label": "Update Variable",
+          "description": "Update the value of the variable 'x1'"
         },
         "codedata": {
           "node": "UPDATE_DATA",
@@ -113,9 +113,9 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Expression"
+              "description": "Update variable"
             },
-            "valueType": "xml:Element",
+            "valueType": "lang.xml:Element",
             "value": "xml `<book>The Lost World</book>`",
             "optional": false,
             "editable": true
@@ -134,6 +134,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

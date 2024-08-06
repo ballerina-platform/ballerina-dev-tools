@@ -23,9 +23,9 @@ import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,34 +46,16 @@ public class Transaction extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
-        sourceBuilder
+    public String toSource(FlowNode flowNode) {
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
+        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
+
+        return sourceBuilder.token()
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
-                .openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
-
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
-
-        return sourceBuilder.build(false);
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                .onFailure()
+                .build(false);
     }
 
     @Override

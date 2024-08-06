@@ -26,6 +26,7 @@
         "label": "Body",
         "kind": "BLOCK",
         "codedata": {
+          "node": "BODY",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
@@ -43,8 +44,8 @@
           {
             "id": "48873",
             "metadata": {
-              "label": "UpdateData",
-              "description": "Update the value of a variable"
+              "label": "Update Variable",
+              "description": "Update the value of the variable '_'"
             },
             "codedata": {
               "node": "UPDATE_DATA",
@@ -65,7 +66,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Update variable"
                 },
                 "valueType": "int",
                 "value": "item",
@@ -91,6 +92,7 @@
         "label": "On Failure",
         "kind": "BLOCK",
         "codedata": {
+          "node": "ON_FAILURE",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
@@ -109,7 +111,7 @@
             "id": "50878",
             "metadata": {
               "label": "Return",
-              "description": "Return a value"
+              "description": "Value of 'error(\"Error message\")'"
             },
             "codedata": {
               "node": "RETURN",
@@ -144,16 +146,16 @@
       }
     ],
     "properties": {
-      "dataVariable": {
+      "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "item ",
+        "value": "item",
         "optional": false,
         "editable": true
       },
-      "dataType": {
+      "type": {
         "metadata": {
           "label": "Data type",
           "description": "Type of the variable"
@@ -167,7 +169,7 @@
           "label": "Collection",
           "description": "Collection to iterate"
         },
-        "valueType": "int[]",
+        "valueType": "EXPRESSION",
         "value": "intArr ",
         "optional": false,
         "editable": true

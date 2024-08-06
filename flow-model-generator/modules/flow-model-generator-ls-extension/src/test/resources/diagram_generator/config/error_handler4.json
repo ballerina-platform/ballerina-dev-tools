@@ -61,6 +61,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "fail.bal",
                 "startLine": {
@@ -116,6 +117,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "fail.bal",
                 "startLine": {
@@ -163,7 +165,7 @@
                 "id": "39945",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'e'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -200,6 +202,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }
