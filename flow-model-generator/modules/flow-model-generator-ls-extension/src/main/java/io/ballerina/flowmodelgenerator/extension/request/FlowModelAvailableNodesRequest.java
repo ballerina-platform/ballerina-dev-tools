@@ -18,16 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
-import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.LinePosition;
 
 /**
  * Represents the request for the flow model getAvailableNodes API.
  *
- * @param parentNodeLineRange line range of the parent node
- * @param parentNodeKind      kind of the parent node
- * @param branchLabel         label of the branch if exists
+ * @param filePath file path of the source file
+ * @param position position of the node to be added
  * @since 1.4.0
  */
-public record FlowModelAvailableNodesRequest(LineRange parentNodeLineRange, String parentNodeKind, String branchLabel) {
+public record FlowModelAvailableNodesRequest(String filePath, LinePosition position) {
 
 }

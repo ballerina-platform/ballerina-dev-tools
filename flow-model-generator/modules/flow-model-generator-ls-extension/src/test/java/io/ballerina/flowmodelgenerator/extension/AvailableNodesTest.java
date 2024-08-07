@@ -20,7 +20,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
-import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -38,17 +38,18 @@ public class AvailableNodesTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelAvailableNodesRequest request = new FlowModelAvailableNodesRequest(testConfig.parentNodeLineRange(),
-                testConfig.parentNodeKind(), testConfig.branchLabel());
+        FlowModelAvailableNodesRequest request =
+                new FlowModelAvailableNodesRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
+                        testConfig.position());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.parentNodeLineRange(),
-                    testConfig.parentNodeKind(), testConfig.branchLabel(), categories);
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.position(),
+                    testConfig.source(), categories);
 //            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -73,14 +74,12 @@ public class AvailableNodesTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the available nodes test.
      *
-     * @param description         The description of the test
-     * @param parentNodeLineRange The line range of the parent node
-     * @param parentNodeKind      The kind of the parent node
-     * @param branchLabel         The branch label
-     * @param categories          The available categories for the given input
+     * @param description The description of the test
+     * @param position    The position of the node to be added
+     * @param source      The source file path
+     * @param categories  The available categories for the given input
      */
-    private record TestConfig(String description, LineRange parentNodeLineRange, String parentNodeKind,
-                              String branchLabel, JsonArray categories) {
+    private record TestConfig(String description, LinePosition position, String source, JsonArray categories) {
 
     }
 }

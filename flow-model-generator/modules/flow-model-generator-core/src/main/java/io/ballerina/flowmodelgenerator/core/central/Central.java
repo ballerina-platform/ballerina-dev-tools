@@ -47,6 +47,14 @@ public interface Central {
     List<Item> getAvailableConnectors();
 
     /**
+     * Get the connections for the given connector.
+     *
+     * @param codedata The codedata of the connector
+     * @return The connections for the given connector
+     */
+    List<Item> getConnections(Codedata codedata);
+
+    /**
      * Get the available functions.
      *
      * @return The available connections

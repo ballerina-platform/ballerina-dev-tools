@@ -20,13 +20,28 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 import io.ballerina.flowmodelgenerator.core.model.Category;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
+import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.projects.Document;
+import io.ballerina.tools.text.LinePosition;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Generates available nodes for a given position in the diagram.
@@ -36,20 +51,62 @@ import java.util.List;
 public class AvailableNodesGenerator {
 
     private final Category.Builder rootBuilder;
+    private final SemanticModel semanticModel;
+    private final Document document;
     private final Gson gson;
     private final Central central;
 
-    public AvailableNodesGenerator() {
+    public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
         this.gson = new Gson();
-        central = CentralProxy.getInstance();
-        initializeCommonNodes();
+        this.central = CentralProxy.getInstance();
+        this.semanticModel = semanticModel;
+        this.document = document;
     }
 
-    public JsonArray getAvailableNodes() {
+    public JsonArray getAvailableNodes(LinePosition position) {
+        List<Item> connectionItems = new ArrayList<>();
+        semanticModel.visibleSymbols(document, position).stream()
+                .flatMap(symbol -> getConnection(symbol).stream())
+                .forEach(connectionItems::add);
+        this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(connectionItems).stepOut();
+
+        initializeCommonNodes();
         List<Item> items = this.rootBuilder.build().items();
         items.addAll(central.getFunctions());
+
         return gson.toJsonTree(items).getAsJsonArray();
+    }
+
+    private Optional<Category> getConnection(Symbol symbol) {
+        try {
+            TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
+            TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
+            if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
+                    !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+                return Optional.empty();
+            }
+
+            ModuleSymbol moduleSymbol = typeSymbol.getModule().orElseThrow();
+            String orgName = moduleSymbol.id().orgName();
+            String moduleName = moduleSymbol.getName().orElseThrow();
+            Codedata codedata = new Codedata.Builder<>(null)
+                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .org(orgName)
+                    .module(moduleName)
+                    .object("Client")
+                    .symbol("init")
+                    .build();
+            List<Item> connections = central.getConnections(codedata);
+
+            String varName = symbol.getName().orElseThrow();
+            Metadata metadata = new Metadata.Builder<>(null)
+                    .label(varName)
+                    .build();
+            return Optional.of(new Category(metadata, connections));
+        } catch (RuntimeException ignored) {
+            return Optional.empty();
+        }
     }
 
     private void initializeCommonNodes() {

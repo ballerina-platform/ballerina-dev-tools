@@ -57,7 +57,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         private String symbol;
         private LineRange lineRange;
 
-        protected Builder(T parentBuilder) {
+        public Builder(T parentBuilder) {
             super(parentBuilder);
         }
 
