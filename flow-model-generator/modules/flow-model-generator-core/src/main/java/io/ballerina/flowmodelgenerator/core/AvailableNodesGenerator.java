@@ -48,7 +48,6 @@ public class AvailableNodesGenerator {
 
     public JsonArray getAvailableNodes() {
         List<Item> items = this.rootBuilder.build().items();
-        items.addAll(central.getAvailableConnections());
         items.addAll(central.getFunctions());
         return gson.toJsonTree(items).getAsJsonArray();
     }
