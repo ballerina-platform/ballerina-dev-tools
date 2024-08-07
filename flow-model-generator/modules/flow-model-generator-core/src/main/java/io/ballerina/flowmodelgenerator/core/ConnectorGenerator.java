@@ -39,6 +39,6 @@ public class ConnectorGenerator {
     }
 
     public JsonArray getConnectors(String keyword) {
-        return gson.toJsonTree(central.getAvailableConnections()).getAsJsonArray();
+        return gson.toJsonTree(central.getAvailableConnectors()).getAsJsonArray();
     }
 }

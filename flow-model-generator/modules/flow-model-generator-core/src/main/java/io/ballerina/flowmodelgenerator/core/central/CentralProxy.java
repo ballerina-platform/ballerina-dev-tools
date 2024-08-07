@@ -54,6 +54,7 @@ public class CentralProxy implements Central {
     private final Gson gson;
     private Map<String, FlowNode> templateCache;
     private static final String NODE_TEMPLATES_JSON = "node_templates.json";
+    private static final String CONNECTORS_JSON = "connectors.json";
     private static final String CONNECTIONS_JSON = "connections.json";
     private static final String FUNCTIONS_JSON = "functions.json";
 
@@ -82,9 +83,9 @@ public class CentralProxy implements Central {
     }
 
     @Override
-    public List<Item> getAvailableConnections() {
-        Category connections = readJsonResource(CONNECTIONS_JSON, Category.class);
-        return connections.items();
+    public List<Item> getAvailableConnectors() {
+        Category connectors = readJsonResource(CONNECTORS_JSON, Category.class);
+        return connectors.items();
     }
 
     @Override
