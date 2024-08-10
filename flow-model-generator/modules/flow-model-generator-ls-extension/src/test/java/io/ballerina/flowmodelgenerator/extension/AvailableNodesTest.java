@@ -20,8 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
-import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -35,23 +36,44 @@ import java.nio.file.Path;
  */
 public class AvailableNodesTest extends AbstractLSTest {
 
-    @Override
-    @Test(dataProvider = "data-provider")
-    public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
-        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+    @Test(dataProvider = "files-provider")
+    public void test(String config) throws IOException {
+        Path configPath = configDir.resolve(config);
+        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configPath), TestConfig.class);
 
-        FlowModelAvailableNodesRequest request = new FlowModelAvailableNodesRequest(testConfig.parentNodeLineRange(),
-                testConfig.parentNodeKind(), testConfig.branchLabel());
+        FlowModelAvailableNodesRequest request =
+                new FlowModelAvailableNodesRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
+                        testConfig.cursorPosition());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.parentNodeLineRange(),
-                    testConfig.parentNodeKind(), testConfig.branchLabel(), categories);
-//            updateConfig(config, updateConfig);
-            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.source(),
+                    testConfig.cursorPosition(), categories);
+            updateConfig(configPath, updateConfig);
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configPath));
         }
+    }
+
+    @DataProvider(name = "files-provider")
+    public Object[] filesProvider() {
+        return new Object[][]{
+                {"function1.json"},
+                {"function2.json"},
+                {"function3.json"},
+                {"while1.json"},
+                {"foreach1.json"},
+                {"lock1.json"},
+                {"transaction1.json"},
+                {"transaction2.json"},
+                {"match1.json"},
+                {"match2.json"},
+                {"on_fail_clause1.json"},
+        };
+    }
+
+    @Override
+    public void test(Path config) throws IOException {
 
     }
 
@@ -73,14 +95,12 @@ public class AvailableNodesTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the available nodes test.
      *
-     * @param description         The description of the test
-     * @param parentNodeLineRange The line range of the parent node
-     * @param parentNodeKind      The kind of the parent node
-     * @param branchLabel         The branch label
-     * @param categories          The available categories for the given input
+     * @param description       The description of the test
+     * @param source            Ballerina source file
+     * @param cursorPosition    Cursor position
+     * @param categories        The available categories for the given input
      */
-    private record TestConfig(String description, LineRange parentNodeLineRange, String parentNodeKind,
-                              String branchLabel, JsonArray categories) {
+    private record TestConfig(String description, String source, LinePosition cursorPosition, JsonArray categories) {
 
     }
 }
