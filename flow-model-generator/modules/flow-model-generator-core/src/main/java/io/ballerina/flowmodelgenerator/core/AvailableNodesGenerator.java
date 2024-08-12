@@ -40,6 +40,7 @@ import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,7 @@ public class AvailableNodesGenerator {
         List<Item> connectionItems = new ArrayList<>();
         semanticModel.visibleSymbols(document, position).stream()
                 .flatMap(symbol -> getConnection(symbol).stream())
+                .sorted(Comparator.comparing(category -> category.metadata().label()))
                 .forEach(connectionItems::add);
         this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(connectionItems).stepOut();
 
