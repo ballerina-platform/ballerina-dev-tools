@@ -62,7 +62,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "annotations:error",
+            "valueType": "error",
             "value": "error(\"AssertionError\")",
             "optional": false,
             "editable": true
