@@ -16,3 +16,15 @@ public function fn2() returns error? {
     http:Client localHttpCl = check new http:Client("http://localhost:8080");
     redis:Client localRedisCl = check new redis:Client();
 }
+
+service / on new http:Listener(8080) {
+    http:Client serviceHttpCl = check new ("http://localhost:9090");
+    redis:Client serviceRedisCl = check new;
+
+    function init() returns error? {
+    }
+
+    resource function get .() {
+
+    }
+}

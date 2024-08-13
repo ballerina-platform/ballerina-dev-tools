@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassFieldSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -44,6 +45,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Generator for the flow model.
@@ -82,7 +84,7 @@ public class ModelGenerator {
 
         // Obtain the connections visible at the module-level
         List<FlowNode> moduleConnections =
-                semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
+                semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
                         .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
                         .toList();
@@ -102,20 +104,37 @@ public class ModelGenerator {
      * @return the client if the type symbol is a client, otherwise empty
      */
     private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol) {
-        NonTerminalNode node;
+        Function<NonTerminalNode, NonTerminalNode> getParentNode;
+        NonTerminalNode parentNode;
+        TypeSymbol typeSymbol;
+
+        switch (symbol.kind()) {
+            case VARIABLE -> {
+                getParentNode = (NonTerminalNode node) -> node.parent().parent();
+                typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
+            }
+            case CLASS_FIELD -> {
+                getParentNode = (NonTerminalNode node) -> node;
+                typeSymbol = ((ClassFieldSymbol) symbol).typeDescriptor();
+            }
+            default -> {
+                return Optional.empty();
+            }
+        }
         try {
-            TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
             TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
             if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
                     !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
                 return Optional.empty();
             }
-            node = symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+            NonTerminalNode childNode =
+                    symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+            parentNode = getParentNode.apply(childNode);
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
-        node.parent().parent().accept(codeAnalyzer);
+        parentNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();
     }

@@ -61,6 +61,7 @@ import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
@@ -139,6 +140,15 @@ class CodeAnalyzer extends NodeVisitor {
         }
         endNode(functionDefinitionNode);
         super.visit(functionDefinitionNode);
+    }
+
+    @Override
+    public void visit(ObjectFieldNode objectFieldNode) {
+        objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
+        nodeBuilder.properties()
+                .type(objectFieldNode.typeName())
+                .variable(objectFieldNode.fieldName());
+        endNode(objectFieldNode);
     }
 
     @Override
