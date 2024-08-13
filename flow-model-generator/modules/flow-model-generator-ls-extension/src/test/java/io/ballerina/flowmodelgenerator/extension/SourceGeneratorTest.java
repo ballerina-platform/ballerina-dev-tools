@@ -45,7 +45,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         FlowModelSourceGeneratorRequest request = new FlowModelSourceGeneratorRequest(testConfig.diagram());

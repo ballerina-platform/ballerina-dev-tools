@@ -42,7 +42,7 @@ def process_file_code(file_code):
 
     # Relative to this path, read the file
     diagram_dir_name = os.path.join(
-        current_path, "..", "diagram_generator", "config")
+        current_path, "..", "..", "diagram_generator", "config")
     matching_files = sorted([file for file in os.listdir(
         diagram_dir_name) if file.startswith(file_code)])
 
@@ -96,7 +96,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 if file_code == "all":
     # Read the files in the format "*.json" in the node_template directory
     template_files = sorted([file for file in os.listdir(
-        os.path.join(current_path, "..", "node_template")) if file.endswith(".json")])
+        os.path.join(current_path, "..", "..", "node_template")) if file.endswith(".json")])
     for template_file in template_files:
         prefix = template_file.split(".")[0]
         print(f"Generating node: {template_file}...")
