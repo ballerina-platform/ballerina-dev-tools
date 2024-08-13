@@ -112,12 +112,14 @@ class CodeAnalyzer extends NodeVisitor {
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Central central;
     private TypedBindingPatternNode typedBindingPatternNode;
+    private final String connectionScope;
 
-    public CodeAnalyzer(SemanticModel semanticModel) {
+    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.central = CentralProxy.getInstance();
+        this.connectionScope = connectionScope;
     }
 
     @Override
@@ -331,7 +333,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .object(nodeTemplate.codedata().object())
                     .symbol(nodeTemplate.codedata().symbol())
                     .stepOut()
-                .properties().scope();
+                .properties().scope(connectionScope);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()

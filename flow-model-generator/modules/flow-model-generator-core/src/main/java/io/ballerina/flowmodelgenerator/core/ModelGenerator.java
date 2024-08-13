@@ -90,7 +90,7 @@ public class ModelGenerator {
                         .toList();
 
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -107,15 +107,18 @@ public class ModelGenerator {
         Function<NonTerminalNode, NonTerminalNode> getParentNode;
         NonTerminalNode parentNode;
         TypeSymbol typeSymbol;
+        String scope;
 
         switch (symbol.kind()) {
             case VARIABLE -> {
                 getParentNode = (NonTerminalNode node) -> node.parent().parent();
                 typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
+                scope = Property.GLOBAL_SCOPE;
             }
             case CLASS_FIELD -> {
                 getParentNode = (NonTerminalNode node) -> node;
                 typeSymbol = ((ClassFieldSymbol) symbol).typeDescriptor();
+                scope = Property.SERVICE_SCOPE;
             }
             default -> {
                 return Optional.empty();
@@ -133,7 +136,7 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope);
         parentNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

@@ -556,14 +556,14 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> scope() {
+        public PropertiesBuilder<T> scope(String scope) {
             Property property = propertyBuilder
                     .metadata()
                     .label(Property.SCOPE_LABEL)
                     .description(Property.SCOPE_DOC)
                     .stepOut()
                     .type(Property.ValueType.ENUM)
-                    .value("Global")
+                    .value(scope)
                     .editable()
                     .build();
             addProperty(Property.SCOPE_KEY, property);

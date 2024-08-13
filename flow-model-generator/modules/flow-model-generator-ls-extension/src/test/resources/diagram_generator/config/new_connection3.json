@@ -372,7 +372,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Service",
             "optional": false,
             "editable": true
           },
@@ -448,7 +448,7 @@
               "description": "Scope of the connection, Global or Local"
             },
             "valueType": "ENUM",
-            "value": "Global",
+            "value": "Service",
             "optional": false,
             "editable": true
           },
