@@ -24,7 +24,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,14 +47,14 @@ public class Return extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
         sourceBuilder.token().endOfStatement();
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override

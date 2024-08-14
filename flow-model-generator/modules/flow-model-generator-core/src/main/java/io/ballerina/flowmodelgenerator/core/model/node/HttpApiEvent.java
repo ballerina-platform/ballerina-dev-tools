@@ -22,6 +22,9 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
+
+import java.util.List;
 
 /**
  * Represents the properties of a HttpApiEvent node.
@@ -45,7 +48,7 @@ public class HttpApiEvent extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder node) {
+    public List<TextEdit> toSource(SourceBuilder node) {
         return null;
     }
 

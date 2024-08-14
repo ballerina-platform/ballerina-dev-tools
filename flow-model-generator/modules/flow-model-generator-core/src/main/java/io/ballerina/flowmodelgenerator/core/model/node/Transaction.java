@@ -24,6 +24,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,7 +47,7 @@ public class Transaction extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
 
         return sourceBuilder.token()
@@ -54,7 +55,8 @@ public class Transaction extends NodeBuilder {
                 .stepOut()
                 .body(body.isPresent() ? body.get().children() : Collections.emptyList())
                 .onFailure()
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 
     @Override

@@ -23,7 +23,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,7 +49,7 @@ public class DefaultExpression extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
         Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
@@ -55,7 +57,7 @@ public class DefaultExpression extends NodeBuilder {
             sourceBuilder.token()
                     .expression(expression.get())
                     .endOfStatement();
-            return sourceBuilder.build(false);
+            return sourceBuilder.textEdit(false).build();
         }
 
         Optional<Property> statement = sourceBuilder.flowNode.getProperty(STATEMENT_KEY);
@@ -66,7 +68,7 @@ public class DefaultExpression extends NodeBuilder {
         sourceBuilder.token()
                 .expression(statement.get())
                 .endOfStatement();
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override

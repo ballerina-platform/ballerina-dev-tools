@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public class If extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         Optional<Branch> ifBranch = sourceBuilder.flowNode.getBranch(IF_THEN_LABEL);
         if (ifBranch.isEmpty()) {
             throw new IllegalStateException("If node does not have a then branch");
@@ -79,7 +80,7 @@ public class If extends NodeBuilder {
                     .token().closeBrace();
         }
 
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override

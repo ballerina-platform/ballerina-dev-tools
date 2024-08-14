@@ -25,6 +25,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,7 @@ public class Foreach extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
                 .stepOut()
                 .typedBindingPattern()
@@ -60,7 +61,8 @@ public class Foreach extends NodeBuilder {
 
         return sourceBuilder
                 .onFailure()
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 
     @Override

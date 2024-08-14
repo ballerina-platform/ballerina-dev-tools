@@ -6,7 +6,9 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
@@ -22,7 +24,7 @@ public class FunctionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
         if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
@@ -34,6 +36,7 @@ public class FunctionCall extends NodeBuilder {
                 .name(nodeTemplate.metadata().label())
                 .stepOut()
                 .functionParameters(nodeTemplate, Set.of("variable", "type"))
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 }

@@ -24,7 +24,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -33,6 +35,7 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class UpdateData extends NodeBuilder {
+
     public static final String LABEL = "Update Variable";
     public static final String DESCRIPTION = "Update the value of the variable '%s'";
     public static final String UPDATE_DATA_EXPRESSION_DOC = "Update variable";
@@ -44,14 +47,14 @@ public class UpdateData extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
 
         property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override

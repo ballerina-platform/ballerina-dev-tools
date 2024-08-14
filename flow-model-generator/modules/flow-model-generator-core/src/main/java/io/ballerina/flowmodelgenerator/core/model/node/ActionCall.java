@@ -25,7 +25,9 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,7 +46,7 @@ public class ActionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
         if (sourceBuilder.flowNode.returning()) {
@@ -68,7 +70,8 @@ public class ActionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 
     @Override

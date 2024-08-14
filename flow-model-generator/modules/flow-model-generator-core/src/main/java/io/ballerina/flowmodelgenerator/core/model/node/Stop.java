@@ -23,6 +23,9 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
+
+import java.util.List;
 
 /**
  * Represents the properties of a stop node.
@@ -41,8 +44,14 @@ public class Stop extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder node) {
-        return SyntaxKind.RETURN_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
+        return sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.RETURN_STATEMENT)
+                    .endOfStatement()
+                    .stepOut()
+                .textEdit(false)
+                .build();
     }
 
     @Override

@@ -25,8 +25,10 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,7 +49,7 @@ public class While extends NodeBuilder {
     }
 
     @Override
-    public String toSource(SourceBuilder sourceBuilder) {
+    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
 
@@ -57,8 +59,7 @@ public class While extends NodeBuilder {
 
         // Handle the on fail branch
         sourceBuilder.onFailure();
-
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
