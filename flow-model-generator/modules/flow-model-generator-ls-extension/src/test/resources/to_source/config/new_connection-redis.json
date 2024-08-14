@@ -1,0 +1,101 @@
+{
+  "source": "new_connection-redis/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "init",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "Enum",
+        "value": "Global",
+        "optional": false,
+        "editable": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store the connection"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the connection"
+        },
+        "valueType": "Type",
+        "value": "Error",
+        "optional": false,
+        "editable": false
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "configuration for the connector\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "Error connection = check new ();"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "import ballerinax/redis;"
+    }
+  ]
+}
