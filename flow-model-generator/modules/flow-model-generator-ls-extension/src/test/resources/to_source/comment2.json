@@ -1,0 +1,52 @@
+{
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "40711",
+    "metadata": {
+      "label": "Comment",
+      "description": "Comment of a node"
+    },
+    "codedata": {
+      "node": "COMMENT",
+      "lineRange": {
+        "fileName": "comment.bal",
+        "startLine": {
+          "line": 9,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 10,
+          "offset": 8
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "comment": {
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment to describe the flow"
+        },
+        "value": "        // This is a comment for a statement\n        ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": [
+    {
+      "range": {
+        "start": {
+          "line": 9,
+          "character": 0
+        },
+        "end": {
+          "line": 10,
+          "character": 8
+        }
+      },
+      "newText": "        // This is a comment for a statement\n        "
+    }
+  ]
+}

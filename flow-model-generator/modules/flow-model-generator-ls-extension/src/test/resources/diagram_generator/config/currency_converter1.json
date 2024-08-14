@@ -57,6 +57,40 @@
       {
         "id": "50043",
         "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 17,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 9
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "        // error handler\n        ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "50043",
+        "metadata": {
           "label": "ErrorHandler",
           "description": "Catch and handle errors"
         },
@@ -272,6 +306,40 @@
                       {
                         "id": "58112",
                         "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 26,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 28,
+                              "offset": 18
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "                // new data\n                ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "58112",
+                        "metadata": {
                           "label": "New Variable",
                           "description": "New variable 'newData' with type 'map'"
                         },
@@ -316,6 +384,40 @@
                               "description": "Type of the variable"
                             },
                             "value": "json",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "62031",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 30,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 30,
+                              "offset": 31
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "                // return\n                ",
                             "optional": false,
                             "editable": true
                           }
@@ -767,7 +869,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
-                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.0:error|annotations:error",
+                "value": "redis:ballerinax/redis:3.0.2:error|annotations:error|http:ballerina/http:2.11.3:error|annotations:error",
                 "optional": false,
                 "editable": true
               }
@@ -867,7 +969,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "ballerina/http:2.11.0:InternalServerError & readonly",
+                    "valueType": "ballerina/http:2.11.3:InternalServerError & readonly",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true

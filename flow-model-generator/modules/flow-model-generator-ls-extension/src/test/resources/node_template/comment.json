@@ -1,0 +1,17 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "COMMENT"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Comment"
+    },
+    "codedata": {
+      "node": "COMMENT"
+    },
+    "returning": false,
+    "flags": 0
+  }
+}
