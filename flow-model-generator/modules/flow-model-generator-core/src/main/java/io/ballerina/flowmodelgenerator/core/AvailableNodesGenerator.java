@@ -132,6 +132,7 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.DATA)
                     .node(FlowNode.Kind.NEW_DATA)
                     .node(FlowNode.Kind.UPDATE_DATA)
+                    .node(FlowNode.Kind.DATA_MAPPER)
                 .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
