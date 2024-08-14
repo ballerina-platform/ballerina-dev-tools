@@ -1,7 +1,8 @@
 {
+  "source": "foreach4/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "56797",
+    "id": "65663",
     "metadata": {
       "label": "Foreach",
       "description": "Iterate over a block of code."
@@ -11,11 +12,11 @@
       "lineRange": {
         "fileName": "foreach.bal",
         "startLine": {
-          "line": 25,
+          "line": 34,
           "offset": 4
         },
         "endLine": {
-          "line": 29,
+          "line": 36,
           "offset": 5
         }
       }
@@ -30,11 +31,11 @@
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
-              "line": 25,
-              "offset": 31
+              "line": 34,
+              "offset": 37
             },
             "endLine": {
-              "line": 27,
+              "line": 36,
               "offset": 5
             }
           }
@@ -42,7 +43,7 @@
         "repeatable": "ONE",
         "children": [
           {
-            "id": "57801",
+            "id": "66729",
             "metadata": {
               "label": "Update Variable",
               "description": "Update the value of the variable '_'"
@@ -52,11 +53,11 @@
               "lineRange": {
                 "fileName": "foreach.bal",
                 "startLine": {
-                  "line": 26,
+                  "line": 35,
                   "offset": 8
                 },
                 "endLine": {
-                  "line": 26,
+                  "line": 35,
                   "offset": 17
                 }
               }
@@ -80,91 +81,6 @@
                 },
                 "valueType": "any",
                 "value": "_",
-                "optional": false,
-                "editable": true
-              }
-            },
-            "flags": 0
-          }
-        ]
-      },
-      {
-        "label": "On Failure",
-        "kind": "BLOCK",
-        "codedata": {
-          "node": "ON_FAILURE",
-          "lineRange": {
-            "fileName": "foreach.bal",
-            "startLine": {
-              "line": 27,
-              "offset": 20
-            },
-            "endLine": {
-              "line": 29,
-              "offset": 5
-            }
-          }
-        },
-        "repeatable": "ZERO_OR_ONE",
-        "properties": {
-          "ignore": {
-            "metadata": {
-              "label": "Ignore",
-              "description": "Ignore the error value"
-            },
-            "value": "true",
-            "optional": false,
-            "editable": true
-          },
-          "errorVariable": {
-            "metadata": {
-              "label": "Error Variable",
-              "description": "Name of the error variable"
-            },
-            "value": "e ",
-            "optional": false,
-            "editable": true
-          },
-          "errorType": {
-            "metadata": {
-              "label": "Error Type",
-              "description": "Type of the error"
-            },
-            "value": "annotations:error",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "children": [
-          {
-            "id": "59785",
-            "metadata": {
-              "label": "Return",
-              "description": "Value of 'e'"
-            },
-            "codedata": {
-              "node": "RETURN",
-              "lineRange": {
-                "fileName": "foreach.bal",
-                "startLine": {
-                  "line": 28,
-                  "offset": 8
-                },
-                "endLine": {
-                  "line": 28,
-                  "offset": 17
-                }
-              }
-            },
-            "returning": true,
-            "properties": {
-              "expression": {
-                "metadata": {
-                  "label": "Expression",
-                  "description": "Return value"
-                },
-                "valueType": "annotations:error",
-                "value": "e",
                 "optional": false,
                 "editable": true
               }
@@ -210,15 +126,15 @@
     {
       "range": {
         "start": {
-          "line": 25,
+          "line": 34,
           "character": 4
         },
         "end": {
-          "line": 29,
+          "line": 36,
           "character": 5
         }
       },
-      "newText": "foreach int item in intArr {\n    _ = item;\n}\non fail annotations: error e{\nreturn e; }"
+      "newText": "foreach int item in intArr {\n    _ = item;\n}"
     }
   ]
 }

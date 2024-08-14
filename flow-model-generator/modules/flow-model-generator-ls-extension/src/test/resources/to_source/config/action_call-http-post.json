@@ -1,16 +1,18 @@
 {
+  "source": "action_call-http-post/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
-      "label": "get",
-      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+      "label": "post",
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
       "org": "ballerina",
       "module": "http",
       "object": "Client",
-      "symbol": "get",
+      "symbol": "post",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -58,7 +60,17 @@
       "path": {
         "metadata": {
           "label": "path",
-          "description": "Request path\n"
+          "description": "Resource path\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload\n"
         },
         "valueType": "Expression",
         "value": "",
@@ -69,6 +81,16 @@
         "metadata": {
           "label": "headers",
           "description": "The entity headers\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity\n"
         },
         "valueType": "Expression",
         "value": "()",
@@ -100,7 +122,7 @@
           "character": 0
         }
       },
-      "newText": "map<json> res = check connection->get();"
+      "newText": "map<json> res = check connection->post(, );"
     }
   ]
 }

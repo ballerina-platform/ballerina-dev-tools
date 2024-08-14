@@ -1,4 +1,5 @@
 {
+  "source": "transaction5/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "60765",
@@ -78,7 +79,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "_ ",
+                "value": "_",
                 "optional": false,
                 "editable": true
               },
@@ -119,7 +120,7 @@
             "id": "63772",
             "metadata": {
               "label": "Return",
-              "description": "Return a value"
+              "description": "Value of 'error(\"Found error\")'"
             },
             "codedata": {
               "node": "RETURN",
@@ -142,7 +143,7 @@
                   "label": "Expression",
                   "description": "Return value"
                 },
-                "valueType": "annotations:error",
+                "valueType": "error",
                 "value": "error(\"Found error\")",
                 "optional": false,
                 "editable": true

@@ -1,4 +1,5 @@
 {
+  "source": "function_call-log-printInfo/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {

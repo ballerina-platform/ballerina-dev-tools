@@ -1,4 +1,5 @@
 {
+  "source": "if1/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "47036",
@@ -57,7 +58,7 @@
             "id": "48010",
             "metadata": {
               "label": "New Variable",
-              "description": "Create new variable"
+              "description": "New variable 'a' with type 'int'"
             },
             "codedata": {
               "node": "NEW_DATA",
@@ -90,7 +91,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "a ",
+                "value": "a",
                 "optional": false,
                 "editable": true
               },
@@ -131,7 +132,7 @@
             "id": "49994",
             "metadata": {
               "label": "New Variable",
-              "description": "Create new variable"
+              "description": "New variable 'b' with type 'int'"
             },
             "codedata": {
               "node": "NEW_DATA",
@@ -164,7 +165,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "b ",
+                "value": "b",
                 "optional": false,
                 "editable": true
               },
@@ -184,7 +185,7 @@
             "id": "50992",
             "metadata": {
               "label": "New Variable",
-              "description": "Create new variable"
+              "description": "New variable 'c' with type 'string'"
             },
             "codedata": {
               "node": "NEW_DATA",
@@ -217,7 +218,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "c ",
+                "value": "c",
                 "optional": false,
                 "editable": true
               },

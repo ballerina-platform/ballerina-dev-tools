@@ -1,16 +1,18 @@
 {
+  "source": "action_call-http-get/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
-      "label": "set",
-      "description": "Set the value of a key.\n\n"
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
-      "org": "ballerinax",
-      "module": "redis",
+      "org": "ballerina",
+      "module": "http",
       "object": "Client",
-      "symbol": "set",
+      "symbol": "get",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -51,27 +53,37 @@
           "description": "Type of the result"
         },
         "valueType": "Type",
-        "value": "string",
+        "value": "map<json>",
         "optional": false,
         "editable": false
       },
-      "key": {
+      "path": {
         "metadata": {
-          "label": "key",
-          "description": "Key referring to a value\n"
+          "label": "path",
+          "description": "Request path\n"
         },
         "valueType": "Expression",
         "value": "",
         "optional": false,
         "editable": true
       },
-      "value": {
+      "headers": {
         "metadata": {
-          "label": "value",
-          "description": "Values\n"
+          "label": "headers",
+          "description": "The entity headers\n"
         },
         "valueType": "Expression",
-        "value": "",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "targetType": {
+        "metadata": {
+          "label": "targetType",
+          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
+        },
+        "valueType": "Expression",
+        "value": "<>",
         "optional": false,
         "editable": true
       }
@@ -90,7 +102,7 @@
           "character": 0
         }
       },
-      "newText": "string res = check connection->set(, );"
+      "newText": "map<json> res = check connection->get();"
     }
   ]
 }

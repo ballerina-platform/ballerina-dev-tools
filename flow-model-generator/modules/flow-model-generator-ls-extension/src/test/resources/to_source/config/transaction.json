@@ -1,13 +1,14 @@
 {
+  "source": "transaction/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Lock",
-      "description": "Allow to access mutable states safely"
+      "label": "Transaction",
+      "description": "Handle transaction."
     },
     "codedata": {
-      "node": "LOCK",
+      "node": "TRANSACTION",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -84,7 +85,7 @@
           "character": 0
         }
       },
-      "newText": "lock {\n}\non fail error err {\n}"
+      "newText": "transaction {\n}\non fail error err {\n}"
     }
   ]
 }

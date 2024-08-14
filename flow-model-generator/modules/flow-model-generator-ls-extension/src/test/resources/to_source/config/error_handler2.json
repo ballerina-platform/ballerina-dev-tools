@@ -1,4 +1,5 @@
 {
+  "source": "error_handler2/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "49206",
@@ -45,7 +46,8 @@
             "id": "50038",
             "metadata": {
               "label": "get",
-              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
             },
             "codedata": {
               "node": "ACTION_CALL",
@@ -82,7 +84,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "res3 ",
+                "value": "res3",
                 "optional": false,
                 "editable": true
               },
@@ -129,8 +131,8 @@
           {
             "id": "50998",
             "metadata": {
-              "label": "UpdateData",
-              "description": "Update the value of a variable"
+              "label": "Update Variable",
+              "description": "Update the value of the variable 'msg'"
             },
             "codedata": {
               "node": "UPDATE_DATA",
@@ -195,8 +197,8 @@
           {
             "id": "52995",
             "metadata": {
-              "label": "UpdateData",
-              "description": "Update the value of a variable"
+              "label": "Update Variable",
+              "description": "Update the value of the variable 'msg'"
             },
             "codedata": {
               "node": "UPDATE_DATA",
@@ -282,7 +284,8 @@
                     "id": "55159",
                     "metadata": {
                       "label": "post",
-                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                     },
                     "codedata": {
                       "node": "ACTION_CALL",
@@ -319,7 +322,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
-                        "value": "res ",
+                        "value": "res",
                         "optional": false,
                         "editable": true
                       },
@@ -385,8 +388,8 @@
                   {
                     "id": "56102",
                     "metadata": {
-                      "label": "UpdateData",
-                      "description": "Update the value of a variable"
+                      "label": "Update Variable",
+                      "description": "Update the value of the variable 'msg'"
                     },
                     "codedata": {
                       "node": "UPDATE_DATA",
@@ -451,8 +454,8 @@
                   {
                     "id": "58095",
                     "metadata": {
-                      "label": "UpdateData",
-                      "description": "Update the value of a variable"
+                      "label": "Update Variable",
+                      "description": "Update the value of the variable 'msg'"
                     },
                     "codedata": {
                       "node": "UPDATE_DATA",

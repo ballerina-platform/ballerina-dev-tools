@@ -1,4 +1,5 @@
 {
+  "source": "while5/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "83120",
@@ -45,7 +46,8 @@
             "id": "83770",
             "metadata": {
               "label": "get",
-              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
             },
             "codedata": {
               "node": "ACTION_CALL",
@@ -82,7 +84,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "response ",
+                "value": "response",
                 "optional": false,
                 "editable": true
               },
@@ -248,7 +250,7 @@
             "id": "87697",
             "metadata": {
               "label": "New Variable",
-              "description": "Create new variable"
+              "description": "New variable 'attempts' with type 'int'"
             },
             "codedata": {
               "node": "NEW_DATA",
@@ -281,7 +283,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "attempts ",
+                "value": "attempts",
                 "optional": false,
                 "editable": true
               },
@@ -329,7 +331,7 @@
                   "description": "Scope of the connection, Global or Local"
                 },
                 "valueType": "ENUM",
-                "value": "Global",
+                "value": "Local",
                 "optional": false,
                 "editable": true
               },
@@ -357,7 +359,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "adminClient ",
+                "value": "adminClient",
                 "optional": false,
                 "editable": true
               },
@@ -430,7 +432,7 @@
                     "id": "90836",
                     "metadata": {
                       "label": "Return",
-                      "description": "Return a value"
+                      "description": "Value of '\"Error occurred while creating admin client\"'"
                     },
                     "codedata": {
                       "node": "RETURN",
@@ -511,7 +513,8 @@
                     "id": "93839",
                     "metadata": {
                       "label": "post",
-                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+                      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
                     },
                     "codedata": {
                       "node": "ACTION_CALL",
@@ -548,7 +551,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
-                        "value": "response ",
+                        "value": "response",
                         "optional": false,
                         "editable": true
                       },
@@ -615,7 +618,7 @@
                     "id": "94822",
                     "metadata": {
                       "label": "Return",
-                      "description": "Return a value"
+                      "description": "Value of '\"Response received from admin service: \" + response.toString()'"
                     },
                     "codedata": {
                       "node": "RETURN",
@@ -671,7 +674,7 @@
                     "id": "96789",
                     "metadata": {
                       "label": "Return",
-                      "description": "Return a value"
+                      "description": "Value of '\"Error occurred while invoking admin service\"'"
                     },
                     "codedata": {
                       "node": "RETURN",
@@ -723,7 +726,7 @@
             "id": "98644",
             "metadata": {
               "label": "Return",
-              "description": "Return a value"
+              "description": "Value of '\"Error occurred while invoking food service\"'"
             },
             "codedata": {
               "node": "RETURN",

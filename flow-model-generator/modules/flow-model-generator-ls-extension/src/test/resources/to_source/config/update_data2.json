@@ -1,10 +1,11 @@
 {
+  "source": "update_data2/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "34854",
     "metadata": {
-      "label": "UpdateData",
-      "description": "Update the value of a variable"
+      "label": "Update Variable",
+      "description": "Update the value of the variable '_'"
     },
     "codedata": {
       "node": "UPDATE_DATA",

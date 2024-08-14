@@ -1,4 +1,5 @@
 {
+  "source": "if2/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "56057",
@@ -110,7 +111,7 @@
                     "id": "58059",
                     "metadata": {
                       "label": "New Variable",
-                      "description": "Create new variable"
+                      "description": "New variable 'c' with type 'int'"
                     },
                     "codedata": {
                       "node": "NEW_DATA",
@@ -143,7 +144,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
-                        "value": "c ",
+                        "value": "c",
                         "optional": false,
                         "editable": true
                       },
@@ -163,7 +164,7 @@
                     "id": "59059",
                     "metadata": {
                       "label": "Return",
-                      "description": "Return a value"
+                      "description": "Value of '\"expensive\"'"
                     },
                     "codedata": {
                       "node": "RETURN",
@@ -219,7 +220,7 @@
                     "id": "61034",
                     "metadata": {
                       "label": "New Variable",
-                      "description": "Create new variable"
+                      "description": "New variable 'b' with type 'int'"
                     },
                     "codedata": {
                       "node": "NEW_DATA",
@@ -252,7 +253,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
-                        "value": "b ",
+                        "value": "b",
                         "optional": false,
                         "editable": true
                       },
@@ -272,7 +273,7 @@
                     "id": "62034",
                     "metadata": {
                       "label": "Return",
-                      "description": "Return a value"
+                      "description": "Value of '\"moderate\"'"
                     },
                     "codedata": {
                       "node": "RETURN",

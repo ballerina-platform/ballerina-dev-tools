@@ -1,13 +1,13 @@
 {
+  "source": "return/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Panic",
-      "description": "Panic and stop the execution"
+      "label": "Return"
     },
     "codedata": {
-      "node": "PANIC",
+      "node": "RETURN",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -25,8 +25,9 @@
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Panic value"
+          "description": "Return value"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true
@@ -46,7 +47,7 @@
           "character": 0
         }
       },
-      "newText": "panic ;"
+      "newText": "return;"
     }
   ]
 }

@@ -1,13 +1,14 @@
 {
+  "source": "start/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "While",
-      "description": "Loop over a block of code."
+      "label": "Start",
+      "description": "Execute a function or a method invocation in a new strand"
     },
     "codedata": {
-      "node": "WHILE",
+      "node": "START",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -22,12 +23,13 @@
     },
     "returning": false,
     "properties": {
-      "condition": {
+      "expression": {
         "metadata": {
-          "label": "Condition",
-          "description": "Boolean Condition"
+          "label": "Expression",
+          "description": "Call action or expression"
         },
-        "value": "true",
+        "valueType": "EXPRESSION",
+        "value": "",
         "optional": false,
         "editable": true
       }
@@ -46,7 +48,7 @@
           "character": 0
         }
       },
-      "newText": "while true {\n}"
+      "newText": "start ;"
     }
   ]
 }

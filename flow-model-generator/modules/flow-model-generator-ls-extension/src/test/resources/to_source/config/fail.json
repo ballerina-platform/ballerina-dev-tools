@@ -1,13 +1,14 @@
 {
+  "source": "fail/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Start",
-      "description": "Execute a function or a method invocation in a new strand"
+      "label": "Fail",
+      "description": "Fail the execution"
     },
     "codedata": {
-      "node": "START",
+      "node": "FAIL",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -25,8 +26,9 @@
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Call action or expression"
+          "description": "Fail value"
         },
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true
@@ -46,7 +48,7 @@
           "character": 0
         }
       },
-      "newText": "start ;"
+      "newText": "fail ;"
     }
   ]
 }

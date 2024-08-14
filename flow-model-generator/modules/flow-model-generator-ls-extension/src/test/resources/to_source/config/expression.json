@@ -1,13 +1,14 @@
 {
+  "source": "expression/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Continue",
-      "description": "Skip the current iteration and continue with the next one"
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
     },
     "codedata": {
-      "node": "CONTINUE",
+      "node": "EXPRESSION",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -21,6 +22,17 @@
       }
     },
     "returning": false,
+    "properties": {
+      "statement": {
+        "metadata": {
+          "label": "Statement",
+          "description": "Ballerina statement"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
     "flags": 0
   },
   "output": [
@@ -35,7 +47,7 @@
           "character": 0
         }
       },
-      "newText": "continue;"
+      "newText": ";"
     }
   ]
 }

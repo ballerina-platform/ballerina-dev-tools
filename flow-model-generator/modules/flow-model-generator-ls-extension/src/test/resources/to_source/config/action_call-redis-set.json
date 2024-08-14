@@ -1,16 +1,18 @@
 {
+  "source": "action_call-redis-set/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
-      "label": "post",
-      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n"
+      "label": "set",
+      "description": "Set the value of a key.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
-      "org": "ballerina",
-      "module": "http",
+      "org": "ballerinax",
+      "module": "redis",
       "object": "Client",
-      "symbol": "post",
+      "symbol": "set",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -51,57 +53,27 @@
           "description": "Type of the result"
         },
         "valueType": "Type",
-        "value": "map<json>",
+        "value": "string",
         "optional": false,
         "editable": false
       },
-      "path": {
+      "key": {
         "metadata": {
-          "label": "path",
-          "description": "Resource path\n"
+          "label": "key",
+          "description": "Key referring to a value\n"
         },
         "valueType": "Expression",
         "value": "",
         "optional": false,
         "editable": true
       },
-      "message": {
+      "value": {
         "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload\n"
+          "label": "value",
+          "description": "Values\n"
         },
         "valueType": "Expression",
         "value": "",
-        "optional": false,
-        "editable": true
-      },
-      "headers": {
-        "metadata": {
-          "label": "headers",
-          "description": "The entity headers\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "mediaType": {
-        "metadata": {
-          "label": "mediaType",
-          "description": "The MIME type header of the request entity\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-        },
-        "valueType": "Expression",
-        "value": "<>",
         "optional": false,
         "editable": true
       }
@@ -120,7 +92,7 @@
           "character": 0
         }
       },
-      "newText": "map<json> res = check connection->post(, );"
+      "newText": "string res = check connection->set(, );"
     }
   ]
 }

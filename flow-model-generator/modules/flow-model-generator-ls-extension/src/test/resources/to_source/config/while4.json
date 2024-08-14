@@ -1,4 +1,5 @@
 {
+  "source": "while4/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "70875",
@@ -45,7 +46,8 @@
             "id": "71862",
             "metadata": {
               "label": "get",
-              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n"
+              "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
             },
             "codedata": {
               "node": "ACTION_CALL",
@@ -82,7 +84,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "response ",
+                "value": "response",
                 "optional": false,
                 "editable": true
               },
@@ -129,8 +131,8 @@
           {
             "id": "72868",
             "metadata": {
-              "label": "UpdateData",
-              "description": "Update the value of a variable"
+              "label": "Update Variable",
+              "description": "Update the value of the variable 'msg'"
             },
             "codedata": {
               "node": "UPDATE_DATA",
@@ -258,8 +260,8 @@
           {
             "id": "75841",
             "metadata": {
-              "label": "UpdateData",
-              "description": "Update the value of a variable"
+              "label": "Update Variable",
+              "description": "Update the value of the variable 'msg'"
             },
             "codedata": {
               "node": "UPDATE_DATA",

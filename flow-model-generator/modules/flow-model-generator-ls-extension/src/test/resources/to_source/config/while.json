@@ -1,13 +1,14 @@
 {
+  "source": "while/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Custom Expression",
-      "description": "Represents a custom Ballerina expression"
+      "label": "While",
+      "description": "Loop over a block of code."
     },
     "codedata": {
-      "node": "EXPRESSION",
+      "node": "WHILE",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -22,12 +23,12 @@
     },
     "returning": false,
     "properties": {
-      "statement": {
+      "condition": {
         "metadata": {
-          "label": "Statement",
-          "description": "Ballerina statement"
+          "label": "Condition",
+          "description": "Boolean Condition"
         },
-        "value": "",
+        "value": "true",
         "optional": false,
         "editable": true
       }
@@ -46,7 +47,7 @@
           "character": 0
         }
       },
-      "newText": ";"
+      "newText": "while true {\n}"
     }
   ]
 }

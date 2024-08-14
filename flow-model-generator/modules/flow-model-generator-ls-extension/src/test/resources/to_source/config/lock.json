@@ -1,13 +1,14 @@
 {
+  "source": "lock/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Foreach",
-      "description": "Iterate over a block of code."
+      "label": "Lock",
+      "description": "Allow to access mutable states safely"
     },
     "codedata": {
-      "node": "FOREACH",
+      "node": "LOCK",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -70,35 +71,6 @@
         "children": []
       }
     ],
-    "properties": {
-      "variable": {
-        "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
-        },
-        "value": "item",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "value": "var",
-        "optional": false,
-        "editable": true
-      },
-      "collection": {
-        "metadata": {
-          "label": "Collection",
-          "description": "Collection to iterate"
-        },
-        "value": "[]",
-        "optional": false,
-        "editable": true
-      }
-    },
     "flags": 0
   },
   "output": [
@@ -113,7 +85,7 @@
           "character": 0
         }
       },
-      "newText": "foreach var item in [] {\n}\non fail error err {\n}"
+      "newText": "lock {\n}\non fail error err {\n}"
     }
   ]
 }

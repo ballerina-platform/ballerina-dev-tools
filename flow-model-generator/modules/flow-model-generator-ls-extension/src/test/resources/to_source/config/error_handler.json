@@ -1,13 +1,14 @@
 {
+  "source": "error_handler/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Transaction",
-      "description": "Handle transaction."
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
     },
     "codedata": {
-      "node": "TRANSACTION",
+      "node": "ERROR_HANDLER",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -84,7 +85,7 @@
           "character": 0
         }
       },
-      "newText": "transaction {\n}\non fail error err {\n}"
+      "newText": "do {\n}\non fail error err {\n}"
     }
   ]
 }

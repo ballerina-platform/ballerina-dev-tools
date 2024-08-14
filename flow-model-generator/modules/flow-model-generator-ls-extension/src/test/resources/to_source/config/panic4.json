@@ -1,4 +1,5 @@
 {
+  "source": "panic4/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "49736",
@@ -27,7 +28,7 @@
           "label": "Expression",
           "description": "Panic value"
         },
-        "valueType": "annotations:error",
+        "valueType": "error",
         "value": "e",
         "optional": false,
         "editable": true

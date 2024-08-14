@@ -1,4 +1,5 @@
 {
+  "source": "error_handler6/main.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "52860",
@@ -45,7 +46,7 @@
             "id": "53917",
             "metadata": {
               "label": "New Variable",
-              "description": "Create new variable"
+              "description": "New variable 'e' with type 'AssertionError'"
             },
             "codedata": {
               "node": "NEW_DATA",
@@ -78,7 +79,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
-                "value": "e ",
+                "value": "e",
                 "optional": false,
                 "editable": true
               },
@@ -183,7 +184,7 @@
             "id": "56809",
             "metadata": {
               "label": "Return",
-              "description": "Return a value"
+              "description": "Value of 'e'"
             },
             "codedata": {
               "node": "RETURN",
