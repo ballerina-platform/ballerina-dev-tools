@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
@@ -54,6 +55,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -113,6 +115,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
+        put(FlowNode.Kind.DATA_MAPPER, DataMapper::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -207,7 +210,8 @@ public abstract class NodeBuilder {
                 codedataBuilder == null ? null : codedataBuilder.build(), true);
     }
 
-    public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
+    public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
+                                  Codedata codedata) {
 
     }
 
@@ -517,7 +521,23 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.ON_ERROR_TYPE_KEY, type);
+            return this;
+        }
 
+        public PropertiesBuilder<T> defaultCustom(String key, String label, String description, Property.ValueType type,
+                                                  Object typeConstraint, String value) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(description)
+                        .stepOut()
+                    .type(type)
+                    .typeConstraint(typeConstraint)
+                    .value(value)
+                    .editable()
+                    .build();
+
+            addProperty(key, property);
             return this;
         }
 

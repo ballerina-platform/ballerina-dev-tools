@@ -24,7 +24,8 @@ public class NodeTemplateTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        String filePath = testConfig.source() == null ? "" : testConfig.source();
+        String filePath =
+                testConfig.source() == null ? "" : sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
         FlowModelNodeTemplateRequest request =
                 new FlowModelNodeTemplateRequest(filePath, testConfig.position(), testConfig.codedata());
         JsonElement nodeTemplate = getResponse(request).get("flowNode");

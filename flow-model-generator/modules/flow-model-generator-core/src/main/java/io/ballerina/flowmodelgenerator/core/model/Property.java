@@ -31,7 +31,8 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  * @param editable  whether the property is editable
  * @since 1.4.0
  */
-public record Property(Metadata metadata, String valueType, String value, boolean optional, boolean editable) {
+public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, String value, boolean optional,
+                       boolean editable) {
 
     public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
@@ -75,7 +76,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static final String GLOBAL_SCOPE = "Global";
     public static final String SERVICE_SCOPE = "Service";
     public static final String LOCAL_SCOPE = "Local";
-    
+
     public static final String CONNECTION_KEY = "connection";
 
     public String toSourceCode() {
@@ -86,7 +87,8 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         EXPRESSION,
         IDENTIFIER,
         TYPE,
-        ENUM
+        ENUM,
+        SET
     }
 
     /**
@@ -100,6 +102,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         private String value;
         private boolean optional;
         private boolean editable;
+        private Object typeConstraint;
         private Metadata.Builder<Builder> metadataBuilder;
 
         private Builder() {
@@ -122,6 +125,11 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
         public Builder type(ValueType type) {
             this.type = type.name();
+            return this;
+        }
+
+        public Builder typeConstraint(Object typeConstraint) {
+            this.typeConstraint = typeConstraint;
             return this;
         }
 
@@ -149,8 +157,8 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
         public Property build() {
             Property property =
-                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value, optional,
-                            editable);
+                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
+                            optional, editable);
             this.metadataBuilder = null;
             this.type = null;
             this.value = null;
