@@ -54,8 +54,10 @@ import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -124,12 +126,12 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteConstData();
 
-    public NodeBuilder setTemplateData(Codedata codedata) {
-        setConcreteTemplateData(codedata);
+    public NodeBuilder setTemplateData(TemplateContext context) {
+        setConcreteTemplateData(context);
         return this;
     }
 
-    public abstract void setConcreteTemplateData(Codedata codedata);
+    public abstract void setConcreteTemplateData(TemplateContext context);
 
     public abstract List<TextEdit> toSource(SourceBuilder sourceBuilder);
 
@@ -203,6 +205,10 @@ public abstract class NodeBuilder {
         this.setConcreteConstData();
         return new AvailableNode(metadataBuilder == null ? null : metadataBuilder.build(),
                 codedataBuilder == null ? null : codedataBuilder.build(), true);
+    }
+
+    public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
+
     }
 
     /**

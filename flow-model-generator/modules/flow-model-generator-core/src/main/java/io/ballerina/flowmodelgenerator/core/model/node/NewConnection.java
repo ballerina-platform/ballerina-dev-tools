@@ -20,7 +20,6 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -47,8 +46,8 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
     }
 
     @Override
