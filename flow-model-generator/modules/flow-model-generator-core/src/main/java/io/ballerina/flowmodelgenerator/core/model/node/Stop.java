@@ -22,6 +22,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a stop node.
@@ -40,7 +41,7 @@ public class Stop extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
+    public String toSource(SourceBuilder node) {
         return SyntaxKind.RETURN_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
     }
 

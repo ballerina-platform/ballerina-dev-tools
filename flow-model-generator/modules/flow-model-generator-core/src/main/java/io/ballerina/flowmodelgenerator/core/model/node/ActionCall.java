@@ -44,21 +44,20 @@ public class ActionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public String toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        if (flowNode.returning()) {
+        if (sourceBuilder.flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }

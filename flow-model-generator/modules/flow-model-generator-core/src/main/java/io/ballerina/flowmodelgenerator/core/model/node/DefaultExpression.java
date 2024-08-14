@@ -47,11 +47,10 @@ public class DefaultExpression extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public String toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        Optional<Property> expression = flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         if (expression.isPresent()) {
             sourceBuilder.token()
                     .expression(expression.get())
@@ -59,7 +58,7 @@ public class DefaultExpression extends NodeBuilder {
             return sourceBuilder.build(false);
         }
 
-        Optional<Property> statement = flowNode.getProperty(STATEMENT_KEY);
+        Optional<Property> statement = sourceBuilder.flowNode.getProperty(STATEMENT_KEY);
         if (statement.isEmpty()) {
             throw new IllegalStateException(
                     "One of from the following properties is required: variable, expression, statement");

@@ -46,9 +46,8 @@ public class Lock extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
+    public String toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
         return sourceBuilder.token()
                 .keyword(SyntaxKind.LOCK_KEYWORD)
                 .stepOut()

@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 
 /**
  * Represents the properties of a HttpApiEvent node.
@@ -44,7 +45,7 @@ public class HttpApiEvent extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
+    public String toSource(SourceBuilder node) {
         return null;
     }
 

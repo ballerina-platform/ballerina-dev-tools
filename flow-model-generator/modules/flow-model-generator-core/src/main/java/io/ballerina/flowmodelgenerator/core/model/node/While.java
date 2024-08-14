@@ -47,10 +47,9 @@ public class While extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-        Optional<Property> condition = flowNode.getProperty(Property.CONDITION_KEY);
-        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
+    public String toSource(SourceBuilder sourceBuilder) {
+        Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
 
         sourceBuilder.token().keyword(SyntaxKind.WHILE_KEYWORD);
         condition.ifPresent(expression -> sourceBuilder.token().expression(expression));

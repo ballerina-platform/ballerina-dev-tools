@@ -49,11 +49,10 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public String toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         return sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)

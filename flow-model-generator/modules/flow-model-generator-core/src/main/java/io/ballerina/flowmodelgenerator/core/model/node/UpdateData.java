@@ -44,13 +44,11 @@ public class UpdateData extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
-        Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
+    public String toSource(SourceBuilder sourceBuilder) {
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
 
-        property = flowNode.getProperty(Property.EXPRESSION_KEY);
+        property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
         return sourceBuilder.build(false);

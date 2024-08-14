@@ -130,7 +130,7 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteTemplateData(Codedata codedata);
 
-    public abstract String toSource(FlowNode flowNode);
+    public abstract String toSource(SourceBuilder sourceBuilder);
 
     public NodeBuilder() {
         this.branches = new ArrayList<>();

@@ -22,15 +22,14 @@ public class FunctionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public String toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         return sourceBuilder.token()
                 .name(nodeTemplate.metadata().label())
                 .stepOut()

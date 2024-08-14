@@ -46,18 +46,16 @@ public class Foreach extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder(node);
+    public String toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
                 .stepOut()
                 .typedBindingPattern()
                 .token().keyword(SyntaxKind.IN_KEYWORD);
 
-
-        Optional<Property> exprProperty = node.getProperty(Property.COLLECTION_KEY);
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.COLLECTION_KEY);
         exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
 
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
         body.ifPresent(branch -> sourceBuilder.body(branch.children()));
 
         return sourceBuilder
