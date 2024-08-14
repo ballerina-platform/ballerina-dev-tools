@@ -21,10 +21,20 @@ package io.ballerina.flowmodelgenerator.core.model;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -32,12 +42,18 @@ import java.util.Set;
 
 public class SourceBuilder {
 
-    private final TokenBuilder tokenBuilder;
-    private final FlowNode flowNode;
+    private TokenBuilder tokenBuilder;
+    public final FlowNode flowNode;
+    private final WorkspaceManager workspaceManager;
+    private final Path filePath;
+    private final List<TextEdit> textEdits;
 
-    public SourceBuilder(FlowNode flowNode) {
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
         tokenBuilder = new TokenBuilder(this);
+        textEdits = new ArrayList<>();
         this.flowNode = flowNode;
+        this.workspaceManager = workspaceManager;
+        this.filePath = filePath;
     }
 
     public TokenBuilder token() {
@@ -52,6 +68,30 @@ public class SourceBuilder {
             tokenBuilder.expressionWithType(type.get(), variable.get())
                     .keyword(SyntaxKind.EQUAL_TOKEN);
         }
+        return this;
+    }
+
+    public SourceBuilder textEdit(boolean isExpression, String fileName) {
+        try {
+            workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException(e);
+        }
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LineRange lineRange = syntaxTree.rootNode().lineRange();
+
+        // Add the current source to the end of the file
+        textEdit(isExpression, CommonUtils.toRange(lineRange.endLine()));
+
+        // Add the import statement
+        tokenBuilder
+                .keyword(SyntaxKind.IMPORT_KEYWORD)
+                .name(flowNode.codedata().getImportSignature())
+                .endOfStatement();
+        textEdit(false, CommonUtils.toRange(lineRange.startLine()));
+
         return this;
     }
 
@@ -73,8 +113,11 @@ public class SourceBuilder {
     }
 
     public SourceBuilder children(List<FlowNode> flowNodes) {
-        flowNodes.forEach(childNode -> tokenBuilder.name(
-                NodeBuilder.getNodeFromKind(childNode.codedata().node()).toSource(childNode)));
+        for (FlowNode node : flowNodes) {
+            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
+            List<TextEdit> textEdits = NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
+            tokenBuilder.name(textEdits.get(0).getNewText());
+        }
         return this;
     }
 
@@ -162,8 +205,19 @@ public class SourceBuilder {
         return this;
     }
 
-    public String build(boolean isExpression) {
-        return token().build(isExpression);
+    public SourceBuilder textEdit(boolean isExpression) {
+        return textEdit(isExpression, CommonUtils.toRange(flowNode.codedata().lineRange()));
+    }
+
+    public SourceBuilder textEdit(boolean isExpression, Range range) {
+        String text = token().build(isExpression);
+        tokenBuilder = new TokenBuilder(this);
+        textEdits.add(new TextEdit(range, text));
+        return this;
+    }
+
+    public List<TextEdit> build() {
+        return textEdits;
     }
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {

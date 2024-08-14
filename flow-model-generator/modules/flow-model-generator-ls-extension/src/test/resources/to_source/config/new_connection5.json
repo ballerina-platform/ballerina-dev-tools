@@ -1,27 +1,27 @@
 {
-  "source": "new_connection4/main.bal",
+  "source": "new_connection5/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "42732",
+    "id": "35751",
     "metadata": {
       "label": "New Connection",
       "description": "Create a new connection"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
-      "org": "ballerina",
-      "module": "http",
+      "org": "ballerinax",
+      "module": "redis",
       "object": "Client",
       "symbol": "init",
       "lineRange": {
         "fileName": "new_connection.bal",
         "startLine": {
-          "line": 11,
+          "line": 4,
           "offset": 0
         },
         "endLine": {
-          "line": 11,
-          "offset": 76
+          "line": 4,
+          "offset": 39
         }
       }
     },
@@ -37,20 +37,10 @@
         "optional": false,
         "editable": true
       },
-      "url": {
-        "metadata": {
-          "label": "url",
-          "description": "URL of the target service\n"
-        },
-        "valueType": "EXPRESSION",
-        "value": "\"http://localhost:9090\"",
-        "optional": false,
-        "editable": true
-      },
       "config": {
         "metadata": {
           "label": "config",
-          "description": "The configurations to be used when initializing the `client`\n"
+          "description": "configuration for the connector\n"
         },
         "valueType": "EXPRESSION",
         "optional": false,
@@ -61,7 +51,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "moduleHttpExCl",
+        "value": "moduleRedisCl",
         "optional": false,
         "editable": true
       },
@@ -70,7 +60,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "http:Client",
+        "value": "redis:Client",
         "optional": false,
         "editable": true
       }
@@ -81,15 +71,15 @@
     {
       "range": {
         "start": {
-          "line": 2,
-          "character": 63
+          "line": 3,
+          "character": 76
         },
         "end": {
-          "line": 2,
-          "character": 63
+          "line": 3,
+          "character": 76
         }
       },
-      "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
+      "newText": "redis:Client moduleRedisCl = check new ();"
     },
     {
       "range": {
@@ -102,7 +92,7 @@
           "character": 0
         }
       },
-      "newText": "import ballerina/http;"
+      "newText": "import ballerinax/redis;"
     }
   ]
 }

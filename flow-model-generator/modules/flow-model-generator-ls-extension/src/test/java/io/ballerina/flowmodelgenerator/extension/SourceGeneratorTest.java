@@ -48,12 +48,16 @@ public class SourceGeneratorTest extends AbstractLSTest {
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelSourceGeneratorRequest request = new FlowModelSourceGeneratorRequest(testConfig.diagram());
+        FlowModelSourceGeneratorRequest request =
+                new FlowModelSourceGeneratorRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
+                        testConfig.diagram());
         JsonArray jsonArray = getResponse(request).getAsJsonArray("textEdits");
 
         List<TextEdit> actualTextEdits = gson.fromJson(jsonArray, textEditListType);
         if (!assertArray("text edits", actualTextEdits, testConfig.output())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.diagram(), actualTextEdits);
+            TestConfig updatedConfig =
+                    new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(),
+                            actualTextEdits);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -86,11 +90,12 @@ public class SourceGeneratorTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the source generator test.
      *
+     * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
      * @param output      The expected output source code
      */
-    private record TestConfig(String description, JsonElement diagram, List<TextEdit> output) {
+    private record TestConfig(String source, String description, JsonElement diagram, List<TextEdit> output) {
 
         public String description() {
             return description == null ? "" : description;

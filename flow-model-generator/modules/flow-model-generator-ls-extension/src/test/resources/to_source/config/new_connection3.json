@@ -1,7 +1,8 @@
 {
+  "source": "new_connection3/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "46825",
+    "id": "34783",
     "metadata": {
       "label": "New Connection",
       "description": "Create a new connection"
@@ -15,12 +16,12 @@
       "lineRange": {
         "fileName": "new_connection.bal",
         "startLine": {
-          "line": 15,
-          "offset": 4
+          "line": 3,
+          "offset": 0
         },
         "endLine": {
-          "line": 15,
-          "offset": 77
+          "line": 3,
+          "offset": 63
         }
       }
     },
@@ -42,7 +43,7 @@
           "description": "URL of the target service\n"
         },
         "valueType": "EXPRESSION",
-        "value": "\"http://localhost:8080\"",
+        "value": "\"http://localhost:9090\"",
         "optional": false,
         "editable": true
       },
@@ -60,7 +61,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "localHttpCl ",
+        "value": "moduleHttpCl",
         "optional": false,
         "editable": true
       },
@@ -80,15 +81,28 @@
     {
       "range": {
         "start": {
-          "line": 15,
-          "character": 4
+          "line": 0,
+          "character": 0
         },
         "end": {
-          "line": 15,
-          "character": 77
+          "line": 0,
+          "character": 0
         }
       },
-      "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
+      "newText": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
+    },
+    {
+      "range": {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 0,
+          "character": 0
+        }
+      },
+      "newText": "import ballerina/http;"
     }
   ]
 }

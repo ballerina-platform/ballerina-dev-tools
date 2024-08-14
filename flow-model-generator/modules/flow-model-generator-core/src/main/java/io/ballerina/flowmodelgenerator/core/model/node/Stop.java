@@ -47,7 +47,7 @@ public class Stop extends NodeBuilder {
     public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
         return sourceBuilder
                 .token()
-                    .keyword(SyntaxKind.RETURN_STATEMENT)
+                    .keyword(SyntaxKind.RETURN_KEYWORD)
                     .endOfStatement()
                     .stepOut()
                 .textEdit(false)

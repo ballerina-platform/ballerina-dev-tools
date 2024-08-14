@@ -1,8 +1,8 @@
 {
-  "source": "new_connection4/main.bal",
+  "source": "new_connection7/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "42732",
+    "id": "46825",
     "metadata": {
       "label": "New Connection",
       "description": "Create a new connection"
@@ -16,12 +16,12 @@
       "lineRange": {
         "fileName": "new_connection.bal",
         "startLine": {
-          "line": 11,
-          "offset": 0
+          "line": 15,
+          "offset": 4
         },
         "endLine": {
-          "line": 11,
-          "offset": 76
+          "line": 15,
+          "offset": 77
         }
       }
     },
@@ -33,7 +33,7 @@
           "description": "Scope of the connection, Global or Local"
         },
         "valueType": "ENUM",
-        "value": "Global",
+        "value": "Local",
         "optional": false,
         "editable": true
       },
@@ -43,7 +43,7 @@
           "description": "URL of the target service\n"
         },
         "valueType": "EXPRESSION",
-        "value": "\"http://localhost:9090\"",
+        "value": "\"http://localhost:8080\"",
         "optional": false,
         "editable": true
       },
@@ -61,7 +61,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "moduleHttpExCl",
+        "value": "localHttpCl",
         "optional": false,
         "editable": true
       },
@@ -81,28 +81,15 @@
     {
       "range": {
         "start": {
-          "line": 2,
-          "character": 63
+          "line": 15,
+          "character": 4
         },
         "end": {
-          "line": 2,
-          "character": 63
+          "line": 15,
+          "character": 77
         }
       },
-      "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
-        },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "import ballerina/http;"
+      "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
     }
   ]
 }

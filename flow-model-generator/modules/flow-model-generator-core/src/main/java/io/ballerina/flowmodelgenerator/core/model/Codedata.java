@@ -48,6 +48,10 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         return sb.toString();
     }
 
+    public String getImportSignature() {
+        return org + "/" + module;
+    }
+
     public static class Builder<T> extends FacetedBuilder<T> {
 
         private FlowNode.Kind node;

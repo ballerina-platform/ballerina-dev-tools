@@ -54,6 +54,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import org.eclipse.lsp4j.TextEdit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,7 +131,7 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteTemplateData(Codedata codedata);
 
-    public abstract String toSource(SourceBuilder sourceBuilder);
+    public abstract List<TextEdit> toSource(SourceBuilder sourceBuilder);
 
     public NodeBuilder() {
         this.branches = new ArrayList<>();
