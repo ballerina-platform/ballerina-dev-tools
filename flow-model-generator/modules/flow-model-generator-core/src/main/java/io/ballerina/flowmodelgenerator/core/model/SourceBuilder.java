@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -85,12 +86,22 @@ public class SourceBuilder {
         // Add the current source to the end of the file
         textEdit(isExpression, CommonUtils.toRange(lineRange.endLine()));
 
+        // Check if the import already exists
+        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
+                ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
+                        .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
+                                flowNode.codedata().org()
+                                        .equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                                flowNode.codedata().module().equals(importDeclarationNode.moduleName().get(0).text()));
+
         // Add the import statement
-        tokenBuilder
-                .keyword(SyntaxKind.IMPORT_KEYWORD)
-                .name(flowNode.codedata().getImportSignature())
-                .endOfStatement();
-        textEdit(false, CommonUtils.toRange(lineRange.startLine()));
+        if (!importExists) {
+            tokenBuilder
+                    .keyword(SyntaxKind.IMPORT_KEYWORD)
+                    .name(flowNode.codedata().getImportSignature())
+                    .endOfStatement();
+            textEdit(false, CommonUtils.toRange(lineRange.startLine()));
+        }
 
         return this;
     }

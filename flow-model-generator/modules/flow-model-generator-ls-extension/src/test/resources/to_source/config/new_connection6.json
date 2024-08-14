@@ -80,19 +80,6 @@
         }
       },
       "newText": "redis:Client moduleRedisExCl = check new ();"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
-        },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "import ballerinax/redis;"
     }
   ]
 }
