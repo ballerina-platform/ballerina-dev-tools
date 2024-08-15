@@ -67,19 +67,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 6,
-          "character": 39
+  "output": {
+    "new_connection6/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 6,
+            "character": 39
+          },
+          "end": {
+            "line": 6,
+            "character": 39
+          }
         },
-        "end": {
-          "line": 6,
-          "character": 39
-        }
-      },
-      "newText": "redis:Client moduleRedisExCl = check new ();"
-    }
-  ]
+        "newText": "redis:Client moduleRedisExCl = check new ();"
+      }
+    ]
+  }
 }

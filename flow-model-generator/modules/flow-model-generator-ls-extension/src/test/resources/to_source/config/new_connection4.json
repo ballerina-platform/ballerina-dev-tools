@@ -77,19 +77,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 2,
-          "character": 63
+  "output": {
+    "new_connection4/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 63
+          },
+          "end": {
+            "line": 2,
+            "character": 63
+          }
         },
-        "end": {
-          "line": 2,
-          "character": 63
-        }
-      },
-      "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
-    }
-  ]
+        "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
+      }
+    ]
+  }
 }

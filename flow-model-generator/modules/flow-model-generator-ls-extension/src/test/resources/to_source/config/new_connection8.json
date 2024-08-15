@@ -67,19 +67,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 16,
-          "character": 4
+  "output": {
+    "new_connection8/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 4
+          },
+          "end": {
+            "line": 16,
+            "character": 57
+          }
         },
-        "end": {
-          "line": 16,
-          "character": 57
-        }
-      },
-      "newText": "redis:Client localRedisCl = check new ();"
-    }
-  ]
+        "newText": "redis:Client localRedisCl = check new ();"
+      }
+    ]
+  }
 }

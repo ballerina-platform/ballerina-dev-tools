@@ -77,19 +77,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 15,
-          "character": 4
+  "output": {
+    "new_connection7/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 15,
+            "character": 4
+          },
+          "end": {
+            "line": 15,
+            "character": 77
+          }
         },
-        "end": {
-          "line": 15,
-          "character": 77
-        }
-      },
-      "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
-    }
-  ]
+        "newText": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
+      }
+    ]
+  }
 }

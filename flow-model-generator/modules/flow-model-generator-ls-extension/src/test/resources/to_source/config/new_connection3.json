@@ -77,32 +77,34 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+  "output": {
+    "new_connection3/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
+        "newText": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
       },
-      "newText": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "import ballerina/http;"
-    }
-  ]
+        "newText": "import ballerina/http;"
+      }
+    ]
+  }
 }

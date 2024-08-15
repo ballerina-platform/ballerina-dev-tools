@@ -67,32 +67,34 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 3,
-          "character": 76
+  "output": {
+    "new_connection5/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 76
+          },
+          "end": {
+            "line": 3,
+            "character": 76
+          }
         },
-        "end": {
-          "line": 3,
-          "character": 76
-        }
+        "newText": "redis:Client moduleRedisCl = check new ();"
       },
-      "newText": "redis:Client moduleRedisCl = check new ();"
-    },
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "import ballerinax/redis;"
-    }
-  ]
+        "newText": "import ballerinax/redis;"
+      }
+    ]
+  }
 }

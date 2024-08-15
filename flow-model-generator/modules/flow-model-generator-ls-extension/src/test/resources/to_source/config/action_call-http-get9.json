@@ -78,19 +78,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 22,
-          "character": 8
+  "output": {
+    "action_call-http-get9/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 25,
+            "character": 11
+          }
         },
-        "end": {
-          "line": 25,
-          "character": 11
-        }
-      },
-      "newText": "json res7 = check foodClient->get(headers = {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
-    }
-  ]
+        "newText": "json res7 = check foodClient->get(headers = {\n    \"first-header\": \"first\",\n    \"second-header\": \"second\"\n});"
+      }
+    ]
+  }
 }
