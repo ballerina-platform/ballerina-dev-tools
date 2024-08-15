@@ -86,8 +86,12 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 // TODO: Check how we can delegate this to the model generator
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
-                Optional<Document> dataMappingsDoc =
-                        this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
+                Optional<Document> dataMappingsDoc;
+                try {
+                    dataMappingsDoc = this.workspaceManager.document(projectPath.resolve("data_mappings.bal"));
+                } catch (Throwable e) {
+                    dataMappingsDoc = Optional.empty();
+                }
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
