@@ -26,7 +26,9 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -51,7 +53,7 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
         FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
@@ -66,7 +68,7 @@ public class NewConnection extends NodeBuilder {
         if (scope.isEmpty()) {
             throw new IllegalStateException("Scope is not defined for the new connection node");
         }
-        return switch (scope.get().value()) {
+        return switch (scope.get().value().toString()) {
             case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");

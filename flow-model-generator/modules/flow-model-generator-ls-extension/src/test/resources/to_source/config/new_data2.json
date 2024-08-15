@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 2,
-          "character": 4
+  "output": {
+    "new_data2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 4
+          },
+          "end": {
+            "line": 2,
+            "character": 19
+          }
         },
-        "end": {
-          "line": 2,
-          "character": 19
-        }
-      },
-      "newText": "float f = 1.2f;"
-    }
-  ]
+        "newText": "float f = 1.2f;"
+      }
+    ]
+  }
 }

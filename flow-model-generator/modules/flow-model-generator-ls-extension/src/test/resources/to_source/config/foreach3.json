@@ -207,19 +207,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 25,
-          "character": 4
+  "output": {
+    "foreach3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 25,
+            "character": 4
+          },
+          "end": {
+            "line": 29,
+            "character": 5
+          }
         },
-        "end": {
-          "line": 29,
-          "character": 5
-        }
-      },
-      "newText": "foreach int item in intArr {\n    _ = item;\n}\non fail error e {\n    return e;\n}"
-    }
-  ]
+        "newText": "foreach int item in intArr {\n    _ = item;\n}\non fail error e {\n    return e;\n}"
+      }
+    ]
+  }
 }

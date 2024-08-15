@@ -80,19 +80,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+  "output": {
+    "action_call-redis-set/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "string res = check connection->set(, );"
-    }
-  ]
+        "newText": "string res = check connection->set(, );"
+      }
+    ]
+  }
 }

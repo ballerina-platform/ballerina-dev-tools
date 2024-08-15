@@ -78,19 +78,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 20,
-          "character": 8
+  "output": {
+    "action_call-http-get7/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 8
+          },
+          "end": {
+            "line": 20,
+            "character": 68
+          }
         },
-        "end": {
-          "line": 20,
-          "character": 68
-        }
-      },
-      "newText": "json res5 = check foodClient->get();"
-    }
-  ]
+        "newText": "json res5 = check foodClient->get();"
+      }
+    ]
+  }
 }

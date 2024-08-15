@@ -45,19 +45,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 4
+  "output": {
+    "update_data4/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 4
+          },
+          "end": {
+            "line": 13,
+            "character": 38
+          }
         },
-        "end": {
-          "line": 13,
-          "character": 38
-        }
-      },
-      "newText": "j1 = {\"name\": \"Marry\", \"age\": 33};"
-    }
-  ]
+        "newText": "j1 = {\"name\": \"Marry\", \"age\": 33};"
+      }
+    ]
+  }
 }

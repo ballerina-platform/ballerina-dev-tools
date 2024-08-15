@@ -55,19 +55,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+  "output": {
+    "if/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "if true {\n}\nelse {\n}"
-    }
-  ]
+        "newText": "if true {\n}\nelse {\n}"
+      }
+    ]
+  }
 }

@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 3,
-          "character": 4
+  "output": {
+    "new_data3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 4
+          },
+          "end": {
+            "line": 3,
+            "character": 26
+          }
         },
-        "end": {
-          "line": 3,
-          "character": 26
-        }
-      },
-      "newText": "decimal d = 100000.0d;"
-    }
-  ]
+        "newText": "decimal d = 100000.0d;"
+      }
+    ]
+  }
 }

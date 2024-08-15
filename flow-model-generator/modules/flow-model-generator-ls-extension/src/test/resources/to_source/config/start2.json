@@ -36,19 +36,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 23,
-          "character": 26
+  "output": {
+    "start2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 23,
+            "character": 26
+          },
+          "end": {
+            "line": 23,
+            "character": 45
+          }
         },
-        "end": {
-          "line": 23,
-          "character": 45
-        }
-      },
-      "newText": "start f1->getName();"
-    }
-  ]
+        "newText": "start f1->getName();"
+      }
+    ]
+  }
 }

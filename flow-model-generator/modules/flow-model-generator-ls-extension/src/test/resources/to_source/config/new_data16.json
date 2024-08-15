@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 32,
-          "character": 4
+  "output": {
+    "new_data16/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 4
+          },
+          "end": {
+            "line": 32,
+            "character": 75
+          }
         },
-        "end": {
-          "line": 32,
-          "character": 75
-        }
-      },
-      "newText": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
-    }
-  ]
+        "newText": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
+      }
+    ]
+  }
 }

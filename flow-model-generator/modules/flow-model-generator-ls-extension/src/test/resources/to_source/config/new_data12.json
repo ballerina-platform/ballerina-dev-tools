@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 22,
-          "character": 4
+  "output": {
+    "new_data12/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 4
+          },
+          "end": {
+            "line": 22,
+            "character": 34
+          }
         },
-        "end": {
-          "line": 22,
-          "character": 34
-        }
-      },
-      "newText": "string content = \"create xml\";"
-    }
-  ]
+        "newText": "string content = \"create xml\";"
+      }
+    ]
+  }
 }

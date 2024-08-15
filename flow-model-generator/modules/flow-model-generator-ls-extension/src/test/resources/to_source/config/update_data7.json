@@ -45,19 +45,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 25,
-          "character": 4
+  "output": {
+    "update_data7/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 25,
+            "character": 4
+          },
+          "end": {
+            "line": 25,
+            "character": 24
+          }
         },
-        "end": {
-          "line": 25,
-          "character": 24
-        }
-      },
-      "newText": "newData2 = [11, 22];"
-    }
-  ]
+        "newText": "newData2 = [11, 22];"
+      }
+    ]
+  }
 }

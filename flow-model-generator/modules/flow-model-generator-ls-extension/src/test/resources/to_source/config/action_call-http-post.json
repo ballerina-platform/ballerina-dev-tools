@@ -110,19 +110,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+  "output": {
+    "action_call-http-post/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "map<json> res = check connection->post(, );"
-    }
-  ]
+        "newText": "map<json> res = check connection->post(, );"
+      }
+    ]
+  }
 }

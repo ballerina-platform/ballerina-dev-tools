@@ -185,19 +185,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 37,
-          "character": 4
+  "output": {
+    "transaction6/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 37,
+            "character": 4
+          },
+          "end": {
+            "line": 41,
+            "character": 5
+          }
         },
-        "end": {
-          "line": 41,
-          "character": 5
-        }
-      },
-      "newText": "transaction {\n    () _ = check commit;\n}\non fail error e {\n    return e;\n}"
-    }
-  ]
+        "newText": "transaction {\n    () _ = check commit;\n}\non fail error e {\n    return e;\n}"
+      }
+    ]
+  }
 }

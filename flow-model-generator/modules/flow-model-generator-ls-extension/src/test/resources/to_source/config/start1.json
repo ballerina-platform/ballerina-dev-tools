@@ -36,19 +36,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 1,
-          "character": 28
+  "output": {
+    "start1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 28
+          },
+          "end": {
+            "line": 1,
+            "character": 45
+          }
         },
-        "end": {
-          "line": 1,
-          "character": 45
-        }
-      },
-      "newText": "start sum(40, 50);"
-    }
-  ]
+        "newText": "start sum(40, 50);"
+      }
+    ]
+  }
 }

@@ -71,19 +71,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 16,
-          "character": 8
+  "output": {
+    "action_call-http-get3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 16,
+            "character": 8
+          },
+          "end": {
+            "line": 16,
+            "character": 78
+          }
         },
-        "end": {
-          "line": 16,
-          "character": 78
-        }
-      },
-      "newText": "check foodClient->get(\"/apples\");"
-    }
-  ]
+        "newText": "check foodClient->get(\"/apples\");"
+      }
+    ]
+  }
 }

@@ -87,19 +87,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 31,
-          "character": 8
+  "output": {
+    "action_call-http-get12/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 31,
+            "character": 8
+          },
+          "end": {
+            "line": 31,
+            "character": 52
+          }
         },
-        "end": {
-          "line": 31,
-          "character": 52
-        }
-      },
-      "newText": "json res1 = foodClient->get(\"/pears\");"
-    }
-  ]
+        "newText": "json res1 = foodClient->get(\"/pears\");"
+      }
+    ]
+  }
 }

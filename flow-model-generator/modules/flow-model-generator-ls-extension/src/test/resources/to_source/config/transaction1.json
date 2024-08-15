@@ -100,19 +100,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 1,
-          "character": 4
+  "output": {
+    "transaction1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 4
+          },
+          "end": {
+            "line": 3,
+            "character": 5
+          }
         },
-        "end": {
-          "line": 3,
-          "character": 5
-        }
-      },
-      "newText": "transaction {\n    () res = check commit;\n}"
-    }
-  ]
+        "newText": "transaction {\n    () res = check commit;\n}"
+      }
+    ]
+  }
 }

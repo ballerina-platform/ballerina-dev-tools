@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -29,6 +30,7 @@ import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generates source code from the flow model.
@@ -59,7 +61,8 @@ public class SourceGenerator {
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
-        List<TextEdit> textEdits = NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
+        Map<Path, List<TextEdit>> textEdits =
+                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         return gson.toJsonTree(textEdits);
     }
 }

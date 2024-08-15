@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 14,
-          "character": 4
+  "output": {
+    "new_data10/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 14,
+            "character": 4
+          },
+          "end": {
+            "line": 14,
+            "character": 43
+          }
         },
-        "end": {
-          "line": 14,
-          "character": 43
-        }
-      },
-      "newText": "string str2 = string `${str1} ${str1}`;"
-    }
-  ]
+        "newText": "string str2 = string `${str1} ${str1}`;"
+      }
+    ]
+  }
 }

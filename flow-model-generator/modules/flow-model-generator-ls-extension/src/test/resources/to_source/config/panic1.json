@@ -36,19 +36,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 5,
-          "character": 4
+  "output": {
+    "panic1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 5,
+            "character": 20
+          }
         },
-        "end": {
-          "line": 5,
-          "character": 20
-        }
-      },
-      "newText": "panic error(\"\");"
-    }
-  ]
+        "newText": "panic error(\"\");"
+      }
+    ]
+  }
 }

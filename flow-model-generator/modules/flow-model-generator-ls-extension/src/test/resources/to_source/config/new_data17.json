@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 33,
-          "character": 4
+  "output": {
+    "new_data17/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 33,
+            "character": 4
+          },
+          "end": {
+            "line": 33,
+            "character": 33
+          }
         },
-        "end": {
-          "line": 33,
-          "character": 33
-        }
-      },
-      "newText": "[int, int] newData2 = [1, 2];"
-    }
-  ]
+        "newText": "[int, int] newData2 = [1, 2];"
+      }
+    ]
+  }
 }

@@ -69,19 +69,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 41,
-          "character": 8
+  "output": {
+    "action_call-http-get15/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 41,
+            "character": 8
+          },
+          "end": {
+            "line": 41,
+            "character": 46
+          }
         },
-        "end": {
-          "line": 41,
-          "character": 46
-        }
-      },
-      "newText": "return drinkClient->get(\"/milkshake\");"
-    }
-  ]
+        "newText": "return drinkClient->get(\"/milkshake\");"
+      }
+    ]
+  }
 }

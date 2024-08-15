@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 7,
-          "character": 4
+  "output": {
+    "new_data6/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 4
+          },
+          "end": {
+            "line": 7,
+            "character": 18
+          }
         },
-        "end": {
-          "line": 7,
-          "character": 18
-        }
-      },
-      "newText": "int k = i + j;"
-    }
-  ]
+        "newText": "int k = i + j;"
+      }
+    ]
+  }
 }

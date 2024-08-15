@@ -253,19 +253,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 32,
-          "character": 8
+  "output": {
+    "error_handler3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 8
+          },
+          "end": {
+            "line": 37,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 37,
-          "character": 9
-        }
-      },
-      "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n}\non fail http:ClientError err {\n    return err.message();\n}"
-    }
-  ]
+        "newText": "do {\n    json res = check foodClient->get(\"/western/pineapples\");\n    return res.toString();\n}\non fail http:ClientError err {\n    return err.message();\n}"
+      }
+    ]
+  }
 }

@@ -452,19 +452,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 105,
-          "character": 8
+  "output": {
+    "while8/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 105,
+            "character": 8
+          },
+          "end": {
+            "line": 117,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 117,
-          "character": 9
-        }
-      },
-      "newText": "while i < count {\n    json response = foodClient->get(\"/food/watermelons\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    }\n    else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    if (i == 3) {\n        break;\n    }\n    i += 1;\n; }"
-    }
-  ]
+        "newText": "while i < count {\n    json response = foodClient->get(\"/food/watermelons\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    }\n    else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    if (i == 3) {\n        break;\n    }\n    i += 1;\n; }"
+      }
+    ]
+  }
 }

@@ -33,7 +33,7 @@ def write_json(output_node, output_filename):
     output_data = {
         "source": f"{output_filename.split('.json')[0]}/main.bal",
         "description": "Sample diagram node",
-        "output": [],
+        "output": {},
         "diagram": output_node
     }
 
@@ -85,7 +85,7 @@ def process_file_code(file_code):
         write_json(node, f"{file_code}{index+1}.json")
 
     # Add a test case for the template file
-    template_file_dir = os.path.join(current_path, "..", "..", "node_template")
+    template_file_dir = os.path.join(current_path, "..", "..", "node_template", "config")
     matching_template_files = sorted([file for file in os.listdir(
         template_file_dir) if file.startswith(file_code)])
 
@@ -122,7 +122,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 if file_code == "all":
     # Read the files in the format "*.json" in the node_template directory
     template_files = sorted([file for file in os.listdir(
-        os.path.join(current_path, "..", "..", "node_template")) if file.endswith(".json")])
+        os.path.join(current_path, "..", "..", "node_template", "config")) if file.endswith(".json")])
     for template_file in template_files:
         prefix = template_file.split(".")[0]
         print(f"Generating node: {template_file}...")

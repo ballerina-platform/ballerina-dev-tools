@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 4,
-          "character": 4
+  "output": {
+    "new_data4/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 4
+          },
+          "end": {
+            "line": 4,
+            "character": 19
+          }
         },
-        "end": {
-          "line": 4,
-          "character": 19
-        }
-      },
-      "newText": "decimal d1 = d;"
-    }
-  ]
+        "newText": "decimal d1 = d;"
+      }
+    ]
+  }
 }

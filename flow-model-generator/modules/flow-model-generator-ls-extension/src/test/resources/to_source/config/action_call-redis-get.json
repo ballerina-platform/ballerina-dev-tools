@@ -70,19 +70,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 0,
-          "character": 0
+  "output": {
+    "action_call-redis-get/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 0,
-          "character": 0
-        }
-      },
-      "newText": "string res = check connection->get();"
-    }
-  ]
+        "newText": "string res = check connection->get();"
+      }
+    ]
+  }
 }

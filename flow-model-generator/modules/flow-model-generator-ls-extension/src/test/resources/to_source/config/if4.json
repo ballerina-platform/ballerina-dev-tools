@@ -381,19 +381,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 56,
-          "character": 8
+  "output": {
+    "if4/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 56,
+            "character": 8
+          },
+          "end": {
+            "line": 69,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 69,
-          "character": 9
-        }
-      },
-      "newText": "if price > 100 {\n    return;\n}\nelse {\n    if price < 50 {\n        if price < 25 {\n            if price < 10 && mod == 1 {\n                return;\n            }\n        }\n    }\n    if mod == 0 {\n        return;\n    }\n}"
-    }
-  ]
+        "newText": "if price > 100 {\n    return;\n}\nelse {\n    if price < 50 {\n        if price < 25 {\n            if price < 10 && mod == 1 {\n                return;\n            }\n        }\n    }\n    if mod == 0 {\n        return;\n    }\n}"
+      }
+    ]
+  }
 }

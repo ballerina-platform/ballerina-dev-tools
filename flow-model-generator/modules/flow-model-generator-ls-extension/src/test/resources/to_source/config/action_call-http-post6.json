@@ -97,19 +97,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 19,
-          "character": 8
+  "output": {
+    "action_call-http-post6/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 19,
+            "character": 8
+          },
+          "end": {
+            "line": 19,
+            "character": 84
+          }
         },
-        "end": {
-          "line": 19,
-          "character": 84
-        }
-      },
-      "newText": "json res5 = check foodClient->post(message = \"green apple\");"
-    }
-  ]
+        "newText": "json res5 = check foodClient->post(message = \"green apple\");"
+      }
+    ]
+  }
 }

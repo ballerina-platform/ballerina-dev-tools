@@ -88,19 +88,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 39,
-          "character": 8
+  "output": {
+    "action_call-http-post13/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 39,
+            "character": 8
+          },
+          "end": {
+            "line": 39,
+            "character": 62
+          }
         },
-        "end": {
-          "line": 39,
-          "character": 62
-        }
-      },
-      "newText": "return drinkClient->post(\"/milkshake\", \"mixed fruit\");"
-    }
-  ]
+        "newText": "return drinkClient->post(\"/milkshake\", \"mixed fruit\");"
+      }
+    ]
+  }
 }

@@ -77,19 +77,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 26,
-          "character": 8
+  "output": {
+    "action_call-http-get10/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 26,
+            "character": 8
+          },
+          "end": {
+            "line": 26,
+            "character": 52
+          }
         },
-        "end": {
-          "line": 26,
-          "character": 52
-        }
-      },
-      "newText": "Food res8 = check foodClient->get();"
-    }
-  ]
+        "newText": "Food res8 = check foodClient->get();"
+      }
+    ]
+  }
 }

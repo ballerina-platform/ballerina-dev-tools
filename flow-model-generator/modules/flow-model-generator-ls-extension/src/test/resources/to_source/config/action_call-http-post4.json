@@ -97,19 +97,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 17,
-          "character": 8
+  "output": {
+    "action_call-http-post4/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 17,
+            "character": 8
+          },
+          "end": {
+            "line": 17,
+            "character": 106
+          }
         },
-        "end": {
-          "line": 17,
-          "character": 106
-        }
-      },
-      "newText": "json res3 = check foodClient->post(message = {\"type\": \"red apple\"}, mediaType = \"application/json\");"
-    }
-  ]
+        "newText": "json res3 = check foodClient->post(message = {\"type\": \"red apple\"}, mediaType = \"application/json\");"
+      }
+    ]
+  }
 }

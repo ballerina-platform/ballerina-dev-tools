@@ -86,7 +86,8 @@ public class ModelGenerator {
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
-                        .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
+                        .sorted(Comparator.comparing(
+                                node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
                         .toList();
 
         // Analyze the code block to find the flow nodes

@@ -96,19 +96,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 30,
-          "character": 8
+  "output": {
+    "action_call-http-post11/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 30,
+            "character": 8
+          },
+          "end": {
+            "line": 30,
+            "character": 69
+          }
         },
-        "end": {
-          "line": 30,
-          "character": 69
-        }
-      },
-      "newText": "json res2 = foodClient->post(message = \"pear\");"
-    }
-  ]
+        "newText": "json res2 = foodClient->post(message = \"pear\");"
+      }
+    ]
+  }
 }

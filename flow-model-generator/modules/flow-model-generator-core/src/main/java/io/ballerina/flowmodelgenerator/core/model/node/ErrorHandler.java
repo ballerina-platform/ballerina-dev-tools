@@ -25,8 +25,10 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -47,7 +49,7 @@ public class ErrorHandler extends NodeBuilder {
     }
 
     @Override
-    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(ERROR_HANDLER_BODY);
 
         sourceBuilder.token()

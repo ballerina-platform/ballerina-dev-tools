@@ -36,8 +36,10 @@ import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -47,11 +49,11 @@ public class SourceBuilder {
     public final FlowNode flowNode;
     private final WorkspaceManager workspaceManager;
     private final Path filePath;
-    private final List<TextEdit> textEdits;
+    private final Map<Path, List<TextEdit>> textEditsMap;
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
-        tokenBuilder = new TokenBuilder(this);
-        textEdits = new ArrayList<>();
+        this.tokenBuilder = new TokenBuilder(this);
+        this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
         this.workspaceManager = workspaceManager;
         this.filePath = filePath;
@@ -84,7 +86,7 @@ public class SourceBuilder {
         LineRange lineRange = syntaxTree.rootNode().lineRange();
 
         // Add the current source to the end of the file
-        textEdit(isExpression, CommonUtils.toRange(lineRange.endLine()));
+        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange.endLine()));
 
         // Check if the import already exists
         boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
@@ -100,7 +102,7 @@ public class SourceBuilder {
                     .keyword(SyntaxKind.IMPORT_KEYWORD)
                     .name(flowNode.codedata().getImportSignature())
                     .endOfStatement();
-            textEdit(false, CommonUtils.toRange(lineRange.startLine()));
+            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
         }
 
         return this;
@@ -126,8 +128,8 @@ public class SourceBuilder {
     public SourceBuilder children(List<FlowNode> flowNodes) {
         for (FlowNode node : flowNodes) {
             SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
-            List<TextEdit> textEdits = NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
-            tokenBuilder.name(textEdits.get(0).getNewText());
+            Map<Path, List<TextEdit>> textEdits = NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
+            tokenBuilder.name(textEdits.get(filePath).get(0).getNewText());
         }
         return this;
     }
@@ -217,18 +219,25 @@ public class SourceBuilder {
     }
 
     public SourceBuilder textEdit(boolean isExpression) {
-        return textEdit(isExpression, CommonUtils.toRange(flowNode.codedata().lineRange()));
+        return textEdit(isExpression, filePath, CommonUtils.toRange(flowNode.codedata().lineRange()));
     }
 
-    public SourceBuilder textEdit(boolean isExpression, Range range) {
+    public SourceBuilder textEdit(boolean isExpression, Path filePath, Range range) {
         String text = token().build(isExpression);
         tokenBuilder = new TokenBuilder(this);
+
+        List<TextEdit> textEdits = textEditsMap.get(filePath);
+        if (textEdits == null) {
+            textEdits = new ArrayList<>();
+        }
         textEdits.add(new TextEdit(range, text));
+        textEditsMap.put(filePath, textEdits);
+
         return this;
     }
 
-    public List<TextEdit> build() {
-        return textEdits;
+    public Map<Path, List<TextEdit>> build() {
+        return textEditsMap;
     }
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {

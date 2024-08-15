@@ -46,19 +46,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 2,
-          "character": 4
+  "output": {
+    "update_data1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 4
+          },
+          "end": {
+            "line": 2,
+            "character": 10
+          }
         },
-        "end": {
-          "line": 2,
-          "character": 10
-        }
-      },
-      "newText": "i = 3;"
-    }
-  ]
+        "newText": "i = 3;"
+      }
+    ]
+  }
 }

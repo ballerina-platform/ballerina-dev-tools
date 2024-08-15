@@ -69,19 +69,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 36,
-          "character": 8
+  "output": {
+    "action_call-http-get14/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 36,
+            "character": 8
+          },
+          "end": {
+            "line": 36,
+            "character": 43
+          }
         },
-        "end": {
-          "line": 36,
-          "character": 43
-        }
-      },
-      "newText": "return foodClient->get(\"/bananas\");"
-    }
-  ]
+        "newText": "return foodClient->get(\"/bananas\");"
+      }
+    ]
+  }
 }

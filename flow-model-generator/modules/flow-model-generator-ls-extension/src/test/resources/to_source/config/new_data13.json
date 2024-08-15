@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 23,
-          "character": 4
+  "output": {
+    "new_data13/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 23,
+            "character": 4
+          },
+          "end": {
+            "line": 23,
+            "character": 37
+          }
         },
-        "end": {
-          "line": 23,
-          "character": 37
-        }
-      },
-      "newText": "xml x1 = xml `<p>${content}</p>`;"
-    }
-  ]
+        "newText": "xml x1 = xml `<p>${content}</p>`;"
+      }
+    ]
+  }
 }

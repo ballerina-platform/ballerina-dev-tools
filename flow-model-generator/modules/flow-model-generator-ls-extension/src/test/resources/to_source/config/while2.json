@@ -58,19 +58,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 20,
-          "character": 8
+  "output": {
+    "while2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 8
+          },
+          "end": {
+            "line": 21,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 21,
-          "character": 9
-        }
-      },
-      "newText": "while true {\n}"
-    }
-  ]
+        "newText": "while true {\n}"
+      }
+    ]
+  }
 }

@@ -36,7 +36,9 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -123,7 +125,7 @@ public class DataMapper extends NodeBuilder {
     }
 
     @Override
-    public List<TextEdit> toSource(SourceBuilder sourceBuilder) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         return null;
     }
 }

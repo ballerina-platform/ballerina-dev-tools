@@ -45,19 +45,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 23,
-          "character": 4
+  "output": {
+    "update_data6/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 23,
+            "character": 4
+          },
+          "end": {
+            "line": 23,
+            "character": 70
+          }
         },
-        "end": {
-          "line": 23,
-          "character": 70
-        }
-      },
-      "newText": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
-    }
-  ]
+        "newText": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
+      }
+    ]
+  }
 }

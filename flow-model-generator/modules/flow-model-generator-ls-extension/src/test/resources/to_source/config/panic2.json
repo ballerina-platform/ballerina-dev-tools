@@ -36,19 +36,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 9,
-          "character": 4
+  "output": {
+    "panic2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 9,
+            "character": 4
+          },
+          "end": {
+            "line": 9,
+            "character": 34
+          }
         },
-        "end": {
-          "line": 9,
-          "character": 34
-        }
-      },
-      "newText": "panic error(\"AssertionError\");"
-    }
-  ]
+        "newText": "panic error(\"AssertionError\");"
+      }
+    ]
+  }
 }

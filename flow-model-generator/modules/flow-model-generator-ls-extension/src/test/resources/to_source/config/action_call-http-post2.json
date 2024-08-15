@@ -89,19 +89,21 @@
     },
     "flags": 1
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 15,
-          "character": 8
+  "output": {
+    "action_call-http-post2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 15,
+            "character": 8
+          },
+          "end": {
+            "line": 15,
+            "character": 90
+          }
         },
-        "end": {
-          "line": 15,
-          "character": 90
-        }
-      },
-      "newText": "check foodClient->post(\"/apples\", \"green apple\");"
-    }
-  ]
+        "newText": "check foodClient->post(\"/apples\", \"green apple\");"
+      }
+    ]
+  }
 }

@@ -106,19 +106,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 29,
-          "character": 8
+  "output": {
+    "action_call-http-post10/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 8
+          },
+          "end": {
+            "line": 29,
+            "character": 61
+          }
         },
-        "end": {
-          "line": 29,
-          "character": 61
-        }
-      },
-      "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
-    }
-  ]
+        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
+      }
+    ]
+  }
 }

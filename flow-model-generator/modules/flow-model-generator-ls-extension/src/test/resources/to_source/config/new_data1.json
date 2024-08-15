@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 1,
-          "character": 4
+  "output": {
+    "new_data1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 4
+          },
+          "end": {
+            "line": 1,
+            "character": 14
+          }
         },
-        "end": {
-          "line": 1,
-          "character": 14
-        }
-      },
-      "newText": "int i = 2;"
-    }
-  ]
+        "newText": "int i = 2;"
+      }
+    ]
+  }
 }

@@ -46,19 +46,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 8,
-          "character": 4
+  "output": {
+    "update_data3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 4
+          },
+          "end": {
+            "line": 8,
+            "character": 36
+          }
         },
-        "end": {
-          "line": 8,
-          "character": 36
-        }
-      },
-      "newText": "str1 = string `${str1} ${str1}`;"
-    }
-  ]
+        "newText": "str1 = string `${str1} ${str1}`;"
+      }
+    ]
+  }
 }

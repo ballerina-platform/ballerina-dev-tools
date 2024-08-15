@@ -284,19 +284,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 45,
-          "character": 4
+  "output": {
+    "transaction7/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 45,
+            "character": 4
+          },
+          "end": {
+            "line": 52,
+            "character": 5
+          }
         },
-        "end": {
-          "line": 52,
-          "character": 5
-        }
-      },
-      "newText": "transaction {\n    transaction {\n        () _ = check commit;\n    }\n    () _ = check commit;\n}\non fail error e {\n    return e;\n}"
-    }
-  ]
+        "newText": "transaction {\n    transaction {\n        () _ = check commit;\n    }\n    () _ = check commit;\n}\non fail error e {\n    return e;\n}"
+      }
+    ]
+  }
 }

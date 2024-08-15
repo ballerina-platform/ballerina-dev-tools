@@ -506,19 +506,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 17,
-          "character": 8
+  "output": {
+    "error_handler2/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 17,
+            "character": 8
+          },
+          "end": {
+            "line": 28,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 28,
-          "character": 9
-        }
-      },
-      "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    }\non fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
-    }
-  ]
+        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    }\non fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
+      }
+    ]
+  }
 }

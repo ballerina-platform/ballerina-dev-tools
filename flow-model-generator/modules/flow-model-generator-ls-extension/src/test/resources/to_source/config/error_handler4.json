@@ -167,19 +167,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 5,
-          "character": 4
+  "output": {
+    "error_handler4/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 5,
+            "character": 4
+          },
+          "end": {
+            "line": 9,
+            "character": 5
+          }
         },
-        "end": {
-          "line": 9,
-          "character": 5
-        }
-      },
-      "newText": "do {\n    fail error(\"Failing\");\n}\non fail error e {\n    return e;\n}"
-    }
-  ]
+        "newText": "do {\n    fail error(\"Failing\");\n}\non fail error e {\n    return e;\n}"
+      }
+    ]
+  }
 }

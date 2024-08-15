@@ -557,19 +557,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 37,
-          "character": 8
+  "output": {
+    "if3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 37,
+            "character": 8
+          },
+          "end": {
+            "line": 51,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 51,
-          "character": 9
-        }
-      },
-      "newText": "if food.price < 100 {\n    food.comment = \"cheap\";\n    return food;\n}\nelse if food.price < 200 {\n    if food.remaining > 0 {\n        food.comment = \"fresh; \";\n    }\n    else {\n        food.comment = \"expired; \";\n    }\n    food.comment += \"moderate\";\n;return food;\n}\nelse {\n    food.comment = \"expensive\";\n    return food;\n}}"
-    }
-  ]
+        "newText": "if food.price < 100 {\n    food.comment = \"cheap\";\n    return food;\n}\nelse if food.price < 200 {\n    if food.remaining > 0 {\n        food.comment = \"fresh; \";\n    }\n    else {\n        food.comment = \"expired; \";\n    }\n    food.comment += \"moderate\";\n;return food;\n}\nelse {\n    food.comment = \"expensive\";\n    return food;\n}}"
+      }
+    ]
+  }
 }

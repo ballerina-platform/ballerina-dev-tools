@@ -136,7 +136,7 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteTemplateData(TemplateContext context);
 
-    public abstract List<TextEdit> toSource(SourceBuilder sourceBuilder);
+    public abstract Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder);
 
     public NodeBuilder() {
         this.branches = new ArrayList<>();

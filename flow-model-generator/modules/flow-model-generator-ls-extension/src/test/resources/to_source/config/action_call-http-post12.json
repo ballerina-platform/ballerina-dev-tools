@@ -88,19 +88,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 34,
-          "character": 8
+  "output": {
+    "action_call-http-post12/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 8
+          },
+          "end": {
+            "line": 34,
+            "character": 54
+          }
         },
-        "end": {
-          "line": 34,
-          "character": 54
-        }
-      },
-      "newText": "return foodClient->post(\"/bananas\", \"banana\");"
-    }
-  ]
+        "newText": "return foodClient->post(\"/bananas\", \"banana\");"
+      }
+    ]
+  }
 }

@@ -36,19 +36,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 4
+  "output": {
+    "panic3/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 4
+          },
+          "end": {
+            "line": 13,
+            "character": 84
+          }
         },
-        "end": {
-          "line": 13,
-          "character": 84
-        }
-      },
-      "newText": "panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
-    }
-  ]
+        "newText": "panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
+      }
+    ]
+  }
 }

@@ -46,19 +46,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 18,
-          "character": 4
+  "output": {
+    "update_data5/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 4
+          },
+          "end": {
+            "line": 18,
+            "character": 43
+          }
         },
-        "end": {
-          "line": 18,
-          "character": 43
-        }
-      },
-      "newText": "x1 = xml `<book>The Lost World</book>`;"
-    }
-  ]
+        "newText": "x1 = xml `<book>The Lost World</book>`;"
+      }
+    ]
+  }
 }

@@ -244,19 +244,21 @@
     ],
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 7,
-          "character": 8
+  "output": {
+    "error_handler1/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 8
+          },
+          "end": {
+            "line": 12,
+            "character": 9
+          }
         },
-        "end": {
-          "line": 12,
-          "character": 9
-        }
-      },
-      "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n}"
-    }
-  ]
+        "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n}"
+      }
+    ]
+  }
 }

@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 18,
-          "character": 4
+  "output": {
+    "new_data11/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 4
+          },
+          "end": {
+            "line": 18,
+            "character": 42
+          }
         },
-        "end": {
-          "line": 18,
-          "character": 42
-        }
-      },
-      "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
-    }
-  ]
+        "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
+      }
+    ]
+  }
 }

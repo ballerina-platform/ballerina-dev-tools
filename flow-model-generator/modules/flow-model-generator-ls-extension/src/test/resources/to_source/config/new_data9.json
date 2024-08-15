@@ -54,19 +54,21 @@
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 13,
-          "character": 4
+  "output": {
+    "new_data9/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 4
+          },
+          "end": {
+            "line": 13,
+            "character": 32
+          }
         },
-        "end": {
-          "line": 13,
-          "character": 32
-        }
-      },
-      "newText": "string str1 = \"Hello world\";"
-    }
-  ]
+        "newText": "string str1 = \"Hello world\";"
+      }
+    ]
+  }
 }
