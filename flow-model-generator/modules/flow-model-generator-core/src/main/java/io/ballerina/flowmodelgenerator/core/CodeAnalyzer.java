@@ -71,6 +71,7 @@ import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -111,14 +112,16 @@ class CodeAnalyzer extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Central central;
+    private final List<String> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
 
-    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope) {
+    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.central = CentralProxy.getInstance();
+        this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
     }
 
@@ -469,6 +472,18 @@ class CodeAnalyzer extends NodeVisitor {
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
+        } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
+            String functionName = simpleNameReferenceNode.name().text();
+            if (dataMappings.contains(functionName)) {
+                startNode(FlowNode.Kind.DATA_MAPPER)
+                        .properties()
+                        .functionName(functionName);
+                functionSymbol.typeDescriptor().params().ifPresent(
+                        params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
+            }
+        } else {
+            startNode(FlowNode.Kind.EXPRESSION);
         }
     }
 

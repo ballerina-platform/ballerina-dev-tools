@@ -257,7 +257,7 @@ public class SourceBuilder {
         if (textEdits == null) {
             textEdits = new ArrayList<>();
         }
-        textEdits.add(new TextEdit(range, text));
+        textEdits.add(0, new TextEdit(range, text));
         textEditsMap.put(filePath, textEdits);
 
         return this;

@@ -99,7 +99,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static class Builder {
 
         private String type;
-        private String value;
+        private Object value;
         private boolean optional;
         private boolean editable;
         private Object typeConstraint;
@@ -133,7 +133,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
-        public Builder value(String value) {
+        public Builder value(Object value) {
             this.value = value;
             return this;
         }

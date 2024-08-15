@@ -30,8 +30,12 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -42,6 +46,7 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -58,13 +63,16 @@ public class ModelGenerator {
     private final Document document;
     private final LineRange lineRange;
     private final Path filePath;
+    private final Document dataMappingDoc;
     private final Gson gson;
 
-    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath) {
+    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath,
+                          Document dataMappingDoc) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
         this.filePath = filePath;
+        this.dataMappingDoc = dataMappingDoc;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
@@ -90,8 +98,22 @@ public class ModelGenerator {
                                 node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
                         .toList();
 
+        // Obtain the data mapping function names
+        List<String> dataMappings = new ArrayList<>();
+        if (dataMappingDoc != null) {
+            ModulePartNode dataMappingModulePartNode = dataMappingDoc.syntaxTree().rootNode();
+            NodeList<ModuleMemberDeclarationNode> members = dataMappingModulePartNode.members();
+            for (ModuleMemberDeclarationNode member : members) {
+                if (member.kind() == SyntaxKind.FUNCTION_DEFINITION) {
+                    FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) member;
+                    dataMappings.add(functionDefinitionNode.functionName().text());
+                }
+            }
+
+        }
+
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -137,7 +159,7 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of());
         parentNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

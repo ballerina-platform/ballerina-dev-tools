@@ -71,6 +71,15 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Supplier;
 
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_LABEL;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_KEY;
@@ -343,6 +352,59 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        // TODO: Think how we can reuse this logic with the functionArguments method
+        public PropertiesBuilder<T> inputs(SeparatedNodeList<FunctionArgumentNode> arguments,
+                                           List<ParameterSymbol> parameterSymbols) {
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
+                    }
+                }
+            }
+
+            propertyBuilder = Property.Builder.getInstance();
+            int numParams = parameterSymbols.size();
+            int numPositionalArgs = positionalArgs.size();
+
+            List<String> inputs = new ArrayList<>();
+            for (int i = 0; i < numParams; i++) {
+                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+                Optional<String> name = parameterSymbol.getName();
+                if (name.isEmpty()) {
+                    continue;
+                }
+                String parameterName = name.get();
+                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
+
+                String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false);
+                String variableName = CommonUtils.getVariableName(paramValue);
+                inputs.add(type + " " + variableName);
+            }
+
+            propertyBuilder.metadata()
+                    .label(INPUTS_LABEL)
+                    .description(INPUTS_DOC)
+                    .stepOut()
+                    .type(Property.ValueType.SET)
+                    .value(inputs)
+                    .editable();
+
+            addProperty(INPUTS_KEY, propertyBuilder.build());
+            return this;
+        }
+
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
                                                       List<ParameterSymbol> parameterSymbols,
                                                       Map<String, Property> properties) {
@@ -521,6 +583,21 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.ON_ERROR_TYPE_KEY, type);
+            return this;
+        }
+
+        public PropertiesBuilder<T> functionName(String functionName) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(FUNCTION_NAME_LABEL)
+                        .description(FUNCTION_NAME_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.IDENTIFIER)
+                    .value(functionName)
+                    .editable()
+                    .build();
+
+            addProperty(FUNCTION_NAME_KEY, property);
             return this;
         }
 
