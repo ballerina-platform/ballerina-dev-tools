@@ -36,6 +36,7 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
+import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
@@ -110,6 +111,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
+        put(FlowNode.Kind.COMMENT, Comment::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -447,6 +449,19 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.IGNORE_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> comment(String comment) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.COMMENT_LABEL)
+                    .description(Property.COMMENT_DOC)
+                    .stepOut()
+                    .value(comment)
+                    .editable()
+                    .build();
+            addProperty(Property.COMMENT_KEY, property);
             return this;
         }
 

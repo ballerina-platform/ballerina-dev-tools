@@ -1,0 +1,253 @@
+{
+  "start": {
+    "line": 98,
+    "offset": 0
+  },
+  "end": {
+    "line": 107,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "129240",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 98,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 107,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "130090",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'x' with type 'int'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 99,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 99,
+              "offset": 14
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "0",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "x",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "132313",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 101,
+              "offset": 7
+            },
+            "endLine": {
+              "line": 106,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 101,
+                  "offset": 7
+                },
+                "endLine": {
+                  "line": 106,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "132967",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 102,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 103,
+                      "offset": 8
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "        // Increment `x`\n        ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "134186",
+                "metadata": {
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'x'"
+                },
+                "codedata": {
+                  "node": "UPDATE_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 103,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 103,
+                      "offset": 18
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Update variable"
+                    },
+                    "valueType": "int",
+                    "value": "x + 1",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "134978",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 104,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 106,
+                      "offset": 4
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "\n        // Precess `x`\n    ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

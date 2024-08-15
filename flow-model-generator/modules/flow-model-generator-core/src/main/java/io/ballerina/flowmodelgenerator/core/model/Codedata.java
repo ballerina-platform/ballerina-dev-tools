@@ -91,6 +91,11 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
             return this;
         }
 
+        public Builder<T> lineRange(LineRange lineRange) {
+            this.lineRange = lineRange;
+            return this;
+        }
+
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, lineRange);
         }

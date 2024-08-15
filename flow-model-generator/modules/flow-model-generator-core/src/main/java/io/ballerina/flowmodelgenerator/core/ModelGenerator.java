@@ -83,12 +83,12 @@ public class ModelGenerator {
         // Obtain the connections visible at the module-level
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
-                        .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
+                        .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
                         .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
                         .toList();
 
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, textDocument);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -101,7 +101,7 @@ public class ModelGenerator {
      *
      * @return the client if the type symbol is a client, otherwise empty
      */
-    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol) {
+    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol, TextDocument textDocument) {
         NonTerminalNode node;
         try {
             TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
@@ -114,7 +114,7 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, textDocument);
         node.parent().parent().accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

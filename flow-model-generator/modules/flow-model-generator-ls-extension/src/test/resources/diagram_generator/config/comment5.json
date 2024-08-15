@@ -1,0 +1,440 @@
+{
+  "start": {
+    "line": 29,
+    "offset": 0
+  },
+  "end": {
+    "line": 44,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "60978",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 44,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "62036",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 30,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 43,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 30,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 32,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "i == 3 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": []
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 6
+                },
+                "endLine": {
+                  "line": 43,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "64175",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 32,
+                      "offset": 11
+                    },
+                    "endLine": {
+                      "line": 43,
+                      "offset": 5
+                    }
+                  }
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "comment.bal",
+                        "startLine": {
+                          "line": 32,
+                          "offset": 21
+                        },
+                        "endLine": {
+                          "line": 38,
+                          "offset": 5
+                        }
+                      }
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "boolean",
+                        "value": "i == 5 ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "64550",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 33,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 35,
+                              "offset": 8
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n        // This is a comment for i = 0\n        ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "66730",
+                        "metadata": {
+                          "label": "New Variable",
+                          "description": "New variable 'x' with type 'int'"
+                        },
+                        "codedata": {
+                          "node": "NEW_DATA",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 35,
+                              "offset": 8
+                            },
+                            "endLine": {
+                              "line": 35,
+                              "offset": 18
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "int",
+                            "value": "0",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "x",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "type": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "int",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "67522",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 36,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 38,
+                              "offset": 4
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n        // This is a comment for if-else bidy\n    ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "comment.bal",
+                        "startLine": {
+                          "line": 38,
+                          "offset": 6
+                        },
+                        "endLine": {
+                          "line": 43,
+                          "offset": 5
+                        }
+                      }
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "70471",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 39,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 40,
+                              "offset": 8
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "        // This is a comment for x = 0\n        ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "72482",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 41,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 43,
+                              "offset": 4
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n        // This is a comment for else bidy\n    ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "71690",
+                        "metadata": {
+                          "label": "New Variable",
+                          "description": "New variable 'x' with type 'int'"
+                        },
+                        "codedata": {
+                          "node": "NEW_DATA",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 40,
+                              "offset": 8
+                            },
+                            "endLine": {
+                              "line": 40,
+                              "offset": 18
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "int",
+                            "value": "0",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Data variable",
+                              "description": "Name of the variable"
+                            },
+                            "value": "x",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "type": {
+                            "metadata": {
+                              "label": "Data type",
+                              "description": "Type of the variable"
+                            },
+                            "value": "int",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

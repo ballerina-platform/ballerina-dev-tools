@@ -87,6 +87,7 @@ public record FlowNode(
         NEW_DATA,
         UPDATE_DATA,
         STOP,
-        FOREACH
+        FOREACH,
+        COMMENT
     }
 }

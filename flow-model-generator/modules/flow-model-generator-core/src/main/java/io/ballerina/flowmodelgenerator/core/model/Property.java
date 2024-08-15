@@ -75,6 +75,10 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
     public static final String CONNECTION_KEY = "connection";
 
+    public static final String COMMENT_LABEL = "Comment";
+    public static final String COMMENT_KEY = "comment";
+    public static final String COMMENT_DOC = "Comment to describe the flow";
+
 
     public String toSourceCode() {
         return value;

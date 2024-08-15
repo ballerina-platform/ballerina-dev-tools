@@ -46,6 +46,7 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
@@ -55,6 +56,7 @@ import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.MinutiaeList;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
@@ -84,6 +86,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
@@ -91,6 +94,10 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,12 +118,14 @@ class CodeAnalyzer extends NodeVisitor {
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Central central;
     private TypedBindingPatternNode typedBindingPatternNode;
+    private final TextDocument textDocument;
 
-    public CodeAnalyzer(SemanticModel semanticModel) {
+    public CodeAnalyzer(SemanticModel semanticModel, TextDocument textDocument) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.central = CentralProxy.getInstance();
+        this.textDocument = textDocument;
     }
 
     @Override
@@ -139,6 +148,14 @@ class CodeAnalyzer extends NodeVisitor {
         }
         endNode(functionDefinitionNode);
         super.visit(functionDefinitionNode);
+    }
+
+    @Override
+    public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
+        for (StatementNode statementNode : functionBodyBlockNode.statements()) {
+            visitStatement(statementNode);
+        }
+        genCommentNode(functionBodyBlockNode.closeBraceToken());
     }
 
     @Override
@@ -235,9 +252,11 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties().condition(ifElseStatementNode.condition()).stepOut();
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
         for (StatementNode statement : ifBody.statements()) {
+            genCommentNode(statement, thenBranchBuilder);
             statement.accept(this);
             thenBranchBuilder.node(buildNode());
         }
+        genCommentNode(ifBody.closeBraceToken(), thenBranchBuilder);
         endBranch(thenBranchBuilder, ifBody);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
@@ -245,7 +264,7 @@ class CodeAnalyzer extends NodeVisitor {
             Branch.Builder elseBranchBuilder =
                     startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
                             Branch.Repeatable.ZERO_OR_ONE);
-            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
+            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get(), elseBranchBuilder);
             elseBranchBuilder.nodes(elseBodyChildNodes);
             endBranch(elseBranchBuilder, elseBody.get());
         }
@@ -253,15 +272,17 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(ifElseStatementNode);
     }
 
-    private List<FlowNode> analyzeElseBody(Node elseBody) {
+    private List<FlowNode> analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         return switch (elseBody.kind()) {
-            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), branchBuilder);
             case BLOCK_STATEMENT -> {
                 List<FlowNode> elseNodes = new ArrayList<>();
                 for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
+                    genCommentNode(statement, branchBuilder);
                     statement.accept(this);
                     elseNodes.add(buildNode());
                 }
+                genCommentNode(((BlockStatementNode) elseBody).closeBraceToken(), branchBuilder);
                 yield elseNodes;
             }
             case IF_ELSE_STATEMENT -> {
@@ -470,9 +491,11 @@ class CodeAnalyzer extends NodeVisitor {
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
                         Branch.Repeatable.ONE);
         for (StatementNode statement : whileBody.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(whileBody.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, whileBody);
         whileStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(whileStatementNode);
@@ -487,9 +510,11 @@ class CodeAnalyzer extends NodeVisitor {
         }
         BlockStatementNode onFailClauseBlock = onFailClauseNode.blockStatement();
         for (StatementNode statement : onFailClauseBlock.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(onFailClauseBlock.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, onFailClauseBlock);
     }
 
@@ -520,9 +545,11 @@ class CodeAnalyzer extends NodeVisitor {
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode lockBody = lockStatementNode.blockStatement();
         for (StatementNode statement : lockBody.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(lockBody.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, lockBody);
         lockStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(lockStatementNode);
@@ -540,9 +567,11 @@ class CodeAnalyzer extends NodeVisitor {
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
         for (StatementNode statement : blockStatementNode.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(transactionStatementNode);
@@ -558,9 +587,11 @@ class CodeAnalyzer extends NodeVisitor {
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = forEachStatementNode.blockStatement();
         for (StatementNode statement : blockStatementNode.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         forEachStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(forEachStatementNode);
@@ -594,9 +625,11 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         for (StatementNode statement : blockStatementNode.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         processOnFailClause(optOnFailClauseNode.get());
         endNode(doStatementNode);
@@ -654,6 +687,14 @@ class CodeAnalyzer extends NodeVisitor {
      */
     private void endNode(Node node) {
         nodeBuilder.codedata().lineRange(node);
+
+        if (this.flowNodeBuilderStack.isEmpty()) {
+            this.flowNodeList.add(buildNode());
+        }
+    }
+
+    private void endNode(LineRange lineRange) {
+        nodeBuilder.codedata().lineRange(lineRange);
 
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
@@ -728,11 +769,69 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         for (StatementNode statement : bodyNode.statements()) {
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
             branchBuilder.node(buildNode());
         }
+        genCommentNode(bodyNode.closeBraceToken(), branchBuilder);
         endBranch(branchBuilder, bodyNode);
         endNode(bodyNode);
+    }
+
+    private void visitStatement(StatementNode statementNode) {
+        genCommentNode(statementNode);
+        statementNode.accept(this);
+    }
+
+    private LineRange getCommentPosition(Node commentAttachedNode) {
+        TextRange textRangeWithMinutiae = commentAttachedNode.textRangeWithMinutiae();
+        TextRange textRange = commentAttachedNode.textRange();
+        LinePosition startPos = textDocument.linePositionFrom(textRangeWithMinutiae.startOffset());
+        LinePosition endPos = textDocument.linePositionFrom(textRange.startOffset());
+
+        return LineRange.from(commentAttachedNode.lineRange().fileName(), startPos, endPos);
+    }
+
+    private String getComment(MinutiaeList minutiaes) {
+        int size = minutiaes.size();
+        StringBuilder commentBuilder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            commentBuilder.append(minutiaes.get(i).text());
+        }
+        String comment = commentBuilder.toString();
+        return comment.trim().startsWith("//") ? comment : "";
+    }
+
+    private void genCommentNode(Node node, Branch.Builder builder) {
+        String comment = getComment(node.leadingMinutiae());
+        if (!comment.isEmpty()) {
+            genCommentNode(node, comment);
+            builder.node(buildNode());
+        }
+    }
+
+    private void genCommentNode(Node node) {
+        String comment = getComment(node.leadingMinutiae());
+        if (comment.isEmpty()) {
+            return;
+        }
+        startNode(FlowNode.Kind.COMMENT)
+                .metadata()
+                .description(Comment.DESCRIPTION)
+                .stepOut()
+                .properties()
+                .comment(comment);
+        endNode(getCommentPosition(node));
+    }
+
+    private void genCommentNode(Node node, String comment) {
+        startNode(FlowNode.Kind.COMMENT)
+                .metadata()
+                .description(Comment.DESCRIPTION)
+                .stepOut()
+                .properties()
+                .comment(comment);
+        endNode(getCommentPosition(node));
     }
 
     public List<FlowNode> getFlowNodes() {

@@ -189,6 +189,11 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder comment(String comment) {
+            sb.append(comment);
+            return this;
+        }
+
         public TokenBuilder expression(Property property) {
             sb.append(property.toSourceCode());
             return this;

@@ -1,0 +1,315 @@
+{
+  "start": {
+    "line": 58,
+    "offset": 0
+  },
+  "end": {
+    "line": 67,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "89560",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 58,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 67,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "90618",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 59,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 66,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 59,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 61,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "91530",
+                "metadata": {
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable '_'"
+                },
+                "codedata": {
+                  "node": "UPDATE_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 60,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 60,
+                      "offset": 18
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Update variable"
+                    },
+                    "valueType": "int",
+                    "value": "i + 1",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "any",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 61,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 66,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "value": "true",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "value": "annotations:error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "93287",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 62,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 63,
+                      "offset": 8
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "        // This is a comment in on fail\n        ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "94510",
+                "metadata": {
+                  "label": "New Variable",
+                  "description": "New variable 'err' with type '// This is a comment in on fail\n        error'"
+                },
+                "codedata": {
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 63,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 63,
+                      "offset": 22
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "annotations:error",
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "err",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "annotations:error",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "95298",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 64,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 66,
+                      "offset": 4
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "\n        // Panic with error `err`\n    ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "i < 4 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}
