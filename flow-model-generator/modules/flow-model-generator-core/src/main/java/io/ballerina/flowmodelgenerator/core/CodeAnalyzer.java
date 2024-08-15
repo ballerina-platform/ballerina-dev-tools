@@ -86,6 +86,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
@@ -367,7 +368,13 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .properties().expression(initializerNode);
         }
-        nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+
+        // TODO: Find a better way on how we can achieve this
+        if (nodeBuilder instanceof DataMapper) {
+            nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+        } else {
+            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+        }
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
@@ -478,7 +485,8 @@ class CodeAnalyzer extends NodeVisitor {
             if (dataMappings.contains(functionName)) {
                 startNode(FlowNode.Kind.DATA_MAPPER)
                         .properties()
-                        .functionName(functionName);
+                        .functionName(functionName)
+                        .output(this.typedBindingPatternNode);
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
             }

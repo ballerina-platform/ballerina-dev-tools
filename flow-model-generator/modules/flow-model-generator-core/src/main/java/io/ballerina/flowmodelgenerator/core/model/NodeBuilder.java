@@ -274,15 +274,7 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> dataVariable(Node node) {
-            Property property = propertyBuilder
-                    .metadata()
-                    .label(Property.DATA_VARIABLE_LABEL)
-                    .description(Property.DATA_VARIABLE_DOC)
-                    .stepOut()
-                    .value(CommonUtils.getVariableName(node))
-                    .editable()
-                    .build();
-            addProperty(Property.DATA_VARIABLE_KEY, property);
+            data(node);
 
             propertyBuilder
                     .metadata()
@@ -294,6 +286,20 @@ public abstract class NodeBuilder {
             optTypeSymbol.ifPresent(
                     typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> data(Node node) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
+                    .stepOut()
+                    .value(CommonUtils.getVariableName(node))
+                    .editable()
+                    .build();
+            addProperty(Property.DATA_VARIABLE_KEY, property);
 
             return this;
         }
@@ -402,6 +408,23 @@ public abstract class NodeBuilder {
                     .editable();
 
             addProperty(INPUTS_KEY, propertyBuilder.build());
+            return this;
+        }
+
+        public PropertiesBuilder<T> output(Node node) {
+            propertyBuilder
+                    .metadata()
+                        .label(OUTPUT_LABEL)
+                        .description(OUTPUT_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.SET)
+                    .editable();
+
+            Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+            optTypeSymbol.ifPresent(
+                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
+
+            addProperty(OUTPUT_KEY, propertyBuilder.build());
             return this;
         }
 

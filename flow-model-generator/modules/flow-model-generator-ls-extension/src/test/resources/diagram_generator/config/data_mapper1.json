@@ -226,6 +226,16 @@
             "optional": false,
             "editable": true
           },
+          "output": {
+            "metadata": {
+              "label": "Output",
+              "description": "Output of the data mapper function"
+            },
+            "valueType": "SET",
+            "value": "new_connection1:Person",
+            "optional": false,
+            "editable": true
+          },
           "inputs": {
             "metadata": {
               "label": "Inputs",
@@ -246,15 +256,6 @@
               "description": "Name of the variable"
             },
             "value": "person",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Data type",
-              "description": "Type of the variable"
-            },
-            "value": "new_connection1:Person",
             "optional": false,
             "editable": true
           }
@@ -346,6 +347,16 @@
             "optional": false,
             "editable": true
           },
+          "output": {
+            "metadata": {
+              "label": "Output",
+              "description": "Output of the data mapper function"
+            },
+            "valueType": "SET",
+            "value": "new_connection1:Employee",
+            "optional": false,
+            "editable": true
+          },
           "inputs": {
             "metadata": {
               "label": "Inputs",
@@ -365,15 +376,6 @@
               "description": "Name of the variable"
             },
             "value": "employee",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Data type",
-              "description": "Type of the variable"
-            },
-            "value": "new_connection1:Employee",
             "optional": false,
             "editable": true
           }

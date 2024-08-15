@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -78,9 +79,17 @@ public class SourceGeneratorTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(), newMap);
-//            updateConfig(configJsonPath, updatedConfig);
+            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[] {
+                Path.of("data_mapper1.json")
+        };
     }
 
     @Override
@@ -98,14 +107,14 @@ public class SourceGeneratorTest extends AbstractLSTest {
         return "getSourceCode";
     }
 
-    @Override
-    protected String[] skipList() {
-        //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
-        return new String[]{
-                "action_call-http-get9.json",
-                "action_call-http-post7.json"
-        };
-    }
+//    @Override
+//    protected String[] skipList() {
+//        //TODO: The tests are failing in Windows: https://github.com/ballerina-platform/ballerina-lang/issues/42932
+//        return new String[]{
+//                "action_call-http-get9.json",
+//                "action_call-http-post7.json"
+//        };
+//    }
 
     /**
      * Represents the test configuration for the source generator test.

@@ -2,7 +2,7 @@
   "source": "data_mapper/main.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "31",
+    "id": "60699",
     "metadata": {
       "label": "Data Mapper",
       "description": "Map data from multiple variables to a record type"
@@ -10,52 +10,26 @@
     "codedata": {
       "node": "DATA_MAPPER",
       "lineRange": {
-        "fileName": "test.bal",
+        "fileName": "main.bal",
         "startLine": {
-          "line": 0,
-          "offset": 0
+          "line": 29,
+          "offset": 4
         },
         "endLine": {
-          "line": 0,
-          "offset": 0
+          "line": 29,
+          "offset": 63
         }
       }
     },
     "returning": false,
     "properties": {
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "item",
-        "optional": true,
-        "editable": true
-      },
       "functionName": {
         "metadata": {
           "label": "Data mapper name",
           "description": "Name of the data mapper function"
         },
         "valueType": "IDENTIFIER",
-        "value": "transform",
-        "optional": false,
-        "editable": true
-      },
-      "inputs": {
-        "metadata": {
-          "label": "Inputs",
-          "description": "Input variables of the data mapper function"
-        },
-        "valueType": "SET",
-        "valueTypeConstraint": [
-          "http:Client cl",
-          "string z",
-          "int x",
-          "new_connection1:Address address"
-        ],
-        "value": "",
+        "value": "transformToEmployee",
         "optional": false,
         "editable": true
       },
@@ -65,14 +39,29 @@
           "description": "Output of the data mapper function"
         },
         "valueType": "SET",
-        "valueTypeConstraint": [
-          "Admission",
-          "Address",
-          "Location",
-          "Employee",
-          "Person"
+        "value": "new_connection1:Employee",
+        "optional": false,
+        "editable": true
+      },
+      "inputs": {
+        "metadata": {
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
+        },
+        "valueType": "SET",
+        "value": [
+          "new_connection1:Person person",
+          "new_connection1:Admission admission"
         ],
-        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "employee",
         "optional": false,
         "editable": true
       }
@@ -92,22 +81,22 @@
             "character": 0
           }
         },
-        "newText": "function transform() returns => {\n}"
+        "newText": "function transformToEmployee(new_connection1 :Personperson, new_connection1 :Admissionadmission) returns new_connection1:Employee=> {\n}"
       }
     ],
     "data_mapper/main.bal": [
       {
         "range": {
           "start": {
-            "line": 0,
-            "character": 0
+            "line": 29,
+            "character": 4
           },
           "end": {
-            "line": 0,
-            "character": 0
+            "line": 29,
+            "character": 63
           }
         },
-        "newText": "item = transform()"
+        "newText": "new_connection1:Employee employee = transformToEmployee(person, admission)"
       }
     ]
   }
