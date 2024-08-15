@@ -95,27 +95,47 @@ public class SourceBuilder {
         // Add the current source to the end of the file
         textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange.endLine()));
 
-        // Check if the import already exists
+        acceptImport(resolvedPath);
+        return this;
+    }
+
+    public SourceBuilder acceptImport(Path resolvedPath) {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
-        if (org != null && module != null) {
-            boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                    ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
-                            .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
-                                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                                    module.equals(importDeclarationNode.moduleName().get(0).text()));
 
-            // Add the import statement
-            if (!importExists) {
-                tokenBuilder
-                        .keyword(SyntaxKind.IMPORT_KEYWORD)
-                        .name(flowNode.codedata().getImportSignature())
-                        .endOfStatement();
-                textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
-            }
+        try {
+            this.workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return this;
+        }
+        // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
+        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LineRange lineRange = syntaxTree.rootNode().lineRange();
+
+        if (org == null || module == null) {
+            return this;
         }
 
+        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
+                ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
+                        .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
+                                org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                                module.equals(importDeclarationNode.moduleName().get(0).text()));
+
+        // Add the import statement
+        if (!importExists) {
+            tokenBuilder
+                    .keyword(SyntaxKind.IMPORT_KEYWORD)
+                    .name(flowNode.codedata().getImportSignature())
+                    .endOfStatement();
+            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
+        }
         return this;
+    }
+
+    public SourceBuilder acceptImport() {
+        return acceptImport(filePath);
     }
 
     public Optional<Symbol> getTypeSymbol(String typeName) {
@@ -156,7 +176,8 @@ public class SourceBuilder {
             SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
             Map<Path, List<TextEdit>> textEdits =
                     NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
-            tokenBuilder.name(textEdits.get(filePath).get(0).getNewText());
+            List<TextEdit> filePathTextEdits = textEdits.get(filePath);
+            tokenBuilder.name(filePathTextEdits.get(filePathTextEdits.size() - 1).getNewText());
         }
         return this;
     }

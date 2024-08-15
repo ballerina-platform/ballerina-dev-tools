@@ -93,7 +93,7 @@
             "character": 0
           }
         },
-        "newText": "ClientError connection = check new (, );"
+        "newText": "import ballerina/http;"
       },
       {
         "range": {
@@ -106,7 +106,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/http;"
+        "newText": "ClientError connection = check new (, );"
       }
     ]
   }

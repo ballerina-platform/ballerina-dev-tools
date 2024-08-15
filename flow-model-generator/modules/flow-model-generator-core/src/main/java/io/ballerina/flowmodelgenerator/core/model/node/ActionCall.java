@@ -72,6 +72,7 @@ public class ActionCall extends NodeBuilder {
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
                 .textEdit(false)
+                .acceptImport()
                 .build();
     }
 

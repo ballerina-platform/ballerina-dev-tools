@@ -1,5 +1,5 @@
 {
-  "source": "function_call-log-printInfo/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
@@ -90,7 +90,20 @@
     "flags": 1
   },
   "output": {
-    "function_call-log-printInfo/main.bal": [
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/log;"
+      },
       {
         "range": {
           "start": {

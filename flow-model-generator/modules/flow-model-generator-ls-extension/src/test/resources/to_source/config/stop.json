@@ -1,5 +1,5 @@
 {
-  "source": "stop/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "31",
@@ -25,7 +25,7 @@
     "flags": 0
   },
   "output": {
-    "stop/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

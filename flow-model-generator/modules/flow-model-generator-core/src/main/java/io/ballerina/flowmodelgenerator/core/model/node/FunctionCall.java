@@ -38,6 +38,7 @@ public class FunctionCall extends NodeBuilder {
                 .stepOut()
                 .functionParameters(nodeTemplate, Set.of("variable", "type"))
                 .textEdit(false)
+                .acceptImport()
                 .build();
     }
 }

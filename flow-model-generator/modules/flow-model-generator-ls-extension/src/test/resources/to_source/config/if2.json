@@ -1,5 +1,5 @@
 {
-  "source": "if2/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "56057",
@@ -315,7 +315,7 @@
     "flags": 0
   },
   "output": {
-    "if2/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

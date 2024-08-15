@@ -21,17 +21,24 @@ import json
 import sys
 from typing import OrderedDict
 
+PROJECT_KINDS = ["NEW_CONNECTION", "DATA_MAPPER"]
+
 
 def remove_duplicates(output_nodes):
     # Use OrderedDict to preserve order and remove duplicates
-    unique_output_nodes = list(OrderedDict((json.dumps(node, sort_keys=True), node) for node in output_nodes).values())
+    unique_output_nodes = list(OrderedDict(
+        (json.dumps(node, sort_keys=True), node) for node in output_nodes).values())
     return unique_output_nodes
 
 
-def write_json(output_node, output_filename):
+def write_json(output_node, output_filename, node_kind):
     # Create the JSON structure
+    source = "empty.bal"
+    if node_kind in PROJECT_KINDS:
+        source = f"{output_filename.split('.json')[0]}/main.bal"
+
     output_data = {
-        "source": f"{output_filename.split('.json')[0]}/main.bal",
+        "source": source,
         "description": "Sample diagram node",
         "output": {},
         "diagram": output_node
@@ -47,6 +54,7 @@ def process_file_code(file_code):
     # Split the user input by "-"
     input_parts = file_code.split("-")
     input_node_name = input_parts[0]
+    codedata_type = input_node_name.upper()
 
     # Relative to this path, read the file
     diagram_dir_name = os.path.join(
@@ -63,7 +71,6 @@ def process_file_code(file_code):
         # Read the JSON file
         with open(file_path, 'r') as json_file:
             data = json.load(json_file)
-            codedata_type = input_node_name.upper()
 
             # Get the nodes array from the diagram property
             nodes = data['diagram']['nodes']
@@ -82,10 +89,11 @@ def process_file_code(file_code):
     # Write each node to a JSON file
     output_nodes_set = remove_duplicates(output_nodes)
     for index, node in enumerate(output_nodes_set):
-        write_json(node, f"{file_code}{index+1}.json")
+        write_json(node, f"{file_code}{index+1}.json", codedata_type)
 
     # Add a test case for the template file
-    template_file_dir = os.path.join(current_path, "..", "..", "node_template", "config")
+    template_file_dir = os.path.join(
+        current_path, "..", "..", "node_template", "config")
     matching_template_files = sorted([file for file in os.listdir(
         template_file_dir) if file.startswith(file_code)])
 
@@ -104,7 +112,7 @@ def process_file_code(file_code):
                 "startLine": {"line": 0, "offset": 0},
                 "endLine": {"line": 0, "offset": 0}
             }
-            write_json(output_property, matching_template_file)
+            write_json(output_property, matching_template_file, codedata_type)
 
 
 # Get the user input from the command line argument

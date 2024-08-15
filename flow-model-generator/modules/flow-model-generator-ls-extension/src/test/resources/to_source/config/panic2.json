@@ -1,5 +1,5 @@
 {
-  "source": "panic2/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "40830",
@@ -37,7 +37,7 @@
     "flags": 0
   },
   "output": {
-    "panic2/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

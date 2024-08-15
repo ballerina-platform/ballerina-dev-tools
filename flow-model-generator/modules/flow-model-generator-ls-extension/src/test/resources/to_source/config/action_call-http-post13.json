@@ -1,5 +1,5 @@
 {
-  "source": "action_call-http-post13/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "70742",
@@ -89,7 +89,20 @@
     "flags": 0
   },
   "output": {
-    "action_call-http-post13/main.bal": [
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/http;"
+      },
       {
         "range": {
           "start": {

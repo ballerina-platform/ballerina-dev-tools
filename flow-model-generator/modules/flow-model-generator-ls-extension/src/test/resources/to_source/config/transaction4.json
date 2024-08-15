@@ -1,5 +1,5 @@
 {
-  "source": "transaction4/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "51868",
@@ -200,7 +200,7 @@
     "flags": 0
   },
   "output": {
-    "transaction4/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

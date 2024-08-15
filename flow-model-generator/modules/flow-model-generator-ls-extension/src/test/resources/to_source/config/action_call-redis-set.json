@@ -1,5 +1,5 @@
 {
-  "source": "action_call-redis-set/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
@@ -81,7 +81,20 @@
     "flags": 1
   },
   "output": {
-    "action_call-redis-set/main.bal": [
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
       {
         "range": {
           "start": {

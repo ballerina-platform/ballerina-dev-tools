@@ -1,5 +1,5 @@
 {
-  "source": "lock1/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32927",
@@ -101,7 +101,7 @@
     "flags": 0
   },
   "output": {
-    "lock1/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

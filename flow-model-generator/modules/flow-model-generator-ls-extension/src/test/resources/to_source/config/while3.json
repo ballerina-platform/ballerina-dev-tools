@@ -1,5 +1,5 @@
 {
-  "source": "while3/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "58971",
@@ -291,7 +291,7 @@
     "flags": 0
   },
   "output": {
-    "while3/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

@@ -1,5 +1,5 @@
 {
-  "source": "new_data15/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "59696",
@@ -55,7 +55,7 @@
     "flags": 0
   },
   "output": {
-    "new_data15/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

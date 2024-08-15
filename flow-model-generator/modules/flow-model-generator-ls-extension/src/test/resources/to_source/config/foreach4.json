@@ -1,5 +1,5 @@
 {
-  "source": "foreach4/main.bal",
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "65663",
@@ -123,7 +123,7 @@
     "flags": 0
   },
   "output": {
-    "foreach4/main.bal": [
+    "empty.bal": [
       {
         "range": {
           "start": {

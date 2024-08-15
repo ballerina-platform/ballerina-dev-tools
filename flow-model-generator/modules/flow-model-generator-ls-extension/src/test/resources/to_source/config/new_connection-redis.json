@@ -83,7 +83,7 @@
             "character": 0
           }
         },
-        "newText": "Error connection = check new ();"
+        "newText": "import ballerinax/redis;"
       },
       {
         "range": {
@@ -96,7 +96,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerinax/redis;"
+        "newText": "Error connection = check new ();"
       }
     ]
   }
