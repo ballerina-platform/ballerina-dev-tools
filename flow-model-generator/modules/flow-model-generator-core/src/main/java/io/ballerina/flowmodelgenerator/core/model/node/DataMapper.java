@@ -20,26 +20,32 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDefinitionSymbol;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
+import org.ballerinalang.langserver.common.utils.RecordUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Represents the properties of a data mapper node in the flow model.
@@ -126,6 +132,69 @@ public class DataMapper extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        return null;
+        Optional<Property> functionName = sourceBuilder.flowNode.getProperty(FUNCTION_NAME_KEY);
+        if (functionName.isEmpty()) {
+            throw new IllegalStateException("Function name must be defined for a data mapper node");
+        }
+
+        Optional<Property> inputs = sourceBuilder.flowNode.getProperty(INPUTS_KEY);
+        if (inputs.isEmpty()) {
+            throw new IllegalStateException("Inputs must be defined for a data mapper node");
+        }
+        List<String> inputArray = new ArrayList<>();
+        if (inputs.get().value() instanceof List) {
+            for (Object input : (List<?>) inputs.get().value()) {
+                inputArray.add(input.toString());
+            }
+        }
+
+        Optional<Property> output = sourceBuilder.flowNode.getProperty(OUTPUT_KEY);
+        if (output.isEmpty()) {
+            throw new IllegalStateException("Output must be defined for a data mapper node");
+        }
+
+        String bodyText = "";
+        Optional<Symbol> recordSymbol = sourceBuilder.getTypeSymbol(output.get().value().toString());
+        if (recordSymbol.isPresent()) {
+            TypeSymbol typeSymbol = ((TypeDefinitionSymbol) (recordSymbol.get())).typeDescriptor();
+            if (typeSymbol.typeKind() == TypeDescKind.RECORD) {
+                bodyText =
+                        RecordUtil.getFillAllRecordFieldInsertText(((RecordTypeSymbol) typeSymbol).fieldDescriptors());
+            }
+        }
+
+        sourceBuilder.token()
+                .keyword(SyntaxKind.FUNCTION_KEYWORD)
+                .name(functionName.get().value().toString())
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
+                .name(String.join(", ", inputArray))
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .keyword(SyntaxKind.RETURNS_KEYWORD)
+                .name(output.get().value().toString())
+                .keyword(SyntaxKind.RIGHT_DOUBLE_ARROW_TOKEN)
+                .openBrace()
+                .name(bodyText)
+                .closeBrace()
+                .stepOut()
+                .textEdit(false, "data_mappings.bal");
+
+        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
+        if (variable.isEmpty()) {
+            throw new IllegalStateException("Variable must be defined for a data mapper node");
+        }
+
+        String functionParameters = inputArray.stream()
+                .map(item -> item.split(" ")[1])
+                .collect(Collectors.joining(","));
+        sourceBuilder.newVariable(OUTPUT_KEY)
+                .token()
+                .name(functionName.get().value().toString())
+                .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
+                .name(functionParameters)
+                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .stepOut()
+                .textEdit(false);
+
+        return sourceBuilder.build();
     }
 }

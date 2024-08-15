@@ -18,6 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
@@ -64,7 +67,11 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable() {
-        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        return newVariable(Property.DATA_TYPE_KEY);
+    }
+
+    public SourceBuilder newVariable(String typeKey) {
+        Optional<Property> type = flowNode.getProperty(typeKey);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
@@ -89,27 +96,46 @@ public class SourceBuilder {
         textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange.endLine()));
 
         // Check if the import already exists
-        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
-                        .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
-                                flowNode.codedata().org()
-                                        .equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                                flowNode.codedata().module().equals(importDeclarationNode.moduleName().get(0).text()));
+        String org = flowNode.codedata().org();
+        String module = flowNode.codedata().module();
+        if (org != null && module != null) {
+            boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
+                    ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
+                            .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
+                                    org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                                    module.equals(importDeclarationNode.moduleName().get(0).text()));
 
-        // Add the import statement
-        if (!importExists) {
-            tokenBuilder
-                    .keyword(SyntaxKind.IMPORT_KEYWORD)
-                    .name(flowNode.codedata().getImportSignature())
-                    .endOfStatement();
-            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
+            // Add the import statement
+            if (!importExists) {
+                tokenBuilder
+                        .keyword(SyntaxKind.IMPORT_KEYWORD)
+                        .name(flowNode.codedata().getImportSignature())
+                        .endOfStatement();
+                textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
+            }
         }
 
         return this;
     }
 
+    public Optional<Symbol> getTypeSymbol(String typeName) {
+        try {
+            workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException(e);
+        }
+        SemanticModel semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
+        return semanticModel.moduleSymbols().stream().filter(
+                symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
+                        symbol.getName().get().equals(typeName)).findFirst();
+    }
+
     public SourceBuilder typedBindingPattern() {
-        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        return typedBindingPattern(Property.DATA_TYPE_KEY);
+    }
+
+    public SourceBuilder typedBindingPattern(String typeKey) {
+        Optional<Property> type = flowNode.getProperty(typeKey);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
@@ -128,7 +154,8 @@ public class SourceBuilder {
     public SourceBuilder children(List<FlowNode> flowNodes) {
         for (FlowNode node : flowNodes) {
             SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
-            Map<Path, List<TextEdit>> textEdits = NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
+            Map<Path, List<TextEdit>> textEdits =
+                    NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
             tokenBuilder.name(textEdits.get(filePath).get(0).getNewText());
         }
         return this;
