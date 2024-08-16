@@ -264,33 +264,31 @@ class CodeAnalyzer extends NodeVisitor {
             Branch.Builder elseBranchBuilder =
                     startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
                             Branch.Repeatable.ZERO_OR_ONE);
-            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get(), elseBranchBuilder);
-            elseBranchBuilder.nodes(elseBodyChildNodes);
+            analyzeElseBody(elseBody.get(), elseBranchBuilder);
             endBranch(elseBranchBuilder, elseBody.get());
         }
 
         endNode(ifElseStatementNode);
     }
 
-    private List<FlowNode> analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
-        return switch (elseBody.kind()) {
+private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
+        switch (elseBody.kind()) {
             case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), branchBuilder);
             case BLOCK_STATEMENT -> {
-                List<FlowNode> elseNodes = new ArrayList<>();
                 for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
                     genCommentNode(statement, branchBuilder);
                     statement.accept(this);
-                    elseNodes.add(buildNode());
+                    branchBuilder.node(buildNode());
                 }
                 genCommentNode(((BlockStatementNode) elseBody).closeBraceToken(), branchBuilder);
-                yield elseNodes;
             }
             case IF_ELSE_STATEMENT -> {
                 elseBody.accept(this);
-                yield List.of(buildNode());
+                branchBuilder.node(buildNode());
             }
-            default -> new ArrayList<>();
-        };
+            default -> {
+            }
+        }
     }
 
     @Override

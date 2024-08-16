@@ -617,176 +617,6 @@
                         "flags": 0
                       },
                       {
-                        "id": "65550",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "main.bal",
-                            "startLine": {
-                              "line": 34,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 36,
-                              "offset": 16
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "\n                // new data\n                ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "68495",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "main.bal",
-                            "startLine": {
-                              "line": 37,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 38,
-                              "offset": 16
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "                // function call\n                ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "70510",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "main.bal",
-                            "startLine": {
-                              "line": 39,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 41,
-                              "offset": 16
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "\n                // action call - redis set call\n                ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "73486",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "main.bal",
-                            "startLine": {
-                              "line": 42,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 44,
-                              "offset": 16
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "\n                // new data\n                ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "78415",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "main.bal",
-                            "startLine": {
-                              "line": 47,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 48,
-                              "offset": 16
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "                // return\n                ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
                         "id": "65073",
                         "metadata": {
                           "label": "get",
@@ -873,6 +703,40 @@
                         "flags": 1
                       },
                       {
+                        "id": "65550",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 34,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 36,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n                // new data\n                ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
                         "id": "68005",
                         "metadata": {
                           "label": "Custom Expression",
@@ -926,6 +790,40 @@
                         "flags": 1
                       },
                       {
+                        "id": "68495",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 37,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 38,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "                // function call\n                ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
                         "id": "70020",
                         "metadata": {
                           "label": "Custom Expression",
@@ -977,6 +875,40 @@
                           }
                         },
                         "flags": 1
+                      },
+                      {
+                        "id": "70510",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 39,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 41,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n                // action call - redis set call\n                ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
                       },
                       {
                         "id": "72988",
@@ -1039,6 +971,40 @@
                         "flags": 1
                       },
                       {
+                        "id": "73486",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 42,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 44,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n                // new data\n                ",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
                         "id": "75968",
                         "metadata": {
                           "label": "New Variable",
@@ -1085,6 +1051,40 @@
                               "description": "Type of the variable"
                             },
                             "value": "json",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "78415",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "main.bal",
+                            "startLine": {
+                              "line": 47,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 48,
+                              "offset": 16
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "                // return\n                ",
                             "optional": false,
                             "editable": true
                           }

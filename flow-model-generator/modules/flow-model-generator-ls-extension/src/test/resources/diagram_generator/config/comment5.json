@@ -275,7 +275,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n        // This is a comment for if-else bidy\n    ",
+                            "value": "\n        // This is a comment for if-else body\n    ",
                             "optional": false,
                             "editable": true
                           }
@@ -338,40 +338,6 @@
                         "flags": 0
                       },
                       {
-                        "id": "72482",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "Comment of a node"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 41,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 43,
-                              "offset": 4
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "value": "\n        // This is a comment for else bidy\n    ",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
                         "id": "71690",
                         "metadata": {
                           "label": "New Variable",
@@ -418,6 +384,40 @@
                               "description": "Type of the variable"
                             },
                             "value": "int",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      },
+                      {
+                        "id": "72482",
+                        "metadata": {
+                          "label": "Comment",
+                          "description": "Comment of a node"
+                        },
+                        "codedata": {
+                          "node": "COMMENT",
+                          "lineRange": {
+                            "fileName": "comment.bal",
+                            "startLine": {
+                              "line": 41,
+                              "offset": 0
+                            },
+                            "endLine": {
+                              "line": 43,
+                              "offset": 4
+                            }
+                          }
+                        },
+                        "returning": false,
+                        "properties": {
+                          "comment": {
+                            "metadata": {
+                              "label": "Comment",
+                              "description": "Comment to describe the flow"
+                            },
+                            "value": "\n        // This is a comment for else body\n    ",
                             "optional": false,
                             "editable": true
                           }

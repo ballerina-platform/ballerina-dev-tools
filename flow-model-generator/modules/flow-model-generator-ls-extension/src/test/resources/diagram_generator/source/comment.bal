@@ -35,12 +35,12 @@ public function commentInElseBody1(int i) {
         // This is a comment for i = 0
         int x = 0;
 
-        // This is a comment for if-else bidy
+        // This is a comment for if-else body
     } else {
         // This is a comment for x = 0
         int x = 0;
 
-        // This is a comment for else bidy
+        // This is a comment for else body
     }
 }
 
