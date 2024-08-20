@@ -33,7 +33,6 @@ import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
-import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
@@ -102,14 +101,11 @@ public class ModelGenerator {
         List<String> dataMappings = new ArrayList<>();
         if (dataMappingDoc != null) {
             ModulePartNode dataMappingModulePartNode = dataMappingDoc.syntaxTree().rootNode();
-            NodeList<ModuleMemberDeclarationNode> members = dataMappingModulePartNode.members();
-            for (ModuleMemberDeclarationNode member : members) {
+            for (ModuleMemberDeclarationNode member : dataMappingModulePartNode.members()) {
                 if (member.kind() == SyntaxKind.FUNCTION_DEFINITION) {
-                    FunctionDefinitionNode functionDefinitionNode = (FunctionDefinitionNode) member;
-                    dataMappings.add(functionDefinitionNode.functionName().text());
+                    dataMappings.add(((FunctionDefinitionNode) member).functionName().text());
                 }
             }
-
         }
 
         // Analyze the code block to find the flow nodes
@@ -127,19 +123,19 @@ public class ModelGenerator {
      * @return the client if the type symbol is a client, otherwise empty
      */
     private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol) {
-        Function<NonTerminalNode, NonTerminalNode> getParentNode;
-        NonTerminalNode parentNode;
+        Function<NonTerminalNode, NonTerminalNode> getStatementNode;
+        NonTerminalNode statementNode;
         TypeSymbol typeSymbol;
         String scope;
 
         switch (symbol.kind()) {
             case VARIABLE -> {
-                getParentNode = (NonTerminalNode node) -> node.parent().parent();
+                getStatementNode = (NonTerminalNode node) -> node.parent().parent();
                 typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
                 scope = Property.GLOBAL_SCOPE;
             }
             case CLASS_FIELD -> {
-                getParentNode = (NonTerminalNode node) -> node;
+                getStatementNode = (NonTerminalNode node) -> node;
                 typeSymbol = ((ClassFieldSymbol) symbol).typeDescriptor();
                 scope = Property.SERVICE_SCOPE;
             }
@@ -155,12 +151,12 @@ public class ModelGenerator {
             }
             NonTerminalNode childNode =
                     symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
-            parentNode = getParentNode.apply(childNode);
+            statementNode = getStatementNode.apply(childNode);
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of());
-        parentNode.accept(codeAnalyzer);
+        statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();
     }

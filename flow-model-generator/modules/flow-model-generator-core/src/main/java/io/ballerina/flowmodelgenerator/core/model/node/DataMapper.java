@@ -45,6 +45,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -94,23 +96,24 @@ public class DataMapper extends NodeBuilder {
             throw new RuntimeException(e);
         }
 
-        // TODO: Convert the following from 2n to n
-        // Get the visible variables to the cursor position
-        List<String> visibleVariables = semanticModel.visibleSymbols(document, context.position()).stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                .flatMap(symbol -> getVariableSignature(semanticModel, (VariableSymbol) symbol).stream())
-                .sorted()
-                .toList();
-        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.SET, visibleVariables, "");
+        Set<String> visibleVariables = new TreeSet<>();
+        Set<String> visibleRecordTypes = new TreeSet<>();
 
-        // Get the visible record types to the cursor position
-        List<String> visibleRecordTypes = semanticModel.visibleSymbols(document, context.position()).stream()
-                .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
-                .flatMap(symbol -> getRecordTypeSignature((TypeDefinitionSymbol) symbol).stream())
-                .sorted()
-                .toList();
-        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET, visibleRecordTypes,
-                "");
+        for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
+            if (symbol.kind() == SymbolKind.VARIABLE) {
+                getVariableSignature(semanticModel, (VariableSymbol) symbol)
+                        .ifPresent(visibleVariables::add);
+            } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
+                getRecordTypeSignature((TypeDefinitionSymbol) symbol)
+                        .ifPresent(visibleRecordTypes::add);
+            }
+        }
+
+        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.SET,
+                new ArrayList<>(visibleVariables), "");
+        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET,
+                new ArrayList<>(visibleRecordTypes), "");
+        ;
     }
 
     private static Optional<String> getVariableSignature(SemanticModel semanticModel, VariableSymbol symbol) {

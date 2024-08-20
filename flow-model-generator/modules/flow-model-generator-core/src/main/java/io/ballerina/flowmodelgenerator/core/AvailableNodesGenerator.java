@@ -27,7 +27,6 @@ import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.flowmodelgenerator.core.central.Central;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
@@ -73,6 +72,7 @@ public class AvailableNodesGenerator {
                 .forEach(connectionItems::add);
         this.rootBuilder.stepIn(Category.Name.CONNECTIONS).items(connectionItems).stepOut();
 
+        // TODO: Need to ensure that this is only called once.
         initializeCommonNodes();
         List<Item> items = this.rootBuilder.build().items();
         items.addAll(central.getFunctions());
@@ -82,28 +82,25 @@ public class AvailableNodesGenerator {
 
     private Optional<Category> getConnection(Symbol symbol) {
         try {
-            TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
-            TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
-            if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
-                    !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
+            TypeReferenceTypeSymbol typeDescriptorSymbol =
+                    (TypeReferenceTypeSymbol) ((VariableSymbol) symbol).typeDescriptor();
+            if (typeDescriptorSymbol.typeDescriptor().kind() != SymbolKind.CLASS ||
+                    !((ClassSymbol) typeDescriptorSymbol.typeDescriptor()).qualifiers().contains(Qualifier.CLIENT)) {
                 return Optional.empty();
             }
 
-            ModuleSymbol moduleSymbol = typeSymbol.getModule().orElseThrow();
-            String orgName = moduleSymbol.id().orgName();
-            String moduleName = moduleSymbol.getName().orElseThrow();
+            ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(FlowNode.Kind.NEW_CONNECTION)
-                    .org(orgName)
-                    .module(moduleName)
+                    .org(moduleSymbol.id().orgName())
+                    .module(moduleSymbol.getName().orElseThrow())
                     .object("Client")
                     .symbol("init")
                     .build();
             List<Item> connections = central.getConnections(codedata);
 
-            String varName = symbol.getName().orElseThrow();
             Metadata metadata = new Metadata.Builder<>(null)
-                    .label(varName)
+                    .label(symbol.getName().orElseThrow())
                     .build();
             return Optional.of(new Category(metadata, connections));
         } catch (RuntimeException ignored) {

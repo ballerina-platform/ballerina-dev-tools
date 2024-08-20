@@ -24,11 +24,12 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 /**
  * Represents an expression in the flow model.
  *
- * @param metadata  metadata of the property
- * @param valueType acceptable value types of the property
- * @param value     value of the property
- * @param optional  whether the property is optional
- * @param editable  whether the property is editable
+ * @param metadata            metadata of the property
+ * @param valueType           acceptable value types of the property
+ * @param valueTypeConstraint constraint of the value type
+ * @param value               value of the property
+ * @param optional            whether the property is optional
+ * @param editable            whether the property is editable
  * @since 1.4.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
@@ -161,6 +162,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
                             optional, editable);
             this.metadataBuilder = null;
             this.type = null;
+            this.typeConstraint = null;
             this.value = null;
             this.optional = false;
             this.editable = false;
