@@ -18,12 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -47,19 +50,18 @@ public class DefaultExpression extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        Optional<Property> expression = flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         if (expression.isPresent()) {
             sourceBuilder.token()
                     .expression(expression.get())
                     .endOfStatement();
-            return sourceBuilder.build(false);
+            return sourceBuilder.textEdit(false).build();
         }
 
-        Optional<Property> statement = flowNode.getProperty(STATEMENT_KEY);
+        Optional<Property> statement = sourceBuilder.flowNode.getProperty(STATEMENT_KEY);
         if (statement.isEmpty()) {
             throw new IllegalStateException(
                     "One of from the following properties is required: variable, expression, statement");
@@ -67,11 +69,11 @@ public class DefaultExpression extends NodeBuilder {
         sourceBuilder.token()
                 .expression(statement.get())
                 .endOfStatement();
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         properties().statement(null);
     }
 }

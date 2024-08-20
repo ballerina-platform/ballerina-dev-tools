@@ -28,7 +28,7 @@ public abstract class AbstractFlowModelResponse {
     private String errorMsg;
 
     public void setError(Throwable e) {
-        this.errorMsg = String.format("%s: %s", e.getCause(), e.getMessage());
+        this.errorMsg = e.toString();
     }
 
     public String errorMsg() {

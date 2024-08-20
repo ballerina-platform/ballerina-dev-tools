@@ -23,9 +23,10 @@ import com.google.gson.JsonElement;
 /**
  * Represents a request to the flow model getSourceCode API.
  *
+ * @param filePath file path of the source file
  * @param flowNode diagram node
  * @since 1.4.0
  */
-public record FlowModelSourceGeneratorRequest(JsonElement flowNode) {
+public record FlowModelSourceGeneratorRequest(String filePath, JsonElement flowNode) {
 
 }

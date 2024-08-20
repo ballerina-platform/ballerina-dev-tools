@@ -25,10 +25,6 @@ package io.ballerina.flowmodelgenerator.core;
  */
 public class Constants {
 
-    // Types
-    public static final String TYPE_STRING = "string";
-    public static final String TYPE_BOOLEAN = "boolean";
-
     // Check keywords
     public static final String CHECK = "check";
     public static final String CHECKPANIC = "checkpanic";

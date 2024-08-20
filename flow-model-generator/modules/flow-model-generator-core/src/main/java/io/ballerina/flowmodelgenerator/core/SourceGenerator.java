@@ -23,9 +23,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generates source code from the flow model.
@@ -35,8 +39,12 @@ import java.util.List;
 public class SourceGenerator {
 
     private final Gson gson;
+    private final WorkspaceManager workspaceManager;
+    private final Path filePath;
 
-    public SourceGenerator() {
+    public SourceGenerator(WorkspaceManager workspaceManager, Path filePath) {
+        this.workspaceManager = workspaceManager;
+        this.filePath = filePath;
         gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .disableHtmlEscaping()
@@ -51,10 +59,9 @@ public class SourceGenerator {
      */
     public JsonElement toSourceCode(JsonElement diagramNode) {
         FlowNode flowNode = gson.fromJson(diagramNode, FlowNode.class);
-        List<TextEdit> textEdits = List.of(
-                new TextEdit(CommonUtils.toRange(flowNode.codedata().lineRange()),
-                        NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(flowNode))
-        );
+        SourceBuilder sourceBuilder = new SourceBuilder(flowNode, workspaceManager, filePath);
+        Map<Path, List<TextEdit>> textEdits =
+                NodeBuilder.getNodeFromKind(flowNode.codedata().node()).toSource(sourceBuilder);
         return gson.toJsonTree(textEdits);
     }
 }

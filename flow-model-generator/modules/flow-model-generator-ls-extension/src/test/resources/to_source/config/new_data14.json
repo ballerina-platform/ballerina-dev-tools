@@ -1,0 +1,74 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "55723",
+    "metadata": {
+      "label": "New Variable",
+      "description": "New variable 'x2' with type 'xml'"
+    },
+    "codedata": {
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 24,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 24,
+          "offset": 47
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "lang.xml:Element",
+        "value": "xml `<book>The Lost World</book>`",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "x2",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "xml",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 24,
+            "character": 4
+          },
+          "end": {
+            "line": 24,
+            "character": 47
+          }
+        },
+        "newText": "xml x2 = xml `<book>The Lost World</book>`;"
+      }
+    ]
+  }
+}

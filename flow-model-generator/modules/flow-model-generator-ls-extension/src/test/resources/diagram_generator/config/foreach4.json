@@ -218,7 +218,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
-                "value": "annotations:error",
+                "value": "error",
                 "optional": false,
                 "editable": true
               }
@@ -251,7 +251,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "annotations:error",
+                    "valueType": "error",
                     "value": "e",
                     "optional": false,
                     "editable": true

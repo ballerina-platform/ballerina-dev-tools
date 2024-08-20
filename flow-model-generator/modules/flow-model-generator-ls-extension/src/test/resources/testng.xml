@@ -26,6 +26,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.SourceGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.AvailableNodesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.NodeTemplateTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.GetConnectorsTest"/>
         </classes>
     </test>
 </suite>

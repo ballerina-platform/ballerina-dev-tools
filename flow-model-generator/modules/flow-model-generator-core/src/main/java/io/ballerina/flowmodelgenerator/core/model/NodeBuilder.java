@@ -37,6 +37,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
@@ -54,7 +55,11 @@ import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import io.ballerina.tools.text.LinePosition;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -66,6 +71,15 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Supplier;
 
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.FUNCTION_NAME_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_LABEL;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_DOC;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_KEY;
+import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_LABEL;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_KEY;
@@ -110,6 +124,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
+        put(FlowNode.Kind.DATA_MAPPER, DataMapper::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -123,14 +138,14 @@ public abstract class NodeBuilder {
 
     public abstract void setConcreteConstData();
 
-    public NodeBuilder setTemplateData(Codedata codedata) {
-        setConcreteTemplateData(codedata);
+    public NodeBuilder setTemplateData(TemplateContext context) {
+        setConcreteTemplateData(context);
         return this;
     }
 
-    public abstract void setConcreteTemplateData(Codedata codedata);
+    public abstract void setConcreteTemplateData(TemplateContext context);
 
-    public abstract String toSource(FlowNode flowNode);
+    public abstract Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder);
 
     public NodeBuilder() {
         this.branches = new ArrayList<>();
@@ -204,6 +219,11 @@ public abstract class NodeBuilder {
                 codedataBuilder == null ? null : codedataBuilder.build(), true);
     }
 
+    public record TemplateContext(WorkspaceManager workspaceManager, Path filePath, LinePosition position,
+                                  Codedata codedata) {
+
+    }
+
     /**
      * Represents a builder for the node properties of a flow node.
      *
@@ -240,16 +260,21 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            Property property = propertyBuilder
+        public PropertiesBuilder<T> type(Node node) {
+            propertyBuilder
                     .metadata()
-                    .label(Property.DATA_VARIABLE_LABEL)
-                    .description(Property.DATA_VARIABLE_DOC)
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
-                    .editable()
-                    .build();
-            addProperty(Property.DATA_VARIABLE_KEY, property);
+                    .editable();
+
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            return this;
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node) {
+            data(node);
 
             propertyBuilder
                     .metadata()
@@ -261,6 +286,20 @@ public abstract class NodeBuilder {
             optTypeSymbol.ifPresent(
                     typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> data(Node node) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
+                    .stepOut()
+                    .value(CommonUtils.getVariableName(node))
+                    .editable()
+                    .build();
+            addProperty(Property.DATA_VARIABLE_KEY, property);
 
             return this;
         }
@@ -316,6 +355,76 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(key, client);
+            return this;
+        }
+
+        // TODO: Think how we can reuse this logic with the functionArguments method
+        public PropertiesBuilder<T> inputs(SeparatedNodeList<FunctionArgumentNode> arguments,
+                                           List<ParameterSymbol> parameterSymbols) {
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
+                    }
+                }
+            }
+
+            propertyBuilder = Property.Builder.getInstance();
+            int numParams = parameterSymbols.size();
+            int numPositionalArgs = positionalArgs.size();
+
+            List<String> inputs = new ArrayList<>();
+            for (int i = 0; i < numParams; i++) {
+                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+                Optional<String> name = parameterSymbol.getName();
+                if (name.isEmpty()) {
+                    continue;
+                }
+                String parameterName = name.get();
+                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
+
+                String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false);
+                String variableName = CommonUtils.getVariableName(paramValue);
+                inputs.add(type + " " + variableName);
+            }
+
+            propertyBuilder.metadata()
+                    .label(INPUTS_LABEL)
+                    .description(INPUTS_DOC)
+                    .stepOut()
+                    .type(Property.ValueType.SET)
+                    .value(inputs)
+                    .editable();
+
+            addProperty(INPUTS_KEY, propertyBuilder.build());
+            return this;
+        }
+
+        public PropertiesBuilder<T> output(Node node) {
+            propertyBuilder
+                    .metadata()
+                        .label(OUTPUT_LABEL)
+                        .description(OUTPUT_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.SET)
+                    .editable();
+
+            Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+            optTypeSymbol.ifPresent(
+                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
+
+            addProperty(OUTPUT_KEY, propertyBuilder.build());
             return this;
         }
 
@@ -497,7 +606,38 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.ON_ERROR_TYPE_KEY, type);
+            return this;
+        }
 
+        public PropertiesBuilder<T> functionName(String functionName) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(FUNCTION_NAME_LABEL)
+                        .description(FUNCTION_NAME_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.IDENTIFIER)
+                    .value(functionName)
+                    .editable()
+                    .build();
+
+            addProperty(FUNCTION_NAME_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultCustom(String key, String label, String description, Property.ValueType type,
+                                                  Object typeConstraint, String value) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(label)
+                        .description(description)
+                        .stepOut()
+                    .type(type)
+                    .typeConstraint(typeConstraint)
+                    .value(value)
+                    .editable()
+                    .build();
+
+            addProperty(key, property);
             return this;
         }
 
@@ -543,14 +683,14 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> scope() {
+        public PropertiesBuilder<T> scope(String scope) {
             Property property = propertyBuilder
                     .metadata()
                     .label(Property.SCOPE_LABEL)
                     .description(Property.SCOPE_DOC)
                     .stepOut()
                     .type(Property.ValueType.ENUM)
-                    .value("Global")
+                    .value(scope)
                     .editable()
                     .build();
             addProperty(Property.SCOPE_KEY, property);

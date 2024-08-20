@@ -1,0 +1,113 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "metadata": {
+      "label": "set",
+      "description": "Set the value of a key.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+    },
+    "codedata": {
+      "node": "ACTION_CALL",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "set",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store the connection"
+        },
+        "valueType": "Identifier",
+        "value": "res",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the result"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
+      },
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "value": {
+        "metadata": {
+          "label": "value",
+          "description": "Values\n"
+        },
+        "valueType": "Expression",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/redis;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "string res = check connection->set(, );"
+      }
+    ]
+  }
+}

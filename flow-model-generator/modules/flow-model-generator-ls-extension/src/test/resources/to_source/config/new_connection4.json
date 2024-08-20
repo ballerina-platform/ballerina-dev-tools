@@ -1,0 +1,97 @@
+{
+  "source": "new_connection4/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "42732",
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "init",
+      "lineRange": {
+        "fileName": "new_connection.bal",
+        "startLine": {
+          "line": 11,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 76
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true
+      },
+      "url": {
+        "metadata": {
+          "label": "url",
+          "description": "URL of the target service\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"http://localhost:9090\"",
+        "optional": false,
+        "editable": true
+      },
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `client`\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "moduleHttpExCl",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "http:Client",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "new_connection4/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 63
+          },
+          "end": {
+            "line": 2,
+            "character": 63
+          }
+        },
+        "newText": "http:Client moduleHttpExCl = check new (\"http://localhost:9090\");"
+      }
+    ]
+  }
+}

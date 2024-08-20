@@ -1,0 +1,103 @@
+{
+  "source": "data_mapper/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "60699",
+    "metadata": {
+      "label": "Data Mapper",
+      "description": "Map data from multiple variables to a record type"
+    },
+    "codedata": {
+      "node": "DATA_MAPPER",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 29,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 29,
+          "offset": 63
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Data mapper name",
+          "description": "Name of the data mapper function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "transformToEmployee",
+        "optional": false,
+        "editable": true
+      },
+      "output": {
+        "metadata": {
+          "label": "Output",
+          "description": "Output of the data mapper function"
+        },
+        "valueType": "SET",
+        "value": "new_connection1:Employee",
+        "optional": false,
+        "editable": true
+      },
+      "inputs": {
+        "metadata": {
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
+        },
+        "valueType": "SET",
+        "value": [
+          "new_connection1:Person person",
+          "new_connection1:Admission admission"
+        ],
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "employee",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "data_mapper/data_mappings.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 0
+          },
+          "end": {
+            "line": 11,
+            "character": 0
+          }
+        },
+        "newText": "function transformToEmployee(new_connection1 :Personperson, new_connection1 :Admissionadmission) returns new_connection1:Employee=> {\n}"
+      }
+    ],
+    "data_mapper/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 29,
+            "character": 4
+          },
+          "end": {
+            "line": 29,
+            "character": 63
+          }
+        },
+        "newText": "new_connection1:Employee employee = transformToEmployee(person, admission)"
+      }
+    ]
+  }
+}

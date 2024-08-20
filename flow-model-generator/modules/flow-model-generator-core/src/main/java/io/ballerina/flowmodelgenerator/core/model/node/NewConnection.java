@@ -20,12 +20,16 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -44,22 +48,30 @@ public class NewConnection extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
-        return sourceBuilder.token()
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
                 .stepOut()
                 .functionParameters(nodeTemplate,
-                        Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY))
-                .build(false);
+                        Set.of(Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, Property.SCOPE_KEY));
+
+        Optional<Property> scope = sourceBuilder.flowNode.getProperty(Property.SCOPE_KEY);
+        if (scope.isEmpty()) {
+            throw new IllegalStateException("Scope is not defined for the new connection node");
+        }
+        return switch (scope.get().value().toString()) {
+            case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
+            case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
+            default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        };
     }
 }

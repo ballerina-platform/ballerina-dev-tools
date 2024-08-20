@@ -40,6 +40,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
     public enum Name {
         ROOT("Root", "The topmost category of the palette", null),
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
+        CONNECTIONS("Connections", "The connections used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
@@ -72,6 +73,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         private final Builder parentBuilder;
         private final Map<Name, Builder> childBuilders;
         private final List<AvailableNode> availableNodes;
+        private List<Item> prebuiltItems;
 
         public Builder(Name name, Builder parentBuilder) {
             this.name = name;
@@ -102,7 +104,19 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return this;
         }
 
+        public Builder items(List<Item> items) {
+            this.prebuiltItems = items;
+            return this;
+        }
+
         public Category build() {
+            Metadata newMetadata = new Metadata(name.name, name.description, name.keywords, null);
+
+            // Check if there exist prebuilt items
+            if (this.prebuiltItems != null) {
+                return new Category(newMetadata, this.prebuiltItems);
+            }
+
             // Check for illegal state where both nodes and categories are present
             if (!this.availableNodes.isEmpty() && !this.childBuilders.isEmpty()) {
                 throw new IllegalStateException("A category cannot have both categories and nodes as items");
@@ -119,7 +133,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             }
 
             // Create and return the new category with the built items
-            return new Category(new Metadata(name.name, name.description, name.keywords, null), items);
+            return new Category(newMetadata, items);
         }
     }
 }
