@@ -64,7 +64,7 @@ public class SourceGeneratorTest extends AbstractLSTest {
             Path fullPath = Paths.get(entry.getKey());
             String relativePath = sourceDir.relativize(fullPath).toString();
 
-            List<TextEdit> textEdits = testConfig.output().get(relativePath);
+            List<TextEdit> textEdits = testConfig.output().get(relativePath.replace("\\", "/"));
             if (textEdits == null) {
                 log.info("No text edits found for the file: " + relativePath);
                 assertFailure = true;
