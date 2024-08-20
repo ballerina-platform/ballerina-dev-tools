@@ -99,6 +99,7 @@ public class DataMapper extends NodeBuilder {
         List<String> visibleVariables = semanticModel.visibleSymbols(document, context.position()).stream()
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
                 .flatMap(symbol -> getVariableSignature(semanticModel, (VariableSymbol) symbol).stream())
+                .sorted()
                 .toList();
         properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.SET, visibleVariables, "");
 
@@ -106,6 +107,7 @@ public class DataMapper extends NodeBuilder {
         List<String> visibleRecordTypes = semanticModel.visibleSymbols(document, context.position()).stream()
                 .filter(symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION)
                 .flatMap(symbol -> getRecordTypeSignature((TypeDefinitionSymbol) symbol).stream())
+                .sorted()
                 .toList();
         properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET, visibleRecordTypes,
                 "");

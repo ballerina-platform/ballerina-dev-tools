@@ -47,9 +47,9 @@
         "valueType": "SET",
         "valueTypeConstraint": [
           "http:Client cl",
-          "string z",
           "int x",
-          "new_connection1:Address address"
+          "new_connection1:Address address",
+          "string z"
         ],
         "value": "",
         "optional": false,
@@ -62,10 +62,10 @@
         },
         "valueType": "SET",
         "valueTypeConstraint": [
-          "Admission",
           "Address",
-          "Location",
+          "Admission",
           "Employee",
+          "Location",
           "Person"
         ],
         "value": "",
