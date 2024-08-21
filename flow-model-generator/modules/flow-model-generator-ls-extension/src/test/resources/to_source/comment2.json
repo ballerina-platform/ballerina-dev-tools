@@ -27,7 +27,7 @@
           "label": "Comment",
           "description": "Comment to describe the flow"
         },
-        "value": "        // This is a comment for a statement\n        ",
+        "value": "This is a comment for a statement",
         "optional": false,
         "editable": true
       }
@@ -46,7 +46,7 @@
           "character": 8
         }
       },
-      "newText": "        // This is a comment for a statement\n        "
+      "newText": "// This is a comment for a statement\n"
     }
   ]
 }

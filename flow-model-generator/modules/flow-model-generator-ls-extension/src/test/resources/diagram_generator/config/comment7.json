@@ -198,7 +198,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "        // This is a comment in on fail\n        ",
+                    "value": "This is a comment in on fail",
                     "optional": false,
                     "editable": true
                   }
@@ -285,7 +285,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n        // Panic with error `err`\n    ",
+                    "value": "Panic with error `err`",
                     "optional": false,
                     "editable": true
                   }

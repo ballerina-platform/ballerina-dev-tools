@@ -81,7 +81,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
-            "value": "        // error handler\n        ",
+            "value": "error handler",
             "optional": false,
             "editable": true
           }
@@ -156,7 +156,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "            // new data\n            ",
+                    "value": "new data",
                     "optional": false,
                     "editable": true
                   }
@@ -243,7 +243,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "            // action call - redis get call\n            ",
+                    "value": "action call - redis get call",
                     "optional": false,
                     "editable": true
                   }
@@ -345,7 +345,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n            // if node\n            ",
+                    "value": "if node",
                     "optional": false,
                     "editable": true
                   }
@@ -432,7 +432,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "                // new data\n                ",
+                            "value": "new data",
                             "optional": false,
                             "editable": true
                           }
@@ -519,7 +519,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "                // return\n                ",
+                            "value": "return",
                             "optional": false,
                             "editable": true
                           }
@@ -609,7 +609,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "                // action call - http get call\n                ",
+                            "value": "action call - http get call",
                             "optional": false,
                             "editable": true
                           }
@@ -729,7 +729,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n                // new data\n                ",
+                            "value": "new data",
                             "optional": false,
                             "editable": true
                           }
@@ -816,7 +816,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "                // function call\n                ",
+                            "value": "function call",
                             "optional": false,
                             "editable": true
                           }
@@ -903,7 +903,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n                // action call - redis set call\n                ",
+                            "value": "action call - redis set call",
                             "optional": false,
                             "editable": true
                           }
@@ -997,7 +997,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n                // new data\n                ",
+                            "value": "new data",
                             "optional": false,
                             "editable": true
                           }
@@ -1084,7 +1084,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "                // return\n                ",
+                            "value": "return",
                             "optional": false,
                             "editable": true
                           }
@@ -1208,7 +1208,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "            // library call - log error\n            ",
+                    "value": "library call - log error",
                     "optional": false,
                     "editable": true
                   }
@@ -1309,7 +1309,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "            // return \n            ",
+                    "value": "return ",
                     "optional": false,
                     "editable": true
                   }

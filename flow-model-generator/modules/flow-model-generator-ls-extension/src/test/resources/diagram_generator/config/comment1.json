@@ -62,7 +62,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
-            "value": "    // Create variable name i\n    // This is an additional comment\n    ",
+            "value": "Create variable name i\nThis is an additional comment",
             "optional": false,
             "editable": true
           }

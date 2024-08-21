@@ -156,7 +156,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "        // Increment `x`\n        ",
+                    "value": "Increment `x`",
                     "optional": false,
                     "editable": true
                   }
@@ -235,7 +235,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n        // Precess `x`\n    ",
+                    "value": "Precess `x`",
                     "optional": false,
                     "editable": true
                   }

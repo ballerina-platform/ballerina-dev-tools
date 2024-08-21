@@ -103,7 +103,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "        // Initialize `i`\n        ",
+                    "value": "Initialize `i`",
                     "optional": false,
                     "editable": true
                   }
@@ -190,7 +190,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n        // Lock the variable `i`\n    ",
+                    "value": "Lock the variable `i`",
                     "optional": false,
                     "editable": true
                   }

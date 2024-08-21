@@ -27,7 +27,7 @@
           "label": "Comment",
           "description": "Comment to describe the flow"
         },
-        "value": "    // This is a function body comment\n    // to generate AI flow\n",
+        "value": "This is a function body comment\nto generate AI flow",
         "optional": false,
         "editable": true
       }
@@ -46,7 +46,7 @@
           "character": 0
         }
       },
-      "newText": "    // This is a function body comment\n    // to generate AI flow\n"
+      "newText": "// This is a function body comment\n// to generate AI flow\n"
     }
   ]
 }

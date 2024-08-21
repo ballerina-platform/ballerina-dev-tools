@@ -188,7 +188,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n        // This is a comment for i = 0\n        ",
+                            "value": "This is a comment for i = 0",
                             "optional": false,
                             "editable": true
                           }
@@ -275,7 +275,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n        // This is a comment for if-else body\n    ",
+                            "value": "This is a comment for if-else body",
                             "optional": false,
                             "editable": true
                           }
@@ -330,7 +330,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "        // This is a comment for x = 0\n        ",
+                            "value": "This is a comment for x = 0",
                             "optional": false,
                             "editable": true
                           }
@@ -417,7 +417,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
-                            "value": "\n        // This is a comment for else body\n    ",
+                            "value": "This is a comment for else body",
                             "optional": false,
                             "editable": true
                           }

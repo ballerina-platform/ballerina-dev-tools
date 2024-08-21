@@ -399,7 +399,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
-            "value": "\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n",
+            "value": "var myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");",
             "optional": false,
             "editable": true
           }

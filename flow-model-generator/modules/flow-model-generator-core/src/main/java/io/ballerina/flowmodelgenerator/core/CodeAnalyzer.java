@@ -788,12 +788,24 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
 
     private String getComment(MinutiaeList minutiaes) {
         int size = minutiaes.size();
-        StringBuilder commentBuilder = new StringBuilder();
+        List<String> commentLines = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            commentBuilder.append(minutiaes.get(i).text());
+            String minutiae = minutiaes.get(i).text();
+            String[] splits = minutiae.split("// ");
+            if (splits.length >= 2) {
+                commentLines.add(splits[1]);
+            }
         }
-        String comment = commentBuilder.toString();
-        return comment.trim().startsWith("//") ? comment : "";
+        if (commentLines.isEmpty()) {
+            return "";
+        }
+        StringBuilder commentBuilder = new StringBuilder();
+        commentBuilder.append(commentLines.get(0));
+        for (int i = 1; i < commentLines.size(); i++) {
+            commentBuilder.append("\n");
+            commentBuilder.append(commentLines.get(i));
+        }
+        return commentBuilder.toString();
     }
 
     private void genCommentNode(Node node, Branch.Builder builder) {

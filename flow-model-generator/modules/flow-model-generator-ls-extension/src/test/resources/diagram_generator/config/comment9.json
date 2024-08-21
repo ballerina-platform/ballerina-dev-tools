@@ -103,7 +103,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "        // Commit the trasaction\n        ",
+                    "value": "Commit the trasaction",
                     "optional": false,
                     "editable": true
                   }
@@ -190,7 +190,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n        // Generate new flow nodes\n    ",
+                    "value": "Generate new flow nodes",
                     "optional": false,
                     "editable": true
                   }

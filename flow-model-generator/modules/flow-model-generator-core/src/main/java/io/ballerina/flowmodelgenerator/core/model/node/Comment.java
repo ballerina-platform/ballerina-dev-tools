@@ -44,7 +44,19 @@ public class Comment extends NodeBuilder {
     @Override
     public String toSource(FlowNode flowNode) {
         Optional<Property> property = flowNode.getProperty(Property.COMMENT_KEY);
-        return property.isPresent() ? property.get().toSourceCode() : "";
+        if (property.isEmpty()) {
+            return "";
+        }
+        StringBuilder commentBuilder = new StringBuilder();
+        String comment = property.get().toSourceCode();
+        String[] splits = comment.split("\n");
+        if (splits.length == 0) {
+            return commentBuilder.append("// ").append(comment).append("\n").toString();
+        }
+        for (String split : splits) {
+            commentBuilder.append("// ").append(split).append("\n");
+        }
+        return commentBuilder.toString();
     }
 
     @Override

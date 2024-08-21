@@ -115,7 +115,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
-            "value": "\n    // This is a while block\n    ",
+            "value": "This is a while block",
             "optional": false,
             "editable": true
           }
@@ -190,7 +190,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "        // update `x`\n        ",
+                    "value": "update `x`",
                     "optional": false,
                     "editable": true
                   }
@@ -269,7 +269,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
-                    "value": "\n        // Generate new node\n    ",
+                    "value": "Generate new node",
                     "optional": false,
                     "editable": true
                   }
