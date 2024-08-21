@@ -30,7 +30,8 @@
               "line": 25,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataXml() {\n    string content = \"create xml\";\n    xml x1 = xml `<p>${content}</p>`;\n    xml x2 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 22,
               "offset": 34
             }
-          }
+          },
+          "sourceCode": "string content = \"create xml\";"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 23,
               "offset": 37
             }
-          }
+          },
+          "sourceCode": "xml x1 = xml `<p>${content}</p>`;"
         },
         "returning": false,
         "properties": {
@@ -159,7 +162,8 @@
               "line": 24,
               "offset": 47
             }
-          }
+          },
+          "sourceCode": "xml x2 = xml `<book>The Lost World</book>`;"
         },
         "returning": false,
         "properties": {

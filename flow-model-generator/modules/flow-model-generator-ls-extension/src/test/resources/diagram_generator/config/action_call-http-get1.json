@@ -29,7 +29,8 @@
               "line": 28,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get apples() returns http:ClientError? {\n        var res1 = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json, headers = ());\n        json res2 = check foodClient->/western/apples.get();\n        json res3 = check foodClient->/apples.get();\n        json res4 = check foodClient->/.get();\n        var res5 = check foodClient->/apples.get(targetType = json);\n        json res6 = check foodClient->/apples.get();\n        json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.get();\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();\n    }"
         },
         "returning": false,
         "properties": {
@@ -77,7 +78,8 @@
               "line": 14,
               "offset": 71
             }
-          }
+          },
+          "sourceCode": "var res1 = check foodClient->get(\"/apples\", targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -164,7 +166,8 @@
               "line": 15,
               "offset": 64
             }
-          }
+          },
+          "sourceCode": "_ = check foodClient->get(\"/apples\", targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -233,7 +236,8 @@
               "line": 16,
               "offset": 78
             }
-          }
+          },
+          "sourceCode": "_ = check foodClient->get(\"/apples\", targetType = json, headers = ());"
         },
         "returning": false,
         "properties": {
@@ -303,7 +307,8 @@
               "line": 17,
               "offset": 60
             }
-          }
+          },
+          "sourceCode": "json res2 = check foodClient->/western/apples.get();"
         },
         "returning": false,
         "properties": {
@@ -379,7 +384,8 @@
               "line": 18,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "json res3 = check foodClient->/apples.get();"
         },
         "returning": false,
         "properties": {
@@ -455,7 +461,8 @@
               "line": 19,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "json res4 = check foodClient->/.get();"
         },
         "returning": false,
         "properties": {
@@ -531,7 +538,8 @@
               "line": 20,
               "offset": 68
             }
-          }
+          },
+          "sourceCode": "var res5 = check foodClient->/apples.get(targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -608,7 +616,8 @@
               "line": 21,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "json res6 = check foodClient->/apples.get();"
         },
         "returning": false,
         "properties": {
@@ -684,7 +693,8 @@
               "line": 25,
               "offset": 11
             }
-          }
+          },
+          "sourceCode": "json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
         },
         "returning": false,
         "properties": {
@@ -761,7 +771,8 @@
               "line": 26,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "Food res8 = check foodClient->/apples.get();"
         },
         "returning": false,
         "properties": {
@@ -837,7 +848,8 @@
               "line": 27,
               "offset": 70
             }
-          }
+          },
+          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();"
         },
         "returning": false,
         "properties": {
@@ -914,7 +926,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {

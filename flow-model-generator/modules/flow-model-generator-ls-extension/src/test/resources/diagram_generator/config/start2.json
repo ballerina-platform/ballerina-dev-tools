@@ -30,7 +30,8 @@
               "line": 24,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 21,
               "offset": 25
             }
-          }
+          },
+          "sourceCode": "Foo1 f1 = new(\"foo\");"
         },
         "returning": false,
         "properties": {
@@ -96,7 +98,8 @@
               "line": 23,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start f1->getName()"
         },
         "returning": false,
         "properties": {
@@ -131,7 +134,8 @@
               "line": 23,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<string> name = start f1->getName();"
         },
         "returning": false,
         "properties": {

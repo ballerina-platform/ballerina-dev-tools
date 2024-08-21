@@ -30,7 +30,8 @@
               "line": 13,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLock2() {\n    lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 12,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 12,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 8,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -147,7 +151,8 @@
                       "line": 11,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "lock {\n            i = 3;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -166,7 +171,8 @@
                           "line": 11,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            i = 3;\n        }"
                     },
                     "repeatable": "ONE",
                     "children": [
@@ -188,7 +194,8 @@
                               "line": 10,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "i = 3;"
                         },
                         "returning": false,
                         "properties": {

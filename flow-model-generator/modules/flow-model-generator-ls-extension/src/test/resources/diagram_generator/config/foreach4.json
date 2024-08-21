@@ -30,7 +30,8 @@
               "line": 30,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function testForeachWithOnFail2() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 24,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 29,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "foreach int item in intArr {\n        _ = item;\n    } on fail var e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +128,8 @@
                   "line": 27,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +151,8 @@
                       "line": 26,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "_ = item;"
                 },
                 "returning": false,
                 "properties": {
@@ -191,7 +196,8 @@
                   "line": 29,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -242,7 +248,8 @@
                       "line": 28,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {

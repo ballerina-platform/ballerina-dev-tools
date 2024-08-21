@@ -30,7 +30,8 @@
               "line": 14,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc3() {\n    panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 13,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
         },
         "returning": false,
         "properties": {

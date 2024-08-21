@@ -30,7 +30,8 @@
               "line": 53,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function transactionWithOnFail3() returns error? {\n    transaction {\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 52,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 50,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 48,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "transaction {\n            var _ = check commit;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -113,7 +117,8 @@
                           "line": 48,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            var _ = check commit;\n        }"
                     },
                     "repeatable": "ONE",
                     "children": [
@@ -135,7 +140,8 @@
                               "line": 47,
                               "offset": 33
                             }
-                          }
+                          },
+                          "sourceCode": "var _ = check commit;"
                         },
                         "returning": false,
                         "properties": {
@@ -193,7 +199,8 @@
                       "line": 49,
                       "offset": 29
                     }
-                  }
+                  },
+                  "sourceCode": "var _ = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -245,7 +252,8 @@
                   "line": 52,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -296,7 +304,8 @@
                       "line": 51,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {

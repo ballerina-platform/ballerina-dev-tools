@@ -29,7 +29,8 @@
               "line": 22,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function accessor path() {\n\n    }"
         },
         "returning": false,
         "properties": {

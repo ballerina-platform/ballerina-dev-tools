@@ -30,7 +30,8 @@
               "line": 10,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc2() {\n    panic error(\"AssertionError\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 9,
               "offset": 34
             }
-          }
+          },
+          "sourceCode": "panic error(\"AssertionError\");"
         },
         "returning": false,
         "properties": {

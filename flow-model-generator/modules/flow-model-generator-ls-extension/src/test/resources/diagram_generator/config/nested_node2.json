@@ -29,7 +29,8 @@
               "line": 20,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get path2(boolean isKandy) returns error? {\n        transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 19,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +93,8 @@
                   "line": 19,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -113,7 +116,8 @@
                       "line": 17,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -132,7 +136,8 @@
                           "line": 15,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -171,7 +176,8 @@
                               "line": 14,
                               "offset": 67
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
                         },
                         "returning": false,
                         "properties": {
@@ -251,7 +257,8 @@
                           "line": 17,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -278,7 +285,8 @@
                               "line": 16,
                               "offset": 69
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/colombo\");"
                         },
                         "returning": false,
                         "properties": {
@@ -364,7 +372,8 @@
                       "line": 18,
                       "offset": 40
                     }
-                  }
+                  },
+                  "sourceCode": "error? unionResult = commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -427,7 +436,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

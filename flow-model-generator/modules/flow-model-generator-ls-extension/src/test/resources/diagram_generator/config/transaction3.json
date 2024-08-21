@@ -30,7 +30,8 @@
               "line": 26,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testTransaction3() returns error? {\n    transaction {\n        transaction {\n            var res = check commit;\n        }\n        var res = check commit;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 25,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        transaction {\n            var res = check commit;\n        }\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 25,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        transaction {\n            var res = check commit;\n        }\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 23,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "transaction {\n            var res = check commit;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -113,7 +117,8 @@
                           "line": 23,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            var res = check commit;\n        }"
                     },
                     "repeatable": "ONE",
                     "children": [
@@ -135,7 +140,8 @@
                               "line": 22,
                               "offset": 35
                             }
-                          }
+                          },
+                          "sourceCode": "var res = check commit;"
                         },
                         "returning": false,
                         "properties": {
@@ -193,7 +199,8 @@
                       "line": 24,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {

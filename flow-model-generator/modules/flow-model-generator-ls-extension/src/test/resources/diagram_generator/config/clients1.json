@@ -30,7 +30,8 @@
               "line": 29,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -58,7 +59,8 @@
               "line": 14,
               "offset": 51
             }
-          }
+          },
+          "sourceCode": "json moduleVal = check moduleCl->get(\"/hello\");"
         },
         "returning": false,
         "properties": {
@@ -139,7 +141,8 @@
               "line": 15,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "myModuleCl->myRemoteFn();"
         },
         "returning": false,
         "flags": 0
@@ -166,7 +169,8 @@
               "line": 17,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "http:Client localCl = check new (\"http://localhost:8080\");"
         },
         "returning": false,
         "properties": {
@@ -243,7 +247,8 @@
               "line": 18,
               "offset": 49
             }
-          }
+          },
+          "sourceCode": "json localVal = check localCl->get(\"/hello\");"
         },
         "returning": false,
         "properties": {
@@ -324,7 +329,8 @@
               "line": 19,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "MyClient myLocalCl = new;"
         },
         "returning": false,
         "properties": {
@@ -367,7 +373,8 @@
               "line": 20,
               "offset": 28
             }
-          }
+          },
+          "sourceCode": "myLocalCl->myRemoteFn();"
         },
         "returning": false,
         "flags": 0
@@ -430,7 +437,8 @@
               "line": 8,
               "offset": 59
             }
-          }
+          },
+          "sourceCode": "http:Client moduleCl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -502,7 +510,8 @@
               "line": 10,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "MyClient myExplicitModuleCl = new MyClient();"
         },
         "returning": false,
         "properties": {
@@ -545,7 +554,8 @@
               "line": 9,
               "offset": 26
             }
-          }
+          },
+          "sourceCode": "MyClient myModuleCl = new;"
         },
         "returning": false,
         "properties": {

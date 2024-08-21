@@ -30,7 +30,8 @@
               "line": 19,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataXml() {\n    xml x1 = xml `<p>content</p>`;\n    x1 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 17,
               "offset": 34
             }
-          }
+          },
+          "sourceCode": "xml x1 = xml `<p>content</p>`;"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 18,
               "offset": 43
             }
-          }
+          },
+          "sourceCode": "x1 = xml `<book>The Lost World</book>`;"
         },
         "returning": false,
         "properties": {

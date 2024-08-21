@@ -30,7 +30,8 @@
               "line": 37,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function testForeach3() returns error? {\n    int[]|error intArr = [1, 2, 3];\n    foreach int item in check intArr {\n        _ = item;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 33,
               "offset": 35
             }
-          }
+          },
+          "sourceCode": "int[]|error intArr = [1, 2, 3];"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 36,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "foreach int item in check intArr {\n        _ = item;\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +128,8 @@
                   "line": 36,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +151,8 @@
                       "line": 35,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "_ = item;"
                 },
                 "returning": false,
                 "properties": {

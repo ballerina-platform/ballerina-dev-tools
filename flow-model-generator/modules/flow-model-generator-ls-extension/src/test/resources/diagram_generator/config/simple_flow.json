@@ -29,7 +29,8 @@
               "line": 14,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get search/doctors/[string area]() returns json|error {\n        if area == \"kandy\" {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        } else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 13,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if area == \"kandy\" {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        } else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +93,8 @@
                   "line": 10,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -130,7 +133,8 @@
                       "line": 8,
                       "offset": 63
                     }
-                  }
+                  },
+                  "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
                 },
                 "returning": false,
                 "properties": {
@@ -211,7 +215,8 @@
                       "line": 9,
                       "offset": 21
                     }
-                  }
+                  },
+                  "sourceCode": "return j;"
                 },
                 "returning": true,
                 "properties": {
@@ -245,7 +250,8 @@
                   "line": 13,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -272,7 +278,8 @@
                       "line": 11,
                       "offset": 53
                     }
-                  }
+                  },
+                  "sourceCode": "json j = check nawaloka->get(\"/doctors\");"
                 },
                 "returning": false,
                 "properties": {
@@ -353,7 +360,8 @@
                       "line": 12,
                       "offset": 21
                     }
-                  }
+                  },
+                  "sourceCode": "return j;"
                 },
                 "returning": true,
                 "properties": {
@@ -399,7 +407,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -475,7 +484,8 @@
               "line": 3,
               "offset": 65
             }
-          }
+          },
+          "sourceCode": "final http:Client nawaloka = check new (\"http://localhost:9091\");"
         },
         "returning": false,
         "properties": {

@@ -30,7 +30,8 @@
               "line": 31,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}"
         },
         "returning": false,
         "flags": 0
@@ -87,7 +88,8 @@
               "line": 10,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "// Define local variables for input parameters\n    string name = \"John Doe\";"
         },
         "returning": false,
         "properties": {
@@ -140,7 +142,8 @@
               "line": 11,
               "offset": 42
             }
-          }
+          },
+          "sourceCode": "string email = \"john.doe@example.com\";"
         },
         "returning": false,
         "properties": {
@@ -193,7 +196,8 @@
               "line": 18,
               "offset": 6
             }
-          }
+          },
+          "sourceCode": "Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };"
         },
         "returning": false,
         "properties": {
@@ -280,7 +284,8 @@
               "line": 21,
               "offset": 60
             }
-          }
+          },
+          "sourceCode": "// Transform to Person\n    Person person = transformToPerson(name, email, address);"
         },
         "returning": false,
         "properties": {
@@ -348,7 +353,8 @@
               "line": 26,
               "offset": 6
             }
-          }
+          },
+          "sourceCode": "Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };"
         },
         "returning": false,
         "properties": {
@@ -435,7 +441,8 @@
               "line": 29,
               "offset": 63
             }
-          }
+          },
+          "sourceCode": "// Transform to Employee\n    Employee employee = transformToEmployee(person, admission);"
         },
         "returning": false,
         "properties": {
@@ -502,7 +509,8 @@
               "line": 30,
               "offset": 26
             }
-          }
+          },
+          "sourceCode": "logEmployee(employee);"
         },
         "returning": false,
         "properties": {
@@ -542,7 +550,8 @@
               "line": 2,
               "offset": 53
             }
-          }
+          },
+          "sourceCode": "http:Client cl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

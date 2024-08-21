@@ -30,7 +30,8 @@
               "line": 21,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLockWithOnFail1() returns error? {\n    lock {\n        int i = 0;\n    } on fail {\n        return;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 20,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n    } on fail {\n        return;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 18,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        int i = 0;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 17,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -146,7 +150,8 @@
                   "line": 20,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -168,7 +173,8 @@
                       "line": 19,
                       "offset": 15
                     }
-                  }
+                  },
+                  "sourceCode": "return;"
                 },
                 "returning": true,
                 "flags": 0

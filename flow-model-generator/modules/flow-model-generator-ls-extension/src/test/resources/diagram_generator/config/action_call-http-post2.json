@@ -29,7 +29,8 @@
               "line": 31,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function post pears() {\n        json|error res1 = foodClient->post(\"/pears\", \"pear\");\n        json|http:ClientError res2 = foodClient->/pears.post(\"pear\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -77,7 +78,8 @@
               "line": 29,
               "offset": 61
             }
-          }
+          },
+          "sourceCode": "json|error res1 = foodClient->post(\"/pears\", \"pear\");"
         },
         "returning": false,
         "properties": {
@@ -182,7 +184,8 @@
               "line": 30,
               "offset": 69
             }
-          }
+          },
+          "sourceCode": "json|http:ClientError res2 = foodClient->/pears.post(\"pear\");"
         },
         "returning": false,
         "properties": {
@@ -278,7 +281,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {

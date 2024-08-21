@@ -29,7 +29,8 @@
               "line": 46,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get mangos(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json response = check foodClient->get(\"/food/mangos\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            msg = \"Error occurred while invoking food service\" + e.message();\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 38,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -125,7 +127,8 @@
               "line": 45,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "while i < count {\n            json response = check foodClient->get(\"/food/mangos\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            msg = \"Error occurred while invoking food service\" + e.message();\n        }"
         },
         "returning": false,
         "branches": [
@@ -144,7 +147,8 @@
                   "line": 43,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json response = check foodClient->get(\"/food/mangos\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -171,7 +175,8 @@
                       "line": 40,
                       "offset": 66
                     }
-                  }
+                  },
+                  "sourceCode": "json response = check foodClient->get(\"/food/mangos\");"
                 },
                 "returning": false,
                 "properties": {
@@ -252,7 +257,8 @@
                       "line": 41,
                       "offset": 80
                     }
-                  }
+                  },
+                  "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
                 },
                 "returning": false,
                 "properties": {
@@ -297,7 +303,8 @@
                       "line": 42,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "i += 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -330,7 +337,8 @@
                   "line": 45,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            msg = \"Error occurred while invoking food service\" + e.message();\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -381,7 +389,8 @@
                       "line": 44,
                       "offset": 77
                     }
-                  }
+                  },
+                  "sourceCode": "msg = \"Error occurred while invoking food service\" + e.message();"
                 },
                 "returning": false,
                 "properties": {
@@ -449,7 +458,8 @@
               "line": 2,
               "offset": 61
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

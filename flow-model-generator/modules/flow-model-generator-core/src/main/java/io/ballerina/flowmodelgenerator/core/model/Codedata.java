@@ -33,7 +33,7 @@ import io.ballerina.tools.text.LineRange;
  * @since 1.5.0
  */
 public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,
-                       LineRange lineRange) {
+                       LineRange lineRange, String sourceCode) {
 
     @Override
     public String toString() {
@@ -60,6 +60,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         private String object;
         private String symbol;
         private LineRange lineRange;
+        private String sourceCode;
 
         public Builder(T parentBuilder) {
             super(parentBuilder);
@@ -90,8 +91,9 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
             return this;
         }
 
-        public Builder<T> lineRange(Node node) {
+        public Builder<T> nodeInfo(Node node) {
             this.lineRange = node.lineRange();
+            this.sourceCode = node.toSourceCode().strip();
             return this;
         }
 
@@ -101,7 +103,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
         }
 
         public Codedata build() {
-            return new Codedata(node, org, module, object, symbol, lineRange);
+            return new Codedata(node, org, module, object, symbol, lineRange, sourceCode);
         }
     }
 }

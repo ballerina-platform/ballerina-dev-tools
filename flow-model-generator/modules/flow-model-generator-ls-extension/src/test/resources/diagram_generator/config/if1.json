@@ -29,7 +29,8 @@
               "line": 21,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get apples(boolean flag) {\n        if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 20,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +93,8 @@
                   "line": 17,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            int a = 1;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -125,7 +128,8 @@
                       "line": 16,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "int a = 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -177,7 +181,8 @@
                   "line": 20,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "else {\n            int b = 2;\n            string c = \"12\";\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -199,7 +204,8 @@
                       "line": 18,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "int b = 2;"
                 },
                 "returning": false,
                 "properties": {
@@ -252,7 +258,8 @@
                       "line": 19,
                       "offset": 28
                     }
-                  }
+                  },
+                  "sourceCode": "string c = \"12\";"
                 },
                 "returning": false,
                 "properties": {
@@ -316,7 +323,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {

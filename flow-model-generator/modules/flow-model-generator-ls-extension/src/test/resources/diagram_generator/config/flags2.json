@@ -30,7 +30,8 @@
               "line": 16,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "remote function onFileChange(ftp:Caller caller, ftp:WatchEvent & readonly event) returns ftp:Error? {\n\n    }"
         },
         "returning": false,
         "flags": 0

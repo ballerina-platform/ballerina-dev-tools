@@ -30,7 +30,8 @@
               "line": 3,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -49,7 +50,8 @@
                   "line": 3,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -71,7 +73,8 @@
                       "line": 2,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {

@@ -30,7 +30,8 @@
               "line": 9,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataString() {\n    string str1 = \"Hello world\";\n    str1 = string `${str1} ${str1}`;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 7,
               "offset": 32
             }
-          }
+          },
+          "sourceCode": "string str1 = \"Hello world\";"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 8,
               "offset": 36
             }
-          }
+          },
+          "sourceCode": "str1 = string `${str1} ${str1}`;"
         },
         "returning": false,
         "properties": {

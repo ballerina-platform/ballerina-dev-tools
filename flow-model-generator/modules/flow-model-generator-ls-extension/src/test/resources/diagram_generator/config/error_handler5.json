@@ -30,7 +30,8 @@
               "line": 18,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function failInDoOnFail2() returns error? {\n    do {\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 17,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "do {\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    } on fail var e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 15,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 14,
                       "offset": 87
                     }
-                  }
+                  },
+                  "sourceCode": "fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
                 },
                 "returning": false,
                 "properties": {
@@ -128,7 +132,8 @@
                   "line": 17,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -179,7 +184,8 @@
                       "line": 16,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {

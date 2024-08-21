@@ -29,7 +29,8 @@
               "line": 9,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "resource function get menu() returns Menu => {year: 0, modified: \"\", items: []};"
         },
         "returning": false,
         "properties": {

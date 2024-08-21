@@ -30,7 +30,8 @@
               "line": 27,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function failInDoOnFail3() returns error? {\n    do {\n        AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n        fail e;\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 26,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "do {\n        AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n        fail e;\n    } on fail var e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 24,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n        fail e;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 22,
                       "offset": 101
                     }
-                  }
+                  },
+                  "sourceCode": "AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
                 },
                 "returning": false,
                 "properties": {
@@ -147,7 +151,8 @@
                       "line": 23,
                       "offset": 15
                     }
-                  }
+                  },
+                  "sourceCode": "fail e;"
                 },
                 "returning": false,
                 "properties": {
@@ -181,7 +186,8 @@
                   "line": 26,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -232,7 +238,8 @@
                       "line": 25,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {

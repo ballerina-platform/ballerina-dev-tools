@@ -29,7 +29,8 @@
               "line": 9,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get path1() returns error? {\n        do {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 8,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +93,8 @@
                   "line": 8,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json j = check asiri->get(path = \"/doctors/kandy\");\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -118,7 +121,8 @@
                       "line": 7,
                       "offset": 63
                     }
-                  }
+                  },
+                  "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
                 },
                 "returning": false,
                 "properties": {
@@ -210,7 +214,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

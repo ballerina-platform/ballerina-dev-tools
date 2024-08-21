@@ -30,7 +30,8 @@
               "line": 2,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStop1() {\n    return;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 1,
               "offset": 11
             }
-          }
+          },
+          "sourceCode": "return;"
         },
         "returning": true,
         "flags": 0

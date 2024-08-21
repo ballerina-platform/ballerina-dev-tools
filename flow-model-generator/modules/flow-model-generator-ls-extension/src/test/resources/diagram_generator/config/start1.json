@@ -30,7 +30,8 @@
               "line": 2,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 1,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start sum(40, 50)"
         },
         "returning": false,
         "properties": {
@@ -88,7 +90,8 @@
               "line": 1,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<int> futureVar = start sum(40, 50);"
         },
         "returning": false,
         "properties": {

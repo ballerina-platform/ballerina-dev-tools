@@ -29,7 +29,8 @@
               "line": 42,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get milkshake() returns json|http:ClientError {\n        http:Client drinkClient = check new (\"/drink\");\n        return drinkClient->get(\"/milkshake\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -76,7 +77,8 @@
               "line": 40,
               "offset": 55
             }
-          }
+          },
+          "sourceCode": "http:Client drinkClient = check new (\"/drink\");"
         },
         "returning": false,
         "properties": {
@@ -153,7 +155,8 @@
               "line": 41,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "return drinkClient->get(\"/milkshake\");"
         },
         "returning": true,
         "properties": {
@@ -222,7 +225,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {

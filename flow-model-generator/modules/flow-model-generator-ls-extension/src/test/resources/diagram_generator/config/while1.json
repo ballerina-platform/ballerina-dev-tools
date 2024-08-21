@@ -29,7 +29,8 @@
               "line": 17,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get apples(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|http:ClientError response = foodClient->get(\"/food/apples\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }\n            i = i + 1;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 7,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -125,7 +127,8 @@
               "line": 16,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "while i < count {\n            json|http:ClientError response = foodClient->get(\"/food/apples\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }\n            i = i + 1;\n        }"
         },
         "returning": false,
         "branches": [
@@ -144,7 +147,8 @@
                   "line": 16,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json|http:ClientError response = foodClient->get(\"/food/apples\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }\n            i = i + 1;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -171,7 +175,8 @@
                       "line": 9,
                       "offset": 77
                     }
-                  }
+                  },
+                  "sourceCode": "json|http:ClientError response = foodClient->get(\"/food/apples\");"
                 },
                 "returning": false,
                 "properties": {
@@ -252,7 +257,8 @@
                       "line": 14,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -271,7 +277,8 @@
                           "line": 12,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                msg = \"Response received from food service: \" + response.toString();\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -305,7 +312,8 @@
                               "line": 11,
                               "offset": 84
                             }
-                          }
+                          },
+                          "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
                         },
                         "returning": false,
                         "properties": {
@@ -349,7 +357,8 @@
                           "line": 14,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -371,7 +380,8 @@
                               "line": 13,
                               "offset": 90
                             }
-                          }
+                          },
+                          "sourceCode": "msg = \"Error occurred while invoking food service: \" + response.message();"
                         },
                         "returning": false,
                         "properties": {
@@ -421,7 +431,8 @@
                       "line": 15,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "i = i + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -489,7 +500,8 @@
               "line": 2,
               "offset": 61
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

@@ -30,7 +30,8 @@
               "line": 19,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataJson1() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 18,
               "offset": 42
             }
-          }
+          },
+          "sourceCode": "json j1 = {\"name\": \"John\", \"age\": 34};"
         },
         "returning": false,
         "properties": {

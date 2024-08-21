@@ -203,7 +203,7 @@ class CodeAnalyzer extends NodeVisitor {
         ExpressionNode expression = remoteMethodCallActionNode.expression();
         SeparatedNodeList<FunctionArgumentNode> argumentNodes = remoteMethodCallActionNode.arguments();
         handleActionNode(remoteMethodCallActionNode, methodName, expression, argumentNodes);
-        nodeBuilder.codedata().lineRange(remoteMethodCallActionNode);
+        nodeBuilder.codedata().nodeInfo(remoteMethodCallActionNode);
     }
 
     @Override
@@ -214,7 +214,7 @@ class CodeAnalyzer extends NodeVisitor {
         SeparatedNodeList<FunctionArgumentNode> functionArgumentNodes =
                 clientResourceAccessActionNode.arguments().map(ParenthesizedArgList::arguments).orElse(null);
         handleActionNode(clientResourceAccessActionNode, methodName, expression, functionArgumentNodes);
-        nodeBuilder.codedata().lineRange(clientResourceAccessActionNode);
+        nodeBuilder.codedata().nodeInfo(clientResourceAccessActionNode);
     }
 
     private void handleActionNode(ActionNode actionNode, String methodName, ExpressionNode expressionNode,
@@ -231,7 +231,7 @@ class CodeAnalyzer extends NodeVisitor {
         String orgName = CommonUtils.getOrgName(methodSymbol);
 
         FlowNode nodeTemplate = central.getNodeTemplate(
-                new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null));
+                new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null, null));
         if (nodeTemplate == null) {
             startNode(FlowNode.Kind.EXPRESSION);
             return;
@@ -335,7 +335,7 @@ class CodeAnalyzer extends NodeVisitor {
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
         String orgName = CommonUtils.getOrgName(typeSymbol.get());
         FlowNode nodeTemplate = central.getNodeTemplate(
-                new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null));
+                new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null, null));
         if (nodeTemplate == null) {
             startNode(FlowNode.Kind.EXPRESSION);
             return;
@@ -474,7 +474,7 @@ class CodeAnalyzer extends NodeVisitor {
             String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
             FlowNode nodeTemplate = central.getNodeTemplate(
-                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, null, functionName, null));
+                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, null, functionName, null, null));
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()
@@ -646,7 +646,7 @@ class CodeAnalyzer extends NodeVisitor {
             default -> throw new IllegalStateException("Unexpected value: " + checkText);
 
         }
-        nodeBuilder.codedata().lineRange(checkExpressionNode);
+        nodeBuilder.codedata().nodeInfo(checkExpressionNode);
     }
 
     @Override
@@ -727,7 +727,7 @@ class CodeAnalyzer extends NodeVisitor {
      * Ends the current branch and sets the node builder to the parent node.
      */
     private void endBranch(Branch.Builder branchBuilder, Node node) {
-        branchBuilder.codedata().lineRange(node);
+        branchBuilder.codedata().nodeInfo(node);
         nodeBuilder = this.flowNodeBuilderStack.pop();
         nodeBuilder.branch(branchBuilder.build());
     }

@@ -29,7 +29,8 @@
               "line": 13,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function post menu/[int year]/[boolean... flags](string item) {\n    }"
         },
         "returning": false,
         "properties": {

@@ -29,7 +29,8 @@
               "line": 22,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get nothing() {\n        while true {\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -72,7 +73,8 @@
               "line": 21,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "while true {\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +93,8 @@
                   "line": 21,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n        }"
             },
             "repeatable": "ONE",
             "children": []
@@ -135,7 +138,8 @@
               "line": 2,
               "offset": 61
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {

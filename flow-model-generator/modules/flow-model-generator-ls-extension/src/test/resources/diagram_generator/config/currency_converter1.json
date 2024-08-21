@@ -29,7 +29,8 @@
               "line": 56,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "// http api event\n    resource function get converter(string 'from, string to, decimal amount) returns json|http:InternalServerError {\n        // error handler\n        do {\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        } on fail error e {\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -106,7 +107,8 @@
               "line": 55,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "// error handler\n        do {\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        } on fail error e {\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +127,8 @@
                   "line": 50,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -181,7 +184,8 @@
                       "line": 19,
                       "offset": 42
                     }
-                  }
+                  },
+                  "sourceCode": "// new data\n            string key = 'from + \"-\" + to;"
                 },
                 "returning": false,
                 "properties": {
@@ -273,7 +277,8 @@
                       "line": 21,
                       "offset": 61
                     }
-                  }
+                  },
+                  "sourceCode": "// action call - redis get call\n            string? cacheValue = check redisClient->get(key);"
                 },
                 "returning": false,
                 "properties": {
@@ -370,7 +375,8 @@
                       "line": 49,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "// if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -389,7 +395,8 @@
                           "line": 31,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -457,7 +464,8 @@
                               "line": 28,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };"
                         },
                         "returning": false,
                         "properties": {
@@ -544,7 +552,8 @@
                               "line": 30,
                               "offset": 31
                             }
-                          }
+                          },
+                          "sourceCode": "// return\n                return newData;"
                         },
                         "returning": true,
                         "properties": {
@@ -578,7 +587,8 @@
                           "line": 49,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -639,7 +649,8 @@
                               "line": 33,
                               "offset": 97
                             }
-                          }
+                          },
+                          "sourceCode": "// action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);"
                         },
                         "returning": false,
                         "properties": {
@@ -754,7 +765,8 @@
                               "line": 36,
                               "offset": 53
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                decimal value = check response.value;"
                         },
                         "returning": false,
                         "properties": {
@@ -841,7 +853,8 @@
                               "line": 38,
                               "offset": 84
                             }
-                          }
+                          },
+                          "sourceCode": "// function call\n                decimal convertedAmount = check calculate(amount, value.toString());"
                         },
                         "returning": false,
                         "properties": {
@@ -933,7 +946,8 @@
                               "line": 41,
                               "offset": 76
                             }
-                          }
+                          },
+                          "sourceCode": "// action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());"
                         },
                         "returning": false,
                         "properties": {
@@ -1022,7 +1036,8 @@
                               "line": 46,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                json newData = {\n                    value\n                };"
                         },
                         "returning": false,
                         "properties": {
@@ -1109,7 +1124,8 @@
                               "line": 48,
                               "offset": 31
                             }
-                          }
+                          },
+                          "sourceCode": "// return\n                return newData;"
                         },
                         "returning": true,
                         "properties": {
@@ -1148,7 +1164,8 @@
                   "line": 55,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -1237,7 +1254,8 @@
                       "line": 52,
                       "offset": 47
                     }
-                  }
+                  },
+                  "sourceCode": "// library call - log error\n            log:printError(\"error occured\", e);"
                 },
                 "returning": false,
                 "properties": {
@@ -1334,7 +1352,8 @@
                       "line": 54,
                       "offset": 46
                     }
-                  }
+                  },
+                  "sourceCode": "// return \n            return http:INTERNAL_SERVER_ERROR;"
                 },
                 "returning": true,
                 "properties": {
@@ -1380,7 +1399,8 @@
               "line": 11,
               "offset": 94
             }
-          }
+          },
+          "sourceCode": "// new connection\nfinal http:Client currencyClient = check new (url = \"https://api.exchangeratesapi.io/latest\");"
         },
         "returning": false,
         "properties": {
@@ -1456,7 +1476,8 @@
               "line": 8,
               "offset": 3
             }
-          }
+          },
+          "sourceCode": "// new connection\nfinal redis:Client redisClient = check new (connection = {\n    host: \"localhost\",\n    port: 6379\n});"
         },
         "returning": false,
         "properties": {

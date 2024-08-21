@@ -30,7 +30,8 @@
               "line": 5,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function testForeach1() {\n    int[] intArr = [1, 2, 3];\n    foreach var item in intArr {\n        _ = item;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 1,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 4,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "foreach var item in intArr {\n        _ = item;\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +128,8 @@
                   "line": 4,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +151,8 @@
                       "line": 3,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "_ = item;"
                 },
                 "returning": false,
                 "properties": {

@@ -30,7 +30,8 @@
               "line": 42,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function transactionWithOnFail2() returns error? {\n    transaction {\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 41,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 39,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var _ = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 38,
                       "offset": 29
                     }
-                  }
+                  },
+                  "sourceCode": "var _ = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -146,7 +150,8 @@
                   "line": 41,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -197,7 +202,8 @@
                       "line": 40,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {

@@ -30,7 +30,8 @@
               "line": 4,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewData() {\n    int i = 2;\n    i = 3;\n    _ = 4;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 1,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int i = 2;"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 2,
               "offset": 10
             }
-          }
+          },
+          "sourceCode": "i = 3;"
         },
         "returning": false,
         "properties": {
@@ -151,7 +154,8 @@
               "line": 3,
               "offset": 10
             }
-          }
+          },
+          "sourceCode": "_ = 4;"
         },
         "returning": false,
         "properties": {

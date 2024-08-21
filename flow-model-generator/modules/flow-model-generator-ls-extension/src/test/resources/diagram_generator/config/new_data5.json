@@ -30,7 +30,8 @@
               "line": 29,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataJson2(int amount) returns error? {\n    json newData = {value: check calculate(amount)};\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 28,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "json newData = {value: check calculate(amount)};"
         },
         "returning": false,
         "properties": {

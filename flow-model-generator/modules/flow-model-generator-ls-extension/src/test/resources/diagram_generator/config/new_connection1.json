@@ -30,7 +30,8 @@
               "line": 9,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function fn1() returns error? {\n    http:Client localHttpCl = check new (\"http://localhost:8080\");\n    redis:Client localRedisCl = check new;\n}"
         },
         "returning": false,
         "flags": 0
@@ -57,7 +58,8 @@
               "line": 7,
               "offset": 66
             }
-          }
+          },
+          "sourceCode": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
         },
         "returning": false,
         "properties": {
@@ -133,7 +135,8 @@
               "line": 8,
               "offset": 42
             }
-          }
+          },
+          "sourceCode": "redis:Client localRedisCl = check new;"
         },
         "returning": false,
         "properties": {
@@ -201,7 +204,8 @@
               "line": 3,
               "offset": 63
             }
-          }
+          },
+          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -277,7 +281,8 @@
               "line": 11,
               "offset": 76
             }
-          }
+          },
+          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -353,7 +358,8 @@
               "line": 4,
               "offset": 39
             }
-          }
+          },
+          "sourceCode": "redis:Client moduleRedisCl = check new;"
         },
         "returning": false,
         "properties": {
@@ -419,7 +425,8 @@
               "line": 12,
               "offset": 56
             }
-          }
+          },
+          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {
