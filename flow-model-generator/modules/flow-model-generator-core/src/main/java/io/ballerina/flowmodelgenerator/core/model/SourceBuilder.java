@@ -18,26 +18,48 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
+import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public class SourceBuilder {
 
-    private final TokenBuilder tokenBuilder;
-    private final FlowNode flowNode;
+    private TokenBuilder tokenBuilder;
+    public final FlowNode flowNode;
+    private final WorkspaceManager workspaceManager;
+    private final Path filePath;
+    private final Map<Path, List<TextEdit>> textEditsMap;
 
-    public SourceBuilder(FlowNode flowNode) {
-        tokenBuilder = new TokenBuilder(this);
+    public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
+        this.tokenBuilder = new TokenBuilder(this);
+        this.textEditsMap = new HashMap<>();
         this.flowNode = flowNode;
+        this.workspaceManager = workspaceManager;
+        this.filePath = filePath;
     }
 
     public TokenBuilder token() {
@@ -45,7 +67,11 @@ public class SourceBuilder {
     }
 
     public SourceBuilder newVariable() {
-        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        return newVariable(Property.DATA_TYPE_KEY);
+    }
+
+    public SourceBuilder newVariable(String typeKey) {
+        Optional<Property> type = flowNode.getProperty(typeKey);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
@@ -55,8 +81,81 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder textEdit(boolean isExpression, String fileName) {
+        try {
+            workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException(e);
+        }
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LineRange lineRange = syntaxTree.rootNode().lineRange();
+
+        // Add the current source to the end of the file
+        textEdit(isExpression, resolvedPath, CommonUtils.toRange(lineRange.endLine()));
+
+        acceptImport(resolvedPath);
+        return this;
+    }
+
+    public SourceBuilder acceptImport(Path resolvedPath) {
+        String org = flowNode.codedata().org();
+        String module = flowNode.codedata().module();
+
+        try {
+            this.workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return this;
+        }
+        // TODO: Check how we can only use this logic once compared to the textEdit(fileName) method
+        Document document = workspaceManager.document(resolvedPath).orElseThrow();
+        SyntaxTree syntaxTree = document.syntaxTree();
+        LineRange lineRange = syntaxTree.rootNode().lineRange();
+
+        if (org == null || module == null) {
+            return this;
+        }
+
+        boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
+                ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
+                        .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
+                                org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                                module.equals(importDeclarationNode.moduleName().get(0).text()));
+
+        // Add the import statement
+        if (!importExists) {
+            tokenBuilder
+                    .keyword(SyntaxKind.IMPORT_KEYWORD)
+                    .name(flowNode.codedata().getImportSignature())
+                    .endOfStatement();
+            textEdit(false, resolvedPath, CommonUtils.toRange(lineRange.startLine()));
+        }
+        return this;
+    }
+
+    public SourceBuilder acceptImport() {
+        return acceptImport(filePath);
+    }
+
+    public Optional<Symbol> getTypeSymbol(String typeName) {
+        try {
+            workspaceManager.loadProject(filePath);
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            throw new RuntimeException(e);
+        }
+        SemanticModel semanticModel = workspaceManager.semanticModel(filePath).orElseThrow();
+        return semanticModel.moduleSymbols().stream().filter(
+                symbol -> symbol.kind() == SymbolKind.TYPE_DEFINITION && symbol.getName().isPresent() &&
+                        symbol.getName().get().equals(typeName)).findFirst();
+    }
+
     public SourceBuilder typedBindingPattern() {
-        Optional<Property> type = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        return typedBindingPattern(Property.DATA_TYPE_KEY);
+    }
+
+    public SourceBuilder typedBindingPattern(String typeKey) {
+        Optional<Property> type = flowNode.getProperty(typeKey);
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
 
         if (type.isPresent() && variable.isPresent()) {
@@ -73,8 +172,13 @@ public class SourceBuilder {
     }
 
     public SourceBuilder children(List<FlowNode> flowNodes) {
-        flowNodes.forEach(childNode -> tokenBuilder.name(
-                NodeBuilder.getNodeFromKind(childNode.codedata().node()).toSource(childNode)));
+        for (FlowNode node : flowNodes) {
+            SourceBuilder sourceBuilder = new SourceBuilder(node, workspaceManager, filePath);
+            Map<Path, List<TextEdit>> textEdits =
+                    NodeBuilder.getNodeFromKind(node.codedata().node()).toSource(sourceBuilder);
+            List<TextEdit> filePathTextEdits = textEdits.get(filePath);
+            tokenBuilder.name(filePathTextEdits.get(filePathTextEdits.size() - 1).getNewText());
+        }
         return this;
     }
 
@@ -162,8 +266,26 @@ public class SourceBuilder {
         return this;
     }
 
-    public String build(boolean isExpression) {
-        return token().build(isExpression);
+    public SourceBuilder textEdit(boolean isExpression) {
+        return textEdit(isExpression, filePath, CommonUtils.toRange(flowNode.codedata().lineRange()));
+    }
+
+    public SourceBuilder textEdit(boolean isExpression, Path filePath, Range range) {
+        String text = token().build(isExpression);
+        tokenBuilder = new TokenBuilder(this);
+
+        List<TextEdit> textEdits = textEditsMap.get(filePath);
+        if (textEdits == null) {
+            textEdits = new ArrayList<>();
+        }
+        textEdits.add(0, new TextEdit(range, text));
+        textEditsMap.put(filePath, textEdits);
+
+        return this;
+    }
+
+    public Map<Path, List<TextEdit>> build() {
+        return textEditsMap;
     }
 
     public static class TokenBuilder extends FacetedBuilder<SourceBuilder> {

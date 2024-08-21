@@ -19,12 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -33,6 +36,7 @@ import java.util.Optional;
  * @since 1.4.0
  */
 public class UpdateData extends NodeBuilder {
+
     public static final String LABEL = "Update Variable";
     public static final String DESCRIPTION = "Update the value of the variable '%s'";
     public static final String UPDATE_DATA_EXPRESSION_DOC = "Update variable";
@@ -44,20 +48,18 @@ public class UpdateData extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
-        Optional<Property> property = flowNode.getProperty(Property.VARIABLE_KEY);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
 
-        property = flowNode.getProperty(Property.EXPRESSION_KEY);
+        property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
 
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         metadata().description(String.format(DESCRIPTION, "name"));
         properties().defaultVariable().defaultExpression(UPDATE_DATA_EXPRESSION_DOC);
     }

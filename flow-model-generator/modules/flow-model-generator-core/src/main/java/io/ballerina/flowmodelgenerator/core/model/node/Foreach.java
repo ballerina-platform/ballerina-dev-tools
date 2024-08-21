@@ -20,13 +20,15 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -46,27 +48,26 @@ public class Foreach extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder(node);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.FOREACH_KEYWORD)
                 .stepOut()
                 .typedBindingPattern()
                 .token().keyword(SyntaxKind.IN_KEYWORD);
 
-
-        Optional<Property> exprProperty = node.getProperty(Property.COLLECTION_KEY);
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.COLLECTION_KEY);
         exprProperty.ifPresent(property -> sourceBuilder.token().expression(property));
 
-        Optional<Branch> body = node.getBranch(Branch.BODY_LABEL);
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
         body.ifPresent(branch -> sourceBuilder.body(branch.children()));
 
         return sourceBuilder
                 .onFailure()
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         properties().defaultDataVariable().defaultCollection();
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }

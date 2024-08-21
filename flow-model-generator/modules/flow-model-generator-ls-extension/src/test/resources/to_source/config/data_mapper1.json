@@ -1,0 +1,104 @@
+{
+  "source": "data_mapper/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "52760",
+    "metadata": {
+      "label": "Data Mapper",
+      "description": "Map data from multiple variables to a record type"
+    },
+    "codedata": {
+      "node": "DATA_MAPPER",
+      "lineRange": {
+        "fileName": "main.bal",
+        "startLine": {
+          "line": 21,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 60
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "functionName": {
+        "metadata": {
+          "label": "Data mapper name",
+          "description": "Name of the data mapper function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "transformToPerson",
+        "optional": false,
+        "editable": true
+      },
+      "output": {
+        "metadata": {
+          "label": "Output",
+          "description": "Output of the data mapper function"
+        },
+        "valueType": "SET",
+        "value": "new_connection1:Person",
+        "optional": false,
+        "editable": true
+      },
+      "inputs": {
+        "metadata": {
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
+        },
+        "valueType": "SET",
+        "value": [
+          "string name",
+          "string email",
+          "new_connection1:Address address"
+        ],
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "person",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "data_mapper/data_mappings.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 0
+          },
+          "end": {
+            "line": 11,
+            "character": 0
+          }
+        },
+        "newText": "function transformToPerson(string name, string email, new_connection1 :Addressaddress) returns new_connection1:Person=> {\n}"
+      }
+    ],
+    "data_mapper/main.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 21,
+            "character": 4
+          },
+          "end": {
+            "line": 21,
+            "character": 60
+          }
+        },
+        "newText": "new_connection1:Person person = transformToPerson(name, email, address)"
+      }
+    ]
+  }
+}

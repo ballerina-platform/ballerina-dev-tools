@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ClassFieldSymbol;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -29,8 +30,11 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
+import io.ballerina.compiler.syntax.tree.ModuleMemberDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -41,9 +45,11 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Generator for the flow model.
@@ -56,13 +62,16 @@ public class ModelGenerator {
     private final Document document;
     private final LineRange lineRange;
     private final Path filePath;
+    private final Document dataMappingDoc;
     private final Gson gson;
 
-    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath) {
+    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath,
+                          Document dataMappingDoc) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
         this.filePath = filePath;
+        this.dataMappingDoc = dataMappingDoc;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
@@ -82,13 +91,25 @@ public class ModelGenerator {
 
         // Obtain the connections visible at the module-level
         List<FlowNode> moduleConnections =
-                semanticModel.visibleSymbols(document, modulePartNode.lineRange().startLine()).stream()
+                semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
-                        .sorted(Comparator.comparing(node -> node.properties().get(Property.VARIABLE_KEY).value()))
+                        .sorted(Comparator.comparing(
+                                node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
                         .toList();
 
+        // Obtain the data mapping function names
+        List<String> dataMappings = new ArrayList<>();
+        if (dataMappingDoc != null) {
+            ModulePartNode dataMappingModulePartNode = dataMappingDoc.syntaxTree().rootNode();
+            for (ModuleMemberDeclarationNode member : dataMappingModulePartNode.members()) {
+                if (member.kind() == SyntaxKind.FUNCTION_DEFINITION) {
+                    dataMappings.add(((FunctionDefinitionNode) member).functionName().text());
+                }
+            }
+        }
+
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, textDocument);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -102,20 +123,40 @@ public class ModelGenerator {
      * @return the client if the type symbol is a client, otherwise empty
      */
     private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol, TextDocument textDocument) {
-        NonTerminalNode node;
+        Function<NonTerminalNode, NonTerminalNode> getStatementNode;
+        NonTerminalNode statementNode;
+        TypeSymbol typeSymbol;
+        String scope;
+
+        switch (symbol.kind()) {
+            case VARIABLE -> {
+                getStatementNode = (NonTerminalNode node) -> node.parent().parent();
+                typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
+                scope = Property.GLOBAL_SCOPE;
+            }
+            case CLASS_FIELD -> {
+                getStatementNode = (NonTerminalNode node) -> node;
+                typeSymbol = ((ClassFieldSymbol) symbol).typeDescriptor();
+                scope = Property.SERVICE_SCOPE;
+            }
+            default -> {
+                return Optional.empty();
+            }
+        }
         try {
-            TypeSymbol typeSymbol = ((VariableSymbol) symbol).typeDescriptor();
             TypeSymbol typeDescriptorSymbol = ((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor();
             if (typeDescriptorSymbol.kind() != SymbolKind.CLASS ||
                     !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
                 return Optional.empty();
             }
-            node = symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+            NonTerminalNode childNode =
+                    symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+            statementNode = getStatementNode.apply(childNode);
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, textDocument);
-        node.parent().parent().accept(codeAnalyzer);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of(), textDocument);
+        statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();
     }

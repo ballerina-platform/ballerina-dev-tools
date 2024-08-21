@@ -20,13 +20,15 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -46,19 +48,19 @@ public class Lock extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-        Optional<Branch> body = flowNode.getBranch(Branch.BODY_LABEL);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
         return sourceBuilder.token()
                 .keyword(SyntaxKind.LOCK_KEYWORD)
                 .stepOut()
                 .body(body.isPresent() ? body.get().children() : Collections.emptyList())
                 .onFailure()
-                .build(false);
+                .textEdit(false)
+                .build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
     }
 }

@@ -20,12 +20,15 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,36 +47,37 @@ public class ActionCall extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        if (flowNode.returning()) {
+        if (sourceBuilder.flowNode.returning()) {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
 
-        Optional<Property> connection = flowNode.getProperty(Property.CONNECTION_KEY);
+        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
         return sourceBuilder.token()
-                .name(connection.get().value())
+                .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label())
                 .stepOut()
                 .functionParameters(nodeTemplate,
                         Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
-                .build(false);
+                .textEdit(false)
+                .acceptImport()
+                .build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
     }
 }

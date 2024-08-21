@@ -1,0 +1,759 @@
+{
+  "description": "A simple example of a package",
+  "position": {
+    "line": 8,
+    "offset": 0
+  },
+  "source": "connector.bal",
+  "categories": [
+    {
+      "metadata": {
+        "label": "Connections",
+        "description": "The connections used in the flow"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "moduleClient"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "post",
+                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "post"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "put",
+                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "put"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "patch",
+                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "patch"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "delete",
+                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "delete"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "head",
+                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "head"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "get",
+                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "get"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "options",
+                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "options"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "execute",
+                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "execute"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "forward",
+                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "forward"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "submit",
+                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "submit"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getResponse",
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getResponse"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "hasPromise",
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "hasPromise"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getNextPromise",
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getNextPromise"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getPromisedResponse",
+                "description": "Passes the request to an actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getPromisedResponse"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "rejectPromise",
+                "description": "This just pass the request to actual network call.\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "rejectPromise"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Flow",
+        "description": "Flow control nodes",
+        "keywords": [
+          "Core",
+          "Control",
+          "Flow"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Branch",
+            "description": "Branching nodes"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "If",
+                "description": "Add conditional branch to the integration flow."
+              },
+              "codedata": {
+                "node": "IF"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Iteration",
+            "description": "Iteration nodes"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "While",
+                "description": "Loop over a block of code."
+              },
+              "codedata": {
+                "node": "WHILE"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Foreach",
+                "description": "Iterate over a block of code."
+              },
+              "codedata": {
+                "node": "FOREACH"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Break",
+                "description": "Exit the current loop"
+              },
+              "codedata": {
+                "node": "BREAK"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Continue",
+                "description": "Skip the current iteration and continue with the next one"
+              },
+              "codedata": {
+                "node": "CONTINUE"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "Control",
+            "description": "Control nodes"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Return"
+              },
+              "codedata": {
+                "node": "RETURN"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Stop",
+                "description": "Stop the flow"
+              },
+              "codedata": {
+                "node": "STOP"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Data",
+        "description": "Data nodes are used to create, read, update, delete, and transform data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "New Variable"
+          },
+          "codedata": {
+            "node": "NEW_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Update Variable"
+          },
+          "codedata": {
+            "node": "UPDATE_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Data Mapper",
+            "description": "Map data from multiple variables to a record type"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Error Handling",
+        "description": "Handle errors that occur during execution"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "ErrorHandler",
+            "description": "Catch and handle errors"
+          },
+          "codedata": {
+            "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Panic",
+            "description": "Panic and stop the execution"
+          },
+          "codedata": {
+            "node": "PANIC"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Concurrency",
+        "description": "Concurrency nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Logging"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "printInfo",
+            "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printInfo"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "printError",
+            "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printError"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "printWarn",
+            "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printWarn"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "printDebug",
+            "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printDebug"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Data Conversion"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "toJson",
+            "description": "Converts a value of type `anydata` to `json`.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "toJson"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "toXml",
+            "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "toXml"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "parseAsType",
+            "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "parseAsType"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "parseAsType",
+            "description": "Converts XML to record type with projection.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "parseAsType"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "JSON"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "read",
+            "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "read"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "prettify",
+            "description": "Prettifies a `json` value to print it.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "prettify"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "XML"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "transform",
+            "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "xslt",
+            "symbol": "transform"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "File Data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "fileReadCsv",
+            "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadCsv"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileReadJson",
+            "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadJson"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileReadBytes",
+            "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadBytes"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileReadXml",
+            "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadXml"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileWriteCsv",
+            "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteCsv"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileWriteJson",
+            "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteJson"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileWriteBytes",
+            "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteBytes"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "fileWriteXml",
+            "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteXml"
+          },
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

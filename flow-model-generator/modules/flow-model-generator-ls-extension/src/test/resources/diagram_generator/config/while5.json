@@ -490,7 +490,7 @@
                       "description": "Scope of the connection, Global or Local"
                     },
                     "valueType": "ENUM",
-                    "value": "Global",
+                    "value": "Local",
                     "optional": false,
                     "editable": true
                   },

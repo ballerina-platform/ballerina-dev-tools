@@ -177,7 +177,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "annotations:error",
+                    "valueType": "error",
                     "value": "error(\"Found error\")",
                     "optional": false,
                     "editable": true

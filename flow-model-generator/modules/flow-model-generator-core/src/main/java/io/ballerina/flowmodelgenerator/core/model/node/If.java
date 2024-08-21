@@ -20,13 +20,15 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -49,10 +51,8 @@ public class If extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
-        Optional<Branch> ifBranch = flowNode.getBranch(IF_THEN_LABEL);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> ifBranch = sourceBuilder.flowNode.getBranch(IF_THEN_LABEL);
         if (ifBranch.isEmpty()) {
             throw new IllegalStateException("If node does not have a then branch");
         }
@@ -66,7 +66,7 @@ public class If extends NodeBuilder {
                 .stepOut()
                 .body(ifBranch.get().children());
 
-        Optional<Branch> elseBranch = flowNode.getBranch(IF_ELSE_LABEL);
+        Optional<Branch> elseBranch = sourceBuilder.flowNode.getBranch(IF_ELSE_LABEL);
         if (elseBranch.isPresent()) {
             List<FlowNode> children = elseBranch.get().children();
             sourceBuilder.token()
@@ -81,11 +81,11 @@ public class If extends NodeBuilder {
                     .token().closeBrace();
         }
 
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         Branch.Builder thenBranchBuilder = new Branch.Builder()
                 .label(IF_THEN_LABEL)
                 .kind(Branch.BranchKind.BLOCK)

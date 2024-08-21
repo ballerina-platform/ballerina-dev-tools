@@ -63,6 +63,7 @@ import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
 import io.ballerina.compiler.syntax.tree.OnFailClauseNode;
 import io.ballerina.compiler.syntax.tree.PanicStatementNode;
 import io.ballerina.compiler.syntax.tree.ParenthesizedArgList;
@@ -72,6 +73,7 @@ import io.ballerina.compiler.syntax.tree.RetryStatementNode;
 import io.ballerina.compiler.syntax.tree.ReturnStatementNode;
 import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -87,6 +89,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.Comment;
+import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
@@ -117,14 +120,19 @@ class CodeAnalyzer extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Central central;
+    private final List<String> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
+    private final String connectionScope;
     private final TextDocument textDocument;
 
-    public CodeAnalyzer(SemanticModel semanticModel, TextDocument textDocument) {
+    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings,
+                        TextDocument textDocument) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.central = CentralProxy.getInstance();
+        this.dataMappings = dataMappings;
+        this.connectionScope = connectionScope;
         this.textDocument = textDocument;
     }
 
@@ -148,6 +156,15 @@ class CodeAnalyzer extends NodeVisitor {
         }
         endNode(functionDefinitionNode);
         super.visit(functionDefinitionNode);
+    }
+
+    @Override
+    public void visit(ObjectFieldNode objectFieldNode) {
+        objectFieldNode.expression().ifPresent(expressionNode -> expressionNode.accept(this));
+        nodeBuilder.properties()
+                .type(objectFieldNode.typeName())
+                .variable(objectFieldNode.fieldName());
+        endNode(objectFieldNode);
     }
 
     @Override
@@ -340,7 +357,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
                     .object(nodeTemplate.codedata().object())
                     .symbol(nodeTemplate.codedata().symbol())
                     .stepOut()
-                .properties().scope();
+                .properties().scope(connectionScope);
         try {
             MethodSymbol methodSymbol =
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
@@ -371,7 +388,13 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
                         .stepOut()
                     .properties().expression(initializerNode);
         }
-        nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+
+        // TODO: Find a better way on how we can achieve this
+        if (nodeBuilder instanceof DataMapper) {
+            nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+        } else {
+            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+        }
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
@@ -476,6 +499,19 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
+        } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
+            String functionName = simpleNameReferenceNode.name().text();
+            if (dataMappings.contains(functionName)) {
+                startNode(FlowNode.Kind.DATA_MAPPER)
+                        .properties()
+                        .functionName(functionName)
+                        .output(this.typedBindingPatternNode);
+                functionSymbol.typeDescriptor().params().ifPresent(
+                        params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
+            }
+        } else {
+            startNode(FlowNode.Kind.EXPRESSION);
         }
     }
 

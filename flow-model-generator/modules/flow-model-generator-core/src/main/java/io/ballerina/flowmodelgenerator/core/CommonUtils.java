@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
@@ -88,11 +89,26 @@ public class CommonUtils {
                         .reduce((s1, s2) -> s1 + "|" + s2)
                         .orElse(unionTypeSymbol.signature());
             }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
+                        .reduce((s1, s2) -> s1 + " & " + s2)
+                        .orElse(intersectionTypeSymbol.signature());
+            }
             case TYPEDESC -> {
                 TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
                 yield typeDescTypeSymbol.typeParameter()
                         .map(type -> getTypeSignature(semanticModel, type, ignoreError))
                         .orElse(typeDescTypeSymbol.signature());
+            }
+            case ERROR -> {
+                Optional<String> moduleName = typeSymbol.getModule()
+                        .map(module -> {
+                            String prefix = module.id().modulePrefix();
+                            return "annotations".equals(prefix) ? null : prefix;
+                        });
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
             }
             default -> {
                 Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
@@ -149,11 +165,21 @@ public class CommonUtils {
     /**
      * Convert the syntax-node line range into a lsp4j range.
      *
-     * @param lineRange - line range
+     * @param lineRange line range
      * @return {@link Range} converted range
      */
     public static Range toRange(LineRange lineRange) {
         return new Range(toPosition(lineRange.startLine()), toPosition(lineRange.endLine()));
+    }
+
+    /**
+     * Converts syntax-node line position into a lsp4j position.
+     *
+     * @param position line position
+     * @return {@link Range} converted range
+     */
+    public static Range toRange(LinePosition position) {
+        return new Range(toPosition(position), toPosition(position));
     }
 
     /**

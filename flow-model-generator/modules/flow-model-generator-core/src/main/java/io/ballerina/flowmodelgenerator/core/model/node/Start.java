@@ -19,12 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -45,20 +48,18 @@ public class Start extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode);
-
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.token().keyword(SyntaxKind.START_KEYWORD);
-        Optional<Property> property = flowNode.getProperty(Property.EXPRESSION_KEY);
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
         sourceBuilder.token().endOfStatement();
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         properties().defaultExpression(START_EXPRESSION_DOC);
     }
 }

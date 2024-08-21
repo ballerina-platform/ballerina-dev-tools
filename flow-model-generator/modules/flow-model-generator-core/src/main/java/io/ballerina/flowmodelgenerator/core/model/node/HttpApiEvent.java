@@ -18,9 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the properties of a HttpApiEvent node.
@@ -44,12 +49,12 @@ public class HttpApiEvent extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode node) {
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder node) {
         return null;
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
 
     }
 }

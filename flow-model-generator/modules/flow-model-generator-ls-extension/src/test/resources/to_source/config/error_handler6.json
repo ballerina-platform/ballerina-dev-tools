@@ -1,0 +1,240 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "52860",
+    "metadata": {
+      "label": "ErrorHandler",
+      "description": "Catch and handle errors"
+    },
+    "codedata": {
+      "node": "ERROR_HANDLER",
+      "lineRange": {
+        "fileName": "fail.bal",
+        "startLine": {
+          "line": 21,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 26,
+          "offset": 5
+        }
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 7
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 5
+            }
+          }
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "53917",
+            "metadata": {
+              "label": "New Variable",
+              "description": "New variable 'e' with type 'AssertionError'"
+            },
+            "codedata": {
+              "node": "NEW_DATA",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 22,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 22,
+                  "offset": 101
+                }
+              }
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "AssertionError",
+                "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "value": "e",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "value": "AssertionError",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          },
+          {
+            "id": "54823",
+            "metadata": {
+              "label": "Fail",
+              "description": "Fail the execution"
+            },
+            "codedata": {
+              "node": "FAIL",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 23,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 23,
+                  "offset": 15
+                }
+              }
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Fail value"
+                },
+                "valueType": "AssertionError",
+                "value": "e",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "fail.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 20
+            },
+            "endLine": {
+              "line": 26,
+              "offset": 5
+            }
+          }
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "value": "true",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "value": ".:error",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "56809",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'e'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "fail.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 25,
+                  "offset": 17
+                }
+              }
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": ".:error",
+                "value": "e",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 21,
+            "character": 4
+          },
+          "end": {
+            "line": 26,
+            "character": 5
+          }
+        },
+        "newText": "do {\n    AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    fail e;\n}\non fail .:error e {\n    return e;\n}"
+      }
+    ]
+  }
+}

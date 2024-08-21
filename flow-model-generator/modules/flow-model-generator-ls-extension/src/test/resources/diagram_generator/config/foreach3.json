@@ -222,7 +222,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "annotations:error",
+                    "valueType": "error",
                     "value": "error(\"Error message\")",
                     "optional": false,
                     "editable": true

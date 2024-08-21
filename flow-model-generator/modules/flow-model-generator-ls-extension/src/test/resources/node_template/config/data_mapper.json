@@ -1,0 +1,78 @@
+{
+  "source": "data_mapper/main.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "DATA_MAPPER"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Data Mapper",
+      "description": "Map data from multiple variables to a record type"
+    },
+    "codedata": {
+      "node": "DATA_MAPPER"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": true,
+        "editable": true
+      },
+      "functionName": {
+        "metadata": {
+          "label": "Data mapper name",
+          "description": "Name of the data mapper function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "transform",
+        "optional": false,
+        "editable": true
+      },
+      "inputs": {
+        "metadata": {
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
+        },
+        "valueType": "SET",
+        "valueTypeConstraint": [
+          "http:Client cl",
+          "int x",
+          "new_connection1:Address address",
+          "string z"
+        ],
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "output": {
+        "metadata": {
+          "label": "Output",
+          "description": "Output of the data mapper function"
+        },
+        "valueType": "SET",
+        "valueTypeConstraint": [
+          "Address",
+          "Admission",
+          "Employee",
+          "Location",
+          "Person"
+        ],
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

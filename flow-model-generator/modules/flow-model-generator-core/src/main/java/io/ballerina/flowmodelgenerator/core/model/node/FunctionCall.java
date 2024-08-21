@@ -2,11 +2,14 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class FunctionCall extends NodeBuilder {
@@ -17,24 +20,25 @@ public class FunctionCall extends NodeBuilder {
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(codedata);
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        SourceBuilder sourceBuilder = new SourceBuilder(flowNode)
-                .newVariable();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        if (flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(flowNode.codedata());
+        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         return sourceBuilder.token()
                 .name(nodeTemplate.metadata().label())
                 .stepOut()
                 .functionParameters(nodeTemplate, Set.of("variable", "type"))
-                .build(false);
+                .textEdit(false)
+                .acceptImport()
+                .build();
     }
 }

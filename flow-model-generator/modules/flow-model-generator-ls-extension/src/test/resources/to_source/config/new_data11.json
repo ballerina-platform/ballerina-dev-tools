@@ -1,0 +1,74 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "49766",
+    "metadata": {
+      "label": "New Variable",
+      "description": "New variable 'j1' with type 'map'"
+    },
+    "codedata": {
+      "node": "NEW_DATA",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 18,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 18,
+          "offset": 42
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "map<json>",
+        "value": "{\"name\": \"John\", \"age\": 34}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "value": "j1",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "value": "json",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 4
+          },
+          "end": {
+            "line": 18,
+            "character": 42
+          }
+        },
+        "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
+      }
+    ]
+  }
+}
