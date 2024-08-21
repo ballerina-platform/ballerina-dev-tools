@@ -268,12 +268,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
                 .properties().condition(ifElseStatementNode.condition()).stepOut();
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
-        for (StatementNode statement : ifBody.statements()) {
-            genCommentNode(statement, thenBranchBuilder);
-            statement.accept(this);
-            thenBranchBuilder.node(buildNode());
-        }
-        genCommentNode(ifBody.closeBraceToken(), thenBranchBuilder);
+        analyzeBlock(ifBody, thenBranchBuilder);
         endBranch(thenBranchBuilder, ifBody);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
@@ -288,16 +283,11 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(ifElseStatementNode);
     }
 
-private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
+    private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         switch (elseBody.kind()) {
             case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), branchBuilder);
             case BLOCK_STATEMENT -> {
-                for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
-                    genCommentNode(statement, branchBuilder);
-                    statement.accept(this);
-                    branchBuilder.node(buildNode());
-                }
-                genCommentNode(((BlockStatementNode) elseBody).closeBraceToken(), branchBuilder);
+                analyzeBlock(((BlockStatementNode) elseBody), branchBuilder);
             }
             case IF_ELSE_STATEMENT -> {
                 elseBody.accept(this);
@@ -524,12 +514,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
                         Branch.Repeatable.ONE);
-        for (StatementNode statement : whileBody.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(whileBody.closeBraceToken(), branchBuilder);
+        analyzeBlock(whileBody, branchBuilder);
         endBranch(branchBuilder, whileBody);
         whileStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(whileStatementNode);
@@ -543,12 +528,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
             branchBuilder.properties().ignore().onErrorVariable(onFailClauseNode.typedBindingPattern().get());
         }
         BlockStatementNode onFailClauseBlock = onFailClauseNode.blockStatement();
-        for (StatementNode statement : onFailClauseBlock.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(onFailClauseBlock.closeBraceToken(), branchBuilder);
+        analyzeBlock(onFailClauseBlock, branchBuilder);
         endBranch(branchBuilder, onFailClauseBlock);
     }
 
@@ -578,12 +558,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode lockBody = lockStatementNode.blockStatement();
-        for (StatementNode statement : lockBody.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(lockBody.closeBraceToken(), branchBuilder);
+        analyzeBlock(lockBody, branchBuilder);
         endBranch(branchBuilder, lockBody);
         lockStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(lockStatementNode);
@@ -600,12 +575,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
-        for (StatementNode statement : blockStatementNode.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(transactionStatementNode);
@@ -620,12 +590,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = forEachStatementNode.blockStatement();
-        for (StatementNode statement : blockStatementNode.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         forEachStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(forEachStatementNode);
@@ -658,12 +623,7 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         startNode(FlowNode.Kind.ERROR_HANDLER);
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        for (StatementNode statement : blockStatementNode.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(blockStatementNode.closeBraceToken(), branchBuilder);
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         processOnFailClause(optOnFailClauseNode.get());
         endNode(doStatementNode);
@@ -798,14 +758,18 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
         startNode(FlowNode.Kind.EXPRESSION);
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        for (StatementNode statement : bodyNode.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
-        genCommentNode(bodyNode.closeBraceToken(), branchBuilder);
+        analyzeBlock(bodyNode, branchBuilder);
         endBranch(branchBuilder, bodyNode);
         endNode(bodyNode);
+    }
+
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+        for (StatementNode statement : blockStatement.statements()) {
+            genCommentNode(statement, thenBranchBuilder);
+            statement.accept(this);
+            thenBranchBuilder.node(buildNode());
+        }
+        genCommentNode(blockStatement.closeBraceToken(), thenBranchBuilder);
     }
 
     private void visitStatement(StatementNode statementNode) {
