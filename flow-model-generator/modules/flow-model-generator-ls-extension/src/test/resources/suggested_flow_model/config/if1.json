@@ -1,0 +1,264 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 4,
+    "offset": 1
+  },
+  "source": "if.bal",
+  "text": "   if (i > 10) {\n i = i + 3\n    }",
+  "position": {
+    "line": 2,
+    "offset": 0
+  },
+  "description": "",
+  "diagram": {
+    "fileName": "if.bal",
+    "nodes": [
+      {
+        "id": "31931",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function fn(boolean flag) {\n    int i = 12;\n   if (i > 10) {\n i = i + 3\n    }\n    string val = i.toString();\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "32875",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'i' with type 'int'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int i = 12;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "12",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "i",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      },
+      {
+        "id": "33888",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 3
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 5
+            }
+          },
+          "sourceCode": "if (i > 10) {\n i = i + 3\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 2,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n i = i + 3\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "boolean",
+                "value": "(i > 10) ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "34761",
+                "metadata": {
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'i'"
+                },
+                "codedata": {
+                  "node": "UPDATE_DATA",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 3,
+                      "offset": 1
+                    },
+                    "endLine": {
+                      "line": 3,
+                      "offset": 10
+                    }
+                  },
+                  "sourceCode": "i = i + 3"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Update variable"
+                    },
+                    "valueType": "int",
+                    "value": "i + 3\n",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "i",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0,
+        "suggested": true
+      },
+      {
+        "id": "36858",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'val' with type 'string'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 30
+            }
+          },
+          "sourceCode": "string val = i.toString();"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "string",
+            "value": "i.toString()",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "val",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "string",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      }
+    ],
+    "connections": []
+  }
+}
