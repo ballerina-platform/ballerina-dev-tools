@@ -846,10 +846,11 @@ private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
 
     private void genCommentNode(Node node, Branch.Builder builder) {
         String comment = getComment(node.leadingMinutiae());
-        if (!comment.isEmpty()) {
-            genCommentNode(node, comment);
-            builder.node(buildNode());
+        if (comment.isEmpty()) {
+            return;
         }
+        genCommentNode(node, comment);
+        builder.node(buildNode());
     }
 
     private void genCommentNode(Node node) {

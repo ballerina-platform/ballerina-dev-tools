@@ -18,11 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -34,6 +38,8 @@ public class Comment extends NodeBuilder {
 
     public static final String LABEL = "Comment";
     public static final String DESCRIPTION = "Comment of a node";
+    private static final String DOUBLE_SLASH = "// ";
+    private static final String NEW_LINE = "\n";
 
     @Override
     public void setConcreteConstData() {
@@ -42,24 +48,25 @@ public class Comment extends NodeBuilder {
     }
 
     @Override
-    public String toSource(FlowNode flowNode) {
-        Optional<Property> property = flowNode.getProperty(Property.COMMENT_KEY);
-        if (property.isEmpty()) {
-            return "";
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.COMMENT_KEY);
+        if (property.isPresent()) {
+            StringBuilder commentBuilder = new StringBuilder();
+            String comment = property.get().toSourceCode();
+            String[] splits = comment.split(NEW_LINE);
+            if (splits.length == 0) {
+                commentBuilder.append(DOUBLE_SLASH).append(comment).append(NEW_LINE);
+            } else {
+                for (String split : splits) {
+                    commentBuilder.append(DOUBLE_SLASH).append(split).append(NEW_LINE);
+                }
+            }
+            sourceBuilder.token().comment(commentBuilder.toString());
         }
-        StringBuilder commentBuilder = new StringBuilder();
-        String comment = property.get().toSourceCode();
-        String[] splits = comment.split("\n");
-        if (splits.length == 0) {
-            return commentBuilder.append("// ").append(comment).append("\n").toString();
-        }
-        for (String split : splits) {
-            commentBuilder.append("// ").append(split).append("\n");
-        }
-        return commentBuilder.toString();
+        return sourceBuilder.comment().build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
     }
 }

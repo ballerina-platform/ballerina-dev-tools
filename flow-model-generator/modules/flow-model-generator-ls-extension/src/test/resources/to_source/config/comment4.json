@@ -1,7 +1,8 @@
 {
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "32802",
+    "id": "79426",
     "metadata": {
       "label": "Comment",
       "description": "Comment of a node"
@@ -11,11 +12,11 @@
       "lineRange": {
         "fileName": "comment.bal",
         "startLine": {
-          "line": 1,
+          "line": 48,
           "offset": 0
         },
         "endLine": {
-          "line": 3,
+          "line": 50,
           "offset": 4
         }
       }
@@ -27,26 +28,28 @@
           "label": "Comment",
           "description": "Comment to describe the flow"
         },
-        "value": "Create variable name i\nThis is an additional comment",
+        "value": "This is a while block",
         "optional": false,
         "editable": true
       }
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 1,
-          "character": 0
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 48,
+            "character": 0
+          },
+          "end": {
+            "line": 50,
+            "character": 4
+          }
         },
-        "end": {
-          "line": 3,
-          "character": 4
-        }
-      },
-      "newText": "// Create variable name i\n// This is an additional comment\n"
-    }
-  ]
+        "newText": "// This is a while block\n"
+      }
+    ]
+  }
 }

@@ -165,7 +165,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
-                "value": "annotations:error",
+                "value": "error",
                 "optional": false,
                 "editable": true
               }
@@ -232,7 +232,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "annotations:error",
+                    "valueType": "error",
                     "value": "e",
                     "optional": false,
                     "editable": true
@@ -251,7 +251,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
-                    "value": "annotations:error",
+                    "value": "error",
                     "optional": false,
                     "editable": true
                   }

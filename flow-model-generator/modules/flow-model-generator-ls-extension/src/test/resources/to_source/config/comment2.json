@@ -1,7 +1,8 @@
 {
+  "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "40711",
+    "id": "49662",
     "metadata": {
       "label": "Comment",
       "description": "Comment of a node"
@@ -11,12 +12,12 @@
       "lineRange": {
         "fileName": "comment.bal",
         "startLine": {
-          "line": 9,
+          "line": 18,
           "offset": 0
         },
         "endLine": {
-          "line": 10,
-          "offset": 8
+          "line": 20,
+          "offset": 0
         }
       }
     },
@@ -27,26 +28,28 @@
           "label": "Comment",
           "description": "Comment to describe the flow"
         },
-        "value": "This is a comment for a statement",
+        "value": "This is a function body comment\nto generate AI flow",
         "optional": false,
         "editable": true
       }
     },
     "flags": 0
   },
-  "output": [
-    {
-      "range": {
-        "start": {
-          "line": 9,
-          "character": 0
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 0
+          },
+          "end": {
+            "line": 20,
+            "character": 0
+          }
         },
-        "end": {
-          "line": 10,
-          "character": 8
-        }
-      },
-      "newText": "// This is a comment for a statement\n"
-    }
-  ]
+        "newText": "// This is a function body comment\n// to generate AI flow\n"
+      }
+    ]
+  }
 }

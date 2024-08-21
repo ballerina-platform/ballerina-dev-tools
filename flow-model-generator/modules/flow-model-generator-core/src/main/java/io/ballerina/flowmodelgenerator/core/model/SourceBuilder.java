@@ -284,6 +284,20 @@ public class SourceBuilder {
         return this;
     }
 
+    public SourceBuilder comment() {
+        String comment = token().buildComment();
+        tokenBuilder = new TokenBuilder(this);
+
+        List<TextEdit> textEdits = textEditsMap.get(filePath);
+        if (textEdits == null) {
+            textEdits = new ArrayList<>();
+        }
+        textEdits.add(0, new TextEdit(CommonUtils.toRange(flowNode.codedata().lineRange()), comment));
+        textEditsMap.put(filePath, textEdits);
+
+        return this;
+    }
+
     public Map<Path, List<TextEdit>> build() {
         return textEditsMap;
     }
@@ -358,6 +372,10 @@ public class SourceBuilder {
             Node modifiedNode = isExpression ? NodeParser.parseExpression(outputStr).apply(treeModifier) :
                     NodeParser.parseStatement(outputStr).apply(treeModifier);
             return modifiedNode.toSourceCode().strip();
+        }
+
+        public String buildComment() {
+            return sb.toString();
         }
     }
 }
