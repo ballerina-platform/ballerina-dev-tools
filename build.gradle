@@ -217,6 +217,11 @@ task clean {
     delete "dist"
 }
 
+task buildFlow {
+    dependsOn(":flow-model-generator:flow-model-generator-core:build")
+    dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+}
+
 build.doNotTrackState("build needs to run every time")
 publishToMavenLocal.dependsOn build
 publish.dependsOn build
