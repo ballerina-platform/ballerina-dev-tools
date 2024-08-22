@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "pineapples",
             "optional": false,
             "editable": true
@@ -141,6 +143,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
                     "editable": true
@@ -178,6 +181,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -213,7 +217,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "res.toString()",
                     "optional": false,
                     "editable": true
@@ -248,6 +252,7 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
+                "valueType": "EXPRESSION",
                 "value": "true",
                 "optional": false,
                 "editable": true
@@ -257,6 +262,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
                 "editable": true
@@ -266,6 +272,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "http:ClientError",
                 "optional": false,
                 "editable": true
@@ -300,7 +307,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "err.message()",
                     "optional": false,
                     "editable": true
@@ -376,6 +383,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -385,6 +393,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

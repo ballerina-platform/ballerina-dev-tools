@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "put",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "path",
             "optional": false,
             "editable": true
@@ -227,6 +229,7 @@
                                       "label": "Data variable",
                                       "description": "Name of the variable"
                                     },
+                                    "valueType": "IDENTIFIER",
                                     "value": "j",
                                     "optional": false,
                                     "editable": true
@@ -283,6 +286,7 @@
                                       "label": "Data type",
                                       "description": "Type of the variable"
                                     },
+                                    "valueType": "TYPE",
                                     "value": "json",
                                     "optional": false,
                                     "editable": true
@@ -318,6 +322,7 @@
                                       "label": "Statement",
                                       "description": "Ballerina statement"
                                     },
+                                    "valueType": "EXPRESSION",
                                     "value": "                    check commit;\n",
                                     "optional": false,
                                     "editable": true
@@ -416,6 +421,7 @@
                                       "label": "Data variable",
                                       "description": "Name of the variable"
                                     },
+                                    "valueType": "IDENTIFIER",
                                     "value": "k",
                                     "optional": false,
                                     "editable": true
@@ -453,6 +459,7 @@
                                       "label": "Data type",
                                       "description": "Type of the variable"
                                     },
+                                    "valueType": "TYPE",
                                     "value": "json",
                                     "optional": false,
                                     "editable": true
@@ -538,6 +545,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
             "editable": true
@@ -547,6 +555,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

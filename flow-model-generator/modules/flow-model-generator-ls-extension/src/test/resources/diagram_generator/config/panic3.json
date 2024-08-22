@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "AssertionError",
+            "valueType": "EXPRESSION",
             "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
             "optional": false,
             "editable": true

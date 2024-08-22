@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "search/doctors/[string area]",
             "optional": false,
             "editable": true
@@ -103,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "area == \"kandy\" ",
                 "optional": false,
                 "editable": true
@@ -153,6 +155,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "j",
                     "optional": false,
                     "editable": true
@@ -190,6 +193,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -225,7 +229,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "json",
+                    "valueType": "EXPRESSION",
                     "value": "j",
                     "optional": false,
                     "editable": true
@@ -298,6 +302,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "j",
                     "optional": false,
                     "editable": true
@@ -335,6 +340,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -370,7 +376,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "json",
+                    "valueType": "EXPRESSION",
                     "value": "j",
                     "optional": false,
                     "editable": true
@@ -446,6 +452,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
             "editable": true
@@ -455,6 +462,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -523,6 +531,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "nawaloka",
             "optional": false,
             "editable": true
@@ -532,6 +541,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

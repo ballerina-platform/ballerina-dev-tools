@@ -91,6 +91,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public enum ValueType {
         EXPRESSION,
         IDENTIFIER,
+        STRING,
         TYPE,
         ENUM,
         SET

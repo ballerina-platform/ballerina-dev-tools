@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "converter",
             "optional": false,
             "editable": true
@@ -83,6 +85,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "error handler",
             "optional": false,
             "editable": true
@@ -161,6 +164,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "new data",
                     "optional": false,
                     "editable": true
@@ -196,7 +200,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "'from + \"-\" + to",
                     "optional": false,
                     "editable": true
@@ -206,6 +210,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "key",
                     "optional": false,
                     "editable": true
@@ -215,6 +220,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "string",
                     "optional": false,
                     "editable": true
@@ -250,6 +256,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "action call - redis get call",
                     "optional": false,
                     "editable": true
@@ -300,6 +307,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "cacheValue",
                     "optional": false,
                     "editable": true
@@ -319,6 +327,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "string|()",
                     "optional": false,
                     "editable": true
@@ -354,6 +363,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "if node",
                     "optional": false,
                     "editable": true
@@ -409,7 +419,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "cacheValue is string ",
                         "optional": false,
                         "editable": true
@@ -444,6 +454,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -479,7 +490,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "map<json>",
+                            "valueType": "EXPRESSION",
                             "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
                             "optional": false,
                             "editable": true
@@ -489,6 +500,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -498,6 +510,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -533,6 +546,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "return",
                             "optional": false,
                             "editable": true
@@ -568,7 +582,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "json",
+                            "valueType": "EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -626,6 +640,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "action call - http get call",
                             "optional": false,
                             "editable": true
@@ -676,6 +691,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "response",
                             "optional": false,
                             "editable": true
@@ -713,6 +729,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -748,6 +765,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -783,7 +801,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "decimal|error",
+                            "valueType": "EXPRESSION",
                             "value": "response.value",
                             "optional": false,
                             "editable": true
@@ -793,6 +811,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "value",
                             "optional": false,
                             "editable": true
@@ -802,6 +821,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "decimal",
                             "optional": false,
                             "editable": true
@@ -837,6 +857,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "function call",
                             "optional": false,
                             "editable": true
@@ -872,7 +893,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "decimal",
+                            "valueType": "EXPRESSION",
                             "value": "calculate(amount, value.toString())",
                             "optional": false,
                             "editable": true
@@ -882,6 +903,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "convertedAmount",
                             "optional": false,
                             "editable": true
@@ -891,6 +913,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "decimal",
                             "optional": false,
                             "editable": true
@@ -926,6 +949,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "action call - redis set call",
                             "optional": false,
                             "editable": true
@@ -1022,6 +1046,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -1057,7 +1082,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "map<json>",
+                            "valueType": "EXPRESSION",
                             "value": "{\n                    value\n                }",
                             "optional": false,
                             "editable": true
@@ -1067,6 +1092,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -1076,6 +1102,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -1111,6 +1138,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "return",
                             "optional": false,
                             "editable": true
@@ -1146,7 +1174,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "json",
+                            "valueType": "EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -1186,6 +1214,7 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
+                "valueType": "EXPRESSION",
                 "value": "true",
                 "optional": false,
                 "editable": true
@@ -1195,6 +1224,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -1204,6 +1234,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "redis:error|error|http:error|error",
                 "optional": false,
                 "editable": true
@@ -1238,6 +1269,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "library call - log error",
                     "optional": false,
                     "editable": true
@@ -1341,6 +1373,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "return ",
                     "optional": false,
                     "editable": true
@@ -1376,7 +1409,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "http:InternalServerError & readonly",
+                    "valueType": "EXPRESSION",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true
@@ -1452,6 +1485,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "currencyClient",
             "optional": false,
             "editable": true
@@ -1461,6 +1495,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -1519,6 +1554,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
             "editable": true
@@ -1528,6 +1564,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true

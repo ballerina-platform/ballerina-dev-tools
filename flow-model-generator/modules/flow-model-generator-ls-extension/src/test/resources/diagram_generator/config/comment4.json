@@ -64,6 +64,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`",
             "optional": false,
             "editable": true

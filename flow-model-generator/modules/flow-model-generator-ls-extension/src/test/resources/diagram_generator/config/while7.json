@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "grapes",
             "optional": false,
             "editable": true
@@ -83,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true
@@ -93,6 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -102,6 +105,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -195,6 +199,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "response",
                     "optional": false,
                     "editable": true
@@ -232,6 +237,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -287,7 +293,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "(response is json) ",
                         "optional": false,
                         "editable": true
@@ -322,7 +328,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Response received from food service: \" + response.toString()",
                             "optional": false,
                             "editable": true
@@ -332,7 +338,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -390,7 +396,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while invoking food service: \" + response.message()",
                             "optional": false,
                             "editable": true
@@ -400,7 +406,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -465,6 +471,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "            i += 1;\n",
                     "optional": false,
                     "editable": true
@@ -481,7 +488,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "i < count ",
             "optional": false,
             "editable": true
@@ -552,6 +559,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -561,6 +569,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

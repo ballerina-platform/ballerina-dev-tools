@@ -84,7 +84,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "x == 2 ",
                 "optional": false,
                 "editable": true
@@ -185,7 +185,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "x == 3 ",
                         "optional": false,
                         "editable": true
@@ -220,7 +220,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "3",
+                            "valueType": "EXPRESSION",
                             "value": "x",
                             "optional": false,
                             "editable": true

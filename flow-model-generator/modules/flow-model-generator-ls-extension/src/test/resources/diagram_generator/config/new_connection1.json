@@ -97,6 +97,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "localHttpCl",
             "optional": false,
             "editable": true
@@ -106,6 +107,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -164,6 +166,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "localRedisCl",
             "optional": false,
             "editable": true
@@ -173,6 +176,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true
@@ -243,6 +247,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleHttpCl",
             "optional": false,
             "editable": true
@@ -252,6 +257,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -320,6 +326,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleHttpExCl",
             "optional": false,
             "editable": true
@@ -329,6 +336,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -387,6 +395,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleRedisCl",
             "optional": false,
             "editable": true
@@ -396,6 +405,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true
@@ -454,6 +464,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleRedisExCl",
             "optional": false,
             "editable": true
@@ -463,6 +474,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true

@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "lang.xml:Element",
+            "valueType": "EXPRESSION",
             "value": "xml `<p>content</p>`",
             "optional": false,
             "editable": true
@@ -74,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "x1",
             "optional": false,
             "editable": true
@@ -83,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "xml",
             "optional": false,
             "editable": true
@@ -118,7 +120,7 @@
               "label": "Expression",
               "description": "Update variable"
             },
-            "valueType": "lang.xml:Element",
+            "valueType": "EXPRESSION",
             "value": "xml `<book>The Lost World</book>`",
             "optional": false,
             "editable": true
@@ -128,7 +130,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "xml",
+            "valueType": "IDENTIFIER",
             "value": "x1",
             "optional": false,
             "editable": true

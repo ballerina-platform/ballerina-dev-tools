@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "error(\"AssertionError\")",
             "optional": false,
             "editable": true
@@ -74,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "e",
             "optional": false,
             "editable": true
@@ -83,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "error",
             "optional": false,
             "editable": true
@@ -118,7 +120,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "e",
             "optional": false,
             "editable": true

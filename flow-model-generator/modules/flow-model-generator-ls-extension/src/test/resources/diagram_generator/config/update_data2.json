@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"Hello world\"",
             "optional": false,
             "editable": true
@@ -74,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "str1",
             "optional": false,
             "editable": true
@@ -83,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true
@@ -118,7 +120,7 @@
               "label": "Expression",
               "description": "Update variable"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "string `${str1} ${str1}`",
             "optional": false,
             "editable": true
@@ -128,7 +130,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "string",
+            "valueType": "IDENTIFIER",
             "value": "str1",
             "optional": false,
             "editable": true

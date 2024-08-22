@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int[]",
+            "valueType": "EXPRESSION",
             "value": "[1, 2, 3]",
             "optional": false,
             "editable": true
@@ -74,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
             "editable": true
@@ -83,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int[]",
             "optional": false,
             "editable": true
@@ -161,7 +163,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "item",
                     "optional": false,
                     "editable": true
@@ -171,7 +173,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "any",
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -206,6 +208,7 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
+                "valueType": "EXPRESSION",
                 "value": "true",
                 "optional": false,
                 "editable": true
@@ -215,6 +218,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -224,6 +228,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
                 "editable": true
@@ -258,7 +263,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true
@@ -275,6 +280,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
             "editable": true
@@ -284,6 +290,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true

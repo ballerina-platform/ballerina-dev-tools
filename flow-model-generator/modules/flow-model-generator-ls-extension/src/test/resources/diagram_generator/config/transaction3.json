@@ -150,7 +150,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "()",
+                            "valueType": "EXPRESSION",
                             "value": "check commit",
                             "optional": false,
                             "editable": true
@@ -160,6 +160,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "res",
                             "optional": false,
                             "editable": true
@@ -169,6 +170,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "()",
                             "optional": false,
                             "editable": true
@@ -209,7 +211,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -219,6 +221,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
                     "editable": true
@@ -228,6 +231,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true

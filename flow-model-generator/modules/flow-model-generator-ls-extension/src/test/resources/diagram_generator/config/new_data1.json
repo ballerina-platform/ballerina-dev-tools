@@ -40,7 +40,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "2",
             "optional": false,
             "editable": true
@@ -50,6 +50,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -59,6 +60,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -94,7 +96,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "float",
+            "valueType": "EXPRESSION",
             "value": "1.2f",
             "optional": false,
             "editable": true
@@ -104,6 +106,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "f",
             "optional": false,
             "editable": true
@@ -113,6 +116,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "float",
             "optional": false,
             "editable": true
@@ -148,7 +152,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "decimal",
+            "valueType": "EXPRESSION",
             "value": "100000.0d",
             "optional": false,
             "editable": true
@@ -158,6 +162,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "d",
             "optional": false,
             "editable": true
@@ -167,6 +172,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "decimal",
             "optional": false,
             "editable": true
@@ -202,7 +208,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "decimal",
+            "valueType": "EXPRESSION",
             "value": "d",
             "optional": false,
             "editable": true
@@ -212,6 +218,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "d1",
             "optional": false,
             "editable": true
@@ -221,6 +228,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "decimal",
             "optional": false,
             "editable": true
@@ -256,7 +264,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
             "editable": true
@@ -266,6 +274,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "j",
             "optional": false,
             "editable": true
@@ -275,6 +284,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -310,7 +320,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "i + j",
             "optional": false,
             "editable": true
@@ -320,6 +330,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "k",
             "optional": false,
             "editable": true
@@ -329,6 +340,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -364,7 +376,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "i + j",
             "optional": false,
             "editable": true
@@ -374,6 +386,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "l",
             "optional": false,
             "editable": true
@@ -383,6 +396,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -418,7 +432,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "k + l",
             "optional": false,
             "editable": true
@@ -428,6 +442,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
             "editable": true
@@ -437,6 +452,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true

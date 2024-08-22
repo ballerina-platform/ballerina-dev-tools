@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "json[]",
+            "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
@@ -74,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
             "editable": true
@@ -83,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -117,7 +119,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "json[]",
+            "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
@@ -127,7 +129,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "json",
+            "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
             "editable": true
@@ -163,7 +165,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "[int, int]",
+            "valueType": "EXPRESSION",
             "value": "[1, 2]",
             "optional": false,
             "editable": true
@@ -173,6 +175,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
             "editable": true
@@ -182,6 +185,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "[int, int]",
             "optional": false,
             "editable": true
@@ -216,7 +220,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "[int, int]",
+            "valueType": "EXPRESSION",
             "value": "[11, 22]",
             "optional": false,
             "editable": true
@@ -226,7 +230,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "[int, int]",
+            "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
             "editable": true

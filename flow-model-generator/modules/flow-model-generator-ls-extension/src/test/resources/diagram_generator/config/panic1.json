@@ -64,7 +64,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "error(\"\")",
             "optional": false,
             "editable": true

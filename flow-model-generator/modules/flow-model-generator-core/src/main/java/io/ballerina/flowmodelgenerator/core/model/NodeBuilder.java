@@ -256,6 +256,7 @@ public abstract class NodeBuilder {
                     .description(Property.VARIABLE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable();
 
             addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
@@ -269,6 +270,7 @@ public abstract class NodeBuilder {
                     .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.TYPE)
                     .editable();
 
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
@@ -283,6 +285,7 @@ public abstract class NodeBuilder {
                     .label(Property.DATA_TYPE_LABEL)
                     .description(Property.DATA_TYPE_DOC)
                     .stepOut()
+                    .type(Property.ValueType.TYPE)
                     .editable();
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(
@@ -299,6 +302,7 @@ public abstract class NodeBuilder {
                     .description(Property.DATA_VARIABLE_DOC)
                     .stepOut()
                     .value(CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .build();
             addProperty(Property.DATA_VARIABLE_KEY, property);
@@ -314,6 +318,7 @@ public abstract class NodeBuilder {
                     .stepOut()
                     .editable()
                     .value("item")
+                    .type(Property.ValueType.IDENTIFIER)
                     .build();
             addProperty(Property.DATA_VARIABLE_KEY, variable);
 
@@ -323,6 +328,7 @@ public abstract class NodeBuilder {
                     .description(Property.DATA_TYPE_DOC)
                     .stepOut()
                     .value("var")
+                    .type(Property.ValueType.TYPE)
                     .editable()
                     .build();
             addProperty(Property.DATA_TYPE_KEY, type);
@@ -340,6 +346,7 @@ public abstract class NodeBuilder {
                     .editable()
                     .value(expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
             return this;
@@ -354,6 +361,7 @@ public abstract class NodeBuilder {
                     .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(key, client);
@@ -492,6 +500,7 @@ public abstract class NodeBuilder {
                     .label(EVENT_HTTP_API_METHOD)
                     .description(EVENT_HTTP_API_METHOD_DOC)
                     .stepOut()
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable();
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
             addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
@@ -502,6 +511,7 @@ public abstract class NodeBuilder {
                     .description(EVENT_HTTP_API_PATH_DOC)
                     .stepOut()
                     .editable()
+                    .type(Property.ValueType.STRING)
                     .value(resourceMethodSymbol.resourcePath().signature());
             addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
             return this;
@@ -515,6 +525,7 @@ public abstract class NodeBuilder {
                     .description(Property.CONDITION_DOC)
                     .stepOut()
                     .value(expressionNode.toSourceCode())
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, condition);
@@ -529,6 +540,7 @@ public abstract class NodeBuilder {
                     .description(expressionDoc)
                     .stepOut()
                     .value(expressionNode.toSourceCode())
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
@@ -542,6 +554,7 @@ public abstract class NodeBuilder {
                     .description(DefaultExpression.STATEMENT_DOC)
                     .stepOut()
                     .value(node == null ? "" : node.toSourceCode())
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(DefaultExpression.STATEMENT_KEY, property);
@@ -555,6 +568,7 @@ public abstract class NodeBuilder {
                     .description(Property.IGNORE_DOC)
                     .stepOut()
                     .value("true")
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.IGNORE_KEY, property);
@@ -568,6 +582,7 @@ public abstract class NodeBuilder {
                     .description(Property.COMMENT_DOC)
                     .stepOut()
                     .value(comment)
+                    .type(Property.ValueType.STRING)
                     .editable()
                     .build();
             addProperty(Property.COMMENT_KEY, property);
@@ -581,6 +596,7 @@ public abstract class NodeBuilder {
                     .description(Property.COMMENT_DOC)
                     .stepOut()
                     .value("")
+                    .type(Property.ValueType.STRING)
                     .editable()
                     .build();
             addProperty(Property.COMMENT_KEY, property);
@@ -595,6 +611,7 @@ public abstract class NodeBuilder {
                     .description(Property.ON_ERROR_VARIABLE_DOC)
                     .stepOut()
                     .value(bindingPatternNode.toString())
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .build();
             addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
@@ -608,6 +625,7 @@ public abstract class NodeBuilder {
                     .description(Property.ON_ERROR_TYPE_DOC)
                     .stepOut()
                     .editable()
+                    .type(Property.ValueType.TYPE)
                     .build();
             addProperty(Property.ON_ERROR_TYPE_KEY, type);
 
@@ -621,6 +639,7 @@ public abstract class NodeBuilder {
                     .description(Property.ON_ERROR_VARIABLE_DOC)
                     .stepOut()
                     .value("err")
+                    .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .build();
             addProperty(Property.ON_ERROR_VARIABLE_KEY, value);
@@ -632,6 +651,7 @@ public abstract class NodeBuilder {
                     .stepOut()
                     .value("error")
                     .editable()
+                    .type(Property.ValueType.TYPE)
                     .build();
             addProperty(Property.ON_ERROR_TYPE_KEY, type);
             return this;
@@ -705,6 +725,7 @@ public abstract class NodeBuilder {
                     .description(doc)
                     .stepOut()
                     .value("true")
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, property);
@@ -747,6 +768,7 @@ public abstract class NodeBuilder {
                     .description(Property.COLLECTION_DOC)
                     .stepOut()
                     .value("[]")
+                    .type(Property.ValueType.SET)
                     .editable()
                     .build();
             addProperty(Property.COLLECTION_KEY, property);

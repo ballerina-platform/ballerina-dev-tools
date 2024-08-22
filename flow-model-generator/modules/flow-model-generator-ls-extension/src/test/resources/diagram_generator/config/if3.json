@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "oranges",
             "optional": false,
             "editable": true
@@ -103,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "food.price < 100 ",
                 "optional": false,
                 "editable": true
@@ -138,7 +140,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
                     "editable": true
@@ -148,7 +150,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string",
+                    "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
                     "editable": true
@@ -184,7 +186,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "Food",
+                    "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true
@@ -262,7 +264,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "food.price < 200 ",
                         "optional": false,
                         "editable": true
@@ -317,7 +319,7 @@
                                   "label": "Condition",
                                   "description": "Boolean Condition"
                                 },
-                                "valueType": "boolean",
+                                "valueType": "EXPRESSION",
                                 "value": "food.remaining > 0 ",
                                 "optional": false,
                                 "editable": true
@@ -352,7 +354,7 @@
                                       "label": "Expression",
                                       "description": "Update variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "EXPRESSION",
                                     "value": "\"fresh; \"",
                                     "optional": false,
                                     "editable": true
@@ -362,7 +364,7 @@
                                       "label": "Variable",
                                       "description": "Result Variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "IDENTIFIER",
                                     "value": "food.comment",
                                     "optional": false,
                                     "editable": true
@@ -420,7 +422,7 @@
                                       "label": "Expression",
                                       "description": "Update variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "EXPRESSION",
                                     "value": "\"expired; \"",
                                     "optional": false,
                                     "editable": true
@@ -430,7 +432,7 @@
                                       "label": "Variable",
                                       "description": "Result Variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "IDENTIFIER",
                                     "value": "food.comment",
                                     "optional": false,
                                     "editable": true
@@ -471,6 +473,7 @@
                               "label": "Statement",
                               "description": "Ballerina statement"
                             },
+                            "valueType": "EXPRESSION",
                             "value": "            food.comment += \"moderate\";\n",
                             "optional": false,
                             "editable": true
@@ -506,7 +509,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "Food",
+                            "valueType": "EXPRESSION",
                             "value": "food",
                             "optional": false,
                             "editable": true
@@ -564,7 +567,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"expensive\"",
                             "optional": false,
                             "editable": true
@@ -574,7 +577,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string",
+                            "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
                             "editable": true
@@ -610,7 +613,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "Food",
+                            "valueType": "EXPRESSION",
                             "value": "food",
                             "optional": false,
                             "editable": true
@@ -691,6 +694,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -700,6 +704,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

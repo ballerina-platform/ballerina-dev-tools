@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "pineapples",
             "optional": false,
             "editable": true
@@ -83,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true
@@ -93,6 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -102,6 +105,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -137,7 +141,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"\"",
             "optional": false,
             "editable": true
@@ -147,6 +151,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "finalMsg",
             "optional": false,
             "editable": true
@@ -156,6 +161,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true
@@ -249,6 +255,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "response",
                     "optional": false,
                     "editable": true
@@ -286,6 +293,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -321,6 +329,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "            finalMsg += response.toString();\n",
                     "optional": false,
                     "editable": true
@@ -356,6 +365,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "            i += 1;\n",
                     "optional": false,
                     "editable": true
@@ -390,6 +400,7 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
+                "valueType": "EXPRESSION",
                 "value": "true",
                 "optional": false,
                 "editable": true
@@ -399,6 +410,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -408,6 +420,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "http:ClientError",
                 "optional": false,
                 "editable": true
@@ -442,7 +455,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -452,6 +465,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "attempts",
                     "optional": false,
                     "editable": true
@@ -461,6 +475,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
                     "editable": true
@@ -529,6 +544,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "adminClient",
                     "optional": false,
                     "editable": true
@@ -538,6 +554,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "http:Client",
                     "optional": false,
                     "editable": true
@@ -593,7 +610,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "adminClient is http:ClientError ",
                         "optional": false,
                         "editable": true
@@ -628,7 +645,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while creating admin client\"",
                             "optional": false,
                             "editable": true
@@ -727,6 +744,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "response",
                             "optional": false,
                             "editable": true
@@ -783,6 +801,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -818,7 +837,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Response received from admin service: \" + response.toString()",
                             "optional": false,
                             "editable": true
@@ -876,7 +895,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while invoking admin service\"",
                             "optional": false,
                             "editable": true
@@ -893,7 +912,7 @@
                       "label": "Condition",
                       "description": "Boolean Condition"
                     },
-                    "valueType": "boolean",
+                    "valueType": "EXPRESSION",
                     "value": "attempts < retries ",
                     "optional": false,
                     "editable": true
@@ -929,7 +948,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"Error occurred while invoking food service\"",
                     "optional": false,
                     "editable": true
@@ -946,7 +965,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "i < count ",
             "optional": false,
             "editable": true
@@ -982,7 +1001,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "finalMsg",
             "optional": false,
             "editable": true
@@ -1053,6 +1072,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -1062,6 +1082,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

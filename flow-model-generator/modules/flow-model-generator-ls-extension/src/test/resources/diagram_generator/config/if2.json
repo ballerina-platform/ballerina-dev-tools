@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "bananas",
             "optional": false,
             "editable": true
@@ -103,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "price > 10 ",
                 "optional": false,
                 "editable": true
@@ -158,7 +160,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "price > 100 ",
                         "optional": false,
                         "editable": true
@@ -193,7 +195,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "int",
+                            "valueType": "EXPRESSION",
                             "value": "12",
                             "optional": false,
                             "editable": true
@@ -203,6 +205,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "c",
                             "optional": false,
                             "editable": true
@@ -212,6 +215,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "int",
                             "optional": false,
                             "editable": true
@@ -247,7 +251,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"expensive\"",
                             "optional": false,
                             "editable": true
@@ -305,7 +309,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "int",
+                            "valueType": "EXPRESSION",
                             "value": "2",
                             "optional": false,
                             "editable": true
@@ -315,6 +319,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "b",
                             "optional": false,
                             "editable": true
@@ -324,6 +329,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "int",
                             "optional": false,
                             "editable": true
@@ -359,7 +365,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"moderate\"",
                             "optional": false,
                             "editable": true
@@ -405,7 +411,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"cheap\"",
             "optional": false,
             "editable": true
@@ -476,6 +482,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -485,6 +492,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

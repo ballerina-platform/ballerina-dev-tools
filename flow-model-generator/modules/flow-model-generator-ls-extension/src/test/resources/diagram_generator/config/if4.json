@@ -39,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -48,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "grapes",
             "optional": false,
             "editable": true
@@ -83,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "price % 4",
             "optional": false,
             "editable": true
@@ -93,6 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "mod",
             "optional": false,
             "editable": true
@@ -102,6 +105,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -157,7 +161,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "price > 100 ",
                 "optional": false,
                 "editable": true
@@ -258,7 +262,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "price < 50 ",
                         "optional": false,
                         "editable": true
@@ -313,7 +317,7 @@
                                   "label": "Condition",
                                   "description": "Boolean Condition"
                                 },
-                                "valueType": "boolean",
+                                "valueType": "EXPRESSION",
                                 "value": "price < 25 ",
                                 "optional": false,
                                 "editable": true
@@ -368,7 +372,7 @@
                                           "label": "Condition",
                                           "description": "Boolean Condition"
                                         },
-                                        "valueType": "boolean",
+                                        "valueType": "EXPRESSION",
                                         "value": "price < 10 && mod == 1 ",
                                         "optional": false,
                                         "editable": true
@@ -462,7 +466,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "mod == 0 ",
                         "optional": false,
                         "editable": true
@@ -566,6 +570,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -575,6 +580,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

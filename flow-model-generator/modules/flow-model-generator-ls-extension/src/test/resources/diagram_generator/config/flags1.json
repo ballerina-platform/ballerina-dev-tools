@@ -64,6 +64,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
+            "valueType": "EXPRESSION",
             "value": "    check fnWithError();\n",
             "optional": false,
             "editable": true
@@ -99,6 +100,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
+            "valueType": "EXPRESSION",
             "value": "    checkpanic fnWithError();\n",
             "optional": false,
             "editable": true
@@ -134,7 +136,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -144,6 +146,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res1",
             "optional": false,
             "editable": true
@@ -153,6 +156,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -188,7 +192,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -198,6 +202,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res2",
             "optional": false,
             "editable": true
@@ -207,6 +212,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -242,7 +248,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -252,6 +258,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res3",
             "optional": false,
             "editable": true
@@ -261,6 +268,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -296,7 +304,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -306,6 +314,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res4",
             "optional": false,
             "editable": true
@@ -315,6 +324,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
