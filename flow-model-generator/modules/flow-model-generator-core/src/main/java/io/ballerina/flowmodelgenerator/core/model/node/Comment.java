@@ -25,9 +25,11 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Represents the properties of a comment node.
@@ -39,7 +41,7 @@ public class Comment extends NodeBuilder {
     public static final String LABEL = "Comment";
     public static final String DESCRIPTION = "Comment of a node";
     private static final String DOUBLE_SLASH = "// ";
-    private static final String NEW_LINE = "\n";
+    private static final String NEW_LINE = System.lineSeparator();
 
     @Override
     public void setConcreteConstData() {
@@ -50,23 +52,20 @@ public class Comment extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.COMMENT_KEY);
-        if (property.isPresent()) {
-            StringBuilder commentBuilder = new StringBuilder();
-            String comment = property.get().toSourceCode();
-            String[] splits = comment.split(NEW_LINE);
-            if (splits.length == 0) {
-                commentBuilder.append(DOUBLE_SLASH).append(comment).append(NEW_LINE);
-            } else {
-                for (String split : splits) {
-                    commentBuilder.append(DOUBLE_SLASH).append(split).append(NEW_LINE);
-                }
-            }
-            sourceBuilder.token().comment(commentBuilder.toString());
+        if (property.isEmpty()) {
+            throw new IllegalStateException("Comment must be defined for a comment node");
         }
-        return sourceBuilder.comment().build();
+        String formattedComment = Arrays.stream(property.get().toSourceCode().split(NEW_LINE))
+                .map(line -> new StringBuilder().append(DOUBLE_SLASH).append(line).append(NEW_LINE))
+                .collect(Collectors.joining());
+        return sourceBuilder
+                .token().name(formattedComment).stepOut()
+                .comment()
+                .build();
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
+        properties().defaultComment();
     }
 }

@@ -106,3 +106,8 @@ public function commentInDoBody(int i) {
         // Precess `x`
     }
 }
+
+public function emptyComment() {
+    //
+    int i = 0;
+}

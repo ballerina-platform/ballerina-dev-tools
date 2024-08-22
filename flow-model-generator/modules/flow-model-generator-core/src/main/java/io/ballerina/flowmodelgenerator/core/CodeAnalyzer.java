@@ -56,6 +56,7 @@ import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.Minutiae;
 import io.ballerina.compiler.syntax.tree.MinutiaeList;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
@@ -100,7 +101,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
-import io.ballerina.tools.text.TextRange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +170,8 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
         for (StatementNode statementNode : functionBodyBlockNode.statements()) {
-            visitStatement(statementNode);
+            genCommentNode(statementNode);
+            statementNode.accept(this);
         }
         genCommentNode(functionBodyBlockNode.closeBraceToken());
     }
@@ -772,66 +773,47 @@ class CodeAnalyzer extends NodeVisitor {
         genCommentNode(blockStatement.closeBraceToken(), thenBranchBuilder);
     }
 
-    private void visitStatement(StatementNode statementNode) {
-        genCommentNode(statementNode);
-        statementNode.accept(this);
+    private LineRange getCommentPosition(Node node) {
+        LinePosition startPos = textDocument.linePositionFrom(node.textRangeWithMinutiae().startOffset());
+        LinePosition endPos = textDocument.linePositionFrom(node.textRange().startOffset());
+        return LineRange.from(node.lineRange().fileName(), startPos, endPos);
     }
 
-    private LineRange getCommentPosition(Node commentAttachedNode) {
-        TextRange textRangeWithMinutiae = commentAttachedNode.textRangeWithMinutiae();
-        TextRange textRange = commentAttachedNode.textRange();
-        LinePosition startPos = textDocument.linePositionFrom(textRangeWithMinutiae.startOffset());
-        LinePosition endPos = textDocument.linePositionFrom(textRange.startOffset());
-
-        return LineRange.from(commentAttachedNode.lineRange().fileName(), startPos, endPos);
-    }
-
-    private String getComment(MinutiaeList minutiaes) {
-        int size = minutiaes.size();
+    private Optional<String> getComment(MinutiaeList minutiaes) {
         List<String> commentLines = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            String minutiae = minutiaes.get(i).text();
-            String[] splits = minutiae.split("// ");
+        for (Minutiae minutiae : minutiaes) {
+            String[] splits = minutiae.text().split("// ");
             if (splits.length >= 2) {
                 commentLines.add(splits[1]);
+            } else if (splits.length == 1 && splits[0].contains("//")) {
+                commentLines.add("");
             }
         }
-        if (commentLines.isEmpty()) {
-            return "";
-        }
-        StringBuilder commentBuilder = new StringBuilder();
-        commentBuilder.append(commentLines.get(0));
-        for (int i = 1; i < commentLines.size(); i++) {
-            commentBuilder.append("\n");
-            commentBuilder.append(commentLines.get(i));
-        }
-        return commentBuilder.toString();
+        return commentLines.isEmpty() ? Optional.empty() : Optional.of(String.join(System.lineSeparator(),
+                commentLines));
     }
 
     private void genCommentNode(Node node, Branch.Builder builder) {
-        String comment = getComment(node.leadingMinutiae());
+        Optional<String> comment = getComment(node.leadingMinutiae());
         if (comment.isEmpty()) {
             return;
         }
-        genCommentNode(node, comment);
+        genCommentNode(node, comment.get());
         builder.node(buildNode());
     }
 
     private void genCommentNode(Node node) {
-        String comment = getComment(node.leadingMinutiae());
+        Optional<String> comment = getComment(node.leadingMinutiae());
         if (comment.isEmpty()) {
             return;
         }
-        genCommentNode(node, comment);
+        genCommentNode(node, comment.get());
     }
 
     private void genCommentNode(Node node, String comment) {
         startNode(FlowNode.Kind.COMMENT)
-                .metadata()
-                .description(Comment.DESCRIPTION)
-                .stepOut()
-                .properties()
-                .comment(comment);
+                .metadata().description(Comment.DESCRIPTION).stepOut()
+                .properties().comment(comment);
         endNode(getCommentPosition(node));
     }
 

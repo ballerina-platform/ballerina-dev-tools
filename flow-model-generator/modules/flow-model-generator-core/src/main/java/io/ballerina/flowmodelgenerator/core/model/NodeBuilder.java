@@ -574,6 +574,19 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> defaultComment() {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.COMMENT_LABEL)
+                    .description(Property.COMMENT_DOC)
+                    .stepOut()
+                    .value("")
+                    .editable()
+                    .build();
+            addProperty(Property.COMMENT_KEY, property);
+            return this;
+        }
+
         public PropertiesBuilder<T> onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
             BindingPatternNode bindingPatternNode = typedBindingPatternNode.bindingPattern();
             Property value = propertyBuilder
