@@ -314,7 +314,7 @@
               "label": "Output",
               "description": "Output of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "SINGLE_SELECT",
             "value": "new_connection1:Person",
             "optional": false,
             "editable": true
@@ -324,7 +324,7 @@
               "label": "Inputs",
               "description": "Input variables of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "MULTIPLE_SELECT",
             "value": [
               "string name",
               "string email",
@@ -476,7 +476,7 @@
               "label": "Output",
               "description": "Output of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "SINGLE_SELECT",
             "value": "new_connection1:Employee",
             "optional": false,
             "editable": true
@@ -486,7 +486,7 @@
               "label": "Inputs",
               "description": "Input variables of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "MULTIPLE_SELECT",
             "value": [
               "new_connection1:Person person",
               "new_connection1:Admission admission"

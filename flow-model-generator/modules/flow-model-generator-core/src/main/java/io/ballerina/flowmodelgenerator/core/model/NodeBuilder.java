@@ -413,7 +413,7 @@ public abstract class NodeBuilder {
                     .label(INPUTS_LABEL)
                     .description(INPUTS_DOC)
                     .stepOut()
-                    .type(Property.ValueType.SET)
+                    .type(Property.ValueType.MULTIPLE_SELECT)
                     .value(inputs)
                     .editable();
 
@@ -427,7 +427,7 @@ public abstract class NodeBuilder {
                         .label(OUTPUT_LABEL)
                         .description(OUTPUT_DOC)
                         .stepOut()
-                    .type(Property.ValueType.SET)
+                    .type(Property.ValueType.SINGLE_SELECT)
                     .editable();
 
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
@@ -768,7 +768,7 @@ public abstract class NodeBuilder {
                     .description(Property.COLLECTION_DOC)
                     .stepOut()
                     .value("[]")
-                    .type(Property.ValueType.SET)
+                    .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();
             addProperty(Property.COLLECTION_KEY, property);

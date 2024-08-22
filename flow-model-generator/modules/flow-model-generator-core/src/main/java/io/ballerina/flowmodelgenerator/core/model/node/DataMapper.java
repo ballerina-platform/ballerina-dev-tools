@@ -108,9 +108,9 @@ public class DataMapper extends NodeBuilder {
             }
         }
 
-        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.SET,
+        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
                 new ArrayList<>(visibleVariables), "");
-        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET,
+        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
                 new ArrayList<>(visibleRecordTypes), "");
     }
 

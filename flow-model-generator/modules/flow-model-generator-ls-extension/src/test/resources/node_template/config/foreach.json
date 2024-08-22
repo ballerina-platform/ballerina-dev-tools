@@ -36,6 +36,7 @@
               "label": "Ignore",
               "description": "Ignore the error value"
             },
+            "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
             "editable": true
@@ -45,6 +46,7 @@
               "label": "Error Variable",
               "description": "Name of the error variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "err",
             "optional": false,
             "editable": true
@@ -54,6 +56,7 @@
               "label": "Error Type",
               "description": "Type of the error"
             },
+            "valueType": "TYPE",
             "value": "error",
             "optional": false,
             "editable": true
@@ -68,6 +71,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
+        "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
         "editable": true
@@ -77,6 +81,7 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
+        "valueType": "TYPE",
         "value": "var",
         "optional": false,
         "editable": true
@@ -86,6 +91,7 @@
           "label": "Collection",
           "description": "Collection to iterate"
         },
+        "valueType": "EXPRESSION",
         "value": "[]",
         "optional": false,
         "editable": true

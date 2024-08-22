@@ -44,7 +44,7 @@
           "label": "Inputs",
           "description": "Input variables of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
           "http:Client cl",
           "new_connection1:Input localInput",
@@ -59,7 +59,7 @@
           "label": "Output",
           "description": "Output of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "SINGLE_SELECT",
         "valueTypeConstraint": [
           "Address",
           "Admission",
