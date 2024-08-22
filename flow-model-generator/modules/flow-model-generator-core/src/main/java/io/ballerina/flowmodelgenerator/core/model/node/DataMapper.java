@@ -100,12 +100,11 @@ public class DataMapper extends NodeBuilder {
         Set<String> visibleRecordTypes = new TreeSet<>();
 
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
-            if (symbol.kind() == SymbolKind.VARIABLE) {
-                getVariableSignature(semanticModel, (VariableSymbol) symbol)
-                        .ifPresent(visibleVariables::add);
+            if (symbol.kind() == SymbolKind.VARIABLE &&
+                    symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
+                getVariableSignature(semanticModel, (VariableSymbol) symbol).ifPresent(visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                getRecordTypeSignature((TypeDefinitionSymbol) symbol)
-                        .ifPresent(visibleRecordTypes::add);
+                getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
             }
         }
 
@@ -113,7 +112,6 @@ public class DataMapper extends NodeBuilder {
                 new ArrayList<>(visibleVariables), "");
         properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET,
                 new ArrayList<>(visibleRecordTypes), "");
-        ;
     }
 
     private static Optional<String> getVariableSignature(SemanticModel semanticModel, VariableSymbol symbol) {

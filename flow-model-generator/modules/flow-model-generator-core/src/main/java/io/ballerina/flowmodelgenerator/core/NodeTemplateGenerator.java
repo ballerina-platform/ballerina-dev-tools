@@ -38,7 +38,10 @@ public class NodeTemplateGenerator {
                 .setTemplateData(new NodeBuilder.TemplateContext(workspaceManager, filePath, position, codedata))
                 .build();
 
-        nodeCache.put(codedata, flowNode);
+        // TODO: Need to keep an array on which nodes are note not cacheable
+        if (codedata.node() != FlowNode.Kind.DATA_MAPPER) {
+            nodeCache.put(codedata, flowNode);
+        }
         return gson.toJsonTree(flowNode);
     }
 }

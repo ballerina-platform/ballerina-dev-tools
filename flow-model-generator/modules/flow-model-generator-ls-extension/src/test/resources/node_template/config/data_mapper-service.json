@@ -1,7 +1,7 @@
 {
-  "source": "data_mapper/main.bal",
+  "source": "data_mapper/service.bal",
   "position": {
-    "line": 14,
+    "line": 7,
     "offset": 0
   },
   "description": "Sample diagram node",
@@ -47,9 +47,8 @@
         "valueType": "SET",
         "valueTypeConstraint": [
           "http:Client cl",
-          "int x",
-          "new_connection1:Address address",
-          "string z"
+          "new_connection1:Input localInput",
+          "new_connection1:Input moduleInput"
         ],
         "value": "",
         "optional": false,
@@ -65,7 +64,9 @@
           "Address",
           "Admission",
           "Employee",
+          "Input",
           "Location",
+          "Output",
           "Person"
         ],
         "value": "",
