@@ -230,8 +230,14 @@ class CodeAnalyzer extends NodeVisitor {
         String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
         String orgName = CommonUtils.getOrgName(methodSymbol);
 
-        FlowNode nodeTemplate = central.getNodeTemplate(
-                new Codedata(FlowNode.Kind.ACTION_CALL, orgName, moduleName, "Client", methodName, null, null));
+        Codedata codedata = new Codedata.Builder<>(null)
+                .node(FlowNode.Kind.ACTION_CALL)
+                .org(orgName)
+                .module(moduleName)
+                .object("Client")
+                .symbol(methodName)
+                .build();
+        FlowNode nodeTemplate = central.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             startNode(FlowNode.Kind.EXPRESSION);
             return;
@@ -334,8 +340,14 @@ class CodeAnalyzer extends NodeVisitor {
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
         String orgName = CommonUtils.getOrgName(typeSymbol.get());
-        FlowNode nodeTemplate = central.getNodeTemplate(
-                new Codedata(FlowNode.Kind.NEW_CONNECTION, orgName, moduleName, "Client", "init", null, null));
+        Codedata codedata = new Codedata.Builder<>(null)
+                .node(FlowNode.Kind.NEW_CONNECTION)
+                .org(orgName)
+                .module(moduleName)
+                .object("Client")
+                .symbol("init")
+                .build();
+        FlowNode nodeTemplate = central.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             startNode(FlowNode.Kind.EXPRESSION);
             return;
@@ -473,8 +485,13 @@ class CodeAnalyzer extends NodeVisitor {
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
             String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            FlowNode nodeTemplate = central.getNodeTemplate(
-                    new Codedata(FlowNode.Kind.FUNCTION_CALL, orgName, moduleName, null, functionName, null, null));
+            Codedata codedata = new Codedata.Builder<>(null)
+                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .org(orgName)
+                    .module(moduleName)
+                    .symbol(functionName)
+                    .build();
+            FlowNode nodeTemplate = central.getNodeTemplate(codedata);
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()

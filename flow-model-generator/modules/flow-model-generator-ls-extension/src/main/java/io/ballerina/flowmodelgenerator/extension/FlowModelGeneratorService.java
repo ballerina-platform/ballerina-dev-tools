@@ -84,8 +84,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelGeneratorResponse> getFlowModel(
-            FlowModelGeneratorRequest request) {
+    public CompletableFuture<FlowModelGeneratorResponse> getFlowModel(FlowModelGeneratorRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelGeneratorResponse response = new FlowModelGeneratorResponse();
@@ -193,8 +192,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelSourceGeneratorResponse> getSourceCode(
-            FlowModelSourceGeneratorRequest request) {
+    public CompletableFuture<FlowModelSourceGeneratorResponse> getSourceCode(FlowModelSourceGeneratorRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelSourceGeneratorResponse response = new FlowModelSourceGeneratorResponse();
@@ -235,8 +233,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelNodeTemplateResponse> getNodeTemplate(
-            FlowModelNodeTemplateRequest request) {
+    public CompletableFuture<FlowModelNodeTemplateResponse> getNodeTemplate(FlowModelNodeTemplateRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelNodeTemplateResponse response = new FlowModelNodeTemplateResponse();
@@ -254,8 +251,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     @JsonRequest
-    public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(
-            FlowModelGetConnectorsRequest request) {
+    public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(FlowModelGetConnectorsRequest request) {
 
         return CompletableFuture.supplyAsync(() -> {
             FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
