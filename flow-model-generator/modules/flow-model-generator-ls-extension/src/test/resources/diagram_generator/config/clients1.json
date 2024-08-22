@@ -371,6 +371,40 @@
         },
         "returning": false,
         "flags": 0
+      },
+      {
+        "id": "52824",
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "clients.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 29,
+              "offset": 0
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "\nvar myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
       }
     ],
     "connections": [

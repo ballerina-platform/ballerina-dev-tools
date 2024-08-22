@@ -36,6 +36,40 @@
         "flags": 0
       },
       {
+        "id": "40707",
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 10,
+              "offset": 4
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "Define local variables for input parameters",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
         "id": "41817",
         "metadata": {
           "label": "New Variable",
@@ -195,6 +229,40 @@
         "flags": 0
       },
       {
+        "id": "50658",
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 19,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 4
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "Transform to Person",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
         "id": "52760",
         "metadata": {
           "label": "Data Mapper",
@@ -309,6 +377,40 @@
               "description": "Type of the variable"
             },
             "value": "new_connection1:Admission",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "58594",
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 27,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 29,
+              "offset": 4
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "Transform to Employee",
             "optional": false,
             "editable": true
           }

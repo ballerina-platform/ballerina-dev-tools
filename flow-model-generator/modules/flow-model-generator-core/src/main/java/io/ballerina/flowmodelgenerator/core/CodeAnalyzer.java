@@ -46,6 +46,7 @@ import io.ballerina.compiler.syntax.tree.FailStatementNode;
 import io.ballerina.compiler.syntax.tree.ForEachStatementNode;
 import io.ballerina.compiler.syntax.tree.ForkStatementNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
+import io.ballerina.compiler.syntax.tree.FunctionBodyBlockNode;
 import io.ballerina.compiler.syntax.tree.FunctionCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionDefinitionNode;
 import io.ballerina.compiler.syntax.tree.IfElseStatementNode;
@@ -55,6 +56,8 @@ import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
+import io.ballerina.compiler.syntax.tree.Minutiae;
+import io.ballerina.compiler.syntax.tree.MinutiaeList;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
@@ -86,6 +89,7 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
@@ -94,6 +98,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,14 +123,17 @@ class CodeAnalyzer extends NodeVisitor {
     private final List<String> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
+    private final TextDocument textDocument;
 
-    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings) {
+    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings,
+                        TextDocument textDocument) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
         this.central = CentralProxy.getInstance();
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
+        this.textDocument = textDocument;
     }
 
     @Override
@@ -155,6 +165,15 @@ class CodeAnalyzer extends NodeVisitor {
                 .type(objectFieldNode.typeName())
                 .variable(objectFieldNode.fieldName());
         endNode(objectFieldNode);
+    }
+
+    @Override
+    public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
+        for (StatementNode statementNode : functionBodyBlockNode.statements()) {
+            genCommentNode(statementNode);
+            statementNode.accept(this);
+        }
+        genCommentNode(functionBodyBlockNode.closeBraceToken());
     }
 
     @Override
@@ -250,10 +269,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
                 .properties().condition(ifElseStatementNode.condition()).stepOut();
         BlockStatementNode ifBody = ifElseStatementNode.ifBody();
-        for (StatementNode statement : ifBody.statements()) {
-            statement.accept(this);
-            thenBranchBuilder.node(buildNode());
-        }
+        analyzeBlock(ifBody, thenBranchBuilder);
         endBranch(thenBranchBuilder, ifBody);
 
         Optional<Node> elseBody = ifElseStatementNode.elseBody();
@@ -261,31 +277,26 @@ class CodeAnalyzer extends NodeVisitor {
             Branch.Builder elseBranchBuilder =
                     startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
                             Branch.Repeatable.ZERO_OR_ONE);
-            List<FlowNode> elseBodyChildNodes = analyzeElseBody(elseBody.get());
-            elseBranchBuilder.nodes(elseBodyChildNodes);
+            analyzeElseBody(elseBody.get(), elseBranchBuilder);
             endBranch(elseBranchBuilder, elseBody.get());
         }
 
         endNode(ifElseStatementNode);
     }
 
-    private List<FlowNode> analyzeElseBody(Node elseBody) {
-        return switch (elseBody.kind()) {
-            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
+    private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
+        switch (elseBody.kind()) {
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), branchBuilder);
             case BLOCK_STATEMENT -> {
-                List<FlowNode> elseNodes = new ArrayList<>();
-                for (StatementNode statement : ((BlockStatementNode) elseBody).statements()) {
-                    statement.accept(this);
-                    elseNodes.add(buildNode());
-                }
-                yield elseNodes;
+                analyzeBlock(((BlockStatementNode) elseBody), branchBuilder);
             }
             case IF_ELSE_STATEMENT -> {
                 elseBody.accept(this);
-                yield List.of(buildNode());
+                branchBuilder.node(buildNode());
             }
-            default -> new ArrayList<>();
-        };
+            default -> {
+            }
+        }
     }
 
     @Override
@@ -504,10 +515,7 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
                         Branch.Repeatable.ONE);
-        for (StatementNode statement : whileBody.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(whileBody, branchBuilder);
         endBranch(branchBuilder, whileBody);
         whileStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(whileStatementNode);
@@ -521,10 +529,7 @@ class CodeAnalyzer extends NodeVisitor {
             branchBuilder.properties().ignore().onErrorVariable(onFailClauseNode.typedBindingPattern().get());
         }
         BlockStatementNode onFailClauseBlock = onFailClauseNode.blockStatement();
-        for (StatementNode statement : onFailClauseBlock.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(onFailClauseBlock, branchBuilder);
         endBranch(branchBuilder, onFailClauseBlock);
     }
 
@@ -554,10 +559,7 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode lockBody = lockStatementNode.blockStatement();
-        for (StatementNode statement : lockBody.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(lockBody, branchBuilder);
         endBranch(branchBuilder, lockBody);
         lockStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(lockStatementNode);
@@ -574,10 +576,7 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
-        for (StatementNode statement : blockStatementNode.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(transactionStatementNode);
@@ -592,10 +591,7 @@ class CodeAnalyzer extends NodeVisitor {
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         BlockStatementNode blockStatementNode = forEachStatementNode.blockStatement();
-        for (StatementNode statement : blockStatementNode.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         forEachStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(forEachStatementNode);
@@ -628,10 +624,7 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.ERROR_HANDLER);
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        for (StatementNode statement : blockStatementNode.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(blockStatementNode, branchBuilder);
         endBranch(branchBuilder, blockStatementNode);
         processOnFailClause(optOnFailClauseNode.get());
         endNode(doStatementNode);
@@ -688,7 +681,11 @@ class CodeAnalyzer extends NodeVisitor {
      * only adds the node to the diagram if there is no active parent node which is building its branches.
      */
     private void endNode(Node node) {
-        nodeBuilder.codedata().lineRange(node);
+        endNode(node.lineRange());
+    }
+
+    private void endNode(LineRange lineRange) {
+        nodeBuilder.codedata().lineRange(lineRange);
 
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
@@ -762,12 +759,62 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.EXPRESSION);
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
-        for (StatementNode statement : bodyNode.statements()) {
-            statement.accept(this);
-            branchBuilder.node(buildNode());
-        }
+        analyzeBlock(bodyNode, branchBuilder);
         endBranch(branchBuilder, bodyNode);
         endNode(bodyNode);
+    }
+
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+        for (StatementNode statement : blockStatement.statements()) {
+            genCommentNode(statement, thenBranchBuilder);
+            statement.accept(this);
+            thenBranchBuilder.node(buildNode());
+        }
+        genCommentNode(blockStatement.closeBraceToken(), thenBranchBuilder);
+    }
+
+    private LineRange getCommentPosition(Node node) {
+        LinePosition startPos = textDocument.linePositionFrom(node.textRangeWithMinutiae().startOffset());
+        LinePosition endPos = textDocument.linePositionFrom(node.textRange().startOffset());
+        return LineRange.from(node.lineRange().fileName(), startPos, endPos);
+    }
+
+    private Optional<String> getComment(MinutiaeList minutiaes) {
+        List<String> commentLines = new ArrayList<>();
+        for (Minutiae minutiae : minutiaes) {
+            String[] splits = minutiae.text().split("// ");
+            if (splits.length >= 2) {
+                commentLines.add(splits[1]);
+            } else if (splits.length == 1 && splits[0].contains("//")) {
+                commentLines.add("");
+            }
+        }
+        return commentLines.isEmpty() ? Optional.empty() : Optional.of(String.join(System.lineSeparator(),
+                commentLines));
+    }
+
+    private void genCommentNode(Node node, Branch.Builder builder) {
+        Optional<String> comment = getComment(node.leadingMinutiae());
+        if (comment.isEmpty()) {
+            return;
+        }
+        genCommentNode(node, comment.get());
+        builder.node(buildNode());
+    }
+
+    private void genCommentNode(Node node) {
+        Optional<String> comment = getComment(node.leadingMinutiae());
+        if (comment.isEmpty()) {
+            return;
+        }
+        genCommentNode(node, comment.get());
+    }
+
+    private void genCommentNode(Node node, String comment) {
+        startNode(FlowNode.Kind.COMMENT)
+                .metadata().description(Comment.DESCRIPTION).stepOut()
+                .properties().comment(comment);
+        endNode(getCommentPosition(node));
     }
 
     public List<FlowNode> getFlowNodes() {
