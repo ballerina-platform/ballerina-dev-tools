@@ -30,7 +30,8 @@
               "line": 56,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 47,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int x = 0;"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 50,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "This is a while block"
         },
         "returning": false,
         "properties": {
@@ -140,7 +143,8 @@
               "line": 55,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "// This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
         },
         "returning": false,
         "branches": [
@@ -159,7 +163,8 @@
                   "line": 55,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -181,7 +186,8 @@
                       "line": 52,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "update `x`"
                 },
                 "returning": false,
                 "properties": {
@@ -215,7 +221,8 @@
                       "line": 52,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// update `x`\n        x = x + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -260,7 +267,8 @@
                       "line": 55,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Generate new node"
                 },
                 "returning": false,
                 "properties": {

@@ -54,7 +54,8 @@
               "line": 10,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Define local variables for input parameters"
         },
         "returning": false,
         "properties": {
@@ -250,7 +251,8 @@
               "line": 21,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Transform to Person"
         },
         "returning": false,
         "properties": {
@@ -407,7 +409,8 @@
               "line": 29,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Transform to Employee"
         },
         "returning": false,
         "properties": {

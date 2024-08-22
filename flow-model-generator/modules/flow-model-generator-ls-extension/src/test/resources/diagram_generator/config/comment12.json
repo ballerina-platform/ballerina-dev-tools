@@ -30,7 +30,8 @@
               "line": 112,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function emptyComment() {\n    //\n    int i = 0;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 111,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": ""
         },
         "returning": false,
         "properties": {
@@ -87,7 +89,8 @@
               "line": 111,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "//\n    int i = 0;"
         },
         "returning": false,
         "properties": {

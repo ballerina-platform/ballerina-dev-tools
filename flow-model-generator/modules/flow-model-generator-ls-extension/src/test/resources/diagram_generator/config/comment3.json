@@ -30,7 +30,8 @@
               "line": 20,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInFunctionBody1() {\n    int i = 0;\n    // This is a function body comment\n    // to generate AI flow\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 17,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 20,
               "offset": 0
             }
-          }
+          },
+          "sourceCode": "This is a function body comment\nto generate AI flow"
         },
         "returning": false,
         "properties": {

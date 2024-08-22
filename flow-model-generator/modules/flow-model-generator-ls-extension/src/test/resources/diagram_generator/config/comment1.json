@@ -30,7 +30,8 @@
               "line": 5,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnStatement() returns int {\n    // Create variable name i\n    // This is an additional comment\n    int i = 0;\n    return 0;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 3,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Create variable name i\nThis is an additional comment"
         },
         "returning": false,
         "properties": {
@@ -87,7 +89,8 @@
               "line": 3,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "// Create variable name i\n    // This is an additional comment\n    int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -140,7 +143,8 @@
               "line": 4,
               "offset": 13
             }
-          }
+          },
+          "sourceCode": "return 0;"
         },
         "returning": true,
         "properties": {

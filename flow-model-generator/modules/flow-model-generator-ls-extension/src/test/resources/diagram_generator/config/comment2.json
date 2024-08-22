@@ -30,7 +30,8 @@
               "line": 14,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnStatementBody() {\n    if true {\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 13,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "if true {\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 13,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -106,7 +109,8 @@
                       "line": 10,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment for a statement"
                 },
                 "returning": false,
                 "properties": {
@@ -140,7 +144,8 @@
                       "line": 10,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// This is a comment for a statement\n        int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -193,7 +198,8 @@
                       "line": 11,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "int x = 68;"
                 },
                 "returning": false,
                 "properties": {
@@ -246,7 +252,8 @@
                       "line": 13,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment to generate flow"
                 },
                 "returning": false,
                 "properties": {

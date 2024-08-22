@@ -30,7 +30,8 @@
               "line": 85,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInTransactionBody1() returns error? {\n    transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 84,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 84,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 81,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "Commit the trasaction"
                 },
                 "returning": false,
                 "properties": {
@@ -128,7 +132,8 @@
                       "line": 81,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "// Commit the trasaction\n        var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -181,7 +186,8 @@
                       "line": 84,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Generate new flow nodes"
                 },
                 "returning": false,
                 "properties": {

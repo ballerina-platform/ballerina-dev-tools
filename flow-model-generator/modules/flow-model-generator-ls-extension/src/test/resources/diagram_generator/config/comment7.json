@@ -30,7 +30,8 @@
               "line": 67,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnFailBody1(int i) {\n    while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 66,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 61,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = i + 1;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 60,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "_ = i + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -138,7 +142,8 @@
                   "line": 66,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -189,7 +194,8 @@
                       "line": 63,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment in on fail"
                 },
                 "returning": false,
                 "properties": {
@@ -223,7 +229,8 @@
                       "line": 63,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "// This is a comment in on fail\n        error err = e;"
                 },
                 "returning": false,
                 "properties": {
@@ -276,7 +283,8 @@
                       "line": 66,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Panic with error `err`"
                 },
                 "returning": false,
                 "properties": {

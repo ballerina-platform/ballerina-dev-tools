@@ -73,7 +73,8 @@
               "line": 17,
               "offset": 8
             }
-          }
+          },
+          "sourceCode": "error handler"
         },
         "returning": false,
         "properties": {
@@ -150,7 +151,8 @@
                       "line": 19,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "new data"
                 },
                 "returning": false,
                 "properties": {
@@ -238,7 +240,8 @@
                       "line": 21,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "action call - redis get call"
                 },
                 "returning": false,
                 "properties": {
@@ -341,7 +344,8 @@
                       "line": 24,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "if node"
                 },
                 "returning": false,
                 "properties": {
@@ -430,7 +434,8 @@
                               "line": 26,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -518,7 +523,8 @@
                               "line": 30,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "return"
                         },
                         "returning": false,
                         "properties": {
@@ -610,7 +616,8 @@
                               "line": 33,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "action call - http get call"
                         },
                         "returning": false,
                         "properties": {
@@ -731,7 +738,8 @@
                               "line": 36,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -819,7 +827,8 @@
                               "line": 38,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "function call"
                         },
                         "returning": false,
                         "properties": {
@@ -907,7 +916,8 @@
                               "line": 41,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "action call - redis set call"
                         },
                         "returning": false,
                         "properties": {
@@ -1002,7 +1012,8 @@
                               "line": 44,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -1090,7 +1101,8 @@
                               "line": 48,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "return"
                         },
                         "returning": false,
                         "properties": {
@@ -1216,7 +1228,8 @@
                       "line": 52,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "library call - log error"
                 },
                 "returning": false,
                 "properties": {
@@ -1318,7 +1331,8 @@
                       "line": 54,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "return "
                 },
                 "returning": false,
                 "properties": {

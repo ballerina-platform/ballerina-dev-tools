@@ -30,7 +30,8 @@
               "line": 27,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInFunctionBody2() {\n\n    // This is a function body comment\n    // to generate AI flow for function\n    // `commentInFunctionBody2`\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 27,
               "offset": 0
             }
-          }
+          },
+          "sourceCode": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`"
         },
         "returning": false,
         "properties": {

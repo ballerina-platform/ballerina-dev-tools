@@ -102,6 +102,11 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
             return this;
         }
 
+        public Builder<T> sourceCode(String sourceCode) {
+            this.sourceCode = sourceCode;
+            return this;
+        }
+
         public Codedata build() {
             return new Codedata(node, org, module, object, symbol, lineRange, sourceCode);
         }

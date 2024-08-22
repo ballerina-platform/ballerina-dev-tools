@@ -397,7 +397,8 @@
               "line": 29,
               "offset": 0
             }
-          }
+          },
+          "sourceCode": "\nvar myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");"
         },
         "returning": false,
         "properties": {

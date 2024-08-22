@@ -698,12 +698,11 @@ class CodeAnalyzer extends NodeVisitor {
      * only adds the node to the diagram if there is no active parent node which is building its branches.
      */
     private void endNode(Node node) {
-        endNode(node.lineRange());
+        nodeBuilder.codedata().nodeInfo(node);
+        endNode();
     }
 
-    private void endNode(LineRange lineRange) {
-        nodeBuilder.codedata().lineRange(lineRange);
-
+    private void endNode() {
         if (this.flowNodeBuilderStack.isEmpty()) {
             this.flowNodeList.add(buildNode());
         }
@@ -831,7 +830,10 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.COMMENT)
                 .metadata().description(Comment.DESCRIPTION).stepOut()
                 .properties().comment(comment);
-        endNode(getCommentPosition(node));
+        nodeBuilder.codedata()
+                .lineRange(getCommentPosition(node))
+                .sourceCode(comment);
+        endNode();
     }
 
     public List<FlowNode> getFlowNodes() {

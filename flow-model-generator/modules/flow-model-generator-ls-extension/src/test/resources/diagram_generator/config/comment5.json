@@ -30,7 +30,8 @@
               "line": 44,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInElseBody1(int i) {\n    if i == 3 {\n\n    } else if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 43,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "if i == 3 {\n\n    } else if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 32,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -104,7 +107,8 @@
                   "line": 43,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "else if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -126,7 +130,8 @@
                       "line": 43,
                       "offset": 5
                     }
-                  }
+                  },
+                  "sourceCode": "if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
                 },
                 "returning": false,
                 "branches": [
@@ -145,7 +150,8 @@
                           "line": 38,
                           "offset": 5
                         }
-                      }
+                      },
+                      "sourceCode": "{\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -179,7 +185,8 @@
                               "line": 35,
                               "offset": 8
                             }
-                          }
+                          },
+                          "sourceCode": "This is a comment for i = 0"
                         },
                         "returning": false,
                         "properties": {
@@ -213,7 +220,8 @@
                               "line": 35,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// This is a comment for i = 0\n        int x = 0;"
                         },
                         "returning": false,
                         "properties": {
@@ -266,7 +274,8 @@
                               "line": 38,
                               "offset": 4
                             }
-                          }
+                          },
+                          "sourceCode": "This is a comment for if-else body"
                         },
                         "returning": false,
                         "properties": {
@@ -299,7 +308,8 @@
                           "line": 43,
                           "offset": 5
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -321,7 +331,8 @@
                               "line": 40,
                               "offset": 8
                             }
-                          }
+                          },
+                          "sourceCode": "This is a comment for x = 0"
                         },
                         "returning": false,
                         "properties": {
@@ -355,7 +366,8 @@
                               "line": 40,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// This is a comment for x = 0\n        int x = 0;"
                         },
                         "returning": false,
                         "properties": {
@@ -408,7 +420,8 @@
                               "line": 43,
                               "offset": 4
                             }
-                          }
+                          },
+                          "sourceCode": "This is a comment for else body"
                         },
                         "returning": false,
                         "properties": {

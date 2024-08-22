@@ -30,7 +30,8 @@
               "line": 107,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInDoBody(int i) {\n    int x = 0;\n\n    do {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 99,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int x = 0;"
         },
         "returning": false,
         "properties": {
@@ -106,7 +108,8 @@
               "line": 106,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "{\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +128,8 @@
                   "line": 106,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +151,8 @@
                       "line": 103,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "Increment `x`"
                 },
                 "returning": false,
                 "properties": {
@@ -181,7 +186,8 @@
                       "line": 103,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// Increment `x`\n        x = x + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -226,7 +232,8 @@
                       "line": 106,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Precess `x`"
                 },
                 "returning": false,
                 "properties": {

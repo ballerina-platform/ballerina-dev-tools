@@ -30,7 +30,8 @@
               "line": 76,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInLockBody1() {\n    lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 75,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 75,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 72,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "Initialize `i`"
                 },
                 "returning": false,
                 "properties": {
@@ -128,7 +132,8 @@
                       "line": 72,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// Initialize `i`\n        int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -181,7 +186,8 @@
                       "line": 75,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Lock the variable `i`"
                 },
                 "returning": false,
                 "properties": {
