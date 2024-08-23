@@ -115,7 +115,7 @@
             "character": 0
           }
         },
-        "newText": "res = check printInfo(, keyValues = );"
+        "newText": "res = check log:printInfo(, keyValues = );"
       }
     ]
   }
