@@ -828,7 +828,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void genCommentNode(Node node, String comment) {
         startNode(FlowNode.Kind.COMMENT)
-                .metadata().description(Comment.DESCRIPTION).stepOut()
+                .metadata().description(comment).stepOut()
                 .properties().comment(comment);
         nodeBuilder.codedata()
                 .lineRange(getCommentPosition(node))

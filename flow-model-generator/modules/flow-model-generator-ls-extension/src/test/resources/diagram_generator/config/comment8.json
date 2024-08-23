@@ -83,7 +83,7 @@
                 "id": "102215",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Initialize `i`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -175,7 +175,7 @@
                 "id": "104226",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Lock the variable `i`"
                 },
                 "codedata": {
                   "node": "COMMENT",

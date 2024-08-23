@@ -96,7 +96,7 @@
         "id": "49662",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "This is a function body comment\nto generate AI flow"
         },
         "codedata": {
           "node": "COMMENT",

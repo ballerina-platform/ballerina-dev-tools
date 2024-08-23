@@ -391,7 +391,7 @@
         "id": "52824",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "\nvar myObj = object {\n    MyClient myObjCl = new;\n    http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n};\n(myObj.myObjCl)->myRemoteFn();\njson objVal = check (check myObj.objCl)->get(\"/hello\");"
         },
         "codedata": {
           "node": "COMMENT",

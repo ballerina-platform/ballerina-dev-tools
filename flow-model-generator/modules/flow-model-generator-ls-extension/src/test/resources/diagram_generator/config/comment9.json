@@ -83,7 +83,7 @@
                 "id": "111143",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Commit the trasaction"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -175,7 +175,7 @@
                 "id": "113154",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Generate new flow nodes"
                 },
                 "codedata": {
                   "node": "COMMENT",

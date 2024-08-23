@@ -96,7 +96,7 @@
         "id": "79426",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "This is a while block"
         },
         "codedata": {
           "node": "COMMENT",
@@ -175,7 +175,7 @@
                 "id": "82375",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "update `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -257,7 +257,7 @@
                 "id": "84386",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Generate new node"
                 },
                 "codedata": {
                   "node": "COMMENT",

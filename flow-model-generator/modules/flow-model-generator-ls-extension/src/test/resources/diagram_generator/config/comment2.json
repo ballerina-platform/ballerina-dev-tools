@@ -95,7 +95,7 @@
                 "id": "40711",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment for a statement"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -243,7 +243,7 @@
                 "id": "43683",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment to generate flow"
                 },
                 "codedata": {
                   "node": "COMMENT",

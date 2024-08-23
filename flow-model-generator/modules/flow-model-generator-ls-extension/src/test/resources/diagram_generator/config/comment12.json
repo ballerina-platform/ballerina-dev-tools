@@ -40,7 +40,7 @@
         "id": "140899",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": ""
         },
         "codedata": {
           "node": "COMMENT",

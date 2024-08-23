@@ -40,7 +40,7 @@
         "id": "32802",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Create variable name i\nThis is an additional comment"
         },
         "codedata": {
           "node": "COMMENT",

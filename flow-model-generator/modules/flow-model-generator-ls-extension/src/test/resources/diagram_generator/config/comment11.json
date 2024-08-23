@@ -139,7 +139,7 @@
                 "id": "132967",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Increment `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -221,7 +221,7 @@
                 "id": "134978",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Precess `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",

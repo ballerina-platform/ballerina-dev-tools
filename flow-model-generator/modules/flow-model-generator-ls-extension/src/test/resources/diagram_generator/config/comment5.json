@@ -171,7 +171,7 @@
                         "id": "64550",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "This is a comment for i = 0"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -263,7 +263,7 @@
                         "id": "67522",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "This is a comment for if-else body"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -321,7 +321,7 @@
                         "id": "70471",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "This is a comment for x = 0"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -413,7 +413,7 @@
                         "id": "72482",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "This is a comment for else body"
                         },
                         "codedata": {
                           "node": "COMMENT",

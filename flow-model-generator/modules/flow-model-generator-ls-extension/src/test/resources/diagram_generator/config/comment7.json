@@ -183,7 +183,7 @@
                 "id": "93287",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment in on fail"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -275,7 +275,7 @@
                 "id": "95298",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Panic with error `err`"
                 },
                 "codedata": {
                   "node": "COMMENT",

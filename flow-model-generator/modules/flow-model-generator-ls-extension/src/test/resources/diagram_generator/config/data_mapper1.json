@@ -40,7 +40,7 @@
         "id": "40707",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Define local variables for input parameters"
         },
         "codedata": {
           "node": "COMMENT",
@@ -244,7 +244,7 @@
         "id": "50658",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Transform to Person"
         },
         "codedata": {
           "node": "COMMENT",
@@ -406,7 +406,7 @@
         "id": "58594",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Transform to Employee"
         },
         "codedata": {
           "node": "COMMENT",

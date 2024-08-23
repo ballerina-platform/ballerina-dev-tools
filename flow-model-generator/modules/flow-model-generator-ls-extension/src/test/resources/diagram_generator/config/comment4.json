@@ -40,7 +40,7 @@
         "id": "54684",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "This is a function body comment\nto generate AI flow for function\n`commentInFunctionBody2`"
         },
         "codedata": {
           "node": "COMMENT",
