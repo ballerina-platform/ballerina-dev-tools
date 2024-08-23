@@ -1215,7 +1215,7 @@
                   "description": "Ignore the error value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "true",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -1314,9 +1314,9 @@
                     "optional": false,
                     "editable": true
                   },
-                  "'error": {
+                  "error": {
                     "metadata": {
-                      "label": "'error",
+                      "label": "error",
                       "description": "The error struct to be logged\n"
                     },
                     "valueType": "EXPRESSION",

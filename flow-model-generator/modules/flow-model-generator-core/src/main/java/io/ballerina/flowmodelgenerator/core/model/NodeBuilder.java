@@ -57,6 +57,8 @@ import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LinePosition;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
+import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -470,7 +472,8 @@ public abstract class NodeBuilder {
                 if (name.isEmpty()) {
                     continue;
                 }
-                String parameterName = name.get();
+
+                String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
                 Property propertyTemplate = properties.get(parameterName);
@@ -561,13 +564,13 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> ignore() {
+        public PropertiesBuilder<T> ignore(boolean ignore) {
             Property property = propertyBuilder
                     .metadata()
                     .label(Property.IGNORE_LABEL)
                     .description(Property.IGNORE_DOC)
                     .stepOut()
-                    .value("true")
+                    .value(String.valueOf(ignore))
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();

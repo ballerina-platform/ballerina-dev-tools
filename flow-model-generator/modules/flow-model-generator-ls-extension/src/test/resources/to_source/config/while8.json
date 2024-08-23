@@ -19,7 +19,8 @@
           "line": 117,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "while i < count {\n            json|error response = foodClient->get(\"/food/watermelons\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }\n            if (i == 3) {\n                break;\n            }\n            i += 1;\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 117,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json|error response = foodClient->get(\"/food/watermelons\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }\n            if (i == 3) {\n                break;\n            }\n            i += 1;\n        }"
         },
         "repeatable": "ONE",
         "children": [
@@ -65,7 +67,8 @@
                   "line": 106,
                   "offset": 71
                 }
-              }
+              },
+              "sourceCode": "json|error response = foodClient->get(\"/food/watermelons\");"
             },
             "returning": false,
             "properties": {
@@ -84,6 +87,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "response",
                 "optional": false,
                 "editable": true
@@ -121,6 +125,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "json",
                 "optional": false,
                 "editable": true
@@ -146,7 +151,8 @@
                   "line": 112,
                   "offset": 13
                 }
-              }
+              },
+              "sourceCode": "if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }"
             },
             "returning": false,
             "branches": [
@@ -165,7 +171,8 @@
                       "line": 109,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                msg = \"Response received from food service: \" + response.toString();\n            }"
                 },
                 "repeatable": "ONE_OR_MORE",
                 "properties": {
@@ -174,7 +181,7 @@
                       "label": "Condition",
                       "description": "Boolean Condition"
                     },
-                    "valueType": "boolean",
+                    "valueType": "EXPRESSION",
                     "value": "(response is json) ",
                     "optional": false,
                     "editable": true
@@ -199,7 +206,8 @@
                           "line": 108,
                           "offset": 84
                         }
-                      }
+                      },
+                      "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
                     },
                     "returning": false,
                     "properties": {
@@ -208,7 +216,7 @@
                           "label": "Expression",
                           "description": "Update variable"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Response received from food service: \" + response.toString()",
                         "optional": false,
                         "editable": true
@@ -218,7 +226,7 @@
                           "label": "Variable",
                           "description": "Result Variable"
                         },
-                        "valueType": "string|()",
+                        "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
                         "editable": true
@@ -243,7 +251,8 @@
                       "line": 112,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }"
                 },
                 "repeatable": "ZERO_OR_ONE",
                 "children": [
@@ -265,7 +274,8 @@
                           "line": 110,
                           "offset": 90
                         }
-                      }
+                      },
+                      "sourceCode": "msg = \"Error occurred while invoking food service: \" + response.message();"
                     },
                     "returning": false,
                     "properties": {
@@ -274,7 +284,7 @@
                           "label": "Expression",
                           "description": "Update variable"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Error occurred while invoking food service: \" + response.message()",
                         "optional": false,
                         "editable": true
@@ -284,7 +294,7 @@
                           "label": "Variable",
                           "description": "Result Variable"
                         },
-                        "valueType": "string|()",
+                        "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
                         "editable": true
@@ -310,7 +320,8 @@
                           "line": 111,
                           "offset": 25
                         }
-                      }
+                      },
+                      "sourceCode": "continue;"
                     },
                     "returning": false,
                     "flags": 0
@@ -338,7 +349,8 @@
                   "line": 115,
                   "offset": 13
                 }
-              }
+              },
+              "sourceCode": "if (i == 3) {\n                break;\n            }"
             },
             "returning": false,
             "branches": [
@@ -357,7 +369,8 @@
                       "line": 115,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                break;\n            }"
                 },
                 "repeatable": "ONE_OR_MORE",
                 "properties": {
@@ -366,7 +379,7 @@
                       "label": "Condition",
                       "description": "Boolean Condition"
                     },
-                    "valueType": "boolean",
+                    "valueType": "EXPRESSION",
                     "value": "(i == 3) ",
                     "optional": false,
                     "editable": true
@@ -391,7 +404,8 @@
                           "line": 114,
                           "offset": 22
                         }
-                      }
+                      },
+                      "sourceCode": "break;"
                     },
                     "returning": false,
                     "flags": 0
@@ -419,7 +433,8 @@
                   "line": 116,
                   "offset": 19
                 }
-              }
+              },
+              "sourceCode": "i += 1;"
             },
             "returning": false,
             "properties": {
@@ -428,6 +443,7 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
+                "valueType": "EXPRESSION",
                 "value": "            i += 1;\n",
                 "optional": false,
                 "editable": true
@@ -444,7 +460,7 @@
           "label": "Condition",
           "description": "Boolean Condition"
         },
-        "valueType": "boolean",
+        "valueType": "EXPRESSION",
         "value": "i < count ",
         "optional": false,
         "editable": true
@@ -465,7 +481,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = foodClient->get(\"/food/watermelons\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    }\n    else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    if (i == 3) {\n        break;\n    }\n    i += 1;\n; }"
+        "newText": "while i < count {\n    json response = foodClient->get(\"/food/watermelons\");\n    if (response is json) {\n        msg = \"Response received from food service: \" + response.toString();\n    } else {\n        msg = \"Error occurred while invoking food service: \" + response.message();\n        continue;\n    }\n    if (i == 3) {\n        break;\n    }\n    i += 1;\n; }"
       }
     ]
   }

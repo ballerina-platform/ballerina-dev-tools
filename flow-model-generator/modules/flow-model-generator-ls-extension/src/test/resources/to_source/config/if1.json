@@ -19,7 +19,8 @@
           "line": 20,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 17,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            int a = 1;\n        }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -47,7 +49,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "flag ",
             "optional": false,
             "editable": true
@@ -72,7 +74,8 @@
                   "line": 16,
                   "offset": 22
                 }
-              }
+              },
+              "sourceCode": "int a = 1;"
             },
             "returning": false,
             "properties": {
@@ -81,7 +84,7 @@
                   "label": "Expression",
                   "description": "Expression"
                 },
-                "valueType": "int",
+                "valueType": "EXPRESSION",
                 "value": "1",
                 "optional": false,
                 "editable": true
@@ -91,6 +94,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "a",
                 "optional": false,
                 "editable": true
@@ -100,6 +104,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "int",
                 "optional": false,
                 "editable": true
@@ -124,7 +129,8 @@
               "line": 20,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "else {\n            int b = 2;\n            string c = \"12\";\n        }"
         },
         "repeatable": "ZERO_OR_ONE",
         "children": [
@@ -146,7 +152,8 @@
                   "line": 18,
                   "offset": 22
                 }
-              }
+              },
+              "sourceCode": "int b = 2;"
             },
             "returning": false,
             "properties": {
@@ -155,7 +162,7 @@
                   "label": "Expression",
                   "description": "Expression"
                 },
-                "valueType": "int",
+                "valueType": "EXPRESSION",
                 "value": "2",
                 "optional": false,
                 "editable": true
@@ -165,6 +172,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "b",
                 "optional": false,
                 "editable": true
@@ -174,6 +182,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "int",
                 "optional": false,
                 "editable": true
@@ -199,7 +208,8 @@
                   "line": 19,
                   "offset": 28
                 }
-              }
+              },
+              "sourceCode": "string c = \"12\";"
             },
             "returning": false,
             "properties": {
@@ -208,7 +218,7 @@
                   "label": "Expression",
                   "description": "Expression"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"12\"",
                 "optional": false,
                 "editable": true
@@ -218,6 +228,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "c",
                 "optional": false,
                 "editable": true
@@ -227,6 +238,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "string",
                 "optional": false,
                 "editable": true
@@ -252,7 +264,7 @@
             "character": 9
           }
         },
-        "newText": "if flag {\n    int a = 1;\n}\nelse {\n    int b = 2;\n    string c = \"12\";\n}"
+        "newText": "if flag {\n    int a = 1;\n} else {\n    int b = 2;\n    string c = \"12\";\n}"
       }
     ]
   }

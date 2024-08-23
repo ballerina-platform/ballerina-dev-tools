@@ -19,7 +19,8 @@
           "line": 17,
           "offset": 5
         }
-      }
+      },
+      "sourceCode": "do {\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    } on fail var e {\n        return e;\n    }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 15,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "{\n        fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n    }"
         },
         "repeatable": "ONE",
         "children": [
@@ -60,7 +62,8 @@
                   "line": 14,
                   "offset": 87
                 }
-              }
+              },
+              "sourceCode": "fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
             },
             "returning": false,
             "properties": {
@@ -69,7 +72,7 @@
                   "label": "Expression",
                   "description": "Fail value"
                 },
-                "valueType": "AssertionError",
+                "valueType": "EXPRESSION",
                 "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
                 "optional": false,
                 "editable": true
@@ -94,7 +97,8 @@
               "line": 17,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "{\n        return e;\n    }"
         },
         "repeatable": "ZERO_OR_ONE",
         "properties": {
@@ -103,7 +107,8 @@
               "label": "Ignore",
               "description": "Ignore the error value"
             },
-            "value": "true",
+            "valueType": "EXPRESSION",
+            "value": "false",
             "optional": false,
             "editable": true
           },
@@ -112,6 +117,7 @@
               "label": "Error Variable",
               "description": "Name of the error variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "e ",
             "optional": false,
             "editable": true
@@ -121,6 +127,7 @@
               "label": "Error Type",
               "description": "Type of the error"
             },
+            "valueType": "TYPE",
             "value": ".:error",
             "optional": false,
             "editable": true
@@ -145,7 +152,8 @@
                   "line": 16,
                   "offset": 17
                 }
-              }
+              },
+              "sourceCode": "return e;"
             },
             "returning": true,
             "properties": {
@@ -154,7 +162,7 @@
                   "label": "Expression",
                   "description": "Return value"
                 },
-                "valueType": ".:error",
+                "valueType": "EXPRESSION",
                 "value": "e",
                 "optional": false,
                 "editable": true
@@ -180,7 +188,7 @@
             "character": 5
           }
         },
-        "newText": "do {\n    fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n}\non fail .:error e {\n    return e;\n}"
+        "newText": "do {\n    fail error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n} on fail .:error e {\n    return e;\n}"
       }
     ]
   }

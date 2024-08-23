@@ -267,7 +267,7 @@
                   "description": "Ignore the error value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "true",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },

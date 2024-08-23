@@ -45,14 +45,16 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
     public static final Branch DEFAULT_BODY_BRANCH =
             new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
                     .codedata().node(FlowNode.Kind.BODY).stepOut().build();
-    public static final Branch DEFAULT_ON_FAIL_BRANCH =
-            new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
-                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
-                    .properties().ignore().defaultOnErrorVariable().stepOut().build();
 
     public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {
         return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(kind).stepOut().build();
+    }
+
+    public static Branch getDefaultOnFailBranch(boolean value) {
+        return new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
+                .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
+                .properties().ignore(value).defaultOnErrorVariable().stepOut().build();
     }
 
     public enum BranchKind {

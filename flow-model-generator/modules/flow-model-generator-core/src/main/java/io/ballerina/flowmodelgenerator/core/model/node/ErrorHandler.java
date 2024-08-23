@@ -63,6 +63,6 @@ public class ErrorHandler extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(false));
     }
 }

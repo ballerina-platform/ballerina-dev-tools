@@ -543,7 +543,7 @@ class CodeAnalyzer extends NodeVisitor {
                 startBranch(Branch.ON_FAILURE_LABEL, FlowNode.Kind.ON_FAILURE, Branch.BranchKind.BLOCK,
                         Branch.Repeatable.ZERO_OR_ONE);
         if (onFailClauseNode.typedBindingPattern().isPresent()) {
-            branchBuilder.properties().ignore().onErrorVariable(onFailClauseNode.typedBindingPattern().get());
+            branchBuilder.properties().ignore(false).onErrorVariable(onFailClauseNode.typedBindingPattern().get());
         }
         BlockStatementNode onFailClauseBlock = onFailClauseNode.blockStatement();
         analyzeBlock(onFailClauseBlock, branchBuilder);

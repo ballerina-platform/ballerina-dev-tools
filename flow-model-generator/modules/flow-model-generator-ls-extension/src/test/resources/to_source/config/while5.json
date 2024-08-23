@@ -19,7 +19,8 @@
           "line": 68,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "while i < count {\n            json response = check foodClient->get(\"/food/pineapples\");\n            finalMsg += response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            int attempts = 0;\n            http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");\n            if adminClient is http:ClientError {\n                return \"Error occurred while creating admin client\";\n            }\n            while attempts < retries {\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            } on fail {\n                return \"Error occurred while invoking admin service\";\n            }\n            return \"Error occurred while invoking food service\";\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 55,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json response = check foodClient->get(\"/food/pineapples\");\n            finalMsg += response.toString();\n            i += 1;\n        }"
         },
         "repeatable": "ONE",
         "children": [
@@ -65,7 +67,8 @@
                   "line": 52,
                   "offset": 70
                 }
-              }
+              },
+              "sourceCode": "json response = check foodClient->get(\"/food/pineapples\");"
             },
             "returning": false,
             "properties": {
@@ -84,6 +87,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "response",
                 "optional": false,
                 "editable": true
@@ -121,6 +125,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "json",
                 "optional": false,
                 "editable": true
@@ -146,7 +151,8 @@
                   "line": 53,
                   "offset": 44
                 }
-              }
+              },
+              "sourceCode": "finalMsg += response.toString();"
             },
             "returning": false,
             "properties": {
@@ -155,6 +161,7 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
+                "valueType": "EXPRESSION",
                 "value": "            finalMsg += response.toString();\n",
                 "optional": false,
                 "editable": true
@@ -180,7 +187,8 @@
                   "line": 54,
                   "offset": 19
                 }
-              }
+              },
+              "sourceCode": "i += 1;"
             },
             "returning": false,
             "properties": {
@@ -189,6 +197,7 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
+                "valueType": "EXPRESSION",
                 "value": "            i += 1;\n",
                 "optional": false,
                 "editable": true
@@ -213,7 +222,8 @@
               "line": 68,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            int attempts = 0;\n            http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");\n            if adminClient is http:ClientError {\n                return \"Error occurred while creating admin client\";\n            }\n            while attempts < retries {\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            } on fail {\n                return \"Error occurred while invoking admin service\";\n            }\n            return \"Error occurred while invoking food service\";\n        }"
         },
         "repeatable": "ZERO_OR_ONE",
         "properties": {
@@ -222,7 +232,8 @@
               "label": "Ignore",
               "description": "Ignore the error value"
             },
-            "value": "true",
+            "valueType": "EXPRESSION",
+            "value": "false",
             "optional": false,
             "editable": true
           },
@@ -231,6 +242,7 @@
               "label": "Error Variable",
               "description": "Name of the error variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "e ",
             "optional": false,
             "editable": true
@@ -240,6 +252,7 @@
               "label": "Error Type",
               "description": "Type of the error"
             },
+            "valueType": "TYPE",
             "value": "http:ClientError",
             "optional": false,
             "editable": true
@@ -264,7 +277,8 @@
                   "line": 56,
                   "offset": 29
                 }
-              }
+              },
+              "sourceCode": "int attempts = 0;"
             },
             "returning": false,
             "properties": {
@@ -273,7 +287,7 @@
                   "label": "Expression",
                   "description": "Expression"
                 },
-                "valueType": "int",
+                "valueType": "EXPRESSION",
                 "value": "0",
                 "optional": false,
                 "editable": true
@@ -283,6 +297,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "attempts",
                 "optional": false,
                 "editable": true
@@ -292,6 +307,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "int",
                 "optional": false,
                 "editable": true
@@ -321,7 +337,8 @@
                   "line": 57,
                   "offset": 85
                 }
-              }
+              },
+              "sourceCode": "http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");"
             },
             "returning": false,
             "properties": {
@@ -359,6 +376,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "adminClient",
                 "optional": false,
                 "editable": true
@@ -368,6 +386,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "http:Client",
                 "optional": false,
                 "editable": true
@@ -393,7 +412,8 @@
                   "line": 60,
                   "offset": 13
                 }
-              }
+              },
+              "sourceCode": "if adminClient is http:ClientError {\n                return \"Error occurred while creating admin client\";\n            }"
             },
             "returning": false,
             "branches": [
@@ -412,7 +432,8 @@
                       "line": 60,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                return \"Error occurred while creating admin client\";\n            }"
                 },
                 "repeatable": "ONE_OR_MORE",
                 "properties": {
@@ -421,7 +442,7 @@
                       "label": "Condition",
                       "description": "Boolean Condition"
                     },
-                    "valueType": "boolean",
+                    "valueType": "EXPRESSION",
                     "value": "adminClient is http:ClientError ",
                     "optional": false,
                     "editable": true
@@ -446,7 +467,8 @@
                           "line": 59,
                           "offset": 68
                         }
-                      }
+                      },
+                      "sourceCode": "return \"Error occurred while creating admin client\";"
                     },
                     "returning": true,
                     "properties": {
@@ -455,7 +477,7 @@
                           "label": "Expression",
                           "description": "Return value"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Error occurred while creating admin client\"",
                         "optional": false,
                         "editable": true
@@ -486,7 +508,8 @@
                   "line": 66,
                   "offset": 13
                 }
-              }
+              },
+              "sourceCode": "while attempts < retries {\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            } on fail {\n                return \"Error occurred while invoking admin service\";\n            }"
             },
             "returning": false,
             "branches": [
@@ -505,7 +528,8 @@
                       "line": 64,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            }"
                 },
                 "repeatable": "ONE",
                 "children": [
@@ -532,7 +556,8 @@
                           "line": 62,
                           "offset": 95
                         }
-                      }
+                      },
+                      "sourceCode": "json response = check adminClient->post(\"/admin/restart\", {body: e.message()});"
                     },
                     "returning": false,
                     "properties": {
@@ -551,6 +576,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
+                        "valueType": "IDENTIFIER",
                         "value": "response",
                         "optional": false,
                         "editable": true
@@ -607,6 +633,7 @@
                           "label": "Data type",
                           "description": "Type of the variable"
                         },
+                        "valueType": "TYPE",
                         "value": "json",
                         "optional": false,
                         "editable": true
@@ -632,7 +659,8 @@
                           "line": 63,
                           "offset": 86
                         }
-                      }
+                      },
+                      "sourceCode": "return \"Response received from admin service: \" + response.toString();"
                     },
                     "returning": true,
                     "properties": {
@@ -641,7 +669,7 @@
                           "label": "Expression",
                           "description": "Return value"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Response received from admin service: \" + response.toString()",
                         "optional": false,
                         "editable": true
@@ -666,7 +694,8 @@
                       "line": 66,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                return \"Error occurred while invoking admin service\";\n            }"
                 },
                 "repeatable": "ZERO_OR_ONE",
                 "children": [
@@ -688,7 +717,8 @@
                           "line": 65,
                           "offset": 69
                         }
-                      }
+                      },
+                      "sourceCode": "return \"Error occurred while invoking admin service\";"
                     },
                     "returning": true,
                     "properties": {
@@ -697,7 +727,7 @@
                           "label": "Expression",
                           "description": "Return value"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Error occurred while invoking admin service\"",
                         "optional": false,
                         "editable": true
@@ -714,7 +744,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "attempts < retries ",
                 "optional": false,
                 "editable": true
@@ -740,7 +770,8 @@
                   "line": 67,
                   "offset": 64
                 }
-              }
+              },
+              "sourceCode": "return \"Error occurred while invoking food service\";"
             },
             "returning": true,
             "properties": {
@@ -749,7 +780,7 @@
                   "label": "Expression",
                   "description": "Return value"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"Error occurred while invoking food service\"",
                 "optional": false,
                 "editable": true
@@ -766,7 +797,7 @@
           "label": "Condition",
           "description": "Boolean Condition"
         },
-        "valueType": "boolean",
+        "valueType": "EXPRESSION",
         "value": "i < count ",
         "optional": false,
         "editable": true
@@ -787,7 +818,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n;i += 1;\n; }\non fail http:ClientError e {\n    int attempts = 0;\n    http:Client adminClient = check new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    }\non fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
+        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/pineapples\");\n    finalMsg += response.toString();\n;i += 1;\n; } on fail http:ClientError e {\n    int attempts = 0;\n    http:Client adminClient = check new (\"http://localhost:9090\");\n    if adminClient is http:ClientError {\n        return \"Error occurred while creating admin client\";\n    }\n    while attempts < retries {\n        json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n        return \"Response received from admin service: \" + response.toString();\n    } on fail {\n        return \"Error occurred while invoking admin service\";\n    }\n    return \"Error occurred while invoking food service\";\n}"
       }
     ]
   }
