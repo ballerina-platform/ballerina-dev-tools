@@ -44,11 +44,11 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateR
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
-import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -56,11 +56,14 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 /**
  * Represents the extended language server service for the flow model generator service.
@@ -148,22 +151,58 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                         request.lineRange(), filePath, dataMappingsDoc.orElse(null));
                 JsonElement oldFlowModel = modelGenerator.getFlowModel();
 
-                TextDocument textDocument = document.get().textDocument();
+                // Create a temporary directory for the in-memory cache
+                Path tempDir = Files.createTempDirectory("project-cache");
+                Path destinationDir = tempDir.resolve(projectPath.getFileName());
+
+                if (Files.isDirectory(projectPath)) {
+                    try (Stream<Path> paths = Files.walk(projectPath)) {
+                        paths.forEach(source -> {
+                            try {
+                                Files.copy(source, destinationDir.resolve(projectPath.relativize(source)),
+                                        StandardCopyOption.REPLACE_EXISTING);
+                            } catch (IOException e) {
+                                throw new RuntimeException("Failed to copy project directory to cache", e);
+                            }
+                        });
+                    } catch (IOException e) {
+                        throw new RuntimeException("Failed to walk project directory", e);
+                    }
+                } else {
+                    Files.copy(projectPath, destinationDir, StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                Path destination = destinationDir.resolve(projectPath.relativize(projectPath.resolve(filePath)));
+                this.workspaceManager.loadProject(destination);
+                Optional<SemanticModel> newSemanticModel = this.workspaceManager.semanticModel(destination);
+                Optional<Document> newDocument = this.workspaceManager.document(destination);
+                if (newSemanticModel.isEmpty() || newDocument.isEmpty()) {
+                    return response;
+                }
+                Path newProjectPath = this.workspaceManager.projectRoot(destination);
+                Optional<Document> newDataMappingsDoc;
+                try {
+                    newDataMappingsDoc = this.workspaceManager.document(newProjectPath.resolve("data_mappings.bal"));
+                } catch (Throwable e) {
+                    newDataMappingsDoc = Optional.empty();
+                }
+
+                TextDocument textDocument = newDocument.get().textDocument();
                 int textPosition = textDocument.textPositionFrom(request.position());
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), request.text());
                 TextDocument apply =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                Document newDoc = document.get().modify()
+                Document newDoc = newDocument.get().modify()
                         .withContent(String.join(System.lineSeparator(), apply.textLines()))
                         .apply();
-                SemanticModel newSemanticModel = newDoc.module().getCompilation().getSemanticModel();
-                ModelGenerator suggestedModelGenerator = new ModelGenerator(newSemanticModel, newDoc,
-                        request.lineRange(), filePath, dataMappingsDoc.orElse(null));
+                ModelGenerator suggestedModelGenerator =
+                        new ModelGenerator(newDoc.module().getCompilation().getSemanticModel(), newDoc,
+                                request.lineRange(), destination, newDataMappingsDoc.orElse(null));
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
                 JsonArray oldNodes = oldFlowModel.getAsJsonObject().getAsJsonArray("nodes");
                 JsonArray newNodes = newFlowModel.getAsJsonObject().getAsJsonArray("nodes");
-                markSuggestedNodes(oldNodes, newNodes);
+                markSuggestedNodes(oldNodes, newNodes, 1);
                 response.setFlowDesignModel(newFlowModel);
             } catch (Throwable e) {
                 response.setError(e);
@@ -177,7 +216,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         return CompletableFuture.supplyAsync(() -> {
             JsonObject response = new JsonObject();
             try {
-                String fileContent = request.fileContent();
+                String fileContent = request.content();
                 Path tempDir = Files.createTempDirectory("single-file-project");
                 Path tempFilePath = tempDir.resolve("file.bal");
                 Files.writeString(tempFilePath, fileContent);
@@ -289,32 +328,65 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         });
     }
 
-    private static void markSuggestedNodes(JsonArray oldNodes, JsonArray newNodes) {
-        int oldIndex = 1;
-        int newIndex = 1;
-        int oldSize = oldNodes.size();
-        int newNodeSize = newNodes.size();
+    private static void markSuggestedNodes(JsonArray oldNodes, JsonArray newNodes, int startIndex) {
+        int oldIndex = startIndex;
+        int newIndex = startIndex;
 
-        while (oldIndex < oldSize && newIndex < newNodeSize) {
+        while (oldIndex < oldNodes.size() && newIndex < newNodes.size()) {
             JsonObject oldNode = oldNodes.get(oldIndex).getAsJsonObject();
             JsonObject newNode = newNodes.get(newIndex).getAsJsonObject();
-            String oldText = oldNode.getAsJsonObject("codedata").get("sourceCode").getAsString();
-            String newText = newNode.getAsJsonObject("codedata").get("sourceCode").getAsString();
 
-            if (oldText.equals(newText)) {
+            if (getSourceText(oldNode).equals(getSourceText(newNode))) {
                 newNode.addProperty("suggested", false);
                 oldIndex++;
-            } else {
-                newNode.addProperty("suggested", true);
+                newIndex++;
+                continue;
             }
-            newIndex++;
+
+            boolean oldNodeHasBranches = oldNode.has("branches");
+            boolean newNodeHasBranches = newNode.has("branches");
+            if (oldNodeHasBranches != newNodeHasBranches) {
+                newNode.addProperty("suggested", true);
+                newIndex++;
+                continue;
+            }
+
+            if (oldNodeHasBranches) {
+                markBranches(oldNode.getAsJsonArray("branches"), newNode.getAsJsonArray("branches"));
+                oldIndex++;
+                newIndex++;
+            }
         }
 
-        while (newIndex < newNodeSize) {
-            JsonObject newNode = newNodes.get(newIndex).getAsJsonObject();
-            newNode.addProperty("suggested", true);
+        while (newIndex < newNodes.size()) {
+            newNodes.get(newIndex).getAsJsonObject().addProperty("suggested", true);
             newIndex++;
         }
+    }
+
+    private static void markBranches(JsonArray oldBranches, JsonArray newBranches) {
+        for (int i = 0; i < newBranches.size(); i++) {
+            JsonObject newBranch = newBranches.get(i).getAsJsonObject();
+            String newLabel = newBranch.get("label").getAsString();
+            boolean labelMatched = false;
+
+            for (int j = 0; j < oldBranches.size(); j++) {
+                JsonObject oldBranch = oldBranches.get(j).getAsJsonObject();
+                if (oldBranch.get("label").getAsString().equals(newLabel)) {
+                    markSuggestedNodes(oldBranch.getAsJsonArray("children"), newBranch.getAsJsonArray("children"), 0);
+                    labelMatched = true;
+                    break;
+                }
+            }
+
+            if (!labelMatched) {
+                newBranch.addProperty("suggested", true);
+            }
+        }
+    }
+
+    private static String getSourceText(JsonObject oldNode) {
+        return oldNode.getAsJsonObject("codedata").get("sourceCode").getAsString();
     }
 
 }
