@@ -233,7 +233,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "new_connection1:Address",
+            "value": "Address",
             "optional": false,
             "editable": true
           }
@@ -315,7 +315,7 @@
               "description": "Output of the data mapper function"
             },
             "valueType": "SINGLE_SELECT",
-            "value": "new_connection1:Person",
+            "value": "Person",
             "optional": false,
             "editable": true
           },
@@ -328,7 +328,7 @@
             "value": [
               "string name",
               "string email",
-              "new_connection1:Address address"
+              "Address address"
             ],
             "optional": false,
             "editable": true
@@ -395,7 +395,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "new_connection1:Admission",
+            "value": "Admission",
             "optional": false,
             "editable": true
           }
@@ -477,7 +477,7 @@
               "description": "Output of the data mapper function"
             },
             "valueType": "SINGLE_SELECT",
-            "value": "new_connection1:Employee",
+            "value": "Employee",
             "optional": false,
             "editable": true
           },
@@ -488,8 +488,8 @@
             },
             "valueType": "MULTIPLE_SELECT",
             "value": [
-              "new_connection1:Person person",
-              "new_connection1:Admission admission"
+              "Person person",
+              "Admission admission"
             ],
             "optional": false,
             "editable": true

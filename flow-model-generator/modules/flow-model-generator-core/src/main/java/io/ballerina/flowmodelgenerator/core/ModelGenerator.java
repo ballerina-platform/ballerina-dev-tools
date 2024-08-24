@@ -109,7 +109,8 @@ public class ModelGenerator {
         }
 
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument,
+                CommonUtils.getProjectName(document));
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -155,7 +156,8 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of(), textDocument);
+        CodeAnalyzer codeAnalyzer =
+                new CodeAnalyzer(semanticModel, scope, List.of(), textDocument, CommonUtils.getProjectName(document));
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

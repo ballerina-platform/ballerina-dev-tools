@@ -106,6 +106,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         protected Codedata.Builder<Builder> codedataBuilder;
         protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
+        private String defaultModuleName;
 
         public Builder() {
             children = new ArrayList<>();
@@ -113,6 +114,11 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public Builder semanticModel(SemanticModel semanticModel) {
             this.semanticModel = semanticModel;
+            return this;
+        }
+
+        public Builder defaultModuleName(String defaultModuleName) {
+            this.defaultModuleName = defaultModuleName;
             return this;
         }
 
@@ -143,7 +149,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
-                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, this);
+                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, defaultModuleName, this);
             }
             return this.propertiesBuilder;
         }

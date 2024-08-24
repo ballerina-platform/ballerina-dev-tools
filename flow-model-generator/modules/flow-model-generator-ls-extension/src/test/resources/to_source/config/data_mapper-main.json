@@ -48,12 +48,13 @@
           "label": "Inputs",
           "description": "Input variables of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
+          "Address address",
+          "Input moduleInput",
           "http:Client cl",
-          "string z",
           "int x",
-          "new_connection1:Address address"
+          "string z"
         ],
         "value": "",
         "optional": false,
@@ -64,12 +65,14 @@
           "label": "Output",
           "description": "Output of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "SINGLE_SELECT",
         "valueTypeConstraint": [
-          "Admission",
           "Address",
-          "Location",
+          "Admission",
           "Employee",
+          "Input",
+          "Location",
+          "Output",
           "Person"
         ],
         "value": "",
@@ -107,7 +110,7 @@
             "character": 0
           }
         },
-        "newText": "item = transform()"
+        "newText": "item = transform();"
       }
     ]
   }

@@ -89,7 +89,6 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
@@ -124,9 +123,10 @@ class CodeAnalyzer extends NodeVisitor {
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
     private final TextDocument textDocument;
+    private final String defaultModuleName;
 
     public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings,
-                        TextDocument textDocument) {
+                        TextDocument textDocument, String defaultModuleName) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
@@ -134,6 +134,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
+        this.defaultModuleName = defaultModuleName;
     }
 
     @Override
@@ -709,7 +710,9 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private NodeBuilder startNode(FlowNode.Kind kind) {
-        this.nodeBuilder = NodeBuilder.getNodeFromKind(kind).semanticModel(semanticModel);
+        this.nodeBuilder = NodeBuilder.getNodeFromKind(kind)
+                .semanticModel(semanticModel)
+                .defaultModuleName(defaultModuleName);
         return this.nodeBuilder;
     }
 
@@ -733,6 +736,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.nodeBuilder = null;
         return new Branch.Builder()
                 .semanticModel(semanticModel)
+                .defaultModuleName(defaultModuleName)
                 .codedata().node(node).stepOut()
                 .label(label)
                 .kind(kind)

@@ -19,7 +19,8 @@
           "line": 21,
           "offset": 60
         }
-      }
+      },
+      "sourceCode": "// Transform to Person\n    Person person = transformToPerson(name, email, address);"
     },
     "returning": false,
     "properties": {
@@ -38,8 +39,8 @@
           "label": "Output",
           "description": "Output of the data mapper function"
         },
-        "valueType": "SET",
-        "value": "new_connection1:Person",
+        "valueType": "SINGLE_SELECT",
+        "value": "Person",
         "optional": false,
         "editable": true
       },
@@ -48,11 +49,11 @@
           "label": "Inputs",
           "description": "Input variables of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "MULTIPLE_SELECT",
         "value": [
           "string name",
           "string email",
-          "new_connection1:Address address"
+          "Address address"
         ],
         "optional": false,
         "editable": true
@@ -62,6 +63,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
+        "valueType": "IDENTIFIER",
         "value": "person",
         "optional": false,
         "editable": true
@@ -82,7 +84,7 @@
             "character": 0
           }
         },
-        "newText": "function transformToPerson(string name, string email, new_connection1 :Addressaddress) returns new_connection1:Person=> {\n}"
+        "newText": "function transformToPerson(string name, string email, Address address) returns Person => {\n    address: {houseNo: \"\", line1: \"\", line2: \"\", city: \"\", country: \"\"},\n    name: \"\",\n    email: \"\"\n}"
       }
     ],
     "data_mapper/main.bal": [
@@ -97,7 +99,7 @@
             "character": 60
           }
         },
-        "newText": "new_connection1:Person person = transformToPerson(name, email, address)"
+        "newText": "Person person = transformToPerson(name, email, address);"
       }
     ]
   }

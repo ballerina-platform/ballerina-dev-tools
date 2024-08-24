@@ -88,10 +88,12 @@ public class DataMapper extends NodeBuilder {
         WorkspaceManager workspaceManager = context.workspaceManager();
         SemanticModel semanticModel;
         Document document;
+        String projectName;
         try {
             workspaceManager.loadProject(context.filePath());
             semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             document = workspaceManager.document(context.filePath()).orElseThrow();
+            projectName = CommonUtils.getProjectName(document);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -102,7 +104,8 @@ public class DataMapper extends NodeBuilder {
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
             if (symbol.kind() == SymbolKind.VARIABLE &&
                     symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
-                getVariableSignature(semanticModel, (VariableSymbol) symbol).ifPresent(visibleVariables::add);
+                getVariableSignature(semanticModel, projectName, (VariableSymbol) symbol).ifPresent(
+                        visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
                 getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
             }
@@ -114,9 +117,10 @@ public class DataMapper extends NodeBuilder {
                 new ArrayList<>(visibleRecordTypes), "");
     }
 
-    private static Optional<String> getVariableSignature(SemanticModel semanticModel, VariableSymbol symbol) {
+    private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,
+                                                         VariableSymbol symbol) {
         Optional<String> name = symbol.getName();
-        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false);
+        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, projectName);
         return name.map(s -> typeSignature + " " + s);
     }
 
@@ -195,6 +199,7 @@ public class DataMapper extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
                 .name(functionParameters)
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .endOfStatement()
                 .stepOut()
                 .textEdit(false);
 

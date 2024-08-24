@@ -1,21 +1,25 @@
 {
   "source": "data_mapper/service.bal",
-  "position": {
-    "line": 7,
-    "offset": 0
-  },
   "description": "Sample diagram node",
-  "codedata": {
-    "node": "DATA_MAPPER"
-  },
-  "output": {
+  "diagram": {
     "id": "31",
     "metadata": {
       "label": "Data Mapper",
       "description": "Map data from multiple variables to a record type"
     },
     "codedata": {
-      "node": "DATA_MAPPER"
+      "node": "DATA_MAPPER",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
     },
     "returning": false,
     "properties": {
@@ -75,5 +79,37 @@
       }
     },
     "flags": 0
+  },
+  "output": {
+    "data_mapper/data_mappings.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 0
+          },
+          "end": {
+            "line": 11,
+            "character": 0
+          }
+        },
+        "newText": "function transform() returns => {\n}"
+      }
+    ],
+    "data_mapper/service.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "item = transform();"
+      }
+    ]
   }
 }

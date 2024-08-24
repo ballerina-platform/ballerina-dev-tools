@@ -57,8 +57,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LinePosition;
-import org.ballerinalang.langserver.common.utils.CommonUtil;
-import org.ballerinalang.langserver.common.utils.NameUtil;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -105,6 +103,7 @@ public abstract class NodeBuilder {
     protected boolean returning;
     protected SemanticModel semanticModel;
     protected FlowNode cachedFlowNode;
+    protected String defaultModuleName;
 
     private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(FlowNode.Kind.IF, If::new);
@@ -161,6 +160,11 @@ public abstract class NodeBuilder {
         return this;
     }
 
+    public NodeBuilder defaultModuleName(String defaultModuleName) {
+        this.defaultModuleName = defaultModuleName;
+        return this;
+    }
+
     public NodeBuilder returning() {
         this.returning = true;
         return this;
@@ -192,7 +196,7 @@ public abstract class NodeBuilder {
 
     public PropertiesBuilder<NodeBuilder> properties() {
         if (this.propertiesBuilder == null) {
-            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, this);
+            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, defaultModuleName, this);
         }
         return this.propertiesBuilder;
     }
@@ -239,12 +243,14 @@ public abstract class NodeBuilder {
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
         protected Property.Builder propertyBuilder;
+        private final String defaultModuleName;
 
-        public PropertiesBuilder(SemanticModel semanticModel, T parentBuilder) {
+        public PropertiesBuilder(SemanticModel semanticModel, String defaultModuleName, T parentBuilder) {
             super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
             this.propertyBuilder = Property.Builder.getInstance();
             this.semanticModel = semanticModel;
+            this.defaultModuleName = defaultModuleName;
         }
 
         public PropertiesBuilder<T> variable(Node node) {
@@ -291,7 +297,8 @@ public abstract class NodeBuilder {
                     .editable();
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(
-                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
+                    typeSymbol -> propertyBuilder.value(
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
@@ -406,7 +413,8 @@ public abstract class NodeBuilder {
                 String parameterName = name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
-                String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false);
+                String type = CommonUtils.getTypeSignature(semanticModel, parameterSymbol.typeDescriptor(), false,
+                        defaultModuleName);
                 String variableName = CommonUtils.getVariableName(paramValue);
                 inputs.add(type + " " + variableName);
             }
@@ -434,7 +442,8 @@ public abstract class NodeBuilder {
 
             Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
             optTypeSymbol.ifPresent(
-                    typeSymbol -> propertyBuilder.value(CommonUtils.getTypeSignature(semanticModel, typeSymbol, true)));
+                    typeSymbol -> propertyBuilder.value(
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
 
             addProperty(OUTPUT_KEY, propertyBuilder.build());
             return this;
@@ -621,7 +630,7 @@ public abstract class NodeBuilder {
 
             CommonUtils.getTypeSymbol(semanticModel, typedBindingPatternNode)
                     .ifPresent(typeSymbol -> propertyBuilder.value(
-                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false)));
+                            CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, defaultModuleName)));
             Property type = propertyBuilder
                     .metadata()
                     .label(Property.ON_ERROR_TYPE_LABEL)

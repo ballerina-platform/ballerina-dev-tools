@@ -46,10 +46,10 @@
         },
         "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
+          "Address address",
+          "Input moduleInput",
           "http:Client cl",
           "int x",
-          "new_connection1:Address address",
-          "new_connection1:Input moduleInput",
           "string z"
         ],
         "value": "",
