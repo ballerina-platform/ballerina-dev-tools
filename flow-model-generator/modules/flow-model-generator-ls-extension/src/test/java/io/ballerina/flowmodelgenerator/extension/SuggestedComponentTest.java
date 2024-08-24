@@ -20,9 +20,6 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
-import org.ballerinalang.langserver.BallerinaLanguageServer;
-import org.ballerinalang.langserver.util.TestUtil;
-import org.eclipse.lsp4j.jsonrpc.Endpoint;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -36,23 +33,22 @@ import java.nio.file.Path;
  * @since 1.4.0
  */
 public class SuggestedComponentTest extends AbstractLSTest {
+
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         String fileContent = Files.readString(sourceDir.resolve(testConfig.source()).toAbsolutePath());
         SuggestedComponentRequest request = new SuggestedComponentRequest(fileContent);
-        JsonArray jsonModel = getResponse(endpoint, request).getAsJsonArray("modules");
+        JsonArray jsonModel = getResponse(request).getAsJsonArray("modules");
 
         JsonArray output = testConfig.output();
         if (!assertArray("packages", jsonModel.asList(), output.asList())) {
-            updateConfig(configJsonPath, new TestConfig(testConfig.source(), jsonModel));
+//            updateConfig(configJsonPath, new TestConfig(testConfig.source(), jsonModel));
             compareJsonElements(jsonModel, output);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
-        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override
@@ -62,7 +58,7 @@ public class SuggestedComponentTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return ModelGeneratorTest.class;
+        return SuggestedComponentTest.class;
     }
 
     @Override
@@ -72,9 +68,9 @@ public class SuggestedComponentTest extends AbstractLSTest {
 
     /**
      * Represents the test configuration for the get suggested components test.
+     *
      * @param source The source file
      * @param output The expected output
-     *
      * @since 1.4.0
      */
     private record TestConfig(String source, JsonArray output) {

@@ -19,9 +19,9 @@
 package io.ballerina.flowmodelgenerator.extension.request;
 
 /**
- * Represents a request to the flow model getSourceCode API.
- * @param fileContent The content of the file.
+ * Represents a request to the flow model getSuggestedComponents API.
  *
+ * @param fileContent The content of the AI-generated text
  * @since 1.4.0
  */
 public record SuggestedComponentRequest(String fileContent) {
