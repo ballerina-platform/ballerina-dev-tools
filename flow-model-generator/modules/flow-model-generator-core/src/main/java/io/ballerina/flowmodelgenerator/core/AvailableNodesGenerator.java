@@ -134,11 +134,12 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
                     .node(FlowNode.Kind.PANIC)
-                .stepOut()
-                .stepIn(Category.Name.CONCURRENCY)
-                    .node(FlowNode.Kind.TRANSACTION)
-                    .node(FlowNode.Kind.LOCK)
-                    .node(FlowNode.Kind.START)
                 .stepOut();
+                // TODO: Tracked with: https://github.com/wso2-enterprise/eggplant-product-management/issues/65
+//                .stepIn(Category.Name.CONCURRENCY)
+//                    .node(FlowNode.Kind.TRANSACTION)
+//                    .node(FlowNode.Kind.LOCK)
+//                    .node(FlowNode.Kind.START)
+//                .stepOut();
     }
 }
