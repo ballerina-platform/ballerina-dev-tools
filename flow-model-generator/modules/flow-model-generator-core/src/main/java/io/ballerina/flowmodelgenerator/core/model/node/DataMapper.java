@@ -71,6 +71,10 @@ public class DataMapper extends NodeBuilder {
     public static final String OUTPUT_LABEL = "Output";
     public static final String OUTPUT_DOC = "Output of the data mapper function";
 
+    public static final String VIEW_KEY = "view";
+    public static final String VIEW_LABEL = "View";
+    public static final String VIEW_DOC = "Visualize the data mapper function";
+
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);

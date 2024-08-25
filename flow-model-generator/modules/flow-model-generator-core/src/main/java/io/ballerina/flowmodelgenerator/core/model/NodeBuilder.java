@@ -57,6 +57,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -755,6 +756,19 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.SCOPE_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> view(LineRange lineRange) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(DataMapper.VIEW_LABEL)
+                        .description(DataMapper.VIEW_DOC)
+                        .stepOut()
+                    .value(lineRange)
+                    .type(Property.ValueType.VIEW)
+                    .build();
+            addProperty(DataMapper.VIEW_KEY, property);
             return this;
         }
 

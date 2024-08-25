@@ -95,7 +95,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         TYPE,
         ENUM,
         SINGLE_SELECT,
-        MULTIPLE_SELECT
+        MULTIPLE_SELECT,
+        VIEW
     }
 
     /**

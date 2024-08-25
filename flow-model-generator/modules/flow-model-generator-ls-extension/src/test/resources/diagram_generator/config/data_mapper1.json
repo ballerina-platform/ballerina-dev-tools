@@ -333,6 +333,26 @@
             "optional": false,
             "editable": true
           },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Visualize the data mapper function"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "data_mappings.bal",
+              "startLine": {
+                "line": 0,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 4,
+                "offset": 2
+              }
+            },
+            "optional": false,
+            "editable": false
+          },
           "variable": {
             "metadata": {
               "label": "Data variable",
@@ -493,6 +513,26 @@
             ],
             "optional": false,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Visualize the data mapper function"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "data_mappings.bal",
+              "startLine": {
+                "line": 6,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 2
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {

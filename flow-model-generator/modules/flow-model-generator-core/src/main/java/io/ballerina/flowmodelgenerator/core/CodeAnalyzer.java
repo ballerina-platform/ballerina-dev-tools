@@ -103,6 +103,7 @@ import io.ballerina.tools.text.TextDocument;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -119,13 +120,13 @@ class CodeAnalyzer extends NodeVisitor {
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
     private final Central central;
-    private final List<String> dataMappings;
+    private final Map<String, LineRange> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
     private final TextDocument textDocument;
     private final String defaultModuleName;
 
-    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, List<String> dataMappings,
+    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, Map<String, LineRange> dataMappings,
                         TextDocument textDocument, String defaultModuleName) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
@@ -511,13 +512,14 @@ class CodeAnalyzer extends NodeVisitor {
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
             String functionName = simpleNameReferenceNode.name().text();
-            if (dataMappings.contains(functionName)) {
+            if (dataMappings.containsKey(functionName)) {
                 startNode(FlowNode.Kind.DATA_MAPPER)
                         .properties()
                         .functionName(functionName)
                         .output(this.typedBindingPatternNode);
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
+                nodeBuilder.properties().view(dataMappings.get(functionName));
             }
         } else {
             startNode(FlowNode.Kind.EXPRESSION);
