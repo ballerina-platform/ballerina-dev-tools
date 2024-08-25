@@ -25,10 +25,12 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
+import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
+import io.ballerina.flowmodelgenerator.core.SuggestedNodesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
@@ -36,15 +38,20 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRe
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectorsResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
+import io.ballerina.projects.DiagnosticResult;
+import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Diagnostic;
+import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
@@ -60,6 +67,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -173,7 +182,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 Path destination = destinationDir.resolve(projectPath.relativize(projectPath.resolve(filePath)));
-                this.workspaceManager.loadProject(destination);
+                Project newProject = this.workspaceManager.loadProject(destination);
                 Optional<SemanticModel> newSemanticModel = this.workspaceManager.semanticModel(destination);
                 Optional<Document> newDocument = this.workspaceManager.document(destination);
                 if (newSemanticModel.isEmpty() || newDocument.isEmpty()) {
@@ -200,10 +209,19 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                                 request.lineRange(), destination, newDataMappingsDoc.orElse(null));
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
+                DiagnosticResult diagnosticResult = newProject.currentPackage().getCompilation().diagnosticResult();
+                Collection<Diagnostic> errors = diagnosticResult.errors();
+                List<LineRange> errorLocations = errors.stream().map(error -> error.location().lineRange()).toList();
+
+                List<JsonElement> outputNodes = new ArrayList<>();
                 JsonArray oldNodes = oldFlowModel.getAsJsonObject().getAsJsonArray("nodes");
                 JsonArray newNodes = newFlowModel.getAsJsonObject().getAsJsonArray("nodes");
-                markSuggestedNodes(oldNodes, newNodes, 1);
-                response.setFlowDesignModel(newFlowModel);
+                SuggestedNodesGenerator suggestedNodesGenerator =
+                        new SuggestedNodesGenerator(errorLocations);
+                suggestedNodesGenerator.markSuggestedNodes(oldNodes, newNodes, 1);
+                JsonElement outputFlowModel = oldFlowModel.deepCopy();
+                outputFlowModel.getAsJsonObject().add("nodes", suggestedNodesGenerator.getNodes());
+                response.setFlowDesignModel(outputFlowModel);
             } catch (Throwable e) {
                 response.setError(e);
             }
