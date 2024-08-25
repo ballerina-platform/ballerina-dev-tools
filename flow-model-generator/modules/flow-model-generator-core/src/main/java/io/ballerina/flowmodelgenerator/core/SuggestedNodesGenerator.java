@@ -1,8 +1,11 @@
 package io.ballerina.flowmodelgenerator.core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.List;
 
@@ -11,11 +14,15 @@ public class SuggestedNodesGenerator {
     private final List<LineRange> errorLocations;
     private JsonArray outputNodes;
     private boolean foundError;
+    private int errorIndex;
+    private final Gson gson;
 
     public SuggestedNodesGenerator(List<LineRange> errorLocations) {
         this.errorLocations = errorLocations;
         this.outputNodes = new JsonArray();
         this.foundError = false;
+        this.errorIndex = 0;
+        this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
     public void markSuggestedNodes(JsonArray oldNodes, JsonArray newNodes, int startIndex) {
@@ -35,25 +42,41 @@ public class SuggestedNodesGenerator {
 
             boolean oldNodeHasBranches = oldNode.has("branches");
             boolean newNodeHasBranches = newNode.has("branches");
-            if (oldNodeHasBranches != newNodeHasBranches) {
-                newNode.addProperty("suggested", true);
+            if (oldNodeHasBranches && newNodeHasBranches) {
+                markBranches(oldNode.getAsJsonArray("branches"), newNode.getAsJsonArray("branches"));
+                oldIndex++;
                 newIndex++;
                 continue;
             }
 
-            if (oldNodeHasBranches) {
-                markBranches(oldNode.getAsJsonArray("branches"), newNode.getAsJsonArray("branches"));
-                oldIndex++;
-                newIndex++;
-            }
+            removeIfFoundError(newNodes, newIndex, newNode);
+            newIndex++;
         }
 
         while (newIndex < newNodes.size()) {
-            newNodes.get(newIndex).getAsJsonObject().addProperty("suggested", true);
+            removeIfFoundError(newNodes, newIndex, newNodes.get(newIndex).getAsJsonObject());
             newIndex++;
         }
 
         this.outputNodes = newNodes;
+    }
+
+    private void removeIfFoundError(JsonArray newNodes, int newIndex, JsonObject newNode) {
+        if (errorLocations.isEmpty() || !foundError && !isErrorInNode(newNode)) {
+            newNode.addProperty("suggested", true);
+            return;
+        }
+        newNodes.remove(newIndex);
+        if (!foundError) {
+            foundError = true;
+            errorIndex++;
+        }
+    }
+
+    private boolean isErrorInNode(JsonObject newNode) {
+        LineRange lineRange =
+                gson.fromJson(newNode.get("codedata").getAsJsonObject().get("lineRange"), LineRange.class);
+        return PositionUtil.isWithinLineRange(errorLocations.get(errorIndex), lineRange);
     }
 
     private void markBranches(JsonArray oldBranches, JsonArray newBranches) {
@@ -75,11 +98,6 @@ public class SuggestedNodesGenerator {
                 newBranch.addProperty("suggested", true);
             }
         }
-    }
-
-    private boolean checkErrorRange(JsonObject jsonObject) {
-        JsonObject objLineRange = jsonObject.get("codedata").getAsJsonObject().get("lineRange").getAsJsonObject();
-        return false;
     }
 
     private static String getSourceText(JsonObject oldNode) {

@@ -8,7 +8,7 @@
     "offset": 1
   },
   "source": "if.bal",
-  "text": "   if (i > 10) {\n i = i + 3\n    }",
+  "text": "   if (i > 10) {\n i = i + 3;\n    }",
   "position": {
     "line": 2,
     "offset": 0
@@ -36,7 +36,7 @@
               "offset": 1
             }
           },
-          "sourceCode": "function fn1(boolean flag) {\n    int i = 12;\n   if (i > 10) {\n i = i + 3\n    }\n    string val = i.toString();\n}"
+          "sourceCode": "function fn1(boolean flag) {\n    int i = 12;\n   if (i > 10) {\n i = i + 3;\n    }\n    string val = i.toString();\n}"
         },
         "returning": false,
         "flags": 0
@@ -117,7 +117,7 @@
               "offset": 5
             }
           },
-          "sourceCode": "if (i > 10) {\n i = i + 3\n    }"
+          "sourceCode": "if (i > 10) {\n i = i + 3;\n    }"
         },
         "returning": false,
         "branches": [
@@ -137,7 +137,7 @@
                   "offset": 5
                 }
               },
-              "sourceCode": "{\n i = i + 3\n    }"
+              "sourceCode": "{\n i = i + 3;\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -154,7 +154,7 @@
             },
             "children": [
               {
-                "id": "34761",
+                "id": "34762",
                 "metadata": {
                   "label": "Update Variable",
                   "description": "Update the value of the variable 'i'"
@@ -169,10 +169,10 @@
                     },
                     "endLine": {
                       "line": 3,
-                      "offset": 10
+                      "offset": 11
                     }
                   },
-                  "sourceCode": "i = i + 3"
+                  "sourceCode": "i = i + 3;"
                 },
                 "returning": false,
                 "properties": {
@@ -182,7 +182,7 @@
                       "description": "Update variable"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "i + 3\n",
+                    "value": "i + 3",
                     "optional": false,
                     "editable": true
                   },

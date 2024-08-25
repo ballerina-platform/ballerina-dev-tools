@@ -1,0 +1,229 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 4
+  },
+  "end": {
+    "line": 12,
+    "offset": 5
+  },
+  "source": "error_handler/service.bal",
+  "text": "     return e->message();",
+  "position": {
+    "line": 10,
+    "offset": 0
+  },
+  "description": "",
+  "diagram": {
+    "fileName": "service.bal",
+    "nodes": [
+      {
+        "id": "36089",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "service.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 12,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get greeting(string? name) returns string|error {\n        do {\n            if name is string {\n\n            }\n        } on fail error e {\n     return e->message();            \n        }\n    }"
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "STRING",
+            "value": "greeting",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "37147",
+        "metadata": {
+          "label": "ErrorHandler",
+          "description": "Catch and handle errors"
+        },
+        "codedata": {
+          "node": "ERROR_HANDLER",
+          "lineRange": {
+            "fileName": "service.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 9
+            }
+          },
+          "sourceCode": "do {\n            if name is string {\n\n            }\n        } on fail error e {\n     return e->message();            \n        }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "service.bal",
+                "startLine": {
+                  "line": 5,
+                  "offset": 11
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            if name is string {\n\n            }\n        }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "38143",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "service.bal",
+                    "startLine": {
+                      "line": 6,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "if name is string {\n\n            }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "service.bal",
+                        "startLine": {
+                          "line": 6,
+                          "offset": 30
+                        },
+                        "endLine": {
+                          "line": 8,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n\n            }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "name is string ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": []
+                  }
+                ],
+                "flags": 0,
+                "suggested": false
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "service.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 26
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n     return e->message();            \n        }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": []
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}
