@@ -27,13 +27,13 @@ import com.google.gson.JsonElement;
  */
 public class FlowNodeDeleteResponse extends AbstractFlowModelResponse {
 
-    private JsonElement textEditsToDelete;
+    private JsonElement textEdits;
 
-    public void setTextEditsToDelete(JsonElement deleteTextEdits) {
-        this.textEditsToDelete = deleteTextEdits;
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
     }
 
     public JsonElement textEdits() {
-        return textEditsToDelete;
+        return textEdits;
     }
 }
