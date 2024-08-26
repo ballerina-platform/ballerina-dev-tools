@@ -1,0 +1,28 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "COMMENT"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Comment"
+    },
+    "codedata": {
+      "node": "COMMENT"
+    },
+    "returning": false,
+    "properties": {
+      "comment": {
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment to describe the flow"
+        },
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

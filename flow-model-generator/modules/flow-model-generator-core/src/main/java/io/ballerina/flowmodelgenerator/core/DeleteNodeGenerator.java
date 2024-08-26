@@ -60,7 +60,7 @@ public class DeleteNodeGenerator {
         this.filePath = filePath;
     }
 
-    public JsonElement getTextEditsToDeletedNode(Document document, Project project, Path filePath) {
+    public JsonElement getTextEditsToDeletedNode(Document document, Project project) {
         LineRange lineRange = nodeToDelete.codedata().lineRange();
         TextDocument textDocument = document.textDocument();
         int startTextPosition = textDocument.textPositionFrom(lineRange.startLine());

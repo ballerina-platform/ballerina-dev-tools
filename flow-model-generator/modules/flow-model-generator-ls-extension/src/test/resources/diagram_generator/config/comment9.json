@@ -1,0 +1,208 @@
+{
+  "start": {
+    "line": 78,
+    "offset": 0
+  },
+  "end": {
+    "line": 85,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "109338",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 78,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 85,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "110396",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 79,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 84,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 79,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 84,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "111143",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 80,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 81,
+                      "offset": 8
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "Commit the trasaction",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "112375",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 81,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 81,
+                      "offset": 31
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "()",
+                    "value": "check commit",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "value": "res",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "value": "()",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              },
+              {
+                "id": "113154",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 82,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 84,
+                      "offset": 4
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "Generate new flow nodes",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

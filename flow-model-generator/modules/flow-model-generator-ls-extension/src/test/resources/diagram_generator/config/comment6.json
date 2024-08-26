@@ -1,0 +1,299 @@
+{
+  "start": {
+    "line": 46,
+    "offset": 0
+  },
+  "end": {
+    "line": 56,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "77687",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 46,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 56,
+              "offset": 1
+            }
+          }
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "78506",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'x' with type 'int'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 47,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 47,
+              "offset": 14
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "int",
+            "value": "0",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "x",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "79426",
+        "metadata": {
+          "label": "Comment",
+          "description": "Comment of a node"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 48,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 50,
+              "offset": 4
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "value": "This is a while block",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "81628",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 50,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 55,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 50,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 55,
+                  "offset": 5
+                }
+              }
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "82375",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 51,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 8
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "update `x`",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "83594",
+                "metadata": {
+                  "label": "Update Variable",
+                  "description": "Update the value of the variable 'x'"
+                },
+                "codedata": {
+                  "node": "UPDATE_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 52,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 52,
+                      "offset": 18
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Update variable"
+                    },
+                    "valueType": "int",
+                    "value": "x + 1",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "int",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "84386",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Comment of a node"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 53,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 55,
+                      "offset": 4
+                    }
+                  }
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "value": "Generate new node",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "boolean",
+            "value": "i > 3 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

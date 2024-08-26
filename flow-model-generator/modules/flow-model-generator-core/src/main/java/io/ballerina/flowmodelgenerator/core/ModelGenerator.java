@@ -92,7 +92,7 @@ public class ModelGenerator {
         // Obtain the connections visible at the module-level
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
-                        .flatMap(symbol -> buildConnection(syntaxTree, symbol).stream())
+                        .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
                         .sorted(Comparator.comparing(
                                 node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
                         .toList();
@@ -109,7 +109,7 @@ public class ModelGenerator {
         }
 
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -122,7 +122,7 @@ public class ModelGenerator {
      *
      * @return the client if the type symbol is a client, otherwise empty
      */
-    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol) {
+    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol, TextDocument textDocument) {
         Function<NonTerminalNode, NonTerminalNode> getStatementNode;
         NonTerminalNode statementNode;
         TypeSymbol typeSymbol;
@@ -155,7 +155,7 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of());
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of(), textDocument);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

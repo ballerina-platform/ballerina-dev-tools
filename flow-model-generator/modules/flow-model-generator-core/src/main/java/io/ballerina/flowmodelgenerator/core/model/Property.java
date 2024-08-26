@@ -80,6 +80,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String CONNECTION_KEY = "connection";
 
+    public static final String COMMENT_LABEL = "Comment";
+    public static final String COMMENT_KEY = "comment";
+    public static final String COMMENT_DOC = "Comment to describe the flow";
+
     public String toSourceCode() {
         return value.toString();
     }
