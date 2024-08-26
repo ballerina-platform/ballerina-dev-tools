@@ -23,6 +23,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
+import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
@@ -31,7 +32,8 @@ import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
-import io.ballerina.flowmodelgenerator.core.SuggestedNodesGenerator;
+import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
+import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
@@ -42,6 +44,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
+import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectorsResponse;
@@ -69,6 +72,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -211,12 +215,31 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
                 LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
-                LineRange newLineRange = LineRange.from(getRelativePath(projectPath, filePath), request.position(), endPosition);
+                LineRange newLineRange =
+                        LineRange.from(getRelativePath(projectPath, filePath), request.position(), endPosition);
 
                 JsonArray newNodes = newFlowModel.getAsJsonObject().getAsJsonArray("nodes");
-                SuggestedNodesGenerator suggestedNodesGenerator = new SuggestedNodesGenerator(newDoc, newLineRange);
+                SuggestedModelGenerator suggestedNodesGenerator = new SuggestedModelGenerator(newDoc, newLineRange);
                 suggestedNodesGenerator.markSuggestedNodes(newNodes, 1);
                 response.setFlowDesignModel(newFlowModel);
+
+                try {
+                    if (Files.isDirectory(destinationDir)) {
+                        try (Stream<Path> paths = Files.walk(destinationDir)) {
+                            paths.sorted(Comparator.reverseOrder()).forEach(source -> {
+                                try {
+                                    Files.delete(source);
+                                } catch (IOException e) {
+                                    throw new RuntimeException("Failed to delete destination directory", e);
+                                }
+                            });
+                        }
+                    } else {
+                        Files.delete(destinationDir);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to delete destination", e);
+                }
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -310,6 +333,24 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             try {
                 ConnectorGenerator connectorGenerator = new ConnectorGenerator();
                 response.setCategories(connectorGenerator.getConnectors(request.keyword()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<CopilotContextResponse> getCopilotContext(CopilotContextRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            CopilotContextResponse response = new CopilotContextResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                CopilotContextGenerator connectorGenerator =
+                        new CopilotContextGenerator(workspaceManager, filePath, request.position());
+                connectorGenerator.generate();
+                response.setPrefix(connectorGenerator.prefix());
+                response.setSuffix(connectorGenerator.suffix());
             } catch (Throwable e) {
                 response.setError(e);
             }
