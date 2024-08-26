@@ -48,7 +48,7 @@
             "character": 4
           }
         },
-        "newText": "// Create variable name i\n// This is an additional comment\n"
+        "newText": "\n// Create variable name i\n// This is an additional comment\n"
       }
     ]
   }
