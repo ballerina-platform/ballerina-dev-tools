@@ -377,9 +377,14 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
     }
 
     private static String getRelativePath(Path projectPath, Path filePath) {
-        if (projectPath.equals(filePath)) {
-            return filePath.getFileName().toString();
+        if (projectPath == null || filePath == null) {
+            return "";
         }
-        return projectPath.relativize(filePath).toString();
+        if (projectPath.equals(filePath)) {
+            Path fileName = filePath.getFileName();
+            return fileName != null ? fileName.toString() : "";
+        }
+        Path relativePath = projectPath.relativize(filePath);
+        return relativePath.toString();
     }
 }

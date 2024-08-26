@@ -24,12 +24,13 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the properties that uniquely identifies a node in the diagram.
  *
- * @param node      The kind of the component
- * @param org       The organization which the component belongs to
- * @param module    The module which the component belongs to
- * @param object    The object of the component if it is a method or an action call
- * @param symbol    The symbol of the component
- * @param lineRange The line range of the component
+ * @param node       The kind of the component
+ * @param org        The organization which the component belongs to
+ * @param module     The module which the component belongs to
+ * @param object     The object of the component if it is a method or an action call
+ * @param symbol     The symbol of the component
+ * @param lineRange  The line range of the component
+ * @param sourceCode The source code of the component
  * @since 1.5.0
  */
 public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,

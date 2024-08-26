@@ -15,14 +15,12 @@ import java.util.List;
 public class SuggestedModelGenerator {
 
     private final List<LineRange> errorLocations;
-    private JsonArray outputNodes;
     private boolean foundError;
     private int errorIndex;
     private final Gson gson;
     private final LineRange newLineRange;
 
     public SuggestedModelGenerator(Document document, LineRange newLineRange) {
-        this.outputNodes = new JsonArray();
         this.foundError = false;
         this.errorIndex = 0;
         this.newLineRange = newLineRange;
@@ -140,8 +138,6 @@ public class SuggestedModelGenerator {
             handleSuggestedNode(newNodes, newIndex, newNodes.get(newIndex).getAsJsonObject());
             newIndex++;
         }
-
-        this.outputNodes = newNodes;
     }
 
     private void markBranches(JsonArray oldBranches, JsonArray newBranches) {

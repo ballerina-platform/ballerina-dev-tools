@@ -11,7 +11,7 @@
           "metadata": {
             "label": "HTTP Connection",
             "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -20,13 +20,13 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "GraphQL Connection",
             "description": "The Ballerina GraphQL client that can be used to communicate with GraphQL APIs.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.13.1.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_graphql_1.14.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -35,13 +35,13 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "gRPC Connection",
             "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -50,13 +50,13 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "gRPC Streaming Connection",
             "description": "The base client used in the generated client code to provide the gRPC streaming client actions for\ninteracting  with the gRPC server.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.1.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -65,13 +65,13 @@
             "object": "StreamingClient",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "WebSocket Connection",
             "description": "Represents a WebSocket synchronous client endpoint.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.11.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_websocket_2.12.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -80,7 +80,7 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         }
       ]
     },
@@ -93,7 +93,7 @@
           "metadata": {
             "label": "MySQL",
             "description": "Represents a MySQL database client.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.12.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -102,7 +102,7 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
@@ -117,13 +117,13 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "MS SQL",
             "description": "Represents an MSSQL database client.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.12.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -132,7 +132,7 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
@@ -147,7 +147,7 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
@@ -162,13 +162,13 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         },
         {
           "metadata": {
             "label": "PostgreSQL",
             "description": "Represents a PostgreSQL database client.\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.12.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.0.png"
           },
           "codedata": {
             "node": "NEW_CONNECTION",
@@ -177,7 +177,7 @@
             "object": "Client",
             "symbol": "init"
           },
-          "enabled": false
+          "enabled": true
         }
       ]
     }
