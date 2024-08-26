@@ -135,7 +135,7 @@ public class AvailableNodesGenerator {
                     .node(FlowNode.Kind.ERROR_HANDLER)
                     .node(FlowNode.Kind.PANIC)
                 .stepOut();
-                // TODO: Tracked with: https://github.com/wso2-enterprise/eggplant-product-management/issues/65
+                // TODO: Tracked with: #65
 //                .stepIn(Category.Name.CONCURRENCY)
 //                    .node(FlowNode.Kind.TRANSACTION)
 //                    .node(FlowNode.Kind.LOCK)

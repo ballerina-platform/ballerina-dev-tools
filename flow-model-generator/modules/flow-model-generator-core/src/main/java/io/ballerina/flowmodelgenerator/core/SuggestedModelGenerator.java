@@ -19,10 +19,12 @@ public class SuggestedModelGenerator {
     private int errorIndex;
     private final Gson gson;
     private final LineRange newLineRange;
+    private boolean hasSuggestedNodes;
 
     public SuggestedModelGenerator(Document document, LineRange newLineRange) {
         this.foundError = false;
         this.errorIndex = 0;
+        this.hasSuggestedNodes = false;
         this.newLineRange = newLineRange;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         this.errorLocations = new ArrayList<>();
@@ -49,7 +51,7 @@ public class SuggestedModelGenerator {
                             markSuggestedNodes(newBranch.getAsJsonArray("children"), 0);
                             continue;
                         }
-                        newBranch.addProperty("suggested", true);
+                        setSuggestedNodes(newBranch);
                     }
                 } else {
                     i = handleSuggestedNode(newNodes, i, newNode);
@@ -80,7 +82,7 @@ public class SuggestedModelGenerator {
 
     private int handleSuggestedNode(JsonArray newNodes, int newIndex, JsonObject newNode) {
         if (errorLocations.isEmpty() || !foundError && !isErrorInNode(newNode)) {
-            newNode.addProperty("suggested", true);
+            setSuggestedNodes(newNode);
             return newIndex;
         }
         newNodes.remove(newIndex);
@@ -89,6 +91,11 @@ public class SuggestedModelGenerator {
             errorIndex++;
         }
         return newIndex - 1;
+    }
+
+    private void setSuggestedNodes(JsonObject newNode) {
+        newNode.addProperty("suggested", true);
+        hasSuggestedNodes = true;
     }
 
     private boolean isErrorInNode(JsonObject newNode) {
@@ -159,5 +166,9 @@ public class SuggestedModelGenerator {
                 newBranch.addProperty("suggested", true);
             }
         }
+    }
+
+    public boolean hasSuggestedNodes() {
+        return hasSuggestedNodes;
     }
 }

@@ -215,6 +215,9 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 JsonArray newNodes = newFlowModel.getAsJsonObject().getAsJsonArray("nodes");
                 SuggestedModelGenerator suggestedNodesGenerator = new SuggestedModelGenerator(newDoc, newLineRange);
                 suggestedNodesGenerator.markSuggestedNodes(newNodes, 1);
+                if (!suggestedNodesGenerator.hasSuggestedNodes()) {
+                    newFlowModel.getAsJsonObject().add("nodes", new JsonArray());
+                }
                 response.setFlowDesignModel(newFlowModel);
 
                 try {
