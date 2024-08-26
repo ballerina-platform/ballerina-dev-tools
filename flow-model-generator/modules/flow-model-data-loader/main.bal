@@ -77,8 +77,8 @@ function fetchDataFromRemoteAPI() returns error? {
     }
 
     Index index = {};
-    check buildFunctionIndex(modules, index);
     check buildConnectorIndex(modules, index);
+    check buildFunctionIndex(modules, index);
 
     check io:fileWriteJson(PATH_INDEX + PATH_NODE_TEMPLATE_JSON, index.nodeTemplates);
     check io:fileWriteJson(PATH_INDEX + PATH_CONNECTOR_JSON, index.clients);
@@ -332,6 +332,7 @@ type FunctionInfo record {|
 
 type ParameterInfo record {|
     string defaultValue?;
+    string defaultValueCalculated?;
     TypeInfo 'type;
     string name;
     string description;
@@ -451,7 +452,7 @@ function parseAsType(TypeInfo? typeInfo) returns TypeInfoDetails {
             defaultValue = "[]";
             return {name: typeName, defaultValue, importStmt};
         }
-        var {category, moduleName, orgName, name} if moduleName is string && orgName is string && typeName is string => {
+        var {category, moduleName, orgName, name} if moduleName is string && orgName is string => {
             boolean isNullable = typeInfo.isNullable == true;
             if category == "errors" {
                 defaultValue = isNullable ? "()" : string `error ("error message")`; // Check if this is correct.
@@ -824,7 +825,7 @@ function handleRemoteMethods([string, string, string] ref, ClientInfo connection
 
     FunctionInfo[] methods = connection.remoteMethods;
     foreach FunctionInfo method in methods {
-        IndexNodeTemplate template = getRemoteActionTempate(org, module, 'object, <string>method.name);
+        IndexNodeTemplate template = getRemoteActionTempate(org, module, 'object, <string>method.name, method.description);
         final IndexProperties properties = template.properties;
         templates.push(template);
 
@@ -915,7 +916,7 @@ function handleFunctionParameters(FunctionInfo method, IndexProperties propertie
         properties[item.name] = {
             metadata: {label: item.name, description: item.description},
             valueType: "Expression",
-            value: item.defaultValue ?: "",
+            value: item.defaultValue ?: item.defaultValueCalculated ?: "",
             optional: item.defaultValue != "" && item.defaultValue != "<>",
             editable: true,
             valueTypeConstraints: {'type: item.'type.toJson()},
@@ -959,8 +960,8 @@ function getConnectionInitTempate(string org, string module, string 'object) ret
     return createTemplate(node = "NEW_CONNECTION", label = "New Connection", description = "Create a new connection", org = org, module = module, 'object = 'object, symbol = "init");
 }
 
-function getRemoteActionTempate(string org, string module, string 'object, string symbol) returns IndexNodeTemplate {
-    return createTemplate(node = "ACTION_CALL", label = symbol, description = "Call remote action", org = org, module = module, 'object = 'object, symbol = symbol);
+function getRemoteActionTempate(string org, string module, string 'object, string symbol, string description = "Call remote action") returns IndexNodeTemplate {
+    return createTemplate(node = "ACTION_CALL", label = symbol, description = description, org = org, module = module, 'object = 'object, symbol = symbol);
 }
 
 function createTemplate(*TemplateParams params) returns IndexNodeTemplate {
