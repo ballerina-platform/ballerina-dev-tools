@@ -1912,26 +1912,6 @@
                 "node": "FOREACH"
               },
               "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Break",
-                "description": "Exit the current loop"
-              },
-              "codedata": {
-                "node": "BREAK"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Continue",
-                "description": "Skip the current iteration and continue with the next one"
-              },
-              "codedata": {
-                "node": "CONTINUE"
-              },
-              "enabled": true
             }
           ]
         },
@@ -1947,16 +1927,6 @@
               },
               "codedata": {
                 "node": "RETURN"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Stop",
-                "description": "Stop the flow"
-              },
-              "codedata": {
-                "node": "STOP"
               },
               "enabled": true
             }
