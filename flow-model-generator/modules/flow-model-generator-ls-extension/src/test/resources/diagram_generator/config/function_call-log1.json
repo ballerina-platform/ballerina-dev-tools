@@ -149,15 +149,6 @@
                     "optional": false,
                     "editable": true
                   },
-                  "error": {
-                    "metadata": {
-                      "label": "error",
-                      "description": "The error struct to be logged\n"
-                    },
-                    "valueType": "EXPRESSION",
-                    "optional": true,
-                    "editable": true
-                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",
@@ -219,15 +210,6 @@
             "valueType": "EXPRESSION",
             "value": "\"Getting apples\"",
             "optional": false,
-            "editable": true
-          },
-          "error": {
-            "metadata": {
-              "label": "error",
-              "description": "The error struct to be logged\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
             "editable": true
           },
           "stackTrace": {
@@ -423,15 +405,6 @@
                     "optional": false,
                     "editable": true
                   },
-                  "error": {
-                    "metadata": {
-                      "label": "error",
-                      "description": "The error struct to be logged\n"
-                    },
-                    "valueType": "EXPRESSION",
-                    "optional": true,
-                    "editable": true
-                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",
@@ -510,15 +483,6 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Response: \"",
                     "optional": false,
-                    "editable": true
-                  },
-                  "error": {
-                    "metadata": {
-                      "label": "error",
-                      "description": "The error struct to be logged\n"
-                    },
-                    "valueType": "EXPRESSION",
-                    "optional": true,
                     "editable": true
                   },
                   "stackTrace": {

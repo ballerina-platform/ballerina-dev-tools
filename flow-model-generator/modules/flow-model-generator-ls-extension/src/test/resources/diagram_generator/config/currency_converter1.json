@@ -1305,16 +1305,6 @@
                     "optional": false,
                     "editable": true
                   },
-                  "error": {
-                    "metadata": {
-                      "label": "error",
-                      "description": "The error struct to be logged\n"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "e",
-                    "optional": true,
-                    "editable": true
-                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",

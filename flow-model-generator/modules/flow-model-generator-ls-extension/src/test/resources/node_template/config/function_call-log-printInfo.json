@@ -30,9 +30,9 @@
         "optional": true,
         "editable": true
       },
-      "error": {
+      "'error": {
         "metadata": {
-          "label": "error",
+          "label": "'error",
           "description": "The error struct to be logged\n"
         },
         "valueType": "Expression",
