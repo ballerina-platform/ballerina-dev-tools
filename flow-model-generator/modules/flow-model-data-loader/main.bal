@@ -139,10 +139,7 @@ function processParameters(FunctionInfo data) {
     // io:println("Method/Function: " + data.name);
     foreach var param in data.parameters ?: [] {
         var typeData = parseAsType(param.'type);
-        if param.defaultValue == () || param.defaultValue == "" {
-            param.defaultValue = typeData.defaultValue;
-            // Check <> usage.
-        }
+        param.defaultValueCalculated = typeData.defaultValue;
         param.toString = typeData.name;
         param.importStmt = typeData.importStmt;
         // io:println("    Param: " + (param.toString ?: "") + " - " + typeData.name + " - " + typeData.defaultValue + " - " + (typeData.importStmt ?: ""));
@@ -150,6 +147,7 @@ function processParameters(FunctionInfo data) {
     var returnParameters = data.returnParameters;
     if returnParameters != () && returnParameters.length() > 0 {
         var typeData = parseAsType((data.returnParameters ?: [])[0].'type);
+        data.returnParameters[0].defaultValueCalculated = typeData.defaultValue;
         data.returnParameters[0].toString = typeData.name;
         data.returnParameters[0].importStmt = typeData.importStmt;
         // io:println("    Return: " + typeData.name + " - " + (typeData.importStmt ?: ""));
@@ -457,7 +455,7 @@ function parseAsType(TypeInfo? typeInfo) returns TypeInfoDetails {
             if category == "errors" {
                 defaultValue = isNullable ? "()" : string `error ("error message")`; // Check if this is correct.
             } else if category == "records" {
-                defaultValue = isNullable ? "()" : "{}";
+                defaultValue = "{}";
             } else if category == "libs" {
                 defaultValue = isNullable ? "()" : ""; // SQL, etc.
             }
@@ -776,6 +774,7 @@ function handleInitMethod([string, string, string] ref, ClientInfo connection) r
 
     if init !is () {
         // Add method parameters as properties
+        processParameters(init);
         handleFunctionParameters(init, properties, false);
         if handleInitMethodReturn(init).length() > 0 {
             // We always Check errors. So we set the flag.
@@ -913,11 +912,16 @@ function handleFunctionParameters(FunctionInfo method, IndexProperties propertie
             method.dependentlyTyped = item.'type;
             continue;
         }
+        boolean optional = item.defaultValue == () || item.defaultValue == "";
+        string defaultValue = item.defaultValue ?: "";
+        if optional {
+            defaultValue = item.defaultValueCalculated ?: "";
+        }
         properties[item.name] = {
             metadata: {label: item.name, description: item.description},
             valueType: "Expression",
-            value: item.defaultValue ?: item.defaultValueCalculated ?: "",
-            optional: item.defaultValue != "" && item.defaultValue != "<>",
+            value: defaultValue,
+            optional,
             editable: true,
             valueTypeConstraints: {'type: item.'type.toJson()},
             'order: properties.length()

@@ -39,7 +39,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "variable": {

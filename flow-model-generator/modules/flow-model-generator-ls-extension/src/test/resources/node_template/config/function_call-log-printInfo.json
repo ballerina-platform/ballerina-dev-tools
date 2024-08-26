@@ -37,7 +37,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "stackTrace": {
@@ -47,7 +47,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "keyValues": {

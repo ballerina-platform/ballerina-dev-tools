@@ -28,8 +28,8 @@
           "description": "configuration for the connector\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "{}",
+        "optional": true,
         "editable": true
       },
       "variable": {

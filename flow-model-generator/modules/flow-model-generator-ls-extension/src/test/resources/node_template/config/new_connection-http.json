@@ -28,8 +28,8 @@
           "description": "URL of the target service\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "\"\"",
+        "optional": true,
         "editable": true
       },
       "config": {
@@ -38,8 +38,8 @@
           "description": "The configurations to be used when initializing the `client`\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "{}",
+        "optional": true,
         "editable": true
       },
       "variable": {
