@@ -133,7 +133,11 @@ abstract class AbstractLSTest {
 
     // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
     protected JsonObject getResponse(Endpoint endpoint, Object request) {
-        CompletableFuture<?> result = endpoint.request("flowDesignService/" + getApiName(), request);
+        return getResponse(endpoint, request, getApiName());
+    }
+
+    protected JsonObject getResponse(Endpoint endpoint, Object request, String api) {
+        CompletableFuture<?> result = endpoint.request("flowDesignService/" + api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
