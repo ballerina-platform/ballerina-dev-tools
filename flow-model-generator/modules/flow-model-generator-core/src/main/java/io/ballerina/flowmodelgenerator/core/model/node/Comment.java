@@ -59,7 +59,7 @@ public class Comment extends NodeBuilder {
                 .map(line -> DOUBLE_SLASH + line + NEW_LINE)
                 .collect(Collectors.joining());
         return sourceBuilder
-                .token().name(formattedComment).stepOut()
+                .token().name(NEW_LINE).name(formattedComment).stepOut()
                 .comment()
                 .build();
     }
