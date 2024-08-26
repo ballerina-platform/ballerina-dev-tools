@@ -77,8 +77,8 @@ function fetchDataFromRemoteAPI() returns error? {
     }
 
     Index index = {};
-    check buildFunctionIndex(modules, index);
     check buildConnectorIndex(modules, index);
+    check buildFunctionIndex(modules, index);
 
     check io:fileWriteJson(PATH_INDEX + PATH_NODE_TEMPLATE_JSON, index.nodeTemplates);
     check io:fileWriteJson(PATH_INDEX + PATH_CONNECTOR_JSON, index.clients);
@@ -139,10 +139,7 @@ function processParameters(FunctionInfo data) {
     // io:println("Method/Function: " + data.name);
     foreach var param in data.parameters ?: [] {
         var typeData = parseAsType(param.'type);
-        if param.defaultValue == () || param.defaultValue == "" {
-            param.defaultValue = typeData.defaultValue;
-            // Check <> usage.
-        }
+        param.defaultValueCalculated = typeData.defaultValue;
         param.toString = typeData.name;
         param.importStmt = typeData.importStmt;
         // io:println("    Param: " + (param.toString ?: "") + " - " + typeData.name + " - " + typeData.defaultValue + " - " + (typeData.importStmt ?: ""));
@@ -150,6 +147,7 @@ function processParameters(FunctionInfo data) {
     var returnParameters = data.returnParameters;
     if returnParameters != () && returnParameters.length() > 0 {
         var typeData = parseAsType((data.returnParameters ?: [])[0].'type);
+        data.returnParameters[0].defaultValueCalculated = typeData.defaultValue;
         data.returnParameters[0].toString = typeData.name;
         data.returnParameters[0].importStmt = typeData.importStmt;
         // io:println("    Return: " + typeData.name + " - " + (typeData.importStmt ?: ""));
@@ -332,6 +330,7 @@ type FunctionInfo record {|
 
 type ParameterInfo record {|
     string defaultValue?;
+    string defaultValueCalculated?;
     TypeInfo 'type;
     string name;
     string description;
@@ -451,12 +450,12 @@ function parseAsType(TypeInfo? typeInfo) returns TypeInfoDetails {
             defaultValue = "[]";
             return {name: typeName, defaultValue, importStmt};
         }
-        var {category, moduleName, orgName, name} if moduleName is string && orgName is string && typeName is string => {
+        var {category, moduleName, orgName, name} if moduleName is string && orgName is string => {
             boolean isNullable = typeInfo.isNullable == true;
             if category == "errors" {
                 defaultValue = isNullable ? "()" : string `error ("error message")`; // Check if this is correct.
             } else if category == "records" {
-                defaultValue = isNullable ? "()" : "{}";
+                defaultValue = "{}";
             } else if category == "libs" {
                 defaultValue = isNullable ? "()" : ""; // SQL, etc.
             }
@@ -775,6 +774,7 @@ function handleInitMethod([string, string, string] ref, ClientInfo connection) r
 
     if init !is () {
         // Add method parameters as properties
+        processParameters(init);
         handleFunctionParameters(init, properties, false);
         if handleInitMethodReturn(init).length() > 0 {
             // We always Check errors. So we set the flag.
@@ -790,10 +790,10 @@ function handleInitMethod([string, string, string] ref, ClientInfo connection) r
     // Following are temporary fix.
     IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
     foreach var [key, value] in propertyGroup.properties.entries() {
-        properties[key] = <IndexProperty>value;
+        properties[key.toLowerAscii()] = <IndexProperty>value;
     }
 
-    properties["Scope"] = getPropertyScope('order = getOrder());
+    properties["scope"] = getPropertyScope('order = getOrder());
 
     // TODO: Check init contains errors. Use category field. Following is a temporary fix. 
     return initTemplate;
@@ -824,7 +824,7 @@ function handleRemoteMethods([string, string, string] ref, ClientInfo connection
 
     FunctionInfo[] methods = connection.remoteMethods;
     foreach FunctionInfo method in methods {
-        IndexNodeTemplate template = getRemoteActionTempate(org, module, 'object, <string>method.name);
+        IndexNodeTemplate template = getRemoteActionTempate(org, module, 'object, <string>method.name, method.description);
         final IndexProperties properties = template.properties;
         templates.push(template);
 
@@ -842,11 +842,11 @@ function handleRemoteMethods([string, string, string] ref, ClientInfo connection
         // Following are temporary fix.
         IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
         foreach var [key, value] in propertyGroup.properties.entries() {
-            properties[key] = <IndexProperty>value;
+            properties[key.toLowerAscii()] = <IndexProperty>value;
         }
 
         // Handle Connection Property
-        properties["Connection"] = getConnectionProperty("connection", prefix + ":" + 'object, 'order = getOrder());
+        properties["connection"] = getConnectionProperty("connection", prefix + ":" + 'object, 'order = getOrder());
     }
 
     // TODO: Sort based on popularity and name.
@@ -872,7 +872,7 @@ function handleFunction([string, string, string] ref, FunctionInfo func) returns
     final function () returns int getOrder = getOrderFunction();
     // Support Variable Definition & Assignment
     // IndexPropertyGroup variablePropertyGroup = getVariablePropertyGroup(returnTypeName, getOrder);
-    // properties["Variable"] = variablePropertyGroup;
+    // properties["variable"] = variablePropertyGroup;
     // Following are temporary fix.
     IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
     foreach var [key, value] in propertyGroup.properties.entries() {
@@ -912,11 +912,16 @@ function handleFunctionParameters(FunctionInfo method, IndexProperties propertie
             method.dependentlyTyped = item.'type;
             continue;
         }
+        boolean optional = item.defaultValue == () || item.defaultValue == "";
+        string defaultValue = item.defaultValue ?: "";
+        if optional {
+            defaultValue = item.defaultValueCalculated ?: "";
+        }
         properties[item.name] = {
             metadata: {label: item.name, description: item.description},
             valueType: "Expression",
-            value: item.defaultValue ?: "",
-            optional: item.defaultValue != "" && item.defaultValue != "<>",
+            value: defaultValue,
+            optional,
             editable: true,
             valueTypeConstraints: {'type: item.'type.toJson()},
             'order: properties.length()
@@ -959,8 +964,8 @@ function getConnectionInitTempate(string org, string module, string 'object) ret
     return createTemplate(node = "NEW_CONNECTION", label = "New Connection", description = "Create a new connection", org = org, module = module, 'object = 'object, symbol = "init");
 }
 
-function getRemoteActionTempate(string org, string module, string 'object, string symbol) returns IndexNodeTemplate {
-    return createTemplate(node = "ACTION_CALL", label = symbol, description = "Call remote action", org = org, module = module, 'object = 'object, symbol = symbol);
+function getRemoteActionTempate(string org, string module, string 'object, string symbol, string description = "Call remote action") returns IndexNodeTemplate {
+    return createTemplate(node = "ACTION_CALL", label = symbol, description = description, org = org, module = module, 'object = 'object, symbol = symbol);
 }
 
 function createTemplate(*TemplateParams params) returns IndexNodeTemplate {
@@ -1007,21 +1012,21 @@ function getConnectionProperty(string value, string symbolType, *PropertyParams 
 
 function getVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup variable = {group: "Core", metadata: {label: "Variable", description: "Variable to store result"}};
-    variable.properties["New Variable"] = getNewVariablePropertyGroup(returnTypeName, getOrder);
-    variable.properties["Existing Variable"] = getExistingVariablePropertyGroup(returnTypeName, getOrder);
+    variable.properties["new_variable"] = getNewVariablePropertyGroup(returnTypeName, getOrder);
+    variable.properties["existing_variable"] = getExistingVariablePropertyGroup(returnTypeName, getOrder);
     return variable;
 }
 
 function getNewVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup varDefinitionGroup = {metadata: {label: "New Variable", description: "Create a new variable"}};
-    varDefinitionGroup.properties["Variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder());
-    varDefinitionGroup.properties["Type"] = getPropertyType(returnTypeName, 'order = getOrder());
+    varDefinitionGroup.properties["variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder());
+    varDefinitionGroup.properties["type"] = getPropertyType(returnTypeName, 'order = getOrder());
     return varDefinitionGroup;
 }
 
 function getExistingVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup assignmentGroup = {metadata: {label: "Existing Variable", description: "Assign to an existing variable"}};
-    assignmentGroup.properties["Variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder(), assignment = true);
+    assignmentGroup.properties["variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder(), assignment = true);
     return assignmentGroup;
 }
 

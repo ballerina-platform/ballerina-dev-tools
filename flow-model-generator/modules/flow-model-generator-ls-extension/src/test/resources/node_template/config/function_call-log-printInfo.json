@@ -10,7 +10,7 @@
     "metadata": {
       "label": "printInfo",
       "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -20,44 +20,24 @@
     },
     "returning": false,
     "properties": {
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "",
-        "optional": false,
-        "editable": false
-      },
       "msg": {
         "metadata": {
           "label": "msg",
           "description": "The message to be logged\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "\"\"",
+        "optional": true,
         "editable": true
       },
-      "error": {
+      "'error": {
         "metadata": {
-          "label": "error",
+          "label": "'error",
           "description": "The error struct to be logged\n"
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "stackTrace": {
@@ -67,7 +47,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "keyValues": {
@@ -76,9 +56,29 @@
           "description": "The key-value pairs to be logged\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "{}",
+        "optional": true,
         "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
       }
     },
     "flags": 1

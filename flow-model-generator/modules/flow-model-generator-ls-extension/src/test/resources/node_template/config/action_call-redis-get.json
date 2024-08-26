@@ -22,6 +22,36 @@
     },
     "returning": false,
     "properties": {
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value\n"
+        },
+        "valueType": "Expression",
+        "value": "\"\"",
+        "optional": true,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
+      },
       "connection": {
         "metadata": {
           "label": "Connection",
@@ -30,37 +60,7 @@
         "valueType": "Identifier",
         "value": "connection",
         "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "string",
-        "optional": false,
         "editable": false
-      },
-      "key": {
-        "metadata": {
-          "label": "key",
-          "description": "Key referring to a value\n"
-        },
-        "valueType": "Expression",
-        "value": "",
-        "optional": false,
-        "editable": true
       }
     },
     "flags": 1

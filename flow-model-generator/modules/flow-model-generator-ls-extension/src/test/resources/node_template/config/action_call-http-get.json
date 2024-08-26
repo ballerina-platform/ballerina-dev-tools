@@ -11,7 +11,7 @@
     "metadata": {
       "label": "get",
       "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
@@ -22,44 +22,14 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "Identifier",
-        "value": "connection",
-        "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "map<json>",
-        "optional": false,
-        "editable": false
-      },
       "path": {
         "metadata": {
           "label": "path",
           "description": "Request path\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "\"\"",
+        "optional": true,
         "editable": true
       },
       "headers": {
@@ -69,18 +39,38 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-        },
-        "valueType": "Expression",
-        "value": "<>",
         "optional": false,
         "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "json",
+        "optional": false,
+        "editable": false
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": false
       }
     },
     "flags": 1

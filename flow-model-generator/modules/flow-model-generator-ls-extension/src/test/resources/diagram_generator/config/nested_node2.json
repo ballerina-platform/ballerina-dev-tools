@@ -160,7 +160,7 @@
                         "metadata": {
                           "label": "get",
                           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
@@ -222,15 +222,6 @@
                             "optional": true,
                             "editable": true
                           },
-                          "targetType": {
-                            "metadata": {
-                              "label": "targetType",
-                              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-                            },
-                            "valueType": "EXPRESSION",
-                            "optional": true,
-                            "editable": true
-                          },
                           "type": {
                             "metadata": {
                               "label": "Data type",
@@ -271,7 +262,7 @@
                         "metadata": {
                           "label": "get",
                           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
@@ -328,15 +319,6 @@
                             "metadata": {
                               "label": "headers",
                               "description": "The entity headers\n"
-                            },
-                            "valueType": "EXPRESSION",
-                            "optional": true,
-                            "editable": true
-                          },
-                          "targetType": {
-                            "metadata": {
-                              "label": "targetType",
-                              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
                             },
                             "valueType": "EXPRESSION",
                             "optional": true,

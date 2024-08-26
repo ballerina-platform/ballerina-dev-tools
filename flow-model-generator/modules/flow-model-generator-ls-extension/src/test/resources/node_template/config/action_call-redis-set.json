@@ -22,44 +22,14 @@
     },
     "returning": false,
     "properties": {
-      "connection": {
-        "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
-        },
-        "valueType": "Identifier",
-        "value": "connection",
-        "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "string",
-        "optional": false,
-        "editable": false
-      },
       "key": {
         "metadata": {
           "label": "key",
           "description": "Key referring to a value\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "\"\"",
+        "optional": true,
         "editable": true
       },
       "value": {
@@ -68,9 +38,39 @@
           "description": "Values\n"
         },
         "valueType": "Expression",
-        "value": "",
-        "optional": false,
+        "value": "\"\"",
+        "optional": true,
         "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": false
       }
     },
     "flags": 1
