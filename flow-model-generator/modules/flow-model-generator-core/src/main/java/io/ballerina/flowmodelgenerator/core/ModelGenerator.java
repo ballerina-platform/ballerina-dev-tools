@@ -160,6 +160,9 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
+        if (statementNode == null) {
+            return Optional.empty();
+        }
         CodeAnalyzer codeAnalyzer =
                 new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document));
         statementNode.accept(codeAnalyzer);
