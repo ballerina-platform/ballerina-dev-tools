@@ -162,10 +162,10 @@
                     "children": []
                   }
                 ],
-                "flags": 0,
-                "suggested": false
+                "flags": 0
               }
-            ]
+            ],
+            "suggested": false
           },
           {
             "label": "On Failure",

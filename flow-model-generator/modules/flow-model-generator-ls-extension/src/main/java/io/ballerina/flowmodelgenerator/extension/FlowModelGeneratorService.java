@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
+import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
@@ -39,6 +40,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGenerato
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelGeneratorResponse;
@@ -50,7 +52,7 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
-import io.ballerina.tools.diagnostics.Diagnostic;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -67,8 +69,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -198,30 +198,25 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 TextDocument textDocument = newDocument.get().textDocument();
                 int textPosition = textDocument.textPositionFrom(request.position());
+
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), request.text());
-                TextDocument apply =
+                TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
                 Document newDoc = newDocument.get().modify()
-                        .withContent(String.join(System.lineSeparator(), apply.textLines()))
+                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
                 ModelGenerator suggestedModelGenerator =
                         new ModelGenerator(newDoc.module().getCompilation().getSemanticModel(), newDoc,
                                 request.lineRange(), destination, newDataMappingsDoc.orElse(null));
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
-                DiagnosticResult diagnosticResult = newProject.currentPackage().getCompilation().diagnosticResult();
-                Collection<Diagnostic> errors = diagnosticResult.errors();
-                List<LineRange> errorLocations = errors.stream().map(error -> error.location().lineRange()).toList();
+                LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
+                LineRange newLineRange = LineRange.from(getRelativePath(projectPath, filePath), request.position(), endPosition);
 
-                List<JsonElement> outputNodes = new ArrayList<>();
-                JsonArray oldNodes = oldFlowModel.getAsJsonObject().getAsJsonArray("nodes");
                 JsonArray newNodes = newFlowModel.getAsJsonObject().getAsJsonArray("nodes");
-                SuggestedNodesGenerator suggestedNodesGenerator =
-                        new SuggestedNodesGenerator(errorLocations);
-                suggestedNodesGenerator.markSuggestedNodes(oldNodes, newNodes, 1);
-                JsonElement outputFlowModel = oldFlowModel.deepCopy();
-                outputFlowModel.getAsJsonObject().add("nodes", suggestedNodesGenerator.getNodes());
-                response.setFlowDesignModel(outputFlowModel);
+                SuggestedNodesGenerator suggestedNodesGenerator = new SuggestedNodesGenerator(newDoc, newLineRange);
+                suggestedNodesGenerator.markSuggestedNodes(newNodes, 1);
+                response.setFlowDesignModel(newFlowModel);
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -346,65 +341,10 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
         });
     }
 
-    private static void markSuggestedNodes(JsonArray oldNodes, JsonArray newNodes, int startIndex) {
-        int oldIndex = startIndex;
-        int newIndex = startIndex;
-
-        while (oldIndex < oldNodes.size() && newIndex < newNodes.size()) {
-            JsonObject oldNode = oldNodes.get(oldIndex).getAsJsonObject();
-            JsonObject newNode = newNodes.get(newIndex).getAsJsonObject();
-
-            if (getSourceText(oldNode).equals(getSourceText(newNode))) {
-                newNode.addProperty("suggested", false);
-                oldIndex++;
-                newIndex++;
-                continue;
-            }
-
-            boolean oldNodeHasBranches = oldNode.has("branches");
-            boolean newNodeHasBranches = newNode.has("branches");
-            if (oldNodeHasBranches != newNodeHasBranches) {
-                newNode.addProperty("suggested", true);
-                newIndex++;
-                continue;
-            }
-
-            if (oldNodeHasBranches) {
-                markBranches(oldNode.getAsJsonArray("branches"), newNode.getAsJsonArray("branches"));
-                oldIndex++;
-                newIndex++;
-            }
+    private static String getRelativePath(Path projectPath, Path filePath) {
+        if (projectPath.equals(filePath)) {
+            return filePath.getFileName().toString();
         }
-
-        while (newIndex < newNodes.size()) {
-            newNodes.get(newIndex).getAsJsonObject().addProperty("suggested", true);
-            newIndex++;
-        }
+        return projectPath.relativize(filePath).toString();
     }
-
-    private static void markBranches(JsonArray oldBranches, JsonArray newBranches) {
-        for (int i = 0; i < newBranches.size(); i++) {
-            JsonObject newBranch = newBranches.get(i).getAsJsonObject();
-            String newLabel = newBranch.get("label").getAsString();
-            boolean labelMatched = false;
-
-            for (int j = 0; j < oldBranches.size(); j++) {
-                JsonObject oldBranch = oldBranches.get(j).getAsJsonObject();
-                if (oldBranch.get("label").getAsString().equals(newLabel)) {
-                    markSuggestedNodes(oldBranch.getAsJsonArray("children"), newBranch.getAsJsonArray("children"), 0);
-                    labelMatched = true;
-                    break;
-                }
-            }
-
-            if (!labelMatched) {
-                newBranch.addProperty("suggested", true);
-            }
-        }
-    }
-
-    private static String getSourceText(JsonObject oldNode) {
-        return oldNode.getAsJsonObject("codedata").get("sourceCode").getAsString();
-    }
-
 }
