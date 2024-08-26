@@ -11,7 +11,7 @@
     "metadata": {
       "label": "New Connection",
       "description": "Create a new connection",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
     },
     "codedata": {
       "node": "NEW_CONNECTION",
@@ -22,36 +22,6 @@
     },
     "returning": false,
     "properties": {
-      "scope": {
-        "metadata": {
-          "label": "Connection Scope",
-          "description": "Scope of the connection, Global or Local"
-        },
-        "valueType": "Enum",
-        "value": "Global",
-        "optional": false,
-        "editable": false
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "connection",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the connection"
-        },
-        "valueType": "Type",
-        "value": "ClientError",
-        "optional": false,
-        "editable": false
-      },
       "url": {
         "metadata": {
           "label": "url",
@@ -71,6 +41,36 @@
         "value": "",
         "optional": false,
         "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "http:Client",
+        "optional": false,
+        "editable": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Scope",
+          "description": "Scope of the connection"
+        },
+        "valueType": "Enum",
+        "value": "Global",
+        "optional": false,
+        "editable": false
       }
     },
     "flags": 1

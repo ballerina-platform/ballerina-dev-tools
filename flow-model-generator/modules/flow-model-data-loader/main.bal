@@ -791,10 +791,10 @@ function handleInitMethod([string, string, string] ref, ClientInfo connection) r
     // Following are temporary fix.
     IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
     foreach var [key, value] in propertyGroup.properties.entries() {
-        properties[key] = <IndexProperty>value;
+        properties[key.toLowerAscii()] = <IndexProperty>value;
     }
 
-    properties["Scope"] = getPropertyScope('order = getOrder());
+    properties["scope"] = getPropertyScope('order = getOrder());
 
     // TODO: Check init contains errors. Use category field. Following is a temporary fix. 
     return initTemplate;
@@ -843,11 +843,11 @@ function handleRemoteMethods([string, string, string] ref, ClientInfo connection
         // Following are temporary fix.
         IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
         foreach var [key, value] in propertyGroup.properties.entries() {
-            properties[key] = <IndexProperty>value;
+            properties[key.toLowerAscii()] = <IndexProperty>value;
         }
 
         // Handle Connection Property
-        properties["Connection"] = getConnectionProperty("connection", prefix + ":" + 'object, 'order = getOrder());
+        properties["connection"] = getConnectionProperty("connection", prefix + ":" + 'object, 'order = getOrder());
     }
 
     // TODO: Sort based on popularity and name.
@@ -873,7 +873,7 @@ function handleFunction([string, string, string] ref, FunctionInfo func) returns
     final function () returns int getOrder = getOrderFunction();
     // Support Variable Definition & Assignment
     // IndexPropertyGroup variablePropertyGroup = getVariablePropertyGroup(returnTypeName, getOrder);
-    // properties["Variable"] = variablePropertyGroup;
+    // properties["variable"] = variablePropertyGroup;
     // Following are temporary fix.
     IndexPropertyGroup propertyGroup = getNewVariablePropertyGroup(returnTypeName, getOrder);
     foreach var [key, value] in propertyGroup.properties.entries() {
@@ -1008,21 +1008,21 @@ function getConnectionProperty(string value, string symbolType, *PropertyParams 
 
 function getVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup variable = {group: "Core", metadata: {label: "Variable", description: "Variable to store result"}};
-    variable.properties["New Variable"] = getNewVariablePropertyGroup(returnTypeName, getOrder);
-    variable.properties["Existing Variable"] = getExistingVariablePropertyGroup(returnTypeName, getOrder);
+    variable.properties["new_variable"] = getNewVariablePropertyGroup(returnTypeName, getOrder);
+    variable.properties["existing_variable"] = getExistingVariablePropertyGroup(returnTypeName, getOrder);
     return variable;
 }
 
 function getNewVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup varDefinitionGroup = {metadata: {label: "New Variable", description: "Create a new variable"}};
-    varDefinitionGroup.properties["Variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder());
-    varDefinitionGroup.properties["Type"] = getPropertyType(returnTypeName, 'order = getOrder());
+    varDefinitionGroup.properties["variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder());
+    varDefinitionGroup.properties["type"] = getPropertyType(returnTypeName, 'order = getOrder());
     return varDefinitionGroup;
 }
 
 function getExistingVariablePropertyGroup(string returnTypeName, function () returns int getOrder) returns IndexPropertyGroup {
     IndexPropertyGroup assignmentGroup = {metadata: {label: "Existing Variable", description: "Assign to an existing variable"}};
-    assignmentGroup.properties["Variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder(), assignment = true);
+    assignmentGroup.properties["variable"] = getPropertyVariable("value", returnTypeName, 'order = getOrder(), assignment = true);
     return assignmentGroup;
 }
 

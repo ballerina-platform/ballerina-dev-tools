@@ -117,7 +117,7 @@
                 "metadata": {
                   "label": "printWarn",
                   "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -189,7 +189,7 @@
         "metadata": {
           "label": "printInfo",
           "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
@@ -256,7 +256,7 @@
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -313,15 +313,6 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true
-          },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -400,7 +391,7 @@
                 "metadata": {
                   "label": "printError",
                   "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
@@ -489,7 +480,7 @@
                 "metadata": {
                   "label": "printInfo",
                   "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
