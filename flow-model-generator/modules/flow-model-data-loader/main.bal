@@ -912,9 +912,9 @@ function handleFunctionParameters(FunctionInfo method, IndexProperties propertie
             method.dependentlyTyped = item.'type;
             continue;
         }
-        boolean optional = item.defaultValue == () || item.defaultValue == "";
+        boolean optional = item.defaultValue != () && item.defaultValue != "";
         string defaultValue = item.defaultValue ?: "";
-        if optional {
+        if !optional {
             defaultValue = item.defaultValueCalculated ?: "";
         }
         properties[item.name] = {

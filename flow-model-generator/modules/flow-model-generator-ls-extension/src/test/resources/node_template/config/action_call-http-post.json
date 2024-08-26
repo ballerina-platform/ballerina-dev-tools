@@ -29,7 +29,7 @@
         },
         "valueType": "Expression",
         "value": "\"\"",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "message": {
@@ -39,7 +39,7 @@
         },
         "valueType": "Expression",
         "value": "",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "headers": {
@@ -49,7 +49,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": false,
+        "optional": true,
         "editable": true
       },
       "mediaType": {
@@ -59,7 +59,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": false,
+        "optional": true,
         "editable": true
       },
       "variable": {

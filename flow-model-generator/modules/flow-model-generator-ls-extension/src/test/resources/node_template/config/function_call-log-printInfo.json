@@ -27,7 +27,7 @@
         },
         "valueType": "Expression",
         "value": "\"\"",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "'error": {
@@ -37,7 +37,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": false,
+        "optional": true,
         "editable": true
       },
       "stackTrace": {
@@ -47,7 +47,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": false,
+        "optional": true,
         "editable": true
       },
       "keyValues": {
@@ -57,7 +57,7 @@
         },
         "valueType": "Expression",
         "value": "{}",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "variable": {

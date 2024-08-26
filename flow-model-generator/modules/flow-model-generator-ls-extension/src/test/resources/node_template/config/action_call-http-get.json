@@ -29,7 +29,7 @@
         },
         "valueType": "Expression",
         "value": "\"\"",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "headers": {
@@ -39,7 +39,7 @@
         },
         "valueType": "Expression",
         "value": "()",
-        "optional": false,
+        "optional": true,
         "editable": true
       },
       "variable": {
