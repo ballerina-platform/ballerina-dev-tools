@@ -314,7 +314,7 @@
                                       "description": "Ballerina statement"
                                     },
                                     "valueType": "EXPRESSION",
-                                    "value": "                    check commit;\n",
+                                    "value": "check commit;",
                                     "optional": false,
                                     "editable": true
                                   }
@@ -452,16 +452,52 @@
                             ]
                           }
                         ],
+                        "properties": {
+                          "statement": {
+                            "metadata": {
+                              "label": "Statement",
+                              "description": "Ballerina statement"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "{\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
                         "flags": 0
                       }
                     ]
                   }
                 ],
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "{\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]
           }
         ],
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       }
     ],

@@ -34,6 +34,18 @@
           "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -59,6 +71,16 @@
         },
         "returning": false,
         "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "new(\"foo\")",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Data variable",

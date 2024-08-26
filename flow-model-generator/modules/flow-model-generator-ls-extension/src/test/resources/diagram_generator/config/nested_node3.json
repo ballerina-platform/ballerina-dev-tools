@@ -102,6 +102,18 @@
             "children": []
           }
         ],
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\n\n        }",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       }
     ],

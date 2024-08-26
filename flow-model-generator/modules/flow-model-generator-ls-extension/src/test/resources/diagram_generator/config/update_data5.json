@@ -34,6 +34,18 @@
           "sourceCode": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    newData2 = [11, 22];\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    newData2 = [11, 22];\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

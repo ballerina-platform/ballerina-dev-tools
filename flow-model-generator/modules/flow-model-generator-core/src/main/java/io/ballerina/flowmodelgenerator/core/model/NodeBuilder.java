@@ -566,7 +566,7 @@ public abstract class NodeBuilder {
                     .label(DefaultExpression.STATEMENT_LABEL)
                     .description(DefaultExpression.STATEMENT_DOC)
                     .stepOut()
-                    .value(node == null ? "" : node.toSourceCode())
+                    .value(node == null ? "" : node.toSourceCode().strip())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
                     .build();

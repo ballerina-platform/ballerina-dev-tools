@@ -311,7 +311,7 @@
                       "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "            i += 1;\n",
+                    "value": "i += 1;",
                     "optional": false,
                     "editable": true
                   }

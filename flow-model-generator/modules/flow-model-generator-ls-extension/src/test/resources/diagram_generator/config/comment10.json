@@ -34,6 +34,18 @@
           "sourceCode": "public function commentInForeachBody(int i) {\n    int x = 0;\n\n    foreach var item in 1..<3 {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function commentInForeachBody(int i) {\n    int x = 0;\n\n    foreach var item in 1..<3 {\n        // Increment `x`\n        x = x + 1;\n\n        // Precess `x`\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

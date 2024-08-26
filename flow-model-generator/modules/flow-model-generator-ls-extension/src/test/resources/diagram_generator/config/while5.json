@@ -321,7 +321,7 @@
                       "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "            finalMsg += response.toString();\n",
+                    "value": "finalMsg += response.toString();",
                     "optional": false,
                     "editable": true
                   }
@@ -357,7 +357,7 @@
                       "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "            i += 1;\n",
+                    "value": "i += 1;",
                     "optional": false,
                     "editable": true
                   }

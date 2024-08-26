@@ -34,6 +34,18 @@
           "sourceCode": "public function commentInTransactionBody1() returns error? {\n    transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function commentInTransactionBody1() returns error? {\n    transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

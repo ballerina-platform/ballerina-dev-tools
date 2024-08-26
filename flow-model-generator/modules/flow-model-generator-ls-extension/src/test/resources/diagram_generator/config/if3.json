@@ -474,7 +474,7 @@
                               "description": "Ballerina statement"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "            food.comment += \"moderate\";\n",
+                            "value": "food.comment += \"moderate\";",
                             "optional": false,
                             "editable": true
                           }
