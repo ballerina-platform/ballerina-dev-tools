@@ -30,7 +30,8 @@
               "line": 34,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function transactionWithOnFail1() returns error? {\n    transaction {\n        var _ = check commit;\n    } on fail {\n        return error(\"Found error\");\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 33,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var _ = check commit;\n    } on fail {\n        return error(\"Found error\");\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 31,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var _ = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 30,
                       "offset": 29
                     }
-                  }
+                  },
+                  "sourceCode": "var _ = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -103,7 +107,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -113,6 +117,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -122,6 +127,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true
@@ -146,7 +152,8 @@
                   "line": 33,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return error(\"Found error\");\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -168,7 +175,8 @@
                       "line": 32,
                       "offset": 36
                     }
-                  }
+                  },
+                  "sourceCode": "return error(\"Found error\");"
                 },
                 "returning": true,
                 "properties": {
@@ -177,7 +185,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "error(\"Found error\")",
                     "optional": false,
                     "editable": true

@@ -1,0 +1,473 @@
+{
+  "start": {
+    "line": 6,
+    "offset": 0
+  },
+  "end": {
+    "line": 15,
+    "offset": 1
+  },
+  "source": "if.bal",
+  "text": "   if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }",
+  "position": {
+    "line": 11,
+    "offset": 4
+  },
+  "description": "",
+  "diagram": {
+    "fileName": "if.bal",
+    "nodes": [
+      {
+        "id": "38100",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 19,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "38827",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'x' with type 'int'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int x = 10;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "10",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "x",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      },
+      {
+        "id": "39819",
+        "metadata": {
+          "label": "New Variable",
+          "description": "New variable 'y' with type 'int'"
+        },
+        "codedata": {
+          "node": "NEW_DATA",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int y = 20;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "20",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "y",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0,
+        "suggested": false
+      },
+      {
+        "id": "42041",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if.bal",
+            "startLine": {
+              "line": 10,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "if (x > y) {\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 10,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n       if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }    print(\"x is greater than y\");\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "(x > y) ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "43006",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 11,
+                      "offset": 7
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "if (x % 2 == 0) {\n            print(\"x is even\");\n        } else {\n            print(\"x is odd\");\n        }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 11,
+                          "offset": 23
+                        },
+                        "endLine": {
+                          "line": 13,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            print(\"x is even\");\n        }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "(x % 2 == 0) ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "44051",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "if.bal",
+                            "startLine": {
+                              "line": 12,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 12,
+                              "offset": 31
+                            }
+                          },
+                          "sourceCode": "print(\"x is even\");"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "statement": {
+                            "metadata": {
+                              "label": "Statement",
+                              "description": "Ballerina statement"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "            print(\"x is even\");\n",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0,
+                        "suggested": true
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "if.bal",
+                        "startLine": {
+                          "line": 13,
+                          "offset": 10
+                        },
+                        "endLine": {
+                          "line": 15,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "else {\n            print(\"x is odd\");\n        }"
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "46034",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "if.bal",
+                            "startLine": {
+                              "line": 14,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 14,
+                              "offset": 30
+                            }
+                          },
+                          "sourceCode": "print(\"x is odd\");"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "statement": {
+                            "metadata": {
+                              "label": "Statement",
+                              "description": "Ballerina statement"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "            print(\"x is odd\");\n",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0,
+                        "suggested": true
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "47069",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 15,
+                      "offset": 13
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 42
+                    }
+                  },
+                  "sourceCode": "print(\"x is greater than y\");"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "print(\"x is greater than y\");\n",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0,
+                "suggested": false
+              }
+            ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "if.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 6
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "else {\n        print(\"x is equal to y\");\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "48889",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if.bal",
+                    "startLine": {
+                      "line": 17,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 17,
+                      "offset": 33
+                    }
+                  },
+                  "sourceCode": "print(\"x is equal to y\");"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "        print(\"x is equal to y\");\n",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ],
+            "suggested": false
+          }
+        ],
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

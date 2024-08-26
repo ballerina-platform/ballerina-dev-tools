@@ -45,6 +45,7 @@
               "label": "Ignore",
               "description": "Ignore the error value"
             },
+            "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
             "editable": true
@@ -54,6 +55,7 @@
               "label": "Error Variable",
               "description": "Name of the error variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "err",
             "optional": false,
             "editable": true
@@ -63,6 +65,7 @@
               "label": "Error Type",
               "description": "Type of the error"
             },
+            "valueType": "TYPE",
             "value": "error",
             "optional": false,
             "editable": true
@@ -86,7 +89,7 @@
             "character": 0
           }
         },
-        "newText": "lock {\n}\non fail error err {\n}"
+        "newText": "lock {\n}"
       }
     ]
   }

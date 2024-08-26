@@ -198,6 +198,11 @@ public class SourceBuilder {
         }
         Branch onFailureBranch = optOnFailureBranch.get();
 
+        Optional<Property> ignoreProperty = onFailureBranch.getProperty(Property.IGNORE_KEY);
+        if (ignoreProperty.isPresent() && ignoreProperty.get().value().equals("true")) {
+            return this;
+        }
+
         // Build the keywords
         tokenBuilder
                 .keyword(SyntaxKind.ON_KEYWORD)
@@ -358,7 +363,7 @@ public class SourceBuilder {
         public TokenBuilder closeBrace() {
             sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
-                    .append(System.lineSeparator());
+                    .append(WHITE_SPACE);
             return this;
         }
 

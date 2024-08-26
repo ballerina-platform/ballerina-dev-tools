@@ -29,7 +29,8 @@
               "line": 100,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get grapes(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|error response = foodClient->get(\"/food/grapes\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }\n            i += 1;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "grapes",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 89,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -81,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true
@@ -91,6 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -100,6 +105,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -125,7 +131,8 @@
               "line": 99,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "while i < count {\n            json|error response = foodClient->get(\"/food/grapes\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }\n            i += 1;\n        }"
         },
         "returning": false,
         "branches": [
@@ -144,7 +151,8 @@
                   "line": 99,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json|error response = foodClient->get(\"/food/grapes\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }\n            i += 1;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -171,7 +179,8 @@
                       "line": 91,
                       "offset": 66
                     }
-                  }
+                  },
+                  "sourceCode": "json|error response = foodClient->get(\"/food/grapes\");"
                 },
                 "returning": false,
                 "properties": {
@@ -190,6 +199,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "response",
                     "optional": false,
                     "editable": true
@@ -227,6 +237,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
                     "editable": true
@@ -252,7 +263,8 @@
                       "line": 97,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -271,7 +283,8 @@
                           "line": 94,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                msg = \"Response received from food service: \" + response.toString();\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -280,7 +293,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "(response is json) ",
                         "optional": false,
                         "editable": true
@@ -305,7 +318,8 @@
                               "line": 93,
                               "offset": 84
                             }
-                          }
+                          },
+                          "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
                         },
                         "returning": false,
                         "properties": {
@@ -314,7 +328,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Response received from food service: \" + response.toString()",
                             "optional": false,
                             "editable": true
@@ -324,7 +338,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -349,7 +363,8 @@
                           "line": 97,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -371,7 +386,8 @@
                               "line": 95,
                               "offset": 90
                             }
-                          }
+                          },
+                          "sourceCode": "msg = \"Error occurred while invoking food service: \" + response.message();"
                         },
                         "returning": false,
                         "properties": {
@@ -380,7 +396,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while invoking food service: \" + response.message()",
                             "optional": false,
                             "editable": true
@@ -390,7 +406,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -416,7 +432,8 @@
                               "line": 96,
                               "offset": 22
                             }
-                          }
+                          },
+                          "sourceCode": "break;"
                         },
                         "returning": false,
                         "flags": 0
@@ -444,7 +461,8 @@
                       "line": 98,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "i += 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -453,6 +471,7 @@
                       "label": "Statement",
                       "description": "Ballerina statement"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "            i += 1;\n",
                     "optional": false,
                     "editable": true
@@ -469,7 +488,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "i < count ",
             "optional": false,
             "editable": true
@@ -501,7 +520,8 @@
               "line": 2,
               "offset": 61
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -539,6 +559,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -548,6 +569,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

@@ -30,7 +30,8 @@
               "line": 1,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int i = 2;"
         },
         "returning": false,
         "properties": {
@@ -39,7 +40,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "2",
             "optional": false,
             "editable": true
@@ -49,6 +50,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -58,6 +60,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -83,7 +86,8 @@
               "line": 2,
               "offset": 19
             }
-          }
+          },
+          "sourceCode": "float f = 1.2f;"
         },
         "returning": false,
         "properties": {
@@ -92,7 +96,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "float",
+            "valueType": "EXPRESSION",
             "value": "1.2f",
             "optional": false,
             "editable": true
@@ -102,6 +106,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "f",
             "optional": false,
             "editable": true
@@ -111,6 +116,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "float",
             "optional": false,
             "editable": true
@@ -136,7 +142,8 @@
               "line": 3,
               "offset": 26
             }
-          }
+          },
+          "sourceCode": "decimal d = 100000.0d;"
         },
         "returning": false,
         "properties": {
@@ -145,7 +152,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "decimal",
+            "valueType": "EXPRESSION",
             "value": "100000.0d",
             "optional": false,
             "editable": true
@@ -155,6 +162,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "d",
             "optional": false,
             "editable": true
@@ -164,6 +172,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "decimal",
             "optional": false,
             "editable": true
@@ -189,7 +198,8 @@
               "line": 4,
               "offset": 19
             }
-          }
+          },
+          "sourceCode": "decimal d1 = d;"
         },
         "returning": false,
         "properties": {
@@ -198,7 +208,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "decimal",
+            "valueType": "EXPRESSION",
             "value": "d",
             "optional": false,
             "editable": true
@@ -208,6 +218,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "d1",
             "optional": false,
             "editable": true
@@ -217,6 +228,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "decimal",
             "optional": false,
             "editable": true
@@ -242,7 +254,8 @@
               "line": 6,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int j = 3;"
         },
         "returning": false,
         "properties": {
@@ -251,7 +264,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
             "editable": true
@@ -261,6 +274,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "j",
             "optional": false,
             "editable": true
@@ -270,6 +284,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -295,7 +310,8 @@
               "line": 7,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "int k = i + j;"
         },
         "returning": false,
         "properties": {
@@ -304,7 +320,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "i + j",
             "optional": false,
             "editable": true
@@ -314,6 +330,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "k",
             "optional": false,
             "editable": true
@@ -323,6 +340,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -348,7 +366,8 @@
               "line": 8,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "var l = i + j;"
         },
         "returning": false,
         "properties": {
@@ -357,7 +376,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "i + j",
             "optional": false,
             "editable": true
@@ -367,6 +386,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "l",
             "optional": false,
             "editable": true
@@ -376,6 +396,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -401,7 +422,8 @@
               "line": 9,
               "offset": 18
             }
-          }
+          },
+          "sourceCode": "var _ = k + l;"
         },
         "returning": false,
         "properties": {
@@ -410,7 +432,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "k + l",
             "optional": false,
             "editable": true
@@ -420,6 +442,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "_",
             "optional": false,
             "editable": true
@@ -429,6 +452,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true

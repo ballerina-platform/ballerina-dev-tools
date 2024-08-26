@@ -29,7 +29,8 @@
               "line": 26,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function options path() {\n        do {\n\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "options",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "path",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 25,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +95,8 @@
                   "line": 25,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n\n        }"
             },
             "repeatable": "ONE",
             "children": []
@@ -123,7 +128,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -161,6 +167,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
             "editable": true
@@ -170,6 +177,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

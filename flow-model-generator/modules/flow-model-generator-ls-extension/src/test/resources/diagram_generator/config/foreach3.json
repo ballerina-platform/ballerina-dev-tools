@@ -30,7 +30,8 @@
               "line": 21,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function testForeachWithOnFail1() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 15,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int[]",
+            "valueType": "EXPRESSION",
             "value": "[1, 2, 3]",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int[]",
             "optional": false,
             "editable": true
@@ -106,7 +110,8 @@
               "line": 20,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +130,8 @@
                   "line": 18,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +153,8 @@
                       "line": 17,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "_ = item;"
                 },
                 "returning": false,
                 "properties": {
@@ -156,7 +163,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "item",
                     "optional": false,
                     "editable": true
@@ -166,7 +173,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "any",
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -191,7 +198,8 @@
                   "line": 20,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return error(\"Error message\");\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -213,7 +221,8 @@
                       "line": 19,
                       "offset": 38
                     }
-                  }
+                  },
+                  "sourceCode": "return error(\"Error message\");"
                 },
                 "returning": true,
                 "properties": {
@@ -222,7 +231,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "error(\"Error message\")",
                     "optional": false,
                     "editable": true
@@ -239,6 +248,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
             "editable": true
@@ -248,6 +258,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true

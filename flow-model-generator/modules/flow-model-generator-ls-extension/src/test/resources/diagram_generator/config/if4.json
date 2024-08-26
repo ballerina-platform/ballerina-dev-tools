@@ -29,7 +29,8 @@
               "line": 70,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get grapes(int price) {\n        int mod = price % 4;\n        if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "grapes",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 55,
               "offset": 28
             }
-          }
+          },
+          "sourceCode": "int mod = price % 4;"
         },
         "returning": false,
         "properties": {
@@ -81,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "price % 4",
             "optional": false,
             "editable": true
@@ -91,6 +95,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "mod",
             "optional": false,
             "editable": true
@@ -100,6 +105,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -125,7 +131,8 @@
               "line": 69,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
         },
         "returning": false,
         "branches": [
@@ -144,7 +151,8 @@
                   "line": 58,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            return;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -153,7 +161,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "price > 100 ",
                 "optional": false,
                 "editable": true
@@ -178,7 +186,8 @@
                       "line": 57,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "return;"
                 },
                 "returning": true,
                 "flags": 0
@@ -200,7 +209,8 @@
                   "line": 69,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -222,7 +232,8 @@
                       "line": 65,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -241,7 +252,8 @@
                           "line": 65,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -250,7 +262,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "price < 50 ",
                         "optional": false,
                         "editable": true
@@ -275,7 +287,8 @@
                               "line": 64,
                               "offset": 17
                             }
-                          }
+                          },
+                          "sourceCode": "if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
                         },
                         "returning": false,
                         "branches": [
@@ -294,7 +307,8 @@
                                   "line": 64,
                                   "offset": 17
                                 }
-                              }
+                              },
+                              "sourceCode": "{\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
                             },
                             "repeatable": "ONE_OR_MORE",
                             "properties": {
@@ -303,7 +317,7 @@
                                   "label": "Condition",
                                   "description": "Boolean Condition"
                                 },
-                                "valueType": "boolean",
+                                "valueType": "EXPRESSION",
                                 "value": "price < 25 ",
                                 "optional": false,
                                 "editable": true
@@ -328,7 +342,8 @@
                                       "line": 63,
                                       "offset": 21
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "if price < 10 && mod == 1 {\n                        return;\n                    }"
                                 },
                                 "returning": false,
                                 "branches": [
@@ -347,7 +362,8 @@
                                           "line": 63,
                                           "offset": 21
                                         }
-                                      }
+                                      },
+                                      "sourceCode": "{\n                        return;\n                    }"
                                     },
                                     "repeatable": "ONE_OR_MORE",
                                     "properties": {
@@ -356,7 +372,7 @@
                                           "label": "Condition",
                                           "description": "Boolean Condition"
                                         },
-                                        "valueType": "boolean",
+                                        "valueType": "EXPRESSION",
                                         "value": "price < 10 && mod == 1 ",
                                         "optional": false,
                                         "editable": true
@@ -381,7 +397,8 @@
                                               "line": 62,
                                               "offset": 31
                                             }
-                                          }
+                                          },
+                                          "sourceCode": "return;"
                                         },
                                         "returning": true,
                                         "flags": 0
@@ -419,7 +436,8 @@
                       "line": 68,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if mod == 0 {\n                return;\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -438,7 +456,8 @@
                           "line": 68,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                return;\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -447,7 +466,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "mod == 0 ",
                         "optional": false,
                         "editable": true
@@ -472,7 +491,8 @@
                               "line": 67,
                               "offset": 23
                             }
-                          }
+                          },
+                          "sourceCode": "return;"
                         },
                         "returning": true,
                         "flags": 0
@@ -511,7 +531,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -549,6 +570,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -558,6 +580,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

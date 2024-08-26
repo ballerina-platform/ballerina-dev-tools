@@ -29,7 +29,8 @@
               "line": 52,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get oranges(Food food) returns Food {\n        if food.price < 100 {\n            food.comment = \"cheap\";\n            return food;\n        } else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "oranges",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 51,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if food.price < 100 {\n            food.comment = \"cheap\";\n            return food;\n        } else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +95,8 @@
                   "line": 40,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            food.comment = \"cheap\";\n            return food;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -100,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "food.price < 100 ",
                 "optional": false,
                 "editable": true
@@ -125,7 +130,8 @@
                       "line": 38,
                       "offset": 35
                     }
-                  }
+                  },
+                  "sourceCode": "food.comment = \"cheap\";"
                 },
                 "returning": false,
                 "properties": {
@@ -134,7 +140,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
                     "editable": true
@@ -144,7 +150,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string",
+                    "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
                     "editable": true
@@ -170,7 +176,8 @@
                       "line": 39,
                       "offset": 24
                     }
-                  }
+                  },
+                  "sourceCode": "return food;"
                 },
                 "returning": true,
                 "properties": {
@@ -179,7 +186,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "Food",
+                    "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true
@@ -204,7 +211,8 @@
                   "line": 51,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -226,7 +234,8 @@
                       "line": 51,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -245,7 +254,8 @@
                           "line": 48,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -254,7 +264,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "food.price < 200 ",
                         "optional": false,
                         "editable": true
@@ -279,7 +289,8 @@
                               "line": 45,
                               "offset": 13
                             }
-                          }
+                          },
+                          "sourceCode": "if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }"
                         },
                         "returning": false,
                         "branches": [
@@ -298,7 +309,8 @@
                                   "line": 43,
                                   "offset": 13
                                 }
-                              }
+                              },
+                              "sourceCode": "{\n                food.comment = \"fresh; \";\n            }"
                             },
                             "repeatable": "ONE_OR_MORE",
                             "properties": {
@@ -307,7 +319,7 @@
                                   "label": "Condition",
                                   "description": "Boolean Condition"
                                 },
-                                "valueType": "boolean",
+                                "valueType": "EXPRESSION",
                                 "value": "food.remaining > 0 ",
                                 "optional": false,
                                 "editable": true
@@ -332,7 +344,8 @@
                                       "line": 42,
                                       "offset": 41
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "food.comment = \"fresh; \";"
                                 },
                                 "returning": false,
                                 "properties": {
@@ -341,7 +354,7 @@
                                       "label": "Expression",
                                       "description": "Update variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "EXPRESSION",
                                     "value": "\"fresh; \"",
                                     "optional": false,
                                     "editable": true
@@ -351,7 +364,7 @@
                                       "label": "Variable",
                                       "description": "Result Variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "IDENTIFIER",
                                     "value": "food.comment",
                                     "optional": false,
                                     "editable": true
@@ -376,7 +389,8 @@
                                   "line": 45,
                                   "offset": 13
                                 }
-                              }
+                              },
+                              "sourceCode": "else {\n                food.comment = \"expired; \";\n            }"
                             },
                             "repeatable": "ZERO_OR_ONE",
                             "children": [
@@ -398,7 +412,8 @@
                                       "line": 44,
                                       "offset": 43
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "food.comment = \"expired; \";"
                                 },
                                 "returning": false,
                                 "properties": {
@@ -407,7 +422,7 @@
                                       "label": "Expression",
                                       "description": "Update variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "EXPRESSION",
                                     "value": "\"expired; \"",
                                     "optional": false,
                                     "editable": true
@@ -417,7 +432,7 @@
                                       "label": "Variable",
                                       "description": "Result Variable"
                                     },
-                                    "valueType": "string",
+                                    "valueType": "IDENTIFIER",
                                     "value": "food.comment",
                                     "optional": false,
                                     "editable": true
@@ -448,7 +463,8 @@
                               "line": 46,
                               "offset": 39
                             }
-                          }
+                          },
+                          "sourceCode": "food.comment += \"moderate\";"
                         },
                         "returning": false,
                         "properties": {
@@ -457,6 +473,7 @@
                               "label": "Statement",
                               "description": "Ballerina statement"
                             },
+                            "valueType": "EXPRESSION",
                             "value": "            food.comment += \"moderate\";\n",
                             "optional": false,
                             "editable": true
@@ -482,7 +499,8 @@
                               "line": 47,
                               "offset": 24
                             }
-                          }
+                          },
+                          "sourceCode": "return food;"
                         },
                         "returning": true,
                         "properties": {
@@ -491,7 +509,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "Food",
+                            "valueType": "EXPRESSION",
                             "value": "food",
                             "optional": false,
                             "editable": true
@@ -516,7 +534,8 @@
                           "line": 51,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n            food.comment = \"expensive\";\n            return food;\n        }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -538,7 +557,8 @@
                               "line": 49,
                               "offset": 39
                             }
-                          }
+                          },
+                          "sourceCode": "food.comment = \"expensive\";"
                         },
                         "returning": false,
                         "properties": {
@@ -547,7 +567,7 @@
                               "label": "Expression",
                               "description": "Update variable"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"expensive\"",
                             "optional": false,
                             "editable": true
@@ -557,7 +577,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string",
+                            "valueType": "IDENTIFIER",
                             "value": "food.comment",
                             "optional": false,
                             "editable": true
@@ -583,7 +603,8 @@
                               "line": 50,
                               "offset": 24
                             }
-                          }
+                          },
+                          "sourceCode": "return food;"
                         },
                         "returning": true,
                         "properties": {
@@ -592,7 +613,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "Food",
+                            "valueType": "EXPRESSION",
                             "value": "food",
                             "optional": false,
                             "editable": true
@@ -634,7 +655,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -672,6 +694,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -681,6 +704,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

@@ -30,7 +30,8 @@
               "line": 5,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnStatement() returns int {\n    // Create variable name i\n    // This is an additional comment\n    int i = 0;\n    return 0;\n}"
         },
         "returning": false,
         "flags": 0
@@ -39,7 +40,7 @@
         "id": "32802",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Create variable name i\nThis is an additional comment"
         },
         "codedata": {
           "node": "COMMENT",
@@ -53,7 +54,8 @@
               "line": 3,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Create variable name i\nThis is an additional comment"
         },
         "returning": false,
         "properties": {
@@ -62,6 +64,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "Create variable name i\nThis is an additional comment",
             "optional": false,
             "editable": true
@@ -87,7 +90,8 @@
               "line": 3,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "// Create variable name i\n    // This is an additional comment\n    int i = 0;"
         },
         "returning": false,
         "properties": {
@@ -96,7 +100,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true
@@ -106,6 +110,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
             "editable": true
@@ -115,6 +120,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -140,7 +146,8 @@
               "line": 4,
               "offset": 13
             }
-          }
+          },
+          "sourceCode": "return 0;"
         },
         "returning": true,
         "properties": {
@@ -149,7 +156,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true

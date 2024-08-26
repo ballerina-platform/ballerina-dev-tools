@@ -30,7 +30,8 @@
               "line": 67,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnFailBody1(int i) {\n    while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 66,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 61,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = i + 1;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 60,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "_ = i + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -103,7 +107,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "i + 1",
                     "optional": false,
                     "editable": true
@@ -113,7 +117,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "any",
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -138,7 +142,8 @@
                   "line": 66,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -147,7 +152,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -156,6 +162,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -165,6 +172,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
                 "editable": true
@@ -175,7 +183,7 @@
                 "id": "93287",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment in on fail"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -189,7 +197,8 @@
                       "line": 63,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment in on fail"
                 },
                 "returning": false,
                 "properties": {
@@ -198,6 +207,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "This is a comment in on fail",
                     "optional": false,
                     "editable": true
@@ -223,7 +233,8 @@
                       "line": 63,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "// This is a comment in on fail\n        error err = e;"
                 },
                 "returning": false,
                 "properties": {
@@ -232,7 +243,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true
@@ -242,6 +253,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "err",
                     "optional": false,
                     "editable": true
@@ -251,6 +263,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "error",
                     "optional": false,
                     "editable": true
@@ -262,7 +275,7 @@
                 "id": "95298",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Panic with error `err`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -276,7 +289,8 @@
                       "line": 66,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Panic with error `err`"
                 },
                 "returning": false,
                 "properties": {
@@ -285,6 +299,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Panic with error `err`",
                     "optional": false,
                     "editable": true
@@ -301,7 +316,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "i < 4 ",
             "optional": false,
             "editable": true

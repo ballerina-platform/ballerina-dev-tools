@@ -19,7 +19,8 @@
           "line": 45,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "while i < count {\n            json response = check foodClient->get(\"/food/mangos\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            msg = \"Error occurred while invoking food service\" + e.message();\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 43,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json response = check foodClient->get(\"/food/mangos\");\n            msg = \"Response received from food service: \" + response.toString();\n            i += 1;\n        }"
         },
         "repeatable": "ONE",
         "children": [
@@ -65,7 +67,8 @@
                   "line": 40,
                   "offset": 66
                 }
-              }
+              },
+              "sourceCode": "json response = check foodClient->get(\"/food/mangos\");"
             },
             "returning": false,
             "properties": {
@@ -84,6 +87,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "response",
                 "optional": false,
                 "editable": true
@@ -121,6 +125,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "json",
                 "optional": false,
                 "editable": true
@@ -146,7 +151,8 @@
                   "line": 41,
                   "offset": 80
                 }
-              }
+              },
+              "sourceCode": "msg = \"Response received from food service: \" + response.toString();"
             },
             "returning": false,
             "properties": {
@@ -155,7 +161,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"Response received from food service: \" + response.toString()",
                 "optional": false,
                 "editable": true
@@ -165,7 +171,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -191,7 +197,8 @@
                   "line": 42,
                   "offset": 19
                 }
-              }
+              },
+              "sourceCode": "i += 1;"
             },
             "returning": false,
             "properties": {
@@ -200,6 +207,7 @@
                   "label": "Statement",
                   "description": "Ballerina statement"
                 },
+                "valueType": "EXPRESSION",
                 "value": "            i += 1;\n",
                 "optional": false,
                 "editable": true
@@ -224,7 +232,8 @@
               "line": 45,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            msg = \"Error occurred while invoking food service\" + e.message();\n        }"
         },
         "repeatable": "ZERO_OR_ONE",
         "properties": {
@@ -233,7 +242,8 @@
               "label": "Ignore",
               "description": "Ignore the error value"
             },
-            "value": "true",
+            "valueType": "EXPRESSION",
+            "value": "false",
             "optional": false,
             "editable": true
           },
@@ -242,6 +252,7 @@
               "label": "Error Variable",
               "description": "Name of the error variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "e ",
             "optional": false,
             "editable": true
@@ -251,6 +262,7 @@
               "label": "Error Type",
               "description": "Type of the error"
             },
+            "valueType": "TYPE",
             "value": "http:ClientError",
             "optional": false,
             "editable": true
@@ -275,7 +287,8 @@
                   "line": 44,
                   "offset": 77
                 }
-              }
+              },
+              "sourceCode": "msg = \"Error occurred while invoking food service\" + e.message();"
             },
             "returning": false,
             "properties": {
@@ -284,7 +297,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"Error occurred while invoking food service\" + e.message()",
                 "optional": false,
                 "editable": true
@@ -294,7 +307,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -311,7 +324,7 @@
           "label": "Condition",
           "description": "Boolean Condition"
         },
-        "valueType": "boolean",
+        "valueType": "EXPRESSION",
         "value": "i < count ",
         "optional": false,
         "editable": true
@@ -332,7 +345,7 @@
             "character": 9
           }
         },
-        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/mangos\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; }\non fail http:ClientError e {\n    msg = \"Error occurred while invoking food service\" + e.message();\n}"
+        "newText": "while i < count {\n    json response = check foodClient->get(\"/food/mangos\");\n    msg = \"Response received from food service: \" + response.toString();\n    i += 1;\n; } on fail http:ClientError e {\n    msg = \"Error occurred while invoking food service\" + e.message();\n}"
       }
     ]
   }

@@ -29,7 +29,8 @@
               "line": 26,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function post apples() returns http:ClientError? {\n        var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);\n        _ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");\n        json res2 = check foodClient->/western/apples.post(\"western red apple\");\n        json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");\n        json res4 = check foodClient->/.post(\"green apple\");\n        var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);\n        json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.post(\"red apple\");\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "post",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "apples",
             "optional": false,
             "editable": true
@@ -77,7 +80,8 @@
               "line": 14,
               "offset": 85
             }
-          }
+          },
+          "sourceCode": "var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -96,6 +100,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res1",
             "optional": false,
             "editable": true
@@ -153,6 +158,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -183,7 +189,8 @@
               "line": 15,
               "offset": 90
             }
-          }
+          },
+          "sourceCode": "_ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");"
         },
         "returning": false,
         "properties": {
@@ -271,7 +278,8 @@
               "line": 16,
               "offset": 80
             }
-          }
+          },
+          "sourceCode": "json res2 = check foodClient->/western/apples.post(\"western red apple\");"
         },
         "returning": false,
         "properties": {
@@ -290,6 +298,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res2",
             "optional": false,
             "editable": true
@@ -336,6 +345,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -366,7 +376,8 @@
               "line": 17,
               "offset": 106
             }
-          }
+          },
+          "sourceCode": "json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");"
         },
         "returning": false,
         "properties": {
@@ -385,6 +396,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res3",
             "optional": false,
             "editable": true
@@ -432,6 +444,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -462,7 +475,8 @@
               "line": 18,
               "offset": 60
             }
-          }
+          },
+          "sourceCode": "json res4 = check foodClient->/.post(\"green apple\");"
         },
         "returning": false,
         "properties": {
@@ -481,6 +495,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res4",
             "optional": false,
             "editable": true
@@ -527,6 +542,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -557,7 +573,8 @@
               "line": 19,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);"
         },
         "returning": false,
         "properties": {
@@ -576,6 +593,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res5",
             "optional": false,
             "editable": true
@@ -623,6 +641,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -653,7 +672,8 @@
               "line": 23,
               "offset": 11
             }
-          }
+          },
+          "sourceCode": "json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });"
         },
         "returning": false,
         "properties": {
@@ -672,6 +692,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res7",
             "optional": false,
             "editable": true
@@ -719,6 +740,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -749,7 +771,8 @@
               "line": 24,
               "offset": 64
             }
-          }
+          },
+          "sourceCode": "Food res8 = check foodClient->/apples.post(\"red apple\");"
         },
         "returning": false,
         "properties": {
@@ -768,6 +791,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res8",
             "optional": false,
             "editable": true
@@ -814,6 +838,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "Food",
             "optional": false,
             "editable": true
@@ -844,7 +869,8 @@
               "line": 25,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");"
         },
         "returning": false,
         "properties": {
@@ -863,6 +889,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res9",
             "optional": false,
             "editable": true
@@ -909,6 +936,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -940,7 +968,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -978,6 +1007,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -987,6 +1017,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

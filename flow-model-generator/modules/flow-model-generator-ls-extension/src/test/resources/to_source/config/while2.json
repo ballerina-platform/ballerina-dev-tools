@@ -19,7 +19,8 @@
           "line": 21,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "while true {\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 21,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n        }"
         },
         "repeatable": "ONE",
         "children": []
@@ -50,7 +52,7 @@
           "label": "Condition",
           "description": "Boolean Condition"
         },
-        "valueType": "boolean",
+        "valueType": "EXPRESSION",
         "value": "true ",
         "optional": false,
         "editable": true

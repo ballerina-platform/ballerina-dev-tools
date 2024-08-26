@@ -77,7 +77,7 @@ public class DeleteNodeTest extends AbstractLSTest {
             Assert.fail(String.format("Failed test: '%s', cannot find the node to delete", configJsonPath));
         }
         FlowNodeDeleteRequest deleteRequest = new FlowNodeDeleteRequest(sourceFile, gson.toJsonTree(nodeToDelete));
-        JsonObject deleteResponse = getResponse(deleteRequest).getAsJsonObject("textEditsToDelete");
+        JsonObject deleteResponse = getResponse(deleteRequest).getAsJsonObject("textEdits");
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(deleteResponse, textEditListType);
 
         boolean assertFailure = false;

@@ -30,7 +30,8 @@
               "line": 14,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentOnStatementBody() {\n    if true {\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 13,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "if true {\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 13,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // This is a comment for a statement\n        int i = 0;\n        int x = 68;\n        // This is a comment to generate flow\n    }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -81,7 +84,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "true ",
                 "optional": false,
                 "editable": true
@@ -92,7 +95,7 @@
                 "id": "40711",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment for a statement"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -106,7 +109,8 @@
                       "line": 10,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment for a statement"
                 },
                 "returning": false,
                 "properties": {
@@ -115,6 +119,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "This is a comment for a statement",
                     "optional": false,
                     "editable": true
@@ -140,7 +145,8 @@
                       "line": 10,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// This is a comment for a statement\n        int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -149,7 +155,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -159,6 +165,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
                     "editable": true
@@ -168,6 +175,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
                     "editable": true
@@ -193,7 +201,8 @@
                       "line": 11,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "int x = 68;"
                 },
                 "returning": false,
                 "properties": {
@@ -202,7 +211,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "68",
                     "optional": false,
                     "editable": true
@@ -212,6 +221,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "x",
                     "optional": false,
                     "editable": true
@@ -221,6 +231,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
                     "editable": true
@@ -232,7 +243,7 @@
                 "id": "43683",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "This is a comment to generate flow"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -246,7 +257,8 @@
                       "line": 13,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "This is a comment to generate flow"
                 },
                 "returning": false,
                 "properties": {
@@ -255,6 +267,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "This is a comment to generate flow",
                     "optional": false,
                     "editable": true

@@ -19,7 +19,8 @@
           "line": 12,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 10,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        }"
         },
         "repeatable": "ONE",
         "children": [
@@ -65,7 +67,8 @@
                   "line": 8,
                   "offset": 65
                 }
-              }
+              },
+              "sourceCode": "json res2 = check foodClient->get(\"/western/apples\");"
             },
             "returning": false,
             "properties": {
@@ -84,6 +87,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "res2",
                 "optional": false,
                 "editable": true
@@ -121,6 +125,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "json",
                 "optional": false,
                 "editable": true
@@ -146,7 +151,8 @@
                   "line": 9,
                   "offset": 34
                 }
-              }
+              },
+              "sourceCode": "msg = res2.toString();"
             },
             "returning": false,
             "properties": {
@@ -155,7 +161,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "res2.toString()",
                 "optional": false,
                 "editable": true
@@ -165,7 +171,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -190,7 +196,8 @@
               "line": 12,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            msg = \"Failed to get the response\";\n        }"
         },
         "repeatable": "ZERO_OR_ONE",
         "children": [
@@ -212,7 +219,8 @@
                   "line": 11,
                   "offset": 47
                 }
-              }
+              },
+              "sourceCode": "msg = \"Failed to get the response\";"
             },
             "returning": false,
             "properties": {
@@ -221,7 +229,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"Failed to get the response\"",
                 "optional": false,
                 "editable": true
@@ -231,7 +239,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -257,7 +265,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n}"
+        "newText": "do {\n    json res2 = check foodClient->get(\"/western/apples\");\n    msg = res2.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n}"
       }
     ]
   }

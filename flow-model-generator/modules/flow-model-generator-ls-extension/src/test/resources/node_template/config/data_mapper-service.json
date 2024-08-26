@@ -1,25 +1,21 @@
 {
-  "source": "data_mapper/main.bal",
+  "source": "data_mapper/service.bal",
+  "position": {
+    "line": 7,
+    "offset": 0
+  },
   "description": "Sample diagram node",
-  "diagram": {
+  "codedata": {
+    "node": "DATA_MAPPER"
+  },
+  "output": {
     "id": "31",
     "metadata": {
       "label": "Data Mapper",
       "description": "Map data from multiple variables to a record type"
     },
     "codedata": {
-      "node": "DATA_MAPPER",
-      "lineRange": {
-        "fileName": "test.bal",
-        "startLine": {
-          "line": 0,
-          "offset": 0
-        },
-        "endLine": {
-          "line": 0,
-          "offset": 0
-        }
-      }
+      "node": "DATA_MAPPER"
     },
     "returning": false,
     "properties": {
@@ -48,12 +44,11 @@
           "label": "Inputs",
           "description": "Input variables of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "MULTIPLE_SELECT",
         "valueTypeConstraint": [
-          "http:Client cl",
-          "string z",
-          "int x",
-          "new_connection1:Address address"
+          "Input localInput",
+          "Input moduleInput",
+          "http:Client cl"
         ],
         "value": "",
         "optional": false,
@@ -64,12 +59,14 @@
           "label": "Output",
           "description": "Output of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "SINGLE_SELECT",
         "valueTypeConstraint": [
-          "Admission",
           "Address",
-          "Location",
+          "Admission",
           "Employee",
+          "Input",
+          "Location",
+          "Output",
           "Person"
         ],
         "value": "",
@@ -78,37 +75,5 @@
       }
     },
     "flags": 0
-  },
-  "output": {
-    "data_mapper/data_mappings.bal": [
-      {
-        "range": {
-          "start": {
-            "line": 11,
-            "character": 0
-          },
-          "end": {
-            "line": 11,
-            "character": 0
-          }
-        },
-        "newText": "function transform() returns => {\n}"
-      }
-    ],
-    "data_mapper/main.bal": [
-      {
-        "range": {
-          "start": {
-            "line": 0,
-            "character": 0
-          },
-          "end": {
-            "line": 0,
-            "character": 0
-          }
-        },
-        "newText": "item = transform()"
-      }
-    ]
   }
 }

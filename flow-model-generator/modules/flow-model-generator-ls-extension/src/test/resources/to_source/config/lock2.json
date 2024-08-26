@@ -19,7 +19,8 @@
           "line": 12,
           "offset": 5
         }
-      }
+      },
+      "sourceCode": "lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 12,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "{\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
         },
         "repeatable": "ONE",
         "children": [
@@ -60,7 +62,8 @@
                   "line": 8,
                   "offset": 18
                 }
-              }
+              },
+              "sourceCode": "int i = 0;"
             },
             "returning": false,
             "properties": {
@@ -69,7 +72,7 @@
                   "label": "Expression",
                   "description": "Expression"
                 },
-                "valueType": "int",
+                "valueType": "EXPRESSION",
                 "value": "0",
                 "optional": false,
                 "editable": true
@@ -79,6 +82,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "i",
                 "optional": false,
                 "editable": true
@@ -88,6 +92,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "int",
                 "optional": false,
                 "editable": true
@@ -113,7 +118,8 @@
                   "line": 11,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "lock {\n            i = 3;\n        }"
             },
             "returning": false,
             "branches": [
@@ -132,7 +138,8 @@
                       "line": 11,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "{\n            i = 3;\n        }"
                 },
                 "repeatable": "ONE",
                 "children": [
@@ -154,7 +161,8 @@
                           "line": 10,
                           "offset": 18
                         }
-                      }
+                      },
+                      "sourceCode": "i = 3;"
                     },
                     "returning": false,
                     "properties": {
@@ -163,7 +171,7 @@
                           "label": "Expression",
                           "description": "Update variable"
                         },
-                        "valueType": "int",
+                        "valueType": "EXPRESSION",
                         "value": "3",
                         "optional": false,
                         "editable": true
@@ -173,7 +181,7 @@
                           "label": "Variable",
                           "description": "Result Variable"
                         },
-                        "valueType": "int",
+                        "valueType": "IDENTIFIER",
                         "value": "i",
                         "optional": false,
                         "editable": true

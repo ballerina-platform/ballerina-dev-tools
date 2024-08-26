@@ -93,7 +93,7 @@
             "character": 40
           }
         },
-        "newText": "printInfo(\"Getting apples\");"
+        "newText": "log:printInfo(\"Getting apples\");"
       }
     ]
   }

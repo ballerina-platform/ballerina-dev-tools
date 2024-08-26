@@ -20,8 +20,8 @@
             {
               "metadata": {
                 "label": "post",
-                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -35,8 +35,8 @@
             {
               "metadata": {
                 "label": "put",
-                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -50,8 +50,8 @@
             {
               "metadata": {
                 "label": "patch",
-                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -65,8 +65,8 @@
             {
               "metadata": {
                 "label": "delete",
-                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -80,8 +80,8 @@
             {
               "metadata": {
                 "label": "head",
-                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -95,8 +95,8 @@
             {
               "metadata": {
                 "label": "get",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -110,8 +110,8 @@
             {
               "metadata": {
                 "label": "options",
-                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -125,8 +125,8 @@
             {
               "metadata": {
                 "label": "execute",
-                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -140,8 +140,8 @@
             {
               "metadata": {
                 "label": "forward",
-                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -155,8 +155,8 @@
             {
               "metadata": {
                 "label": "submit",
-                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -170,8 +170,8 @@
             {
               "metadata": {
                 "label": "getResponse",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -185,8 +185,8 @@
             {
               "metadata": {
                 "label": "hasPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -200,8 +200,8 @@
             {
               "metadata": {
                 "label": "getNextPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -215,8 +215,8 @@
             {
               "metadata": {
                 "label": "getPromisedResponse",
-                "description": "Passes the request to an actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -230,8 +230,8 @@
             {
               "metadata": {
                 "label": "rejectPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+                "description": "Call remote action",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
@@ -418,52 +418,14 @@
     },
     {
       "metadata": {
-        "label": "Concurrency",
-        "description": "Concurrency nodes"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Transaction",
-            "description": "Handle transaction."
-          },
-          "codedata": {
-            "node": "TRANSACTION"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Lock",
-            "description": "Allow to access mutable states safely"
-          },
-          "codedata": {
-            "node": "LOCK"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Start",
-            "description": "Execute a function or a method invocation in a new strand"
-          },
-          "codedata": {
-            "node": "START"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
         "label": "Logging"
       },
       "items": [
         {
           "metadata": {
-            "label": "printInfo",
+            "label": "Log Info",
             "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -475,9 +437,9 @@
         },
         {
           "metadata": {
-            "label": "printError",
+            "label": "Log Error",
             "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -489,9 +451,9 @@
         },
         {
           "metadata": {
-            "label": "printWarn",
+            "label": "Log Warn",
             "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -503,9 +465,9 @@
         },
         {
           "metadata": {
-            "label": "printDebug",
+            "label": "Log Debug",
             "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.9.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -524,7 +486,7 @@
       "items": [
         {
           "metadata": {
-            "label": "toJson",
+            "label": "Schema To JSON",
             "description": "Converts a value of type `anydata` to `json`.\n\n",
             "icon": ""
           },
@@ -538,7 +500,7 @@
         },
         {
           "metadata": {
-            "label": "toXml",
+            "label": "Schema To XML",
             "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
             "icon": ""
           },
@@ -552,7 +514,7 @@
         },
         {
           "metadata": {
-            "label": "parseAsType",
+            "label": "JSON To Schema",
             "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
             "icon": ""
           },
@@ -566,7 +528,7 @@
         },
         {
           "metadata": {
-            "label": "parseAsType",
+            "label": "XML To Schema",
             "description": "Converts XML to record type with projection.\n\n",
             "icon": ""
           },
@@ -587,7 +549,7 @@
       "items": [
         {
           "metadata": {
-            "label": "read",
+            "label": "Evaluate JSON Path",
             "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
             "icon": ""
           },
@@ -601,7 +563,7 @@
         },
         {
           "metadata": {
-            "label": "prettify",
+            "label": "JSON Pretty Print",
             "description": "Prettifies a `json` value to print it.\n\n",
             "icon": ""
           },
@@ -622,9 +584,9 @@
       "items": [
         {
           "metadata": {
-            "label": "transform",
+            "label": "XSLT Transform",
             "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.7.0.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -643,9 +605,9 @@
       "items": [
         {
           "metadata": {
-            "label": "fileReadCsv",
+            "label": "Read CSV",
             "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -657,9 +619,9 @@
         },
         {
           "metadata": {
-            "label": "fileReadJson",
+            "label": "Read JSON",
             "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -671,9 +633,9 @@
         },
         {
           "metadata": {
-            "label": "fileReadBytes",
+            "label": "Read Bytes",
             "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -685,9 +647,9 @@
         },
         {
           "metadata": {
-            "label": "fileReadXml",
+            "label": "Read XML",
             "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -699,9 +661,9 @@
         },
         {
           "metadata": {
-            "label": "fileWriteCsv",
+            "label": "Write CSV",
             "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -713,9 +675,9 @@
         },
         {
           "metadata": {
-            "label": "fileWriteJson",
+            "label": "Write JSON",
             "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -727,9 +689,9 @@
         },
         {
           "metadata": {
-            "label": "fileWriteBytes",
+            "label": "Write Bytes",
             "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",
@@ -741,9 +703,9 @@
         },
         {
           "metadata": {
-            "label": "fileWriteXml",
+            "label": "Write XML",
             "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
           },
           "codedata": {
             "node": "FUNCTION_CALL",

@@ -29,7 +29,8 @@
               "line": 37,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get bananas() returns json|http:ClientError {\n        return foodClient->get(\"/bananas\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "bananas",
             "optional": false,
             "editable": true
@@ -77,7 +80,8 @@
               "line": 36,
               "offset": 43
             }
-          }
+          },
+          "sourceCode": "return foodClient->get(\"/bananas\");"
         },
         "returning": true,
         "properties": {
@@ -146,7 +150,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -184,6 +189,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -193,6 +199,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

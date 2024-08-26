@@ -30,7 +30,8 @@
               "line": 2,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 1,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start sum(40, 50)"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "sum(40, 50)",
             "optional": false,
             "editable": true
@@ -88,7 +90,8 @@
               "line": 1,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<int> futureVar = start sum(40, 50);"
         },
         "returning": false,
         "properties": {
@@ -97,7 +100,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "future<int>",
+            "valueType": "EXPRESSION",
             "value": "start sum(40, 50)",
             "optional": false,
             "editable": true
@@ -107,6 +110,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "futureVar",
             "optional": false,
             "editable": true
@@ -116,6 +120,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "future<int>",
             "optional": false,
             "editable": true

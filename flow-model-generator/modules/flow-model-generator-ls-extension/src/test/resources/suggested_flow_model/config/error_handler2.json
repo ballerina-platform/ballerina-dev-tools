@@ -1,0 +1,22 @@
+{
+  "start": {
+    "line": 4,
+    "offset": 4
+  },
+  "end": {
+    "line": 12,
+    "offset": 5
+  },
+  "source": "error_handler/service.bal",
+  "text": "     return message in e;",
+  "position": {
+    "line": 10,
+    "offset": 0
+  },
+  "description": "",
+  "diagram": {
+    "fileName": "service.bal",
+    "nodes": [],
+    "connections": []
+  }
+}

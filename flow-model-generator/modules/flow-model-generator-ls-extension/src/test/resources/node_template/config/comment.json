@@ -18,6 +18,7 @@
           "label": "Comment",
           "description": "Comment to describe the flow"
         },
+        "valueType": "STRING",
         "value": "",
         "optional": false,
         "editable": true

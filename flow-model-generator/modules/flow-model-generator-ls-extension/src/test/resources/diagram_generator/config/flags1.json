@@ -30,7 +30,8 @@
               "line": 11,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 4,
               "offset": 24
             }
-          }
+          },
+          "sourceCode": "check fnWithError();"
         },
         "returning": false,
         "properties": {
@@ -62,6 +64,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
+            "valueType": "EXPRESSION",
             "value": "    check fnWithError();\n",
             "optional": false,
             "editable": true
@@ -87,7 +90,8 @@
               "line": 5,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "checkpanic fnWithError();"
         },
         "returning": false,
         "properties": {
@@ -96,6 +100,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
+            "valueType": "EXPRESSION",
             "value": "    checkpanic fnWithError();\n",
             "optional": false,
             "editable": true
@@ -121,7 +126,8 @@
               "line": 7,
               "offset": 47
             }
-          }
+          },
+          "sourceCode": "boolean res1 = check fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -130,7 +136,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -140,6 +146,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res1",
             "optional": false,
             "editable": true
@@ -149,6 +156,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -174,7 +182,8 @@
               "line": 8,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "boolean res2 = checkpanic fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -183,7 +192,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -193,6 +202,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res2",
             "optional": false,
             "editable": true
@@ -202,6 +212,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -227,7 +238,8 @@
               "line": 9,
               "offset": 49
             }
-          }
+          },
+          "sourceCode": "final var res3 = check fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -236,7 +248,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -246,6 +258,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res3",
             "optional": false,
             "editable": true
@@ -255,6 +268,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true
@@ -280,7 +294,8 @@
               "line": 10,
               "offset": 54
             }
-          }
+          },
+          "sourceCode": "final var res4 = checkpanic fnWithErrorAndValue();"
         },
         "returning": false,
         "properties": {
@@ -289,7 +304,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "fnWithErrorAndValue()",
             "optional": false,
             "editable": true
@@ -299,6 +314,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "res4",
             "optional": false,
             "editable": true
@@ -308,6 +324,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "boolean",
             "optional": false,
             "editable": true

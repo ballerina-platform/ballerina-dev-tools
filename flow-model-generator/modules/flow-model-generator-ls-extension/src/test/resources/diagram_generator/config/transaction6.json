@@ -30,7 +30,8 @@
               "line": 53,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function transactionWithOnFail3() returns error? {\n    transaction {\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 52,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 50,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 48,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "transaction {\n            var _ = check commit;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -113,7 +117,8 @@
                           "line": 48,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            var _ = check commit;\n        }"
                     },
                     "repeatable": "ONE",
                     "children": [
@@ -135,7 +140,8 @@
                               "line": 47,
                               "offset": 33
                             }
-                          }
+                          },
+                          "sourceCode": "var _ = check commit;"
                         },
                         "returning": false,
                         "properties": {
@@ -144,7 +150,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "()",
+                            "valueType": "EXPRESSION",
                             "value": "check commit",
                             "optional": false,
                             "editable": true
@@ -154,6 +160,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "_",
                             "optional": false,
                             "editable": true
@@ -163,6 +170,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "()",
                             "optional": false,
                             "editable": true
@@ -193,7 +201,8 @@
                       "line": 49,
                       "offset": 29
                     }
-                  }
+                  },
+                  "sourceCode": "var _ = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -202,7 +211,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -212,6 +221,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -221,6 +231,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true
@@ -245,7 +256,8 @@
                   "line": 52,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -254,7 +266,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -263,6 +276,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -272,6 +286,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
                 "editable": true
@@ -296,7 +311,8 @@
                       "line": 51,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {
@@ -305,7 +321,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true

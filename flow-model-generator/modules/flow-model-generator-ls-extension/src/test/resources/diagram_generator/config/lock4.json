@@ -30,7 +30,8 @@
               "line": 29,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLockWithOnFail2() returns error? {\n    lock {\n        fail error(\"Error Message\");\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 28,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        fail error(\"Error Message\");\n    } on fail var e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 26,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        fail error(\"Error Message\");\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 25,
                       "offset": 36
                     }
-                  }
+                  },
+                  "sourceCode": "fail error(\"Error Message\");"
                 },
                 "returning": false,
                 "properties": {
@@ -103,7 +107,7 @@
                       "label": "Expression",
                       "description": "Fail value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "error(\"Error Message\")",
                     "optional": false,
                     "editable": true
@@ -128,7 +132,8 @@
                   "line": 28,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -137,7 +142,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -146,6 +152,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -155,6 +162,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
                 "editable": true
@@ -179,7 +187,8 @@
                       "line": 27,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {
@@ -188,7 +197,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true

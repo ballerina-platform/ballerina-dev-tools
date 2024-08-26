@@ -30,7 +30,8 @@
               "line": 24,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 21,
               "offset": 25
             }
-          }
+          },
+          "sourceCode": "Foo1 f1 = new(\"foo\");"
         },
         "returning": false,
         "properties": {
@@ -62,6 +64,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "f1",
             "optional": false,
             "editable": true
@@ -71,6 +74,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "Foo1",
             "optional": false,
             "editable": true
@@ -96,7 +100,8 @@
               "line": 23,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start f1->getName()"
         },
         "returning": false,
         "properties": {
@@ -105,7 +110,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "future<string>",
+            "valueType": "EXPRESSION",
             "value": "f1->getName()",
             "optional": false,
             "editable": true
@@ -131,7 +136,8 @@
               "line": 23,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<string> name = start f1->getName();"
         },
         "returning": false,
         "properties": {
@@ -140,7 +146,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "future<string>",
+            "valueType": "EXPRESSION",
             "value": "start f1->getName()",
             "optional": false,
             "editable": true
@@ -150,6 +156,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "name",
             "optional": false,
             "editable": true
@@ -159,6 +166,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "future<string>",
             "optional": false,
             "editable": true

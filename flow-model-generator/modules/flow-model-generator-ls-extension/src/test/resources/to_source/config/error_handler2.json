@@ -19,7 +19,8 @@
           "line": 28,
           "offset": 9
         }
-      }
+      },
+      "sourceCode": "do {\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }"
     },
     "returning": false,
     "branches": [
@@ -38,7 +39,8 @@
               "line": 20,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        }"
         },
         "repeatable": "ONE",
         "children": [
@@ -65,7 +67,8 @@
                   "line": 18,
                   "offset": 66
                 }
-              }
+              },
+              "sourceCode": "json res3 = check foodClient->get(\"/western/oranges\");"
             },
             "returning": false,
             "properties": {
@@ -84,6 +87,7 @@
                   "label": "Data variable",
                   "description": "Name of the variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "res3",
                 "optional": false,
                 "editable": true
@@ -121,6 +125,7 @@
                   "label": "Data type",
                   "description": "Type of the variable"
                 },
+                "valueType": "TYPE",
                 "value": "json",
                 "optional": false,
                 "editable": true
@@ -146,7 +151,8 @@
                   "line": 19,
                   "offset": 34
                 }
-              }
+              },
+              "sourceCode": "msg = res3.toString();"
             },
             "returning": false,
             "properties": {
@@ -155,7 +161,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "res3.toString()",
                 "optional": false,
                 "editable": true
@@ -165,7 +171,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -190,7 +196,8 @@
               "line": 28,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }"
         },
         "repeatable": "ZERO_OR_ONE",
         "children": [
@@ -212,7 +219,8 @@
                   "line": 21,
                   "offset": 47
                 }
-              }
+              },
+              "sourceCode": "msg = \"Failed to get the response\";"
             },
             "returning": false,
             "properties": {
@@ -221,7 +229,7 @@
                   "label": "Expression",
                   "description": "Update variable"
                 },
-                "valueType": "string",
+                "valueType": "EXPRESSION",
                 "value": "\"Failed to get the response\"",
                 "optional": false,
                 "editable": true
@@ -231,7 +239,7 @@
                   "label": "Variable",
                   "description": "Result Variable"
                 },
-                "valueType": "string|()",
+                "valueType": "IDENTIFIER",
                 "value": "msg",
                 "optional": false,
                 "editable": true
@@ -257,7 +265,8 @@
                   "line": 27,
                   "offset": 13
                 }
-              }
+              },
+              "sourceCode": "do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }"
             },
             "returning": false,
             "branches": [
@@ -276,7 +285,8 @@
                       "line": 25,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            }"
                 },
                 "repeatable": "ONE",
                 "children": [
@@ -303,7 +313,8 @@
                           "line": 23,
                           "offset": 103
                         }
-                      }
+                      },
+                      "sourceCode": "json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");"
                     },
                     "returning": false,
                     "properties": {
@@ -322,6 +333,7 @@
                           "label": "Data variable",
                           "description": "Name of the variable"
                         },
+                        "valueType": "IDENTIFIER",
                         "value": "res",
                         "optional": false,
                         "editable": true
@@ -378,6 +390,7 @@
                           "label": "Data type",
                           "description": "Type of the variable"
                         },
+                        "valueType": "TYPE",
                         "value": "json",
                         "optional": false,
                         "editable": true
@@ -403,7 +416,8 @@
                           "line": 24,
                           "offset": 54
                         }
-                      }
+                      },
+                      "sourceCode": "msg = msg.toString() + res.toString();"
                     },
                     "returning": false,
                     "properties": {
@@ -412,7 +426,7 @@
                           "label": "Expression",
                           "description": "Update variable"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "msg.toString() + res.toString()",
                         "optional": false,
                         "editable": true
@@ -422,7 +436,7 @@
                           "label": "Variable",
                           "description": "Result Variable"
                         },
-                        "valueType": "string|()",
+                        "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
                         "editable": true
@@ -447,7 +461,8 @@
                       "line": 27,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                msg = \"Error occurred while logging the error\";\n            }"
                 },
                 "repeatable": "ZERO_OR_ONE",
                 "children": [
@@ -469,7 +484,8 @@
                           "line": 26,
                           "offset": 63
                         }
-                      }
+                      },
+                      "sourceCode": "msg = \"Error occurred while logging the error\";"
                     },
                     "returning": false,
                     "properties": {
@@ -478,7 +494,7 @@
                           "label": "Expression",
                           "description": "Update variable"
                         },
-                        "valueType": "string",
+                        "valueType": "EXPRESSION",
                         "value": "\"Error occurred while logging the error\"",
                         "optional": false,
                         "editable": true
@@ -488,7 +504,7 @@
                           "label": "Variable",
                           "description": "Result Variable"
                         },
-                        "valueType": "string|()",
+                        "valueType": "IDENTIFIER",
                         "value": "msg",
                         "optional": false,
                         "editable": true
@@ -519,7 +535,7 @@
             "character": 9
           }
         },
-        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n}\non fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    }\non fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
+        "newText": "do {\n    json res3 = check foodClient->get(\"/western/oranges\");\n    msg = res3.toString();\n} on fail {\n    msg = \"Failed to get the response\";\n    do {\n        json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n        msg = msg.toString() + res.toString();\n    } on fail {\n        msg = \"Error occurred while logging the error\";\n    }\n}"
       }
     ]
   }

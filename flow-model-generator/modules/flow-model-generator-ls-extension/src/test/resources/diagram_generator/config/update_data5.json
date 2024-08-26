@@ -30,7 +30,8 @@
               "line": 26,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    newData2 = [11, 22];\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 22,
               "offset": 75
             }
-          }
+          },
+          "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "json[]",
+            "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "json",
             "optional": false,
             "editable": true
@@ -105,7 +109,8 @@
               "line": 23,
               "offset": 70
             }
-          }
+          },
+          "sourceCode": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
         },
         "returning": false,
         "properties": {
@@ -114,7 +119,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "json[]",
+            "valueType": "EXPRESSION",
             "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
@@ -124,7 +129,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "json",
+            "valueType": "IDENTIFIER",
             "value": "newData1",
             "optional": false,
             "editable": true
@@ -150,7 +155,8 @@
               "line": 24,
               "offset": 33
             }
-          }
+          },
+          "sourceCode": "[int, int] newData2 = [1, 2];"
         },
         "returning": false,
         "properties": {
@@ -159,7 +165,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "[int, int]",
+            "valueType": "EXPRESSION",
             "value": "[1, 2]",
             "optional": false,
             "editable": true
@@ -169,6 +175,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
             "editable": true
@@ -178,6 +185,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "[int, int]",
             "optional": false,
             "editable": true
@@ -202,7 +210,8 @@
               "line": 25,
               "offset": 24
             }
-          }
+          },
+          "sourceCode": "newData2 = [11, 22];"
         },
         "returning": false,
         "properties": {
@@ -211,7 +220,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "[int, int]",
+            "valueType": "EXPRESSION",
             "value": "[11, 22]",
             "optional": false,
             "editable": true
@@ -221,7 +230,7 @@
               "label": "Variable",
               "description": "Result Variable"
             },
-            "valueType": "[int, int]",
+            "valueType": "IDENTIFIER",
             "value": "newData2",
             "optional": false,
             "editable": true

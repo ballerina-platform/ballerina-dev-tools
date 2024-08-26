@@ -30,7 +30,8 @@
               "line": 17,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function fn2() returns error? {\n    http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");\n    redis:Client localRedisCl = check new redis:Client();\n}"
         },
         "returning": false,
         "flags": 0
@@ -57,7 +58,8 @@
               "line": 15,
               "offset": 77
             }
-          }
+          },
+          "sourceCode": "http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");"
         },
         "returning": false,
         "properties": {
@@ -95,6 +97,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "localHttpCl",
             "optional": false,
             "editable": true
@@ -104,6 +107,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -133,7 +137,8 @@
               "line": 16,
               "offset": 57
             }
-          }
+          },
+          "sourceCode": "redis:Client localRedisCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {
@@ -161,6 +166,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "localRedisCl",
             "optional": false,
             "editable": true
@@ -170,6 +176,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true
@@ -201,7 +208,8 @@
               "line": 3,
               "offset": 63
             }
-          }
+          },
+          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -239,6 +247,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleHttpCl",
             "optional": false,
             "editable": true
@@ -248,6 +257,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -277,7 +287,8 @@
               "line": 11,
               "offset": 76
             }
-          }
+          },
+          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -315,6 +326,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleHttpExCl",
             "optional": false,
             "editable": true
@@ -324,6 +336,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -353,7 +366,8 @@
               "line": 4,
               "offset": 39
             }
-          }
+          },
+          "sourceCode": "redis:Client moduleRedisCl = check new;"
         },
         "returning": false,
         "properties": {
@@ -381,6 +395,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleRedisCl",
             "optional": false,
             "editable": true
@@ -390,6 +405,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true
@@ -419,7 +435,8 @@
               "line": 12,
               "offset": 56
             }
-          }
+          },
+          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
         },
         "returning": false,
         "properties": {
@@ -447,6 +464,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "moduleRedisExCl",
             "optional": false,
             "editable": true
@@ -456,6 +474,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true

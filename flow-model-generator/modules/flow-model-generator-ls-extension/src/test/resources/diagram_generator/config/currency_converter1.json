@@ -29,7 +29,8 @@
               "line": 56,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "// http api event\n    resource function get converter(string 'from, string to, decimal amount) returns json|http:InternalServerError {\n        // error handler\n        do {\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        } on fail error e {\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "converter",
             "optional": false,
             "editable": true
@@ -58,7 +61,7 @@
         "id": "47655",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "error handler"
         },
         "codedata": {
           "node": "COMMENT",
@@ -72,7 +75,8 @@
               "line": 17,
               "offset": 8
             }
-          }
+          },
+          "sourceCode": "error handler"
         },
         "returning": false,
         "properties": {
@@ -81,6 +85,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "error handler",
             "optional": false,
             "editable": true
@@ -106,7 +111,8 @@
               "line": 55,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "// error handler\n        do {\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        } on fail error e {\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +131,8 @@
                   "line": 50,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            // new data\n            string key = 'from + \"-\" + to;\n            // action call - redis get call\n            string? cacheValue = check redisClient->get(key);\n\n            // if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -133,7 +140,7 @@
                 "id": "49643",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "new data"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -147,7 +154,8 @@
                       "line": 19,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "new data"
                 },
                 "returning": false,
                 "properties": {
@@ -156,6 +164,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "new data",
                     "optional": false,
                     "editable": true
@@ -181,7 +190,8 @@
                       "line": 19,
                       "offset": 42
                     }
-                  }
+                  },
+                  "sourceCode": "// new data\n            string key = 'from + \"-\" + to;"
                 },
                 "returning": false,
                 "properties": {
@@ -190,7 +200,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "'from + \"-\" + to",
                     "optional": false,
                     "editable": true
@@ -200,6 +210,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "key",
                     "optional": false,
                     "editable": true
@@ -209,6 +220,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "string",
                     "optional": false,
                     "editable": true
@@ -220,7 +232,7 @@
                 "id": "51627",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "action call - redis get call"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -234,7 +246,8 @@
                       "line": 21,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "action call - redis get call"
                 },
                 "returning": false,
                 "properties": {
@@ -243,6 +256,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "action call - redis get call",
                     "optional": false,
                     "editable": true
@@ -273,7 +287,8 @@
                       "line": 21,
                       "offset": 61
                     }
-                  }
+                  },
+                  "sourceCode": "// action call - redis get call\n            string? cacheValue = check redisClient->get(key);"
                 },
                 "returning": false,
                 "properties": {
@@ -292,6 +307,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "cacheValue",
                     "optional": false,
                     "editable": true
@@ -311,6 +327,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "string|()",
                     "optional": false,
                     "editable": true
@@ -322,7 +339,7 @@
                 "id": "53642",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "if node"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -336,7 +353,8 @@
                       "line": 24,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "if node"
                 },
                 "returning": false,
                 "properties": {
@@ -345,6 +363,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "if node",
                     "optional": false,
                     "editable": true
@@ -370,7 +389,8 @@
                       "line": 49,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "// if node\n            if cacheValue is string {\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            } else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -389,7 +409,8 @@
                           "line": 31,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                // new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };\n                // return\n                return newData;\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -398,7 +419,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "cacheValue is string ",
                         "optional": false,
                         "editable": true
@@ -409,7 +430,7 @@
                         "id": "56591",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "new data"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -423,7 +444,8 @@
                               "line": 26,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -432,6 +454,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -457,7 +480,8 @@
                               "line": 28,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                json newData = {\n                    value: check calculate(amount, cacheValue)\n                };"
                         },
                         "returning": false,
                         "properties": {
@@ -466,7 +490,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "map<json>",
+                            "valueType": "EXPRESSION",
                             "value": "{\n                    value: check calculate(amount, cacheValue)\n                }",
                             "optional": false,
                             "editable": true
@@ -476,6 +500,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -485,6 +510,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -496,7 +522,7 @@
                         "id": "60559",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "return"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -510,7 +536,8 @@
                               "line": 30,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "return"
                         },
                         "returning": false,
                         "properties": {
@@ -519,6 +546,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "return",
                             "optional": false,
                             "editable": true
@@ -544,7 +572,8 @@
                               "line": 30,
                               "offset": 31
                             }
-                          }
+                          },
+                          "sourceCode": "// return\n                return newData;"
                         },
                         "returning": true,
                         "properties": {
@@ -553,7 +582,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "json",
+                            "valueType": "EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -578,7 +607,8 @@
                           "line": 49,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -586,7 +616,7 @@
                         "id": "63535",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "action call - http get call"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -600,7 +630,8 @@
                               "line": 33,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "action call - http get call"
                         },
                         "returning": false,
                         "properties": {
@@ -609,6 +640,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "action call - http get call",
                             "optional": false,
                             "editable": true
@@ -639,7 +671,8 @@
                               "line": 33,
                               "offset": 97
                             }
-                          }
+                          },
+                          "sourceCode": "// action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);"
                         },
                         "returning": false,
                         "properties": {
@@ -658,6 +691,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "response",
                             "optional": false,
                             "editable": true
@@ -695,6 +729,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -706,7 +741,7 @@
                         "id": "65550",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "new data"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -720,7 +755,8 @@
                               "line": 36,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -729,6 +765,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -754,7 +791,8 @@
                               "line": 36,
                               "offset": 53
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                decimal value = check response.value;"
                         },
                         "returning": false,
                         "properties": {
@@ -763,7 +801,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "decimal|error",
+                            "valueType": "EXPRESSION",
                             "value": "response.value",
                             "optional": false,
                             "editable": true
@@ -773,6 +811,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "value",
                             "optional": false,
                             "editable": true
@@ -782,6 +821,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "decimal",
                             "optional": false,
                             "editable": true
@@ -793,7 +833,7 @@
                         "id": "68495",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "function call"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -807,7 +847,8 @@
                               "line": 38,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "function call"
                         },
                         "returning": false,
                         "properties": {
@@ -816,6 +857,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "function call",
                             "optional": false,
                             "editable": true
@@ -841,7 +883,8 @@
                               "line": 38,
                               "offset": 84
                             }
-                          }
+                          },
+                          "sourceCode": "// function call\n                decimal convertedAmount = check calculate(amount, value.toString());"
                         },
                         "returning": false,
                         "properties": {
@@ -850,7 +893,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "decimal",
+                            "valueType": "EXPRESSION",
                             "value": "calculate(amount, value.toString())",
                             "optional": false,
                             "editable": true
@@ -860,6 +903,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "convertedAmount",
                             "optional": false,
                             "editable": true
@@ -869,6 +913,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "decimal",
                             "optional": false,
                             "editable": true
@@ -880,7 +925,7 @@
                         "id": "70510",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "action call - redis set call"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -894,7 +939,8 @@
                               "line": 41,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "action call - redis set call"
                         },
                         "returning": false,
                         "properties": {
@@ -903,6 +949,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "action call - redis set call",
                             "optional": false,
                             "editable": true
@@ -933,7 +980,8 @@
                               "line": 41,
                               "offset": 76
                             }
-                          }
+                          },
+                          "sourceCode": "// action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());"
                         },
                         "returning": false,
                         "properties": {
@@ -974,7 +1022,7 @@
                         "id": "73486",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "new data"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -988,7 +1036,8 @@
                               "line": 44,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "new data"
                         },
                         "returning": false,
                         "properties": {
@@ -997,6 +1046,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "new data",
                             "optional": false,
                             "editable": true
@@ -1022,7 +1072,8 @@
                               "line": 46,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "// new data\n                json newData = {\n                    value\n                };"
                         },
                         "returning": false,
                         "properties": {
@@ -1031,7 +1082,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "map<json>",
+                            "valueType": "EXPRESSION",
                             "value": "{\n                    value\n                }",
                             "optional": false,
                             "editable": true
@@ -1041,6 +1092,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -1050,6 +1102,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -1061,7 +1114,7 @@
                         "id": "78415",
                         "metadata": {
                           "label": "Comment",
-                          "description": "Comment of a node"
+                          "description": "return"
                         },
                         "codedata": {
                           "node": "COMMENT",
@@ -1075,7 +1128,8 @@
                               "line": 48,
                               "offset": 16
                             }
-                          }
+                          },
+                          "sourceCode": "return"
                         },
                         "returning": false,
                         "properties": {
@@ -1084,6 +1138,7 @@
                               "label": "Comment",
                               "description": "Comment to describe the flow"
                             },
+                            "valueType": "STRING",
                             "value": "return",
                             "optional": false,
                             "editable": true
@@ -1109,7 +1164,8 @@
                               "line": 48,
                               "offset": 31
                             }
-                          }
+                          },
+                          "sourceCode": "// return\n                return newData;"
                         },
                         "returning": true,
                         "properties": {
@@ -1118,7 +1174,7 @@
                               "label": "Expression",
                               "description": "Return value"
                             },
-                            "valueType": "json",
+                            "valueType": "EXPRESSION",
                             "value": "newData",
                             "optional": false,
                             "editable": true
@@ -1148,7 +1204,8 @@
                   "line": 55,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            // library call - log error\n            log:printError(\"error occured\", e);\n            // return \n            return http:INTERNAL_SERVER_ERROR;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -1157,7 +1214,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -1166,6 +1224,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -1175,6 +1234,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "redis:error|error|http:error|error",
                 "optional": false,
                 "editable": true
@@ -1185,7 +1245,7 @@
                 "id": "82379",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "library call - log error"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -1199,7 +1259,8 @@
                       "line": 52,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "library call - log error"
                 },
                 "returning": false,
                 "properties": {
@@ -1208,6 +1269,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "library call - log error",
                     "optional": false,
                     "editable": true
@@ -1237,7 +1299,8 @@
                       "line": 52,
                       "offset": 47
                     }
-                  }
+                  },
+                  "sourceCode": "// library call - log error\n            log:printError(\"error occured\", e);"
                 },
                 "returning": false,
                 "properties": {
@@ -1251,9 +1314,9 @@
                     "optional": false,
                     "editable": true
                   },
-                  "'error": {
+                  "error": {
                     "metadata": {
-                      "label": "'error",
+                      "label": "error",
                       "description": "The error struct to be logged\n"
                     },
                     "valueType": "EXPRESSION",
@@ -1286,7 +1349,7 @@
                 "id": "84363",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "return "
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -1300,7 +1363,8 @@
                       "line": 54,
                       "offset": 12
                     }
-                  }
+                  },
+                  "sourceCode": "return "
                 },
                 "returning": false,
                 "properties": {
@@ -1309,6 +1373,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "return ",
                     "optional": false,
                     "editable": true
@@ -1334,7 +1399,8 @@
                       "line": 54,
                       "offset": 46
                     }
-                  }
+                  },
+                  "sourceCode": "// return \n            return http:INTERNAL_SERVER_ERROR;"
                 },
                 "returning": true,
                 "properties": {
@@ -1343,7 +1409,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "http:InternalServerError & readonly",
+                    "valueType": "EXPRESSION",
                     "value": "http:INTERNAL_SERVER_ERROR",
                     "optional": false,
                     "editable": true
@@ -1380,7 +1446,8 @@
               "line": 11,
               "offset": 94
             }
-          }
+          },
+          "sourceCode": "// new connection\nfinal http:Client currencyClient = check new (url = \"https://api.exchangeratesapi.io/latest\");"
         },
         "returning": false,
         "properties": {
@@ -1418,6 +1485,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "currencyClient",
             "optional": false,
             "editable": true
@@ -1427,6 +1495,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true
@@ -1456,7 +1525,8 @@
               "line": 8,
               "offset": 3
             }
-          }
+          },
+          "sourceCode": "// new connection\nfinal redis:Client redisClient = check new (connection = {\n    host: \"localhost\",\n    port: 6379\n});"
         },
         "returning": false,
         "properties": {
@@ -1484,6 +1554,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "redisClient",
             "optional": false,
             "editable": true
@@ -1493,6 +1564,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "redis:Client",
             "optional": false,
             "editable": true

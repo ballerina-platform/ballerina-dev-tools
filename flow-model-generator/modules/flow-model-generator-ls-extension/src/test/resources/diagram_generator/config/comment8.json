@@ -30,7 +30,8 @@
               "line": 76,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInLockBody1() {\n    lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 75,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 75,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // Initialize `i`\n        int i = 0;\n\n        // Lock the variable `i`\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -80,7 +83,7 @@
                 "id": "102215",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Initialize `i`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -94,7 +97,8 @@
                       "line": 72,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "Initialize `i`"
                 },
                 "returning": false,
                 "properties": {
@@ -103,6 +107,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Initialize `i`",
                     "optional": false,
                     "editable": true
@@ -128,7 +133,8 @@
                       "line": 72,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// Initialize `i`\n        int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -137,7 +143,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -147,6 +153,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
                     "editable": true
@@ -156,6 +163,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
                     "editable": true
@@ -167,7 +175,7 @@
                 "id": "104226",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Lock the variable `i`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -181,7 +189,8 @@
                       "line": 75,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Lock the variable `i`"
                 },
                 "returning": false,
                 "properties": {
@@ -190,6 +199,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Lock the variable `i`",
                     "optional": false,
                     "editable": true

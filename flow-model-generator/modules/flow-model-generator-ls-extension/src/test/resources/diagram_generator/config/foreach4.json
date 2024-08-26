@@ -30,7 +30,8 @@
               "line": 30,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function testForeachWithOnFail2() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 24,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int[]",
+            "valueType": "EXPRESSION",
             "value": "[1, 2, 3]",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int[]",
             "optional": false,
             "editable": true
@@ -106,7 +110,8 @@
               "line": 29,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "foreach int item in intArr {\n        _ = item;\n    } on fail var e {\n        return e;\n    }"
         },
         "returning": false,
         "branches": [
@@ -125,7 +130,8 @@
                   "line": 27,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -147,7 +153,8 @@
                       "line": 26,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "_ = item;"
                 },
                 "returning": false,
                 "properties": {
@@ -156,7 +163,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "item",
                     "optional": false,
                     "editable": true
@@ -166,7 +173,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "any",
+                    "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
                     "editable": true
@@ -191,7 +198,8 @@
                   "line": 29,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        return e;\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -200,7 +208,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -209,6 +218,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
                 "editable": true
@@ -218,6 +228,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
                 "editable": true
@@ -242,7 +253,8 @@
                       "line": 28,
                       "offset": 17
                     }
-                  }
+                  },
+                  "sourceCode": "return e;"
                 },
                 "returning": true,
                 "properties": {
@@ -251,7 +263,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "error",
+                    "valueType": "EXPRESSION",
                     "value": "e",
                     "optional": false,
                     "editable": true
@@ -268,6 +280,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
             "editable": true
@@ -277,6 +290,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true

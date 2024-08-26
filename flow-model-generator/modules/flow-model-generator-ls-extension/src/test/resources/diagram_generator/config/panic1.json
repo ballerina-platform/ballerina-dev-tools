@@ -30,7 +30,8 @@
               "line": 6,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc1() {\n    panic error(\"\");\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 5,
               "offset": 20
             }
-          }
+          },
+          "sourceCode": "panic error(\"\");"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "error(\"\")",
             "optional": false,
             "editable": true

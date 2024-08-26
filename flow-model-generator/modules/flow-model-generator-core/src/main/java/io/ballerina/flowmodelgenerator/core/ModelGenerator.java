@@ -45,9 +45,10 @@ import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -83,8 +84,8 @@ public class ModelGenerator {
     public JsonElement getFlowModel() {
         // Obtain the code block representing the canvas
         SyntaxTree syntaxTree = document.syntaxTree();
-        TextDocument textDocument = syntaxTree.textDocument();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
+        TextDocument textDocument = syntaxTree.textDocument();
         int start = textDocument.textPositionFrom(lineRange.startLine());
         int end = textDocument.textPositionFrom(lineRange.endLine());
         NonTerminalNode canvasNode = modulePartNode.findNode(TextRange.from(start, end - start), true);
@@ -98,18 +99,22 @@ public class ModelGenerator {
                         .toList();
 
         // Obtain the data mapping function names
-        List<String> dataMappings = new ArrayList<>();
+        Map<String, LineRange> dataMappings = new HashMap<>();
         if (dataMappingDoc != null) {
             ModulePartNode dataMappingModulePartNode = dataMappingDoc.syntaxTree().rootNode();
             for (ModuleMemberDeclarationNode member : dataMappingModulePartNode.members()) {
                 if (member.kind() == SyntaxKind.FUNCTION_DEFINITION) {
-                    dataMappings.add(((FunctionDefinitionNode) member).functionName().text());
+                    FunctionDefinitionNode functionNode = (FunctionDefinitionNode) member;
+                    String functionName = functionNode.functionName().text();
+                    LineRange functionLineRange = functionNode.lineRange();
+                    dataMappings.put(functionName, functionLineRange);
                 }
             }
         }
 
         // Analyze the code block to find the flow nodes
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument,
+                CommonUtils.getProjectName(document));
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -155,7 +160,8 @@ public class ModelGenerator {
         } catch (RuntimeException ignored) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, List.of(), textDocument);
+        CodeAnalyzer codeAnalyzer =
+                new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document));
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

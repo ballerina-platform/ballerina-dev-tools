@@ -19,7 +19,8 @@
           "line": 29,
           "offset": 63
         }
-      }
+      },
+      "sourceCode": "// Transform to Employee\n    Employee employee = transformToEmployee(person, admission);"
     },
     "returning": false,
     "properties": {
@@ -38,8 +39,8 @@
           "label": "Output",
           "description": "Output of the data mapper function"
         },
-        "valueType": "SET",
-        "value": "new_connection1:Employee",
+        "valueType": "SINGLE_SELECT",
+        "value": "Employee",
         "optional": false,
         "editable": true
       },
@@ -48,10 +49,10 @@
           "label": "Inputs",
           "description": "Input variables of the data mapper function"
         },
-        "valueType": "SET",
+        "valueType": "MULTIPLE_SELECT",
         "value": [
-          "new_connection1:Person person",
-          "new_connection1:Admission admission"
+          "Person person",
+          "Admission admission"
         ],
         "optional": false,
         "editable": true
@@ -61,6 +62,7 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
+        "valueType": "IDENTIFIER",
         "value": "employee",
         "optional": false,
         "editable": true
@@ -81,7 +83,7 @@
             "character": 0
           }
         },
-        "newText": "function transformToEmployee(new_connection1 :Personperson, new_connection1 :Admissionadmission) returns new_connection1:Employee=> {\n}"
+        "newText": "function transformToEmployee(Person person, Admission admission) returns Employee => {\n    empId: \"\",\n    name: \"\",\n    location: {city: \"\", country: \"\"},\n    email: \"\"\n}"
       }
     ],
     "data_mapper/main.bal": [
@@ -96,7 +98,7 @@
             "character": 63
           }
         },
-        "newText": "new_connection1:Employee employee = transformToEmployee(person, admission)"
+        "newText": "Employee employee = transformToEmployee(person, admission);"
       }
     ]
   }

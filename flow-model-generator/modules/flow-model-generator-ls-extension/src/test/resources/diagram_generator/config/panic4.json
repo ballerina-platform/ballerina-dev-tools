@@ -30,7 +30,8 @@
               "line": 19,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc4() {\n    error e = error(\"AssertionError\");\n    panic e;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 17,
               "offset": 38
             }
-          }
+          },
+          "sourceCode": "error e = error(\"AssertionError\");"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "error(\"AssertionError\")",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "e",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "error",
             "optional": false,
             "editable": true
@@ -106,7 +110,8 @@
               "line": 18,
               "offset": 12
             }
-          }
+          },
+          "sourceCode": "panic e;"
         },
         "returning": false,
         "properties": {
@@ -115,7 +120,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "error",
+            "valueType": "EXPRESSION",
             "value": "e",
             "optional": false,
             "editable": true

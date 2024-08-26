@@ -71,6 +71,10 @@ public class DataMapper extends NodeBuilder {
     public static final String OUTPUT_LABEL = "Output";
     public static final String OUTPUT_DOC = "Output of the data mapper function";
 
+    public static final String VIEW_KEY = "view";
+    public static final String VIEW_LABEL = "View";
+    public static final String VIEW_DOC = "Visualize the data mapper function";
+
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
@@ -88,10 +92,12 @@ public class DataMapper extends NodeBuilder {
         WorkspaceManager workspaceManager = context.workspaceManager();
         SemanticModel semanticModel;
         Document document;
+        String projectName;
         try {
             workspaceManager.loadProject(context.filePath());
             semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
             document = workspaceManager.document(context.filePath()).orElseThrow();
+            projectName = CommonUtils.getProjectName(document);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -100,25 +106,25 @@ public class DataMapper extends NodeBuilder {
         Set<String> visibleRecordTypes = new TreeSet<>();
 
         for (Symbol symbol : semanticModel.visibleSymbols(document, context.position())) {
-            if (symbol.kind() == SymbolKind.VARIABLE) {
-                getVariableSignature(semanticModel, (VariableSymbol) symbol)
-                        .ifPresent(visibleVariables::add);
+            if (symbol.kind() == SymbolKind.VARIABLE &&
+                    symbol.getName().filter(name -> !name.equals("self")).isPresent()) {
+                getVariableSignature(semanticModel, projectName, (VariableSymbol) symbol).ifPresent(
+                        visibleVariables::add);
             } else if (symbol.kind() == SymbolKind.TYPE_DEFINITION) {
-                getRecordTypeSignature((TypeDefinitionSymbol) symbol)
-                        .ifPresent(visibleRecordTypes::add);
+                getRecordTypeSignature((TypeDefinitionSymbol) symbol).ifPresent(visibleRecordTypes::add);
             }
         }
 
-        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.SET,
+        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
                 new ArrayList<>(visibleVariables), "");
-        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SET,
+        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
                 new ArrayList<>(visibleRecordTypes), "");
-        ;
     }
 
-    private static Optional<String> getVariableSignature(SemanticModel semanticModel, VariableSymbol symbol) {
+    private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,
+                                                         VariableSymbol symbol) {
         Optional<String> name = symbol.getName();
-        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false);
+        String typeSignature = CommonUtils.getTypeSignature(semanticModel, symbol.typeDescriptor(), false, projectName);
         return name.map(s -> typeSignature + " " + s);
     }
 
@@ -197,6 +203,7 @@ public class DataMapper extends NodeBuilder {
                 .keyword(SyntaxKind.OPEN_PAREN_TOKEN)
                 .name(functionParameters)
                 .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
+                .endOfStatement()
                 .stepOut()
                 .textEdit(false);
 

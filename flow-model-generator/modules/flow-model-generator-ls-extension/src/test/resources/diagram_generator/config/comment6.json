@@ -30,7 +30,8 @@
               "line": 56,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 47,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int x = 0;"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "0",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "x",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "int",
             "optional": false,
             "editable": true
@@ -92,7 +96,7 @@
         "id": "79426",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "This is a while block"
         },
         "codedata": {
           "node": "COMMENT",
@@ -106,7 +110,8 @@
               "line": 50,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "This is a while block"
         },
         "returning": false,
         "properties": {
@@ -115,6 +120,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "This is a while block",
             "optional": false,
             "editable": true
@@ -140,7 +146,8 @@
               "line": 55,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "// This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
         },
         "returning": false,
         "branches": [
@@ -159,7 +166,8 @@
                   "line": 55,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -167,7 +175,7 @@
                 "id": "82375",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "update `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -181,7 +189,8 @@
                       "line": 52,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "update `x`"
                 },
                 "returning": false,
                 "properties": {
@@ -190,6 +199,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "update `x`",
                     "optional": false,
                     "editable": true
@@ -215,7 +225,8 @@
                       "line": 52,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "// update `x`\n        x = x + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -224,7 +235,7 @@
                       "label": "Expression",
                       "description": "Update variable"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "x + 1",
                     "optional": false,
                     "editable": true
@@ -234,7 +245,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "int",
+                    "valueType": "IDENTIFIER",
                     "value": "x",
                     "optional": false,
                     "editable": true
@@ -246,7 +257,7 @@
                 "id": "84386",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Generate new node"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -260,7 +271,8 @@
                       "line": 55,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Generate new node"
                 },
                 "returning": false,
                 "properties": {
@@ -269,6 +281,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Generate new node",
                     "optional": false,
                     "editable": true
@@ -285,7 +298,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
-            "valueType": "boolean",
+            "valueType": "EXPRESSION",
             "value": "i > 3 ",
             "optional": false,
             "editable": true

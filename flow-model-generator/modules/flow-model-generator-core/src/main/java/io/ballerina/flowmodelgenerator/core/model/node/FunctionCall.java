@@ -33,8 +33,12 @@ public class FunctionCall extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+
+        String module = nodeTemplate.codedata().module();
+        String methodCall = (module != null ? module + ":" : "") + nodeTemplate.metadata().label();
+
         return sourceBuilder.token()
-                .name(nodeTemplate.metadata().label())
+                .name(methodCall)
                 .stepOut()
                 .functionParameters(nodeTemplate, Set.of("variable", "type"))
                 .textEdit(false)

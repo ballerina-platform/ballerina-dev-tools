@@ -30,7 +30,8 @@
               "line": 85,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function commentInTransactionBody1() returns error? {\n    transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 84,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 84,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        // Commit the trasaction\n        var res = check commit;\n\n        // Generate new flow nodes\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -80,7 +83,7 @@
                 "id": "111143",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Commit the trasaction"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -94,7 +97,8 @@
                       "line": 81,
                       "offset": 8
                     }
-                  }
+                  },
+                  "sourceCode": "Commit the trasaction"
                 },
                 "returning": false,
                 "properties": {
@@ -103,6 +107,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Commit the trasaction",
                     "optional": false,
                     "editable": true
@@ -128,7 +133,8 @@
                       "line": 81,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "// Commit the trasaction\n        var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -137,7 +143,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -147,6 +153,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
                     "editable": true
@@ -156,6 +163,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true
@@ -167,7 +175,7 @@
                 "id": "113154",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Comment of a node"
+                  "description": "Generate new flow nodes"
                 },
                 "codedata": {
                   "node": "COMMENT",
@@ -181,7 +189,8 @@
                       "line": 84,
                       "offset": 4
                     }
-                  }
+                  },
+                  "sourceCode": "Generate new flow nodes"
                 },
                 "returning": false,
                 "properties": {
@@ -190,6 +199,7 @@
                       "label": "Comment",
                       "description": "Comment to describe the flow"
                     },
+                    "valueType": "STRING",
                     "value": "Generate new flow nodes",
                     "optional": false,
                     "editable": true

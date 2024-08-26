@@ -36,6 +36,7 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
@@ -61,45 +62,53 @@ public class CommonUtils {
         return inputString.replaceAll("^\"|\"$", "");
     }
 
+    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
+        return getTypeSignature(semanticModel, typeSymbol, ignoreError, ".");
+    }
+
+    public static String getProjectName(Document document) {
+        return document.module().descriptor().packageName().value();
+    }
+
     /**
      * Returns the type signature of the given type symbol.
      *
      * @param typeSymbol the type symbol
      * @return the type signature
      */
-    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError) {
+    public static String getTypeSignature(SemanticModel semanticModel, TypeSymbol typeSymbol, boolean ignoreError,
+                                          String defaultModuleName) {
         return switch (typeSymbol.typeKind()) {
             case TYPE_REFERENCE -> {
                 TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
                 yield typeReferenceTypeSymbol.definition().getName()
                         .map(name -> typeReferenceTypeSymbol.getModule()
                                 .flatMap(Symbol::getName)
-                                .filter(prefix -> !".".equals(prefix))
+                                .filter(prefix -> !defaultModuleName.equals(prefix))
                                 .map(prefix -> prefix + ":" + name)
                                 .orElse(name))
-                        .orElseGet(() -> getTypeSignature(semanticModel,
-                                typeReferenceTypeSymbol.typeDescriptor(),
-                                ignoreError));
+                        .orElseGet(() -> getTypeSignature(semanticModel, typeReferenceTypeSymbol.typeDescriptor(),
+                                ignoreError, defaultModuleName));
             }
             case UNION -> {
                 UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
                 yield unionTypeSymbol.memberTypeDescriptors().stream()
                         .filter(memberType -> !ignoreError || !memberType.subtypeOf(semanticModel.types().ERROR))
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
                         .reduce((s1, s2) -> s1 + "|" + s2)
                         .orElse(unionTypeSymbol.signature());
             }
             case INTERSECTION -> {
                 IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
                 yield intersectionTypeSymbol.memberTypeDescriptors().stream()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
                         .reduce((s1, s2) -> s1 + " & " + s2)
                         .orElse(intersectionTypeSymbol.signature());
             }
             case TYPEDESC -> {
                 TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
                 yield typeDescTypeSymbol.typeParameter()
-                        .map(type -> getTypeSignature(semanticModel, type, ignoreError))
+                        .map(type -> getTypeSignature(semanticModel, type, ignoreError, defaultModuleName))
                         .orElse(typeDescTypeSymbol.signature());
             }
             case ERROR -> {

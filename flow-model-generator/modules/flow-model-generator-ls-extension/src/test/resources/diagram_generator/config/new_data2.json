@@ -30,7 +30,8 @@
               "line": 15,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testNewDataString() {\n    string str1 = \"Hello world\";\n    string str2 = string `${str1} ${str1}`;\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 13,
               "offset": 32
             }
-          }
+          },
+          "sourceCode": "string str1 = \"Hello world\";"
         },
         "returning": false,
         "properties": {
@@ -62,7 +64,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"Hello world\"",
             "optional": false,
             "editable": true
@@ -72,6 +74,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "str1",
             "optional": false,
             "editable": true
@@ -81,6 +84,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true
@@ -106,7 +110,8 @@
               "line": 14,
               "offset": 43
             }
-          }
+          },
+          "sourceCode": "string str2 = string `${str1} ${str1}`;"
         },
         "returning": false,
         "properties": {
@@ -115,7 +120,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "string `${str1} ${str1}`",
             "optional": false,
             "editable": true
@@ -125,6 +130,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "str2",
             "optional": false,
             "editable": true
@@ -134,6 +140,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true

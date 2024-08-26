@@ -36,6 +36,7 @@
               "label": "Condition",
               "description": "Boolean Condition"
             },
+            "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
             "editable": true
@@ -68,7 +69,7 @@
             "character": 0
           }
         },
-        "newText": "if true {\n}\nelse {\n}"
+        "newText": "if true {\n} else {\n}"
       }
     ]
   }

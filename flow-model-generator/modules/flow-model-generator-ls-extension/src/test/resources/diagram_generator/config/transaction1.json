@@ -30,7 +30,8 @@
               "line": 3,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -49,7 +50,8 @@
                   "line": 3,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -71,7 +73,8 @@
                       "line": 2,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -80,7 +83,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -90,6 +93,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
                     "editable": true
@@ -99,6 +103,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true

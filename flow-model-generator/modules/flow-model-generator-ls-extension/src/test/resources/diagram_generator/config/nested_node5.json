@@ -29,7 +29,8 @@
               "line": 53,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function put path() returns error? {\n        do {\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "put",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "path",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 52,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "{\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +95,8 @@
                   "line": 52,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -113,7 +118,8 @@
                       "line": 51,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "{\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -132,7 +138,8 @@
                           "line": 51,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }"
                     },
                     "repeatable": "ONE",
                     "children": [
@@ -154,7 +161,8 @@
                               "line": 47,
                               "offset": 17
                             }
-                          }
+                          },
+                          "sourceCode": "transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }"
                         },
                         "returning": false,
                         "branches": [
@@ -173,7 +181,8 @@
                                   "line": 47,
                                   "offset": 17
                                 }
-                              }
+                              },
+                              "sourceCode": "{\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }"
                             },
                             "repeatable": "ONE",
                             "children": [
@@ -200,7 +209,8 @@
                                       "line": 45,
                                       "offset": 90
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");"
                                 },
                                 "returning": false,
                                 "properties": {
@@ -219,6 +229,7 @@
                                       "label": "Data variable",
                                       "description": "Name of the variable"
                                     },
+                                    "valueType": "IDENTIFIER",
                                     "value": "j",
                                     "optional": false,
                                     "editable": true
@@ -275,6 +286,7 @@
                                       "label": "Data type",
                                       "description": "Type of the variable"
                                     },
+                                    "valueType": "TYPE",
                                     "value": "json",
                                     "optional": false,
                                     "editable": true
@@ -300,7 +312,8 @@
                                       "line": 46,
                                       "offset": 33
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "check commit;"
                                 },
                                 "returning": false,
                                 "properties": {
@@ -309,6 +322,7 @@
                                       "label": "Statement",
                                       "description": "Ballerina statement"
                                     },
+                                    "valueType": "EXPRESSION",
                                     "value": "                    check commit;\n",
                                     "optional": false,
                                     "editable": true
@@ -339,7 +353,8 @@
                               "line": 50,
                               "offset": 17
                             }
-                          }
+                          },
+                          "sourceCode": "{\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }"
                         },
                         "returning": false,
                         "branches": [
@@ -358,7 +373,8 @@
                                   "line": 50,
                                   "offset": 17
                                 }
-                              }
+                              },
+                              "sourceCode": "{\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }"
                             },
                             "repeatable": "ONE",
                             "children": [
@@ -385,7 +401,8 @@
                                       "line": 49,
                                       "offset": 71
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "json k = check asiri->get(path = \"/doctors/kandy\");"
                                 },
                                 "returning": false,
                                 "properties": {
@@ -404,6 +421,7 @@
                                       "label": "Data variable",
                                       "description": "Name of the variable"
                                     },
+                                    "valueType": "IDENTIFIER",
                                     "value": "k",
                                     "optional": false,
                                     "editable": true
@@ -441,6 +459,7 @@
                                       "label": "Data type",
                                       "description": "Type of the variable"
                                     },
+                                    "valueType": "TYPE",
                                     "value": "json",
                                     "optional": false,
                                     "editable": true
@@ -487,7 +506,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -525,6 +545,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
             "editable": true
@@ -534,6 +555,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

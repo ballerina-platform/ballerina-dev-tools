@@ -29,7 +29,8 @@
               "line": 10,
               "offset": 92
             }
-          }
+          },
+          "sourceCode": "resource function get menu/[int year]() returns Menu => {year, modified: \"\", items: []};"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "menu/[int year]",
             "optional": false,
             "editable": true

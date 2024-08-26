@@ -29,7 +29,8 @@
               "line": 20,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get path2(boolean isKandy) returns error? {\n        transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "path2",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 19,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
         },
         "returning": false,
         "branches": [
@@ -91,7 +95,8 @@
                   "line": 19,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -113,7 +118,8 @@
                       "line": 17,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -132,7 +138,8 @@
                           "line": 15,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -141,7 +148,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "isKandy ",
                         "optional": false,
                         "editable": true
@@ -171,7 +178,8 @@
                               "line": 14,
                               "offset": 67
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
                         },
                         "returning": false,
                         "properties": {
@@ -190,6 +198,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "j",
                             "optional": false,
                             "editable": true
@@ -227,6 +236,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -251,7 +261,8 @@
                           "line": 17,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -278,7 +289,8 @@
                               "line": 16,
                               "offset": 69
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/colombo\");"
                         },
                         "returning": false,
                         "properties": {
@@ -297,6 +309,7 @@
                               "label": "Data variable",
                               "description": "Name of the variable"
                             },
+                            "valueType": "IDENTIFIER",
                             "value": "j",
                             "optional": false,
                             "editable": true
@@ -334,6 +347,7 @@
                               "label": "Data type",
                               "description": "Type of the variable"
                             },
+                            "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
                             "editable": true
@@ -364,7 +378,8 @@
                       "line": 18,
                       "offset": 40
                     }
-                  }
+                  },
+                  "sourceCode": "error? unionResult = commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -373,6 +388,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "commit",
                     "optional": false,
                     "editable": true
@@ -382,6 +398,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "unionResult",
                     "optional": false,
                     "editable": true
@@ -391,6 +408,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
                     "editable": true
@@ -427,7 +445,8 @@
               "line": 2,
               "offset": 62
             }
-          }
+          },
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -465,6 +484,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "asiri",
             "optional": false,
             "editable": true
@@ -474,6 +494,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

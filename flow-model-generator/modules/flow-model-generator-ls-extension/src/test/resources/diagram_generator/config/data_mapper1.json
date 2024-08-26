@@ -30,7 +30,8 @@
               "line": 31,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}"
         },
         "returning": false,
         "flags": 0
@@ -39,7 +40,7 @@
         "id": "40707",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Define local variables for input parameters"
         },
         "codedata": {
           "node": "COMMENT",
@@ -53,7 +54,8 @@
               "line": 10,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Define local variables for input parameters"
         },
         "returning": false,
         "properties": {
@@ -62,6 +64,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "Define local variables for input parameters",
             "optional": false,
             "editable": true
@@ -87,7 +90,8 @@
               "line": 10,
               "offset": 29
             }
-          }
+          },
+          "sourceCode": "// Define local variables for input parameters\n    string name = \"John Doe\";"
         },
         "returning": false,
         "properties": {
@@ -96,7 +100,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"John Doe\"",
             "optional": false,
             "editable": true
@@ -106,6 +110,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "name",
             "optional": false,
             "editable": true
@@ -115,6 +120,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true
@@ -140,7 +146,8 @@
               "line": 11,
               "offset": 42
             }
-          }
+          },
+          "sourceCode": "string email = \"john.doe@example.com\";"
         },
         "returning": false,
         "properties": {
@@ -149,7 +156,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"john.doe@example.com\"",
             "optional": false,
             "editable": true
@@ -159,6 +166,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "email",
             "optional": false,
             "editable": true
@@ -168,6 +176,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "string",
             "optional": false,
             "editable": true
@@ -193,7 +202,8 @@
               "line": 18,
               "offset": 6
             }
-          }
+          },
+          "sourceCode": "Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };"
         },
         "returning": false,
         "properties": {
@@ -202,7 +212,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "new_connection1:Address",
+            "valueType": "EXPRESSION",
             "value": "{\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    }",
             "optional": false,
             "editable": true
@@ -212,6 +222,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "address",
             "optional": false,
             "editable": true
@@ -221,7 +232,8 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
-            "value": "new_connection1:Address",
+            "valueType": "TYPE",
+            "value": "Address",
             "optional": false,
             "editable": true
           }
@@ -232,7 +244,7 @@
         "id": "50658",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Transform to Person"
         },
         "codedata": {
           "node": "COMMENT",
@@ -246,7 +258,8 @@
               "line": 21,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Transform to Person"
         },
         "returning": false,
         "properties": {
@@ -255,6 +268,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "Transform to Person",
             "optional": false,
             "editable": true
@@ -280,7 +294,8 @@
               "line": 21,
               "offset": 60
             }
-          }
+          },
+          "sourceCode": "// Transform to Person\n    Person person = transformToPerson(name, email, address);"
         },
         "returning": false,
         "properties": {
@@ -299,8 +314,8 @@
               "label": "Output",
               "description": "Output of the data mapper function"
             },
-            "valueType": "SET",
-            "value": "new_connection1:Person",
+            "valueType": "SINGLE_SELECT",
+            "value": "Person",
             "optional": false,
             "editable": true
           },
@@ -309,20 +324,41 @@
               "label": "Inputs",
               "description": "Input variables of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "MULTIPLE_SELECT",
             "value": [
               "string name",
               "string email",
-              "new_connection1:Address address"
+              "Address address"
             ],
             "optional": false,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Visualize the data mapper function"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "data_mappings.bal",
+              "startLine": {
+                "line": 0,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 4,
+                "offset": 2
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "person",
             "optional": false,
             "editable": true
@@ -348,7 +384,8 @@
               "line": 26,
               "offset": 6
             }
-          }
+          },
+          "sourceCode": "Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };"
         },
         "returning": false,
         "properties": {
@@ -357,7 +394,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "new_connection1:Admission",
+            "valueType": "EXPRESSION",
             "value": "{\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    }",
             "optional": false,
             "editable": true
@@ -367,6 +404,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "admission",
             "optional": false,
             "editable": true
@@ -376,7 +414,8 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
-            "value": "new_connection1:Admission",
+            "valueType": "TYPE",
+            "value": "Admission",
             "optional": false,
             "editable": true
           }
@@ -387,7 +426,7 @@
         "id": "58594",
         "metadata": {
           "label": "Comment",
-          "description": "Comment of a node"
+          "description": "Transform to Employee"
         },
         "codedata": {
           "node": "COMMENT",
@@ -401,7 +440,8 @@
               "line": 29,
               "offset": 4
             }
-          }
+          },
+          "sourceCode": "Transform to Employee"
         },
         "returning": false,
         "properties": {
@@ -410,6 +450,7 @@
               "label": "Comment",
               "description": "Comment to describe the flow"
             },
+            "valueType": "STRING",
             "value": "Transform to Employee",
             "optional": false,
             "editable": true
@@ -435,7 +476,8 @@
               "line": 29,
               "offset": 63
             }
-          }
+          },
+          "sourceCode": "// Transform to Employee\n    Employee employee = transformToEmployee(person, admission);"
         },
         "returning": false,
         "properties": {
@@ -454,8 +496,8 @@
               "label": "Output",
               "description": "Output of the data mapper function"
             },
-            "valueType": "SET",
-            "value": "new_connection1:Employee",
+            "valueType": "SINGLE_SELECT",
+            "value": "Employee",
             "optional": false,
             "editable": true
           },
@@ -464,19 +506,40 @@
               "label": "Inputs",
               "description": "Input variables of the data mapper function"
             },
-            "valueType": "SET",
+            "valueType": "MULTIPLE_SELECT",
             "value": [
-              "new_connection1:Person person",
-              "new_connection1:Admission admission"
+              "Person person",
+              "Admission admission"
             ],
             "optional": false,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Visualize the data mapper function"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "data_mappings.bal",
+              "startLine": {
+                "line": 6,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 2
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "employee",
             "optional": false,
             "editable": true
@@ -502,7 +565,8 @@
               "line": 30,
               "offset": 26
             }
-          }
+          },
+          "sourceCode": "logEmployee(employee);"
         },
         "returning": false,
         "properties": {
@@ -511,6 +575,7 @@
               "label": "Statement",
               "description": "Ballerina statement"
             },
+            "valueType": "EXPRESSION",
             "value": "    logEmployee(employee);\n",
             "optional": false,
             "editable": true
@@ -542,7 +607,8 @@
               "line": 2,
               "offset": 53
             }
-          }
+          },
+          "sourceCode": "http:Client cl = check new (\"http://localhost:9090\");"
         },
         "returning": false,
         "properties": {
@@ -580,6 +646,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "cl",
             "optional": false,
             "editable": true
@@ -589,6 +656,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

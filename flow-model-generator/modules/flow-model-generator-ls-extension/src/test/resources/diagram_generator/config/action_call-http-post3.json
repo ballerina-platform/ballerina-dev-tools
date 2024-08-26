@@ -29,7 +29,8 @@
               "line": 35,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function post bananas() returns json|http:ClientError {\n        return foodClient->post(\"/bananas\", \"banana\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "post",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "bananas",
             "optional": false,
             "editable": true
@@ -77,7 +80,8 @@
               "line": 34,
               "offset": 54
             }
-          }
+          },
+          "sourceCode": "return foodClient->post(\"/bananas\", \"banana\");"
         },
         "returning": true,
         "properties": {
@@ -165,7 +169,8 @@
               "line": 2,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
         },
         "returning": false,
         "properties": {
@@ -203,6 +208,7 @@
               "label": "Data variable",
               "description": "Name of the variable"
             },
+            "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -212,6 +218,7 @@
               "label": "Data type",
               "description": "Type of the variable"
             },
+            "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
             "editable": true

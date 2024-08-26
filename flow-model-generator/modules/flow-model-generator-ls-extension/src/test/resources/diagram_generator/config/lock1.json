@@ -30,7 +30,8 @@
               "line": 4,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLock1() {\n    lock {\n        int i = 0;\n    }\n}"
         },
         "returning": false,
         "flags": 0
@@ -53,7 +54,8 @@
               "line": 3,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n    }"
         },
         "returning": false,
         "branches": [
@@ -72,7 +74,8 @@
                   "line": 3,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        int i = 0;\n    }"
             },
             "repeatable": "ONE",
             "children": [
@@ -94,7 +97,8 @@
                       "line": 2,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -103,7 +107,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -113,6 +117,7 @@
                       "label": "Data variable",
                       "description": "Name of the variable"
                     },
+                    "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
                     "editable": true
@@ -122,6 +127,7 @@
                       "label": "Data type",
                       "description": "Type of the variable"
                     },
+                    "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
                     "editable": true
