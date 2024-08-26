@@ -12,7 +12,7 @@ import org.ballerinalang.langserver.common.utils.PositionUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestedNodesGenerator {
+public class SuggestedModelGenerator {
 
     private final List<LineRange> errorLocations;
     private JsonArray outputNodes;
@@ -21,7 +21,7 @@ public class SuggestedNodesGenerator {
     private final Gson gson;
     private final LineRange newLineRange;
 
-    public SuggestedNodesGenerator(Document document, LineRange newLineRange) {
+    public SuggestedModelGenerator(Document document, LineRange newLineRange) {
         this.outputNodes = new JsonArray();
         this.foundError = false;
         this.errorIndex = 0;
@@ -43,7 +43,19 @@ public class SuggestedNodesGenerator {
 
             // A new statement
             if (PositionUtil.isWithinLineRange(lineRange, newLineRange)) {
-                handleSuggestedNode(newNodes, i, newNode);
+                if (newNode.has("branches")) {
+                    JsonArray newBranches = newNode.getAsJsonArray("branches");
+                    for (int j = 0; j < newBranches.size(); j++) {
+                        JsonObject newBranch = newBranches.get(j).getAsJsonObject();
+                        if (PositionUtil.isWithinLineRange(getLineRange(newBranch), newLineRange)) {
+                            markSuggestedNodes(newBranch.getAsJsonArray("children"), 0);
+                            continue;
+                        }
+                        newBranch.addProperty("suggested", true);
+                    }
+                } else {
+                    i = handleSuggestedNode(newNodes, i, newNode);
+                }
                 continue;
             }
 
@@ -60,7 +72,7 @@ public class SuggestedNodesGenerator {
                         newBranch.addProperty("suggested", false);
                     }
                 } else {
-                    handleSuggestedNode(newNodes, i, newNode);
+                    i = handleSuggestedNode(newNodes, i, newNode);
                 }
                 continue;
             }
@@ -68,16 +80,17 @@ public class SuggestedNodesGenerator {
         }
     }
 
-    private void handleSuggestedNode(JsonArray newNodes, int newIndex, JsonObject newNode) {
+    private int handleSuggestedNode(JsonArray newNodes, int newIndex, JsonObject newNode) {
         if (errorLocations.isEmpty() || !foundError && !isErrorInNode(newNode)) {
             newNode.addProperty("suggested", true);
-            return;
+            return newIndex;
         }
         newNodes.remove(newIndex);
         if (!foundError) {
             foundError = true;
             errorIndex++;
         }
+        return newIndex - 1;
     }
 
     private boolean isErrorInNode(JsonObject newNode) {

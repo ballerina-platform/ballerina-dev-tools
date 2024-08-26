@@ -197,13 +197,13 @@
                     "editable": true
                   }
                 },
-                "flags": 0
+                "flags": 0,
+                "suggested": true
               }
             ]
           }
         ],
-        "flags": 0,
-        "suggested": true
+        "flags": 0
       },
       {
         "id": "36858",
