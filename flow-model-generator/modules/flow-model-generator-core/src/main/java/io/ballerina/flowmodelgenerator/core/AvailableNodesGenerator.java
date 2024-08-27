@@ -23,10 +23,8 @@ import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
-import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
@@ -100,7 +98,7 @@ public class AvailableNodesGenerator {
                     return this.rootBuilder.build().items();
                 }
                 case IF_ELSE_STATEMENT, LOCK_STATEMENT, TRANSACTION_STATEMENT, MATCH_STATEMENT, DO_STATEMENT,
-                        ON_FAIL_CLAUSE -> {
+                     ON_FAIL_CLAUSE -> {
                     setAvailableDefaultNodes(nonTerminalNode, semanticModel);
                     return this.rootBuilder.build().items();
                 }
@@ -120,37 +118,42 @@ public class AvailableNodesGenerator {
         setDefaultNodes();
         setStopNode(node);
         this.rootBuilder
-            .stepIn(Category.Name.FLOW)
-                .stepIn(Category.Name.ITERATION)
-                    .node(FlowNode.Kind.BREAK)
-                    .node(FlowNode.Kind.CONTINUE)
-                .stepOut()
-            .stepOut();
+                .stepIn(Category.Name.FLOW)
+                    .stepIn(Category.Name.ITERATION)
+                        .node(FlowNode.Kind.BREAK)
+                        .node(FlowNode.Kind.CONTINUE)
+                    .stepOut()
+                .stepOut();
     }
 
     private void setDefaultNodes() {
         this.rootBuilder
-            .stepIn(Category.Name.FLOW)
-                .stepIn(Category.Name.BRANCH)
-                    .node(FlowNode.Kind.IF)
+                .stepIn(Category.Name.FLOW)
+                    .stepIn(Category.Name.BRANCH)
+                        .node(FlowNode.Kind.IF)
+                    .stepOut()
+                    .stepIn(Category.Name.ITERATION)
+                        .node(FlowNode.Kind.WHILE)
+                        .node(FlowNode.Kind.FOREACH)
+                    .stepOut()
+                    .stepIn(Category.Name.CONTROL)
+                        .node(FlowNode.Kind.RETURN)
+                    .stepOut()
                 .stepOut()
-                .stepIn(Category.Name.ITERATION)
-                    .node(FlowNode.Kind.WHILE)
-                    .node(FlowNode.Kind.FOREACH)
+                .stepIn(Category.Name.DATA)
+                    .node(FlowNode.Kind.NEW_DATA)
+                    .node(FlowNode.Kind.UPDATE_DATA)
+                    .node(FlowNode.Kind.DATA_MAPPER)
                 .stepOut()
-                .stepIn(Category.Name.CONTROL)
-                    .node(FlowNode.Kind.RETURN)
-                .stepOut()
-            .stepOut()
-            .stepIn(Category.Name.DATA)
-                .node(FlowNode.Kind.NEW_DATA)
-                .node(FlowNode.Kind.UPDATE_DATA)
-                .node(FlowNode.Kind.DATA_MAPPER)
-            .stepOut()
-            .stepIn(Category.Name.ERROR_HANDLING)
-                .node(FlowNode.Kind.ERROR_HANDLER)
-                .node(FlowNode.Kind.PANIC)
-            .stepOut();
+                .stepIn(Category.Name.ERROR_HANDLING)
+                    .node(FlowNode.Kind.ERROR_HANDLER)
+                    .node(FlowNode.Kind.PANIC)
+                .stepOut();
+//                .stepIn(Category.Name.CONCURRENCY)
+//                    .node(FlowNode.Kind.TRANSACTION)
+//                    .node(FlowNode.Kind.LOCK)
+//                    .node(FlowNode.Kind.START)
+//                .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
@@ -158,37 +161,28 @@ public class AvailableNodesGenerator {
         while (parent != null) {
             if (isStopNodeAvailable(parent)) {
                 this.rootBuilder
-                    .stepIn(Category.Name.FLOW)
-                        .stepIn(Category.Name.CONTROL)
-                            .node(FlowNode.Kind.STOP)
-                        .stepOut()
-                    .stepOut();
+                        .stepIn(Category.Name.FLOW)
+                            .stepIn(Category.Name.CONTROL)
+                                .node(FlowNode.Kind.STOP)
+                            .stepOut()
+                        .stepOut();
             }
             parent = parent.parent();
         }
     }
 
     private boolean isStopNodeAvailable(Node node) {
-        switch (node.kind()) {
-            case FUNCTION_DEFINITION -> {
-                Optional<TypeSymbol> optRetTypeSymbol = ((FunctionSymbol) this.semanticModel.symbol(node).get())
-                        .typeDescriptor().returnTypeDescriptor();
-                return optRetTypeSymbol.isEmpty() || optRetTypeSymbol.get().subtypeOf(semanticModel.types().NIL);
-            }
-            case RESOURCE_ACCESSOR_DEFINITION -> {
-                Optional<TypeSymbol> optRetTypeSymbol = ((ResourceMethodSymbol) this.semanticModel.symbol(node).get())
-                        .typeDescriptor().returnTypeDescriptor();
-                return optRetTypeSymbol.isEmpty() || optRetTypeSymbol.get().subtypeOf(semanticModel.types().NIL);
-            }
-            case OBJECT_METHOD_DEFINITION -> {
-                Optional<TypeSymbol> optRetTypeSymbol = ((MethodSymbol) this.semanticModel.symbol(node).get())
-                        .typeDescriptor().returnTypeDescriptor();
-                return optRetTypeSymbol.isEmpty() || optRetTypeSymbol.get().subtypeOf(semanticModel.types().NIL);
-            }
-            default -> {
-                return false;
-            }
+        if (node.kind() != SyntaxKind.FUNCTION_DEFINITION &&
+                node.kind() != SyntaxKind.RESOURCE_ACCESSOR_DEFINITION &&
+                node.kind() != SyntaxKind.OBJECT_METHOD_DEFINITION) {
+            return false;
         }
+        Optional<Symbol> symbol = this.semanticModel.symbol(node);
+        if (symbol.isEmpty()) {
+            return false;
+        }
+        Optional<TypeSymbol> typeSymbol = ((FunctionSymbol) symbol.get()).typeDescriptor().returnTypeDescriptor();
+        return typeSymbol.isEmpty() || typeSymbol.get().subtypeOf(semanticModel.types().NIL);
     }
 
     private Optional<Category> getConnection(Symbol symbol) {
