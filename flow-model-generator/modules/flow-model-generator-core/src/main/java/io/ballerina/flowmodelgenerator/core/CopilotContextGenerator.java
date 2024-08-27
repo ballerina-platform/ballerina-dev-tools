@@ -45,7 +45,7 @@ public class CopilotContextGenerator {
 
     private String prefix;
     private String suffix;
-    private Set<String> imports;
+    private final Set<String> imports;
 
     public CopilotContextGenerator(WorkspaceManager workspaceManager, Path filePath, LinePosition position) {
         this.workspaceManager = workspaceManager;
@@ -58,20 +58,19 @@ public class CopilotContextGenerator {
         try {
             this.workspaceManager.loadProject(filePath);
             Document document = this.workspaceManager.document(filePath).orElseThrow();
-            int textPosition = document.textDocument().textPositionFrom(position);
-            char[] charArray = document.textDocument().toCharArray();
+            TextDocument textDocument = document.textDocument();
+            int textPosition = textDocument.textPositionFrom(position);
+            char[] charArray = textDocument.toCharArray();
             int start = processImports(document);
             Path projectPath = this.workspaceManager.projectRoot(filePath);
 
             suffix = new String(charArray, textPosition, charArray.length - textPosition);
-            prefix = new StringBuilder()
-                    .append(String.join(System.lineSeparator(), imports))
-                    .append(getDocumentContent(projectPath, "data_mappings.bal"))
-                    .append(getDocumentContent(projectPath, "types.bal"))
-                    .append(getDocumentContent(projectPath, "connections.bal"))
-                    .append(new String(charArray, start, textPosition - start))
-                    .append(System.lineSeparator())
-                    .toString();
+            prefix = String.join(System.lineSeparator(), imports) +
+                    getDocumentContent(projectPath, "data_mappings.bal") +
+                    getDocumentContent(projectPath, "types.bal") +
+                    getDocumentContent(projectPath, "connections.bal") +
+                    new String(charArray, start, textPosition - start) +
+                    System.lineSeparator();
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -80,14 +79,8 @@ public class CopilotContextGenerator {
     private String getDocumentContent(Path projectPath, String fileName) {
         try {
             Document document = this.workspaceManager.document(projectPath.resolve(fileName)).orElseThrow();
-            ModulePartNode rootNode = document.syntaxTree().rootNode();
-
-            NodeList<ImportDeclarationNode> imports = rootNode.imports();
-            imports.forEach(importDeclarationNode -> this.imports.add(importDeclarationNode.toSourceCode().strip()));
-
             TextDocument textDocument = document.textDocument();
-            int start = imports.isEmpty() ? 0 :
-                    textDocument.textPositionFrom(imports.get(imports.size() - 1).lineRange().endLine());
+            int start = processImports(document);
             char[] charArray = textDocument.toCharArray();
             return new String(charArray, start, charArray.length - start);
         } catch (Throwable ignored) {
@@ -99,10 +92,9 @@ public class CopilotContextGenerator {
         ModulePartNode rootNode = document.syntaxTree().rootNode();
         NodeList<ImportDeclarationNode> imports = rootNode.imports();
         imports.forEach(importDeclarationNode -> this.imports.add(importDeclarationNode.toSourceCode().strip()));
-        ImportDeclarationNode lastImport = imports.get(imports.size() - 1);
-
         TextDocument textDocument = document.textDocument();
-        return textDocument.textPositionFrom(lastImport.lineRange().endLine());
+        return imports.isEmpty() ? 0 :
+                textDocument.textPositionFrom(imports.get(imports.size() - 1).lineRange().endLine());
     }
 
     public String prefix() {
