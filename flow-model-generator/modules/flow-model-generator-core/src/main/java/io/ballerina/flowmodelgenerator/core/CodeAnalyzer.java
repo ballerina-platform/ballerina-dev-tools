@@ -153,7 +153,7 @@ class CodeAnalyzer extends NodeVisitor {
                             .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
-                startNode(FlowNode.Kind.EXPRESSION);
+                handleExpressionNode(functionDefinitionNode);
             }
         }
         endNode(functionDefinitionNode);
@@ -224,7 +224,7 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(actionNode);
         if (symbol.isEmpty() || (symbol.get().kind() != SymbolKind.METHOD &&
                 symbol.get().kind() != SymbolKind.RESOURCE_METHOD)) {
-            startNode(FlowNode.Kind.EXPRESSION);
+            handleExpressionNode(actionNode);
             return;
         }
 
@@ -241,7 +241,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .build();
         FlowNode nodeTemplate = central.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
-            startNode(FlowNode.Kind.EXPRESSION);
+            handleExpressionNode(actionNode);
             return;
         }
 
@@ -351,7 +351,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .build();
         FlowNode nodeTemplate = central.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
-            startNode(FlowNode.Kind.EXPRESSION);
+            handleExpressionNode(newExpressionNode);
             return;
         }
         startNode(FlowNode.Kind.NEW_CONNECTION)
@@ -476,7 +476,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(FunctionCallExpressionNode functionCallExpressionNode) {
         Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode);
         if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
-            startNode(FlowNode.Kind.EXPRESSION);
+            handleExpressionNode(functionCallExpressionNode);
             return;
         }
 
@@ -494,6 +494,10 @@ class CodeAnalyzer extends NodeVisitor {
                     .symbol(functionName)
                     .build();
             FlowNode nodeTemplate = central.getNodeTemplate(codedata);
+            if (nodeTemplate == null) {
+                handleExpressionNode(functionCallExpressionNode);
+                return;
+            }
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()
@@ -522,7 +526,7 @@ class CodeAnalyzer extends NodeVisitor {
                 nodeBuilder.properties().view(dataMappings.get(functionName));
             }
         } else {
-            startNode(FlowNode.Kind.EXPRESSION);
+            handleExpressionNode(functionCallExpressionNode);
         }
     }
 
@@ -766,10 +770,14 @@ class CodeAnalyzer extends NodeVisitor {
      */
     private void handleDefaultStatementNode(NonTerminalNode statementNode,
                                             Runnable runnable) {
-        startNode(FlowNode.Kind.EXPRESSION)
-                .properties().statement(statementNode);
+        handleExpressionNode(statementNode);
         runnable.run();
         endNode(statementNode);
+    }
+
+    private void handleExpressionNode(NonTerminalNode statementNode) {
+        startNode(FlowNode.Kind.EXPRESSION)
+                .properties().statement(statementNode);
     }
 
     /**
@@ -778,7 +786,7 @@ class CodeAnalyzer extends NodeVisitor {
      * @param bodyNode the block statement node
      */
     private void handleDefaultNodeWithBlock(BlockStatementNode bodyNode) {
-        startNode(FlowNode.Kind.EXPRESSION);
+        handleExpressionNode(bodyNode);
         Branch.Builder branchBuilder =
                 startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
         analyzeBlock(bodyNode, branchBuilder);

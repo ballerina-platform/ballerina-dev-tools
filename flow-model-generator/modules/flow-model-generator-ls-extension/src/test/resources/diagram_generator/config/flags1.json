@@ -34,6 +34,18 @@
           "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -65,7 +77,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "    check fnWithError();\n",
+            "value": "check fnWithError();",
             "optional": false,
             "editable": true
           }
@@ -101,7 +113,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "    checkpanic fnWithError();\n",
+            "value": "checkpanic fnWithError();",
             "optional": false,
             "editable": true
           }

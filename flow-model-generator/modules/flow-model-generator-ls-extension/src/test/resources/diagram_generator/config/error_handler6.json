@@ -34,6 +34,18 @@
           "sourceCode": "function failInDoOnFail3() returns error? {\n    do {\n        AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n        fail e;\n    } on fail var e {\n        return e;\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function failInDoOnFail3() returns error? {\n    do {\n        AssertionError e = error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n        fail e;\n    } on fail var e {\n        return e;\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

@@ -39,6 +39,18 @@
           "sourceCode": "function fn1(boolean flag) {\n    int i = 12;\n\n    string val = i.toString();   if (i < 10) {\n i = i + 3;\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function fn1(boolean flag) {\n    int i = 12;\n\n    string val = i.toString();   if (i < 10) {\n i = i + 3;\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
