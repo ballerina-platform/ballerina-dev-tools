@@ -39,6 +39,18 @@
           "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -239,7 +251,7 @@
                       "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "        print(\"x is greater than y\");\n",
+                    "value": "print(\"x is greater than y\");",
                     "optional": false,
                     "editable": true
                   }
@@ -298,7 +310,7 @@
                       "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "        print(\"x is equal to y\");   ",
+                    "value": "print(\"x is equal to y\");",
                     "optional": false,
                     "editable": true
                   }
@@ -390,7 +402,7 @@
                               "description": "Ballerina statement"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "            print(\"x is equal to 10\");\n",
+                            "value": "print(\"x is equal to 10\");",
                             "optional": false,
                             "editable": true
                           }
@@ -449,7 +461,7 @@
                               "description": "Ballerina statement"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "            print(\"x is not equal to 10\");\n",
+                            "value": "print(\"x is not equal to 10\");",
                             "optional": false,
                             "editable": true
                           }
