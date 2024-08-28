@@ -91,7 +91,7 @@ public class If extends NodeBuilder {
                 .kind(Branch.BranchKind.BLOCK)
                 .repeatable(Branch.Repeatable.ONE_OR_MORE)
                 .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut();
-        thenBranchBuilder.properties().defaultCondition(IF_CONDITION_DOC);
+        thenBranchBuilder.properties().condition(null);
 
         this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE));
     }

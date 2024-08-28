@@ -65,6 +65,6 @@ public class While extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().defaultCondition(WHILE_CONDITION_DOC);
+        properties().condition(null);
     }
 }

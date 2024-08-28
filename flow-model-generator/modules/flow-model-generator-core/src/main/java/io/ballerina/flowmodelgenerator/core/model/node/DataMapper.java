@@ -84,8 +84,8 @@ public class DataMapper extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties()
-                .defaultVariable()
-                .defaultCustom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
+                .data(null)
+                .custom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
                         null, "transform");
 
         // Obtain the visible variables to the cursor position
@@ -115,9 +115,9 @@ public class DataMapper extends NodeBuilder {
             }
         }
 
-        properties().defaultCustom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
+        properties().custom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
                 new ArrayList<>(visibleVariables), "");
-        properties().defaultCustom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
+        properties().custom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
                 new ArrayList<>(visibleRecordTypes), "");
     }
 

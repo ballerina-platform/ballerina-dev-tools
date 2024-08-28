@@ -21,12 +21,12 @@
     "properties": {
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
         "value": "item",
-        "optional": true,
+        "optional": false,
         "editable": true
       },
       "functionName": {
