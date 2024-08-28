@@ -89,6 +89,7 @@ public record FlowNode(
         STOP,
         FOREACH,
         DATA_MAPPER,
-        COMMENT
+        COMMENT,
+        SWITCH
     }
 }

@@ -28,6 +28,7 @@ import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.FunctionArgumentNode;
 import io.ballerina.compiler.syntax.tree.NamedArgumentNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.PositionalArgumentNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
@@ -46,6 +47,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
+import io.ballerina.flowmodelgenerator.core.model.node.Switch;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
@@ -128,6 +130,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.FOREACH, Foreach::new);
         put(FlowNode.Kind.DATA_MAPPER, DataMapper::new);
         put(FlowNode.Kind.COMMENT, Comment::new);
+        put(FlowNode.Kind.SWITCH, Switch::new);
     }};
 
     public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
@@ -257,7 +260,6 @@ public abstract class NodeBuilder {
             if (node == null) {
                 return this;
             }
-            CommonUtils.getTypeSymbol(semanticModel, node).ifPresent(propertyBuilder::type);
             propertyBuilder
                     .metadata()
                         .label(Property.VARIABLE_LABEL)
@@ -320,6 +322,35 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.DATA_VARIABLE_KEY, property);
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> patterns(NodeList<? extends Node> node) {
+            List<Property> properties = new ArrayList<>();
+            for (Node patternNode : node) {
+                Property property = propertyBuilder
+                        .metadata()
+                            .label(Property.PATTERN_LABEL)
+                            .description(Property.PATTERN_DOC)
+                            .stepOut()
+                        .value(patternNode.toSourceCode().strip())
+                        .type(Property.ValueType.EXPRESSION)
+                        .editable()
+                        .build();
+                properties.add(property);
+            }
+
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.PATTERNS_LABEL)
+                        .description(Property.PATTERNS_DOC)
+                        .stepOut()
+                    .value(properties)
+                    .type(Property.ValueType.SINGLE_SELECT)
+                    .editable()
+                    .build();
+            addProperty(Property.PATTERNS_KEY, property);
 
             return this;
         }

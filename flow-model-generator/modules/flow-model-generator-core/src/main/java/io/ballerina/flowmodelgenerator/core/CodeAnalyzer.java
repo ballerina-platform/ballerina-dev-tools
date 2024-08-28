@@ -55,12 +55,14 @@ import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MatchClauseNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.Minutiae;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
@@ -106,6 +108,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -626,7 +629,25 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(MatchStatementNode matchStatementNode) {
-        handleDefaultStatementNode(matchStatementNode, () -> super.visit(matchStatementNode));
+        startNode(FlowNode.Kind.SWITCH)
+                .properties().condition(matchStatementNode.condition());
+
+        NodeList<MatchClauseNode> matchClauseNodes = matchStatementNode.matchClauses();
+        matchClauseNodes.forEach(matchClauseNode -> {
+            String label = matchClauseNode.matchPatterns().stream()
+                    .map(node -> node.toSourceCode().strip())
+                    .collect(Collectors.joining("|"));
+            Branch.Builder branchBuilder = startBranch(label, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
+                    Branch.Repeatable.ONE_OR_MORE)
+                    .properties().patterns(matchClauseNode.matchPatterns()).stepOut();
+            matchClauseNode.matchGuard()
+                    .ifPresent(guard -> branchBuilder.properties().expression(guard.expression(), "Match Guard"));
+            analyzeBlock(matchClauseNode.blockStatement(), branchBuilder);
+            endBranch(branchBuilder, matchClauseNode.blockStatement());
+        });
+
+        matchStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+        endNode(matchStatementNode);
     }
 
     @Override

@@ -84,6 +84,12 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String COMMENT_KEY = "comment";
     public static final String COMMENT_DOC = "Comment to describe the flow";
 
+    public static final String PATTERNS_KEY = "patterns";
+    public static final String PATTERNS_LABEL = "Patterns";
+    public static final String PATTERNS_DOC = "List of binding patterns";
+    public static final String PATTERN_LABEL = "Pattern";
+    public static final String PATTERN_DOC = "Binding pattern";
+
     public String toSourceCode() {
         return value.toString();
     }
