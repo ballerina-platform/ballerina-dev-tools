@@ -180,7 +180,7 @@
                     },
                     "children": [
                       {
-                        "id": "64550",
+                        "id": "64549",
                         "metadata": {
                           "label": "Comment",
                           "description": "This is a comment for i = 0"
@@ -194,8 +194,8 @@
                               "offset": 0
                             },
                             "endLine": {
-                              "line": 35,
-                              "offset": 8
+                              "line": 34,
+                              "offset": 38
                             }
                           },
                           "sourceCode": "This is a comment for i = 0"
@@ -272,7 +272,7 @@
                         "flags": 0
                       },
                       {
-                        "id": "67522",
+                        "id": "67532",
                         "metadata": {
                           "label": "Comment",
                           "description": "This is a comment for if-else body"
@@ -286,8 +286,8 @@
                               "offset": 0
                             },
                             "endLine": {
-                              "line": 38,
-                              "offset": 4
+                              "line": 37,
+                              "offset": 45
                             }
                           },
                           "sourceCode": "This is a comment for if-else body"
@@ -330,7 +330,7 @@
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
-                        "id": "70471",
+                        "id": "70470",
                         "metadata": {
                           "label": "Comment",
                           "description": "This is a comment for x = 0"
@@ -344,8 +344,8 @@
                               "offset": 0
                             },
                             "endLine": {
-                              "line": 40,
-                              "offset": 8
+                              "line": 39,
+                              "offset": 38
                             }
                           },
                           "sourceCode": "This is a comment for x = 0"
@@ -422,7 +422,7 @@
                         "flags": 0
                       },
                       {
-                        "id": "72482",
+                        "id": "72489",
                         "metadata": {
                           "label": "Comment",
                           "description": "This is a comment for else body"
@@ -436,8 +436,8 @@
                               "offset": 0
                             },
                             "endLine": {
-                              "line": 43,
-                              "offset": 4
+                              "line": 42,
+                              "offset": 42
                             }
                           },
                           "sourceCode": "This is a comment for else body"

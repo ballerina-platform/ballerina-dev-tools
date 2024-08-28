@@ -148,7 +148,7 @@
             "repeatable": "ONE",
             "children": [
               {
-                "id": "122055",
+                "id": "122040",
                 "metadata": {
                   "label": "Comment",
                   "description": "Increment `x`"
@@ -162,8 +162,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 92,
-                      "offset": 8
+                      "line": 91,
+                      "offset": 24
                     }
                   },
                   "sourceCode": "Increment `x`"
@@ -230,7 +230,7 @@
                 "flags": 0
               },
               {
-                "id": "124066",
+                "id": "124053",
                 "metadata": {
                   "label": "Comment",
                   "description": "Precess `x`"
@@ -244,8 +244,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 95,
-                      "offset": 4
+                      "line": 94,
+                      "offset": 22
                     }
                   },
                   "sourceCode": "Precess `x`"

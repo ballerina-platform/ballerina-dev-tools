@@ -105,7 +105,7 @@
         "flags": 0
       },
       {
-        "id": "79426",
+        "id": "79419",
         "metadata": {
           "label": "Comment",
           "description": "This is a while block"
@@ -119,8 +119,8 @@
               "offset": 0
             },
             "endLine": {
-              "line": 50,
-              "offset": 4
+              "line": 49,
+              "offset": 28
             }
           },
           "sourceCode": "This is a while block"
@@ -184,7 +184,7 @@
             "repeatable": "ONE",
             "children": [
               {
-                "id": "82375",
+                "id": "82357",
                 "metadata": {
                   "label": "Comment",
                   "description": "update `x`"
@@ -198,8 +198,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 52,
-                      "offset": 8
+                      "line": 51,
+                      "offset": 21
                     }
                   },
                   "sourceCode": "update `x`"
@@ -266,7 +266,7 @@
                 "flags": 0
               },
               {
-                "id": "84386",
+                "id": "84379",
                 "metadata": {
                   "label": "Comment",
                   "description": "Generate new node"
@@ -280,8 +280,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 55,
-                      "offset": 4
+                      "line": 54,
+                      "offset": 28
                     }
                   },
                   "sourceCode": "Generate new node"
