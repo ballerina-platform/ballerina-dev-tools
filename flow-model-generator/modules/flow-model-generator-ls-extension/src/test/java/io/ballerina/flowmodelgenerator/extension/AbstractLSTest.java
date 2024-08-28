@@ -142,6 +142,7 @@ abstract class AbstractLSTest {
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
         if (errorMsg != null) {
+            log.error("Stacktrace: {}", jsonObject.getAsJsonPrimitive("stacktrace").getAsString());
             Assert.fail("Error occurred: " + errorMsg.getAsString());
         }
         return jsonObject;

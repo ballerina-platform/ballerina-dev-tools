@@ -445,7 +445,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(BlockStatementNode blockStatementNode) {
-        handleDefaultStatementNode(blockStatementNode, () -> super.visit(blockStatementNode));
+        handleDefaultNodeWithBlock(blockStatementNode);
     }
 
     @Override
