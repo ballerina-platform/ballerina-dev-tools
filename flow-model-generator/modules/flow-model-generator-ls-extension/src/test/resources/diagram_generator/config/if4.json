@@ -203,14 +203,14 @@
                 "fileName": "if_node.bal",
                 "startLine": {
                   "line": 58,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 69,
                   "offset": 9
                 }
               },
-              "sourceCode": "else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
+              "sourceCode": "{\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 22,
+    "line": 91,
     "offset": 0
   },
   "end": {
-    "line": 33,
+    "line": 103,
     "offset": 1
   },
   "source": "if_node.bal",
@@ -13,7 +13,7 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
-        "id": "55030",
+        "id": "122517",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,15 +22,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 23,
+              "line": 91,
               "offset": 4
             },
             "endLine": {
-              "line": 34,
+              "line": 103,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get bananas(int price) returns string {\n        if price > 10 {\n            if price > 100 {\n                int c = 12;\n                return \"expensive\";\n            } else {\n                int b = 2;\n                return \"moderate\";\n            }\n        }\n        return \"cheap\";\n    }"
+          "sourceCode": "resource function get mangoes(int quantity) returns string {\n        if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        } else {\n            return \"tiny\";\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -50,7 +50,7 @@
               "description": "HTTP Path"
             },
             "valueType": "STRING",
-            "value": "bananas",
+            "value": "mangoes",
             "optional": false,
             "editable": true
           }
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "56057",
+        "id": "123575",
         "metadata": {
           "label": "If",
           "description": "Add conditional branch to the integration flow."
@@ -68,15 +68,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 24,
+              "line": 92,
               "offset": 8
             },
             "endLine": {
-              "line": 32,
+              "line": 102,
               "offset": 9
             }
           },
-          "sourceCode": "if price > 10 {\n            if price > 100 {\n                int c = 12;\n                return \"expensive\";\n            } else {\n                int b = 2;\n                return \"moderate\";\n            }\n        }"
+          "sourceCode": "if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        } else {\n            return \"tiny\";\n        }"
         },
         "returning": false,
         "branches": [
@@ -88,15 +88,15 @@
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 24,
-                  "offset": 22
+                  "line": 92,
+                  "offset": 25
                 },
                 "endLine": {
-                  "line": 32,
+                  "line": 94,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            if price > 100 {\n                int c = 12;\n                return \"expensive\";\n            } else {\n                int b = 2;\n                return \"moderate\";\n            }\n        }"
+              "sourceCode": "{\n            return \"large\";\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -106,14 +106,84 @@
                   "description": "Boolean Condition"
                 },
                 "valueType": "EXPRESSION",
-                "value": "price > 10 ",
+                "value": "quantity > 10 ",
                 "optional": false,
                 "editable": true
               }
             },
             "children": [
               {
-                "id": "57115",
+                "id": "124399",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"large\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 93,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 93,
+                      "offset": 27
+                    }
+                  },
+                  "sourceCode": "return \"large\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"large\"",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "quantity > 5",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 94,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 100,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "quantity > 5 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "126493",
                 "metadata": {
                   "label": "If",
                   "description": "Add conditional branch to the integration flow."
@@ -123,15 +193,15 @@
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 25,
+                      "line": 95,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 31,
+                      "line": 99,
                       "offset": 13
                     }
                   },
-                  "sourceCode": "if price > 100 {\n                int c = 12;\n                return \"expensive\";\n            } else {\n                int b = 2;\n                return \"moderate\";\n            }"
+                  "sourceCode": "if quantity > 8 {\n                return \"medium\";\n            } else {\n                return \"small\";\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -143,15 +213,15 @@
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
-                          "line": 25,
-                          "offset": 27
+                          "line": 95,
+                          "offset": 28
                         },
                         "endLine": {
-                          "line": 28,
+                          "line": 97,
                           "offset": 13
                         }
                       },
-                      "sourceCode": "{\n                int c = 12;\n                return \"expensive\";\n            }"
+                      "sourceCode": "{\n                return \"medium\";\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -161,88 +231,32 @@
                           "description": "Boolean Condition"
                         },
                         "valueType": "EXPRESSION",
-                        "value": "price > 100 ",
+                        "value": "quantity > 8 ",
                         "optional": false,
                         "editable": true
                       }
                     },
                     "children": [
                       {
-                        "id": "58059",
-                        "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'c' with type 'int'"
-                        },
-                        "codedata": {
-                          "node": "NEW_DATA",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 26,
-                              "offset": 16
-                            },
-                            "endLine": {
-                              "line": 26,
-                              "offset": 27
-                            }
-                          },
-                          "sourceCode": "int c = 12;"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "12",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "c",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "type": {
-                            "metadata": {
-                              "label": "Data type",
-                              "description": "Type of the variable"
-                            },
-                            "valueType": "TYPE",
-                            "value": "int",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "59059",
+                        "id": "127504",
                         "metadata": {
                           "label": "Return",
-                          "description": "Value of '\"expensive\"'"
+                          "description": "Value of '\"medium\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
-                              "line": 27,
+                              "line": 96,
                               "offset": 16
                             },
                             "endLine": {
-                              "line": 27,
-                              "offset": 35
+                              "line": 96,
+                              "offset": 32
                             }
                           },
-                          "sourceCode": "return \"expensive\";"
+                          "sourceCode": "return \"medium\";"
                         },
                         "returning": true,
                         "properties": {
@@ -252,7 +266,7 @@
                               "description": "Return value"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "\"expensive\"",
+                            "value": "\"medium\"",
                             "optional": false,
                             "editable": true
                           }
@@ -269,94 +283,38 @@
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
-                          "line": 28,
+                          "line": 97,
                           "offset": 19
                         },
                         "endLine": {
-                          "line": 31,
+                          "line": 99,
                           "offset": 13
                         }
                       },
-                      "sourceCode": "{\n                int b = 2;\n                return \"moderate\";\n            }"
+                      "sourceCode": "{\n                return \"small\";\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
-                        "id": "61034",
-                        "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'b' with type 'int'"
-                        },
-                        "codedata": {
-                          "node": "NEW_DATA",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 29,
-                              "offset": 16
-                            },
-                            "endLine": {
-                              "line": 29,
-                              "offset": 26
-                            }
-                          },
-                          "sourceCode": "int b = 2;"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "2",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "b",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "type": {
-                            "metadata": {
-                              "label": "Data type",
-                              "description": "Type of the variable"
-                            },
-                            "valueType": "TYPE",
-                            "value": "int",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "62034",
+                        "id": "129487",
                         "metadata": {
                           "label": "Return",
-                          "description": "Value of '\"moderate\"'"
+                          "description": "Value of '\"small\"'"
                         },
                         "codedata": {
                           "node": "RETURN",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
-                              "line": 30,
+                              "line": 98,
                               "offset": 16
                             },
                             "endLine": {
-                              "line": 30,
-                              "offset": 34
+                              "line": 98,
+                              "offset": 31
                             }
                           },
-                          "sourceCode": "return \"moderate\";"
+                          "sourceCode": "return \"small\";"
                         },
                         "returning": true,
                         "properties": {
@@ -366,7 +324,7 @@
                               "description": "Return value"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "\"moderate\"",
+                            "value": "\"small\"",
                             "optional": false,
                             "editable": true
                           }
@@ -379,44 +337,66 @@
                 "flags": 0
               }
             ]
+          },
+          {
+            "label": "Else",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ELSE",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 100,
+                  "offset": 15
+                },
+                "endLine": {
+                  "line": 102,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"tiny\";\n        }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "132334",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"tiny\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 101,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 101,
+                      "offset": 26
+                    }
+                  },
+                  "sourceCode": "return \"tiny\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"tiny\"",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
           }
         ],
-        "flags": 0
-      },
-      {
-        "id": "64751",
-        "metadata": {
-          "label": "Return",
-          "description": "Value of '\"cheap\"'"
-        },
-        "codedata": {
-          "node": "RETURN",
-          "lineRange": {
-            "fileName": "if_node.bal",
-            "startLine": {
-              "line": 33,
-              "offset": 8
-            },
-            "endLine": {
-              "line": 33,
-              "offset": 23
-            }
-          },
-          "sourceCode": "return \"cheap\";"
-        },
-        "returning": true,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Return value"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"cheap\"",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       }
     ],

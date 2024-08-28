@@ -246,14 +246,14 @@
                         "fileName": "nested_node.bal",
                         "startLine": {
                           "line": 15,
-                          "offset": 14
+                          "offset": 19
                         },
                         "endLine": {
                           "line": 17,
                           "offset": 13
                         }
                       },
-                      "sourceCode": "else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
+                      "sourceCode": "{\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [

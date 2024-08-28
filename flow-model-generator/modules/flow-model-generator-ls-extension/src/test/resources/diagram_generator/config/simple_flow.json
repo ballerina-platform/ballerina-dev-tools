@@ -239,14 +239,14 @@
                 "fileName": "simple_flow.bal",
                 "startLine": {
                   "line": 10,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 13,
                   "offset": 9
                 }
               },
-              "sourceCode": "else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
+              "sourceCode": "{\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

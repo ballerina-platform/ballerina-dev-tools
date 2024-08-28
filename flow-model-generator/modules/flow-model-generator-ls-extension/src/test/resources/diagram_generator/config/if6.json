@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 14,
+    "line": 82,
     "offset": 0
   },
   "end": {
-    "line": 21,
+    "line": 89,
     "offset": 1
   },
   "source": "if_node.bal",
@@ -13,7 +13,7 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
-        "id": "45978",
+        "id": "113434",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,15 +22,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 14,
+              "line": 82,
               "offset": 4
             },
             "endLine": {
-              "line": 21,
+              "line": 89,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get apples(boolean flag) {\n        if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }\n    }"
+          "sourceCode": "resource function get pineapples(int count) returns string {\n        if count > 0 {\n            return \"available\";\n        } else if count == 0 {\n            return \"out of stock\";\n        }\n        return \"invalid\";\n    }"
         },
         "returning": false,
         "properties": {
@@ -50,7 +50,7 @@
               "description": "HTTP Path"
             },
             "valueType": "STRING",
-            "value": "apples",
+            "value": "pineapples",
             "optional": false,
             "editable": true
           }
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "47036",
+        "id": "114461",
         "metadata": {
           "label": "If",
           "description": "Add conditional branch to the integration flow."
@@ -68,15 +68,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 15,
+              "line": 83,
               "offset": 8
             },
             "endLine": {
-              "line": 20,
+              "line": 87,
               "offset": 9
             }
           },
-          "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
+          "sourceCode": "if count > 0 {\n            return \"available\";\n        } else if count == 0 {\n            return \"out of stock\";\n        }"
         },
         "returning": false,
         "branches": [
@@ -88,15 +88,15 @@
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 15,
-                  "offset": 16
+                  "line": 83,
+                  "offset": 21
                 },
                 "endLine": {
-                  "line": 17,
+                  "line": 85,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            int a = 1;\n        }"
+              "sourceCode": "{\n            return \"available\";\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -106,62 +106,42 @@
                   "description": "Boolean Condition"
                 },
                 "valueType": "EXPRESSION",
-                "value": "flag ",
+                "value": "count > 0 ",
                 "optional": false,
                 "editable": true
               }
             },
             "children": [
               {
-                "id": "48010",
+                "id": "115475",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'a' with type 'int'"
+                  "label": "Return",
+                  "description": "Value of '\"available\"'"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 16,
+                      "line": 84,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 16,
-                      "offset": 22
+                      "line": 84,
+                      "offset": 31
                     }
                   },
-                  "sourceCode": "int a = 1;"
+                  "sourceCode": "return \"available\";"
                 },
-                "returning": false,
+                "returning": true,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "1",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "a",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "int",
+                    "value": "\"available\"",
                     "optional": false,
                     "editable": true
                   }
@@ -171,131 +151,67 @@
             ]
           },
           {
-            "label": "Else",
+            "label": "count == 0",
             "kind": "BLOCK",
             "codedata": {
-              "node": "ELSE",
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 17,
-                  "offset": 15
+                  "line": 85,
+                  "offset": 29
                 },
                 "endLine": {
-                  "line": 20,
+                  "line": 87,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
+              "sourceCode": "{\n            return \"out of stock\";\n        }"
             },
-            "repeatable": "ZERO_OR_ONE",
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "count == 0 ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
-                "id": "49994",
+                "id": "117462",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'b' with type 'int'"
+                  "label": "Return",
+                  "description": "Value of '\"out of stock\"'"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 18,
+                      "line": 86,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 18,
-                      "offset": 22
+                      "line": 86,
+                      "offset": 34
                     }
                   },
-                  "sourceCode": "int b = 2;"
+                  "sourceCode": "return \"out of stock\";"
                 },
-                "returning": false,
+                "returning": true,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "2",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "b",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "int",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "50992",
-                "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'c' with type 'string'"
-                },
-                "codedata": {
-                  "node": "NEW_DATA",
-                  "lineRange": {
-                    "fileName": "if_node.bal",
-                    "startLine": {
-                      "line": 19,
-                      "offset": 12
-                    },
-                    "endLine": {
-                      "line": 19,
-                      "offset": 28
-                    }
-                  },
-                  "sourceCode": "string c = \"12\";"
-                },
-                "returning": false,
-                "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"12\"",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "c",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "string",
+                    "value": "\"out of stock\"",
                     "optional": false,
                     "editable": true
                   }
@@ -305,6 +221,42 @@
             ]
           }
         ],
+        "flags": 0
+      },
+      {
+        "id": "119313",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of '\"invalid\"'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 88,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 88,
+              "offset": 25
+            }
+          },
+          "sourceCode": "return \"invalid\";"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"invalid\"",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       }
     ],

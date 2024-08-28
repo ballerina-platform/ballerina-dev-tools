@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 14,
+    "line": 72,
     "offset": 0
   },
   "end": {
-    "line": 21,
+    "line": 80,
     "offset": 1
   },
   "source": "if_node.bal",
@@ -13,7 +13,7 @@
     "fileName": "if_node.bal",
     "nodes": [
       {
-        "id": "45978",
+        "id": "103545",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,15 +22,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 14,
+              "line": 72,
               "offset": 4
             },
             "endLine": {
-              "line": 21,
+              "line": 80,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get apples(boolean flag) {\n        if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }\n    }"
+          "sourceCode": "resource function get watermelons(int quantity) returns string {\n        if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            return \"medium\";\n        } else {\n            return \"small\";\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -50,7 +50,7 @@
               "description": "HTTP Path"
             },
             "valueType": "STRING",
-            "value": "apples",
+            "value": "watermelons",
             "optional": false,
             "editable": true
           }
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "47036",
+        "id": "104603",
         "metadata": {
           "label": "If",
           "description": "Add conditional branch to the integration flow."
@@ -68,15 +68,15 @@
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
-              "line": 15,
+              "line": 73,
               "offset": 8
             },
             "endLine": {
-              "line": 20,
+              "line": 79,
               "offset": 9
             }
           },
-          "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
+          "sourceCode": "if quantity > 10 {\n            return \"large\";\n        } else if quantity > 5 {\n            return \"medium\";\n        } else {\n            return \"small\";\n        }"
         },
         "returning": false,
         "branches": [
@@ -88,15 +88,15 @@
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 15,
-                  "offset": 16
+                  "line": 73,
+                  "offset": 25
                 },
                 "endLine": {
-                  "line": 17,
+                  "line": 75,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            int a = 1;\n        }"
+              "sourceCode": "{\n            return \"large\";\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -106,62 +106,112 @@
                   "description": "Boolean Condition"
                 },
                 "valueType": "EXPRESSION",
-                "value": "flag ",
+                "value": "quantity > 10 ",
                 "optional": false,
                 "editable": true
               }
             },
             "children": [
               {
-                "id": "48010",
+                "id": "105551",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'a' with type 'int'"
+                  "label": "Return",
+                  "description": "Value of '\"large\"'"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 16,
+                      "line": 74,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 16,
-                      "offset": 22
+                      "line": 74,
+                      "offset": 27
                     }
                   },
-                  "sourceCode": "int a = 1;"
+                  "sourceCode": "return \"large\";"
                 },
-                "returning": false,
+                "returning": true,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "1",
+                    "value": "\"large\"",
                     "optional": false,
                     "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "quantity > 5",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 75,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 77,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"medium\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "quantity > 5 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "107536",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"medium\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 76,
+                      "offset": 12
                     },
-                    "valueType": "IDENTIFIER",
-                    "value": "a",
-                    "optional": false,
-                    "editable": true
+                    "endLine": {
+                      "line": 76,
+                      "offset": 28
+                    }
                   },
-                  "type": {
+                  "sourceCode": "return \"medium\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
                     "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
+                      "label": "Expression",
+                      "description": "Return value"
                     },
-                    "valueType": "TYPE",
-                    "value": "int",
+                    "valueType": "EXPRESSION",
+                    "value": "\"medium\"",
                     "optional": false,
                     "editable": true
                   }
@@ -178,124 +228,48 @@
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 17,
+                  "line": 77,
                   "offset": 15
                 },
                 "endLine": {
-                  "line": 20,
+                  "line": 79,
                   "offset": 9
                 }
               },
-              "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
+              "sourceCode": "{\n            return \"small\";\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
-                "id": "49994",
+                "id": "109519",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'b' with type 'int'"
+                  "label": "Return",
+                  "description": "Value of '\"small\"'"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 18,
+                      "line": 78,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 18,
-                      "offset": 22
+                      "line": 78,
+                      "offset": 27
                     }
                   },
-                  "sourceCode": "int b = 2;"
+                  "sourceCode": "return \"small\";"
                 },
-                "returning": false,
+                "returning": true,
                 "properties": {
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Expression"
+                      "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "2",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "b",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "int",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
-                "flags": 0
-              },
-              {
-                "id": "50992",
-                "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'c' with type 'string'"
-                },
-                "codedata": {
-                  "node": "NEW_DATA",
-                  "lineRange": {
-                    "fileName": "if_node.bal",
-                    "startLine": {
-                      "line": 19,
-                      "offset": 12
-                    },
-                    "endLine": {
-                      "line": 19,
-                      "offset": 28
-                    }
-                  },
-                  "sourceCode": "string c = \"12\";"
-                },
-                "returning": false,
-                "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"12\"",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "variable": {
-                    "metadata": {
-                      "label": "Data variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "c",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Data type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "string",
+                    "value": "\"small\"",
                     "optional": false,
                     "editable": true
                   }

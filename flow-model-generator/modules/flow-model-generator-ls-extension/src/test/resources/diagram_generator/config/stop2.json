@@ -130,119 +130,71 @@
             ]
           },
           {
-            "label": "Else",
+            "label": "x == 3",
             "kind": "BLOCK",
             "codedata": {
-              "node": "ELSE",
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "stop.bal",
                 "startLine": {
                   "line": 7,
-                  "offset": 6
+                  "offset": 21
                 },
                 "endLine": {
                   "line": 9,
                   "offset": 5
                 }
               },
-              "sourceCode": "else if x == 3 {\n        return x;\n    }"
+              "sourceCode": "{\n        return x;\n    }"
             },
-            "repeatable": "ZERO_OR_ONE",
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "x == 3 ",
+                "optional": false,
+                "editable": true
+              }
+            },
             "children": [
               {
-                "id": "39096",
+                "id": "39945",
                 "metadata": {
-                  "label": "If",
-                  "description": "Add conditional branch to the integration flow."
+                  "label": "Return",
+                  "description": "Value of 'x'"
                 },
                 "codedata": {
-                  "node": "IF",
+                  "node": "RETURN",
                   "lineRange": {
                     "fileName": "stop.bal",
                     "startLine": {
-                      "line": 7,
-                      "offset": 11
+                      "line": 8,
+                      "offset": 8
                     },
                     "endLine": {
-                      "line": 9,
-                      "offset": 5
+                      "line": 8,
+                      "offset": 17
                     }
                   },
-                  "sourceCode": "if x == 3 {\n        return x;\n    }"
+                  "sourceCode": "return x;"
                 },
-                "returning": false,
-                "branches": [
-                  {
-                    "label": "Then",
-                    "kind": "BLOCK",
-                    "codedata": {
-                      "node": "CONDITIONAL",
-                      "lineRange": {
-                        "fileName": "stop.bal",
-                        "startLine": {
-                          "line": 7,
-                          "offset": 21
-                        },
-                        "endLine": {
-                          "line": 9,
-                          "offset": 5
-                        }
-                      },
-                      "sourceCode": "{\n        return x;\n    }"
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
                     },
-                    "repeatable": "ONE_OR_MORE",
-                    "properties": {
-                      "condition": {
-                        "metadata": {
-                          "label": "Condition",
-                          "description": "Boolean Condition"
-                        },
-                        "valueType": "EXPRESSION",
-                        "value": "x == 3 ",
-                        "optional": false,
-                        "editable": true
-                      }
-                    },
-                    "children": [
-                      {
-                        "id": "39945",
-                        "metadata": {
-                          "label": "Return",
-                          "description": "Value of 'x'"
-                        },
-                        "codedata": {
-                          "node": "RETURN",
-                          "lineRange": {
-                            "fileName": "stop.bal",
-                            "startLine": {
-                              "line": 8,
-                              "offset": 8
-                            },
-                            "endLine": {
-                              "line": 8,
-                              "offset": 17
-                            }
-                          },
-                          "sourceCode": "return x;"
-                        },
-                        "returning": true,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Return value"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "x",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      }
-                    ]
+                    "valueType": "EXPRESSION",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true
                   }
-                ],
+                },
                 "flags": 0
               }
             ]
