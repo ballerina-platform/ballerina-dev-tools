@@ -803,7 +803,7 @@ class CodeAnalyzer extends NodeVisitor {
         genCommentNode(blockStatement.closeBraceToken(), thenBranchBuilder);
     }
 
-    private Optional<Comment> getComment(Node node) {
+    private Optional<CommentMetadata> getComment(Node node) {
         List<String> commentLines = new ArrayList<>();
         Minutiae lastMinutiae = null;
         for (Minutiae minutiae : node.leadingMinutiae()) {
@@ -826,11 +826,11 @@ class CodeAnalyzer extends NodeVisitor {
         }
         LinePosition endPos = textDocument.linePositionFrom(lastMinutiae.textRange().endOffset() + offset);
         LineRange commentRange = LineRange.from(node.lineRange().fileName(), startPos, endPos);
-        return Optional.of(new Comment(String.join(System.lineSeparator(), commentLines), commentRange));
+        return Optional.of(new CommentMetadata(String.join(System.lineSeparator(), commentLines), commentRange));
     }
 
     private void genCommentNode(Node node, Branch.Builder builder) {
-        Optional<Comment> comment = getComment(node);
+        Optional<CommentMetadata> comment = getComment(node);
         if (comment.isEmpty()) {
             return;
         }
@@ -839,14 +839,14 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void genCommentNode(Node node) {
-        Optional<Comment> comment = getComment(node);
+        Optional<CommentMetadata> comment = getComment(node);
         if (comment.isEmpty()) {
             return;
         }
         genCommentNode(comment.get());
     }
 
-    private void genCommentNode(Comment comment) {
+    private void genCommentNode(CommentMetadata comment) {
         startNode(FlowNode.Kind.COMMENT)
                 .metadata().description(comment.comment()).stepOut()
                 .properties().comment(comment.comment());
@@ -860,6 +860,7 @@ class CodeAnalyzer extends NodeVisitor {
         return flowNodeList;
     }
 
-    public record Comment(String comment, LineRange position) {
+    private record CommentMetadata(String comment, LineRange position) {
+
     }
 }
