@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 46,
+    "line": 114,
     "offset": 0
   },
   "end": {
-    "line": 56,
+    "line": 136,
     "offset": 1
   },
   "source": "comment.bal",
@@ -13,7 +13,7 @@
     "fileName": "comment.bal",
     "nodes": [
       {
-        "id": "77687",
+        "id": "145515",
         "metadata": {
           "label": "Custom Expression",
           "description": "Represents a custom Ballerina expression"
@@ -23,15 +23,15 @@
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
-              "line": 46,
+              "line": 114,
               "offset": 0
             },
             "endLine": {
-              "line": 56,
+              "line": 136,
               "offset": 1
             }
           },
-          "sourceCode": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}"
+          "sourceCode": "public function commentWithNewLines(int i) {\n    // Initialize `x`\n    // with new lines\n\n\n\n\n\n    int x = 0;\n\n    do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }\n}"
         },
         "returning": false,
         "properties": {
@@ -41,7 +41,7 @@
               "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}",
+            "value": "public function commentWithNewLines(int i) {\n    // Initialize `x`\n    // with new lines\n\n\n\n\n\n    int x = 0;\n\n    do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }\n}",
             "optional": false,
             "editable": true
           }
@@ -49,7 +49,43 @@
         "flags": 0
       },
       {
-        "id": "78506",
+        "id": "145876",
+        "metadata": {
+          "label": "Comment",
+          "description": "Initialize `x`\nwith new lines"
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 115,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 116,
+              "offset": 21
+            }
+          },
+          "sourceCode": "Initialize `x`\nwith new lines"
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "Initialize `x`\nwith new lines",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "152906",
         "metadata": {
           "label": "New Variable",
           "description": "New variable 'x' with type 'int'"
@@ -59,15 +95,15 @@
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
-              "line": 47,
+              "line": 122,
               "offset": 4
             },
             "endLine": {
-              "line": 47,
+              "line": 122,
               "offset": 14
             }
           },
-          "sourceCode": "int x = 0;"
+          "sourceCode": "// Initialize `x`\n    // with new lines\n\n\n\n\n\n    int x = 0;"
         },
         "returning": false,
         "properties": {
@@ -105,61 +141,25 @@
         "flags": 0
       },
       {
-        "id": "79419",
+        "id": "155315",
         "metadata": {
-          "label": "Comment",
-          "description": "This is a while block"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "COMMENT",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
-              "line": 48,
-              "offset": 0
+              "line": 124,
+              "offset": 7
             },
             "endLine": {
-              "line": 49,
-              "offset": 28
-            }
-          },
-          "sourceCode": "This is a while block"
-        },
-        "returning": false,
-        "properties": {
-          "comment": {
-            "metadata": {
-              "label": "Comment",
-              "description": "Comment to describe the flow"
-            },
-            "valueType": "STRING",
-            "value": "This is a while block",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "81628",
-        "metadata": {
-          "label": "While",
-          "description": "Loop over a block of code."
-        },
-        "codedata": {
-          "node": "WHILE",
-          "lineRange": {
-            "fileName": "comment.bal",
-            "startLine": {
-              "line": 50,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 55,
+              "line": 135,
               "offset": 5
             }
           },
-          "sourceCode": "// This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
+          "sourceCode": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }"
         },
         "returning": false,
         "branches": [
@@ -167,42 +167,42 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
-              "node": "CONDITIONAL",
+              "node": "BODY",
               "lineRange": {
                 "fileName": "comment.bal",
                 "startLine": {
-                  "line": 50,
-                  "offset": 16
+                  "line": 124,
+                  "offset": 7
                 },
                 "endLine": {
-                  "line": 55,
+                  "line": 135,
                   "offset": 5
                 }
               },
-              "sourceCode": "{\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }"
+              "sourceCode": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
-                "id": "82357",
+                "id": "155768",
                 "metadata": {
                   "label": "Comment",
-                  "description": "update `x`"
+                  "description": "Increment `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
-                      "line": 51,
+                      "line": 125,
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 51,
-                      "offset": 21
+                      "line": 125,
+                      "offset": 24
                     }
                   },
-                  "sourceCode": "update `x`"
+                  "sourceCode": "Increment `x`"
                 },
                 "returning": false,
                 "properties": {
@@ -212,7 +212,7 @@
                       "description": "Comment to describe the flow"
                     },
                     "valueType": "STRING",
-                    "value": "update `x`",
+                    "value": "Increment `x`",
                     "optional": false,
                     "editable": true
                   }
@@ -220,7 +220,7 @@
                 "flags": 0
               },
               {
-                "id": "83594",
+                "id": "159978",
                 "metadata": {
                   "label": "Update Variable",
                   "description": "Update the value of the variable 'x'"
@@ -230,15 +230,15 @@
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
-                      "line": 52,
+                      "line": 129,
                       "offset": 8
                     },
                     "endLine": {
-                      "line": 52,
+                      "line": 129,
                       "offset": 18
                     }
                   },
-                  "sourceCode": "// update `x`\n        x = x + 1;"
+                  "sourceCode": "// Increment `x`\n\n\n\n        x = x + 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -266,25 +266,25 @@
                 "flags": 0
               },
               {
-                "id": "84379",
+                "id": "160757",
                 "metadata": {
                   "label": "Comment",
-                  "description": "Generate new node"
+                  "description": "Precess `x`"
                 },
                 "codedata": {
                   "node": "COMMENT",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
-                      "line": 53,
+                      "line": 130,
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 54,
-                      "offset": 28
+                      "line": 131,
+                      "offset": 22
                     }
                   },
-                  "sourceCode": "Generate new node"
+                  "sourceCode": "Precess `x`"
                 },
                 "returning": false,
                 "properties": {
@@ -294,7 +294,7 @@
                       "description": "Comment to describe the flow"
                     },
                     "valueType": "STRING",
-                    "value": "Generate new node",
+                    "value": "Precess `x`",
                     "optional": false,
                     "editable": true
                   }
@@ -305,13 +305,13 @@
           }
         ],
         "properties": {
-          "condition": {
+          "statement": {
             "metadata": {
-              "label": "Condition",
-              "description": "Boolean Condition"
+              "label": "Statement",
+              "description": "Ballerina statement"
             },
             "valueType": "EXPRESSION",
-            "value": "i > 3 ",
+            "value": "{\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }",
             "optional": false,
             "editable": true
           }

@@ -49,7 +49,7 @@
         "flags": 0
       },
       {
-        "id": "32802",
+        "id": "32803",
         "metadata": {
           "label": "Comment",
           "description": "Create variable name i\nThis is an additional comment"
@@ -63,8 +63,8 @@
               "offset": 0
             },
             "endLine": {
-              "line": 3,
-              "offset": 4
+              "line": 2,
+              "offset": 36
             }
           },
           "sourceCode": "Create variable name i\nThis is an additional comment"

@@ -111,3 +111,27 @@ public function emptyComment() {
     //
     int i = 0;
 }
+
+public function commentWithNewLines(int i) {
+    // Initialize `x`
+    // with new lines
+
+
+
+
+
+    int x = 0;
+
+    do {
+        // Increment `x`
+
+
+
+        x = x + 1;
+
+        // Precess `x`
+
+
+
+    }
+}

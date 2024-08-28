@@ -92,7 +92,7 @@
             "repeatable": "ONE",
             "children": [
               {
-                "id": "102215",
+                "id": "102201",
                 "metadata": {
                   "label": "Comment",
                   "description": "Initialize `i`"
@@ -106,8 +106,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 72,
-                      "offset": 8
+                      "line": 71,
+                      "offset": 25
                     }
                   },
                   "sourceCode": "Initialize `i`"
@@ -184,7 +184,7 @@
                 "flags": 0
               },
               {
-                "id": "104226",
+                "id": "104223",
                 "metadata": {
                   "label": "Comment",
                   "description": "Lock the variable `i`"
@@ -198,8 +198,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 75,
-                      "offset": 4
+                      "line": 74,
+                      "offset": 32
                     }
                   },
                   "sourceCode": "Lock the variable `i`"

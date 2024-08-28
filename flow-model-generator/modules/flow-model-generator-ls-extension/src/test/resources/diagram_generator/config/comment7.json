@@ -206,8 +206,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 63,
-                      "offset": 8
+                      "line": 62,
+                      "offset": 39
                     }
                   },
                   "sourceCode": "This is a comment in on fail"
@@ -284,7 +284,7 @@
                 "flags": 0
               },
               {
-                "id": "95298",
+                "id": "95296",
                 "metadata": {
                   "label": "Comment",
                   "description": "Panic with error `err`"
@@ -298,8 +298,8 @@
                       "offset": 0
                     },
                     "endLine": {
-                      "line": 66,
-                      "offset": 4
+                      "line": 65,
+                      "offset": 33
                     }
                   },
                   "sourceCode": "Panic with error `err`"
