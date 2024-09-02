@@ -59,26 +59,21 @@ public class If extends NodeBuilder {
         List<Branch> remainingBranches = new ArrayList<>();
 
         for (Branch branch : branches) {
-            if (IF_THEN_LABEL.equals(branch.label())) {
-                ifBranch = Optional.of(branch);
-            } else if (IF_ELSE_LABEL.equals(branch.label())) {
-                elseBranch = Optional.of(branch);
-            } else {
-                remainingBranches.add(branch);
+            switch (branch.label()) {
+                case IF_THEN_LABEL -> ifBranch = Optional.of(branch);
+                case IF_ELSE_LABEL -> elseBranch = Optional.of(branch);
+                default -> remainingBranches.add(branch);
             }
         }
 
-        if (ifBranch.isEmpty()) {
-            throw new IllegalStateException("If node does not have a then branch");
+        if (ifBranch.isEmpty() || ifBranch.get().getProperty(Property.CONDITION_KEY).isEmpty()) {
+            throw new IllegalStateException("If node does not have a valid then branch or condition");
         }
-        Optional<Property> condition = ifBranch.get().getProperty(Property.CONDITION_KEY);
-        if (condition.isEmpty()) {
-            throw new IllegalStateException("If node does not have a condition");
-        }
+
         sourceBuilder
                 .token()
                     .keyword(SyntaxKind.IF_KEYWORD)
-                    .expression(condition.get())
+                    .expression(ifBranch.get().getProperty(Property.CONDITION_KEY).get())
                     .stepOut()
                 .body(ifBranch.get().children());
 
