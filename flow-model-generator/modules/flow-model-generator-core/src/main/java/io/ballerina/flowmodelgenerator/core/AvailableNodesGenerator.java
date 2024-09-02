@@ -131,6 +131,7 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.FLOW)
                     .stepIn(Category.Name.BRANCH)
                         .node(FlowNode.Kind.IF)
+                        .node(FlowNode.Kind.SWITCH)
                     .stepOut()
                     .stepIn(Category.Name.ITERATION)
                         .node(FlowNode.Kind.WHILE)
@@ -148,12 +149,12 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
                     .node(FlowNode.Kind.PANIC)
+                .stepOut()
+                .stepIn(Category.Name.CONCURRENCY)
+                    .node(FlowNode.Kind.TRANSACTION)
+                    .node(FlowNode.Kind.LOCK)
+                    .node(FlowNode.Kind.START)
                 .stepOut();
-//                .stepIn(Category.Name.CONCURRENCY)
-//                    .node(FlowNode.Kind.TRANSACTION)
-//                    .node(FlowNode.Kind.LOCK)
-//                    .node(FlowNode.Kind.START)
-//                .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
