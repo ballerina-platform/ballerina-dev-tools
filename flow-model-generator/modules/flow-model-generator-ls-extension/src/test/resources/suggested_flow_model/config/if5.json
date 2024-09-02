@@ -325,14 +325,14 @@
                         "fileName": "if.bal",
                         "startLine": {
                           "line": 13,
-                          "offset": 10
+                          "offset": 15
                         },
                         "endLine": {
                           "line": 15,
                           "offset": 9
                         }
                       },
-                      "sourceCode": "else {\n            print(\"x is odd\");\n        }"
+                      "sourceCode": "{\n            print(\"x is odd\");\n        }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
@@ -426,14 +426,14 @@
                 "fileName": "if.bal",
                 "startLine": {
                   "line": 16,
-                  "offset": 6
+                  "offset": 11
                 },
                 "endLine": {
                   "line": 18,
                   "offset": 5
                 }
               },
-              "sourceCode": "else {\n        print(\"x is equal to y\");\n    }"
+              "sourceCode": "{\n        print(\"x is equal to y\");\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

@@ -270,14 +270,14 @@
                 "fileName": "if.bal",
                 "startLine": {
                   "line": 12,
-                  "offset": 6
+                  "offset": 11
                 },
                 "endLine": {
                   "line": 18,
                   "offset": 5
                 }
               },
-              "sourceCode": "else {\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }"
+              "sourceCode": "{\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -421,14 +421,14 @@
                         "fileName": "if.bal",
                         "startLine": {
                           "line": 15,
-                          "offset": 10
+                          "offset": 15
                         },
                         "endLine": {
                           "line": 17,
                           "offset": 9
                         }
                       },
-                      "sourceCode": "else {\n            print(\"x is not equal to 10\");\n        }"
+                      "sourceCode": "{\n            print(\"x is not equal to 10\");\n        }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
