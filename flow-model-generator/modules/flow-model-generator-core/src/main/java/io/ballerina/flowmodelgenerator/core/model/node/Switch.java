@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.NodeFactory;
+import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -45,7 +47,16 @@ public class Switch extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
+        properties().condition(null);
 
+        Branch.Builder defaultCaseBuilder = new Branch.Builder()
+                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
+                .label("case")
+                .kind(Branch.BranchKind.BLOCK)
+                .repeatable(Branch.Repeatable.ONE_OR_MORE)
+                .properties().patterns(NodeFactory.createEmptyNodeList())
+                .stepOut();
+        this.branches = List.of(defaultCaseBuilder.build(), Branch.getDefaultOnFailBranch(true));
     }
 
     @Override
