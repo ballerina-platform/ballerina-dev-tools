@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 10,
+    "line": 92,
     "offset": 4
   },
   "end": {
-    "line": 22,
+    "line": 107,
     "offset": 5
   },
   "source": "match.bal",
@@ -13,7 +13,7 @@
     "fileName": "match.bal",
     "nodes": [
       {
-        "id": "42165",
+        "id": "123602",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,15 +22,15 @@
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 10,
+              "line": 92,
               "offset": 4
             },
             "endLine": {
-              "line": 22,
+              "line": 107,
               "offset": 5
             }
           },
-          "sourceCode": "resource function get apples(string color) returns string {\n        match color {\n            \"red\"|\"blue\" => {\n                return \"sweet\";\n            }\n            \"green\" => {\n                return \"sour\";\n            }\n            _ => {\n                return \"unknown\";\n            }\n        }\n    }"
+          "sourceCode": "resource function get watermelons(int quantity) returns string {\n        match quantity {\n            var q if q > 10 => {\n                return \"large order\";\n            }\n            var q if q > 5 => {\n                return \"medium order\";\n            }\n            var q if q > 0 => {\n                return \"small order\";\n            }\n            _ => {\n                return \"invalid order\";\n            }\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -50,7 +50,7 @@
               "description": "HTTP Path"
             },
             "valueType": "STRING",
-            "value": "apples",
+            "value": "watermelons",
             "optional": false,
             "editable": true
           }
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "43223",
+        "id": "124660",
         "metadata": {
           "label": "Switch",
           "description": "Switches the data flow based on the value of an expression."
@@ -68,35 +68,35 @@
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 11,
+              "line": 93,
               "offset": 8
             },
             "endLine": {
-              "line": 21,
+              "line": 106,
               "offset": 9
             }
           },
-          "sourceCode": "match color {\n            \"red\"|\"blue\" => {\n                return \"sweet\";\n            }\n            \"green\" => {\n                return \"sour\";\n            }\n            _ => {\n                return \"unknown\";\n            }\n        }"
+          "sourceCode": "match quantity {\n            var q if q > 10 => {\n                return \"large order\";\n            }\n            var q if q > 5 => {\n                return \"medium order\";\n            }\n            var q if q > 0 => {\n                return \"small order\";\n            }\n            _ => {\n                return \"invalid order\";\n            }\n        }"
         },
         "returning": false,
         "branches": [
           {
-            "label": "\"red\"|\"blue\"",
+            "label": "var q if q > 10",
             "kind": "BLOCK",
             "codedata": {
               "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 12,
-                  "offset": 28
+                  "line": 94,
+                  "offset": 31
                 },
                 "endLine": {
-                  "line": 14,
+                  "line": 96,
                   "offset": 13
                 }
               },
-              "sourceCode": "{\n                return \"sweet\";\n            }"
+              "sourceCode": "{\n                return \"large order\";\n            }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -113,46 +113,46 @@
                       "description": "Binding pattern"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"red\"",
-                    "optional": false,
-                    "editable": true
-                  },
-                  {
-                    "metadata": {
-                      "label": "Pattern",
-                      "description": "Binding pattern"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "\"blue\"",
+                    "value": "var q",
                     "optional": false,
                     "editable": true
                   }
                 ],
                 "optional": false,
                 "editable": true
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "q > 10 ",
+                "optional": false,
+                "editable": true
               }
             },
             "children": [
               {
-                "id": "45167",
+                "id": "126517",
                 "metadata": {
                   "label": "Return",
-                  "description": "Value of '\"sweet\"'"
+                  "description": "Value of '\"large order\"'"
                 },
                 "codedata": {
                   "node": "RETURN",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
-                      "line": 13,
+                      "line": 95,
                       "offset": 16
                     },
                     "endLine": {
-                      "line": 13,
-                      "offset": 31
+                      "line": 95,
+                      "offset": 37
                     }
                   },
-                  "sourceCode": "return \"sweet\";"
+                  "sourceCode": "return \"large order\";"
                 },
                 "returning": true,
                 "properties": {
@@ -162,7 +162,7 @@
                       "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"sweet\"",
+                    "value": "\"large order\"",
                     "optional": false,
                     "editable": true
                   }
@@ -172,22 +172,22 @@
             ]
           },
           {
-            "label": "\"green\"",
+            "label": "var q if q > 5",
             "kind": "BLOCK",
             "codedata": {
               "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 15,
-                  "offset": 23
+                  "line": 97,
+                  "offset": 30
                 },
                 "endLine": {
-                  "line": 17,
+                  "line": 99,
                   "offset": 13
                 }
               },
-              "sourceCode": "{\n                return \"sour\";\n            }"
+              "sourceCode": "{\n                return \"medium order\";\n            }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -204,36 +204,46 @@
                       "description": "Binding pattern"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"green\"",
+                    "value": "var q",
                     "optional": false,
                     "editable": true
                   }
                 ],
                 "optional": false,
                 "editable": true
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "q > 5 ",
+                "optional": false,
+                "editable": true
               }
             },
             "children": [
               {
-                "id": "48142",
+                "id": "129494",
                 "metadata": {
                   "label": "Return",
-                  "description": "Value of '\"sour\"'"
+                  "description": "Value of '\"medium order\"'"
                 },
                 "codedata": {
                   "node": "RETURN",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
-                      "line": 16,
+                      "line": 98,
                       "offset": 16
                     },
                     "endLine": {
-                      "line": 16,
-                      "offset": 30
+                      "line": 98,
+                      "offset": 38
                     }
                   },
-                  "sourceCode": "return \"sour\";"
+                  "sourceCode": "return \"medium order\";"
                 },
                 "returning": true,
                 "properties": {
@@ -243,7 +253,98 @@
                       "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"sour\"",
+                    "value": "\"medium order\"",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "var q if q > 0",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 100,
+                  "offset": 30
+                },
+                "endLine": {
+                  "line": 102,
+                  "offset": 13
+                }
+              },
+              "sourceCode": "{\n                return \"small order\";\n            }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "patterns": {
+                "metadata": {
+                  "label": "Patterns",
+                  "description": "List of binding patterns"
+                },
+                "valueType": "SINGLE_SELECT",
+                "value": [
+                  {
+                    "metadata": {
+                      "label": "Pattern",
+                      "description": "Binding pattern"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "var q",
+                    "optional": false,
+                    "editable": true
+                  }
+                ],
+                "optional": false,
+                "editable": true
+              },
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "q > 0 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "132469",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"small order\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 101,
+                      "offset": 16
+                    },
+                    "endLine": {
+                      "line": 101,
+                      "offset": 37
+                    }
+                  },
+                  "sourceCode": "return \"small order\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"small order\"",
                     "optional": false,
                     "editable": true
                   }
@@ -260,15 +361,15 @@
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 18,
+                  "line": 103,
                   "offset": 17
                 },
                 "endLine": {
-                  "line": 20,
+                  "line": 105,
                   "offset": 13
                 }
               },
-              "sourceCode": "{\n                return \"unknown\";\n            }"
+              "sourceCode": "{\n                return \"invalid order\";\n            }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -296,25 +397,25 @@
             },
             "children": [
               {
-                "id": "51121",
+                "id": "135447",
                 "metadata": {
                   "label": "Return",
-                  "description": "Value of '\"unknown\"'"
+                  "description": "Value of '\"invalid order\"'"
                 },
                 "codedata": {
                   "node": "RETURN",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
-                      "line": 19,
+                      "line": 104,
                       "offset": 16
                     },
                     "endLine": {
-                      "line": 19,
-                      "offset": 33
+                      "line": 104,
+                      "offset": 39
                     }
                   },
-                  "sourceCode": "return \"unknown\";"
+                  "sourceCode": "return \"invalid order\";"
                 },
                 "returning": true,
                 "properties": {
@@ -324,7 +425,7 @@
                       "description": "Return value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"unknown\"",
+                    "value": "\"invalid order\"",
                     "optional": false,
                     "editable": true
                   }
@@ -341,7 +442,7 @@
               "description": "Boolean Condition"
             },
             "valueType": "EXPRESSION",
-            "value": "color ",
+            "value": "quantity ",
             "optional": false,
             "editable": true
           }

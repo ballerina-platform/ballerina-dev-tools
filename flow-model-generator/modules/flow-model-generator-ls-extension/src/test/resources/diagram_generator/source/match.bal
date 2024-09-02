@@ -57,6 +57,8 @@ service /market on new http:Listener(9090) {
                     }
                 }
             }
+            var p if p >= 200 => {
+            }
             _ => {
                 fruit.quality = "expensive";
             }
@@ -220,7 +222,7 @@ service /market on new http:Listener(9090) {
         }
     }
 
-    resource function get peaches(anydata data) returns string {
+    resource function get peaches(map<anydata> data) returns string {
         match data {
             [var quantity, var ripeness] if quantity is int && ripeness is int => {
                 if quantity < 0 || ripeness < 1 || ripeness > 5 {
@@ -234,8 +236,9 @@ service /market on new http:Listener(9090) {
         } on fail var e {
             return string `Error processing peach order: ${e.message()}`;
         }
+    }
     
-    resource function get cherries(json data) returns string|error {
+    resource function get cherries(map<anydata> data) returns string|error {
         match data {
             var obj if obj is record {|int quantity; string 'type;|} => {
                 int quantity = check int:fromString(obj.quantity.toString());
@@ -249,7 +252,6 @@ service /market on new http:Listener(9090) {
             if e is error {
                 return error("Data processing failed", e);
             }
-            return error("An unknown error occurred");
         }
     }
 }

@@ -56,6 +56,7 @@ import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MatchClauseNode;
+import io.ballerina.compiler.syntax.tree.MatchGuardNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.Minutiae;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
@@ -633,18 +634,23 @@ class CodeAnalyzer extends NodeVisitor {
                 .properties().condition(matchStatementNode.condition());
 
         NodeList<MatchClauseNode> matchClauseNodes = matchStatementNode.matchClauses();
-        matchClauseNodes.forEach(matchClauseNode -> {
+        for (MatchClauseNode matchClauseNode : matchClauseNodes) {
+            Optional<MatchGuardNode> matchGuardNode = matchClauseNode.matchGuard();
             String label = matchClauseNode.matchPatterns().stream()
                     .map(node -> node.toSourceCode().strip())
                     .collect(Collectors.joining("|"));
+            if (matchGuardNode.isPresent()) {
+                label += " " + matchGuardNode.get().toSourceCode().strip();
+            }
+
             Branch.Builder branchBuilder = startBranch(label, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
                     Branch.Repeatable.ONE_OR_MORE)
                     .properties().patterns(matchClauseNode.matchPatterns()).stepOut();
-            matchClauseNode.matchGuard()
-                    .ifPresent(guard -> branchBuilder.properties().expression(guard.expression(), "Match Guard"));
+
+            matchGuardNode.ifPresent(guard -> branchBuilder.properties().expression(guard.expression()));
             analyzeBlock(matchClauseNode.blockStatement(), branchBuilder);
             endBranch(branchBuilder, matchClauseNode.blockStatement());
-        });
+        }
 
         matchStatementNode.onFailClause().ifPresent(this::processOnFailClause);
         endNode(matchStatementNode);
