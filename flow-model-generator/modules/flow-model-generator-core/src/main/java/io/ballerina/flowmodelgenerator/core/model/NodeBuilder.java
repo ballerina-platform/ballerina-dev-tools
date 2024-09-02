@@ -47,13 +47,13 @@ import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
-import io.ballerina.flowmodelgenerator.core.model.node.Switch;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Stop;
+import io.ballerina.flowmodelgenerator.core.model.node.Switch;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
@@ -355,21 +355,6 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder expression(ExpressionNode expressionNode) {
-            Property property = propertyBuilder
-                    .metadata()
-                        .label(Property.EXPRESSION_LABEL)
-                        .description(Property.EXPRESSION_DOC)
-                        .stepOut()
-                    .editable()
-                    .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
-                    .type(Property.ValueType.EXPRESSION)
-                    .build();
-            addProperty(Property.EXPRESSION_KEY, property);
-            return this;
-        }
-
         public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key,
                                                    Property propertyTemplate) {
             Property client = Property.Builder.getInstance()
@@ -562,6 +547,35 @@ public abstract class NodeBuilder {
                     .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
+                    .build();
+            addProperty(Property.EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String key, String expressionDoc) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.EXPRESSION_DOC)
+                        .description(expressionDoc)
+                        .stepOut()
+                    .value(expressionNode == null ? "" : expressionNode.toSourceCode())
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(key, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.EXPRESSION_LABEL)
+                        .description(Property.EXPRESSION_DOC)
+                        .stepOut()
+                    .editable()
+                    .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
+                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
             return this;

@@ -647,7 +647,8 @@ class CodeAnalyzer extends NodeVisitor {
                     Branch.Repeatable.ONE_OR_MORE)
                     .properties().patterns(matchClauseNode.matchPatterns()).stepOut();
 
-            matchGuardNode.ifPresent(guard -> branchBuilder.properties().expression(guard.expression()));
+            matchGuardNode.ifPresent(guard -> branchBuilder.properties()
+                    .expression(guard.expression(), Property.GUARD_KEY, Property.GUARD_DOC));
             analyzeBlock(matchClauseNode.blockStatement(), branchBuilder);
             endBranch(branchBuilder, matchClauseNode.blockStatement());
         }

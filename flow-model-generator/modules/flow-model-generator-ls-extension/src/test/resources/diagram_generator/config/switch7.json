@@ -121,10 +121,10 @@
                 "optional": false,
                 "editable": true
               },
-              "expression": {
+              "guard": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Guard expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "q > 10 ",
@@ -212,10 +212,10 @@
                 "optional": false,
                 "editable": true
               },
-              "expression": {
+              "guard": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Guard expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "q > 5 ",
@@ -288,10 +288,10 @@
                         "optional": false,
                         "editable": true
                       },
-                      "expression": {
+                      "guard": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Guard expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "n > 8 ",

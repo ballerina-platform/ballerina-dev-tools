@@ -121,10 +121,10 @@
                 "optional": false,
                 "editable": true
               },
-              "expression": {
+              "guard": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Guard expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "p < 100 ",
@@ -222,10 +222,10 @@
                 "optional": false,
                 "editable": true
               },
-              "expression": {
+              "guard": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Guard expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "p >= 100 && p < 200 ",
@@ -298,10 +298,10 @@
                         "optional": false,
                         "editable": true
                       },
-                      "expression": {
+                      "guard": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Guard expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "q is int && q > 0 ",
@@ -507,10 +507,10 @@
                 "optional": false,
                 "editable": true
               },
-              "expression": {
+              "guard": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Guard expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "p >= 200 ",

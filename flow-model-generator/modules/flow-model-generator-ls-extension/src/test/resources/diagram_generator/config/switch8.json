@@ -232,10 +232,10 @@
                         "optional": false,
                         "editable": true
                       },
-                      "expression": {
+                      "guard": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Guard expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "n > 10 ",
@@ -323,10 +323,10 @@
                         "optional": false,
                         "editable": true
                       },
-                      "expression": {
+                      "guard": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Guard expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "n > 5 ",
@@ -399,10 +399,10 @@
                                 "optional": false,
                                 "editable": true
                               },
-                              "expression": {
+                              "guard": {
                                 "metadata": {
                                   "label": "Expression",
-                                  "description": "Expression"
+                                  "description": "Guard expression"
                                 },
                                 "valueType": "EXPRESSION",
                                 "value": "m > 8 ",
@@ -490,10 +490,10 @@
                                 "optional": false,
                                 "editable": true
                               },
-                              "expression": {
+                              "guard": {
                                 "metadata": {
                                   "label": "Expression",
-                                  "description": "Expression"
+                                  "description": "Guard expression"
                                 },
                                 "valueType": "EXPRESSION",
                                 "value": "m > 6 ",

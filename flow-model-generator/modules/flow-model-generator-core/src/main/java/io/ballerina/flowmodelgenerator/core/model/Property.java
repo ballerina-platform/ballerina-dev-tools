@@ -35,6 +35,11 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
                        boolean editable) {
 
+    @SuppressWarnings("unchecked")
+    public <T> T valueAsType() {
+        return (T) value;
+    }
+
     public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
     public static final String VARIABLE_DOC = "Result Variable";
@@ -89,6 +94,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String PATTERNS_DOC = "List of binding patterns";
     public static final String PATTERN_LABEL = "Pattern";
     public static final String PATTERN_DOC = "Binding pattern";
+
+    public static final String GUARD_KEY = "guard";
+    public static final String GUARD_DOC = "Guard expression";
 
     public String toSourceCode() {
         return value.toString();
