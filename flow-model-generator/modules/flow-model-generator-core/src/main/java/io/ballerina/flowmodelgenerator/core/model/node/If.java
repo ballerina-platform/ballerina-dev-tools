@@ -27,6 +27,7 @@ import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +53,21 @@ public class If extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> ifBranch = sourceBuilder.flowNode.getBranch(IF_THEN_LABEL);
+        List<Branch> branches = sourceBuilder.flowNode.branches();
+        Optional<Branch> ifBranch = Optional.empty();
+        Optional<Branch> elseBranch = Optional.empty();
+        List<Branch> remainingBranches = new ArrayList<>();
+
+        for (Branch branch : branches) {
+            if (IF_THEN_LABEL.equals(branch.label())) {
+                ifBranch = Optional.of(branch);
+            } else if (IF_ELSE_LABEL.equals(branch.label())) {
+                elseBranch = Optional.of(branch);
+            } else {
+                remainingBranches.add(branch);
+            }
+        }
+
         if (ifBranch.isEmpty()) {
             throw new IllegalStateException("If node does not have a then branch");
         }
@@ -60,26 +75,33 @@ public class If extends NodeBuilder {
         if (condition.isEmpty()) {
             throw new IllegalStateException("If node does not have a condition");
         }
-        sourceBuilder.token()
-                .keyword(SyntaxKind.IF_KEYWORD)
-                .expression(condition.get())
-                .stepOut()
+        sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.IF_KEYWORD)
+                    .expression(condition.get())
+                    .stepOut()
                 .body(ifBranch.get().children());
 
-        Optional<Branch> elseBranch = sourceBuilder.flowNode.getBranch(IF_ELSE_LABEL);
-        if (elseBranch.isPresent()) {
-            List<FlowNode> children = elseBranch.get().children();
-            sourceBuilder.token()
-                    .whiteSpace()
-                    .keyword(SyntaxKind.ELSE_KEYWORD);
-
-            // If there is only one child, and if that is an if node, generate an `else if` statement`
-            if (children.size() != 1 || children.get(0).codedata().node() != FlowNode.Kind.IF) {
-                sourceBuilder.token().openBrace();
+        for (Branch branch : remainingBranches) {
+            Optional<Property> branchCondition = branch.getProperty(Property.CONDITION_KEY);
+            if (branchCondition.isEmpty()) {
+                throw new IllegalStateException("Else-if branch does not have a condition");
             }
-            sourceBuilder.children(children)
-                    .token().closeBrace();
+            sourceBuilder
+                    .token()
+                        .keyword(SyntaxKind.ELSE_KEYWORD)
+                        .keyword(SyntaxKind.IF_KEYWORD)
+                        .expression(branchCondition.get())
+                        .stepOut()
+                    .body(branch.children());
         }
+
+        elseBranch.ifPresent(branch -> sourceBuilder
+                .token()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.ELSE_KEYWORD)
+                    .stepOut()
+                .body(branch.children()));
 
         return sourceBuilder.textEdit(false).build();
     }
