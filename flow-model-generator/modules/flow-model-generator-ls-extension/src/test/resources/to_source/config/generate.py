@@ -60,7 +60,7 @@ def process_file_code(file_code):
     diagram_dir_name = os.path.join(
         current_path, "..", "..", "diagram_generator", "config")
     matching_files = sorted([file for file in os.listdir(
-        diagram_dir_name) if file.startswith(file_code)])
+        diagram_dir_name) if file.startswith(file_code)], key=lambda x: int(''.join(filter(str.isdigit, x))))
 
     # Iterate over the matching files
     output_nodes = []

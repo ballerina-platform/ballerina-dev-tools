@@ -18,8 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+
+import java.util.List;
 
 /**
  * Represents an expression in the flow model.
@@ -35,8 +40,15 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
                        boolean editable) {
 
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
+    public static final TypeToken<List<Property>> LIST_PROPERTY_TYPE_TOKEN = new TypeToken<List<Property>>() {};
+
     @SuppressWarnings("unchecked")
-    public <T> T valueAsType() {
+    public <T> T valueAsType(TypeToken<T> typeToken) {
+        if (value instanceof List) {
+            return (T) gson.fromJson(gson.toJson(value), typeToken.getType());
+        }
         return (T) value;
     }
 
