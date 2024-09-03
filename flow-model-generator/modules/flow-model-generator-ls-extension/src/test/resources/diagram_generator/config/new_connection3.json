@@ -1,0 +1,280 @@
+{
+  "start": {
+    "line": 3,
+    "offset": 4
+  },
+  "end": {
+    "line": 8,
+    "offset": 5
+  },
+  "source": "new_connection2.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "new_connection.bal",
+    "nodes": [
+      {
+        "id": "35004",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 5
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "value": "path",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "36064",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "new_connection.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 11
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": {},
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "value": {
+              "ClientConfiguration": {
+                "responseLimits": {
+                  "metadata": {
+                    "label": "responseLimits"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "cache": {
+                  "metadata": {
+                    "label": "cache"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "cookieConfig": {
+                  "metadata": {
+                    "label": "cookieConfig"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "auth": {
+                  "metadata": {
+                    "label": "auth"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "retryConfig": {
+                  "metadata": {
+                    "label": "retryConfig"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "poolConfig": {
+                  "metadata": {
+                    "label": "poolConfig"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "timeout": {
+                  "metadata": {
+                    "label": "timeout"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "forwarded": {
+                  "metadata": {
+                    "label": "forwarded"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "socketConfig": {
+                  "metadata": {
+                    "label": "socketConfig"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "proxy": {
+                  "metadata": {
+                    "label": "proxy"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "httpVersion": {
+                  "metadata": {
+                    "label": "httpVersion"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "followRedirects": {
+                  "metadata": {
+                    "label": "followRedirects"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "secureSocket": {
+                  "metadata": {
+                    "label": "secureSocket",
+                    "description": "The configurations to be used when initializing the `client`\n"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "circuitBreaker": {
+                  "metadata": {
+                    "label": "circuitBreaker"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "http2Settings": {
+                  "metadata": {
+                    "label": "http2Settings"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "compression": {
+                  "metadata": {
+                    "label": "compression"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "http1Settings": {
+                  "metadata": {
+                    "label": "http1Settings"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                },
+                "validation": {
+                  "metadata": {
+                    "label": "validation"
+                  },
+                  "valueType": "EXPRESSION",
+                  "optional": true,
+                  "editable": true
+                }
+              }
+            },
+            "optional": false,
+            "editable": false
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "value": "localHttpCl",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ],
+    "connections": []
+  }
+}
