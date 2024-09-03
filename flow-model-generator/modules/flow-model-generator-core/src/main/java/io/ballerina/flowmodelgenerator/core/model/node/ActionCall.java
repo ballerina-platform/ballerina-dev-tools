@@ -63,7 +63,7 @@ public class ActionCall extends NodeBuilder {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
         return sourceBuilder.token()
-                .name(connection.get().value())
+                .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
                 .name(nodeTemplate.metadata().label())
                 .stepOut()

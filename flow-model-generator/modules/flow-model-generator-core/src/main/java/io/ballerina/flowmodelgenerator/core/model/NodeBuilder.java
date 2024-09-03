@@ -19,10 +19,16 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.RecordFieldSymbol;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -34,6 +40,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.RawTypeSymbolWrapper;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
@@ -56,6 +63,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -65,6 +73,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
 import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
@@ -366,8 +375,42 @@ public abstract class NodeBuilder {
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                     if (paramValue != null) {
-                        propertyBuilder.value(paramValue.toSourceCode());
+                        Map<String, Object> nestedProperties = new HashMap<>();
+                        List<RawTypeSymbolWrapper<RecordTypeSymbol>> recordTypeSymbols =
+                                getRecordTypeSymbols(parameterSymbol.typeDescriptor());
+
+                        for (RawTypeSymbolWrapper<RecordTypeSymbol> symbol : recordTypeSymbols) {
+                            Map<String, RecordFieldSymbol> map = symbol.getRawType().fieldDescriptors();
+                            if (map.isEmpty()) {
+                                continue;
+                            }
+                            Map<String, Object> recordFields = new HashMap<>();
+
+                            for (Map.Entry<String, RecordFieldSymbol> entry : map.entrySet()) {
+                                String fieldName = entry.getKey();
+                                RecordFieldSymbol fieldSymbol = entry.getValue();
+
+                                if (fieldSymbol.isOptional()) {
+                                    continue;
+                                }
+                                Property fieldProperty = Property.Builder.getInstance()
+                                        .metadata()
+                                        .label(fieldName)
+                                        .stepOut()
+                                        .type(Property.ValueType.EXPRESSION)
+                                        .editable()
+                                        .optional(true)
+                                        .build();
+
+                                recordFields.put(fieldName, fieldProperty);
+                            }
+                            nestedProperties.put(symbol.getBroaderType().getName().get(), recordFields);
+                        }
+                        propertyBuilder.value(nestedProperties);
                     }
+//                    if (paramValue != null) {
+//                        propertyBuilder.value(paramValue.toSourceCode());
+//                    }
 
                     addProperty(parameterName, propertyBuilder.build());
                 }
@@ -594,5 +637,48 @@ public abstract class NodeBuilder {
         public Map<String, Property> build() {
             return this.nodeProperties;
         }
+    }
+
+    public static List<RawTypeSymbolWrapper<RecordTypeSymbol>> getRecordTypeSymbols(TypeSymbol typeSymbol) {
+        TypeSymbol rawType = getRawType(typeSymbol);
+        if (rawType.typeKind() == TypeDescKind.RECORD) {
+            return Collections.singletonList(RawTypeSymbolWrapper.from(typeSymbol, (RecordTypeSymbol) rawType));
+        }
+        if (rawType.typeKind() == TypeDescKind.UNION) {
+            // This will only consider the record type members and disregard other types
+            return ((UnionTypeSymbol) rawType).memberTypeDescriptors().stream()
+                    .filter(tSymbol -> getRawType(tSymbol).typeKind() == TypeDescKind.RECORD)
+                    .map(tSymbol -> {
+                        RecordTypeSymbol recordTypeSymbol = (RecordTypeSymbol) getRawType(tSymbol);
+                        return RawTypeSymbolWrapper.from(tSymbol, recordTypeSymbol);
+                    }).collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
+    }
+
+    /**
+     * Get the raw type of the type descriptor. If the type descriptor is a type reference then return the associated
+     * type descriptor.
+     *
+     * @param typeDescriptor type descriptor to evaluate
+     * @return {@link TypeSymbol} extracted type descriptor
+     */
+    public static TypeSymbol getRawType(TypeSymbol typeDescriptor) {
+        if (typeDescriptor.typeKind() == TypeDescKind.INTERSECTION) {
+            return getRawType(((IntersectionTypeSymbol) typeDescriptor).effectiveTypeDescriptor());
+        }
+        if (typeDescriptor.typeKind() == TypeDescKind.TYPE_REFERENCE) {
+            TypeReferenceTypeSymbol typeRef = (TypeReferenceTypeSymbol) typeDescriptor;
+            if (typeRef.typeDescriptor().typeKind() == TypeDescKind.INTERSECTION) {
+                return getRawType(((IntersectionTypeSymbol) typeRef.typeDescriptor()).effectiveTypeDescriptor());
+            }
+            TypeSymbol rawType = typeRef.typeDescriptor();
+            if (rawType.typeKind() == TypeDescKind.TYPE_REFERENCE) {
+                return getRawType(rawType);
+            }
+            return rawType;
+        }
+        return typeDescriptor;
     }
 }

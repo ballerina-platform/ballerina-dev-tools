@@ -31,7 +31,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
  * @param editable  whether the property is editable
  * @since 1.4.0
  */
-public record Property(Metadata metadata, String valueType, String value, boolean optional, boolean editable) {
+public record Property(Metadata metadata, String valueType, Object value, boolean optional, boolean editable) {
 
     public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
@@ -77,7 +77,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
 
 
     public String toSourceCode() {
-        return value;
+        return value.toString();
     }
 
     public enum ValueType {
@@ -95,7 +95,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static class Builder {
 
         private String type;
-        private String value;
+        private Object value;
         private boolean optional;
         private boolean editable;
         private Metadata.Builder<Builder> metadataBuilder;
@@ -123,7 +123,7 @@ public record Property(Metadata metadata, String valueType, String value, boolea
             return this;
         }
 
-        public Builder value(String value) {
+        public Builder value(Object value) {
             this.value = value;
             return this;
         }
