@@ -2,62 +2,64 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "42944",
+    "id": "52881",
     "metadata": {
-      "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+      "label": "toJson",
+      "description": "Converts a value of type `anydata` to `json`.\n\n",
+      "icon": ""
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
-      "module": "log",
-      "symbol": "printInfo",
+      "module": "data.jsondata",
+      "symbol": "toJson",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 11,
+          "line": 21,
           "offset": 8
         },
         "endLine": {
-          "line": 11,
-          "offset": 40
+          "line": 21,
+          "offset": 57
         }
       },
-      "sourceCode": "log:printInfo(\"Getting apples\");"
+      "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
     },
     "returning": false,
     "properties": {
-      "msg": {
+      "v": {
         "metadata": {
-          "label": "msg",
-          "description": "The message to be logged\n"
+          "label": "v",
+          "description": "Source anydata value\n"
         },
         "valueType": "EXPRESSION",
-        "value": "\"Getting apples\"",
+        "value": "payload",
         "optional": false,
         "editable": true
       },
-      "stackTrace": {
+      "variable": {
         "metadata": {
-          "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "EXPRESSION",
-        "optional": true,
+        "valueType": "IDENTIFIER",
+        "value": "jsonResult",
+        "optional": false,
         "editable": true
       },
-      "keyValues": {
+      "type": {
         "metadata": {
-          "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
+          "label": "Data type",
+          "description": "Type of the variable"
         },
-        "valueType": "EXPRESSION",
+        "valueType": "TYPE",
+        "value": "json",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 0
+    "flags": 1
   },
   "output": {
     "empty.bal": [
@@ -72,20 +74,20 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/log;"
+        "newText": "import ballerina/data.jsondata;"
       },
       {
         "range": {
           "start": {
-            "line": 11,
+            "line": 21,
             "character": 8
           },
           "end": {
-            "line": 11,
-            "character": 40
+            "line": 21,
+            "character": 57
           }
         },
-        "newText": "log:printInfo(\"Getting apples\");"
+        "newText": "json jsonResult = check jsondata:toJson(payload);"
       }
     ]
   }

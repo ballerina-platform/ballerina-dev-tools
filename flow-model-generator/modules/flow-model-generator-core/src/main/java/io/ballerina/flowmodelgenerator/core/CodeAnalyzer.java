@@ -482,7 +482,7 @@ class CodeAnalyzer extends NodeVisitor {
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
 
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
-            String moduleName = ((QualifiedNameReferenceNode) nameReferenceNode).modulePrefix().text();
+            String moduleName = CommonUtils.getModuleName(functionSymbol);
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
             Codedata codedata = new Codedata.Builder<>(null)
                     .node(FlowNode.Kind.FUNCTION_CALL)

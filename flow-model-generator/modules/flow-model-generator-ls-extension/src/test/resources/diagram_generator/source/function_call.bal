@@ -1,3 +1,4 @@
+import ballerina/data.jsondata;
 import ballerina/http;
 import ballerina/log;
 
@@ -16,4 +17,15 @@ service on new http:Listener(8080) {
             log:printInfo("Response: ", response = res);
         }
     }
+
+    resource function post apples(string payload) returns Apple|jsondata:Error {
+        json jsonResult = check jsondata:toJson(payload);
+        Apple apple = check jsondata:parseAsType(jsonResult);
+        return apple;
+    }
 }
+
+type Apple record {|
+    string title;
+    string author;
+|};

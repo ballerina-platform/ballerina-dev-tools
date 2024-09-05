@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 6,
+    "line": 7,
     "offset": 4
   },
   "end": {
-    "line": 17,
+    "line": 18,
     "offset": 5
   },
   "source": "function_call.bal",
@@ -13,7 +13,7 @@
     "fileName": "function_call.bal",
     "nodes": [
       {
-        "id": "38166",
+        "id": "39158",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,11 +22,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 6,
+              "line": 7,
               "offset": 4
             },
             "endLine": {
-              "line": 17,
+              "line": 18,
               "offset": 5
             }
           },
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "39007",
+        "id": "39999",
         "metadata": {
           "label": "If",
           "description": "Add conditional branch to the integration flow."
@@ -68,11 +68,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 7,
+              "line": 8,
               "offset": 8
             },
             "endLine": {
-              "line": 9,
+              "line": 10,
               "offset": 9
             }
           },
@@ -88,11 +88,11 @@
               "lineRange": {
                 "fileName": "function_call.bal",
                 "startLine": {
-                  "line": 7,
+                  "line": 8,
                   "offset": 22
                 },
                 "endLine": {
-                  "line": 9,
+                  "line": 10,
                   "offset": 9
                 }
               },
@@ -113,7 +113,7 @@
             },
             "children": [
               {
-                "id": "40106",
+                "id": "41098",
                 "metadata": {
                   "label": "printWarn",
                   "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
@@ -127,11 +127,11 @@
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
-                      "line": 8,
+                      "line": 9,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 8,
+                      "line": 9,
                       "offset": 54
                     }
                   },
@@ -176,7 +176,7 @@
         "flags": 0
       },
       {
-        "id": "41952",
+        "id": "42944",
         "metadata": {
           "label": "printInfo",
           "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
@@ -190,11 +190,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 10,
+              "line": 11,
               "offset": 8
             },
             "endLine": {
-              "line": 10,
+              "line": 11,
               "offset": 40
             }
           },
@@ -234,7 +234,7 @@
         "flags": 0
       },
       {
-        "id": "42990",
+        "id": "43982",
         "metadata": {
           "label": "get",
           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
@@ -249,11 +249,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 11,
+              "line": 12,
               "offset": 8
             },
             "endLine": {
-              "line": 11,
+              "line": 12,
               "offset": 86
             }
           },
@@ -314,7 +314,7 @@
         "flags": 0
       },
       {
-        "id": "44029",
+        "id": "45021",
         "metadata": {
           "label": "If",
           "description": "Add conditional branch to the integration flow."
@@ -324,11 +324,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 12,
+              "line": 13,
               "offset": 8
             },
             "endLine": {
-              "line": 16,
+              "line": 17,
               "offset": 9
             }
           },
@@ -344,11 +344,11 @@
               "lineRange": {
                 "fileName": "function_call.bal",
                 "startLine": {
-                  "line": 12,
+                  "line": 13,
                   "offset": 24
                 },
                 "endLine": {
-                  "line": 14,
+                  "line": 15,
                   "offset": 9
                 }
               },
@@ -369,7 +369,7 @@
             },
             "children": [
               {
-                "id": "45069",
+                "id": "46061",
                 "metadata": {
                   "label": "printError",
                   "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
@@ -383,11 +383,11 @@
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
-                      "line": 13,
+                      "line": 14,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 13,
+                      "line": 14,
                       "offset": 57
                     }
                   },
@@ -436,11 +436,11 @@
               "lineRange": {
                 "fileName": "function_call.bal",
                 "startLine": {
-                  "line": 14,
+                  "line": 15,
                   "offset": 15
                 },
                 "endLine": {
-                  "line": 16,
+                  "line": 17,
                   "offset": 9
                 }
               },
@@ -449,7 +449,7 @@
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
-                "id": "47052",
+                "id": "48044",
                 "metadata": {
                   "label": "printInfo",
                   "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
@@ -463,11 +463,11 @@
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
-                      "line": 15,
+                      "line": 16,
                       "offset": 12
                     },
                     "endLine": {
-                      "line": 15,
+                      "line": 16,
                       "offset": 56
                     }
                   },
@@ -514,7 +514,7 @@
     ],
     "connections": [
       {
-        "id": "34787",
+        "id": "35779",
         "metadata": {
           "label": "New Connection",
           "description": "Create a new connection"
@@ -528,11 +528,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 3,
+              "line": 4,
               "offset": 0
             },
             "endLine": {
-              "line": 3,
+              "line": 4,
               "offset": 67
             }
           },
