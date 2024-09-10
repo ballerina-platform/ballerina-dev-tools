@@ -1,0 +1,345 @@
+{
+  "start": {
+    "line": 82,
+    "offset": 0
+  },
+  "end": {
+    "line": 89,
+    "offset": 1
+  },
+  "source": "if_node.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "if_node.bal",
+    "nodes": [
+      {
+        "id": "113434",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 82,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 89,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function get pineapples(int count) returns string {\n        if count > 0 {\n            return \"available\";\n        } else if count == 0 {\n            return \"out of stock\";\n        }\n        return \"invalid\";\n    }"
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "get",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "STRING",
+            "value": "pineapples",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "114461",
+        "metadata": {
+          "label": "If",
+          "description": "Add conditional branch to the integration flow."
+        },
+        "codedata": {
+          "node": "IF",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 83,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 87,
+              "offset": 9
+            }
+          },
+          "sourceCode": "if count > 0 {\n            return \"available\";\n        } else if count == 0 {\n            return \"out of stock\";\n        }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Then",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 83,
+                  "offset": 21
+                },
+                "endLine": {
+                  "line": 85,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"available\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "count > 0 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "115475",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"available\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 84,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 84,
+                      "offset": 31
+                    }
+                  },
+                  "sourceCode": "return \"available\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"available\"",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "count == 0",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 85,
+                  "offset": 29
+                },
+                "endLine": {
+                  "line": 87,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            return \"out of stock\";\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "count == 0 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "117462",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of '\"out of stock\"'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 86,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 86,
+                      "offset": 34
+                    }
+                  },
+                  "sourceCode": "return \"out of stock\";"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "\"out of stock\"",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "flags": 0
+      },
+      {
+        "id": "119313",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of '\"invalid\"'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 88,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 88,
+              "offset": 25
+            }
+          },
+          "sourceCode": "return \"invalid\";"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"invalid\"",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
+          },
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

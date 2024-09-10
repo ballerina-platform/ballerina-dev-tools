@@ -39,6 +39,16 @@
                 "node": "IF"
               },
               "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Switch",
+                "description": "Switches the data flow based on the value of an expression."
+              },
+              "codedata": {
+                "node": "SWITCH"
+              },
+              "enabled": true
             }
           ]
         },
@@ -178,6 +188,44 @@
           },
           "codedata": {
             "node": "PANIC"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Concurrency",
+        "description": "Concurrency nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
           },
           "enabled": true
         }

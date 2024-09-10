@@ -437,14 +437,14 @@
                 "fileName": "function_call.bal",
                 "startLine": {
                   "line": 14,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 16,
                   "offset": 9
                 }
               },
-              "sourceCode": "else {\n            log:printInfo(\"Response: \", response = res);\n        }"
+              "sourceCode": "{\n            log:printInfo(\"Response: \", response = res);\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

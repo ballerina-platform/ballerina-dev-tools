@@ -214,14 +214,14 @@
                     "fileName": "if_node.bal",
                     "startLine": {
                       "line": 28,
-                      "offset": 14
+                      "offset": 19
                     },
                     "endLine": {
                       "line": 31,
                       "offset": 13
                     }
                   },
-                  "sourceCode": "else {\n                int b = 2;\n                return \"moderate\";\n            }"
+                  "sourceCode": "{\n                int b = 2;\n                return \"moderate\";\n            }"
                 },
                 "repeatable": "ZERO_OR_ONE",
                 "children": [

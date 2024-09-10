@@ -66,6 +66,6 @@ public class Comment extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().defaultComment();
+        properties().comment("");
     }
 }

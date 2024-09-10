@@ -348,14 +348,14 @@
                         "fileName": "while.bal",
                         "startLine": {
                           "line": 94,
-                          "offset": 14
+                          "offset": 19
                         },
                         "endLine": {
                           "line": 97,
                           "offset": 13
                         }
                       },
-                      "sourceCode": "else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }"
+                      "sourceCode": "{\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [

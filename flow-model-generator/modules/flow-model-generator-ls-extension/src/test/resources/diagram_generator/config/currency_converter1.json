@@ -601,14 +601,14 @@
                         "fileName": "main.bal",
                         "startLine": {
                           "line": 31,
-                          "offset": 14
+                          "offset": 19
                         },
                         "endLine": {
                           "line": 49,
                           "offset": 13
                         }
                       },
-                      "sourceCode": "else {\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
+                      "sourceCode": "{\n                // action call - http get call\n                json response = check currencyClient->get(\"/latest?base=\" + 'from + \"&to=\" + to);\n\n                // new data\n                decimal value = check response.value;\n                // function call\n                decimal convertedAmount = check calculate(amount, value.toString());\n\n                // action call - redis set call\n                _ = check redisClient->set(key, convertedAmount.toString());\n\n                // new data\n                json newData = {\n                    value\n                };\n                // return\n                return newData;\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [

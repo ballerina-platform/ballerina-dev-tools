@@ -179,14 +179,14 @@
                 "fileName": "if_node.bal",
                 "startLine": {
                   "line": 17,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 20,
                   "offset": 9
                 }
               },
-              "sourceCode": "else {\n            int b = 2;\n            string c = \"12\";\n        }"
+              "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

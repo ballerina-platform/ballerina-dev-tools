@@ -28,11 +28,11 @@ import java.util.Arrays;
 public abstract class AbstractFlowModelResponse {
 
     private String errorMsg;
-    private String stackTrace;
+    private String stacktrace;
 
     public void setError(Throwable e) {
         this.errorMsg = e.toString();
-        this.stackTrace = Arrays.toString(e.getStackTrace());
+        this.stacktrace = Arrays.toString(e.getStackTrace());
     }
 
     public String errorMsg() {
@@ -40,6 +40,6 @@ public abstract class AbstractFlowModelResponse {
     }
 
     public String stackTrace() {
-        return stackTrace;
+        return stacktrace;
     }
 }

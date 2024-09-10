@@ -327,14 +327,14 @@
                 "fileName": "if.bal",
                 "startLine": {
                   "line": 12,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 16,
                   "offset": 1
                 }
               },
-              "sourceCode": "else {\n       z += 5;\n            print(\"Sum is less than or equal to 30);\n        z += 10; \n}"
+              "sourceCode": "{\n       z += 5;\n            print(\"Sum is less than or equal to 30);\n        z += 10; \n}"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -482,14 +482,14 @@
                 "fileName": "if.bal",
                 "startLine": {
                   "line": 19,
-                  "offset": 6
+                  "offset": 11
                 },
                 "endLine": {
                   "line": 21,
                   "offset": 5
                 }
               },
-              "sourceCode": "else {\n        print(\"x is equal to y\");\n    }"
+              "sourceCode": "{\n        print(\"x is equal to y\");\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [

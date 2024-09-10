@@ -1,0 +1,187 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "114461",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF",
+      "lineRange": {
+        "fileName": "if_node.bal",
+        "startLine": {
+          "line": 83,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 87,
+          "offset": 9
+        }
+      },
+      "sourceCode": "if count > 0 {\n            return \"available\";\n        } else if count == 0 {\n            return \"out of stock\";\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 83,
+              "offset": 21
+            },
+            "endLine": {
+              "line": 85,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return \"available\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "count > 0 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "115475",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"available\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 84,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 84,
+                  "offset": 31
+                }
+              },
+              "sourceCode": "return \"available\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"available\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "count == 0",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 85,
+              "offset": 29
+            },
+            "endLine": {
+              "line": 87,
+              "offset": 9
+            }
+          },
+          "sourceCode": "{\n            return \"out of stock\";\n        }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "count == 0 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "117462",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"out of stock\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 86,
+                  "offset": 12
+                },
+                "endLine": {
+                  "line": 86,
+                  "offset": 34
+                }
+              },
+              "sourceCode": "return \"out of stock\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"out of stock\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 83,
+            "character": 8
+          },
+          "end": {
+            "line": 87,
+            "character": 9
+          }
+        },
+        "newText": "if count > 0 {\n    return \"available\";\n} else if count == 0 {\n    return \"out of stock\";\n}"
+      }
+    ]
+  }
+}

@@ -55,12 +55,15 @@ import io.ballerina.compiler.syntax.tree.ListConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.LocalTypeDefinitionStatementNode;
 import io.ballerina.compiler.syntax.tree.LockStatementNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MatchClauseNode;
+import io.ballerina.compiler.syntax.tree.MatchGuardNode;
 import io.ballerina.compiler.syntax.tree.MatchStatementNode;
 import io.ballerina.compiler.syntax.tree.Minutiae;
 import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.NameReferenceNode;
 import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NodeList;
 import io.ballerina.compiler.syntax.tree.NodeVisitor;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.ObjectFieldNode;
@@ -106,6 +109,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Analyzes the source code and generates the flow model.
@@ -268,42 +272,35 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(IfElseStatementNode ifElseStatementNode) {
         startNode(FlowNode.Kind.IF);
-
-        Branch.Builder thenBranchBuilder = startBranch(If.IF_THEN_LABEL, FlowNode.Kind.CONDITIONAL,
-                Branch.BranchKind.BLOCK, Branch.Repeatable.ONE_OR_MORE)
-                .label(If.IF_THEN_LABEL)
-                .kind(Branch.BranchKind.BLOCK)
-                .repeatable(Branch.Repeatable.ONE_OR_MORE)
-                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
-                .properties().condition(ifElseStatementNode.condition()).stepOut();
-        BlockStatementNode ifBody = ifElseStatementNode.ifBody();
-        analyzeBlock(ifBody, thenBranchBuilder);
-        endBranch(thenBranchBuilder, ifBody);
-
-        Optional<Node> elseBody = ifElseStatementNode.elseBody();
-        if (elseBody.isPresent()) {
-            Branch.Builder elseBranchBuilder =
-                    startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
-                            Branch.Repeatable.ZERO_OR_ONE);
-            analyzeElseBody(elseBody.get(), elseBranchBuilder);
-            endBranch(elseBranchBuilder, elseBody.get());
-        }
-
+        addConditionalBranch(ifElseStatementNode.condition(), ifElseStatementNode.ifBody(), If.IF_THEN_LABEL);
+        ifElseStatementNode.elseBody().ifPresent(this::analyzeElseBody);
         endNode(ifElseStatementNode);
     }
 
-    private void analyzeElseBody(Node elseBody, Branch.Builder branchBuilder) {
+    private void addConditionalBranch(ExpressionNode condition, BlockStatementNode body, String label) {
+        Branch.Builder branchBuilder = startBranch(label, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
+                Branch.Repeatable.ONE_OR_MORE).properties().condition(condition).stepOut();
+        analyzeBlock(body, branchBuilder);
+        endBranch(branchBuilder, body);
+    }
+
+    private void analyzeElseBody(Node elseBody) {
         switch (elseBody.kind()) {
-            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody(), branchBuilder);
+            case ELSE_BLOCK -> analyzeElseBody(((ElseBlockNode) elseBody).elseBody());
             case BLOCK_STATEMENT -> {
-                analyzeBlock(((BlockStatementNode) elseBody), branchBuilder);
+                Branch.Builder branchBuilder =
+                        startBranch(If.IF_ELSE_LABEL, FlowNode.Kind.ELSE, Branch.BranchKind.BLOCK,
+                                Branch.Repeatable.ZERO_OR_ONE);
+                analyzeBlock((BlockStatementNode) elseBody, branchBuilder);
+                endBranch(branchBuilder, elseBody);
             }
             case IF_ELSE_STATEMENT -> {
-                elseBody.accept(this);
-                branchBuilder.node(buildNode());
+                IfElseStatementNode ifElseNode = (IfElseStatementNode) elseBody;
+                addConditionalBranch(ifElseNode.condition(), ifElseNode.ifBody(),
+                        ifElseNode.condition().toSourceCode().strip());
+                ifElseNode.elseBody().ifPresent(this::analyzeElseBody);
             }
-            default -> {
-            }
+            default -> throw new IllegalStateException("Unexpected else body kind: " + elseBody.kind());
         }
     }
 
@@ -445,7 +442,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(BlockStatementNode blockStatementNode) {
-        handleDefaultStatementNode(blockStatementNode, () -> super.visit(blockStatementNode));
+        handleDefaultNodeWithBlock(blockStatementNode);
     }
 
     @Override
@@ -633,7 +630,31 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(MatchStatementNode matchStatementNode) {
-        handleDefaultStatementNode(matchStatementNode, () -> super.visit(matchStatementNode));
+        startNode(FlowNode.Kind.SWITCH)
+                .properties().condition(matchStatementNode.condition());
+
+        NodeList<MatchClauseNode> matchClauseNodes = matchStatementNode.matchClauses();
+        for (MatchClauseNode matchClauseNode : matchClauseNodes) {
+            Optional<MatchGuardNode> matchGuardNode = matchClauseNode.matchGuard();
+            String label = matchClauseNode.matchPatterns().stream()
+                    .map(node -> node.toSourceCode().strip())
+                    .collect(Collectors.joining("|"));
+            if (matchGuardNode.isPresent()) {
+                label += " " + matchGuardNode.get().toSourceCode().strip();
+            }
+
+            Branch.Builder branchBuilder = startBranch(label, FlowNode.Kind.CONDITIONAL, Branch.BranchKind.BLOCK,
+                    Branch.Repeatable.ONE_OR_MORE)
+                    .properties().patterns(matchClauseNode.matchPatterns()).stepOut();
+
+            matchGuardNode.ifPresent(guard -> branchBuilder.properties()
+                    .expression(guard.expression(), Property.GUARD_KEY, Property.GUARD_DOC));
+            analyzeBlock(matchClauseNode.blockStatement(), branchBuilder);
+            endBranch(branchBuilder, matchClauseNode.blockStatement());
+        }
+
+        matchStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+        endNode(matchStatementNode);
     }
 
     @Override
@@ -794,13 +815,13 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(bodyNode);
     }
 
-    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {
         for (StatementNode statement : blockStatement.statements()) {
-            genCommentNode(statement, thenBranchBuilder);
+            genCommentNode(statement, branchBuilder);
             statement.accept(this);
-            thenBranchBuilder.node(buildNode());
+            branchBuilder.node(buildNode());
         }
-        genCommentNode(blockStatement.closeBraceToken(), thenBranchBuilder);
+        genCommentNode(blockStatement.closeBraceToken(), branchBuilder);
     }
 
     private Optional<CommentMetadata> getComment(Node node) {

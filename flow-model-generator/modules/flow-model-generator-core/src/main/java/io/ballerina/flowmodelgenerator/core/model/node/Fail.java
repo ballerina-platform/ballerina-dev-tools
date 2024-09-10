@@ -60,6 +60,6 @@ public class Fail extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().defaultExpression(FAIL_EXPRESSION_DOC);
+        properties().expression(null, FAIL_EXPRESSION_DOC);
     }
 }

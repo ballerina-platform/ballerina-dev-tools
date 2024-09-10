@@ -105,6 +105,168 @@
             "children": []
           },
           {
+            "label": "i == 5",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 32,
+                  "offset": 21
+                },
+                "endLine": {
+                  "line": 38,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "i == 5 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "64549",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "This is a comment for i = 0"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 33,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 34,
+                      "offset": 38
+                    }
+                  },
+                  "sourceCode": "This is a comment for i = 0"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "This is a comment for i = 0",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "66730",
+                "metadata": {
+                  "label": "New Variable",
+                  "description": "New variable 'x' with type 'int'"
+                },
+                "codedata": {
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 35,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 35,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "// This is a comment for i = 0\n        int x = 0;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "0",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "67532",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "This is a comment for if-else body"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 36,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 37,
+                      "offset": 45
+                    }
+                  },
+                  "sourceCode": "This is a comment for if-else body"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "This is a comment for if-else body",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
             "label": "Else",
             "kind": "BLOCK",
             "codedata": {
@@ -112,354 +274,144 @@
               "lineRange": {
                 "fileName": "comment.bal",
                 "startLine": {
-                  "line": 32,
-                  "offset": 6
+                  "line": 38,
+                  "offset": 11
                 },
                 "endLine": {
                   "line": 43,
                   "offset": 5
                 }
               },
-              "sourceCode": "else if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
+              "sourceCode": "{\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
-                "id": "64175",
+                "id": "70470",
                 "metadata": {
-                  "label": "If",
-                  "description": "Add conditional branch to the integration flow."
+                  "label": "Comment",
+                  "description": "This is a comment for x = 0"
                 },
                 "codedata": {
-                  "node": "IF",
+                  "node": "COMMENT",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
-                      "line": 32,
-                      "offset": 11
+                      "line": 39,
+                      "offset": 0
                     },
                     "endLine": {
-                      "line": 43,
-                      "offset": 5
+                      "line": 39,
+                      "offset": 38
                     }
                   },
-                  "sourceCode": "if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
+                  "sourceCode": "This is a comment for x = 0"
                 },
                 "returning": false,
-                "branches": [
-                  {
-                    "label": "Then",
-                    "kind": "BLOCK",
-                    "codedata": {
-                      "node": "CONDITIONAL",
-                      "lineRange": {
-                        "fileName": "comment.bal",
-                        "startLine": {
-                          "line": 32,
-                          "offset": 21
-                        },
-                        "endLine": {
-                          "line": 38,
-                          "offset": 5
-                        }
-                      },
-                      "sourceCode": "{\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    }"
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
                     },
-                    "repeatable": "ONE_OR_MORE",
-                    "properties": {
-                      "condition": {
-                        "metadata": {
-                          "label": "Condition",
-                          "description": "Boolean Condition"
-                        },
-                        "valueType": "EXPRESSION",
-                        "value": "i == 5 ",
-                        "optional": false,
-                        "editable": true
-                      }
-                    },
-                    "children": [
-                      {
-                        "id": "64549",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "This is a comment for i = 0"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 33,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 34,
-                              "offset": 38
-                            }
-                          },
-                          "sourceCode": "This is a comment for i = 0"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "valueType": "STRING",
-                            "value": "This is a comment for i = 0",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "66730",
-                        "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'x' with type 'int'"
-                        },
-                        "codedata": {
-                          "node": "NEW_DATA",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 35,
-                              "offset": 8
-                            },
-                            "endLine": {
-                              "line": 35,
-                              "offset": 18
-                            }
-                          },
-                          "sourceCode": "// This is a comment for i = 0\n        int x = 0;"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "0",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "x",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "type": {
-                            "metadata": {
-                              "label": "Data type",
-                              "description": "Type of the variable"
-                            },
-                            "valueType": "TYPE",
-                            "value": "int",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "67532",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "This is a comment for if-else body"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 36,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 37,
-                              "offset": 45
-                            }
-                          },
-                          "sourceCode": "This is a comment for if-else body"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "valueType": "STRING",
-                            "value": "This is a comment for if-else body",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      }
-                    ]
-                  },
-                  {
-                    "label": "Else",
-                    "kind": "BLOCK",
-                    "codedata": {
-                      "node": "ELSE",
-                      "lineRange": {
-                        "fileName": "comment.bal",
-                        "startLine": {
-                          "line": 38,
-                          "offset": 6
-                        },
-                        "endLine": {
-                          "line": 43,
-                          "offset": 5
-                        }
-                      },
-                      "sourceCode": "else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }"
-                    },
-                    "repeatable": "ZERO_OR_ONE",
-                    "children": [
-                      {
-                        "id": "70470",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "This is a comment for x = 0"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 39,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 39,
-                              "offset": 38
-                            }
-                          },
-                          "sourceCode": "This is a comment for x = 0"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "valueType": "STRING",
-                            "value": "This is a comment for x = 0",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "71690",
-                        "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'x' with type 'int'"
-                        },
-                        "codedata": {
-                          "node": "NEW_DATA",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 40,
-                              "offset": 8
-                            },
-                            "endLine": {
-                              "line": 40,
-                              "offset": 18
-                            }
-                          },
-                          "sourceCode": "// This is a comment for x = 0\n        int x = 0;"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "0",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Data variable",
-                              "description": "Name of the variable"
-                            },
-                            "valueType": "IDENTIFIER",
-                            "value": "x",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "type": {
-                            "metadata": {
-                              "label": "Data type",
-                              "description": "Type of the variable"
-                            },
-                            "valueType": "TYPE",
-                            "value": "int",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "72489",
-                        "metadata": {
-                          "label": "Comment",
-                          "description": "This is a comment for else body"
-                        },
-                        "codedata": {
-                          "node": "COMMENT",
-                          "lineRange": {
-                            "fileName": "comment.bal",
-                            "startLine": {
-                              "line": 41,
-                              "offset": 0
-                            },
-                            "endLine": {
-                              "line": 42,
-                              "offset": 42
-                            }
-                          },
-                          "sourceCode": "This is a comment for else body"
-                        },
-                        "returning": false,
-                        "properties": {
-                          "comment": {
-                            "metadata": {
-                              "label": "Comment",
-                              "description": "Comment to describe the flow"
-                            },
-                            "valueType": "STRING",
-                            "value": "This is a comment for else body",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      }
-                    ]
+                    "valueType": "STRING",
+                    "value": "This is a comment for x = 0",
+                    "optional": false,
+                    "editable": true
                   }
-                ],
+                },
+                "flags": 0
+              },
+              {
+                "id": "71690",
+                "metadata": {
+                  "label": "New Variable",
+                  "description": "New variable 'x' with type 'int'"
+                },
+                "codedata": {
+                  "node": "NEW_DATA",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 40,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 40,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "// This is a comment for x = 0\n        int x = 0;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "0",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Data variable",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "x",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Data type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "72489",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "This is a comment for else body"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 41,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 42,
+                      "offset": 42
+                    }
+                  },
+                  "sourceCode": "This is a comment for else body"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "This is a comment for else body",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]

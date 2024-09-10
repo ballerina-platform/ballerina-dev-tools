@@ -54,7 +54,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
     public static Branch getDefaultOnFailBranch(boolean value) {
         return new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
-                .properties().ignore(value).defaultOnErrorVariable().stepOut().build();
+                .properties().ignore(value).onErrorVariable(null).stepOut().build();
     }
 
     public enum BranchKind {

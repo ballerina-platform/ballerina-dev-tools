@@ -69,4 +69,77 @@ service /market on new http:Listener(9090) {
             }
         }
     }
+
+    resource function get watermelons(int quantity) returns string {
+        if quantity > 10 {
+            return "large";
+        } else if quantity > 5 {
+            return "medium";
+        } else {
+            return "small";
+        }
+    }
+
+    resource function get pineapples(int count) returns string {
+        if count > 0 {
+            return "available";
+        } else if count == 0 {
+            return "out of stock";
+        }
+        return "invalid";
+    }
+
+    resource function get mangoes(int quantity) returns string {
+        if quantity > 10 {
+            return "large";
+        } else if quantity > 5 {
+            if quantity > 8 {
+                return "medium";
+            } else {
+                return "small";
+            }
+        } else {
+            return "tiny";
+        }
+    }
+
+    resource function get tomatoes(int quantity) returns string {
+        if quantity > 10 {
+            return "large";
+        } else if quantity > 5 {
+            if quantity > 3 {
+                return "medium";
+            } else if quantity > 1 {
+                return "small";
+            } else {
+                return "tiny";
+            }
+        } else {
+            return "tiny";
+        }
+    }
+
+    resource function get strawberries(int quantity) returns string {
+        if quantity > 10 {
+            return "large";
+        } else {
+            if quantity > 8 {
+                return "medium";
+            } else {
+                return "small";
+            }
+        }
+    }
+
+    resource function get avocados(int quantity) returns string {
+        if quantity > 10 {
+            return "large";
+        } else if quantity > 5 {
+            return "medium";
+        } else if quantity > 2 {
+            return "small";
+        } else {
+            return "tiny";
+        }
+    }
 }
