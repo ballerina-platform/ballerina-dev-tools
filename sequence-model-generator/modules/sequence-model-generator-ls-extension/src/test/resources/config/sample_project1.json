@@ -1,0 +1,537 @@
+{
+  "source": "sample_project1.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 13,
+    "offset": 0
+  },
+  "end": {
+    "line": 19,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "sample_project1.bal",
+      "startLine": {
+        "line": 13,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 19,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "34792",
+        "name": "foodClient",
+        "kind": "ENDPOINT",
+        "moduleName": ".",
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 3,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 72
+          }
+        }
+      },
+      {
+        "id": "73533",
+        "name": "getTypeCount",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "record {|string 'type; int count;|}[]"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 43,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 45,
+                "offset": 44
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 42,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 46,
+            "offset": 1
+          }
+        }
+      },
+      {
+        "id": "79416",
+        "name": "print",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {},
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 48,
+                "offset": 38
+              },
+              "endLine": {
+                "line": 48,
+                "offset": 55
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 48,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 48,
+            "offset": 56
+          }
+        }
+      },
+      {
+        "id": "53166",
+        "name": "extractFoodType",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "WHILE",
+            "branches": [
+              {
+                "label": "Body",
+                "children": [
+                  {
+                    "interactionType": "ENDPOINT_CALL",
+                    "targetId": "34792",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "get"
+                      },
+                      "expr": {
+                        "type": "http:Client",
+                        "value": "foodClient"
+                      },
+                      "params": [
+                        {
+                          "type": "string",
+                          "value": "\"types/\" + selectedType"
+                        }
+                      ],
+                      "value": {
+                        "type": "record {|string keyword; boolean isAvailable;|}|http:ClientError",
+                        "value": "ratingRes"
+                      }
+                    },
+                    "location": {
+                      "fileName": "sample_project1.bal",
+                      "startLine": {
+                        "line": 29,
+                        "offset": 74
+                      },
+                      "endLine": {
+                        "line": 29,
+                        "offset": 114
+                      }
+                    }
+                  },
+                  {
+                    "kind": "IF",
+                    "branches": [
+                      {
+                        "label": "Then",
+                        "children": [
+                          {
+                            "interactionType": "ENDPOINT_CALL",
+                            "targetId": "34792",
+                            "kind": "INTERACTION",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "value": "get"
+                              },
+                              "expr": {
+                                "type": "http:Client",
+                                "value": "foodClient"
+                              },
+                              "params": [
+                                {
+                                  "type": "string",
+                                  "value": "ratingUrl"
+                                }
+                              ],
+                              "value": {
+                                "type": "int|http:ClientError",
+                                "value": "rating"
+                              }
+                            },
+                            "location": {
+                              "fileName": "sample_project1.bal",
+                              "startLine": {
+                                "line": 33,
+                                "offset": 27
+                              },
+                              "endLine": {
+                                "line": 33,
+                                "offset": 53
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Else",
+                        "children": [
+                          {
+                            "interactionType": "ENDPOINT_CALL",
+                            "targetId": "34792",
+                            "kind": "INTERACTION",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "value": "post"
+                              },
+                              "expr": {
+                                "type": "http:Client",
+                                "value": "foodClient"
+                              },
+                              "params": [
+                                {
+                                  "type": "string",
+                                  "value": "ratingUrl"
+                                },
+                                {
+                                  "type": "int",
+                                  "value": "0"
+                                }
+                              ],
+                              "value": {
+                                "type": "http:Response|http:ClientError",
+                                "value": "postRes"
+                              }
+                            },
+                            "location": {
+                              "fileName": "sample_project1.bal",
+                              "startLine": {
+                                "line": 35,
+                                "offset": 42
+                              },
+                              "endLine": {
+                                "line": 35,
+                                "offset": 72
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "properties": {
+                      "condition": {
+                        "type": "boolean",
+                        "value": "ratingRes.isAvailable"
+                      }
+                    },
+                    "location": {
+                      "fileName": "sample_project1.bal",
+                      "startLine": {
+                        "line": 32,
+                        "offset": 8
+                      },
+                      "endLine": {
+                        "line": 36,
+                        "offset": 9
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "type": "boolean",
+                "value": "result.length() > 0"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 27,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 38,
+                "offset": 5
+              }
+            }
+          },
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "ItemInfo[]"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 39,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 39,
+                "offset": 20
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 21,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 40,
+            "offset": 1
+          }
+        }
+      },
+      {
+        "id": "79416",
+        "name": "print",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {},
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 48,
+                "offset": 38
+              },
+              "endLine": {
+                "line": 48,
+                "offset": 55
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 48,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 48,
+            "offset": 56
+          }
+        }
+      },
+      {
+        "id": "44827",
+        "name": "printMenu",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "ENDPOINT_CALL",
+            "targetId": "34792",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "get"
+              },
+              "expr": {
+                "type": "http:Client",
+                "value": "foodClient"
+              },
+              "params": [
+                {
+                  "type": "string",
+                  "value": "\"menu\""
+                }
+              ],
+              "value": {
+                "type": "Food[]|http:ClientError",
+                "value": "menu"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 14,
+                "offset": 24
+              },
+              "endLine": {
+                "line": 14,
+                "offset": 47
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "73533",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "getTypeCount"
+              },
+              "params": [],
+              "value": {
+                "type": "record {|string 'type; int count;|}[]",
+                "value": "itemCounts"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 15,
+                "offset": 21
+              },
+              "endLine": {
+                "line": 15,
+                "offset": 35
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "79416",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "print"
+              },
+              "params": [
+                {
+                  "type": "record {|string 'type; int count;|}[]",
+                  "value": "itemCounts"
+                }
+              ]
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 16,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 16,
+                "offset": 21
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "53166",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "extractFoodType"
+              },
+              "params": [
+                {
+                  "type": "Food[]",
+                  "value": "menu"
+                },
+                {
+                  "type": "string",
+                  "value": "'type"
+                }
+              ],
+              "value": {
+                "type": "ItemInfo[]|http:ClientError",
+                "value": "foodInfo"
+              }
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 17,
+                "offset": 19
+              },
+              "endLine": {
+                "line": 17,
+                "offset": 47
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "79416",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "print"
+              },
+              "params": [
+                {
+                  "type": "ItemInfo[]|http:ClientError",
+                  "value": "foodInfo"
+                }
+              ]
+            },
+            "location": {
+              "fileName": "sample_project1.bal",
+              "startLine": {
+                "line": 18,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 18,
+                "offset": 19
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "sample_project1.bal",
+          "startLine": {
+            "line": 13,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 19,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "source": "function_call4.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 2,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "function_call4.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 2,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "36736",
+        "name": "fn2",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "function_call4.bal",
+              "startLine": {
+                "line": 5,
+                "offset": 30
+              },
+              "endLine": {
+                "line": 5,
+                "offset": 31
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call4.bal",
+          "startLine": {
+            "line": 5,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 5,
+            "offset": 32
+          }
+        }
+      },
+      {
+        "id": "38708",
+        "name": "f3",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {},
+            "location": {
+              "fileName": "function_call4.bal",
+              "startLine": {
+                "line": 7,
+                "offset": 17
+              },
+              "endLine": {
+                "line": 7,
+                "offset": 19
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call4.bal",
+          "startLine": {
+            "line": 7,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 7,
+            "offset": 20
+          }
+        }
+      },
+      {
+        "id": "31838",
+        "name": "fn1",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "36736",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "fn2"
+              },
+              "params": [],
+              "value": {
+                "type": "int",
+                "value": "a"
+              }
+            },
+            "location": {
+              "fileName": "function_call4.bal",
+              "startLine": {
+                "line": 1,
+                "offset": 12
+              },
+              "endLine": {
+                "line": 1,
+                "offset": 17
+              }
+            }
+          },
+          {
+            "interactionType": "FUNCTION_CALL",
+            "targetId": "38708",
+            "kind": "INTERACTION",
+            "properties": {
+              "name": {
+                "type": "string",
+                "value": "f3"
+              },
+              "params": []
+            },
+            "location": {
+              "fileName": "function_call4.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 2,
+                "offset": 8
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "function_call4.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 3,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}
