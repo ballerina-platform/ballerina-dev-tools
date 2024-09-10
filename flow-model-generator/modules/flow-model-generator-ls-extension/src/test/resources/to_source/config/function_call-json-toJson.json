@@ -3,15 +3,15 @@
   "description": "Sample diagram node",
   "diagram": {
     "metadata": {
-      "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+      "label": "toJson",
+      "description": "Converts a value of type `anydata` to `json`.\n\n",
+      "icon": ""
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
-      "module": "log",
-      "symbol": "printInfo",
+      "module": "data.jsondata",
+      "symbol": "toJson",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -26,40 +26,10 @@
     },
     "returning": false,
     "properties": {
-      "msg": {
+      "v": {
         "metadata": {
-          "label": "msg",
-          "description": "The message to be logged\n"
-        },
-        "valueType": "Expression",
-        "value": "\"\"",
-        "optional": false,
-        "editable": true
-      },
-      "'error": {
-        "metadata": {
-          "label": "'error",
-          "description": "The error struct to be logged\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "stackTrace": {
-        "metadata": {
-          "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "keyValues": {
-        "metadata": {
-          "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
+          "label": "v",
+          "description": "Source anydata value\n"
         },
         "valueType": "Expression",
         "value": "{}",
@@ -102,7 +72,7 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/log;"
+        "newText": "import ballerina/data.jsondata;"
       },
       {
         "range": {
@@ -115,7 +85,7 @@
             "character": 0
           }
         },
-        "newText": "string value = check log:printInfo(\"\", keyValues = {});"
+        "newText": "string value = check jsondata:toJson({});"
       }
     ]
   }

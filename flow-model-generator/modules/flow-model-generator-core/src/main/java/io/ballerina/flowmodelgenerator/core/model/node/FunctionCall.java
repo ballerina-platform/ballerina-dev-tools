@@ -35,7 +35,8 @@ public class FunctionCall extends NodeBuilder {
         FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
 
         String module = nodeTemplate.codedata().module();
-        String methodCall = (module != null ? module + ":" : "") + nodeTemplate.metadata().label();
+        String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
+        String methodCall = methodCallPrefix + nodeTemplate.metadata().label();
 
         return sourceBuilder.token()
                 .name(methodCall)

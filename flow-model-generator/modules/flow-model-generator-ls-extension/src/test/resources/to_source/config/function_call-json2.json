@@ -1,0 +1,103 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "53877",
+    "metadata": {
+      "label": "parseAsType",
+      "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+      "icon": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "data.jsondata",
+      "symbol": "parseAsType",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 61
+        }
+      },
+      "sourceCode": "Apple apple = check jsondata:parseAsType(jsonResult);"
+    },
+    "returning": false,
+    "properties": {
+      "v": {
+        "metadata": {
+          "label": "v",
+          "description": "Source JSON value\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "jsonResult",
+        "optional": false,
+        "editable": true
+      },
+      "options": {
+        "metadata": {
+          "label": "options",
+          "description": "Options to be used for filtering in the projection\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "apple",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "Apple",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/data.jsondata;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 22,
+            "character": 61
+          }
+        },
+        "newText": "Apple apple = check jsondata:parseAsType(jsonResult);"
+      }
+    ]
+  }
+}

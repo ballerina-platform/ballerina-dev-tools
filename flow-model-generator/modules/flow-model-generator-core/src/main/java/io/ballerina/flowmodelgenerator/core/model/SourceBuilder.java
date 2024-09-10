@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.model;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.syntax.tree.IdentifierToken;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NodeParser;
@@ -45,6 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SourceBuilder {
 
@@ -118,10 +120,14 @@ public class SourceBuilder {
         }
 
         boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&
-                ((ModulePartNode) syntaxTree.rootNode()).imports().stream()
-                        .anyMatch(importDeclarationNode -> importDeclarationNode.orgName().isPresent() &&
-                                org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
-                                module.equals(importDeclarationNode.moduleName().get(0).text()));
+                ((ModulePartNode) syntaxTree.rootNode()).imports().stream().anyMatch(importDeclarationNode -> {
+                    String moduleName = importDeclarationNode.moduleName().stream()
+                            .map(IdentifierToken::text)
+                            .collect(Collectors.joining("."));
+                    return importDeclarationNode.orgName().isPresent() &&
+                            org.equals(importDeclarationNode.orgName().get().orgName().text()) &&
+                            module.equals(moduleName);
+                });
 
         // Add the import statement
         if (!importExists) {

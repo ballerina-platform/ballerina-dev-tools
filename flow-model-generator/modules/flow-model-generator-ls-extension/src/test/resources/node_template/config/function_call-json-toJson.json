@@ -1,0 +1,56 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FUNCTION_CALL",
+    "org": "ballerina",
+    "module": "data.jsondata",
+    "symbol": "toJson"
+  },
+  "output": {
+    "metadata": {
+      "label": "toJson",
+      "description": "Converts a value of type `anydata` to `json`.\n\n",
+      "icon": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "data.jsondata",
+      "symbol": "toJson"
+    },
+    "returning": false,
+    "properties": {
+      "v": {
+        "metadata": {
+          "label": "v",
+          "description": "Source anydata value\n"
+        },
+        "valueType": "Expression",
+        "value": "{}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false
+      }
+    },
+    "flags": 1
+  }
+}
