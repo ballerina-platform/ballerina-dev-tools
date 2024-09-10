@@ -35,6 +35,7 @@ import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
+import io.ballerina.compiler.syntax.tree.CommentNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
@@ -175,11 +176,25 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(FunctionBodyBlockNode functionBodyBlockNode) {
-        for (StatementNode statementNode : functionBodyBlockNode.statements()) {
-            genCommentNode(statementNode);
-            statementNode.accept(this);
+        for (Node statementOrComment : functionBodyBlockNode.statementsWithComments()) {
+            statementOrComment.accept(this);
         }
-        genCommentNode(functionBodyBlockNode.closeBraceToken());
+    }
+
+    @Override
+    public void visit(CommentNode commentNode) {
+        Node node = commentNode.getCommentAttachedNode();
+        LinePosition startPos = textDocument.linePositionFrom(node.textRangeWithMinutiae().startOffset());
+        int offset = 0;
+        if (!(node instanceof Token)) {
+            offset = node.textRangeWithMinutiae().startOffset();
+        }
+        LinePosition endPos =
+                textDocument.linePositionFrom(commentNode.getLastMinutiae().textRange().endOffset() + offset);
+        LineRange commentRange = LineRange.from(node.lineRange().fileName(), startPos, endPos);
+        CommentMetadata commentMetadata = new CommentMetadata(String.join(System.lineSeparator(),
+                commentNode.getCommentLines()), commentRange);
+        genCommentNode(commentMetadata);
     }
 
     @Override
@@ -815,56 +830,11 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(bodyNode);
     }
 
-    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder branchBuilder) {
-        for (StatementNode statement : blockStatement.statements()) {
-            genCommentNode(statement, branchBuilder);
-            statement.accept(this);
-            branchBuilder.node(buildNode());
+    private void analyzeBlock(BlockStatementNode blockStatement, Branch.Builder thenBranchBuilder) {
+        for (Node statementOrComment : blockStatement.statementsWithComments()) {
+            statementOrComment.accept(this);
+            thenBranchBuilder.node(buildNode());
         }
-        genCommentNode(blockStatement.closeBraceToken(), branchBuilder);
-    }
-
-    private Optional<CommentMetadata> getComment(Node node) {
-        List<String> commentLines = new ArrayList<>();
-        Minutiae lastMinutiae = null;
-        for (Minutiae minutiae : node.leadingMinutiae()) {
-            String[] splits = minutiae.text().split("// ");
-            if (splits.length >= 2) {
-                commentLines.add(splits[1]);
-                lastMinutiae = minutiae;
-            } else if (splits.length == 1 && splits[0].contains("//")) {
-                commentLines.add("");
-                lastMinutiae = minutiae;
-            }
-        }
-        if (commentLines.isEmpty()) {
-            return Optional.empty();
-        }
-        LinePosition startPos = textDocument.linePositionFrom(node.textRangeWithMinutiae().startOffset());
-        int offset = 0;
-        if (!(node instanceof Token)) {
-            offset = node.textRangeWithMinutiae().startOffset();
-        }
-        LinePosition endPos = textDocument.linePositionFrom(lastMinutiae.textRange().endOffset() + offset);
-        LineRange commentRange = LineRange.from(node.lineRange().fileName(), startPos, endPos);
-        return Optional.of(new CommentMetadata(String.join(System.lineSeparator(), commentLines), commentRange));
-    }
-
-    private void genCommentNode(Node node, Branch.Builder builder) {
-        Optional<CommentMetadata> comment = getComment(node);
-        if (comment.isEmpty()) {
-            return;
-        }
-        genCommentNode(comment.get());
-        builder.node(buildNode());
-    }
-
-    private void genCommentNode(Node node) {
-        Optional<CommentMetadata> comment = getComment(node);
-        if (comment.isEmpty()) {
-            return;
-        }
-        genCommentNode(comment.get());
     }
 
     private void genCommentNode(CommentMetadata comment) {
