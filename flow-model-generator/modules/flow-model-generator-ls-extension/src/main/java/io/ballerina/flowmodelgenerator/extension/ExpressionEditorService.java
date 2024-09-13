@@ -21,6 +21,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
@@ -42,7 +45,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
@@ -69,19 +71,16 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Path filePath = Path.of(request.filePath());
-                this.workspaceManager.loadProject(filePath);
-                Path projectPath = this.workspaceManager.projectRoot(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
 
-                ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
-                projectCacheManager.createTempDirectory();
-                Path destination = projectCacheManager.getDestination();
-                this.workspaceManager.loadProject(destination);
-
-                Optional<Document> document = this.workspaceManager.document(destination);
-                if (document.isEmpty()) {
+                DocumentId documentId = project.documentId(filePath);
+                Module module = project.currentPackage().module(documentId.moduleId());
+                Document document = module.document(documentId);
+                if (document == null) {
                     return Either.forLeft(List.of());
                 }
-                TextDocument textDocument = document.get().textDocument();
+
+                TextDocument textDocument = document.textDocument();
 
                 // Determine the cursor position
                 int textPosition = textDocument.textPositionFrom(request.startLine());
@@ -89,21 +88,18 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                Files.write(destination, new String(newTextDocument.toCharArray()).getBytes(),
-                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-                document.get().modify()
+                document.modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
 
                 Position position =
                         new Position(request.startLine().line(), request.startLine().offset() + 4 + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(filePath.toUri().toString());
 
                 CompletionParams params = new CompletionParams(identifier, position, request.context());
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                         langServer.getTextDocumentService().completion(params);
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
-                projectCacheManager.deleteCache();
                 return completions;
             } catch (Exception ignored) {
                 return Either.forLeft(List.of());
