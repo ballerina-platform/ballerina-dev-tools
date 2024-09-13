@@ -62,15 +62,11 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 /**
  * Represents the extended language server service for the flow model generator service.
@@ -162,25 +158,11 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 Path tempDir = Files.createTempDirectory("project-cache");
                 Path destinationDir = tempDir.resolve(projectPath.getFileName());
 
-                if (Files.isDirectory(projectPath)) {
-                    try (Stream<Path> paths = Files.walk(projectPath)) {
-                        paths.forEach(source -> {
-                            try {
-                                Files.copy(source, destinationDir.resolve(projectPath.relativize(source)),
-                                        StandardCopyOption.REPLACE_EXISTING);
-                            } catch (IOException e) {
-                                throw new RuntimeException("Failed to copy project directory to cache", e);
-                            }
-                        });
-                    } catch (IOException e) {
-                        throw new RuntimeException("Failed to walk project directory", e);
-                    }
-                } else {
-                    Files.copy(projectPath, destinationDir, StandardCopyOption.REPLACE_EXISTING);
-                }
+                ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
+                projectCacheManager.createTempDirectory();
 
-                Path destination = destinationDir.resolve(projectPath.relativize(projectPath.resolve(filePath)));
-                Project newProject = this.workspaceManager.loadProject(destination);
+                Path destination = projectCacheManager.getDestination();
+                this.workspaceManager.loadProject(destination);
                 Optional<SemanticModel> newSemanticModel = this.workspaceManager.semanticModel(destination);
                 Optional<Document> newDocument = this.workspaceManager.document(destination);
                 if (newSemanticModel.isEmpty() || newDocument.isEmpty()) {
@@ -225,23 +207,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 response.setFlowDesignModel(newFlowModel);
 
-                try {
-                    if (Files.isDirectory(destinationDir)) {
-                        try (Stream<Path> paths = Files.walk(destinationDir)) {
-                            paths.sorted(Comparator.reverseOrder()).forEach(source -> {
-                                try {
-                                    Files.delete(source);
-                                } catch (IOException e) {
-                                    throw new RuntimeException("Failed to delete destination directory", e);
-                                }
-                            });
-                        }
-                    } else {
-                        Files.delete(destinationDir);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException("Failed to delete destination", e);
-                }
+                projectCacheManager.deleteCache();
             } catch (Throwable e) {
                 response.setError(e);
             }

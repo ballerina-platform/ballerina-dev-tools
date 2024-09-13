@@ -37,7 +37,7 @@ public class ProjectCacheManager {
         this.filePath = filePath;
     }
 
-    public void createTempDirectoryWithContents() throws IOException {
+    public void createTempDirectory() throws IOException {
         // Create a temporary directory
         Path tempDir = Files.createTempDirectory("project-cache");
         destinationDir = tempDir.resolve(sourceDir.getFileName());

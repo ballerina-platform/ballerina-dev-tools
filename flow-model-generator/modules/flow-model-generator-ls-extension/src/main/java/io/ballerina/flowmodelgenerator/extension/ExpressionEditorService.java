@@ -73,7 +73,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
 
                 ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
-                projectCacheManager.createTempDirectoryWithContents();
+                projectCacheManager.createTempDirectory();
                 Path destination = projectCacheManager.getDestination();
                 this.workspaceManager.loadProject(destination);
 
@@ -97,8 +97,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
 
                 Position position =
                         new Position(request.startLine().line(), request.startLine().offset() + 4 + request.offset());
-                TextDocumentIdentifier identifier =
-                        new TextDocumentIdentifier(destination.toUri().toString());
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
 
                 CompletionParams params = new CompletionParams(identifier, position, request.context());
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
