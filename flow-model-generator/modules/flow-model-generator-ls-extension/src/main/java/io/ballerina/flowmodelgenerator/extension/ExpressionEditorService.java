@@ -38,9 +38,7 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -92,8 +90,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                Files.write(destination, new String(newTextDocument.toCharArray()).getBytes(),
-                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                projectCacheManager.writeContent(newTextDocument);
                 document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
@@ -110,7 +107,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
                 projectCacheManager.deleteCache();
                 return completions;
-            } catch (Exception ignored) {
+            } catch (Throwable e) {
                 return Either.forLeft(List.of());
             }
         });

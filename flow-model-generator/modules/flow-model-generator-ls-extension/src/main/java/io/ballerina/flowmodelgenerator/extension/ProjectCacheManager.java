@@ -18,10 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import io.ballerina.tools.text.TextDocument;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
@@ -34,7 +37,7 @@ public class ProjectCacheManager {
 
     private final Path sourceDir;
     private final Path filePath;
-    private Path destinationDir;
+    private Path destinationPath;
 
     public ProjectCacheManager(Path sourceDir, Path filePath) {
         this.sourceDir = sourceDir;
@@ -44,28 +47,29 @@ public class ProjectCacheManager {
     public void createTempDirectory() throws IOException {
         // Create a temporary directory
         Path tempDir = Files.createTempDirectory("project-cache");
-        destinationDir = tempDir.resolve(sourceDir.getFileName());
+        Path tempDesintaitonPath = tempDir.resolve(sourceDir.getFileName());
+        destinationPath = tempDesintaitonPath;
 
         // Copy contents from sourceDir to destinationDir
         if (Files.isDirectory(sourceDir)) {
             try (Stream<Path> paths = Files.walk(sourceDir)) {
                 paths.forEach(source -> {
                     try {
-                        Files.copy(source, destinationDir.resolve(sourceDir.relativize(source)),
+                        Files.copy(source, tempDesintaitonPath.resolve(sourceDir.relativize(source)),
                                 StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
                         throw new RuntimeException("Failed to copy project directory to cache", e);
                     }
                 });
             }
-        } else {
-            Files.copy(sourceDir, destinationDir, StandardCopyOption.REPLACE_EXISTING);
+            return;
         }
+        Files.copy(sourceDir, tempDesintaitonPath, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public void deleteCache() throws IOException {
-        if (Files.isDirectory(destinationDir)) {
-            try (Stream<Path> paths = Files.walk(destinationDir)) {
+        if (Files.isDirectory(destinationPath)) {
+            try (Stream<Path> paths = Files.walk(destinationPath)) {
                 paths.sorted(Comparator.reverseOrder()).forEach(source -> {
                     try {
                         Files.delete(source);
@@ -74,12 +78,23 @@ public class ProjectCacheManager {
                     }
                 });
             }
-        } else {
-            Files.delete(destinationDir);
+            return;
         }
+        Files.delete(destinationPath);
+    }
+
+    public void writeContent(TextDocument textDocument) throws IOException {
+        if (destinationPath == null) {
+            throw new RuntimeException("Destination directory is not created");
+        }
+        Files.writeString(destinationPath, new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     public Path getDestination() {
-        return destinationDir.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+        if (destinationPath == null) {
+            throw new RuntimeException("Destination directory is not created");
+        }
+        return destinationPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
     }
 }
