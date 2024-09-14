@@ -21,9 +21,6 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.projects.Document;
-import io.ballerina.projects.DocumentId;
-import io.ballerina.projects.Module;
-import io.ballerina.projects.Project;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
@@ -45,6 +42,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @JavaSPIService("org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService")
@@ -70,17 +68,23 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
             ExpressionEditorCompletionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
             try {
+                // Load the project
                 Path filePath = Path.of(request.filePath());
-                Project project = this.workspaceManager.loadProject(filePath);
+                this.workspaceManager.loadProject(filePath);
+                Path projectPath = this.workspaceManager.projectRoot(filePath);
 
-                DocumentId documentId = project.documentId(filePath);
-                Module module = project.currentPackage().module(documentId.moduleId());
-                Document document = module.document(documentId);
-                if (document == null) {
+                // Create a temporary directory and load the project
+                ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
+                projectCacheManager.createTempDirectory();
+                Path destination = projectCacheManager.getDestination();
+                this.workspaceManager.loadProject(destination);
+
+                // Get the document
+                Optional<Document> document = this.workspaceManager.document(destination);
+                if (document.isEmpty()) {
                     return Either.forLeft(List.of());
                 }
-
-                TextDocument textDocument = document.textDocument();
+                TextDocument textDocument = document.get().textDocument();
 
                 // Determine the cursor position
                 int textPosition = textDocument.textPositionFrom(request.startLine());
@@ -88,18 +92,23 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                document.modify()
+                Files.write(destination, new String(newTextDocument.toCharArray()).getBytes(),
+                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
 
+                // Generate the completion params
                 Position position =
                         new Position(request.startLine().line(), request.startLine().offset() + 4 + request.offset());
-                TextDocumentIdentifier identifier = new TextDocumentIdentifier(filePath.toUri().toString());
-
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
                 CompletionParams params = new CompletionParams(identifier, position, request.context());
+
+                // Get the completions
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                         langServer.getTextDocumentService().completion(params);
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
+                projectCacheManager.deleteCache();
                 return completions;
             } catch (Exception ignored) {
                 return Either.forLeft(List.of());
