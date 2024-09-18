@@ -105,8 +105,8 @@ def targetGraphqlModelGeneratorCore = file("$project.rootDir/graphql-model-gener
 def targetGraphqlModelGeneratorLSExt = file("$project.rootDir/graphql-model-generator/modules/graphql-model-generator-ls-extension/build/libs/graphql-model-generator-ls-extension-${project.version}.jar")
 def targetFlowModelGeneratorCore = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-core/build/libs/flow-model-generator-core-${project.version}.jar")
 def targetFlowModelGeneratorLSExt = file("$project.rootDir/flow-model-generator/modules/flow-model-generator-ls-extension/build/libs/flow-model-generator-ls-extension-${project.version}.jar")
-def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-diagram-generator/modules/sequence-model-generator-core/build/libs/sequence-diagram-generator-core-${project.version}.jar")
-def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-diagram-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-diagram-generator-ls-extension-${project.version}.jar")
+def targetSequenceDiagramGeneratorCore = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-core/build/libs/sequence-model-generator-core-${project.version}.jar")
+def targetSequenceDiagramGeneratorLSExt = file("$project.rootDir/sequence-model-generator/modules/sequence-model-generator-ls-extension/build/libs/sequence-model-generator-ls-extension-${project.version}.jar")
 
 task copyArtifactZip {
     dependsOn(":architecture-model-generator:architecture-model-generator-core:build")
@@ -221,6 +221,11 @@ task clean {
 task buildFlow {
     dependsOn(":flow-model-generator:flow-model-generator-core:build")
     dependsOn(":flow-model-generator:flow-model-generator-ls-extension:build")
+}
+
+task buildSequence {
+    dependsOn(":sequence-model-generator:sequence-model-generator-core:build")
+    dependsOn(":sequence-model-generator:sequence-model-generator-ls-extension:build")
 }
 
 build.doNotTrackState("build needs to run every time")
