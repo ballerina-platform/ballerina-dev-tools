@@ -21,24 +21,27 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
+
+import java.util.Map;
 
 /**
- * Generates the connectors for the provided parameters.
+ * Generates functions based on a given keyword.
  *
  * @since 1.4.0
  */
-public class ConnectorGenerator {
+public class FunctionGenerator {
 
     private final Gson gson;
-    private final CentralAPI centralAPI;
+    private final CentralAPI central;
 
-    public ConnectorGenerator() {
-        this.gson = new Gson();
-        centralAPI = LocalIndexCentral.getInstance();
+    public FunctionGenerator() {
+        gson = new Gson();
+        central = CentralApiFactory.getInstance();
     }
 
-    public JsonArray getConnectors(String keyword) {
-        return gson.toJsonTree(centralAPI.getConnectors()).getAsJsonArray();
+    public JsonArray getFunctions(String keyword) {
+        Map<String, String> queryMap = Map.of("q", keyword, "org", "ballerina,ballerinax");
+        return gson.toJsonTree(central.getFunctions(queryMap)).getAsJsonArray();
     }
 }

@@ -45,11 +45,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The proxy implementation of the central interface to obtain information about the connectors.
+ * An implementation of the Central API using a local index.
  *
  * @since 1.4.0
  */
-public class CentralProxy implements Central {
+public class LocalIndexCentral implements CentralAPI {
 
     private final Gson gson;
     private Map<String, FlowNode> templateCache;
@@ -61,14 +61,14 @@ public class CentralProxy implements Central {
 
     private static final class CentralProxyHolder {
 
-        private static final CentralProxy instance = new CentralProxy();
+        private static final LocalIndexCentral instance = new LocalIndexCentral();
     }
 
-    public static CentralProxy getInstance() {
+    public static LocalIndexCentral getInstance() {
         return CentralProxyHolder.instance;
     }
 
-    private CentralProxy() {
+    public LocalIndexCentral() {
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemDeserializer())
                 .registerTypeAdapter(Category.class, new CategoryDeserializer())
@@ -84,7 +84,7 @@ public class CentralProxy implements Central {
     }
 
     @Override
-    public List<Item> getAvailableConnectors() {
+    public List<Item> getConnectors() {
         Category connectors = readJsonResource(CONNECTORS_JSON, Category.class);
         return connectors.items();
     }
@@ -96,11 +96,50 @@ public class CentralProxy implements Central {
     }
 
     @Override
-    public List<Item> getConnections(Codedata codedata) {
+    public List<Item> getConnectorActions(Codedata codedata) {
         if (connectionMap == null) {
             initializeConnectionMap();
         }
         return connectionMap.get(codedata.toString());
+    }
+
+    @Override
+    public List<AvailableNode> getConnectors(Map<String, String> queryMap) {
+        List<Item> connectors = getConnectors();
+        String query = queryMap.getOrDefault("q", "");
+        int limit = Integer.parseInt(queryMap.getOrDefault("limit", "10"));
+        int offset = Integer.parseInt(queryMap.getOrDefault("offset", "0"));
+
+        List<AvailableNode> availableNodes = new ArrayList<>();
+        for (Item item : connectors) {
+            if (item instanceof Category) {
+                availableNodes.addAll(getAvailableNodesFromCategory((Category) item));
+            } else if (item instanceof AvailableNode) {
+                availableNodes.add((AvailableNode) item);
+            }
+        }
+        return availableNodes.stream()
+                .filter(node -> node.codedata().object().contains(query) || node.codedata().module().contains(query))
+                .skip(offset)
+                .limit(limit)
+                .toList();
+    }
+
+    @Override
+    public List<AvailableNode> getFunctions(Map<String, String> queryMap) {
+        return List.of();
+    }
+
+    private List<AvailableNode> getAvailableNodesFromCategory(Category category) {
+        List<AvailableNode> availableNodes = new ArrayList<>();
+        for (Item item : category.items()) {
+            if (item instanceof Category) {
+                availableNodes.addAll(getAvailableNodesFromCategory((Category) item));
+            } else if (item instanceof AvailableNode) {
+                availableNodes.add((AvailableNode) item);
+            }
+        }
+        return availableNodes;
     }
 
     private void initializeTemplateCache() {

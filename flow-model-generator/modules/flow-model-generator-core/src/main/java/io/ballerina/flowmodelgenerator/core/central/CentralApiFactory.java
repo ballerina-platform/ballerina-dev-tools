@@ -16,29 +16,22 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.core;
+package io.ballerina.flowmodelgenerator.core.central;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 
 /**
- * Generates the connectors for the provided parameters.
+ * Factory class to provide an instance of CentralAPI.
  *
  * @since 1.4.0
  */
-public class ConnectorGenerator {
+public class CentralApiFactory {
 
-    private final Gson gson;
-    private final CentralAPI centralAPI;
+    private static CentralAPI centralAPI;
 
-    public ConnectorGenerator() {
-        this.gson = new Gson();
-        centralAPI = LocalIndexCentral.getInstance();
-    }
-
-    public JsonArray getConnectors(String keyword) {
-        return gson.toJsonTree(centralAPI.getConnectors()).getAsJsonArray();
+    public static CentralAPI getInstance() {
+        if (centralAPI == null) {
+            centralAPI = System.getProperty("test.env") != null ? new LocalIndexCentral() : new CentralImpl();
+        }
+        return centralAPI;
     }
 }

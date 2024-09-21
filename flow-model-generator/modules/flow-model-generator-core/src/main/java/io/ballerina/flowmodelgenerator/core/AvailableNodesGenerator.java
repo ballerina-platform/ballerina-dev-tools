@@ -34,8 +34,8 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.Central;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
+import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -61,12 +61,12 @@ public class AvailableNodesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
-    private final Central central;
+    private final CentralAPI centralAPI;
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
         this.gson = new Gson();
-        this.central = CentralProxy.getInstance();
+        this.centralAPI = CentralApiFactory.getInstance();
         this.semanticModel = semanticModel;
         this.document = document;
     }
@@ -81,7 +81,7 @@ public class AvailableNodesGenerator {
 
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
-        items.addAll(central.getFunctions());
+        items.addAll(centralAPI.getFunctions());
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -203,7 +203,7 @@ public class AvailableNodesGenerator {
                     .object("Client")
                     .symbol("init")
                     .build();
-            List<Item> connections = central.getConnections(codedata);
+            List<Item> connections = centralAPI.getConnectorActions(codedata);
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())

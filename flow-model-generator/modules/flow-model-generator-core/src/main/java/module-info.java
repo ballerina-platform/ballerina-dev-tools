@@ -24,7 +24,10 @@ module io.ballerina.flow.model.generator {
     requires io.ballerina.language.server.commons;
     requires io.ballerina.language.server.core;
     requires org.eclipse.lsp4j;
+    requires io.ballerina.diagram.util;
+    requires io.ballerina.central.client;
     requires com.google.gson;
+    requires com.graphqljava;
 
     exports io.ballerina.flowmodelgenerator.core;
 }

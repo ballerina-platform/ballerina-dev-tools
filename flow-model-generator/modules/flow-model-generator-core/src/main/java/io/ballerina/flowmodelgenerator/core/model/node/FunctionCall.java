@@ -1,7 +1,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
@@ -21,7 +21,7 @@ public class FunctionCall extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
+        this.cachedFlowNode = CentralApiFactory.getInstance().getNodeTemplate(context.codedata());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FunctionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        FlowNode nodeTemplate = CentralApiFactory.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
 
         String module = nodeTemplate.codedata().module();
         String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";

@@ -18,18 +18,20 @@
 
 package io.ballerina.flowmodelgenerator.core.central;
 
+import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The central interface to obtain information about the connectors.
  *
  * @since 1.4.0
  */
-public interface Central {
+public interface CentralAPI {
 
     /**
      * Get the node template for the given codedata.
@@ -44,7 +46,7 @@ public interface Central {
      *
      * @return The available connections
      */
-    List<Item> getAvailableConnectors();
+    List<Item> getConnectors();
 
     /**
      * Get the connections for the given connector.
@@ -52,7 +54,11 @@ public interface Central {
      * @param codedata The codedata of the connector
      * @return The connections for the given connector
      */
-    List<Item> getConnections(Codedata codedata);
+    List<Item> getConnectorActions(Codedata codedata);
+
+    List<AvailableNode> getConnectors(Map<String, String> queryMap);
+
+    List<AvailableNode> getFunctions(Map<String, String> queryMap);
 
     /**
      * Get the available functions.
