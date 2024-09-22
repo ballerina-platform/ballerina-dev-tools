@@ -126,7 +126,7 @@ public class LocalIndexCentral implements CentralAPI {
     }
 
     @Override
-    public List<AvailableNode> getFunctions(Map<String, String> queryMap) {
+    public List<Item> getFunctions(Map<String, String> queryMap) {
         return List.of();
     }
 

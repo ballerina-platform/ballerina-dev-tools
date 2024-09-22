@@ -58,7 +58,7 @@ public interface CentralAPI {
 
     List<AvailableNode> getConnectors(Map<String, String> queryMap);
 
-    List<AvailableNode> getFunctions(Map<String, String> queryMap);
+    List<Item> getFunctions(Map<String, String> queryMap);
 
     /**
      * Get the available functions.

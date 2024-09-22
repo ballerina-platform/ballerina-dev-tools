@@ -31,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -49,57 +50,60 @@ public class GraphQlClient {
 
     private final Map<String, String> queryMap;
     private final Gson gson;
-    private final HttpURLConnection conn;
 
     private static final String GRAPHQL_API = "https://api.central.ballerina.io/2.0/graphql";
     private static final String QUERY_DIRECTORY = "graphql_queries";
 
     private static final String GET_FUNCTIONS_QUERY = "GetFunctions.graphql";
 
-    public GraphQlClient() throws IOException {
+    public GraphQlClient() {
         queryMap = new HashMap<>();
 
         gson = new GsonBuilder()
-                .registerTypeAdapter(APIDocsModel.Module.class, new ModuleDeserializer())
+                .registerTypeAdapter(ApiResponse.Module.class, new ModuleDeserializer())
                 .create();
-
-        // Initialize the connection
-        URL url = new URL(GRAPHQL_API);
-        conn = (HttpURLConnection) url.openConnection();
-
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setDoOutput(true);
     }
 
-    public APIDocsModel.ApiResponse getFunctions(String org, String module, String version) {
+    public ApiResponse getFunctions(String org, String module, String version) {
         String queryTemplate = getQueryTemplate(GET_FUNCTIONS_QUERY);
         String queryBody = String.format(queryTemplate, org, module, version);
         String query = String.format("{\"query\": \"%s\"}", queryBody);
         String response = query(query);
-        return gson.fromJson(response, APIDocsModel.ApiResponse.class);
+        return gson.fromJson(response, ApiResponse.class);
     }
 
     private String query(String query) {
-        // Write the request body
-        try (var os = conn.getOutputStream()) {
-            byte[] input = query.getBytes();
-            os.write(input, 0, input.length);
-        } catch (IOException e) {
-            throw new RuntimeException("Error occurred while writing the request body", e);
-        }
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(GRAPHQL_API);
+            conn = (HttpURLConnection) url.openConnection();
 
-        // Read the response
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // Write the request body
+            try (var os = conn.getOutputStream()) {
+                byte[] input = query.getBytes();
+                os.write(input, 0, input.length);
             }
-            return response.toString();
+
+            // Read the response
+            try (BufferedReader br = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return response.toString();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
         }
     }
 
@@ -125,22 +129,22 @@ public class GraphQlClient {
         }
     }
 
-    private static class ModuleDeserializer implements JsonDeserializer<APIDocsModel.Module> {
+    private static class ModuleDeserializer implements JsonDeserializer<ApiResponse.Module> {
 
         @Override
-        public APIDocsModel.Module deserialize(JsonElement jsonElement, java.lang.reflect.Type type,
-                                               JsonDeserializationContext jsonDeserializationContext)
+        public ApiResponse.Module deserialize(JsonElement jsonElement, Type type,
+                                              JsonDeserializationContext jsonDeserializationContext)
                 throws JsonParseException {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonElement modulesElement = jsonObject.get("functions");
 
             if (modulesElement.isJsonPrimitive() && modulesElement.getAsJsonPrimitive().isString()) {
                 String modulesString = modulesElement.getAsString();
-                List<APIDocsModel.Function> functions =
-                        new Gson().fromJson(modulesString, new TypeToken<List<APIDocsModel.Function>>() { }.getType());
-                return new APIDocsModel.Module(functions);
+                List<ApiResponse.Function> functions =
+                        new Gson().fromJson(modulesString, new TypeToken<List<ApiResponse.Function>>() { }.getType());
+                return new ApiResponse.Module(functions);
             } else {
-                return new Gson().fromJson(jsonObject, APIDocsModel.Module.class);
+                return new Gson().fromJson(jsonObject, ApiResponse.Module.class);
             }
         }
     }
