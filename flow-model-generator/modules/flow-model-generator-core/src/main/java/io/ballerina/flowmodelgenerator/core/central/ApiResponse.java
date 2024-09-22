@@ -25,9 +25,7 @@ import java.util.List;
  *
  * @since 1.4.0
  */
-public class APIDocsModel {
-
-    public record ApiResponse(Data data) { }
+public record ApiResponse(Data data) {
 
     public record Data(ApiDocs apiDocs) { }
 

@@ -64,7 +64,7 @@ public class AvailableNodesGenerator {
     private final CentralAPI centralAPI;
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
-        this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
+        this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
         this.centralAPI = CentralApiFactory.getInstance();
         this.semanticModel = semanticModel;
