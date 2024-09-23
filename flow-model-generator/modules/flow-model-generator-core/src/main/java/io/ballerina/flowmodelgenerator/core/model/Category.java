@@ -97,7 +97,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         public Builder stepIn(String childName) {
             Builder builder = this.childBuilders.get(childName);
             if (builder == null) {
-                builder = new Builder(this);
+                builder = new Builder(this).metadata().label(childName).stepOut();
                 this.childBuilders.put(childName, builder);
             }
             return builder;

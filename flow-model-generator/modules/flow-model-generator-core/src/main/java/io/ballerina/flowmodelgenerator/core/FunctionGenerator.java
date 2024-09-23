@@ -41,7 +41,7 @@ public class FunctionGenerator {
     }
 
     public JsonArray getFunctions(String keyword) {
-        Map<String, String> queryMap = Map.of("q", keyword, "org", "ballerina,ballerinax");
+        Map<String, String> queryMap = Map.of("q", keyword);
         return gson.toJsonTree(central.getFunctions(queryMap)).getAsJsonArray();
     }
 }

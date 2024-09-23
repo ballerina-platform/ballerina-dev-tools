@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core.central;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
+import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
@@ -35,12 +36,8 @@ import org.ballerinalang.diagramutil.connector.models.connector.Connector;
 import org.ballerinalang.toml.exceptions.SettingsTomlException;
 import org.wso2.ballerinalang.util.RepoUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static io.ballerina.projects.util.ProjectUtils.getAccessTokenOfCLI;
 import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
@@ -55,6 +52,7 @@ public class CentralImpl implements CentralAPI {
     private final CentralAPIClient client;
     private final GraphQlClient graphQlClient;
     private static CentralImpl instance;
+    private final RestClient restClient;
 
     public static final String CLIENT_SYMBOL = "Client";
 
@@ -71,11 +69,8 @@ public class CentralImpl implements CentralAPI {
                 proxy.password(), getAccessTokenOfCLI(settings), central.getConnectTimeout(), central.getReadTimeout(),
                 central.getWriteTimeout(), central.getCallTimeout(), central.getMaxRetries());
 
-        try {
-            graphQlClient = new GraphQlClient();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        graphQlClient = new GraphQlClient();
+        restClient = new RestClient();
     }
 
     public static synchronized CentralImpl getInstance() {
@@ -103,23 +98,72 @@ public class CentralImpl implements CentralAPI {
     }
 
     @Override
-    public List<AvailableNode> getFunctions(Map<String, String> queryMap) {
-        APIDocsModel.ApiResponse apiResponse = graphQlClient.getFunctions("ballerina", "log", "2.10.0");
-        return apiResponse.data().apiDocs().docsData().modules().stream()
-                .flatMap(module -> module.functions().stream())
-                .map(function -> {
-                    Metadata metadata = new Metadata.Builder<>(null)
-                            .label(function.name())
-                            .description(function.description())
-                            .build();
-                    Codedata codedata = new Codedata.Builder<>(null)
-                            .node(FlowNode.Kind.FUNCTION_CALL)
-                            .org(queryMap.get("org"))
-                            .module(queryMap.get("module"))
-                            .object(function.name())
-                            .build();
-                    return new AvailableNode(metadata, codedata, true);
-                }).toList();
+    public List<Item> getFunctions(Map<String, String> queryMap) {
+        PackageResponse packages = restClient.searchPackages(queryMap);
+        Category.Builder rootBuilder = new Category.Builder(null);
+
+        // Find the packages for the given query.
+        for (PackageResponse.Package pkg : packages.packages()) {
+            if (isUserOrganization(pkg.organization())) {
+                continue;
+            }
+            ApiResponse functionResponses = graphQlClient.getFunctions(pkg.organization(), pkg.name(), pkg.version());
+
+            List<ApiResponse.Function> functions = functionResponses.data().apiDocs().docsData().modules().stream()
+                    .flatMap(module -> module.functions().stream())
+                    .toList();
+            if (functions.isEmpty()) {
+                continue;
+            }
+
+            // Add every function in the package.
+            Category.Builder builder = rootBuilder.stepIn(pkg.name())
+                    .metadata()
+                    .label(pkg.name())
+                    .description(pkg.summary())
+                    .icon(pkg.icon())
+                    .stepOut();
+
+            for (ApiResponse.Function function : functions) {
+                Metadata metadata = new Metadata.Builder<>(null)
+                        .label(function.name())
+                        .description(function.description())
+                        .build();
+                Codedata codedata = new Codedata.Builder<>(null)
+                        .node(FlowNode.Kind.FUNCTION_CALL)
+                        .org(pkg.organization())
+                        .module(pkg.name())
+                        .object(function.name())
+                        .build();
+                builder.node(new AvailableNode(metadata, codedata, true));
+            }
+        }
+
+        // Find the symbols for the given query.
+        SymbolResponse symbolResponse = restClient.searchSymbols(queryMap);
+        for (SymbolResponse.Symbol symbol : symbolResponse.symbols()) {
+            if (!symbol.symbolType().equals("function") || (isUserOrganization(symbol.organization()))) {
+                continue;
+            }
+            Metadata metadata = new Metadata.Builder<>(null)
+                    .label(symbol.symbolName())
+                    .description(symbol.description())
+                    .icon(symbol.icon())
+                    .build();
+            Codedata codedata = new Codedata.Builder<>(null)
+                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .org(symbol.organization())
+                    .module(symbol.name())
+                    .object(symbol.symbolName())
+                    .build();
+            rootBuilder.stepIn(symbol.name()).node(new AvailableNode(metadata, codedata, true));
+        }
+
+        return rootBuilder.build().items();
+    }
+
+    private static boolean isUserOrganization(String organization) {
+        return !organization.equals("ballerina") && !organization.equals("ballerinax");
     }
 
     public List<AvailableNode> getConnectors(Map<String, String> queryMap) {
@@ -155,17 +199,5 @@ public class CentralImpl implements CentralAPI {
     }
 
     private record ConnectorList(List<Connector> connectors, int count, int offset, int limit) {
-    }
-
-    private String readJsonResource(String resourcePath) {
-        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(resourcePath);
-        if (resourceStream == null) {
-            throw new IllegalArgumentException("Resource not found: " + resourcePath);
-        }
-        try {
-            return new String(resourceStream.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
