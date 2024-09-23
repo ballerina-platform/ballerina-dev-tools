@@ -51,11 +51,11 @@
       {
         "id": "48766",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'x1' with type 'xml'"
+          "label": "New XML Payload",
+          "description": "New XML Payload"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "NEW_XML_PAYLOAD_DATA",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
