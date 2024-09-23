@@ -1,0 +1,51 @@
+{
+  "description": "Sample flow model",
+  "keyword": "sql",
+  "categories": [
+    {
+      "metadata": {
+        "label": "MySQL",
+        "description": "Represents a MySQL database client.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mysql",
+        "object": "Client",
+        "symbol": "init"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "MS SQL",
+        "description": "Represents an MSSQL database client.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mssql",
+        "object": "Client",
+        "symbol": "init"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "PostgreSQL",
+        "description": "Represents a PostgreSQL database client.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "postgresql",
+        "object": "Client",
+        "symbol": "init"
+      },
+      "enabled": true
+    }
+  ]
+}

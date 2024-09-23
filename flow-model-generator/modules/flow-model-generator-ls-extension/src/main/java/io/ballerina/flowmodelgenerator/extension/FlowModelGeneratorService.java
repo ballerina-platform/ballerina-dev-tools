@@ -298,7 +298,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
             try {
                 ConnectorGenerator connectorGenerator = new ConnectorGenerator();
-                response.setCategories(connectorGenerator.getConnectors(request.keyword()));
+                response.setCategories(connectorGenerator.getConnectors(request.queryMap()));
             } catch (Throwable e) {
                 response.setError(e);
             }

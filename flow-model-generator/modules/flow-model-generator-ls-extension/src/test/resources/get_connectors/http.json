@@ -1,0 +1,21 @@
+{
+  "description": "Sample flow model",
+  "keyword": "http",
+  "categories": [
+    {
+      "metadata": {
+        "label": "HTTP Connection",
+        "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.\n",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "http",
+        "object": "Client",
+        "symbol": "init"
+      },
+      "enabled": true
+    }
+  ]
+}

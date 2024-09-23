@@ -23,6 +23,8 @@ import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 
+import java.util.Map;
+
 /**
  * Generates the connectors for the provided parameters.
  *
@@ -38,7 +40,11 @@ public class ConnectorGenerator {
         centralAPI = LocalIndexCentral.getInstance();
     }
 
-    public JsonArray getConnectors(String keyword) {
-        return gson.toJsonTree(centralAPI.getConnectors()).getAsJsonArray();
+    public JsonArray getConnectors(Map<String, String> queryMap) {
+        // Get the popular connectors by default
+        if (queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty()) {
+            return gson.toJsonTree(centralAPI.getConnectors()).getAsJsonArray();
+        }
+        return gson.toJsonTree(centralAPI.getConnectors(queryMap)).getAsJsonArray();
     }
 }

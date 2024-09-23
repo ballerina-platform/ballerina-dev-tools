@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 
 /**
  * Tests for getting the connectors.
@@ -40,7 +41,8 @@ public class GetConnectorsTest extends AbstractLSTest {
         Path configJsonPath = resDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelGetConnectorsRequest request = new FlowModelGetConnectorsRequest(testConfig.keyword());
+        Map<String, String> queryMap = Map.of("q", testConfig.keyword());
+        FlowModelGetConnectorsRequest request = new FlowModelGetConnectorsRequest(queryMap);
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();

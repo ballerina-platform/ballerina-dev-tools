@@ -53,6 +53,7 @@ public class CentralImpl implements CentralAPI {
     private final GraphQlClient graphQlClient;
     private static CentralImpl instance;
     private final RestClient restClient;
+    private final LocalIndexCentral localIndexCentral;
 
     public static final String CLIENT_SYMBOL = "Client";
 
@@ -71,6 +72,7 @@ public class CentralImpl implements CentralAPI {
 
         graphQlClient = new GraphQlClient();
         restClient = new RestClient();
+        localIndexCentral = LocalIndexCentral.getInstance();
     }
 
     public static synchronized CentralImpl getInstance() {
@@ -85,7 +87,7 @@ public class CentralImpl implements CentralAPI {
     }
 
     public List<Item> getConnectors() {
-        return List.of();
+        return localIndexCentral.getConnectors();
     }
 
     @Override
@@ -195,7 +197,7 @@ public class CentralImpl implements CentralAPI {
 
     @Override
     public List<Item> getFunctions() {
-        return List.of();
+        return localIndexCentral.getFunctions();
     }
 
     private record ConnectorList(List<Connector> connectors, int count, int offset, int limit) {
