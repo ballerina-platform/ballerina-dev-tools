@@ -1,0 +1,49 @@
+{
+  "description": "Test generating template for new xml payload node",
+  "codedata": {
+    "node": "NEW_XML_PAYLOAD_DATA"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "New XML Payload"
+    },
+    "codedata": {
+      "node": "NEW_XML_PAYLOAD_DATA"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "xml",
+        "optional": false,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new XML payload"
+        },
+        "valueType": "EXPRESSION",
+        "value": "xml``",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}
