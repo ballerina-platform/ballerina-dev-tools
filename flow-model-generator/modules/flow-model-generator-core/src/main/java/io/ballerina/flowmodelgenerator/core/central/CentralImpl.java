@@ -56,6 +56,7 @@ public class CentralImpl implements CentralAPI {
     private final LocalIndexCentral localIndexCentral;
 
     public static final String CLIENT_SYMBOL = "Client";
+    public static final String INIT_SYMBOl = "init";
 
     public CentralImpl() {
         Settings settings;
@@ -190,6 +191,8 @@ public class CentralImpl implements CentralAPI {
                             .org(packageInfo.getOrganization())
                             .module(packageInfo.getName())
                             .object(connector.name)
+                            .symbol(INIT_SYMBOl)
+                            .id(connector.id)
                             .build();
                     return new AvailableNode(metadata, codedata, true);
                 }).toList();

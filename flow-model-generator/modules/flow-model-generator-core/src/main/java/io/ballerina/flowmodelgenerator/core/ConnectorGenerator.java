@@ -21,8 +21,9 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,7 +38,7 @@ public class ConnectorGenerator {
 
     public ConnectorGenerator() {
         this.gson = new Gson();
-        centralAPI = LocalIndexCentral.getInstance();
+        centralAPI = CentralApiFactory.getInstance();
     }
 
     public JsonArray getConnectors(Map<String, String> queryMap) {
@@ -45,6 +46,8 @@ public class ConnectorGenerator {
         if (queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty()) {
             return gson.toJsonTree(centralAPI.getConnectors()).getAsJsonArray();
         }
-        return gson.toJsonTree(centralAPI.getConnectors(queryMap)).getAsJsonArray();
+        Map<String, String> newQueryMap = new HashMap<>(queryMap);
+        newQueryMap.put("org", "ballerina,ballerinax");
+        return gson.toJsonTree(centralAPI.getConnectors(newQueryMap)).getAsJsonArray();
     }
 }

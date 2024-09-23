@@ -4,46 +4,164 @@
   "categories": [
     {
       "metadata": {
-        "label": "MySQL",
-        "description": "Represents a MySQL database client.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.0.png"
+        "label": "java.jdbc",
+        "description": "This package provides the functionality that is required to access and manipulate data stored in any type of relational database,",
+        "keywords": [
+          "database",
+          "client",
+          "network",
+          "SQL",
+          "RDBMS",
+          "JDBC"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "java.jdbc",
+        "object": "Client",
+        "symbol": "init",
+        "id": "9556"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mysql",
+        "description": "This package provides the functionality required to access and manipulate data stored in a MySQL database.",
+        "keywords": [
+          "database",
+          "client",
+          "network",
+          "SQL",
+          "RDBMS",
+          "MySQL"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "mysql",
         "object": "Client",
-        "symbol": "init"
+        "symbol": "init",
+        "id": "9559"
       },
       "enabled": true
     },
     {
       "metadata": {
-        "label": "MS SQL",
-        "description": "Represents an MSSQL database client.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.0.png"
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "mssql",
-        "object": "Client",
-        "symbol": "init"
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "PostgreSQL",
-        "description": "Represents a PostgreSQL database client.\n",
-        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.0.png"
+        "label": "postgresql",
+        "description": "This package provides the functionality required to access and manipulate data stored in a PostgreSQL database.",
+        "keywords": [
+          "database",
+          "client",
+          "network",
+          "SQL",
+          "RDBMS",
+          "PostgreSQL"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
       },
       "codedata": {
         "node": "NEW_CONNECTION",
         "org": "ballerinax",
         "module": "postgresql",
         "object": "Client",
-        "symbol": "init"
+        "symbol": "init",
+        "id": "9557"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mssql",
+        "description": "This package provides the functionality required to access and manipulate data stored in an MSSQL database.",
+        "keywords": [
+          "database",
+          "client",
+          "network",
+          "SQL",
+          "RDBMS",
+          "SQLServer",
+          "MSSQL"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mssql",
+        "object": "Client",
+        "symbol": "init",
+        "id": "9558"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "oracledb",
+        "description": "This package provides the functionality required to access and manipulate data stored in an Oracle database.",
+        "keywords": [
+          "database",
+          "client",
+          "network",
+          "SQL",
+          "RDBMS",
+          "OracleDB",
+          "Oracle"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_oracledb_1.11.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "oracledb",
+        "object": "Client",
+        "symbol": "init",
+        "id": "9560"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "mongodb",
+        "description": "Connects to MongoDB from ballerina ",
+        "keywords": [
+          "MongoDB",
+          "NoSQL"
+        ],
+        "icon": ""
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mongodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": "86"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
+        "label": "azure.sqldb",
+        "description": "Connects to [Azure SQL DB API 2017-03-01-preview](https://docs.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview) from Ballerina",
+        "keywords": [
+          "IT Operations/Databases",
+          "Cost/Paid",
+          "Vendor/Microsoft"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_azure.sqldb_1.5.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "azure.sqldb",
+        "object": "Client",
+        "symbol": "init",
+        "id": "6424"
       },
       "enabled": true
     }

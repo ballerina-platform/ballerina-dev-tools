@@ -30,7 +30,7 @@ public class CentralApiFactory {
 
     public static CentralAPI getInstance() {
         if (centralAPI == null) {
-            centralAPI = System.getProperty("test.env") != null ? new LocalIndexCentral() : new CentralImpl();
+            centralAPI = new CentralImpl();
         }
         return centralAPI;
     }

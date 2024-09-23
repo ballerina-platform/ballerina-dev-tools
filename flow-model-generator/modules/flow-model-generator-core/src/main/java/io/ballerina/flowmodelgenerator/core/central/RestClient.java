@@ -22,10 +22,10 @@ import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -62,13 +62,9 @@ public class RestClient {
             if (!queryParams.isEmpty()) {
                 queryParams.append("&");
             }
-            try {
-                queryParams.append(URLEncoder.encode(entry.getKey(), "UTF-8"))
-                        .append("=")
-                        .append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
-            }
+            queryParams.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8))
+                    .append("=")
+                    .append(URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8));
         }
         return queryParams.toString();
     }
