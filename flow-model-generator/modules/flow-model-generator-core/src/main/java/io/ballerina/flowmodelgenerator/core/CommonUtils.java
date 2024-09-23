@@ -28,7 +28,9 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
+import io.ballerina.compiler.syntax.tree.BracedExpressionNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -243,5 +245,18 @@ public class CommonUtils {
             return simpleNameReferenceNode.name().text();
         }
         return node.toString().strip();
+    }
+
+    /**
+     * Get the expression node from the braced expression.
+     * @param bracedExpressionNode the braced expression node
+     * @return the expression node
+     */
+    public static ExpressionNode getExpressionNodeFromBracedExpression(BracedExpressionNode bracedExpressionNode) {
+        ExpressionNode exception = bracedExpressionNode.expression();
+        if (exception.kind() == SyntaxKind.BRACED_EXPRESSION) {
+            return getExpressionNodeFromBracedExpression((BracedExpressionNode) exception);
+        }
+        return exception;
     }
 }

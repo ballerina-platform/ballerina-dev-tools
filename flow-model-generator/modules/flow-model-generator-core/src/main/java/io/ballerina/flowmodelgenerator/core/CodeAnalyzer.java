@@ -32,6 +32,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
+import io.ballerina.compiler.syntax.tree.BracedExpressionNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
@@ -95,6 +96,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
+import io.ballerina.flowmodelgenerator.core.model.node.NewXMLPayloadData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -396,17 +398,32 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(FlowNode.Kind.NEW_DATA)
-                    .metadata()
-                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
-                            variableDeclarationNode.typedBindingPattern().typeDescriptor())
+            if (initializerNode.kind() == SyntaxKind.BRACED_EXPRESSION) {
+                initializerNode = CommonUtils.getExpressionNodeFromBracedExpression(
+                        (BracedExpressionNode) initializerNode);
+            }
+            if (initializerNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
+                startNode(FlowNode.Kind.NEW_XML_PAYLOAD_DATA)
+                        .metadata()
+                        .description(NewXMLPayloadData.DESCRIPTION)
                         .stepOut()
-                    .properties().expression(initializerNode);
+                        .properties().expression(initializerNode);
+            } else {
+                startNode(FlowNode.Kind.NEW_DATA)
+                        .metadata()
+                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
+                                variableDeclarationNode.typedBindingPattern().typeDescriptor())
+                        .stepOut()
+                        .properties().expression(initializerNode);
+            }
+
         }
 
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+        } else if (nodeBuilder instanceof NewXMLPayloadData) {
+            nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
