@@ -1,0 +1,14 @@
+query ApiDocs {
+    apiDocs(
+        inputFilter: {
+            moduleInfo: { orgName: \"%s\", moduleName: \"%s\", version: \"%s\" }
+            clientFilter: { name: \"%s\" }
+        }
+    ) {
+        docsData {
+            modules {
+                clients
+            }
+        }
+    }
+}

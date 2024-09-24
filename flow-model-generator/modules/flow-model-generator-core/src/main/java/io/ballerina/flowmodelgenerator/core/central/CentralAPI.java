@@ -38,4 +38,6 @@ public interface CentralAPI {
     ConnectorsResponse connectors(Map<String, String> queryMap);
 
     ConnectorResponse connector(String id);
+
+    ConnectorApiResponse connector(String organization, String name, String version, String clientName);
 }

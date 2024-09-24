@@ -55,6 +55,7 @@ class GraphQlClient {
     private static final String QUERY_DIRECTORY = "graphql_queries";
     private static final String GET_FUNCTIONS_QUERY = "GetFunctions.graphql";
     private static final String GET_FUNCTION_QUERY = "GetFunction.graphql";
+    private static final String GET_CONNECTION_QUERY = "GetConnector.graphql";
 
     public GraphQlClient() {
         queryMap = new HashMap<>();
@@ -62,6 +63,7 @@ class GraphQlClient {
         gson = new GsonBuilder()
                 .registerTypeAdapter(FunctionsResponse.Module.class, new FunctionsModuleDeserializer())
                 .registerTypeAdapter(FunctionResponse.Module.class, new FunctionModuleDeserializer())
+                .registerTypeAdapter(ConnectorApiResponse.Module.class, new ConnectorApiModuleDeserializer())
                 .create();
     }
 
@@ -77,6 +79,13 @@ class GraphQlClient {
         String queryBody = String.format(queryTemplate, organization, name, version, functionName);
         String response = query(queryBody);
         return gson.fromJson(response, FunctionResponse.class);
+    }
+
+    public ConnectorApiResponse getConnector(String organization, String name, String version, String clientName) {
+        String queryTemplate = getQueryTemplate(GET_CONNECTION_QUERY);
+        String queryBody = String.format(queryTemplate, organization, name, version, clientName);
+        String response = query(queryBody);
+        return gson.fromJson(response, ConnectorApiResponse.class);
     }
 
     private String query(String queryBody) {
@@ -137,6 +146,11 @@ class GraphQlClient {
         }
     }
 
+    private static boolean isJsonString(JsonElement modulesElement) {
+        return modulesElement != null && modulesElement.isJsonPrimitive() &&
+                modulesElement.getAsJsonPrimitive().isString();
+    }
+
     private static class FunctionsModuleDeserializer implements JsonDeserializer<FunctionsResponse.Module> {
 
         @Override
@@ -146,14 +160,13 @@ class GraphQlClient {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonElement modulesElement = jsonObject.get("functions");
 
-            if (modulesElement.isJsonPrimitive() && modulesElement.getAsJsonPrimitive().isString()) {
+            if (isJsonString(modulesElement)) {
                 String modulesString = modulesElement.getAsString();
                 List<Function> functions =
                         new Gson().fromJson(modulesString, new TypeToken<List<Function>>() { }.getType());
                 return new FunctionsResponse.Module(functions);
-            } else {
-                return new Gson().fromJson(jsonObject, FunctionsResponse.Module.class);
             }
+            return new Gson().fromJson(jsonObject, FunctionsResponse.Module.class);
         }
     }
 
@@ -166,13 +179,29 @@ class GraphQlClient {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonElement modulesElement = jsonObject.get("functions");
 
-            if (modulesElement.isJsonPrimitive() && modulesElement.getAsJsonPrimitive().isString()) {
+            if (isJsonString(modulesElement)) {
                 String modulesString = modulesElement.getAsString();
                 Function function = new Gson().fromJson(modulesString, Function.class);
                 return new FunctionResponse.Module(function);
-            } else {
-                return new Gson().fromJson(jsonObject, FunctionResponse.Module.class);
             }
+            return new Gson().fromJson(jsonObject, FunctionResponse.Module.class);
+        }
+    }
+
+    private static class ConnectorApiModuleDeserializer implements JsonDeserializer<ConnectorApiResponse.Module> {
+
+        @Override
+        public ConnectorApiResponse.Module deserialize(JsonElement jsonElement, Type type,
+                                                       JsonDeserializationContext jsonDeserializationContext)
+                throws JsonParseException {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonElement modulesElement = jsonObject.get("clients");
+
+            if (isJsonString(modulesElement)) {
+                String modulesString = modulesElement.getAsString();
+                return new Gson().fromJson(modulesString, ConnectorApiResponse.Module.class);
+            }
+            return new Gson().fromJson(jsonObject, ConnectorApiResponse.Module.class);
         }
     }
 }
