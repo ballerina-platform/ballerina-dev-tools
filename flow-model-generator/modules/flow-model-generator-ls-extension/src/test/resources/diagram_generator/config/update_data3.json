@@ -51,11 +51,11 @@
       {
         "id": "43814",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'j1' with type 'map'"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {

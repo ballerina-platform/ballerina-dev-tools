@@ -51,11 +51,11 @@
       {
         "id": "53767",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'newData1' with type 'list'"
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "EXPRESSION",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {

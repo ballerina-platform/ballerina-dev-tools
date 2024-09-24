@@ -465,11 +465,11 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'newData' with type 'map'"
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "NEW_DATA",
+                          "node": "EXPRESSION",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -1058,11 +1058,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'newData' with type 'map'"
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
                         },
                         "codedata": {
-                          "node": "NEW_DATA",
+                          "node": "EXPRESSION",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
