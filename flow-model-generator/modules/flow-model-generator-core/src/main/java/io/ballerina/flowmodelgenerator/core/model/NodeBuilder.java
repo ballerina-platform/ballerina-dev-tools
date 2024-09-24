@@ -562,6 +562,20 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                    .value(expr)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.EXPRESSION_KEY, property);
+            return this;
+        }
+
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc) {
             Property property = propertyBuilder
                     .metadata()

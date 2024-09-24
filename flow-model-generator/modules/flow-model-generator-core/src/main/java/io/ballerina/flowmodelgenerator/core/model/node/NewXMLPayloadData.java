@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.SyntaxNodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -40,6 +39,7 @@ public class NewXMLPayloadData extends NodeBuilder {
     public static final String LABEL = "New XML Payload";
     public static final String DESCRIPTION = LABEL;
     public static final String NEW_XML_PAYLOAD_DATA_DOC = "Create new XML payload";
+    private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
 
     @Override
     public void setConcreteConstData() {
@@ -50,7 +50,7 @@ public class NewXMLPayloadData extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().xmlPayload(null)
-                .expression(SyntaxNodeBuilder.createXMLTemplateExpressionNode(), NEW_XML_PAYLOAD_DATA_DOC);
+                .expression(DUMMY_XML_PAYLOAD, NEW_XML_PAYLOAD_DATA_DOC);
     }
 
     @Override

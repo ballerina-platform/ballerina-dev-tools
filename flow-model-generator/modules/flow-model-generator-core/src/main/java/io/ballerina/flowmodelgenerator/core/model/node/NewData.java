@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.NewExpressionNode;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -59,6 +60,6 @@ public class NewData extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         metadata().description(String.format(DESCRIPTION, "name", "var"));
-        properties().dataVariable(null).expression(null, NEW_DATA_EXPRESSION_DOC);
+        properties().dataVariable(null).expression("", NEW_DATA_EXPRESSION_DOC);
     }
 }
