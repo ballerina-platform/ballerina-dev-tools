@@ -18,29 +18,17 @@
 
 package io.ballerina.flowmodelgenerator.core.central;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
-import io.ballerina.projects.Settings;
-import io.ballerina.projects.internal.model.Central;
-import io.ballerina.projects.internal.model.Proxy;
-import org.ballerinalang.central.client.CentralAPIClient;
-import org.ballerinalang.central.client.exceptions.CentralClientException;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import org.ballerinalang.central.client.model.Package;
-import org.ballerinalang.diagramutil.connector.models.connector.Connector;
-import org.ballerinalang.toml.exceptions.SettingsTomlException;
-import org.wso2.ballerinalang.util.RepoUtils;
 
 import java.util.List;
 import java.util.Map;
-
-import static io.ballerina.projects.util.ProjectUtils.getAccessTokenOfCLI;
-import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
 
 /**
  * Implementation of the CentralAPI to obtain information from the central remotely.
@@ -49,7 +37,6 @@ import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
  */
 public class CentralImpl implements CentralAPI {
 
-    private final CentralAPIClient client;
     private final GraphQlClient graphQlClient;
     private static CentralImpl instance;
     private final RestClient restClient;
@@ -59,18 +46,6 @@ public class CentralImpl implements CentralAPI {
     public static final String INIT_SYMBOl = "init";
 
     public CentralImpl() {
-        Settings settings;
-        try {
-            settings = RepoUtils.readSettings();
-        } catch (SettingsTomlException e) {
-            throw new RuntimeException(e);
-        }
-        Central central = settings.getCentral();
-        Proxy proxy = settings.getProxy();
-        client = new CentralAPIClient(RepoUtils.getRemoteRepoURL(), initializeProxy(proxy), proxy.username(),
-                proxy.password(), getAccessTokenOfCLI(settings), central.getConnectTimeout(), central.getReadTimeout(),
-                central.getWriteTimeout(), central.getCallTimeout(), central.getMaxRetries());
-
         graphQlClient = new GraphQlClient();
         restClient = new RestClient();
         localIndexCentral = LocalIndexCentral.getInstance();
@@ -170,14 +145,8 @@ public class CentralImpl implements CentralAPI {
     }
 
     public List<AvailableNode> getConnectors(Map<String, String> queryMap) {
-        JsonElement connectorSearchResult;
-        try {
-            connectorSearchResult = client.getConnectors(queryMap, "any", RepoUtils.getBallerinaVersion());
-        } catch (CentralClientException e) {
-            return List.of();
-        }
-        ConnectorList connectorList = new Gson().fromJson(connectorSearchResult.getAsString(), ConnectorList.class);
-        return connectorList.connectors.stream()
+        ConnectorsResponse connectorsResponse = restClient.connectors(queryMap);
+        return connectorsResponse.connectors().stream()
                 .filter(connector -> connector.name.equals(CLIENT_SYMBOL))
                 .map(connector -> {
                     Package packageInfo = connector.packageInfo;
@@ -199,10 +168,33 @@ public class CentralImpl implements CentralAPI {
     }
 
     @Override
-    public List<Item> getFunctions() {
-        return localIndexCentral.getFunctions();
+    public FlowNode getConnector(Codedata codedata) {
+        // Obtain the connector from the client id if exists.
+        if (codedata.id() != null) {
+            ConnectorResponse connector = restClient.connector(codedata.id());
+            return new NewConnection()
+                    .metadata()
+                        .label(connector.moduleName())
+                        .keywords(connector.packageInfo().keywords())
+                        .icon(connector.icon())
+                        .description(connector.documentation())
+                        .stepOut()
+                    .codedata()
+                        .node(FlowNode.Kind.NEW_CONNECTION)
+                        .org(connector.packageInfo().organization())
+                        .module(connector.moduleName())
+                        .object(connector.name())
+                        .symbol(INIT_SYMBOl)
+                        .stepOut()
+                    .build();
+        }
+
+        //TODO: Obtain the connector from the codedata information
+        return null;
     }
 
-    private record ConnectorList(List<Connector> connectors, int count, int offset, int limit) {
+    @Override
+    public List<Item> getFunctions() {
+        return localIndexCentral.getFunctions();
     }
 }

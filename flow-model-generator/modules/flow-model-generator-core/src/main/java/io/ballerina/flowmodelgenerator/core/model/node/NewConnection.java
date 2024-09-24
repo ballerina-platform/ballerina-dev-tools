@@ -49,7 +49,7 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = CentralApiFactory.getInstance().getNodeTemplate(context.codedata());
+        this.cachedFlowNode = CentralApiFactory.getInstance().getConnector(context.codedata());
     }
 
     @Override

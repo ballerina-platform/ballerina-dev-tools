@@ -126,6 +126,11 @@ public class LocalIndexCentral implements CentralAPI {
     }
 
     @Override
+    public FlowNode getConnector(Codedata codedata) {
+        return null;
+    }
+
+    @Override
     public List<Item> getFunctions(Map<String, String> queryMap) {
         return List.of();
     }

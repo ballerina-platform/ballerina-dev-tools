@@ -19,6 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.central;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.ballerina.projects.Settings;
+import io.ballerina.projects.internal.model.Central;
+import io.ballerina.projects.internal.model.Proxy;
+import org.ballerinalang.central.client.CentralAPIClient;
+import org.ballerinalang.central.client.exceptions.CentralClientException;
+import org.ballerinalang.toml.exceptions.SettingsTomlException;
+import org.wso2.ballerinalang.util.RepoUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,6 +36,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
+import static io.ballerina.projects.util.ProjectUtils.getAccessTokenOfCLI;
+import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
 
 /**
  * This class provides methods to interact with the Ballerina Central REST API.
@@ -39,9 +51,42 @@ public class RestClient {
     private static final String SEARCH_SYMBOLS = "search-symbols";
     private static final String SEARCH_PACKAGES = "search-packages";
     private final Gson gson;
+    private final CentralAPIClient centralClient;
 
     public RestClient() {
         gson = new Gson();
+
+        Settings settings;
+        try {
+            settings = RepoUtils.readSettings();
+        } catch (SettingsTomlException e) {
+            throw new RuntimeException(e);
+        }
+        Central central = settings.getCentral();
+        Proxy proxy = settings.getProxy();
+        centralClient = new CentralAPIClient(RepoUtils.getRemoteRepoURL(), initializeProxy(proxy), proxy.username(),
+                proxy.password(), getAccessTokenOfCLI(settings), central.getConnectTimeout(), central.getReadTimeout(),
+                central.getWriteTimeout(), central.getCallTimeout(), central.getMaxRetries());
+    }
+
+    public ConnectorsResponse connectors(Map<String, String> queryMap) {
+        JsonElement connectorSearchResult;
+        try {
+            connectorSearchResult = centralClient.getConnectors(queryMap, "any", RepoUtils.getBallerinaVersion());
+        } catch (CentralClientException e) {
+            throw new RuntimeException(e);
+        }
+        return gson.fromJson(connectorSearchResult.getAsString(), ConnectorsResponse.class);
+    }
+
+    public ConnectorResponse connector(String id) {
+        JsonObject connectorSearchResult;
+        try {
+            connectorSearchResult = centralClient.getConnector(id, "any", RepoUtils.getBallerinaVersion());
+        } catch (CentralClientException e) {
+            throw new RuntimeException(e);
+        }
+        return gson.fromJson(connectorSearchResult, ConnectorResponse.class);
     }
 
     public PackageResponse searchPackages(Map<String, String> queryMap) {

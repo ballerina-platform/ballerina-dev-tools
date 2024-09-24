@@ -58,6 +58,8 @@ public interface CentralAPI {
 
     List<AvailableNode> getConnectors(Map<String, String> queryMap);
 
+    FlowNode getConnector(Codedata codedata);
+
     List<Item> getFunctions(Map<String, String> queryMap);
 
     /**
