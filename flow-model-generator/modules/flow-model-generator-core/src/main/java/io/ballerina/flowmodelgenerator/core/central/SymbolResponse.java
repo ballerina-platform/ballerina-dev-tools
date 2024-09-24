@@ -24,6 +24,10 @@ import java.util.List;
 /**
  * Represents a response containing a list of symbols.
  *
+ * @param symbols the list of symbols in the response
+ * @param count   the total number of symbols
+ * @param offset  the offset for pagination
+ * @param limit   the limit for pagination
  * @since 1.4.0
  */
 public record SymbolResponse(

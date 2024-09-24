@@ -312,7 +312,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
             FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
             try {
                 FunctionGenerator connectorGenerator = new FunctionGenerator();
-                response.setCategories(connectorGenerator.getFunctions(request.keyword()));
+                response.setCategories(connectorGenerator.getFunctions(request.queryMap()));
             } catch (Throwable e) {
                 response.setError(e);
             }

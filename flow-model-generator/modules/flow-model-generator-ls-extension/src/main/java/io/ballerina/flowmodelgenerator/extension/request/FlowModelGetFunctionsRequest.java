@@ -18,12 +18,13 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import java.util.Map;
+
 /**
  * Represents a request to get Ballerina functions.
  *
- * @param keyword keyword to search for functions
  * @since 1.4.0
  */
-public record FlowModelGetFunctionsRequest(String keyword) {
+public record FlowModelGetFunctionsRequest(Map<String, String> queryMap) {
 
 }

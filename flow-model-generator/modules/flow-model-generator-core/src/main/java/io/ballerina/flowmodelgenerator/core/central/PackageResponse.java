@@ -24,6 +24,12 @@ import java.util.Map;
 /**
  * Represents a response containing package information, suggestions, and highlighting details.
  *
+ * @param packages     List of packages included in the response.
+ * @param suggestions  List of suggestions related to the packages.
+ * @param highlighting Map containing highlighting details for the packages.
+ * @param count        Total number of packages.
+ * @param offset       Offset for pagination.
+ * @param limit        Limit for pagination.
  * @since 1.4.0
  */
 public record PackageResponse(

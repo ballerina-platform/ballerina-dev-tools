@@ -35,7 +35,8 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
-import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -66,7 +67,7 @@ public class AvailableNodesGenerator {
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
-        this.centralAPI = CentralApiFactory.getInstance();
+        this.centralAPI = RemoteCentral.getInstance();
         this.semanticModel = semanticModel;
         this.document = document;
     }
@@ -81,7 +82,7 @@ public class AvailableNodesGenerator {
 
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
-        items.addAll(centralAPI.getFunctions());
+        items.addAll(LocalIndexCentral.getInstance().getFunctions());
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -203,7 +204,7 @@ public class AvailableNodesGenerator {
                     .object("Client")
                     .symbol("init")
                     .build();
-            List<Item> connections = centralAPI.getConnectorActions(codedata);
+            List<Item> connections = LocalIndexCentral.getInstance().getConnectorActions(codedata);
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())

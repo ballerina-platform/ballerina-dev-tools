@@ -43,6 +43,7 @@ import io.ballerina.tools.text.TextRange;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -243,5 +244,29 @@ public class CommonUtils {
             return simpleNameReferenceNode.name().text();
         }
         return node.toString().strip();
+    }
+
+    /**
+     * Returns the default value for the given API doc type.
+     *
+     * @param type the type to get the default value for
+     * @return the default value for the given type
+     */
+    public static String getDefaultValueForType(String type) {
+        return switch (type) {
+            case "inclusion", "record" -> "{}";
+            case "string" -> "\"\"";
+            default -> "";
+        };
+    }
+
+    /**
+     * Checks if the query map has no keyword.
+     *
+     * @param queryMap the query map to check
+     * @return true if the query map has no keyword, false otherwise
+     */
+    public static boolean hasNoKeyword(Map<String, String> queryMap) {
+        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty();
     }
 }

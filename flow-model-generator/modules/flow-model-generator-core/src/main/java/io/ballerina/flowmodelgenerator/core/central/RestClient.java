@@ -45,7 +45,7 @@ import static io.ballerina.projects.util.ProjectUtils.initializeProxy;
  *
  * @since 1.4.0
  */
-public class RestClient {
+class RestClient {
 
     private static final String BASE_URL = "https://api.central.ballerina.io/2.0/registry/";
     private static final String SEARCH_SYMBOLS = "search-symbols";

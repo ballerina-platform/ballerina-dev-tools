@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 
 /**
  * Tests for getting the functions.
@@ -41,13 +42,13 @@ public class GetFunctionsTest extends AbstractLSTest {
         Path configJsonPath = resDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelGetFunctionsRequest request = new FlowModelGetFunctionsRequest(testConfig.keyword());
+        FlowModelGetFunctionsRequest request = new FlowModelGetFunctionsRequest(testConfig.queryMap());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray functions = availableNodes.getAsJsonArray();
         if (!functions.equals(testConfig.functions())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.keyword(), functions);
-            updateConfig(config, updateConfig);
+            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.queryMap(), functions);
+//            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -71,10 +72,10 @@ public class GetFunctionsTest extends AbstractLSTest {
      * Represent the test configurations for the get functions test.
      *
      * @param description The description of the test
-     * @param keyword     The keyword to search for functions
+     * @param queryMap    the query parameters to filter the nodes
      * @param functions   The functions
      */
-    private record TestConfig(String description, String keyword, JsonArray functions) {
+    private record TestConfig(String description, Map<String, String> queryMap, JsonArray functions) {
 
     }
 }

@@ -49,7 +49,7 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class LocalIndexCentral implements CentralAPI {
+public class LocalIndexCentral {
 
     private final Gson gson;
     private Map<String, FlowNode> templateCache;
@@ -75,7 +75,6 @@ public class LocalIndexCentral implements CentralAPI {
                 .create();
     }
 
-    @Override
     public FlowNode getNodeTemplate(Codedata codedata) {
         if (templateCache == null) {
             initializeTemplateCache();
@@ -83,19 +82,16 @@ public class LocalIndexCentral implements CentralAPI {
         return templateCache.get(codedata.toString());
     }
 
-    @Override
     public List<Item> getConnectors() {
         Category connectors = readJsonResource(CONNECTORS_JSON, Category.class);
         return connectors.items();
     }
 
-    @Override
     public List<Item> getFunctions() {
         Category functions = readJsonResource(FUNCTIONS_JSON, Category.class);
         return functions.items();
     }
 
-    @Override
     public List<Item> getConnectorActions(Codedata codedata) {
         if (connectionMap == null) {
             initializeConnectionMap();
@@ -103,7 +99,6 @@ public class LocalIndexCentral implements CentralAPI {
         return connectionMap.get(codedata.toString());
     }
 
-    @Override
     public List<AvailableNode> getConnectors(Map<String, String> queryMap) {
         List<Item> connectors = getConnectors();
         String query = queryMap.getOrDefault("q", "");
@@ -124,17 +119,7 @@ public class LocalIndexCentral implements CentralAPI {
                 .limit(limit)
                 .toList();
     }
-
-    @Override
-    public FlowNode getConnector(Codedata codedata) {
-        return null;
-    }
-
-    @Override
-    public List<Item> getFunctions(Map<String, String> queryMap) {
-        return List.of();
-    }
-
+    
     private List<AvailableNode> getAvailableNodesFromCategory(Category category) {
         List<AvailableNode> availableNodes = new ArrayList<>();
         for (Item item : category.items()) {
@@ -177,7 +162,6 @@ public class LocalIndexCentral implements CentralAPI {
 
     private static class ItemDeserializer implements JsonDeserializer<Item> {
 
-        @Override
         public Item deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
@@ -194,7 +178,6 @@ public class LocalIndexCentral implements CentralAPI {
 
     private static class CategoryDeserializer implements JsonDeserializer<Category> {
 
-        @Override
         public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();

@@ -19,7 +19,10 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -41,6 +44,9 @@ public class NewConnection extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 
+    public static final String INIT_SYMBOl = "init";
+    public static final String CLIENT_SYMBOL = "Client";
+
     @Override
     public void setConcreteConstData() {
         metadata().label(NEW_CONNECTION_LABEL);
@@ -49,14 +55,41 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = CentralApiFactory.getInstance().getConnector(context.codedata());
+        if (context.codedata().id() != null) {
+            ConnectorResponse connector = RemoteCentral.getInstance().connector(context.codedata().id());
+            Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
+                    .filter(function -> function.name().equals(INIT_SYMBOl))
+                    .findFirst();
+            metadata()
+                    .label(connector.moduleName())
+                    .keywords(connector.packageInfo().keywords())
+                    .icon(connector.icon())
+                    .description(connector.documentation());
+            codedata()
+                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .org(connector.packageInfo().organization())
+                    .module(connector.moduleName())
+                    .object(connector.name())
+                    .symbol(INIT_SYMBOl);
+
+            if (initFunction.isPresent()) {
+                for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
+                    properties().custom(param.name(), param.name(), param.documentation(),
+                            Property.ValueType.EXPRESSION,
+                            param.typeName(), CommonUtils.getDefaultValueForType(param.typeName()));
+                }
+            }
+        }
+        //TODO: Obtain the connector from the codedata information if id doesn't exist.
+
+        properties().dataVariable(null);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = CentralApiFactory.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)

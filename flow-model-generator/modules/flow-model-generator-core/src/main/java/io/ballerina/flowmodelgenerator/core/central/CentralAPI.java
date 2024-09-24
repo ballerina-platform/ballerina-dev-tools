@@ -18,54 +18,22 @@
 
 package io.ballerina.flowmodelgenerator.core.central;
 
-import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.Item;
-
-import java.util.List;
 import java.util.Map;
 
 /**
- * The central interface to obtain information about the connectors.
+ * The central interface to obtain library information from the Ballerina central.
  *
  * @since 1.4.0
  */
 public interface CentralAPI {
 
-    /**
-     * Get the node template for the given codedata.
-     *
-     * @param codedata The codedata
-     * @return The node template
-     */
-    FlowNode getNodeTemplate(Codedata codedata);
+    PackageResponse searchPackages(Map<String, String> queryMap);
 
-    /**
-     * Get the available connections.
-     *
-     * @return The available connections
-     */
-    List<Item> getConnectors();
+    SymbolResponse searchSymbols(Map<String, String> queryMap);
 
-    /**
-     * Get the connections for the given connector.
-     *
-     * @param codedata The codedata of the connector
-     * @return The connections for the given connector
-     */
-    List<Item> getConnectorActions(Codedata codedata);
+    ApiResponse functions(String organization, String name, String version);
 
-    List<AvailableNode> getConnectors(Map<String, String> queryMap);
+    ConnectorsResponse connectors(Map<String, String> queryMap);
 
-    FlowNode getConnector(Codedata codedata);
-
-    List<Item> getFunctions(Map<String, String> queryMap);
-
-    /**
-     * Get the available functions.
-     *
-     * @return The available connections
-     */
-    List<Item> getFunctions();
+    ConnectorResponse connector(String id);
 }

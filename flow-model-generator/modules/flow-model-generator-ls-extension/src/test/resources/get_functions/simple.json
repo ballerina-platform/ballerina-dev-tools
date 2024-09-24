@@ -1,6 +1,8 @@
 {
   "description": "Sample flow model",
-  "keyword": "log",
+  "queryMap": {
+    "q": "log"
+  },
   "functions": [
     {
       "metadata": {

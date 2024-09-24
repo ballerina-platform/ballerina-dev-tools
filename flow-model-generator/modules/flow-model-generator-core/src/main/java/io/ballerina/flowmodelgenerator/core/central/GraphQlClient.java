@@ -46,14 +46,13 @@ import java.util.stream.Collectors;
  *
  * @since 1.4.0
  */
-public class GraphQlClient {
+class GraphQlClient {
 
     private final Map<String, String> queryMap;
     private final Gson gson;
 
     private static final String GRAPHQL_API = "https://api.central.ballerina.io/2.0/graphql";
     private static final String QUERY_DIRECTORY = "graphql_queries";
-
     private static final String GET_FUNCTIONS_QUERY = "GetFunctions.graphql";
 
     public GraphQlClient() {

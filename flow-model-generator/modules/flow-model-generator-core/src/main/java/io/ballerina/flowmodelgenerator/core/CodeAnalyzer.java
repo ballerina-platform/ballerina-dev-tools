@@ -85,7 +85,8 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
-import io.ballerina.flowmodelgenerator.core.central.CentralApiFactory;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -134,7 +135,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.centralAPI = CentralApiFactory.getInstance();
+        this.centralAPI = RemoteCentral.getInstance();
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
@@ -256,7 +257,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .object("Client")
                 .symbol(methodName)
                 .build();
-        FlowNode nodeTemplate = centralAPI.getNodeTemplate(codedata);
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(actionNode);
             return;
@@ -359,7 +360,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .object("Client")
                 .symbol("init")
                 .build();
-        FlowNode nodeTemplate = centralAPI.getNodeTemplate(codedata);
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(newExpressionNode);
             return;
@@ -503,7 +504,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .module(moduleName)
                     .symbol(functionName)
                     .build();
-            FlowNode nodeTemplate = centralAPI.getNodeTemplate(codedata);
+            FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
             if (nodeTemplate == null) {
                 handleExpressionNode(functionCallExpressionNode);
                 return;
