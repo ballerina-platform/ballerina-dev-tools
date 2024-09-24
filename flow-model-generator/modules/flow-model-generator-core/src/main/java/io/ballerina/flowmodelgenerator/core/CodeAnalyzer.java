@@ -80,6 +80,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TemplateExpressionNode;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -387,6 +388,22 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
+    public void visit(BracedExpressionNode bracedExpressionNode) {
+        bracedExpressionNode.expression().accept(this);
+    }
+
+    @Override
+    public void visit(TemplateExpressionNode templateExpressionNode) {
+        if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
+            startNode(FlowNode.Kind.XML_PAYLOAD)
+                    .metadata()
+                    .description(XMLPayload.DESCRIPTION)
+                    .stepOut()
+                    .properties().expression(templateExpressionNode);
+        }
+    }
+
+    @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
         if (initializer.isEmpty()) {
@@ -398,25 +415,12 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            if (initializerNode.kind() == SyntaxKind.BRACED_EXPRESSION) {
-                initializerNode = CommonUtils.getExpressionNodeFromBracedExpression(
-                        (BracedExpressionNode) initializerNode);
-            }
-            if (initializerNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
-                startNode(FlowNode.Kind.XML_PAYLOAD)
-                        .metadata()
-                        .description(XMLPayload.DESCRIPTION)
-                        .stepOut()
-                        .properties().expression(initializerNode);
-            } else {
-                startNode(FlowNode.Kind.NEW_DATA)
-                        .metadata()
-                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
-                                variableDeclarationNode.typedBindingPattern().typeDescriptor())
-                        .stepOut()
-                        .properties().expression(initializerNode);
-            }
-
+            startNode(FlowNode.Kind.NEW_DATA)
+                    .metadata()
+                    .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
+                            variableDeclarationNode.typedBindingPattern().typeDescriptor())
+                    .stepOut()
+                    .properties().expression(initializerNode);
         }
 
         // TODO: Find a better way on how we can achieve this
