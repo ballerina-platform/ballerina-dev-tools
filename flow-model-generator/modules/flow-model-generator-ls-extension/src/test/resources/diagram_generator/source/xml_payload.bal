@@ -1,4 +1,4 @@
-function testNewXMLPayloadData() {
+function testXMLPayload() {
     xml x1 = ((xml `<p>value</p>`));
     xml:Text x2 = xml `Text`;
     xml|int x3 = xml `<p>value</p>`;

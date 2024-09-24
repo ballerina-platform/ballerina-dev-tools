@@ -156,7 +156,7 @@ class CodeAnalyzer extends NodeVisitor {
                 startNode(FlowNode.Kind.EVENT_HTTP_API)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
                         .properties()
-                            .resourceSymbol((ResourceMethodSymbol) symbol.get());
+                        .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
                 handleExpressionNode(functionDefinitionNode);
@@ -388,11 +388,6 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
-    public void visit(BracedExpressionNode bracedExpressionNode) {
-        bracedExpressionNode.expression().accept(this);
-    }
-
-    @Override
     public void visit(TemplateExpressionNode templateExpressionNode) {
         if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
             startNode(FlowNode.Kind.XML_PAYLOAD)
@@ -466,6 +461,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
+        if (nodeBuilder instanceof XMLPayload) {
+            nodeBuilder.properties().variable(assignmentStatementNode.varRef());
+        }
         endNode(assignmentStatementNode);
     }
 

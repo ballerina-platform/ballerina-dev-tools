@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a variable declaration node of xml template.
+ * Represents the properties of a xml payload node.
  *
  * @since 1.4.0
  */
@@ -38,7 +38,7 @@ public class XMLPayload extends NodeBuilder {
 
     public static final String LABEL = "XML Payload";
     public static final String DESCRIPTION = LABEL;
-    public static final String XML_PAYLOAD_DOC = "Create nwe XML payload";
+    public static final String XML_PAYLOAD_DOC = "Create new XML payload";
     private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
 
     @Override

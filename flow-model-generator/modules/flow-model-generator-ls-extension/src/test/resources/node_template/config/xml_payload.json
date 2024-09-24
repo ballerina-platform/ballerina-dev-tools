@@ -1,15 +1,15 @@
 {
-  "description": "Test generating template for new xml payload node",
+  "description": "Test generating template for xml payload node",
   "codedata": {
-    "node": "NEW_XML_PAYLOAD_DATA"
+    "node": "XML_PAYLOAD"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "New XML Payload"
+      "label": "XML Payload"
     },
     "codedata": {
-      "node": "NEW_XML_PAYLOAD_DATA"
+      "node": "XML_PAYLOAD"
     },
     "returning": false,
     "properties": {

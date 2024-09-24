@@ -7,10 +7,10 @@
     "line": 6,
     "offset": 1
   },
-  "source": "new_xml_payload.bal",
+  "source": "xml_payload.bal",
   "description": "Tests flow nodes generation for new xml variables",
   "diagram": {
-    "fileName": "new_xml_payload.bal",
+    "fileName": "xml_payload.bal",
     "nodes": [
       {
         "id": "32896",
@@ -21,7 +21,7 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_xml_payload.bal",
+            "fileName": "xml_payload.bal",
             "startLine": {
               "line": 1,
               "offset": 4
@@ -77,7 +77,7 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_xml_payload.bal",
+            "fileName": "xml_payload.bal",
             "startLine": {
               "line": 2,
               "offset": 4
@@ -133,7 +133,7 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_xml_payload.bal",
+            "fileName": "xml_payload.bal",
             "startLine": {
               "line": 3,
               "offset": 4
@@ -189,7 +189,7 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_xml_payload.bal",
+            "fileName": "xml_payload.bal",
             "startLine": {
               "line": 4,
               "offset": 4
@@ -245,7 +245,7 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_xml_payload.bal",
+            "fileName": "xml_payload.bal",
             "startLine": {
               "line": 5,
               "offset": 4

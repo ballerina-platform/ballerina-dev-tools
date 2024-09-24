@@ -247,16 +247,4 @@ public class CommonUtils {
         return node.toString().strip();
     }
 
-    /**
-     * Get the expression node from the braced expression.
-     * @param bracedExpressionNode the braced expression node
-     * @return the expression node
-     */
-    public static ExpressionNode getExpressionNodeFromBracedExpression(BracedExpressionNode bracedExpressionNode) {
-        ExpressionNode exception = bracedExpressionNode.expression();
-        if (exception.kind() == SyntaxKind.BRACED_EXPRESSION) {
-            return getExpressionNodeFromBracedExpression((BracedExpressionNode) exception);
-        }
-        return exception;
-    }
 }
