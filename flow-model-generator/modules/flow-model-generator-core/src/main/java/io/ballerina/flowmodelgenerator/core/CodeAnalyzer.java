@@ -155,7 +155,7 @@ class CodeAnalyzer extends NodeVisitor {
                 startNode(FlowNode.Kind.EVENT_HTTP_API)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
                         .properties()
-                        .resourceSymbol((ResourceMethodSymbol) symbol.get());
+                            .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
                 handleExpressionNode(functionDefinitionNode);
@@ -411,9 +411,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
-                    .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
+                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
                             variableDeclarationNode.typedBindingPattern().typeDescriptor())
-                    .stepOut()
+                        .stepOut()
                     .properties().expression(initializerNode);
         }
 
