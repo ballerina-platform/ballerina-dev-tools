@@ -465,11 +465,11 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "JSON Payload",
+                          "description": "JSON Payload"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "JSON_PAYLOAD",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -1058,11 +1058,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "JSON Payload",
+                          "description": "JSON Payload"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "JSON_PAYLOAD",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {

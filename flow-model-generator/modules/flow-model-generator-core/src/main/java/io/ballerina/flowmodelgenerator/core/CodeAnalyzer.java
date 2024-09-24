@@ -154,7 +154,7 @@ class CodeAnalyzer extends NodeVisitor {
                 startNode(FlowNode.Kind.EVENT_HTTP_API)
                         .flag(FlowNode.NODE_FLAG_RESOURCE)
                         .properties()
-                        .resourceSymbol((ResourceMethodSymbol) symbol.get());
+                            .resourceSymbol((ResourceMethodSymbol) symbol.get());
             }
             default -> {
                 handleExpressionNode(functionDefinitionNode);
@@ -207,10 +207,10 @@ class CodeAnalyzer extends NodeVisitor {
             if (isNodeUnidentified()) {
                 startNode(FlowNode.Kind.RETURN)
                         .metadata()
-                        .description(String.format(Return.DESCRIPTION, expr))
-                        .stepOut()
+                            .description(String.format(Return.DESCRIPTION, expr))
+                            .stepOut()
                         .properties()
-                        .expression(expr, Return.RETURN_EXPRESSION_DOC);
+                            .expression(expr, Return.RETURN_EXPRESSION_DOC);
             }
         }
         nodeBuilder.returning();
@@ -265,20 +265,20 @@ class CodeAnalyzer extends NodeVisitor {
 
         startNode(FlowNode.Kind.ACTION_CALL)
                 .metadata()
-                .label(nodeTemplate.metadata().label())
-                .description(nodeTemplate.metadata().description())
-                .icon(nodeTemplate.metadata().icon())
-                .stepOut()
+                    .label(nodeTemplate.metadata().label())
+                    .description(nodeTemplate.metadata().description())
+                    .icon(nodeTemplate.metadata().icon())
+                    .stepOut()
                 .codedata()
-                .org(nodeTemplate.codedata().org())
-                .module(nodeTemplate.codedata().module())
-                .object(nodeTemplate.codedata().object())
-                .symbol(nodeTemplate.codedata().symbol())
-                .stepOut()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
                 .properties()
-                .callExpression(expressionNode, Property.CONNECTION_KEY,
+                    .callExpression(expressionNode, Property.CONNECTION_KEY,
                         nodeTemplate.properties().get(Property.CONNECTION_KEY))
-                .variable(this.typedBindingPatternNode);
+                    .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, nodeTemplate.properties()));
     }
@@ -368,11 +368,11 @@ class CodeAnalyzer extends NodeVisitor {
         startNode(FlowNode.Kind.NEW_CONNECTION)
                 .metadata().description(nodeTemplate.metadata().description()).stepOut()
                 .codedata()
-                .org(nodeTemplate.codedata().org())
-                .module(nodeTemplate.codedata().module())
-                .object(nodeTemplate.codedata().object())
-                .symbol(nodeTemplate.codedata().symbol())
-                .stepOut()
+                    .org(nodeTemplate.codedata().org())
+                    .module(nodeTemplate.codedata().module())
+                    .object(nodeTemplate.codedata().object())
+                    .symbol(nodeTemplate.codedata().symbol())
+                    .stepOut()
                 .properties().scope(connectionScope);
         try {
             MethodSymbol methodSymbol =
@@ -430,6 +430,7 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
     }
+
     @Override
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
         Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
@@ -452,12 +453,12 @@ class CodeAnalyzer extends NodeVisitor {
         if (isNodeUnidentified()) {
             startNode(FlowNode.Kind.UPDATE_DATA)
                     .metadata()
-                    .description(String.format(UpdateData.DESCRIPTION,
+                        .description(String.format(UpdateData.DESCRIPTION,
                             CommonUtils.getVariableName(assignmentStatementNode.varRef())))
-                    .stepOut()
+                        .stepOut()
                     .properties()
-                    .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
-                    .variable(assignmentStatementNode.varRef());
+                        .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
+                        .variable(assignmentStatementNode.varRef());
         }
 
         if (nodeBuilder instanceof XMLPayload || nodeBuilder instanceof JSONPayload) {
@@ -529,15 +530,15 @@ class CodeAnalyzer extends NodeVisitor {
 
             startNode(FlowNode.Kind.FUNCTION_CALL)
                     .metadata()
-                    .label(nodeTemplate.metadata().label())
-                    .description(nodeTemplate.metadata().description())
-                    .icon(nodeTemplate.metadata().icon())
-                    .stepOut()
+                        .label(nodeTemplate.metadata().label())
+                        .description(nodeTemplate.metadata().description())
+                        .icon(nodeTemplate.metadata().icon())
+                        .stepOut()
                     .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol());
+                        .org(nodeTemplate.codedata().org())
+                        .module(nodeTemplate.codedata().module())
+                        .object(nodeTemplate.codedata().object())
+                        .symbol(nodeTemplate.codedata().symbol());
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                     functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
@@ -756,15 +757,15 @@ class CodeAnalyzer extends NodeVisitor {
                     ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
                 startNode(FlowNode.Kind.JSON_PAYLOAD)
                         .metadata()
-                        .description(XMLPayload.DESCRIPTION)
+                        .description(JSONPayload.DESCRIPTION)
                         .stepOut()
                         .properties().expression(constructorExprNode);
                 return;
             }
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
-                    .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
-                    .stepOut()
+                        .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
+                        .stepOut()
                     .properties().expression(constructorExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
             Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
@@ -772,7 +773,7 @@ class CodeAnalyzer extends NodeVisitor {
                     ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
                 startNode(FlowNode.Kind.JSON_PAYLOAD)
                         .metadata()
-                        .description(XMLPayload.DESCRIPTION)
+                        .description(JSONPayload.DESCRIPTION)
                         .stepOut()
                         .properties().expression(constructorExprNode);
                 return;

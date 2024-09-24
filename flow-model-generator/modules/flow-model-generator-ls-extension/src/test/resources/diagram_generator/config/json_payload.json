@@ -15,11 +15,11 @@
       {
         "id": "32892",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "JSON Payload",
+          "description": "JSON Payload"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "JSON_PAYLOAD",
           "lineRange": {
             "fileName": "json_payload.bal",
             "startLine": {
