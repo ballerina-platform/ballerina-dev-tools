@@ -460,7 +460,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .variable(assignmentStatementNode.varRef());
         }
 
-        if (nodeBuilder instanceof XMLPayload) {
+        if (nodeBuilder instanceof XMLPayload || nodeBuilder instanceof JSONPayload) {
             nodeBuilder.properties().variable(assignmentStatementNode.varRef());
         }
         endNode(assignmentStatementNode);
