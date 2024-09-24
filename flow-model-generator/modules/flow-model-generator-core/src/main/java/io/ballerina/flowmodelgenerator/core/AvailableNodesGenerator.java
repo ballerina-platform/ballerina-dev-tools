@@ -156,6 +156,8 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.DATA)
                     .node(FlowNode.Kind.NEW_DATA)
                     .node(FlowNode.Kind.UPDATE_DATA)
+                    .node(FlowNode.Kind.JSON_PAYLOAD)
+                    .node(FlowNode.Kind.XML_PAYLOAD)
                     .node(FlowNode.Kind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
