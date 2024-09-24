@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -31,35 +30,36 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a panic node.
+ * Represents the properties of a xml payload node.
  *
  * @since 1.4.0
  */
-public class Panic extends NodeBuilder {
+public class XMLPayload extends NodeBuilder {
 
-    public static final String LABEL = "Panic";
-    public static final String DESCRIPTION = "Panic and stop the execution";
-    public static final String PANIC_EXPRESSION_DOC = "Panic value";
+    public static final String LABEL = "XML Payload";
+    public static final String DESCRIPTION = LABEL;
+    public static final String XML_PAYLOAD_DOC = "Create new XML payload";
+    private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.PANIC);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.token().keyword(SyntaxKind.PANIC_KEYWORD);
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.token()
-                .whiteSpace()
-                .expression(value));
-        sourceBuilder.token().endOfStatement();
-        return sourceBuilder.textEdit(false).build();
+        metadata().label(LABEL);
+        codedata().node(FlowNode.Kind.XML_PAYLOAD);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().expression("", PANIC_EXPRESSION_DOC);
+        properties().xmlPayload(null)
+                .expression(DUMMY_XML_PAYLOAD, XML_PAYLOAD_DOC);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
+
+        Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
+
+        return sourceBuilder.textEdit(false).build();
     }
 }
