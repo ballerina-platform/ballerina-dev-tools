@@ -264,9 +264,9 @@ public abstract class NodeBuilder {
             }
             propertyBuilder
                     .metadata()
-                        .label(Property.VARIABLE_LABEL)
-                        .description(Property.VARIABLE_DOC)
-                        .stepOut()
+                    .label(Property.VARIABLE_LABEL)
+                    .description(Property.VARIABLE_DOC)
+                    .stepOut()
                     .value(CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
@@ -278,9 +278,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> type(Node node) {
             propertyBuilder
                     .metadata()
-                        .label(Property.DATA_TYPE_LABEL)
-                        .description(Property.DATA_TYPE_DOC)
-                        .stepOut()
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
+                    .stepOut()
                     .value(CommonUtils.getVariableName(node))
                     .type(Property.ValueType.TYPE)
                     .editable();
@@ -308,9 +308,9 @@ public abstract class NodeBuilder {
 
             propertyBuilder
                     .metadata()
-                        .label(Property.DATA_TYPE_LABEL)
-                        .description(Property.DATA_TYPE_DOC)
-                        .stepOut()
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
+                    .stepOut()
                     .type(Property.ValueType.TYPE)
                     .editable();
 
@@ -331,12 +331,12 @@ public abstract class NodeBuilder {
             data(node);
 
             propertyBuilder
-                .metadata()
+                    .metadata()
                     .label(Property.DATA_TYPE_LABEL)
                     .description(Property.DATA_TYPE_DOC)
                     .stepOut()
-                .type(Property.ValueType.TYPE)
-                .editable();
+                    .type(Property.ValueType.TYPE)
+                    .editable();
 
             if (node == null) {
                 propertyBuilder.value("xml");
@@ -352,9 +352,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> data(Node node) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.DATA_VARIABLE_LABEL)
-                        .description(Property.DATA_VARIABLE_DOC)
-                        .stepOut()
+                    .label(Property.DATA_VARIABLE_LABEL)
+                    .description(Property.DATA_VARIABLE_DOC)
+                    .stepOut()
                     .value(node == null ? "item" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
                     .editable()
@@ -369,9 +369,9 @@ public abstract class NodeBuilder {
             for (Node patternNode : node) {
                 Property property = propertyBuilder
                         .metadata()
-                            .label(Property.PATTERN_LABEL)
-                            .description(Property.PATTERN_DOC)
-                            .stepOut()
+                        .label(Property.PATTERN_LABEL)
+                        .description(Property.PATTERN_DOC)
+                        .stepOut()
                         .value(patternNode.toSourceCode().strip())
                         .type(Property.ValueType.EXPRESSION)
                         .editable()
@@ -381,9 +381,9 @@ public abstract class NodeBuilder {
 
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.PATTERNS_LABEL)
-                        .description(Property.PATTERNS_DOC)
-                        .stepOut()
+                    .label(Property.PATTERNS_LABEL)
+                    .description(Property.PATTERNS_DOC)
+                    .stepOut()
                     .value(properties)
                     .type(Property.ValueType.SINGLE_SELECT)
                     .editable()
@@ -397,9 +397,9 @@ public abstract class NodeBuilder {
                                                    Property propertyTemplate) {
             Property client = Property.Builder.getInstance()
                     .metadata()
-                        .label(propertyTemplate.metadata().label())
-                        .description(propertyTemplate.metadata().description())
-                        .stepOut()
+                    .label(propertyTemplate.metadata().label())
+                    .description(propertyTemplate.metadata().description())
+                    .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION)
@@ -453,9 +453,9 @@ public abstract class NodeBuilder {
 
             propertyBuilder
                     .metadata()
-                        .label(INPUTS_LABEL)
-                        .description(INPUTS_DOC)
-                        .stepOut()
+                    .label(INPUTS_LABEL)
+                    .description(INPUTS_DOC)
+                    .stepOut()
                     .type(Property.ValueType.MULTIPLE_SELECT)
                     .value(inputs)
                     .editable();
@@ -467,9 +467,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> output(Node node) {
             propertyBuilder
                     .metadata()
-                        .label(OUTPUT_LABEL)
-                        .description(OUTPUT_DOC)
-                        .stepOut()
+                    .label(OUTPUT_LABEL)
+                    .description(OUTPUT_DOC)
+                    .stepOut()
                     .type(Property.ValueType.SINGLE_SELECT)
                     .editable();
 
@@ -522,9 +522,9 @@ public abstract class NodeBuilder {
                 if (propertyTemplate != null) {
                     propertyBuilder
                             .metadata()
-                                .label(propertyTemplate.metadata().label())
-                                .description(propertyTemplate.metadata().description())
-                                .stepOut()
+                            .label(propertyTemplate.metadata().label())
+                            .description(propertyTemplate.metadata().description())
+                            .stepOut()
                             .type(Property.ValueType.EXPRESSION)
                             .editable()
                             .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
@@ -595,9 +595,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
                     .metadata()
-                        .label(EVENT_HTTP_API_METHOD)
-                        .description(EVENT_HTTP_API_METHOD_DOC)
-                        .stepOut()
+                    .label(EVENT_HTTP_API_METHOD)
+                    .description(EVENT_HTTP_API_METHOD_DOC)
+                    .stepOut()
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
             resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
@@ -605,9 +605,9 @@ public abstract class NodeBuilder {
 
             propertyBuilder
                     .metadata()
-                        .label(EVENT_HTTP_API_PATH)
-                        .description(EVENT_HTTP_API_PATH_DOC)
-                        .stepOut()
+                    .label(EVENT_HTTP_API_PATH)
+                    .description(EVENT_HTTP_API_PATH_DOC)
+                    .stepOut()
                     .editable()
                     .type(Property.ValueType.STRING)
                     .value(resourceMethodSymbol.resourcePath().signature());
@@ -618,9 +618,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> condition(ExpressionNode expressionNode) {
             Property condition = propertyBuilder
                     .metadata()
-                        .label(Property.CONDITION_LABEL)
-                        .description(Property.CONDITION_DOC)
-                        .stepOut()
+                    .label(Property.CONDITION_LABEL)
+                    .description(Property.CONDITION_DOC)
+                    .stepOut()
                     .value(expressionNode == null ? "true" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
@@ -646,9 +646,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.EXPRESSION_DOC)
-                        .description(expressionDoc)
-                        .stepOut()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
                     .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
@@ -660,9 +660,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String key, String expressionDoc) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.EXPRESSION_DOC)
-                        .description(expressionDoc)
-                        .stepOut()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
                     .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
@@ -674,9 +674,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.EXPRESSION_LABEL)
-                        .description(Property.EXPRESSION_DOC)
-                        .stepOut()
+                    .label(Property.EXPRESSION_LABEL)
+                    .description(Property.EXPRESSION_DOC)
+                    .stepOut()
                     .editable()
                     .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
@@ -689,9 +689,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> statement(Node node) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(DefaultExpression.STATEMENT_LABEL)
-                        .description(DefaultExpression.STATEMENT_DOC)
-                        .stepOut()
+                    .label(DefaultExpression.STATEMENT_LABEL)
+                    .description(DefaultExpression.STATEMENT_DOC)
+                    .stepOut()
                     .value(node == null ? "" : node.toSourceCode().strip())
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
@@ -703,9 +703,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> ignore(boolean ignore) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.IGNORE_LABEL)
-                        .description(Property.IGNORE_DOC)
-                        .stepOut()
+                    .label(Property.IGNORE_LABEL)
+                    .description(Property.IGNORE_DOC)
+                    .stepOut()
                     .value(String.valueOf(ignore))
                     .type(Property.ValueType.EXPRESSION)
                     .editable()
@@ -717,9 +717,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> comment(String comment) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.COMMENT_LABEL)
-                        .description(Property.COMMENT_DOC)
-                        .stepOut()
+                    .label(Property.COMMENT_LABEL)
+                    .description(Property.COMMENT_DOC)
+                    .stepOut()
                     .value(comment)
                     .type(Property.ValueType.STRING)
                     .editable()
@@ -731,9 +731,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
             Property variable = propertyBuilder
                     .metadata()
-                        .label(Property.ON_ERROR_VARIABLE_LABEL)
-                        .description(Property.ON_ERROR_VARIABLE_DOC)
-                        .stepOut()
+                    .label(Property.ON_ERROR_VARIABLE_LABEL)
+                    .description(Property.ON_ERROR_VARIABLE_DOC)
+                    .stepOut()
                     .value(typedBindingPatternNode == null ? "err" :
                             typedBindingPatternNode.bindingPattern().toString())
                     .type(Property.ValueType.IDENTIFIER)
@@ -750,9 +750,9 @@ public abstract class NodeBuilder {
             }
             Property type = propertyBuilder
                     .metadata()
-                        .label(Property.ON_ERROR_TYPE_LABEL)
-                        .description(Property.ON_ERROR_TYPE_DOC)
-                        .stepOut()
+                    .label(Property.ON_ERROR_TYPE_LABEL)
+                    .description(Property.ON_ERROR_TYPE_DOC)
+                    .stepOut()
                     .editable()
                     .type(Property.ValueType.TYPE)
                     .build();
@@ -764,9 +764,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> functionName(String functionName) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(FUNCTION_NAME_LABEL)
-                        .description(FUNCTION_NAME_DOC)
-                        .stepOut()
+                    .label(FUNCTION_NAME_LABEL)
+                    .description(FUNCTION_NAME_DOC)
+                    .stepOut()
                     .type(Property.ValueType.IDENTIFIER)
                     .value(functionName)
                     .editable()
@@ -780,9 +780,9 @@ public abstract class NodeBuilder {
                                            Object typeConstraint, String value, boolean optional) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(label)
-                        .description(description)
-                        .stepOut()
+                    .label(label)
+                    .description(description)
+                    .stepOut()
                     .type(type)
                     .typeConstraint(typeConstraint)
                     .value(value)
@@ -797,9 +797,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> scope(String scope) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.SCOPE_LABEL)
-                        .description(Property.SCOPE_DOC)
-                        .stepOut()
+                    .label(Property.SCOPE_LABEL)
+                    .description(Property.SCOPE_DOC)
+                    .stepOut()
                     .type(Property.ValueType.ENUM)
                     .value(scope)
                     .editable()
@@ -811,9 +811,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> view(LineRange lineRange) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(DataMapper.VIEW_LABEL)
-                        .description(DataMapper.VIEW_DOC)
-                        .stepOut()
+                    .label(DataMapper.VIEW_LABEL)
+                    .description(DataMapper.VIEW_DOC)
+                    .stepOut()
                     .value(lineRange)
                     .type(Property.ValueType.VIEW)
                     .build();
@@ -824,9 +824,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> collection(Node expressionNode) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.COLLECTION_LABEL)
-                        .description(Property.COLLECTION_DOC)
-                        .stepOut()
+                    .label(Property.COLLECTION_LABEL)
+                    .description(Property.COLLECTION_DOC)
+                    .stepOut()
                     .editable()
                     .value(expressionNode == null ? "[]" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
