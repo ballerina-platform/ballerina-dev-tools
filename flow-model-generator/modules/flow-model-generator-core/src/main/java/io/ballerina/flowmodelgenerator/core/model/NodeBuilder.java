@@ -327,7 +327,7 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> xmlPayload(Node node) {
+        public PropertiesBuilder<T> payload(Node node, String type) {
             data(node);
 
             propertyBuilder
@@ -339,7 +339,7 @@ public abstract class NodeBuilder {
                     .editable();
 
             if (node == null) {
-                propertyBuilder.value("xml");
+                propertyBuilder.value(type);
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(

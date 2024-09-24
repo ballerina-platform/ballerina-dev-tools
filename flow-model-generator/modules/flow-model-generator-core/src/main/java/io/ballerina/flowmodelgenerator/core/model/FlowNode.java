@@ -87,6 +87,7 @@ public record FlowNode(
         NEW_DATA,
         UPDATE_DATA,
         XML_PAYLOAD,
+        JSON_PAYLOAD,
         STOP,
         FOREACH,
         DATA_MAPPER,

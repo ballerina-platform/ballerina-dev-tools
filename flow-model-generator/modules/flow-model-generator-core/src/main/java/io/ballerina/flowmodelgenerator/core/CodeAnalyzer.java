@@ -29,6 +29,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -94,6 +95,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
@@ -418,7 +420,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
         } else if (nodeBuilder instanceof XMLPayload) {
-            nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
+            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "xml");
+        } else if (nodeBuilder instanceof JSONPayload) {
+            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "json");
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
@@ -426,7 +430,6 @@ class CodeAnalyzer extends NodeVisitor {
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
     }
-
     @Override
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
         Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
@@ -745,17 +748,38 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     private void handleConstructorExpressionNode(ExpressionNode constructorExprNode, String typeDescription) {
-        SyntaxKind kind = constructorExprNode.parent().kind();
+        NonTerminalNode parent = constructorExprNode.parent();
+        SyntaxKind kind = parent.kind();
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
+            Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
+            if (parentSymbol.isPresent() && CommonUtils.getRawType(
+                    ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+                startNode(FlowNode.Kind.JSON_PAYLOAD)
+                        .metadata()
+                        .description(XMLPayload.DESCRIPTION)
+                        .stepOut()
+                        .properties().expression(constructorExprNode);
+                return;
+            }
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
                     .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
                     .stepOut()
                     .properties().expression(constructorExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
+            Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
+            if (parentSymbol.isPresent() && CommonUtils.getRawType(
+                    ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+                startNode(FlowNode.Kind.JSON_PAYLOAD)
+                        .metadata()
+                        .description(XMLPayload.DESCRIPTION)
+                        .stepOut()
+                        .properties().expression(constructorExprNode);
+                return;
+            }
             startNode(FlowNode.Kind.UPDATE_DATA).properties()
                     .expression(constructorExprNode)
-                    .variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
+                    .variable(((AssignmentStatementNode) parent).varRef());
         }
     }
 
