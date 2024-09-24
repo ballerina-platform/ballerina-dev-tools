@@ -96,7 +96,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
-import io.ballerina.flowmodelgenerator.core.model.node.NewXMLPayloadData;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -403,9 +403,9 @@ class CodeAnalyzer extends NodeVisitor {
                         (BracedExpressionNode) initializerNode);
             }
             if (initializerNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
-                startNode(FlowNode.Kind.NEW_XML_PAYLOAD_DATA)
+                startNode(FlowNode.Kind.XML_PAYLOAD)
                         .metadata()
-                        .description(NewXMLPayloadData.DESCRIPTION)
+                        .description(XMLPayload.DESCRIPTION)
                         .stepOut()
                         .properties().expression(initializerNode);
             } else {
@@ -422,7 +422,7 @@ class CodeAnalyzer extends NodeVisitor {
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
-        } else if (nodeBuilder instanceof NewXMLPayloadData) {
+        } else if (nodeBuilder instanceof XMLPayload) {
             nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());

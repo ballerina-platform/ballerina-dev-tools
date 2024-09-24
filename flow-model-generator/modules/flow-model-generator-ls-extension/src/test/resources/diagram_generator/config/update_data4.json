@@ -51,11 +51,11 @@
       {
         "id": "48766",
         "metadata": {
-          "label": "New XML Payload",
-          "description": "New XML Payload"
+          "label": "XML Payload",
+          "description": "XML Payload"
         },
         "codedata": {
-          "node": "NEW_XML_PAYLOAD_DATA",
+          "node": "XML_PAYLOAD",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {

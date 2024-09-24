@@ -34,23 +34,23 @@ import java.util.Optional;
  *
  * @since 1.4.0
  */
-public class NewXMLPayloadData extends NodeBuilder {
+public class XMLPayload extends NodeBuilder {
 
-    public static final String LABEL = "New XML Payload";
+    public static final String LABEL = "XML Payload";
     public static final String DESCRIPTION = LABEL;
-    public static final String NEW_XML_PAYLOAD_DATA_DOC = "Create new XML payload";
+    public static final String XML_PAYLOAD_DOC = "Create nwe XML payload";
     private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(FlowNode.Kind.NEW_XML_PAYLOAD_DATA);
+        codedata().node(FlowNode.Kind.XML_PAYLOAD);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         properties().xmlPayload(null)
-                .expression(DUMMY_XML_PAYLOAD, NEW_XML_PAYLOAD_DATA_DOC);
+                .expression(DUMMY_XML_PAYLOAD, XML_PAYLOAD_DOC);
     }
 
     @Override

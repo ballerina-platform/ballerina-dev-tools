@@ -49,7 +49,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
-import io.ballerina.flowmodelgenerator.core.model.node.NewXMLPayloadData;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -126,7 +126,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.FAIL, Fail::new);
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
-        put(FlowNode.Kind.NEW_XML_PAYLOAD_DATA, NewXMLPayloadData::new);
+        put(FlowNode.Kind.XML_PAYLOAD, XMLPayload::new);
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);

@@ -107,11 +107,11 @@
       {
         "id": "54721",
         "metadata": {
-          "label": "New XML Payload",
-          "description": "New XML Payload"
+          "label": "XML Payload",
+          "description": "XML Payload"
         },
         "codedata": {
-          "node": "NEW_XML_PAYLOAD_DATA",
+          "node": "XML_PAYLOAD",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -163,11 +163,11 @@
       {
         "id": "55723",
         "metadata": {
-          "label": "New XML Payload",
-          "description": "New XML Payload"
+          "label": "XML Payload",
+          "description": "XML Payload"
         },
         "codedata": {
-          "node": "NEW_XML_PAYLOAD_DATA",
+          "node": "XML_PAYLOAD",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
