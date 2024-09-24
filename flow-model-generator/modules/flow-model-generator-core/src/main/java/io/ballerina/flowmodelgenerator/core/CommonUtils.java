@@ -253,6 +253,9 @@ public class CommonUtils {
      * @return the default value for the given type
      */
     public static String getDefaultValueForType(String type) {
+        if (type == null) {
+            return "";
+        }
         return switch (type) {
             case "inclusion", "record" -> "{}";
             case "string" -> "\"\"";

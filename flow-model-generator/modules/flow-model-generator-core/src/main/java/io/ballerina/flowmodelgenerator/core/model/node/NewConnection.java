@@ -76,13 +76,16 @@ public class NewConnection extends NodeBuilder {
                 for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
                     properties().custom(param.name(), param.name(), param.documentation(),
                             Property.ValueType.EXPRESSION,
-                            param.typeName(), CommonUtils.getDefaultValueForType(param.typeName()));
+                            param.typeName(), CommonUtils.getDefaultValueForType(param.typeName()),
+                            param.optional());
                 }
             }
         }
         //TODO: Obtain the connector from the codedata information if id doesn't exist.
 
-        properties().dataVariable(null);
+        properties()
+                .dataVariable(null)
+                .scope(Property.GLOBAL_SCOPE);
     }
 
     @Override

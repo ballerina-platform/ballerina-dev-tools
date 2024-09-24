@@ -20,7 +20,8 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.central.ApiResponse;
+import io.ballerina.flowmodelgenerator.core.central.Function;
+import io.ballerina.flowmodelgenerator.core.central.FunctionsResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.central.PackageResponse;
 import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
@@ -60,10 +61,10 @@ public class FunctionGenerator {
             if (isUserOrganization(pkg.organization())) {
                 continue;
             }
-            ApiResponse functionResponses =
+            FunctionsResponse functionResponses =
                     RemoteCentral.getInstance().functions(pkg.organization(), pkg.name(), pkg.version());
 
-            List<ApiResponse.Function> functions = functionResponses.data().apiDocs().docsData().modules().stream()
+            List<Function> functions = functionResponses.data().apiDocs().docsData().modules().stream()
                     .flatMap(module -> module.functions().stream())
                     .toList();
             if (functions.isEmpty()) {
@@ -78,7 +79,7 @@ public class FunctionGenerator {
                     .icon(pkg.icon())
                     .stepOut();
 
-            for (ApiResponse.Function function : functions) {
+            for (Function function : functions) {
                 Metadata metadata = new Metadata.Builder<>(null)
                         .label(function.name())
                         .description(function.description())

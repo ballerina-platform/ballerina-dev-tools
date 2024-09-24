@@ -54,24 +54,33 @@ class GraphQlClient {
     private static final String GRAPHQL_API = "https://api.central.ballerina.io/2.0/graphql";
     private static final String QUERY_DIRECTORY = "graphql_queries";
     private static final String GET_FUNCTIONS_QUERY = "GetFunctions.graphql";
+    private static final String GET_FUNCTION_QUERY = "GetFunction.graphql";
 
     public GraphQlClient() {
         queryMap = new HashMap<>();
 
         gson = new GsonBuilder()
-                .registerTypeAdapter(ApiResponse.Module.class, new ModuleDeserializer())
+                .registerTypeAdapter(FunctionsResponse.Module.class, new FunctionsModuleDeserializer())
+                .registerTypeAdapter(FunctionResponse.Module.class, new FunctionModuleDeserializer())
                 .create();
     }
 
-    public ApiResponse getFunctions(String org, String module, String version) {
+    public FunctionsResponse getFunctions(String org, String module, String version) {
         String queryTemplate = getQueryTemplate(GET_FUNCTIONS_QUERY);
         String queryBody = String.format(queryTemplate, org, module, version);
-        String query = String.format("{\"query\": \"%s\"}", queryBody);
-        String response = query(query);
-        return gson.fromJson(response, ApiResponse.class);
+        String response = query(queryBody);
+        return gson.fromJson(response, FunctionsResponse.class);
     }
 
-    private String query(String query) {
+    public FunctionResponse getFunction(String organization, String name, String version, String functionName) {
+        String queryTemplate = getQueryTemplate(GET_FUNCTION_QUERY);
+        String queryBody = String.format(queryTemplate, organization, name, version, functionName);
+        String response = query(queryBody);
+        return gson.fromJson(response, FunctionResponse.class);
+    }
+
+    private String query(String queryBody) {
+        String query = String.format("{\"query\": \"%s\"}", queryBody);
         HttpURLConnection conn = null;
         try {
             URL url = new URL(GRAPHQL_API);
@@ -128,22 +137,41 @@ class GraphQlClient {
         }
     }
 
-    private static class ModuleDeserializer implements JsonDeserializer<ApiResponse.Module> {
+    private static class FunctionsModuleDeserializer implements JsonDeserializer<FunctionsResponse.Module> {
 
         @Override
-        public ApiResponse.Module deserialize(JsonElement jsonElement, Type type,
-                                              JsonDeserializationContext jsonDeserializationContext)
+        public FunctionsResponse.Module deserialize(JsonElement jsonElement, Type type,
+                                                    JsonDeserializationContext jsonDeserializationContext)
                 throws JsonParseException {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             JsonElement modulesElement = jsonObject.get("functions");
 
             if (modulesElement.isJsonPrimitive() && modulesElement.getAsJsonPrimitive().isString()) {
                 String modulesString = modulesElement.getAsString();
-                List<ApiResponse.Function> functions =
-                        new Gson().fromJson(modulesString, new TypeToken<List<ApiResponse.Function>>() { }.getType());
-                return new ApiResponse.Module(functions);
+                List<Function> functions =
+                        new Gson().fromJson(modulesString, new TypeToken<List<Function>>() { }.getType());
+                return new FunctionsResponse.Module(functions);
             } else {
-                return new Gson().fromJson(jsonObject, ApiResponse.Module.class);
+                return new Gson().fromJson(jsonObject, FunctionsResponse.Module.class);
+            }
+        }
+    }
+
+    private static class FunctionModuleDeserializer implements JsonDeserializer<FunctionResponse.Module> {
+
+        @Override
+        public FunctionResponse.Module deserialize(JsonElement jsonElement, Type type,
+                                                   JsonDeserializationContext jsonDeserializationContext)
+                throws JsonParseException {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonElement modulesElement = jsonObject.get("functions");
+
+            if (modulesElement.isJsonPrimitive() && modulesElement.getAsJsonPrimitive().isString()) {
+                String modulesString = modulesElement.getAsString();
+                Function function = new Gson().fromJson(modulesString, Function.class);
+                return new FunctionResponse.Module(function);
+            } else {
+                return new Gson().fromJson(jsonObject, FunctionResponse.Module.class);
             }
         }
     }

@@ -672,7 +672,7 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value) {
+                                           Object typeConstraint, String value, boolean optional) {
             Property property = propertyBuilder
                     .metadata()
                         .label(label)
@@ -682,6 +682,7 @@ public abstract class NodeBuilder {
                     .typeConstraint(typeConstraint)
                     .value(value)
                     .editable()
+                    .optional(optional)
                     .build();
 
             addProperty(key, property);

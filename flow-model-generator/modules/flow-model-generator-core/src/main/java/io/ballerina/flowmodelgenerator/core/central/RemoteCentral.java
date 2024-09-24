@@ -56,8 +56,13 @@ public class RemoteCentral implements CentralAPI {
     }
 
     @Override
-    public ApiResponse functions(String organization, String name, String version) {
+    public FunctionsResponse functions(String organization, String name, String version) {
         return graphQlClient.getFunctions(organization, name, version);
+    }
+
+    @Override
+    public FunctionResponse function(String organization, String name, String version, String functionName) {
+        return graphQlClient.getFunction(organization, name, version, functionName);
     }
 
     @Override
