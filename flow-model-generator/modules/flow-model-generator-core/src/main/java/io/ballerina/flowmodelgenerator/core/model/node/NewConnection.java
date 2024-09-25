@@ -44,7 +44,7 @@ public class NewConnection extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 
-    public static final String INIT_SYMBOl = "init";
+    public static final String INIT_SYMBOL = "init";
     public static final String CLIENT_SYMBOL = "Client";
 
     @Override
@@ -58,7 +58,7 @@ public class NewConnection extends NodeBuilder {
         if (context.codedata().id() != null) {
             ConnectorResponse connector = RemoteCentral.getInstance().connector(context.codedata().id());
             Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
-                    .filter(function -> function.name().equals(INIT_SYMBOl))
+                    .filter(function -> function.name().equals(INIT_SYMBOL))
                     .findFirst();
             metadata()
                     .label(connector.moduleName())
@@ -70,7 +70,7 @@ public class NewConnection extends NodeBuilder {
                     .org(connector.packageInfo().organization())
                     .module(connector.moduleName())
                     .object(connector.name())
-                    .symbol(INIT_SYMBOl);
+                    .symbol(INIT_SYMBOL);
 
             if (initFunction.isPresent()) {
                 for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {

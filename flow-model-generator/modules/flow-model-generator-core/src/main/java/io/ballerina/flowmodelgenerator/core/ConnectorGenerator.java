@@ -73,7 +73,7 @@ public class ConnectorGenerator {
                             .org(packageInfo.getOrganization())
                             .module(packageInfo.getName())
                             .object(connector.name)
-                            .symbol(NewConnection.INIT_SYMBOl)
+                            .symbol(NewConnection.INIT_SYMBOL)
                             .id(connector.id)
                             .build();
                     return new AvailableNode(metadata, codedata, true);
