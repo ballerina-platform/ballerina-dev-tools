@@ -16,16 +16,20 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension;
 
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
+import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionItem;
@@ -59,6 +63,29 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     @Override
     public Class<?> getRemoteInterface() {
         return null;
+    }
+
+    @JsonRequest
+    public CompletableFuture<VisibleVariableTypesResponse> visibleVariableTypes(VisibleVariableTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            VisibleVariableTypesResponse response = new VisibleVariableTypesResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+                List<Type> list = semanticModel.get().visibleSymbols(document.get(), request.position()).stream()
+                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
+                        .map(Type::fromSemanticSymbol).toList();
+                response.setTypes(list);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
     }
 
     @JsonRequest
