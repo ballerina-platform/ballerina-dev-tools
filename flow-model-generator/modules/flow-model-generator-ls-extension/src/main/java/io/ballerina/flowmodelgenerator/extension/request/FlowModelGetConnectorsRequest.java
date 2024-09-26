@@ -18,12 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import java.util.Map;
+
 /**
  * Represents the request for getting connectors.
  *
- * @param keyword The keyword to search for connectors
+ * @param queryMap query parameters
  * @since 1.4.0
  */
-public record FlowModelGetConnectorsRequest(String keyword) {
+public record FlowModelGetConnectorsRequest(Map<String, String> queryMap) {
 
 }

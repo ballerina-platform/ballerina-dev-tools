@@ -86,7 +86,7 @@ public class DataMapper extends NodeBuilder {
         properties()
                 .data(null)
                 .custom(FUNCTION_NAME_KEY, FUNCTION_NAME_LABEL, FUNCTION_NAME_DOC, Property.ValueType.IDENTIFIER,
-                        null, "transform");
+                        null, "transform", false);
 
         // Obtain the visible variables to the cursor position
         WorkspaceManager workspaceManager = context.workspaceManager();
@@ -116,9 +116,9 @@ public class DataMapper extends NodeBuilder {
         }
 
         properties().custom(INPUTS_KEY, INPUTS_LABEL, INPUTS_DOC, Property.ValueType.MULTIPLE_SELECT,
-                new ArrayList<>(visibleVariables), "");
+                new ArrayList<>(visibleVariables), "", false);
         properties().custom(OUTPUT_KEY, OUTPUT_LABEL, OUTPUT_DOC, Property.ValueType.SINGLE_SELECT,
-                new ArrayList<>(visibleRecordTypes), "");
+                new ArrayList<>(visibleRecordTypes), "", false);
     }
 
     private static Optional<String> getVariableSignature(SemanticModel semanticModel, String projectName,

@@ -45,11 +45,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The proxy implementation of the central interface to obtain information about the connectors.
+ * An implementation of the Central API using a local index.
  *
  * @since 1.4.0
  */
-public class CentralProxy implements Central {
+public class LocalIndexCentral {
 
     private final Gson gson;
     private Map<String, FlowNode> templateCache;
@@ -61,21 +61,20 @@ public class CentralProxy implements Central {
 
     private static final class CentralProxyHolder {
 
-        private static final CentralProxy instance = new CentralProxy();
+        private static final LocalIndexCentral instance = new LocalIndexCentral();
     }
 
-    public static CentralProxy getInstance() {
+    public static LocalIndexCentral getInstance() {
         return CentralProxyHolder.instance;
     }
 
-    private CentralProxy() {
+    public LocalIndexCentral() {
         this.gson = new GsonBuilder()
                 .registerTypeAdapter(Item.class, new ItemDeserializer())
                 .registerTypeAdapter(Category.class, new CategoryDeserializer())
                 .create();
     }
 
-    @Override
     public FlowNode getNodeTemplate(Codedata codedata) {
         if (templateCache == null) {
             initializeTemplateCache();
@@ -83,24 +82,54 @@ public class CentralProxy implements Central {
         return templateCache.get(codedata.toString());
     }
 
-    @Override
-    public List<Item> getAvailableConnectors() {
+    public List<Item> getConnectors() {
         Category connectors = readJsonResource(CONNECTORS_JSON, Category.class);
         return connectors.items();
     }
 
-    @Override
     public List<Item> getFunctions() {
         Category functions = readJsonResource(FUNCTIONS_JSON, Category.class);
         return functions.items();
     }
 
-    @Override
-    public List<Item> getConnections(Codedata codedata) {
+    public List<Item> getConnectorActions(Codedata codedata) {
         if (connectionMap == null) {
             initializeConnectionMap();
         }
         return connectionMap.get(codedata.toString());
+    }
+
+    public List<AvailableNode> getConnectors(Map<String, String> queryMap) {
+        List<Item> connectors = getConnectors();
+        String query = queryMap.getOrDefault("q", "");
+        int limit = Integer.parseInt(queryMap.getOrDefault("limit", "10"));
+        int offset = Integer.parseInt(queryMap.getOrDefault("offset", "0"));
+
+        List<AvailableNode> availableNodes = new ArrayList<>();
+        for (Item item : connectors) {
+            if (item instanceof Category) {
+                availableNodes.addAll(getAvailableNodesFromCategory((Category) item));
+            } else if (item instanceof AvailableNode) {
+                availableNodes.add((AvailableNode) item);
+            }
+        }
+        return availableNodes.stream()
+                .filter(node -> node.codedata().object().contains(query) || node.codedata().module().contains(query))
+                .skip(offset)
+                .limit(limit)
+                .toList();
+    }
+    
+    private List<AvailableNode> getAvailableNodesFromCategory(Category category) {
+        List<AvailableNode> availableNodes = new ArrayList<>();
+        for (Item item : category.items()) {
+            if (item instanceof Category) {
+                availableNodes.addAll(getAvailableNodesFromCategory((Category) item));
+            } else if (item instanceof AvailableNode) {
+                availableNodes.add((AvailableNode) item);
+            }
+        }
+        return availableNodes;
     }
 
     private void initializeTemplateCache() {
@@ -133,7 +162,6 @@ public class CentralProxy implements Central {
 
     private static class ItemDeserializer implements JsonDeserializer<Item> {
 
-        @Override
         public Item deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
@@ -150,7 +178,6 @@ public class CentralProxy implements Central {
 
     private static class CategoryDeserializer implements JsonDeserializer<Category> {
 
-        @Override
         public Category deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();

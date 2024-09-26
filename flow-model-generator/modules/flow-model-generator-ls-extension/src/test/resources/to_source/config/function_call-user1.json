@@ -1,0 +1,91 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "99361",
+    "metadata": {
+      "label": "greet"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "greet",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 68,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 68,
+          "offset": 37
+        }
+      },
+      "sourceCode": "string greeting = greet(\"Alice\");"
+    },
+    "returning": false,
+    "properties": {
+      "name": {
+        "metadata": {
+          "label": "name"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"Alice\"",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "greeting",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import $anon/.;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 68,
+            "character": 4
+          },
+          "end": {
+            "line": 68,
+            "character": 37
+          }
+        },
+        "newText": "string greeting = greet(\"Alice\");"
+      }
+    ]
+  }
+}

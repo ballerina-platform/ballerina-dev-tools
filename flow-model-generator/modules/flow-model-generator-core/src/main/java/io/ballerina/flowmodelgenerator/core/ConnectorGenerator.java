@@ -20,8 +20,19 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import io.ballerina.flowmodelgenerator.core.central.Central;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorsResponse;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
+import org.ballerinalang.central.client.model.Package;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Generates the connectors for the provided parameters.
@@ -31,14 +42,43 @@ import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
 public class ConnectorGenerator {
 
     private final Gson gson;
-    private final Central central;
 
     public ConnectorGenerator() {
         this.gson = new Gson();
-        central = CentralProxy.getInstance();
     }
 
-    public JsonArray getConnectors(String keyword) {
-        return gson.toJsonTree(central.getAvailableConnectors()).getAsJsonArray();
+    public JsonArray getConnectors(Map<String, String> queryMap) {
+        // Get the popular connectors by default
+        if (queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty()) {
+            return gson.toJsonTree(LocalIndexCentral.getInstance().getConnectors()).getAsJsonArray();
+        }
+
+        // Filter the connectors published by ballerina and ballerinax
+        Map<String, String> newQueryMap = new HashMap<>(queryMap);
+        newQueryMap.put("org", "ballerina,ballerinax");
+
+        // Get the connectors from the central
+        ConnectorsResponse connectorsResponse = RemoteCentral.getInstance().connectors(newQueryMap);
+        List<AvailableNode> connectors = connectorsResponse.connectors().stream()
+                .filter(connector -> connector.name.equals(NewConnection.CLIENT_SYMBOL))
+                .map(connector -> {
+                    Package packageInfo = connector.packageInfo;
+                    Metadata metadata = new Metadata.Builder<>(null)
+                            .label(connector.moduleName)
+                            .description(packageInfo.getSummary())
+                            .keywords(packageInfo.getKeywords())
+                            .icon(connector.icon).build();
+                    Codedata codedata = new Codedata.Builder<>(null)
+                            .node(FlowNode.Kind.NEW_CONNECTION)
+                            .org(packageInfo.getOrganization())
+                            .module(packageInfo.getName())
+                            .object(connector.name)
+                            .symbol(NewConnection.INIT_SYMBOL)
+                            .id(connector.id)
+                            .build();
+                    return new AvailableNode(metadata, codedata, true);
+                }).toList();
+        return gson.toJsonTree(connectors).getAsJsonArray();
+
     }
 }

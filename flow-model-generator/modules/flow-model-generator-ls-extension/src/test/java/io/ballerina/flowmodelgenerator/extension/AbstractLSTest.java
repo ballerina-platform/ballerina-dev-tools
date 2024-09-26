@@ -257,6 +257,10 @@ abstract class AbstractLSTest {
         }
     }
 
+    protected String getSourcePath(String source) {
+        return sourceDir.resolve(source).toAbsolutePath().toString();
+    }
+
     /**
      * Returns the resource directory of the API test.
      *

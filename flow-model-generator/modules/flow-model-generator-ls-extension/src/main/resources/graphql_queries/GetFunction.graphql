@@ -1,0 +1,15 @@
+query ApiDocs {
+    apiDocs(
+        inputFilter: {
+            moduleInfo: { orgName: \"%s\", moduleName: \"%s\", version: \"%s\" }
+            functionFilter: { name: \"%s\" }
+        }
+    ) {
+        docsData {
+            modules {
+                functions
+            }
+        }
+    }
+}
+
