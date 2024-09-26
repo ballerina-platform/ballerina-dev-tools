@@ -112,7 +112,7 @@ abstract class AbstractLSTest {
      * @return The list of tests to be skipped
      */
     protected String[] skipList() {
-        return new String[]{};
+        return new String[]{ };
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class AbstractLSTest {
     }
 
     protected JsonObject getResponse(Endpoint endpoint, Object request, String api) {
-        CompletableFuture<?> result = endpoint.request("flowDesignService/" + api, request);
+        CompletableFuture<?> result = endpoint.request(getServiceName() + "/" + api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
@@ -277,6 +277,10 @@ abstract class AbstractLSTest {
      * @return The name of the API
      */
     protected abstract String getApiName();
+
+    protected String getServiceName() {
+        return "flowDesignService";
+    }
 
     @AfterClass
     public void shutDownLanguageServer() {

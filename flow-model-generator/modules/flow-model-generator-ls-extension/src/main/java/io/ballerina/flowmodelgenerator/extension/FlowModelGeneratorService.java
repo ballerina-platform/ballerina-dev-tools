@@ -48,6 +48,8 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateR
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Module;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -62,15 +64,11 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 /**
  * Represents the extended language server service for the flow model generator service.
@@ -138,7 +136,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 Path filePath = Path.of(request.filePath());
 
                 // Obtain the semantic model and the document
-                this.workspaceManager.loadProject(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (semanticModel.isEmpty() || document.isEmpty()) {
@@ -159,48 +157,31 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 JsonElement oldFlowModel = modelGenerator.getFlowModel();
 
                 // Create a temporary directory for the in-memory cache
-                Path tempDir = Files.createTempDirectory("project-cache");
-                Path destinationDir = tempDir.resolve(projectPath.getFileName());
-
-                if (Files.isDirectory(projectPath)) {
-                    try (Stream<Path> paths = Files.walk(projectPath)) {
-                        paths.forEach(source -> {
-                            try {
-                                Files.copy(source, destinationDir.resolve(projectPath.relativize(source)),
-                                        StandardCopyOption.REPLACE_EXISTING);
-                            } catch (IOException e) {
-                                throw new RuntimeException("Failed to copy project directory to cache", e);
-                            }
-                        });
-                    } catch (IOException e) {
-                        throw new RuntimeException("Failed to walk project directory", e);
-                    }
-                } else {
-                    Files.copy(projectPath, destinationDir, StandardCopyOption.REPLACE_EXISTING);
-                }
-
-                Path destination = destinationDir.resolve(projectPath.relativize(projectPath.resolve(filePath)));
-                Project newProject = this.workspaceManager.loadProject(destination);
-                Optional<SemanticModel> newSemanticModel = this.workspaceManager.semanticModel(destination);
-                Optional<Document> newDocument = this.workspaceManager.document(destination);
-                if (newSemanticModel.isEmpty() || newDocument.isEmpty()) {
+                Project newProject = project.duplicate();
+                DocumentId documentId = project.documentId(filePath);
+                Module newModule = project.currentPackage().module(documentId.moduleId());
+                SemanticModel newSemanticModel =
+                        newProject.currentPackage().getCompilation().getSemanticModel(newModule.moduleId());
+                Document newDocument = newModule.document(documentId);
+                if (newSemanticModel == null || newDocument == null) {
                     return response;
                 }
-                Path newProjectPath = this.workspaceManager.projectRoot(destination);
                 Optional<Document> newDataMappingsDoc;
                 try {
-                    newDataMappingsDoc = this.workspaceManager.document(newProjectPath.resolve("data_mappings.bal"));
+                    DocumentId dataMappingDocId = newProject.documentId(projectPath.resolve("data_mappings.bal"));
+                    Module dataMappingModule = newProject.currentPackage().module(dataMappingDocId.moduleId());
+                    newDataMappingsDoc = Optional.of(dataMappingModule.document(dataMappingDocId));
                 } catch (Throwable e) {
                     newDataMappingsDoc = Optional.empty();
                 }
 
-                TextDocument textDocument = newDocument.get().textDocument();
+                TextDocument textDocument = newDocument.textDocument();
                 int textPosition = textDocument.textPositionFrom(request.position());
 
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), request.text());
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                Document newDoc = newDocument.get().modify()
+                Document newDoc = newDocument.modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
 
@@ -210,7 +191,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 ModelGenerator suggestedModelGenerator =
                         new ModelGenerator(newDoc.module().getCompilation().getSemanticModel(), newDoc,
-                                endLineRange, destination, newDataMappingsDoc.orElse(null));
+                                endLineRange, filePath, newDataMappingsDoc.orElse(null));
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
                 LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
@@ -224,24 +205,6 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                     newFlowModel.getAsJsonObject().add("nodes", new JsonArray());
                 }
                 response.setFlowDesignModel(newFlowModel);
-
-                try {
-                    if (Files.isDirectory(destinationDir)) {
-                        try (Stream<Path> paths = Files.walk(destinationDir)) {
-                            paths.sorted(Comparator.reverseOrder()).forEach(source -> {
-                                try {
-                                    Files.delete(source);
-                                } catch (IOException e) {
-                                    throw new RuntimeException("Failed to delete destination directory", e);
-                                }
-                            });
-                        }
-                    } else {
-                        Files.delete(destinationDir);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException("Failed to delete destination", e);
-                }
             } catch (Throwable e) {
                 response.setError(e);
             }
