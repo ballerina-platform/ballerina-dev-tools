@@ -49,12 +49,15 @@ public class FunctionGenerator {
     }
 
     public JsonArray getFunctions(Map<String, String> queryMap) {
+        Category.Builder rootBuilder = new Category.Builder(null);
+        Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
+
         if (CommonUtils.hasNoKeyword(queryMap)) {
-            return gson.toJsonTree(LocalIndexCentral.getInstance().getFunctions()).getAsJsonArray();
+            utilityBuilder.items(LocalIndexCentral.getInstance().getFunctions());
+            return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
         }
 
         PackageResponse packages = RemoteCentral.getInstance().searchPackages(queryMap);
-        Category.Builder rootBuilder = new Category.Builder(null);
 
         // Find the packages for the given query.
         for (PackageResponse.Package pkg : packages.packages()) {
@@ -72,7 +75,7 @@ public class FunctionGenerator {
             }
 
             // Add every function in the package.
-            Category.Builder builder = rootBuilder.stepIn(pkg.name())
+            Category.Builder builder = utilityBuilder.stepIn(pkg.name())
                     .metadata()
                     .label(pkg.name())
                     .description(pkg.summary())
@@ -111,7 +114,7 @@ public class FunctionGenerator {
                     .module(symbol.name())
                     .object(symbol.symbolName())
                     .build();
-            rootBuilder.stepIn(symbol.name()).node(new AvailableNode(metadata, codedata, true));
+            utilityBuilder.stepIn(symbol.name()).node(new AvailableNode(metadata, codedata, true));
         }
 
         return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();

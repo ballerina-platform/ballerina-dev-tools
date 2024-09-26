@@ -50,6 +50,10 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
+        PROJECT_FUNCTIONS("Project", "Functions defined within the project",
+                List.of("Project", "Local", "Function")),
+        UTILITIES("Utilities", "Reusable functions from external libraries",
+                List.of("Utility", "Library", "Function", "External")),
         HTTP_API("HTTP API", "Make HTTP requests", null),
         REDIS_CLIENT("Redis Client", "Interact with a Redis server", null);
 
