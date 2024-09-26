@@ -34,7 +34,6 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
 import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
@@ -44,7 +43,6 @@ import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
-import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -65,12 +63,10 @@ public class AvailableNodesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
-    private final CentralAPI centralAPI;
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
-        this.centralAPI = RemoteCentral.getInstance();
         this.semanticModel = semanticModel;
         this.document = document;
     }
@@ -131,10 +127,16 @@ public class AvailableNodesGenerator {
     }
 
     private void setDefaultNodes() {
-        AvailableNode functionCall = NodeBuilder.getNodeFromKind(FlowNode.Kind.FUNCTION_CALL)
-                .metadata().label("Function Call").stepOut().buildAvailableNode();
-        AvailableNode utilityCall = NodeBuilder.getNodeFromKind(FlowNode.Kind.FUNCTION_CALL)
-                .metadata().label("Utility").stepOut().buildAvailableNode();
+        AvailableNode function = new AvailableNode(
+                new Metadata.Builder<>(null)
+                        .label("Function")
+                        .description("Both project and utility functions")
+                        .build(),
+                new Codedata.Builder<>(null)
+                        .node(FlowNode.Kind.FUNCTION)
+                        .build(),
+                true
+        );
 
         this.rootBuilder
                 .stepIn(Category.Name.FLOW)
@@ -146,9 +148,8 @@ public class AvailableNodesGenerator {
                         .node(FlowNode.Kind.WHILE)
                         .node(FlowNode.Kind.FOREACH)
                         .stepOut()
-                    .stepIn(Category.Name.FUNCTION_CALLS)
-                        .node(functionCall)
-                        .node(utilityCall)
+                    .stepIn(Category.Name.FLOWS)
+                        .node(function)
                         .stepOut()
                     .stepIn(Category.Name.CONTROL)
                         .node(FlowNode.Kind.RETURN)
