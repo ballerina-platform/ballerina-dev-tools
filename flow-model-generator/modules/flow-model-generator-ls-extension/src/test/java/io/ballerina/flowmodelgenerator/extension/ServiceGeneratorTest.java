@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
@@ -28,10 +29,11 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Test cases for the open api service generation.
+ * Test cases for the OpenAPI service generation.
  *
  * @since 1.4.0
  */
@@ -41,24 +43,30 @@ public class ServiceGeneratorTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("petstore.yaml")}
+                {Path.of("config1.json")}
         };
     }
 
     @Override
     @Test(dataProvider = "data-provider")
-    public void test(Path contract) throws IOException {
+    public void test(Path config) throws IOException {
         Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
-        Path contractPath = resDir.resolve("contracts").resolve(contract);
+        Path configJsonPath = configDir.resolve(config);
+        TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
+        Path contractPath = resDir.resolve("contracts").resolve(testConfig.contractFile());
 
         Path project = resDir.resolve("project");
         String projectPath = project.toAbsolutePath().toString();
         OpenAPIServiceGenerationRequest request =
                 new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, 9090);
-        String success = getResponse(endpoint, request).get("success").getAsString();
-        Assert.assertEquals(success, "true");
-        TestUtil.shutdownLanguageServer(endpoint);
+        JsonObject resp = getResponse(endpoint, request);
         deleteFolder(project.toFile());
+        if (!resp.getAsJsonObject("service").equals(testConfig.lineRange())) {
+            TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), resp.get("service").getAsJsonObject());
+            updateConfig(configJsonPath, updatedConfig);
+            Assert.fail(String.format("Failed test: '%s'", configJsonPath));
+        }
+        TestUtil.shutdownLanguageServer(endpoint);
     }
 
     @Override
@@ -78,14 +86,25 @@ public class ServiceGeneratorTest extends AbstractLSTest {
 
     private void deleteFolder(File folder) {
         File[] files = folder.listFiles();
-        if(files!=null) {
-            for(File f: files) {
-                if(f.isDirectory()) {
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) {
                     deleteFolder(f);
                 } else {
                     f.delete();
                 }
             }
         }
+    }
+
+    /**
+     * Represents the test configuration for the service generation.
+     *
+     * @param contractFile OpenAPI contract file
+     * @param lineRange    line range of service declaration
+     * @since 1.4.0
+     */
+    private record TestConfig(String contractFile, JsonObject lineRange) {
+
     }
 }

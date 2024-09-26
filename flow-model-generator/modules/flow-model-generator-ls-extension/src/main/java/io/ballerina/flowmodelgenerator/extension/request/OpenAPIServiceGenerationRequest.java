@@ -19,9 +19,9 @@
 package io.ballerina.flowmodelgenerator.extension.request;
 
 /**
- * Represents a request to generate the service from open api contract.
+ * Represents a request to generate the service from OpenAPI contract.
  *
- * @param openApiContractPath Location for open api contract
+ * @param openApiContractPath Location for OpenAPI contract
  * @param projectPath         Location for the generated services
  * @param port                port
  *

@@ -39,6 +39,8 @@ import io.ballerina.openapi.core.generators.type.GeneratorConstants;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.diagnostics.Diagnostic;
 import io.ballerina.tools.diagnostics.DiagnosticSeverity;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.Formatter;
 import org.ballerinalang.formatter.core.FormatterException;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -65,7 +67,7 @@ import java.util.regex.Pattern;
 import static io.ballerina.openapi.core.generators.common.GeneratorConstants.DEFAULT_FILE_HEADER;
 
 /**
- * Generates service from the open api contract.
+ * Generates service from the OpenAPI contract.
  *
  * @since 1.4.0
  */
@@ -81,6 +83,8 @@ public class OpenApiServiceGenerator {
     public static final String CLOSE_BRACE = "}";
     public static final String IMPORT = "import ballerina/http;";
     public static final String SERVICE_DECLARATION = "service OASServiceType on new http:Listener(%s) {";
+    public static final String SERVICE_OBJ_FILE = "service_contract.bal";
+    public static final String SERVICE_IMPL_FILE = "service_implementation.bal";
 
     public OpenApiServiceGenerator(Path oAContractPath, Path projectPath, int port, WorkspaceManager workspaceManager) {
         this.oAContractPath = oAContractPath;
@@ -89,14 +93,14 @@ public class OpenApiServiceGenerator {
         this.port = port;
     }
 
-    public void generateService() throws IOException, BallerinaOpenApiException, FormatterException,
+    public LineRange generateService() throws IOException, BallerinaOpenApiException, FormatterException,
             WorkspaceDocumentException, EventSyncException {
         Filter filter = new Filter(new ArrayList<>(), new ArrayList<>());
 
         List<Diagnostic> diagnostics = new ArrayList<>();
         List<GenSrcFile> genFiles = generateBallerinaService(oAContractPath, filter, diagnostics);
         if (genFiles.isEmpty()) {
-            return;
+            throw new BallerinaOpenApiException("Cannot generate service from the given OpenAPI contract.");
         }
 
         List<String> errorMessages = new ArrayList<>();
@@ -117,8 +121,17 @@ public class OpenApiServiceGenerator {
 
         writeGeneratedSources(genFiles, projectPath);
 
-        genServiceDeclaration(projectPath.resolve("service_contract.bal"), projectPath.resolve(
-                "service_implementation.bal"));
+        Path serviceImplPath = projectPath.resolve(SERVICE_IMPL_FILE);
+        genServiceDeclaration(projectPath.resolve(SERVICE_OBJ_FILE), serviceImplPath);
+
+        this.workspaceManager.loadProject(serviceImplPath);
+        Optional<Document> document = this.workspaceManager.document(serviceImplPath);
+        if (document.isEmpty()) {
+            throw new BallerinaOpenApiException("Invalid service implementation is generated.");
+        }
+
+        return LineRange.from(SERVICE_IMPL_FILE, LinePosition.from(1,
+                0), document.get().syntaxTree().rootNode().lineRange().endLine());
     }
 
     public List<GenSrcFile> generateBallerinaService(Path openAPI, Filter filter, List<Diagnostic> diagnostics)

@@ -18,20 +18,22 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
+import io.ballerina.tools.text.LineRange;
+
 /**
- * Represents the response for open api service generation API.
+ * Represents the response for OpenAPI service generation API.
  *
  * @since 1.4.0
  */
 public class OpenApiServiceGenerationResponse extends AbstractFlowModelResponse {
 
-    private boolean success;
+    private LineRange service;
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public LineRange getService() {
+        return service;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public void setService(LineRange service) {
+        this.service = service;
     }
 }
