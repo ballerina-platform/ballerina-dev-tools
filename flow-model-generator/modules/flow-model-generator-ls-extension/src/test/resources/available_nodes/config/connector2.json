@@ -2389,6 +2389,141 @@
           "enabled": true
         }
       ]
+    },
+    {
+      "metadata": {
+        "label": "Time",
+        "description": "This package provides a set of APIs that have the capabilities to generate and manipulate UTC and localized time.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Get Current UTC Time",
+            "description": "Returns the UTC representing the current time."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcNow",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Current Monotonic Time",
+            "description": "Returns the number of seconds from an unspecified epoch."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "monotonicNow",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Time Zone",
+            "description": "Return the time zone object of a given zone ID."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "getZone",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Day of Week",
+            "description": "Get the day of week for a specified date."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "dayOfWeek",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "UTC Time Difference in Seconds",
+            "description": "Returns the difference in seconds between `utc1` and `utc2`."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcDiffSeconds",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Add Seconds to UTC",
+            "description": "Returns UTC time that occurs seconds after `utc`."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcAddSeconds",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Validate Gregorian Date",
+            "description": "Check that days and months are within range as per Gregorian calendar rules."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "dateValidate",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Convert Civil to UTC",
+            "description": "Converts a given `Civil` value to a `Utc` timestamp."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcFromCivil",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Convert UTC to Civil",
+            "description": "Converts a given `time:Utc` timestamp to a `time:Civil` value."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcToCivil",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        }
+      ]
     }
   ]
 }
