@@ -240,7 +240,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
-            "symbol": "printInfo"
+            "symbol": "printInfo",
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -254,7 +255,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
-            "symbol": "printError"
+            "symbol": "printError",
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -268,7 +270,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
-            "symbol": "printWarn"
+            "symbol": "printWarn",
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -282,7 +285,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "log",
-            "symbol": "printDebug"
+            "symbol": "printDebug",
+            "version": "2.10.0"
           },
           "enabled": true
         }
@@ -303,7 +307,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.jsondata",
-            "symbol": "toJson"
+            "symbol": "toJson",
+            "version": "0.2.0"
           },
           "enabled": true
         },
@@ -317,7 +322,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.xmldata",
-            "symbol": "toXml"
+            "symbol": "toXml",
+            "version": "1.0.0"
           },
           "enabled": true
         },
@@ -331,7 +337,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.jsondata",
-            "symbol": "parseAsType"
+            "symbol": "parseAsType",
+            "version": "0.2.0"
           },
           "enabled": true
         },
@@ -345,7 +352,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.xmldata",
-            "symbol": "parseAsType"
+            "symbol": "parseAsType",
+            "version": "1.0.0"
           },
           "enabled": true
         }
@@ -366,7 +374,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.jsondata",
-            "symbol": "read"
+            "symbol": "read",
+            "version": "0.2.0"
           },
           "enabled": true
         },
@@ -380,7 +389,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "data.jsondata",
-            "symbol": "prettify"
+            "symbol": "prettify",
+            "version": "0.2.0"
           },
           "enabled": true
         }
@@ -401,7 +411,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "xslt",
-            "symbol": "transform"
+            "symbol": "transform",
+            "version": "2.7.0"
           },
           "enabled": true
         }
@@ -422,7 +433,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileReadCsv"
+            "symbol": "fileReadCsv",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -436,7 +448,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileReadJson"
+            "symbol": "fileReadJson",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -450,7 +463,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileReadBytes"
+            "symbol": "fileReadBytes",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -464,7 +478,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileReadXml"
+            "symbol": "fileReadXml",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -478,7 +493,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileWriteCsv"
+            "symbol": "fileWriteCsv",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -492,7 +508,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileWriteJson"
+            "symbol": "fileWriteJson",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -506,7 +523,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileWriteBytes"
+            "symbol": "fileWriteBytes",
+            "version": "1.6.1"
           },
           "enabled": true
         },
@@ -520,7 +538,8 @@
             "node": "FUNCTION_CALL",
             "org": "ballerina",
             "module": "io",
-            "symbol": "fileWriteXml"
+            "symbol": "fileWriteXml",
+            "version": "1.6.1"
           },
           "enabled": true
         }
