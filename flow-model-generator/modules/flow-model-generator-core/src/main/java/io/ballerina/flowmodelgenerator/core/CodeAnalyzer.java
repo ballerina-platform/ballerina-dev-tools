@@ -79,6 +79,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TemplateExpressionNode;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
@@ -98,6 +99,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -382,6 +384,17 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
+    public void visit(TemplateExpressionNode templateExpressionNode) {
+        if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
+            startNode(FlowNode.Kind.XML_PAYLOAD)
+                    .metadata()
+                    .description(XMLPayload.DESCRIPTION)
+                    .stepOut()
+                    .properties().expression(templateExpressionNode);
+        }
+    }
+
+    @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
         if (initializer.isEmpty()) {
@@ -404,6 +417,8 @@ class CodeAnalyzer extends NodeVisitor {
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+        } else if (nodeBuilder instanceof XMLPayload) {
+            nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
@@ -442,6 +457,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
+        if (nodeBuilder instanceof XMLPayload) {
+            nodeBuilder.properties().variable(assignmentStatementNode.varRef());
+        }
         endNode(assignmentStatementNode);
     }
 

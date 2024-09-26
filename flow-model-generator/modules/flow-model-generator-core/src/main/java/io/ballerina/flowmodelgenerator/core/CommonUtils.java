@@ -246,6 +246,7 @@ public class CommonUtils {
         return node.toString().strip();
     }
 
+
     /**
      * Returns the default value for the given API doc type.
      *

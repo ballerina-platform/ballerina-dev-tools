@@ -51,11 +51,11 @@
       {
         "id": "48766",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'x1' with type 'xml'"
+          "label": "XML Payload",
+          "description": "XML Payload"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "XML_PAYLOAD",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -107,11 +107,11 @@
       {
         "id": "49767",
         "metadata": {
-          "label": "Update Variable",
-          "description": "Update the value of the variable 'x1'"
+          "label": "XML Payload",
+          "description": "XML Payload"
         },
         "codedata": {
-          "node": "UPDATE_DATA",
+          "node": "XML_PAYLOAD",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -130,7 +130,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Update variable"
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "xml `<book>The Lost World</book>`",
