@@ -562,11 +562,13 @@
       {
         "id": "61654",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "logEmployee"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "nipunaf",
+          "module": "new_connection1",
+          "symbol": "logEmployee",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -582,13 +584,12 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "employee": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "employee"
             },
             "valueType": "EXPRESSION",
-            "value": "logEmployee(employee);",
+            "value": "employee",
             "optional": false,
             "editable": true
           }

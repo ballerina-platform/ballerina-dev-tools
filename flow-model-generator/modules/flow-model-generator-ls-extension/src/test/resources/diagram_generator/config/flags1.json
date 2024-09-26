@@ -51,11 +51,13 @@
       {
         "id": "35860",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithError"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithError",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -70,28 +72,19 @@
           "sourceCode": "check fnWithError();"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "check fnWithError();",
-            "optional": false,
-            "editable": true
-          }
-        },
+        "properties": {},
         "flags": 1
       },
       {
         "id": "36857",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithError"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithError",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -106,28 +99,19 @@
           "sourceCode": "checkpanic fnWithError();"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "checkpanic fnWithError();",
-            "optional": false,
-            "editable": true
-          }
-        },
+        "properties": {},
         "flags": 2
       },
       {
         "id": "38859",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -143,16 +127,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
@@ -179,11 +153,13 @@
       {
         "id": "39856",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -199,16 +175,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
@@ -235,11 +201,13 @@
       {
         "id": "40845",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -255,16 +223,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
@@ -291,11 +249,13 @@
       {
         "id": "41842",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -311,16 +271,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Data variable",
