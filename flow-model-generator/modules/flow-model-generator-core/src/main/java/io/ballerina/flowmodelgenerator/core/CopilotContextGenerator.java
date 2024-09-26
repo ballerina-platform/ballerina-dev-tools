@@ -21,6 +21,9 @@ package io.ballerina.flowmodelgenerator.core;
 import io.ballerina.compiler.syntax.tree.ImportDeclarationNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NodeList;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
+import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextDocument;
@@ -47,6 +50,8 @@ public class CopilotContextGenerator {
     private String suffix;
     private final Set<String> imports;
 
+    private static final int INDENT_SPACES = 4;
+
     public CopilotContextGenerator(WorkspaceManager workspaceManager, Path filePath, LinePosition position) {
         this.workspaceManager = workspaceManager;
         this.filePath = filePath;
@@ -61,6 +66,10 @@ public class CopilotContextGenerator {
             TextDocument textDocument = document.textDocument();
             int textPosition = textDocument.textPositionFrom(position);
             char[] charArray = textDocument.toCharArray();
+
+            ModulePartNode rootNode = document.syntaxTree().rootNode();
+            Token token = rootNode.findToken(textPosition);
+
             int start = processImports(document);
             Path projectPath = this.workspaceManager.projectRoot(filePath);
 
@@ -70,7 +79,7 @@ public class CopilotContextGenerator {
                     getDocumentContent(projectPath, "types.bal") +
                     getDocumentContent(projectPath, "connections.bal") +
                     new String(charArray, start, textPosition - start) +
-                    System.lineSeparator();
+                    generatePrefixTrailingSpace(token, textDocument);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
@@ -95,6 +104,39 @@ public class CopilotContextGenerator {
         TextDocument textDocument = document.textDocument();
         return imports.isEmpty() ? 0 :
                 textDocument.textPositionFrom(imports.get(imports.size() - 1).lineRange().endLine());
+    }
+
+    private String generatePrefixTrailingSpace(Token token, TextDocument textDocument) {
+        String indent = switch (token.kind()) {
+            case CLOSE_BRACE_TOKEN -> {
+                int offset = token.lineRange().startLine().offset();
+                yield " ".repeat(offset);
+            }
+            case SEMICOLON_TOKEN -> {
+                NonTerminalNode parent = token.parent();
+                while (!(parent instanceof StatementNode) && parent != null) {
+                    parent = parent.parent();
+                }
+                if (parent == null) {
+                    yield "";
+                }
+                int offset = parent.lineRange().startLine().offset();
+                yield " ".repeat(Math.max(0, offset));
+            }
+            case OPEN_BRACE_TOKEN -> {
+                String line = textDocument.line(token.lineRange().startLine().line()).text();
+                int offset = -1;
+                for (int i = 0; i < line.length(); i++) {
+                    if (!Character.isWhitespace(line.charAt(i))) {
+                        offset = i;
+                        break;
+                    }
+                }
+                yield " ".repeat(offset + INDENT_SPACES);
+            }
+            default -> "";
+        };
+        return System.lineSeparator() + indent;
     }
 
     public String prefix() {
