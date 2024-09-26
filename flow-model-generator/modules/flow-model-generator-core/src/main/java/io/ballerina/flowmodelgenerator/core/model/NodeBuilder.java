@@ -289,6 +289,20 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> type(String typeName) {
+            propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .value(typeName)
+                    .type(Property.ValueType.TYPE)
+                    .editable();
+
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            return this;
+        }
+
         public PropertiesBuilder<T> dataVariable(Node node) {
             data(node);
 

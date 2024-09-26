@@ -17,7 +17,8 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "log",
-      "symbol": "printInfo"
+      "symbol": "printInfo",
+      "version": "2.10.0"
     },
     "returning": false,
     "properties": {
@@ -61,26 +62,6 @@
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "KeyValues",
         "value": "\"\"",
-        "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "item",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "var",
         "optional": false,
         "editable": true
       }

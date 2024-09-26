@@ -29,6 +29,8 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.Module;
+import io.ballerina.projects.ModuleDescriptor;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -117,6 +119,14 @@ public class SourceBuilder {
 
         if (org == null || module == null) {
             return this;
+        }
+
+        Optional<Module> currentModule = this.workspaceManager.module(filePath);
+        if (currentModule.isPresent()) {
+            ModuleDescriptor descriptor = currentModule.get().descriptor();
+            if (descriptor.org().value().equals(org) && descriptor.name().toString().equals(module)) {
+                return this;
+            }
         }
 
         boolean importExists = syntaxTree.rootNode().kind() == SyntaxKind.MODULE_PART &&

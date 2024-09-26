@@ -85,13 +85,15 @@ public class NewConnection extends NodeBuilder {
                             Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
                             CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
                 }
+
+                String returnType = initFunction.get().returnType().typeName();
+                if (returnType != null) {
+                    properties().type(returnType).data(null);
+                }
             }
         }
 
         //TODO: Obtain the connector from the codedata information if id doesn't exist.
-        properties()
-                .dataVariable(null)
-                .scope(Property.GLOBAL_SCOPE);
     }
 
     @Override
