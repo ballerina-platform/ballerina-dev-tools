@@ -37,6 +37,7 @@ public class ProjectCacheManager {
 
     private final Path sourceDir;
     private final Path filePath;
+    private Path destinationProjectPath;
     private Path destinationPath;
 
     public ProjectCacheManager(Path sourceDir, Path filePath) {
@@ -48,7 +49,7 @@ public class ProjectCacheManager {
         // Create a temporary directory
         Path tempDir = Files.createTempDirectory("project-cache");
         Path tempDesintaitonPath = tempDir.resolve(sourceDir.getFileName());
-        destinationPath = tempDesintaitonPath;
+        destinationProjectPath = tempDesintaitonPath;
 
         // Copy contents from sourceDir to destinationDir
         if (Files.isDirectory(sourceDir)) {
@@ -68,8 +69,8 @@ public class ProjectCacheManager {
     }
 
     public void deleteCache() throws IOException {
-        if (Files.isDirectory(destinationPath)) {
-            try (Stream<Path> paths = Files.walk(destinationPath)) {
+        if (Files.isDirectory(destinationProjectPath)) {
+            try (Stream<Path> paths = Files.walk(destinationProjectPath)) {
                 paths.sorted(Comparator.reverseOrder()).forEach(source -> {
                     try {
                         Files.delete(source);
@@ -80,21 +81,24 @@ public class ProjectCacheManager {
             }
             return;
         }
-        Files.delete(destinationPath);
+        Files.delete(destinationProjectPath);
     }
 
     public void writeContent(TextDocument textDocument) throws IOException {
-        if (destinationPath == null) {
+        if (destinationProjectPath == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        Files.writeString(destinationPath, new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
+        Files.writeString(getDestination(), new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     public Path getDestination() {
-        if (destinationPath == null) {
+        if (destinationProjectPath == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        return destinationPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+        if (destinationPath == null) {
+            destinationPath = destinationProjectPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+        }
+        return destinationPath;
     }
 }
