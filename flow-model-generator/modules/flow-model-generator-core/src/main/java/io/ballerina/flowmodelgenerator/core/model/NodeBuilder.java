@@ -57,6 +57,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Switch;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -125,6 +126,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.FAIL, Fail::new);
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
+        put(FlowNode.Kind.XML_PAYLOAD, XMLPayload::new);
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
@@ -308,6 +310,28 @@ public abstract class NodeBuilder {
 
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
+            return this;
+        }
+
+        public PropertiesBuilder<T> xmlPayload(Node node) {
+            data(node);
+
+            propertyBuilder
+                .metadata()
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
+                    .stepOut()
+                .type(Property.ValueType.TYPE)
+                .editable();
+
+            if (node == null) {
+                propertyBuilder.value("xml");
+            } else {
+                Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+                optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
+                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
+            }
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
             return this;
         }
 
@@ -535,6 +559,20 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, condition);
+            return this;
+        }
+
+        public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                    .value(expr)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
