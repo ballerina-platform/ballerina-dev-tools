@@ -25,6 +25,8 @@ module io.ballerina.flow.model.generator {
     requires io.ballerina.language.server.core;
     requires org.eclipse.lsp4j;
     requires com.google.gson;
+    requires io.ballerina.openapi.core;
+    requires io.swagger.v3.oas.models;
 
     exports io.ballerina.flowmodelgenerator.core;
 }

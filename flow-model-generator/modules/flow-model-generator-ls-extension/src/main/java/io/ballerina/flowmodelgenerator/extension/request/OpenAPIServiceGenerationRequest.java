@@ -16,13 +16,17 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
+package io.ballerina.flowmodelgenerator.extension.request;
+
+/**
+ * Represents a request to generate the service from open api contract.
+ *
+ * @param openApiContractPath Location for open api contract
+ * @param projectPath         Location for the generated services
+ * @param port                port
+ *
+ * @since 1.4.0
+ */
+public record OpenAPIServiceGenerationRequest(String openApiContractPath, String projectPath, int port) {
+
 }

@@ -16,13 +16,22 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
+package io.ballerina.flowmodelgenerator.extension.response;
+
+/**
+ * Represents the response for open api service generation API.
+ *
+ * @since 1.4.0
+ */
+public class OpenApiServiceGenerationResponse extends AbstractFlowModelResponse {
+
+    private boolean success;
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }
