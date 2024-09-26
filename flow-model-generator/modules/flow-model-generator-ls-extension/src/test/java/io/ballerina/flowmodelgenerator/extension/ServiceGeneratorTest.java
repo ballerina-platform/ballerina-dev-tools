@@ -56,6 +56,7 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         Path contractPath = resDir.resolve("contracts").resolve(testConfig.contractFile());
 
         Path project = resDir.resolve("project");
+        Files.createDirectories(project);
         String projectPath = project.toAbsolutePath().toString();
         OpenAPIServiceGenerationRequest request =
                 new OpenAPIServiceGenerationRequest(contractPath.toAbsolutePath().toString(), projectPath, 9090);

@@ -122,7 +122,17 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         ENUM,
         SINGLE_SELECT,
         MULTIPLE_SELECT,
-        VIEW
+        VIEW,
+        INCLUSION,
+        UNION
+    }
+
+    public static ValueType valueTypeFrom(String s) {
+        return switch (s) {
+            case "inclusion" -> ValueType.INCLUSION;
+            case "union" -> ValueType.UNION;
+            default -> ValueType.EXPRESSION;
+        };
     }
 
     /**

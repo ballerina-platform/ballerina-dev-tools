@@ -282,11 +282,13 @@
               {
                 "id": "43072",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "print"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "print",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -302,13 +304,12 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "val": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "val"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "print(\"Sum is greater than 30\");",
+                    "value": "\"Sum is greater than 30\"",
                     "optional": false,
                     "editable": true
                   }
@@ -438,11 +439,13 @@
               {
                 "id": "49885",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "print"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "print",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -458,13 +461,12 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "val": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "val"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "print(\"x is greater than y\");",
+                    "value": "\"x is greater than y\"",
                     "optional": false,
                     "editable": true
                   }
@@ -496,11 +498,13 @@
               {
                 "id": "51865",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "print"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "print",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -516,13 +520,12 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "val": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "val"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "print(\"x is equal to y\");",
+                    "value": "\"x is equal to y\"",
                     "optional": false,
                     "editable": true
                   }

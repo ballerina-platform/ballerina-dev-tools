@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
+import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
 import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
@@ -36,6 +37,7 @@ import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
@@ -295,12 +297,32 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
     @JsonRequest
     public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(FlowModelGetConnectorsRequest request) {
-
         return CompletableFuture.supplyAsync(() -> {
             FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
             try {
                 ConnectorGenerator connectorGenerator = new ConnectorGenerator();
-                response.setCategories(connectorGenerator.getConnectors(request.keyword()));
+                response.setCategories(connectorGenerator.getConnectors(request.queryMap()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelAvailableNodesResponse> getFunctions(FlowModelGetFunctionsRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+                FunctionGenerator connectorGenerator = new FunctionGenerator(semanticModel.get(), document.get());
+                response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
             } catch (Throwable e) {
                 response.setError(e);
             }

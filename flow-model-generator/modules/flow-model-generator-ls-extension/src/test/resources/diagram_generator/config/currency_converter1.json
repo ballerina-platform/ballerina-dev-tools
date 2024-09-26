@@ -859,11 +859,13 @@
                       {
                         "id": "70020",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "calculate"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "FUNCTION_CALL",
+                          "org": "nipunaf",
+                          "module": "currency_converter",
+                          "symbol": "calculate",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -879,13 +881,21 @@
                         },
                         "returning": false,
                         "properties": {
-                          "expression": {
+                          "amount": {
                             "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
+                              "label": "amount"
                             },
                             "valueType": "EXPRESSION",
-                            "value": "calculate(amount, value.toString())",
+                            "value": "amount",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "cacheValue": {
+                            "metadata": {
+                              "label": "cacheValue"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "value.toString()",
                             "optional": false,
                             "editable": true
                           },

@@ -36,16 +36,19 @@ dependencies {
     implementation "org.ballerinalang:ballerina-lang:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-parser:${ballerinaLangVersion}"
     implementation "org.ballerinalang:ballerina-tools-api:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:central-client:${ballerinaLangVersion}"
+    implementation "org.ballerinalang:diagram-util:${ballerinaLangVersion}"
     implementation "org.ballerinalang:formatter-core:${ballerinaLangVersion}"
     implementation "org.ballerinalang:language-server-commons:${ballerinaLangVersion}"
     implementation "org.ballerinalang:language-server-core:${ballerinaLangVersion}"
     implementation "com.google.code.gson:gson:${gsonVersion}"
+    implementation "com.graphql-java:graphql-java:${graphqlJavaVersion}"
     compileOnly "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
 
     testImplementation "org.testng:testng:${testngVersion}"
     testImplementation "org.eclipse.lsp4j:org.eclipse.lsp4j:${eclipseLsp4jVersion}"
 
-    balTools ("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
+    balTools("org.ballerinalang:jballerina-tools:${ballerinaLangVersion}") {
         transitive = false
     }
 
