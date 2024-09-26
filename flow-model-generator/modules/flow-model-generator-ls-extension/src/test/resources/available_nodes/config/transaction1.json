@@ -82,6 +82,38 @@
         },
         {
           "metadata": {
+            "label": "Function Calls",
+            "description": "Nodes that invoke local or utility functions",
+            "keywords": [
+              "Function",
+              "Call",
+              "Utility",
+              "Local"
+            ]
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Function Call"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Utility"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL"
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
             "label": "Control",
             "description": "Control nodes"
           },

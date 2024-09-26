@@ -35,13 +35,16 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -128,34 +131,43 @@ public class AvailableNodesGenerator {
     }
 
     private void setDefaultNodes() {
+        AvailableNode functionCall = NodeBuilder.getNodeFromKind(FlowNode.Kind.FUNCTION_CALL)
+                .metadata().label("Function Call").stepOut().buildAvailableNode();
+        AvailableNode utilityCall = NodeBuilder.getNodeFromKind(FlowNode.Kind.FUNCTION_CALL)
+                .metadata().label("Utility").stepOut().buildAvailableNode();
+
         this.rootBuilder
                 .stepIn(Category.Name.FLOW)
                     .stepIn(Category.Name.BRANCH)
                         .node(FlowNode.Kind.IF)
                         .node(FlowNode.Kind.SWITCH)
-                    .stepOut()
+                        .stepOut()
                     .stepIn(Category.Name.ITERATION)
                         .node(FlowNode.Kind.WHILE)
                         .node(FlowNode.Kind.FOREACH)
-                    .stepOut()
+                        .stepOut()
+                    .stepIn(Category.Name.FUNCTION_CALLS)
+                        .node(functionCall)
+                        .node(utilityCall)
+                        .stepOut()
                     .stepIn(Category.Name.CONTROL)
                         .node(FlowNode.Kind.RETURN)
+                        .stepOut()
                     .stepOut()
-                .stepOut()
                 .stepIn(Category.Name.DATA)
                     .node(FlowNode.Kind.NEW_DATA)
                     .node(FlowNode.Kind.UPDATE_DATA)
                     .node(FlowNode.Kind.DATA_MAPPER)
-                .stepOut()
+                    .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
                     .node(FlowNode.Kind.PANIC)
-                .stepOut()
+                    .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
                     .node(FlowNode.Kind.TRANSACTION)
                     .node(FlowNode.Kind.LOCK)
                     .node(FlowNode.Kind.START)
-                .stepOut();
+                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
