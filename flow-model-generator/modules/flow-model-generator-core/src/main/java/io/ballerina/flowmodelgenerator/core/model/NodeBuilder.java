@@ -501,6 +501,59 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
+                                                      List<ParameterSymbol> parameterSymbols) {
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
+                    }
+                }
+            }
+
+            propertyBuilder = Property.Builder.getInstance();
+            int numParams = parameterSymbols.size();
+            int numPositionalArgs = positionalArgs.size();
+
+            for (int i = 0; i < numParams; i++) {
+                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+                Optional<String> name = parameterSymbol.getName();
+                if (name.isEmpty()) {
+                    continue;
+                }
+
+                String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
+                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
+
+                propertyBuilder
+                        .metadata()
+                            .label(parameterName)
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .editable()
+                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+
+                if (paramValue != null) {
+                    propertyBuilder.value(paramValue.toSourceCode());
+                }
+
+                addProperty(parameterName, propertyBuilder.build());
+
+            }
+            return this;
+        }
+
         public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
                     .metadata()

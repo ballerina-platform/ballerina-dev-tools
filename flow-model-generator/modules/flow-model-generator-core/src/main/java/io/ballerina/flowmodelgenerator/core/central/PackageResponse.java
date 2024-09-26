@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public record PackageResponse(
         List<Package> packages,
-        List<String> suggestions,
+        List<Object> suggestions,
         Map<String, Highlighting> highlighting,
         int count,
         int offset,

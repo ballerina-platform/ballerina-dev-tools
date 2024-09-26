@@ -130,7 +130,7 @@ public class FunctionGenerator {
 
         // Find the packages for the given query.
         for (PackageResponse.Package pkg : packages.packages()) {
-            if (isUserOrganization(pkg.organization())) {
+            if (isNonBallerinaOrg(pkg.organization())) {
                 continue;
             }
             FunctionsResponse functionResponses =
@@ -170,7 +170,7 @@ public class FunctionGenerator {
         // Find the symbols for the given query.
         SymbolResponse symbolResponse = RemoteCentral.getInstance().searchSymbols(queryMap);
         for (SymbolResponse.Symbol symbol : symbolResponse.symbols()) {
-            if (!symbol.symbolType().equals("function") || (isUserOrganization(symbol.organization()))) {
+            if (!symbol.symbolType().equals("function") || (isNonBallerinaOrg(symbol.organization()))) {
                 continue;
             }
             Metadata metadata = new Metadata.Builder<>(null)
@@ -189,7 +189,7 @@ public class FunctionGenerator {
         }
     }
 
-    private boolean isUserOrganization(String organization) {
+    private boolean isNonBallerinaOrg(String organization) {
         return !organization.equals("ballerina") && !organization.equals("ballerinax");
     }
 }

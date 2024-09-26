@@ -14,7 +14,19 @@
   "queryMap": {
     "q": "log"
   },
-  "functions": [
+  "categories": [
+    {
+      "metadata": {
+        "label": "Project",
+        "description": "Functions defined within the project",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
     {
       "metadata": {
         "label": "Utilities",
@@ -43,7 +55,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printDebug"
+                "symbol": "printDebug",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -56,7 +69,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printError"
+                "symbol": "printError",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -69,7 +83,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printInfo"
+                "symbol": "printInfo",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -82,7 +97,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printWarn"
+                "symbol": "printWarn",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -95,7 +111,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "setOutputFile"
+                "symbol": "setOutputFile",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -109,7 +126,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printDebug"
+                "symbol": "printDebug",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -123,7 +141,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printError"
+                "symbol": "printError",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -137,7 +156,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printInfo"
+                "symbol": "printInfo",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -151,7 +171,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "printWarn"
+                "symbol": "printWarn",
+                "version": "2.10.0"
               },
               "enabled": true
             },
@@ -165,7 +186,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "log",
-                "object": "setOutputFile"
+                "symbol": "setOutputFile",
+                "version": "2.10.0"
               },
               "enabled": true
             }
@@ -187,7 +209,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "graphql",
-                "object": "__addError"
+                "symbol": "__addError",
+                "version": "1.14.0"
               },
               "enabled": true
             },
@@ -200,7 +223,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "graphql",
-                "object": "getSdlString"
+                "symbol": "getSdlString",
+                "version": "1.14.0"
               },
               "enabled": true
             }
@@ -221,7 +245,8 @@
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
                 "module": "lang.float",
-                "object": "log"
+                "symbol": "log",
+                "version": "2201.10.0"
               },
               "enabled": true
             }

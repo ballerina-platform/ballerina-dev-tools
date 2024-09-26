@@ -535,6 +535,19 @@ class CodeAnalyzer extends NodeVisitor {
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
                 nodeBuilder.properties().view(dataMappings.get(functionName));
+            } else {
+                startNode(FlowNode.Kind.FUNCTION_CALL)
+                        .metadata()
+                            .label(functionName)
+                            .stepOut()
+                        .codedata()
+                            .org(orgName)
+                            .module(defaultModuleName)
+                            .symbol(functionName)
+                            .stepOut();
+                functionSymbol.typeDescriptor().params().ifPresent(
+                        params -> nodeBuilder.properties()
+                                .functionArguments(functionCallExpressionNode.arguments(), params));
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);

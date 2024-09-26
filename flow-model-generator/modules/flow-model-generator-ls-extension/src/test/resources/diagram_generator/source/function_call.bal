@@ -1,6 +1,7 @@
 import ballerina/data.jsondata;
 import ballerina/http;
 import ballerina/log;
+import ballerina/io;
 
 final http:Client foodClient = check new ("http://localhost:9090");
 
@@ -29,3 +30,52 @@ type Apple record {|
     string title;
     string author;
 |};
+
+function greet(string name) returns string {
+    return "Hello, " + name + "!";
+}
+
+function power(int base, int exponent = 2) returns int {
+    int result = 1;
+    int i = 0;
+    while i < exponent {
+        result *= base;
+        i += 1;
+    }
+    return result;
+}
+
+function asum(int... numbers) returns int {
+    int total = 0;
+    foreach int num in numbers {
+        total += num;
+    }
+    return total;
+}
+
+function operate(int a, int b, function (int, int) returns int func) returns int {
+    int[] az = [1, 2];
+    int[] bz = [...az];
+    return func(a, b);
+}
+
+function print() {
+
+}
+
+function printArg(string val) => ();
+
+public function main() {
+    string greeting = greet("Alice");
+    int squared = power(3);
+    int cubed = power(3, 3);
+    io:println("3 squared: ", squared, ", 3 cubed: ", cubed);
+    int total = asum(1, 2, 3, 4, 5);
+
+    int result = operate(6, 3, function(int x, int y) returns int {
+                return x * y;
+            });
+    io:println("6 * 3 = ", result);
+    print();
+}
+

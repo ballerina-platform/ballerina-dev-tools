@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 20,
+    "line": 21,
     "offset": 4
   },
   "end": {
-    "line": 24,
+    "line": 25,
     "offset": 5
   },
   "source": "function_call.bal",
