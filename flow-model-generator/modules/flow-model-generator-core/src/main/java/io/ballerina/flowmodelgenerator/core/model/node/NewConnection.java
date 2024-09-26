@@ -75,9 +75,8 @@ public class NewConnection extends NodeBuilder {
             if (initFunction.isPresent()) {
                 for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
                     properties().custom(param.name(), param.name(), param.documentation(),
-                            Property.ValueType.EXPRESSION,
-                            param.typeName(), CommonUtils.getDefaultValueForType(param.typeName()),
-                            param.optional());
+                            Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
+                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
                 }
             }
         }
@@ -108,6 +107,13 @@ public class NewConnection extends NodeBuilder {
             case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        };
+    }
+
+    private static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
+        return switch (typeName) {
+            case "inclusion" -> param.inclusionType();
+            default -> typeName;
         };
     }
 }

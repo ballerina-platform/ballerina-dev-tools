@@ -70,7 +70,8 @@ public record ConnectorResponse(
             boolean hasRestType,
             boolean defaultable,
             List<Field> fields,
-            String defaultValue
+            String defaultValue,
+            InclusionType inclusionType
     ) { }
 
     public record Field(
@@ -146,6 +147,16 @@ public record ConnectorResponse(
             List<Module> modules,
             String balToolId,
             String graalvmCompatible
+    ) { }
+
+    public record InclusionType(
+            boolean hasRestType,
+            String name,
+            String typeName,
+            boolean optional,
+            TypeInfo typeInfo,
+            boolean defaultable,
+            List<Field> fields
     ) { }
 
     public record Module() { }

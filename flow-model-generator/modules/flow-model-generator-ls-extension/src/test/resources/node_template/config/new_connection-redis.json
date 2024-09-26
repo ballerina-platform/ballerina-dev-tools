@@ -5,12 +5,18 @@
     "org": "ballerinax",
     "module": "redis",
     "object": "Client",
-    "symbol": "init"
+    "symbol": "init",
+    "id": "9129"
   },
   "output": {
+    "id": "31",
     "metadata": {
       "label": "New Connection",
-      "description": "Create a new connection",
+      "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n\n",
+      "keywords": [
+        "IT Operations/Databases",
+        "Cost/Freemium"
+      ],
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
     },
     "codedata": {
@@ -27,42 +33,204 @@
           "label": "config",
           "description": "configuration for the connector\n"
         },
-        "valueType": "Expression",
+        "valueType": "INCLUSION",
+        "valueTypeConstraint": {
+          "hasRestType": false,
+          "name": "ConnectionConfig",
+          "typeName": "record",
+          "optional": false,
+          "typeInfo": {
+            "name": "ConnectionConfig",
+            "orgName": "ballerinax",
+            "moduleName": "redis",
+            "version": "3.0.2"
+          },
+          "defaultable": false,
+          "fields": [
+            {
+              "name": "connection",
+              "typeName": "union",
+              "optional": false,
+              "defaultable": true,
+              "hasRestType": false,
+              "members": [
+                {
+                  "typeName": "string",
+                  "optional": false,
+                  "defaultable": false
+                },
+                {
+                  "typeName": "record",
+                  "optional": false,
+                  "defaultable": false
+                }
+              ]
+            },
+            {
+              "name": "connectionPooling",
+              "typeName": "boolean",
+              "optional": false,
+              "defaultable": true,
+              "hasRestType": false
+            },
+            {
+              "name": "isClusterConnection",
+              "typeName": "boolean",
+              "optional": false,
+              "defaultable": true,
+              "hasRestType": false
+            },
+            {
+              "name": "secureSocket",
+              "typeName": "record",
+              "optional": true,
+              "defaultable": false,
+              "fields": [
+                {
+                  "name": "cert",
+                  "typeName": "union",
+                  "optional": true,
+                  "defaultable": false,
+                  "hasRestType": false,
+                  "members": [
+                    {
+                      "typeName": "record",
+                      "optional": false,
+                      "defaultable": false
+                    },
+                    {
+                      "typeName": "string",
+                      "optional": false,
+                      "defaultable": false
+                    }
+                  ]
+                },
+                {
+                  "name": "key",
+                  "typeName": "union",
+                  "optional": true,
+                  "defaultable": false,
+                  "hasRestType": false,
+                  "members": [
+                    {
+                      "typeName": "record",
+                      "optional": false,
+                      "defaultable": false
+                    },
+                    {
+                      "typeName": "record",
+                      "optional": false,
+                      "defaultable": false
+                    }
+                  ]
+                },
+                {
+                  "name": "protocols",
+                  "typeName": "array",
+                  "optional": true,
+                  "defaultable": false,
+                  "hasRestType": false,
+                  "memberType": {
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false
+                  }
+                },
+                {
+                  "name": "ciphers",
+                  "typeName": "array",
+                  "optional": true,
+                  "defaultable": false,
+                  "hasRestType": false,
+                  "memberType": {
+                    "typeName": "string",
+                    "optional": false,
+                    "defaultable": false
+                  }
+                },
+                {
+                  "name": "verifyMode",
+                  "typeName": "enum",
+                  "optional": false,
+                  "defaultable": true,
+                  "hasRestType": false,
+                  "typeInfo": {
+                    "name": "SslVerifyMode",
+                    "orgName": "ballerinax",
+                    "moduleName": "redis",
+                    "version": "3.0.2"
+                  },
+                  "members": [
+                    {
+                      "typeName": "FULL",
+                      "optional": false,
+                      "defaultable": false
+                    },
+                    {
+                      "typeName": "CA",
+                      "optional": false,
+                      "defaultable": false
+                    },
+                    {
+                      "typeName": "NONE",
+                      "optional": false,
+                      "defaultable": false
+                    }
+                  ]
+                },
+                {
+                  "name": "startTls",
+                  "typeName": "boolean",
+                  "optional": false,
+                  "defaultable": true,
+                  "hasRestType": false
+                }
+              ],
+              "hasRestType": false,
+              "typeInfo": {
+                "name": "SecureSocket",
+                "orgName": "ballerinax",
+                "moduleName": "redis",
+                "version": "3.0.2"
+              }
+            }
+          ]
+        },
         "value": "{}",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "Identifier",
-        "value": "value",
+        "valueType": "IDENTIFIER",
+        "value": "item",
         "optional": false,
-        "editable": false
+        "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Type",
+          "label": "Data type",
           "description": "Type of the variable"
         },
-        "valueType": "Type",
-        "value": "redis:Client",
+        "valueType": "TYPE",
+        "value": "var",
         "optional": false,
-        "editable": false
+        "editable": true
       },
       "scope": {
         "metadata": {
-          "label": "Scope",
-          "description": "Scope of the connection"
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
         },
-        "valueType": "Enum",
+        "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": false
+        "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   }
 }
