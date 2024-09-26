@@ -130,18 +130,19 @@ class RestClient {
 
             int responseCode = conn.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                StringBuilder response = new StringBuilder();
+                try (BufferedReader in = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                    String inputLine;
+                    StringBuilder response = new StringBuilder();
 
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+                    while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+                    return response.toString();
                 }
-                in.close();
-                return response.toString();
             }
             throw new RuntimeException("GET request not worked");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         } finally {
             if (conn != null) {

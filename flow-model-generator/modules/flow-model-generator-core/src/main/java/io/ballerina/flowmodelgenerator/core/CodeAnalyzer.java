@@ -84,9 +84,7 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.flowmodelgenerator.core.central.CentralAPI;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -123,7 +121,6 @@ class CodeAnalyzer extends NodeVisitor {
     private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
-    private final CentralAPI centralAPI;
     private final Map<String, LineRange> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
@@ -135,7 +132,6 @@ class CodeAnalyzer extends NodeVisitor {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.centralAPI = RemoteCentral.getInstance();
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
@@ -543,8 +539,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .org(orgName)
                             .module(defaultModuleName)
-                            .symbol(functionName)
-                            .stepOut();
+                            .symbol(functionName);
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties()
                                 .functionArguments(functionCallExpressionNode.arguments(), params));

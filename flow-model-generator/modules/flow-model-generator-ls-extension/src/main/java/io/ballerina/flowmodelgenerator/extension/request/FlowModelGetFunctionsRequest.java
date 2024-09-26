@@ -25,6 +25,9 @@ import java.util.Map;
 /**
  * Represents a request to get Ballerina functions.
  *
+ * @param filePath the path of the file
+ * @param position the line range of the current function
+ * @param queryMap the map containing query parameters
  * @since 1.4.0
  */
 public record FlowModelGetFunctionsRequest(String filePath, LineRange position, Map<String, String> queryMap) {

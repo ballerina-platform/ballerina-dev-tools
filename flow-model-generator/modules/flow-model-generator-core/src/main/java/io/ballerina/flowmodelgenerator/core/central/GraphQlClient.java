@@ -102,7 +102,7 @@ class GraphQlClient {
 
             // Write the request body
             try (var os = conn.getOutputStream()) {
-                byte[] input = query.getBytes();
+                byte[] input = query.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
 
@@ -163,8 +163,7 @@ class GraphQlClient {
 
             if (isJsonString(modulesElement)) {
                 String modulesString = modulesElement.getAsString();
-                List<Function> functions =
-                        new Gson().fromJson(modulesString, new TypeToken<List<Function>>() { }.getType());
+                List<Function> functions = new Gson().fromJson(modulesString, new FunctionListTypeToken().getType());
                 return new FunctionsResponse.Module(functions);
             }
             return new Gson().fromJson(jsonObject, FunctionsResponse.Module.class);
@@ -188,6 +187,8 @@ class GraphQlClient {
             return new Gson().fromJson(jsonObject, FunctionResponse.Module.class);
         }
     }
+
+    private static class FunctionListTypeToken extends TypeToken<List<Function>> { }
 
     private static class ConnectorApiModuleDeserializer implements JsonDeserializer<ConnectorApiResponse.Module> {
 

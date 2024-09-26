@@ -45,6 +45,7 @@ import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,13 +58,11 @@ public class FunctionGenerator {
 
     private final Gson gson;
     private final SemanticModel semanticModel;
-    private final Document document;
     private final Category.Builder rootBuilder;
 
     public FunctionGenerator(SemanticModel semanticModel, Document document) {
         gson = new Gson();
         this.semanticModel = semanticModel;
-        this.document = document;
         this.rootBuilder = new Category.Builder(null);
     }
 
@@ -91,7 +90,8 @@ public class FunctionGenerator {
             symbol.getName();
 
             if (symbol.getName().isEmpty() ||
-                    (keyword != null && !symbol.getName().get().toLowerCase().contains(keyword.toLowerCase()))) {
+                    (keyword != null && !symbol.getName().get().toLowerCase(Locale.ROOT)
+                            .contains(keyword.toLowerCase(Locale.ROOT)))) {
                 continue;
             }
 

@@ -77,8 +77,10 @@ public class GetFunctionsTest extends AbstractLSTest {
      * Represent the test configurations for the get categories test.
      *
      * @param description The description of the test
-     * @param queryMap    the query parameters to filter the nodes
-     * @param categories   The categories
+     * @param source      The source file path
+     * @param position    The position in the source file
+     * @param queryMap    The query parameters to filter the nodes
+     * @param categories  The categories
      */
     private record TestConfig(String description, String source, LineRange position, Map<String, String> queryMap,
                               JsonArray categories) {

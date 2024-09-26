@@ -32,6 +32,7 @@ import io.ballerina.tools.text.LineRange;
  * @param version    The version of the component
  * @param lineRange  The line range of the component
  * @param sourceCode The source code of the component
+ * @param id         The unique identifier of the component if exists
  * @since 1.5.0
  */
 public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,
