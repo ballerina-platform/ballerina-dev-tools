@@ -23,6 +23,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -55,8 +56,14 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        if (context.codedata().id() != null) {
-            ConnectorResponse connector = RemoteCentral.getInstance().connector(context.codedata().id());
+        Codedata codedata = context.codedata();
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate != null) {
+            this.cachedFlowNode = nodeTemplate;
+        }
+
+        if (codedata.id() != null) {
+            ConnectorResponse connector = RemoteCentral.getInstance().connector(codedata.id());
             Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
                     .filter(function -> function.name().equals(INIT_SYMBOL))
                     .findFirst();
@@ -78,13 +85,15 @@ public class NewConnection extends NodeBuilder {
                             Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
                             CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
                 }
+
+                String returnType = initFunction.get().returnType().typeName();
+                if (returnType != null) {
+                    properties().type(returnType).data(null);
+                }
             }
         }
-        //TODO: Obtain the connector from the codedata information if id doesn't exist.
 
-        properties()
-                .dataVariable(null)
-                .scope(Property.GLOBAL_SCOPE);
+        //TODO: Obtain the connector from the codedata information if id doesn't exist.
     }
 
     @Override

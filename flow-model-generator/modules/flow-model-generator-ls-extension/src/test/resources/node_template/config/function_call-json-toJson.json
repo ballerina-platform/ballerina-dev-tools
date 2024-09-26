@@ -17,7 +17,8 @@
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
-      "symbol": "toJson"
+      "symbol": "toJson",
+      "version": "0.2.0"
     },
     "returning": false,
     "properties": {
@@ -32,6 +33,15 @@
         "optional": false,
         "editable": true
       },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "optional": false,
+        "editable": true
+      },
       "variable": {
         "metadata": {
           "label": "Data variable",
@@ -39,16 +49,6 @@
         },
         "valueType": "IDENTIFIER",
         "value": "item",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "var",
         "optional": false,
         "editable": true
       }

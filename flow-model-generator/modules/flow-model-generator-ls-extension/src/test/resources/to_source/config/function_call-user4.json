@@ -54,19 +54,6 @@
       {
         "range": {
           "start": {
-            "line": 0,
-            "character": 0
-          },
-          "end": {
-            "line": 0,
-            "character": 0
-          }
-        },
-        "newText": "import $anon/.;"
-      },
-      {
-        "range": {
-          "start": {
             "line": 72,
             "character": 4
           },
