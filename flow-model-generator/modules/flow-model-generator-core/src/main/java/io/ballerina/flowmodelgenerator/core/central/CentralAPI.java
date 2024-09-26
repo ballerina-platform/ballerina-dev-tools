@@ -39,5 +39,5 @@ public interface CentralAPI {
 
     ConnectorResponse connector(String id);
 
-    ConnectorApiResponse connector(String organization, String name, String version, String clientName);
+    ConnectorResponse connector(String organization, String name, String version, String clientName);
 }

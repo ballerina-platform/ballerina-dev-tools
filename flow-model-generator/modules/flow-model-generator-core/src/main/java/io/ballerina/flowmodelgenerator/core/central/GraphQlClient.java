@@ -81,6 +81,7 @@ class GraphQlClient {
         return gson.fromJson(response, FunctionResponse.class);
     }
 
+    @Deprecated
     public ConnectorApiResponse getConnector(String organization, String name, String version, String clientName) {
         String queryTemplate = getQueryTemplate(GET_CONNECTION_QUERY);
         String queryBody = String.format(queryTemplate, organization, name, version, clientName);

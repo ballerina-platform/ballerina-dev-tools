@@ -50,6 +50,7 @@ class RestClient {
     private static final String BASE_URL = "https://api.central.ballerina.io/2.0/registry/";
     private static final String SEARCH_SYMBOLS = "search-symbols";
     private static final String SEARCH_PACKAGES = "search-packages";
+    private static final String CONNECTOR = "connector";
     private final Gson gson;
     private final CentralAPIClient centralClient;
 
@@ -89,6 +90,12 @@ class RestClient {
         return gson.fromJson(connectorSearchResult, ConnectorResponse.class);
     }
 
+    public ConnectorResponse connector(String org, String module, String version, String connector) {
+        String path = String.format("connectors/%s/%s/%s/%s/%s", org, module, version, module, connector);
+        String response = query(path);
+        return gson.fromJson(response, ConnectorResponse.class);
+    }
+
     public PackageResponse searchPackages(Map<String, String> queryMap) {
         String queryMapString = getQueryMapString(queryMap);
         String response = query(SEARCH_PACKAGES, queryMapString);
@@ -114,17 +121,14 @@ class RestClient {
         return queryParams.toString();
     }
 
-    private String query(String Api, String queryMap) {
-        String fullUrl = String.format("%s/%s?%s", BASE_URL, Api, queryMap);
+    private String query(String api) {
         HttpURLConnection conn = null;
         try {
-            URL url = new URL(fullUrl);
+            URL url = new URL(api);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
-            System.out.println("GET Response Code :: " + responseCode);
-
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String inputLine;
@@ -144,5 +148,11 @@ class RestClient {
                 conn.disconnect();
             }
         }
+
+    }
+
+    private String query(String api, String queryMap) {
+        String fullUrl = String.format("%s/%s?%s", BASE_URL, api, queryMap);
+        return query(fullUrl);
     }
 }

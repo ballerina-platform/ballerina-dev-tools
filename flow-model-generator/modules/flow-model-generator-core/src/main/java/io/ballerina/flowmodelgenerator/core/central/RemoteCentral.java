@@ -76,7 +76,7 @@ public class RemoteCentral implements CentralAPI {
     }
 
     @Override
-    public ConnectorApiResponse connector(String organization, String name, String version, String clientName) {
-        return graphQlClient.getConnector(organization, name, version, clientName);
+    public ConnectorResponse connector(String organization, String name, String version, String clientName) {
+        return restClient.connector(organization, name, version, clientName);
     }
 }
