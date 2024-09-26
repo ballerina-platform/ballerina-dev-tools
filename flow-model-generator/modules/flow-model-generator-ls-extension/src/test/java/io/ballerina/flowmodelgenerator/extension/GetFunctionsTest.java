@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
+import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -30,7 +31,7 @@ import java.nio.file.Path;
 import java.util.Map;
 
 /**
- * Tests for getting the functions.
+ * Tests for getting the categories.
  *
  * @since 1.4.0
  */
@@ -39,16 +40,20 @@ public class GetFunctionsTest extends AbstractLSTest {
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelGetFunctionsRequest request = new FlowModelGetFunctionsRequest(testConfig.queryMap());
+        FlowModelGetFunctionsRequest request =
+                new FlowModelGetFunctionsRequest(getSourcePath(testConfig.source()), testConfig.position(),
+                        testConfig.queryMap());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
-        JsonArray functions = availableNodes.getAsJsonArray();
-        if (!functions.equals(testConfig.functions())) {
-            TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.queryMap(), functions);
-//            updateConfig(config, updateConfig);
+        JsonArray categories = availableNodes.getAsJsonArray();
+        if (!categories.equals(testConfig.categories())) {
+            TestConfig updateConfig =
+                    new TestConfig(testConfig.description(), testConfig.source(), testConfig.position(),
+                            testConfig.queryMap(), categories);
+//            updateConfig(configJsonPath, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
@@ -69,13 +74,14 @@ public class GetFunctionsTest extends AbstractLSTest {
     }
 
     /**
-     * Represent the test configurations for the get functions test.
+     * Represent the test configurations for the get categories test.
      *
      * @param description The description of the test
      * @param queryMap    the query parameters to filter the nodes
-     * @param functions   The functions
+     * @param categories   The categories
      */
-    private record TestConfig(String description, Map<String, String> queryMap, JsonArray functions) {
+    private record TestConfig(String description, String source, LineRange position, Map<String, String> queryMap,
+                              JsonArray categories) {
 
     }
 }

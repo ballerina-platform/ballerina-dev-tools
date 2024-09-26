@@ -2,41 +2,45 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "52881",
+    "id": "100343",
     "metadata": {
-      "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n",
-      "icon": ""
+      "label": "power"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "org": "ballerina",
-      "module": "data.jsondata",
-      "symbol": "toJson",
-      "version": "0.2.0",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "power",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 21,
-          "offset": 8
+          "line": 69,
+          "offset": 4
         },
         "endLine": {
-          "line": 21,
-          "offset": 57
+          "line": 69,
+          "offset": 27
         }
       },
-      "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
+      "sourceCode": "int squared = power(3);"
     },
     "returning": false,
     "properties": {
-      "v": {
+      "base": {
         "metadata": {
-          "label": "v",
-          "description": "Source anydata value\n"
+          "label": "base"
         },
         "valueType": "EXPRESSION",
-        "value": "payload",
+        "value": "3",
         "optional": false,
+        "editable": true
+      },
+      "exponent": {
+        "metadata": {
+          "label": "exponent"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
         "editable": true
       },
       "variable": {
@@ -45,7 +49,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "squared",
         "optional": false,
         "editable": true
       },
@@ -55,12 +59,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "int",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -75,20 +79,20 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/data.jsondata;"
+        "newText": "import $anon/.;"
       },
       {
         "range": {
           "start": {
-            "line": 21,
-            "character": 8
+            "line": 69,
+            "character": 4
           },
           "end": {
-            "line": 21,
-            "character": 57
+            "line": 69,
+            "character": 27
           }
         },
-        "newText": "json jsonResult = check jsondata:toJson(payload);"
+        "newText": "int squared = power(3);"
       }
     ]
   }

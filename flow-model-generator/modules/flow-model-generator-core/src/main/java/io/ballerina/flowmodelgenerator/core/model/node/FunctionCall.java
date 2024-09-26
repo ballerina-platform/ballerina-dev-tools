@@ -39,7 +39,7 @@ public class FunctionCall extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
 
-        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
+        if (isLocalFunction(codedata)) {
             WorkspaceManager workspaceManager = context.workspaceManager();
             try {
                 workspaceManager.loadProject(context.filePath());
@@ -114,7 +114,18 @@ public class FunctionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        Codedata codedata = sourceBuilder.flowNode.codedata();
+        if (isLocalFunction(codedata)) {
+            return sourceBuilder.token()
+                    .name(codedata.symbol())
+                    .stepOut()
+                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type"))
+                    .textEdit(false)
+                    .acceptImport()
+                    .build();
+        }
+
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
 
         String module = nodeTemplate.codedata().module();
         String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
@@ -131,5 +142,9 @@ public class FunctionCall extends NodeBuilder {
 
     private String escapeDefaultValue(String value) {
         return value.isEmpty() ? "\"\"" : value;
+    }
+
+    private static boolean isLocalFunction(Codedata codedata) {
+        return codedata.org() == null || codedata.module() == null || codedata.version() == null;
     }
 }

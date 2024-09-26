@@ -2,40 +2,54 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "52881",
+    "id": "105353",
     "metadata": {
-      "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n",
-      "icon": ""
+      "label": "operate"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "org": "ballerina",
-      "module": "data.jsondata",
-      "symbol": "toJson",
-      "version": "0.2.0",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "operate",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 21,
-          "offset": 8
+          "line": 74,
+          "offset": 4
         },
         "endLine": {
-          "line": 21,
-          "offset": 57
+          "line": 76,
+          "offset": 15
         }
       },
-      "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
+      "sourceCode": "int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });"
     },
     "returning": false,
     "properties": {
-      "v": {
+      "a": {
         "metadata": {
-          "label": "v",
-          "description": "Source anydata value\n"
+          "label": "a"
         },
         "valueType": "EXPRESSION",
-        "value": "payload",
+        "value": "6",
+        "optional": false,
+        "editable": true
+      },
+      "b": {
+        "metadata": {
+          "label": "b"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true
+      },
+      "func": {
+        "metadata": {
+          "label": "func"
+        },
+        "valueType": "EXPRESSION",
+        "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
         "optional": false,
         "editable": true
       },
@@ -45,7 +59,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "result",
         "optional": false,
         "editable": true
       },
@@ -55,12 +69,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "int",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -75,20 +89,20 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/data.jsondata;"
+        "newText": "import $anon/.;"
       },
       {
         "range": {
           "start": {
-            "line": 21,
-            "character": 8
+            "line": 74,
+            "character": 4
           },
           "end": {
-            "line": 21,
-            "character": 57
+            "line": 76,
+            "character": 15
           }
         },
-        "newText": "json jsonResult = check jsondata:toJson(payload);"
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
       }
     ]
   }

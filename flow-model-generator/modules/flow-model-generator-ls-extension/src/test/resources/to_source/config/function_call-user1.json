@@ -2,40 +2,36 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "52881",
+    "id": "99361",
     "metadata": {
-      "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n",
-      "icon": ""
+      "label": "greet"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "org": "ballerina",
-      "module": "data.jsondata",
-      "symbol": "toJson",
-      "version": "0.2.0",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "greet",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 21,
-          "offset": 8
+          "line": 68,
+          "offset": 4
         },
         "endLine": {
-          "line": 21,
-          "offset": 57
+          "line": 68,
+          "offset": 37
         }
       },
-      "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
+      "sourceCode": "string greeting = greet(\"Alice\");"
     },
     "returning": false,
     "properties": {
-      "v": {
+      "name": {
         "metadata": {
-          "label": "v",
-          "description": "Source anydata value\n"
+          "label": "name"
         },
         "valueType": "EXPRESSION",
-        "value": "payload",
+        "value": "\"Alice\"",
         "optional": false,
         "editable": true
       },
@@ -45,7 +41,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "jsonResult",
+        "value": "greeting",
         "optional": false,
         "editable": true
       },
@@ -55,12 +51,12 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "string",
         "optional": false,
         "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   },
   "output": {
     "empty.bal": [
@@ -75,20 +71,20 @@
             "character": 0
           }
         },
-        "newText": "import ballerina/data.jsondata;"
+        "newText": "import $anon/.;"
       },
       {
         "range": {
           "start": {
-            "line": 21,
-            "character": 8
+            "line": 68,
+            "character": 4
           },
           "end": {
-            "line": 21,
-            "character": 57
+            "line": 68,
+            "character": 37
           }
         },
-        "newText": "json jsonResult = check jsondata:toJson(payload);"
+        "newText": "string greeting = greet(\"Alice\");"
       }
     ]
   }

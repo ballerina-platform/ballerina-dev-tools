@@ -1,0 +1,61 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "109256",
+    "metadata": {
+      "label": "print"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "print",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 78,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 78,
+          "offset": 12
+        }
+      },
+      "sourceCode": "print();"
+    },
+    "returning": false,
+    "properties": {},
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import $anon/.;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 78,
+            "character": 4
+          },
+          "end": {
+            "line": 78,
+            "character": 12
+          }
+        },
+        "newText": "print();"
+      }
+    ]
+  }
+}
