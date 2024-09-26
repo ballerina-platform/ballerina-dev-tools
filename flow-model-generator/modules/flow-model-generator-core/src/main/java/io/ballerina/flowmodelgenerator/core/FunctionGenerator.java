@@ -20,6 +20,13 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.ModuleID;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.Documentation;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.flowmodelgenerator.core.central.Function;
 import io.ballerina.flowmodelgenerator.core.central.FunctionsResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
@@ -30,10 +37,16 @@ import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.projects.Document;
+import io.ballerina.tools.text.LineRange;
+import org.ballerinalang.langserver.common.utils.PositionUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Generates functions based on a given keyword.
@@ -43,18 +56,74 @@ import java.util.Map;
 public class FunctionGenerator {
 
     private final Gson gson;
+    private final SemanticModel semanticModel;
+    private final Document document;
+    private final Category.Builder rootBuilder;
 
-    public FunctionGenerator() {
+    public FunctionGenerator(SemanticModel semanticModel, Document document) {
         gson = new Gson();
+        this.semanticModel = semanticModel;
+        this.document = document;
+        this.rootBuilder = new Category.Builder(null);
     }
 
-    public JsonArray getFunctions(Map<String, String> queryMap) {
-        Category.Builder rootBuilder = new Category.Builder(null);
+    public JsonArray getFunctions(Map<String, String> queryMap, LineRange position) {
+        buildProjectNodes(queryMap, position);
+        buildUtilityNodes(queryMap);
+        return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
+    }
+
+    private void buildProjectNodes(Map<String, String> queryMap, LineRange position) {
+        List<Symbol> functionSymbols = semanticModel.moduleSymbols().stream()
+                .filter(symbol -> symbol.kind().equals(SymbolKind.FUNCTION)).toList();
+        Category.Builder projectBuilder = rootBuilder.stepIn(Category.Name.PROJECT_FUNCTIONS);
+
+        String keyword = queryMap.get("q");
+        List<Item> availableNodes = new ArrayList<>();
+        for (Symbol symbol : functionSymbols) {
+            FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
+            if (symbol.getLocation().isPresent()) {
+                LineRange fnLineRange = symbol.getLocation().get().lineRange();
+                if (PositionUtil.isWithinLineRange(fnLineRange, position)) {
+                    continue;
+                }
+            }
+            symbol.getName();
+
+            if (symbol.getName().isEmpty() ||
+                    (keyword != null && !symbol.getName().get().toLowerCase().contains(keyword.toLowerCase()))) {
+                continue;
+            }
+
+            Metadata metadata = new Metadata.Builder<>(null)
+                    .label(symbol.getName().get())
+                    .description(functionSymbol.documentation()
+                            .flatMap(Documentation::description)
+                            .orElse(null))
+                    .build();
+
+            Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
+                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .symbol(symbol.getName().get());
+            Optional<ModuleSymbol> module = functionSymbol.getModule();
+            if (module.isPresent()) {
+                ModuleID id = module.get().id();
+                id.packageName();
+                id.moduleName();
+            }
+
+            availableNodes.add(new AvailableNode(metadata, codedata.build(), true));
+        }
+        projectBuilder.items(availableNodes);
+
+    }
+
+    private void buildUtilityNodes(Map<String, String> queryMap) {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
 
         if (CommonUtils.hasNoKeyword(queryMap)) {
             utilityBuilder.items(LocalIndexCentral.getInstance().getFunctions());
-            return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
+            return;
         }
 
         PackageResponse packages = RemoteCentral.getInstance().searchPackages(queryMap);
@@ -91,7 +160,8 @@ public class FunctionGenerator {
                         .node(FlowNode.Kind.FUNCTION_CALL)
                         .org(pkg.organization())
                         .module(pkg.name())
-                        .object(function.name())
+                        .symbol(function.name())
+                        .version(pkg.version())
                         .build();
                 builder.node(new AvailableNode(metadata, codedata, true));
             }
@@ -112,13 +182,11 @@ public class FunctionGenerator {
                     .node(FlowNode.Kind.FUNCTION_CALL)
                     .org(symbol.organization())
                     .module(symbol.name())
-                    .object(symbol.symbolName())
+                    .symbol(symbol.symbolName())
+                    .version(symbol.version())
                     .build();
             utilityBuilder.stepIn(symbol.name()).node(new AvailableNode(metadata, codedata, true));
         }
-
-        return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
-
     }
 
     private boolean isUserOrganization(String organization) {

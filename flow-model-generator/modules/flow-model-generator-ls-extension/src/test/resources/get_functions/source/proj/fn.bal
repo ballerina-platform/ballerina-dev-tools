@@ -13,16 +13,13 @@
 # ```
 function add(int a, int b) returns int => a + b;
 
-
 function sum(int... numbers) returns int {
-    int:
     int total = 0;
     foreach var num in numbers {
         total += num;
     }
     return total;
 }
-
 
 # Computes the prefix sum of an array of integers.
 #

@@ -18,6 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.tools.text.LineRange;
+
 import java.util.Map;
 
 /**
@@ -25,6 +27,6 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public record FlowModelGetFunctionsRequest(Map<String, String> queryMap) {
+public record FlowModelGetFunctionsRequest(String filePath, LineRange position, Map<String, String> queryMap) {
 
 }

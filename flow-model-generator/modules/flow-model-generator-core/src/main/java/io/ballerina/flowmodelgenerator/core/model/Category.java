@@ -42,7 +42,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
         CONNECTIONS("Connections", "The connections used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
-        FUNCTION_CALLS("Function Calls", "Nodes that invoke local or utility functions",
+        FLOWS("Flows", "Flows that invoke local or utility functions",
                 List.of("Function", "Call", "Utility", "Local")),
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
