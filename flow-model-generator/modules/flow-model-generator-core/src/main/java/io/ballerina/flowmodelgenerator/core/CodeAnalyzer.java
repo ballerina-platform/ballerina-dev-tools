@@ -753,8 +753,7 @@ class CodeAnalyzer extends NodeVisitor {
         SyntaxKind kind = parent.kind();
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
             Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
-            if (parentSymbol.isPresent() && CommonUtils.getRawType(
-                    ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+            if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
                 startNode(FlowNode.Kind.JSON_PAYLOAD)
                         .metadata()
                         .description(JSONPayload.DESCRIPTION)
@@ -769,8 +768,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
             Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
-            if (parentSymbol.isPresent() && CommonUtils.getRawType(
-                    ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+            if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
                 startNode(FlowNode.Kind.JSON_PAYLOAD)
                         .metadata()
                         .description(JSONPayload.DESCRIPTION)
@@ -782,6 +780,11 @@ class CodeAnalyzer extends NodeVisitor {
                     .expression(constructorExprNode)
                     .variable(((AssignmentStatementNode) parent).varRef());
         }
+    }
+
+    private static boolean isVarTypeJson(Symbol parentSymbol) {
+        return CommonUtils.getRawType(
+                ((VariableSymbol) parentSymbol).typeDescriptor()).typeKind() == TypeDescKind.JSON;
     }
 
     // Utility methods

@@ -272,6 +272,7 @@ public class CommonUtils {
      */
     public static boolean hasNoKeyword(Map<String, String> queryMap) {
         return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty();
+    }
 
     /**
      * Get the raw type of the type descriptor. If the type descriptor is a type reference then return the associated
