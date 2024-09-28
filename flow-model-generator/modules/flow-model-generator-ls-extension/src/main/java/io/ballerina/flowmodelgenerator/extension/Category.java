@@ -31,9 +31,9 @@ import java.util.List;
  */
 public record Category(String name, List<Variable> types) {
 
-    public static String MODULE_CATEGORY = "Module Variables";
-    public static String CONFIGURABLE_CATEGORY = "Configurable Variables";
-    public static String LOCAL_CATEGORY = "Local Variables";
+    public static final String MODULE_CATEGORY = "Module Variables";
+    public static final String CONFIGURABLE_CATEGORY = "Configurable Variables";
+    public static final String LOCAL_CATEGORY = "Local Variables";
 
     public record Variable(String name, Type type) {
     }
