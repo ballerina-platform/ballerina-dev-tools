@@ -13,6 +13,7 @@
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
+      "version": "1.6.0",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {

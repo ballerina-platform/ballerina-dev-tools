@@ -4,19 +4,21 @@
     "node": "FUNCTION_CALL",
     "org": "ballerina",
     "module": "data.jsondata",
-    "symbol": "toJson"
+    "symbol": "toJson",
+    "version": "0.2.0"
   },
   "output": {
+    "id": "31",
     "metadata": {
       "label": "toJson",
-      "description": "Converts a value of type `anydata` to `json`.\n\n",
-      "icon": ""
+      "description": "Converts a value of type `anydata` to `json`.\n\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "ballerina",
       "module": "data.jsondata",
-      "symbol": "toJson"
+      "symbol": "toJson",
+      "version": "0.2.0"
     },
     "returning": false,
     "properties": {
@@ -25,32 +27,32 @@
           "label": "v",
           "description": "Source anydata value\n"
         },
-        "valueType": "Expression",
-        "value": "{}",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "anydata",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
-        "valueType": "Identifier",
-        "value": "value",
+        "valueType": "IDENTIFIER",
+        "value": "item",
         "optional": false,
-        "editable": false
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "Type",
-        "value": "string",
-        "optional": false,
-        "editable": false
+        "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   }
 }

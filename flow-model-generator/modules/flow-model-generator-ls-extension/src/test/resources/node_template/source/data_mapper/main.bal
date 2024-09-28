@@ -12,7 +12,7 @@ public function main() {
             do {
                 if z.length() == x {
                     Address address = {houseNo: "10", line1: "foo", line2: "bar", city: "Colombo", country: "Sri Lanka"};
-                    
+
                 } else {
                     fail error("error");
                 }
@@ -22,4 +22,8 @@ public function main() {
         }
         x += 2;
     }
+}
+
+function fn(int x) returns int {
+    return x + 1;
 }

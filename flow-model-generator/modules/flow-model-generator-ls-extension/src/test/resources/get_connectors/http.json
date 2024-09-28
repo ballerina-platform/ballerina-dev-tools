@@ -1,0 +1,29 @@
+{
+  "description": "Sample flow model",
+  "keyword": "http",
+  "categories": [
+    {
+      "metadata": {
+        "label": "http",
+        "description": "This package provides APIs for connecting and interacting with HTTP and HTTP2 endpoints. It",
+        "keywords": [
+          "http",
+          "network",
+          "service",
+          "listener",
+          "client"
+        ],
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerina",
+        "module": "http",
+        "object": "Client",
+        "symbol": "init",
+        "id": "9600"
+      },
+      "enabled": true
+    }
+  ]
+}

@@ -57,6 +57,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Switch;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -125,6 +126,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.FAIL, Fail::new);
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
+        put(FlowNode.Kind.XML_PAYLOAD, XMLPayload::new);
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
@@ -287,6 +289,20 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> type(String typeName) {
+            propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .value(typeName)
+                    .type(Property.ValueType.TYPE)
+                    .editable();
+
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            return this;
+        }
+
         public PropertiesBuilder<T> dataVariable(Node node) {
             data(node);
 
@@ -308,6 +324,28 @@ public abstract class NodeBuilder {
 
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
+            return this;
+        }
+
+        public PropertiesBuilder<T> xmlPayload(Node node) {
+            data(node);
+
+            propertyBuilder
+                .metadata()
+                    .label(Property.DATA_TYPE_LABEL)
+                    .description(Property.DATA_TYPE_DOC)
+                    .stepOut()
+                .type(Property.ValueType.TYPE)
+                .editable();
+
+            if (node == null) {
+                propertyBuilder.value("xml");
+            } else {
+                Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
+                optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
+                        CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
+            }
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
             return this;
         }
 
@@ -501,6 +539,59 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
+                                                      List<ParameterSymbol> parameterSymbols) {
+            final Map<String, Node> namedArgValueMap = new HashMap<>();
+            final Queue<Node> positionalArgs = new LinkedList<>();
+
+            if (arguments != null) {
+                for (FunctionArgumentNode argument : arguments) {
+                    switch (argument.kind()) {
+                        case NAMED_ARG -> {
+                            NamedArgumentNode namedArgument = (NamedArgumentNode) argument;
+                            namedArgValueMap.put(namedArgument.argumentName().name().text(),
+                                    namedArgument.expression());
+                        }
+                        case POSITIONAL_ARG -> positionalArgs.add(((PositionalArgumentNode) argument).expression());
+                        default -> {
+                            // Ignore the default case
+                        }
+                    }
+                }
+            }
+
+            propertyBuilder = Property.Builder.getInstance();
+            int numParams = parameterSymbols.size();
+            int numPositionalArgs = positionalArgs.size();
+
+            for (int i = 0; i < numParams; i++) {
+                ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+                Optional<String> name = parameterSymbol.getName();
+                if (name.isEmpty()) {
+                    continue;
+                }
+
+                String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
+                Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
+
+                propertyBuilder
+                        .metadata()
+                            .label(parameterName)
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .editable()
+                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+
+                if (paramValue != null) {
+                    propertyBuilder.value(paramValue.toSourceCode());
+                }
+
+                addProperty(parameterName, propertyBuilder.build());
+
+            }
+            return this;
+        }
+
         public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
             propertyBuilder
                     .metadata()
@@ -535,6 +626,20 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, condition);
+            return this;
+        }
+
+        public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.EXPRESSION_DOC)
+                    .description(expressionDoc)
+                    .stepOut()
+                    .value(expr)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.EXPRESSION_KEY, property);
             return this;
         }
 
@@ -672,7 +777,7 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value) {
+                                           Object typeConstraint, String value, boolean optional) {
             Property property = propertyBuilder
                     .metadata()
                         .label(label)
@@ -682,6 +787,7 @@ public abstract class NodeBuilder {
                     .typeConstraint(typeConstraint)
                     .value(value)
                     .editable()
+                    .optional(optional)
                     .build();
 
             addProperty(key, property);

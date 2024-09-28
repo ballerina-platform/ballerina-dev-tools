@@ -42,12 +42,18 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
         CONNECTIONS("Connections", "The connections used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
+        FLOWS("Flows", "Flows that invoke local or utility functions",
+                List.of("Function", "Call", "Utility", "Local")),
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
         ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
         ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
+        PROJECT_FUNCTIONS("Project", "Functions defined within the project",
+                List.of("Project", "Local", "Function")),
+        UTILITIES("Utilities", "Reusable functions from external libraries",
+                List.of("Utility", "Library", "Function", "External")),
         HTTP_API("HTTP API", "Make HTTP requests", null),
         REDIS_CLIENT("Redis Client", "Interact with a Redis server", null);
 
@@ -69,23 +75,35 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
      */
     public static class Builder {
 
-        private final Name name;
         private final Builder parentBuilder;
-        private final Map<Name, Builder> childBuilders;
+        private final Map<String, Builder> childBuilders;
         private final List<AvailableNode> availableNodes;
         private List<Item> prebuiltItems;
+        private Metadata.Builder<Category.Builder> metadataBuilder;
 
-        public Builder(Name name, Builder parentBuilder) {
-            this.name = name;
+        public Builder(Builder parentBuilder) {
             this.parentBuilder = parentBuilder;
             this.childBuilders = new LinkedHashMap<>();
             this.availableNodes = new ArrayList<>();
         }
 
         public Builder stepIn(Name childName) {
+            Builder builder = this.childBuilders.get(childName.name);
+            if (builder == null) {
+                builder = new Builder(this).metadata()
+                        .label(childName.name)
+                        .description(childName.description)
+                        .keywords(childName.keywords)
+                        .stepOut();
+                this.childBuilders.put(childName.name, builder);
+            }
+            return builder;
+        }
+
+        public Builder stepIn(String childName) {
             Builder builder = this.childBuilders.get(childName);
             if (builder == null) {
-                builder = new Builder(childName, this);
+                builder = new Builder(this).metadata().label(childName).stepOut();
                 this.childBuilders.put(childName, builder);
             }
             return builder;
@@ -104,13 +122,33 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return this;
         }
 
+        public Builder node(AvailableNode node) {
+            this.availableNodes.add(node);
+            return this;
+        }
+
         public Builder items(List<Item> items) {
             this.prebuiltItems = items;
             return this;
         }
 
+        public Metadata.Builder<Category.Builder> metadata() {
+            if (this.metadataBuilder == null) {
+                this.metadataBuilder = new Metadata.Builder<>(this);
+            }
+            return this.metadataBuilder;
+        }
+
+        public Builder name(Name name) {
+            this.metadataBuilder = new Metadata.Builder<>(this)
+                    .label(name.name)
+                    .description(name.description)
+                    .keywords(name.keywords);
+            return this;
+        }
+
         public Category build() {
-            Metadata newMetadata = new Metadata(name.name, name.description, name.keywords, null);
+            Metadata newMetadata = this.metadataBuilder != null ? this.metadataBuilder.build() : null;
 
             // Check if there exist prebuilt items
             if (this.prebuiltItems != null) {

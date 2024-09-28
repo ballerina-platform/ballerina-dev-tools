@@ -34,8 +34,8 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.Central;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -61,12 +61,10 @@ public class AvailableNodesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
-    private final Central central;
 
     public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
-        this.rootBuilder = new Category.Builder(Category.Name.ROOT, null);
+        this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
-        this.central = CentralProxy.getInstance();
         this.semanticModel = semanticModel;
         this.document = document;
     }
@@ -81,7 +79,7 @@ public class AvailableNodesGenerator {
 
         List<Item> items = new ArrayList<>();
         items.addAll(getAvailableFlowNodes(position));
-        items.addAll(central.getFunctions());
+        items.addAll(LocalIndexCentral.getInstance().getFunctions());
         return gson.toJsonTree(items).getAsJsonArray();
     }
 
@@ -127,34 +125,48 @@ public class AvailableNodesGenerator {
     }
 
     private void setDefaultNodes() {
+        AvailableNode function = new AvailableNode(
+                new Metadata.Builder<>(null)
+                        .label("Function")
+                        .description("Both project and utility functions")
+                        .build(),
+                new Codedata.Builder<>(null)
+                        .node(FlowNode.Kind.FUNCTION)
+                        .build(),
+                true
+        );
+
         this.rootBuilder
                 .stepIn(Category.Name.FLOW)
                     .stepIn(Category.Name.BRANCH)
                         .node(FlowNode.Kind.IF)
                         .node(FlowNode.Kind.SWITCH)
-                    .stepOut()
+                        .stepOut()
                     .stepIn(Category.Name.ITERATION)
                         .node(FlowNode.Kind.WHILE)
                         .node(FlowNode.Kind.FOREACH)
-                    .stepOut()
+                        .stepOut()
+                    .stepIn(Category.Name.FLOWS)
+                        .node(function)
+                        .stepOut()
                     .stepIn(Category.Name.CONTROL)
                         .node(FlowNode.Kind.RETURN)
+                        .stepOut()
                     .stepOut()
-                .stepOut()
                 .stepIn(Category.Name.DATA)
                     .node(FlowNode.Kind.NEW_DATA)
                     .node(FlowNode.Kind.UPDATE_DATA)
                     .node(FlowNode.Kind.DATA_MAPPER)
-                .stepOut()
+                    .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
                     .node(FlowNode.Kind.PANIC)
-                .stepOut()
+                    .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
                     .node(FlowNode.Kind.TRANSACTION)
                     .node(FlowNode.Kind.LOCK)
                     .node(FlowNode.Kind.START)
-                .stepOut();
+                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
@@ -203,7 +215,7 @@ public class AvailableNodesGenerator {
                     .object("Client")
                     .symbol("init")
                     .build();
-            List<Item> connections = central.getConnections(codedata);
+            List<Item> connections = LocalIndexCentral.getInstance().getConnectorActions(codedata);
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())

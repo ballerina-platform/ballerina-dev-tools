@@ -50,11 +50,18 @@ public class AvailableNodesTest extends AbstractLSTest {
         if (!categories.equals(testConfig.categories())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.position(),
                     testConfig.source(), categories);
-//            updateConfig(config, updateConfig);
+            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
-
     }
+
+//    @DataProvider(name = "data-provider")
+//    @Override
+//    protected Object[] getConfigsList() {
+//        return new Object[]{
+//                Path.of("connector1.json")
+//        };
+//    }
 
     @Override
     protected String getResourceDir() {

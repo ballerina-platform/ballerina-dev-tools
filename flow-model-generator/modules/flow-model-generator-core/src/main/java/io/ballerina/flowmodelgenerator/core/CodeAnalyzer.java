@@ -79,13 +79,13 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.TemplateExpressionNode;
 import io.ballerina.compiler.syntax.tree.Token;
 import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.flowmodelgenerator.core.central.Central;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -99,6 +99,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
+import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -122,7 +123,6 @@ class CodeAnalyzer extends NodeVisitor {
     private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
     private final Stack<NodeBuilder> flowNodeBuilderStack;
-    private final Central central;
     private final Map<String, LineRange> dataMappings;
     private TypedBindingPatternNode typedBindingPatternNode;
     private final String connectionScope;
@@ -134,7 +134,6 @@ class CodeAnalyzer extends NodeVisitor {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
-        this.central = CentralProxy.getInstance();
         this.dataMappings = dataMappings;
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
@@ -256,7 +255,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .object("Client")
                 .symbol(methodName)
                 .build();
-        FlowNode nodeTemplate = central.getNodeTemplate(codedata);
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(actionNode);
             return;
@@ -359,7 +358,7 @@ class CodeAnalyzer extends NodeVisitor {
                 .object("Client")
                 .symbol("init")
                 .build();
-        FlowNode nodeTemplate = central.getNodeTemplate(codedata);
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(newExpressionNode);
             return;
@@ -381,6 +380,17 @@ class CodeAnalyzer extends NodeVisitor {
                     argumentNodes, params, nodeTemplate.properties()));
         } catch (RuntimeException ignored) {
 
+        }
+    }
+
+    @Override
+    public void visit(TemplateExpressionNode templateExpressionNode) {
+        if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
+            startNode(FlowNode.Kind.XML_PAYLOAD)
+                    .metadata()
+                    .description(XMLPayload.DESCRIPTION)
+                    .stepOut()
+                    .properties().expression(templateExpressionNode);
         }
     }
 
@@ -407,6 +417,8 @@ class CodeAnalyzer extends NodeVisitor {
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+        } else if (nodeBuilder instanceof XMLPayload) {
+            nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
@@ -445,6 +457,9 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
+        if (nodeBuilder instanceof XMLPayload) {
+            nodeBuilder.properties().variable(assignmentStatementNode.varRef());
+        }
         endNode(assignmentStatementNode);
     }
 
@@ -503,7 +518,7 @@ class CodeAnalyzer extends NodeVisitor {
                     .module(moduleName)
                     .symbol(functionName)
                     .build();
-            FlowNode nodeTemplate = central.getNodeTemplate(codedata);
+            FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
             if (nodeTemplate == null) {
                 handleExpressionNode(functionCallExpressionNode);
                 return;
@@ -534,6 +549,18 @@ class CodeAnalyzer extends NodeVisitor {
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties().inputs(functionCallExpressionNode.arguments(), params));
                 nodeBuilder.properties().view(dataMappings.get(functionName));
+            } else {
+                startNode(FlowNode.Kind.FUNCTION_CALL)
+                        .metadata()
+                            .label(functionName)
+                            .stepOut()
+                        .codedata()
+                            .org(orgName)
+                            .module(defaultModuleName)
+                            .symbol(functionName);
+                functionSymbol.typeDescriptor().params().ifPresent(
+                        params -> nodeBuilder.properties()
+                                .functionArguments(functionCallExpressionNode.arguments(), params));
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);

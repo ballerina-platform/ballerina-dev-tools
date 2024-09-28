@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -58,7 +58,7 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
 
         Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
@@ -78,6 +78,6 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
+        this.cachedFlowNode = LocalIndexCentral.getInstance().getNodeTemplate(context.codedata());
     }
 }

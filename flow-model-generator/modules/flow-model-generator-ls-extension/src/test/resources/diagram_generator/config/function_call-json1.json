@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 20,
+    "line": 21,
     "offset": 4
   },
   "end": {
-    "line": 24,
+    "line": 25,
     "offset": 5
   },
   "source": "function_call.bal",
@@ -13,7 +13,7 @@
     "fileName": "function_call.bal",
     "nodes": [
       {
-        "id": "51837",
+        "id": "52829",
         "metadata": {
           "label": "HTTP API"
         },
@@ -22,11 +22,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 20,
+              "line": 21,
               "offset": 4
             },
             "endLine": {
-              "line": 24,
+              "line": 25,
               "offset": 5
             }
           },
@@ -58,7 +58,7 @@
         "flags": 2048
       },
       {
-        "id": "52881",
+        "id": "53873",
         "metadata": {
           "label": "toJson",
           "description": "Converts a value of type `anydata` to `json`.\n\n",
@@ -72,11 +72,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 21,
+              "line": 22,
               "offset": 8
             },
             "endLine": {
-              "line": 21,
+              "line": 22,
               "offset": 57
             }
           },
@@ -118,7 +118,7 @@
         "flags": 1
       },
       {
-        "id": "53877",
+        "id": "54869",
         "metadata": {
           "label": "parseAsType",
           "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
@@ -132,11 +132,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 22,
+              "line": 23,
               "offset": 8
             },
             "endLine": {
-              "line": 22,
+              "line": 23,
               "offset": 61
             }
           },
@@ -187,7 +187,7 @@
         "flags": 1
       },
       {
-        "id": "54829",
+        "id": "55821",
         "metadata": {
           "label": "Return",
           "description": "Value of 'apple'"
@@ -197,11 +197,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 23,
+              "line": 24,
               "offset": 8
             },
             "endLine": {
-              "line": 23,
+              "line": 24,
               "offset": 21
             }
           },
@@ -225,7 +225,7 @@
     ],
     "connections": [
       {
-        "id": "35779",
+        "id": "36771",
         "metadata": {
           "label": "New Connection",
           "description": "Create a new connection"
@@ -239,11 +239,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 4,
+              "line": 5,
               "offset": 0
             },
             "endLine": {
-              "line": 4,
+              "line": 5,
               "offset": 67
             }
           },

@@ -19,7 +19,11 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.CentralProxy;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -41,6 +45,9 @@ public class NewConnection extends NodeBuilder {
 
     private static final String NEW_CONNECTION_LABEL = "New Connection";
 
+    public static final String INIT_SYMBOL = "init";
+    public static final String CLIENT_SYMBOL = "Client";
+
     @Override
     public void setConcreteConstData() {
         metadata().label(NEW_CONNECTION_LABEL);
@@ -49,14 +56,51 @@ public class NewConnection extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = CentralProxy.getInstance().getNodeTemplate(context.codedata());
+        Codedata codedata = context.codedata();
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate != null) {
+            this.cachedFlowNode = nodeTemplate;
+        }
+
+        if (codedata.id() != null) {
+            ConnectorResponse connector = RemoteCentral.getInstance().connector(codedata.id());
+            Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
+                    .filter(function -> function.name().equals(INIT_SYMBOL))
+                    .findFirst();
+            metadata()
+                    .label(connector.moduleName())
+                    .keywords(connector.packageInfo().keywords())
+                    .icon(connector.icon())
+                    .description(connector.documentation());
+            codedata()
+                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .org(connector.packageInfo().organization())
+                    .module(connector.moduleName())
+                    .object(connector.name())
+                    .symbol(INIT_SYMBOL);
+
+            if (initFunction.isPresent()) {
+                for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
+                    properties().custom(param.name(), param.name(), param.documentation(),
+                            Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
+                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+                }
+
+                String returnType = initFunction.get().returnType().typeName();
+                if (returnType != null) {
+                    properties().type(returnType).data(null);
+                }
+            }
+        }
+
+        //TODO: Obtain the connector from the codedata information if id doesn't exist.
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        FlowNode nodeTemplate = CentralProxy.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
@@ -72,6 +116,13 @@ public class NewConnection extends NodeBuilder {
             case Property.LOCAL_SCOPE -> sourceBuilder.textEdit(false).build();
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
+        };
+    }
+
+    private static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
+        return switch (typeName) {
+            case "inclusion" -> param.inclusionType();
+            default -> typeName;
         };
     }
 }

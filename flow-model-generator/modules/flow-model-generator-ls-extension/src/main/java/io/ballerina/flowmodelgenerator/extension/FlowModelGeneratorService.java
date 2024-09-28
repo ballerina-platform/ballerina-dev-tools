@@ -26,8 +26,10 @@ import io.ballerina.flowmodelgenerator.core.AvailableNodesGenerator;
 import io.ballerina.flowmodelgenerator.core.ConnectorGenerator;
 import io.ballerina.flowmodelgenerator.core.CopilotContextGenerator;
 import io.ballerina.flowmodelgenerator.core.DeleteNodeGenerator;
+import io.ballerina.flowmodelgenerator.core.FunctionGenerator;
 import io.ballerina.flowmodelgenerator.core.ModelGenerator;
 import io.ballerina.flowmodelgenerator.core.NodeTemplateGenerator;
+import io.ballerina.flowmodelgenerator.core.OpenApiServiceGenerator;
 import io.ballerina.flowmodelgenerator.core.SourceGenerator;
 import io.ballerina.flowmodelgenerator.core.SuggestedComponentService;
 import io.ballerina.flowmodelgenerator.core.SuggestedModelGenerator;
@@ -35,10 +37,12 @@ import io.ballerina.flowmodelgenerator.extension.request.CopilotContextRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelAvailableNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetConnectorsRequest;
+import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
+import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelAvailableNodesResponse;
@@ -47,6 +51,7 @@ import io.ballerina.flowmodelgenerator.extension.response.FlowModelGetConnectors
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelNodeTemplateResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowModelSourceGeneratorResponse;
 import io.ballerina.flowmodelgenerator.extension.response.FlowNodeDeleteResponse;
+import io.ballerina.flowmodelgenerator.extension.response.OpenApiServiceGenerationResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Module;
@@ -158,8 +163,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Create a temporary directory for the in-memory cache
                 Project newProject = project.duplicate();
-                DocumentId documentId = project.documentId(filePath);
-                Module newModule = project.currentPackage().module(documentId.moduleId());
+                DocumentId documentId = newProject.documentId(filePath);
+                Module newModule = newProject.currentPackage().module(documentId.moduleId());
                 SemanticModel newSemanticModel =
                         newProject.currentPackage().getCompilation().getSemanticModel(newModule.moduleId());
                 Document newDocument = newModule.document(documentId);
@@ -292,12 +297,32 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
     @JsonRequest
     public CompletableFuture<FlowModelGetConnectorsResponse> getConnectors(FlowModelGetConnectorsRequest request) {
-
         return CompletableFuture.supplyAsync(() -> {
             FlowModelGetConnectorsResponse response = new FlowModelGetConnectorsResponse();
             try {
                 ConnectorGenerator connectorGenerator = new ConnectorGenerator();
-                response.setCategories(connectorGenerator.getConnectors(request.keyword()));
+                response.setCategories(connectorGenerator.getConnectors(request.queryMap()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelAvailableNodesResponse> getFunctions(FlowModelGetFunctionsRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelAvailableNodesResponse response = new FlowModelAvailableNodesResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+                FunctionGenerator connectorGenerator = new FunctionGenerator(semanticModel.get(), document.get());
+                response.setCategories(connectorGenerator.getFunctions(request.queryMap(), request.position()));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -339,6 +364,26 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
                 response.setTextEdits(
                         deleteNodeGenerator.getTextEditsToDeletedNode(document.get(), project));
+            } catch (Throwable e) {
+                //TODO: Handle errors generated by the flow model generator service.
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<OpenApiServiceGenerationResponse> generateServiceFromOpenApiContract(
+            OpenAPIServiceGenerationRequest request) {
+
+        return CompletableFuture.supplyAsync(() -> {
+            OpenApiServiceGenerationResponse response = new OpenApiServiceGenerationResponse();
+            try {
+                Path openApiContractPath = Path.of(request.openApiContractPath());
+                Path projectPath = Path.of(request.projectPath());
+                OpenApiServiceGenerator openApiServiceGenerator = new OpenApiServiceGenerator(openApiContractPath,
+                        projectPath, request.port(), workspaceManager);
+                response.setService(openApiServiceGenerator.generateService());
             } catch (Throwable e) {
                 //TODO: Handle errors generated by the flow model generator service.
                 response.setError(e);

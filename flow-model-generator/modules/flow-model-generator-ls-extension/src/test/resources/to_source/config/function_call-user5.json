@@ -1,0 +1,96 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "105353",
+    "metadata": {
+      "label": "operate"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "operate",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 74,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 76,
+          "offset": 15
+        }
+      },
+      "sourceCode": "int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });"
+    },
+    "returning": false,
+    "properties": {
+      "a": {
+        "metadata": {
+          "label": "a"
+        },
+        "valueType": "EXPRESSION",
+        "value": "6",
+        "optional": false,
+        "editable": true
+      },
+      "b": {
+        "metadata": {
+          "label": "b"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true
+      },
+      "func": {
+        "metadata": {
+          "label": "func"
+        },
+        "valueType": "EXPRESSION",
+        "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "result",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 74,
+            "character": 4
+          },
+          "end": {
+            "line": 76,
+            "character": 15
+          }
+        },
+        "newText": "int result = operate(6, 3, function(int x, int y) returns int {\n            return x * y;\n        });"
+      }
+    ]
+  }
+}
