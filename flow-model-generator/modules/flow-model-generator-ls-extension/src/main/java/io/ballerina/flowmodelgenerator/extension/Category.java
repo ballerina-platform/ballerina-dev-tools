@@ -35,7 +35,12 @@ public record Category(String name, List<Variable> types) {
     public static final String CONFIGURABLE_CATEGORY = "Configurable Variables";
     public static final String LOCAL_CATEGORY = "Local Variables";
 
-    public record Variable(String name, Type type) {
+    public record Variable(String name, Type type) implements Comparable<Variable> {
+
+        @Override
+        public int compareTo(Variable o) {
+            return this.name.compareTo(o.name);
+        }
     }
 
 }

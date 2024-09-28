@@ -46,7 +46,7 @@ import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -114,14 +114,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                             }
                         });
 
-                moduleVariables.sort(Comparator.comparing(Category.Variable::name));
-                configurableVariables.sort(Comparator.comparing(Category.Variable::name));
-                localVariables.sort(Comparator.comparing(Category.Variable::name));
-
-                Category moduleCategory = new Category(Category.MODULE_CATEGORY, moduleVariables);
-                Category configurableCategory = new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables);
-                Category localCategory = new Category(Category.LOCAL_CATEGORY, localVariables);
-                response.setCategories(List.of(moduleCategory, configurableCategory, localCategory));
+                Collections.sort(moduleVariables);
+                Collections.sort(configurableVariables);
+                Collections.sort(localVariables);
+                response.setCategories(List.of(
+                        new Category(Category.MODULE_CATEGORY, moduleVariables),
+                        new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
+                        new Category(Category.LOCAL_CATEGORY, localVariables)
+                ));
             } catch (Throwable e) {
                 response.setError(e);
             }
