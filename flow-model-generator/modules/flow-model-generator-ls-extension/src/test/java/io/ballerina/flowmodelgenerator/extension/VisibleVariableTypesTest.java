@@ -46,7 +46,7 @@ public class VisibleVariableTypesTest extends AbstractLSTest {
                 sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.position());
         JsonObject response = getResponse(request);
 
-        JsonArray actualVisibleTypes = response.get("types").getAsJsonArray();
+        JsonArray actualVisibleTypes = response.get("categories").getAsJsonArray();
         if (!actualVisibleTypes.equals(testConfig.visibleTypes())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
                     testConfig.position(), actualVisibleTypes);

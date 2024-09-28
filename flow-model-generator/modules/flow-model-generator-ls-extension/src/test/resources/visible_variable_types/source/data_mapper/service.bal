@@ -1,5 +1,13 @@
 import ballerina/http;
 
+configurable string serviceName = "DataMapperService";
+configurable int servicePort = 9091;
+configurable Input configInput = ?;
+configurable table<Input> key(name) configTable = table [
+    {name: "Alice", age: 25},
+    {name: "Bob", age: 28}
+];
+
 service /p1 on new http:Listener(9091) {
     resource function get greeting() returns json|http:InternalServerError {
         do {
@@ -12,7 +20,7 @@ service /p1 on new http:Listener(9091) {
 }
 
 type Input record {
-    string name;
+    readonly string name;
     int age;
 };
 

@@ -16,30 +16,26 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.response;
+package io.ballerina.flowmodelgenerator.extension;
 
-import io.ballerina.flowmodelgenerator.extension.Category;
+import org.ballerinalang.diagramutil.connector.models.connector.Type;
 
 import java.util.List;
 
 /**
- * Represents the response containing visible variable types for the given cursor position.
+ * Represents a category of variables.
  *
+ * @param name  the name of the category
+ * @param types the list of variables in the category
  * @since 1.4.0
  */
-public class VisibleVariableTypesResponse extends AbstractFlowModelResponse {
+public record Category(String name, List<Variable> types) {
 
-    private List<Category> categories;
+    public static String MODULE_CATEGORY = "Module Variables";
+    public static String CONFIGURABLE_CATEGORY = "Configurable Variables";
+    public static String LOCAL_CATEGORY = "Local Variables";
 
-    public VisibleVariableTypesResponse() {
-
+    public record Variable(String name, Type type) {
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Category> getVisibleTypes() {
-        return categories;
-    }
 }
