@@ -92,24 +92,6 @@
       "name": "Configurable Variables",
       "types": [
         {
-          "name": "serviceName",
-          "type": {
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
-        {
-          "name": "servicePort",
-          "type": {
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
-        {
           "name": "configInput",
           "type": {
             "members": [
@@ -223,14 +205,9 @@
             "defaultable": false,
             "isRestType": false
           }
-        }
-      ]
-    },
-    {
-      "name": "Local Variables",
-      "types": [
+        },
         {
-          "name": "z",
+          "name": "serviceName",
           "type": {
             "typeName": "string",
             "optional": false,
@@ -238,6 +215,20 @@
             "isRestType": false
           }
         },
+        {
+          "name": "servicePort",
+          "type": {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "Local Variables",
+      "types": [
         {
           "name": "address",
           "type": {
@@ -296,6 +287,15 @@
           "name": "x",
           "type": {
             "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "z",
+          "type": {
+            "typeName": "string",
             "optional": false,
             "defaultable": false,
             "isRestType": false

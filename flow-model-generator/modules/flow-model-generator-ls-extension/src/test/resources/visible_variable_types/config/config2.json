@@ -92,24 +92,6 @@
       "name": "Configurable Variables",
       "types": [
         {
-          "name": "serviceName",
-          "type": {
-            "typeName": "string",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
-        {
-          "name": "servicePort",
-          "type": {
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
-        {
           "name": "configInput",
           "type": {
             "members": [
@@ -223,22 +205,30 @@
             "defaultable": false,
             "isRestType": false
           }
+        },
+        {
+          "name": "serviceName",
+          "type": {
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "servicePort",
+          "type": {
+            "typeName": "int",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
         }
       ]
     },
     {
       "name": "Local Variables",
       "types": [
-        {
-          "name": "self",
-          "type": {
-            "fields": [],
-            "typeName": "object",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
         {
           "name": "localInput",
           "type": {
@@ -274,6 +264,16 @@
               "moduleName": "new_connection1",
               "version": "0.1.0"
             },
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "self",
+          "type": {
+            "fields": [],
+            "typeName": "object",
+            "optional": false,
             "defaultable": false,
             "isRestType": false
           }
