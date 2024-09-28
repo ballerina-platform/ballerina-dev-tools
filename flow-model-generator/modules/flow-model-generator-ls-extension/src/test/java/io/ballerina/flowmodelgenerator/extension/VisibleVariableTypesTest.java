@@ -50,6 +50,7 @@ public class VisibleVariableTypesTest extends AbstractLSTest {
         if (!actualVisibleTypes.equals(testConfig.visibleTypes())) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(),
                     testConfig.position(), actualVisibleTypes);
+            compareJsonElements(actualVisibleTypes, testConfig.visibleTypes());
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
