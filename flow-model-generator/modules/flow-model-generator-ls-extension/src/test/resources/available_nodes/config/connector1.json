@@ -254,6 +254,16 @@
       "items": [
         {
           "metadata": {
+            "label": "Assign",
+            "description": "Assign a value to a variable"
+          },
+          "codedata": {
+            "node": "ASSIGN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Function Call",
             "description": "Both project and utility functions"
           },

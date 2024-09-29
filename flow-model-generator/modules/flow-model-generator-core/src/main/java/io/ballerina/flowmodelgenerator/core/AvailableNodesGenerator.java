@@ -136,6 +136,7 @@ public class AvailableNodesGenerator {
 
         this.rootBuilder
                 .stepIn(Category.Name.STATEMENT)
+                    .node(NodeKind.ASSIGN)
                     .node(function)
                     .node(NodeKind.DATA_MAPPER)
                     .stepOut()
