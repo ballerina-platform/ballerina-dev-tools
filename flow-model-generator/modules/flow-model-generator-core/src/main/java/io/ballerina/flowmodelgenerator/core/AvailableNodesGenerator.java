@@ -38,9 +38,9 @@ import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -117,8 +117,8 @@ public class AvailableNodesGenerator {
         setStopNode(node);
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .stepIn(Category.Name.ITERATION)
-                    .node(FlowNode.Kind.BREAK)
-                    .node(FlowNode.Kind.CONTINUE)
+                    .node(NodeKind.BREAK)
+                    .node(NodeKind.CONTINUE)
                     .stepOut();
     }
 
@@ -129,7 +129,7 @@ public class AvailableNodesGenerator {
                         .description("Both project and utility functions")
                         .build(),
                 new Codedata.Builder<>(null)
-                        .node(FlowNode.Kind.FUNCTION)
+                        .node(NodeKind.FUNCTION)
                         .build(),
                 true
         );
@@ -137,29 +137,29 @@ public class AvailableNodesGenerator {
         this.rootBuilder
                 .stepIn(Category.Name.STATEMENT)
                     .node(function)
-                    .node(FlowNode.Kind.DATA_MAPPER)
+                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.CONTROL)
                     .stepIn(Category.Name.BRANCH)
-                        .node(FlowNode.Kind.IF)
-                        .node(FlowNode.Kind.SWITCH)
+                        .node(NodeKind.IF)
+                        .node(NodeKind.SWITCH)
                         .stepOut()
                     .stepIn(Category.Name.ITERATION)
-                        .node(FlowNode.Kind.WHILE)
-                        .node(FlowNode.Kind.FOREACH)
+                        .node(NodeKind.WHILE)
+                        .node(NodeKind.FOREACH)
                         .stepOut()
                     .stepIn(Category.Name.TERMINATION)
-                        .node(FlowNode.Kind.RETURN)
+                        .node(NodeKind.RETURN)
                         .stepOut()
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
-                    .node(FlowNode.Kind.ERROR_HANDLER)
-                    .node(FlowNode.Kind.PANIC)
+                    .node(NodeKind.ERROR_HANDLER)
+                    .node(NodeKind.PANIC)
                     .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
-                    .node(FlowNode.Kind.TRANSACTION)
-                    .node(FlowNode.Kind.LOCK)
-                    .node(FlowNode.Kind.START)
+                    .node(NodeKind.TRANSACTION)
+                    .node(NodeKind.LOCK)
+                    .node(NodeKind.START)
                     .stepOut();
     }
 
@@ -169,7 +169,7 @@ public class AvailableNodesGenerator {
             if (isStopNodeAvailable(parent)) {
                 this.rootBuilder.stepIn(Category.Name.CONTROL)
                         .stepIn(Category.Name.TERMINATION)
-                            .node(FlowNode.Kind.STOP)
+                            .node(NodeKind.STOP)
                             .stepOut();
             }
             parent = parent.parent();
@@ -201,7 +201,7 @@ public class AvailableNodesGenerator {
 
             ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
             Codedata codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .node(NodeKind.NEW_CONNECTION)
                     .org(moduleSymbol.id().orgName())
                     .module(moduleSymbol.getName().orElseThrow())
                     .object("Client")

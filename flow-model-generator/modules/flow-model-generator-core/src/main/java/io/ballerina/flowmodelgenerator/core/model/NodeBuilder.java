@@ -108,34 +108,34 @@ public abstract class NodeBuilder {
     protected FlowNode cachedFlowNode;
     protected String defaultModuleName;
 
-    private static final Map<FlowNode.Kind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
-        put(FlowNode.Kind.IF, If::new);
-        put(FlowNode.Kind.RETURN, Return::new);
-        put(FlowNode.Kind.EXPRESSION, DefaultExpression::new);
-        put(FlowNode.Kind.ERROR_HANDLER, ErrorHandler::new);
-        put(FlowNode.Kind.WHILE, While::new);
-        put(FlowNode.Kind.CONTINUE, Continue::new);
-        put(FlowNode.Kind.BREAK, Break::new);
-        put(FlowNode.Kind.PANIC, Panic::new);
-        put(FlowNode.Kind.EVENT_HTTP_API, HttpApiEvent::new);
-        put(FlowNode.Kind.ACTION_CALL, ActionCall::new);
-        put(FlowNode.Kind.NEW_CONNECTION, NewConnection::new);
-        put(FlowNode.Kind.START, Start::new);
-        put(FlowNode.Kind.TRANSACTION, Transaction::new);
-        put(FlowNode.Kind.LOCK, Lock::new);
-        put(FlowNode.Kind.FAIL, Fail::new);
-        put(FlowNode.Kind.NEW_DATA, NewData::new);
-        put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
-        put(FlowNode.Kind.XML_PAYLOAD, XMLPayload::new);
-        put(FlowNode.Kind.STOP, Stop::new);
-        put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
-        put(FlowNode.Kind.FOREACH, Foreach::new);
-        put(FlowNode.Kind.DATA_MAPPER, DataMapper::new);
-        put(FlowNode.Kind.COMMENT, Comment::new);
-        put(FlowNode.Kind.SWITCH, Switch::new);
+    private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
+        put(NodeKind.IF, If::new);
+        put(NodeKind.RETURN, Return::new);
+        put(NodeKind.EXPRESSION, DefaultExpression::new);
+        put(NodeKind.ERROR_HANDLER, ErrorHandler::new);
+        put(NodeKind.WHILE, While::new);
+        put(NodeKind.CONTINUE, Continue::new);
+        put(NodeKind.BREAK, Break::new);
+        put(NodeKind.PANIC, Panic::new);
+        put(NodeKind.EVENT_HTTP_API, HttpApiEvent::new);
+        put(NodeKind.ACTION_CALL, ActionCall::new);
+        put(NodeKind.NEW_CONNECTION, NewConnection::new);
+        put(NodeKind.START, Start::new);
+        put(NodeKind.TRANSACTION, Transaction::new);
+        put(NodeKind.LOCK, Lock::new);
+        put(NodeKind.FAIL, Fail::new);
+        put(NodeKind.NEW_DATA, NewData::new);
+        put(NodeKind.UPDATE_DATA, UpdateData::new);
+        put(NodeKind.XML_PAYLOAD, XMLPayload::new);
+        put(NodeKind.STOP, Stop::new);
+        put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+        put(NodeKind.FOREACH, Foreach::new);
+        put(NodeKind.DATA_MAPPER, DataMapper::new);
+        put(NodeKind.COMMENT, Comment::new);
+        put(NodeKind.SWITCH, Switch::new);
     }};
 
-    public static NodeBuilder getNodeFromKind(FlowNode.Kind kind) {
+    public static NodeBuilder getNodeFromKind(NodeKind kind) {
         return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
     }
 

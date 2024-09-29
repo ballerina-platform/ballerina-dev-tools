@@ -21,8 +21,8 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.NodeFactory;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
@@ -46,7 +46,7 @@ public class Switch extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.SWITCH);
+        codedata().node(NodeKind.SWITCH);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Switch extends NodeBuilder {
         properties().condition(null);
 
         Branch.Builder defaultCaseBuilder = new Branch.Builder()
-                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut()
+                .codedata().node(NodeKind.CONDITIONAL).stepOut()
                 .label("case")
                 .kind(Branch.BranchKind.BLOCK)
                 .repeatable(Branch.Repeatable.ONE_OR_MORE)

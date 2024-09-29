@@ -115,7 +115,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return parentBuilder;
         }
 
-        public Builder node(FlowNode.Kind kind) {
+        public Builder node(NodeKind kind) {
             AvailableNode node = NodeBuilder.getNodeFromKind(kind).buildAvailableNode();
             this.availableNodes.add(node);
             return this;

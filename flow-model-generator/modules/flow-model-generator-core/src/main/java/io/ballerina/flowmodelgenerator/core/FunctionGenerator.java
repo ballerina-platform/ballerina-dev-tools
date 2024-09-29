@@ -36,9 +36,9 @@ import io.ballerina.flowmodelgenerator.core.central.SymbolResponse;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
@@ -103,7 +103,7 @@ public class FunctionGenerator {
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .symbol(symbol.getName().get());
             Optional<ModuleSymbol> module = functionSymbol.getModule();
             if (module.isPresent()) {
@@ -157,7 +157,7 @@ public class FunctionGenerator {
                         .description(function.description())
                         .build();
                 Codedata codedata = new Codedata.Builder<>(null)
-                        .node(FlowNode.Kind.FUNCTION_CALL)
+                        .node(NodeKind.FUNCTION_CALL)
                         .org(pkg.organization())
                         .module(pkg.name())
                         .symbol(function.name())
@@ -179,7 +179,7 @@ public class FunctionGenerator {
                     .icon(symbol.icon())
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .org(symbol.organization())
                     .module(symbol.name())
                     .symbol(symbol.symbolName())
