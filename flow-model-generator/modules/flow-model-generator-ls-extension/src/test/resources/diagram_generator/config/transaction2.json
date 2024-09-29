@@ -51,11 +51,11 @@
       {
         "id": "38826",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'x' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {

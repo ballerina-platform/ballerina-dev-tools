@@ -175,11 +175,11 @@
               {
                 "id": "51006",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'key' with type 'string'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "main.bal",
                     "startLine": {
@@ -465,11 +465,11 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'newData' with type 'map'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "NEW_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -1058,11 +1058,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "New Variable",
-                          "description": "New variable 'newData' with type 'map'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "NEW_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {

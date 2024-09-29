@@ -51,11 +51,11 @@
       {
         "id": "63687",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'newData1' with type 'list'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -107,11 +107,11 @@
       {
         "id": "64637",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'newData2' with type 'list'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -163,11 +163,11 @@
       {
         "id": "65677",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'newData3' with type 'list'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {

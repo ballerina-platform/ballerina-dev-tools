@@ -51,11 +51,11 @@
       {
         "id": "49766",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'j1' with type 'map'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {

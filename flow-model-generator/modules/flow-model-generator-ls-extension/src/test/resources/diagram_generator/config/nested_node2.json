@@ -345,11 +345,11 @@
               {
                 "id": "50012",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'unionResult' with type 'error?'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "nested_node.bal",
                     "startLine": {

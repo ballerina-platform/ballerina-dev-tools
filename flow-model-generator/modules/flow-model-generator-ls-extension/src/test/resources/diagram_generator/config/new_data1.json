@@ -15,11 +15,11 @@
       {
         "id": "32874",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'i' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -71,11 +71,11 @@
       {
         "id": "33871",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'f' with type 'float'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -127,11 +127,11 @@
       {
         "id": "34870",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'd' with type 'decimal'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -183,11 +183,11 @@
       {
         "id": "35855",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'd1' with type 'decimal'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -239,11 +239,11 @@
       {
         "id": "37834",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'j' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -295,11 +295,11 @@
       {
         "id": "38830",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'k' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -351,11 +351,11 @@
       {
         "id": "39822",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'l' with type 'var'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -407,11 +407,11 @@
       {
         "id": "40814",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable '_' with type 'var'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {

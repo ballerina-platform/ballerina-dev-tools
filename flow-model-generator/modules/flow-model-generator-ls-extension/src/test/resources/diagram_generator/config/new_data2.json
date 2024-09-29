@@ -51,11 +51,11 @@
       {
         "id": "44796",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'str1' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -107,11 +107,11 @@
       {
         "id": "45799",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'str2' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {

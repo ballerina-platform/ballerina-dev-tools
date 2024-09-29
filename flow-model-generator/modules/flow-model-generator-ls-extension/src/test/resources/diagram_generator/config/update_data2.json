@@ -51,11 +51,11 @@
       {
         "id": "38844",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'str1' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -107,11 +107,11 @@
       {
         "id": "39840",
         "metadata": {
-          "label": "Update Variable",
-          "description": "Update the value of the variable 'str1'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "UPDATE_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -130,7 +130,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Update variable"
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "string `${str1} ${str1}`",

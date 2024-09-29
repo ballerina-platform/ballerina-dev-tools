@@ -92,14 +92,13 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.NewData;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.UpdateData;
 import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -407,10 +406,9 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(NodeKind.NEW_DATA)
+            startNode(NodeKind.ASSIGN)
                     .metadata()
-                        .description(NewData.DESCRIPTION, variableDeclarationNode.typedBindingPattern(),
-                            variableDeclarationNode.typedBindingPattern().typeDescriptor())
+                        .description(Assign.DESCRIPTION)
                         .stepOut()
                     .properties().expression(initializerNode);
         }
@@ -448,13 +446,12 @@ class CodeAnalyzer extends NodeVisitor {
         expression.accept(this);
 
         if (isNodeUnidentified()) {
-            startNode(NodeKind.UPDATE_DATA)
+            startNode(NodeKind.ASSIGN)
                     .metadata()
-                        .description(String.format(UpdateData.DESCRIPTION,
-                            CommonUtils.getVariableName(assignmentStatementNode.varRef())))
+                        .description(Assign.DESCRIPTION)
                         .stepOut()
                     .properties()
-                        .expression(expression, UpdateData.UPDATE_DATA_EXPRESSION_DOC)
+                        .expression(expression)
                         .variable(assignmentStatementNode.varRef());
         }
 
@@ -747,16 +744,21 @@ class CodeAnalyzer extends NodeVisitor {
 
     private void handleConstructorExpressionNode(ExpressionNode constructorExprNode, String typeDescription) {
         SyntaxKind kind = constructorExprNode.parent().kind();
-        if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
-            startNode(NodeKind.NEW_DATA)
-                    .metadata()
-                        .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
-                        .stepOut()
-                    .properties().expression(constructorExprNode);
-        } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
-            startNode(NodeKind.UPDATE_DATA).properties()
-                    .expression(constructorExprNode)
-                    .variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
+
+        if (kind != SyntaxKind.ASSIGNMENT_STATEMENT && kind != SyntaxKind.MODULE_VAR_DECL &&
+                kind != SyntaxKind.LOCAL_VAR_DECL) {
+            return;
+        }
+
+        startNode(NodeKind.ASSIGN)
+                .metadata()
+                    .description(Assign.DESCRIPTION)
+                    .stepOut()
+                .properties()
+                    .expression(constructorExprNode);
+
+        if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
+            nodeBuilder.properties().variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
         }
     }
 

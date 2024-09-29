@@ -87,11 +87,11 @@
       {
         "id": "41817",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'name' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -143,11 +143,11 @@
       {
         "id": "42822",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'email' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -199,11 +199,11 @@
       {
         "id": "43964",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'address' with type 'map'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -381,11 +381,11 @@
       {
         "id": "54783",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'admission' with type 'map'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {

@@ -51,11 +51,11 @@
       {
         "id": "32874",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'i' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -107,11 +107,11 @@
       {
         "id": "33862",
         "metadata": {
-          "label": "Update Variable",
-          "description": "Update the value of the variable 'i'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "UPDATE_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -130,7 +130,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Update variable"
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "3",
@@ -153,11 +153,11 @@
       {
         "id": "34854",
         "metadata": {
-          "label": "Update Variable",
-          "description": "Update the value of the variable '_'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "UPDATE_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {
@@ -176,7 +176,7 @@
           "expression": {
             "metadata": {
               "label": "Expression",
-              "description": "Update variable"
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "4",

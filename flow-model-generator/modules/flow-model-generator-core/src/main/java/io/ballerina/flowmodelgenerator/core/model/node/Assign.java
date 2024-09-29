@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -31,36 +32,49 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a variable declaration node.
+ * Represents both variable initialization to a new variable, and assignment of a value to an existing variable.
  *
  * @since 1.4.0
  */
-public class UpdateData extends NodeBuilder {
+public class Assign extends NodeBuilder {
 
-    public static final String LABEL = "Update Variable";
-    public static final String DESCRIPTION = "Update the value of the variable '%s'";
-    public static final String UPDATE_DATA_EXPRESSION_DOC = "Update variable";
+    public static final String LABEL = "Assign";
+    public static final String DESCRIPTION = "Assign a value to a variable";
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL);
-        codedata().node(NodeKind.UPDATE_DATA);
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.ASSIGN);
     }
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
-        property.ifPresent(value -> sourceBuilder.token().expression(value).keyword(SyntaxKind.EQUAL_TOKEN));
+        FlowNode flowNode = sourceBuilder.flowNode;
+        Optional<Property> dataType = flowNode.getProperty(Property.DATA_TYPE_KEY);
+        dataType.ifPresent(value -> sourceBuilder.token().expression(value).whiteSpace());
 
-        property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
+        Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
+        if (variable.isEmpty()) {
+            throw new RuntimeException("Variable is not set for the Assign node");
+        }
+        sourceBuilder.token()
+                .expression(variable.get())
+                .whiteSpace()
+                .keyword(SyntaxKind.EQUAL_TOKEN)
+                .whiteSpace();
+
+        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (expression.isEmpty()) {
+            throw new RuntimeException("Expression is not set for the Assign node");
+        }
+        sourceBuilder.token().expression(expression.get()).endOfStatement();
 
         return sourceBuilder.textEdit(false).build();
+
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        metadata().description(String.format(DESCRIPTION, "name"));
-        properties().data(null).expression("", UPDATE_DATA_EXPRESSION_DOC);
+        properties().dataVariable(null).expression("", Property.EXPRESSION_DOC);
     }
 }

@@ -51,11 +51,11 @@
       {
         "id": "53726",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'content' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
