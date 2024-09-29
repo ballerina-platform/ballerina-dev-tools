@@ -115,19 +115,17 @@ public class AvailableNodesGenerator {
     private void setAvailableNodesForIteratingBlock(NonTerminalNode node, SemanticModel semanticModel) {
         setDefaultNodes();
         setStopNode(node);
-        this.rootBuilder
-                .stepIn(Category.Name.FLOW)
-                    .stepIn(Category.Name.ITERATION)
-                        .node(FlowNode.Kind.BREAK)
-                        .node(FlowNode.Kind.CONTINUE)
-                    .stepOut()
-                .stepOut();
+        this.rootBuilder.stepIn(Category.Name.CONTROL)
+                .stepIn(Category.Name.ITERATION)
+                    .node(FlowNode.Kind.BREAK)
+                    .node(FlowNode.Kind.CONTINUE)
+                    .stepOut();
     }
 
     private void setDefaultNodes() {
         AvailableNode function = new AvailableNode(
                 new Metadata.Builder<>(null)
-                        .label("Function")
+                        .label("Function Call")
                         .description("Both project and utility functions")
                         .build(),
                 new Codedata.Builder<>(null)
@@ -137,7 +135,11 @@ public class AvailableNodesGenerator {
         );
 
         this.rootBuilder
-                .stepIn(Category.Name.FLOW)
+                .stepIn(Category.Name.STATEMENT)
+                    .node(function)
+                    .node(FlowNode.Kind.DATA_MAPPER)
+                    .stepOut()
+                .stepIn(Category.Name.CONTROL)
                     .stepIn(Category.Name.BRANCH)
                         .node(FlowNode.Kind.IF)
                         .node(FlowNode.Kind.SWITCH)
@@ -146,17 +148,9 @@ public class AvailableNodesGenerator {
                         .node(FlowNode.Kind.WHILE)
                         .node(FlowNode.Kind.FOREACH)
                         .stepOut()
-                    .stepIn(Category.Name.FLOWS)
-                        .node(function)
-                        .stepOut()
-                    .stepIn(Category.Name.CONTROL)
+                    .stepIn(Category.Name.TERMINATION)
                         .node(FlowNode.Kind.RETURN)
                         .stepOut()
-                    .stepOut()
-                .stepIn(Category.Name.DATA)
-                    .node(FlowNode.Kind.NEW_DATA)
-                    .node(FlowNode.Kind.UPDATE_DATA)
-                    .node(FlowNode.Kind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(FlowNode.Kind.ERROR_HANDLER)
@@ -173,12 +167,10 @@ public class AvailableNodesGenerator {
         Node parent = node;
         while (parent != null) {
             if (isStopNodeAvailable(parent)) {
-                this.rootBuilder
-                        .stepIn(Category.Name.FLOW)
-                            .stepIn(Category.Name.CONTROL)
-                                .node(FlowNode.Kind.STOP)
-                            .stepOut()
-                        .stepOut();
+                this.rootBuilder.stepIn(Category.Name.CONTROL)
+                        .stepIn(Category.Name.TERMINATION)
+                            .node(FlowNode.Kind.STOP)
+                            .stepOut();
             }
             parent = parent.parent();
         }

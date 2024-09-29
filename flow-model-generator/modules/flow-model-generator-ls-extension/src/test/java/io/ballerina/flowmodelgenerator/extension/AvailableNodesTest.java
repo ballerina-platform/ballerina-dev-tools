@@ -55,14 +55,6 @@ public class AvailableNodesTest extends AbstractLSTest {
         }
     }
 
-//    @DataProvider(name = "data-provider")
-//    @Override
-//    protected Object[] getConfigsList() {
-//        return new Object[]{
-//                Path.of("connector1.json")
-//        };
-//    }
-
     @Override
     protected String getResourceDir() {
         return "available_nodes";
