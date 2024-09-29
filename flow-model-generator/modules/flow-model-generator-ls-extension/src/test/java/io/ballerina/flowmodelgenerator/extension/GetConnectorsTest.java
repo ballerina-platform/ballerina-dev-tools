@@ -48,7 +48,8 @@ public class GetConnectorsTest extends AbstractLSTest {
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.keyword(), categories);
-            updateConfig(config, updateConfig);
+//            updateConfig(config, updateConfig);
+            compareJsonElements(categories, testConfig.categories());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
