@@ -1,16 +1,16 @@
 {
   "description": "Sample diagram node",
   "codedata": {
-    "node": "UPDATE_DATA"
+    "node": "ASSIGN"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Update Variable",
-      "description": "Update the value of the variable 'name'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA"
+      "node": "ASSIGN"
     },
     "returning": false,
     "properties": {
@@ -24,10 +24,20 @@
         "optional": false,
         "editable": true
       },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "var",
+        "optional": false,
+        "editable": true
+      },
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Update variable"
+          "description": "Expression"
         },
         "valueType": "EXPRESSION",
         "value": "",
