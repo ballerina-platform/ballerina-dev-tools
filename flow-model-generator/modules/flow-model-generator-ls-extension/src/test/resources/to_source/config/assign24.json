@@ -2,24 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "39822",
+    "id": "53767",
     "metadata": {
-      "label": "New Variable",
-      "description": "New variable 'l' with type 'var'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "NEW_DATA",
+      "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 8,
+          "line": 22,
           "offset": 4
         },
         "endLine": {
-          "line": 8,
-          "offset": 18
+          "line": 22,
+          "offset": 75
         }
-      }
+      },
+      "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
     },
     "returning": false,
     "properties": {
@@ -28,8 +29,8 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "int",
-        "value": "i + j",
+        "valueType": "EXPRESSION",
+        "value": "[check calculate(amount), check calculate(amount + 1)]",
         "optional": false,
         "editable": true
       },
@@ -38,7 +39,8 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "l",
+        "valueType": "IDENTIFIER",
+        "value": "newData1",
         "optional": false,
         "editable": true
       },
@@ -47,7 +49,8 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "int",
+        "valueType": "TYPE",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -59,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 8,
+            "line": 22,
             "character": 4
           },
           "end": {
-            "line": 8,
-            "character": 18
+            "line": 22,
+            "character": 75
           }
         },
-        "newText": "int l = i + j;"
+        "newText": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
       }
     ]
   }

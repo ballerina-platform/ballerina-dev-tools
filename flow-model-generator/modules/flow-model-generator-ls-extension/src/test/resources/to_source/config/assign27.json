@@ -2,24 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "53726",
+    "id": "56692",
     "metadata": {
-      "label": "New Variable",
-      "description": "New variable 'content' with type 'string'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "NEW_DATA",
+      "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 22,
+          "line": 25,
           "offset": 4
         },
         "endLine": {
-          "line": 22,
-          "offset": 34
+          "line": 25,
+          "offset": 24
         }
-      }
+      },
+      "sourceCode": "newData2 = [11, 22];"
     },
     "returning": false,
     "properties": {
@@ -28,26 +29,18 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "string",
-        "value": "\"create xml\"",
+        "valueType": "EXPRESSION",
+        "value": "[11, 22]",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Result Variable"
         },
-        "value": "content",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "value": "string",
+        "valueType": "IDENTIFIER",
+        "value": "newData2",
         "optional": false,
         "editable": true
       }
@@ -59,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 22,
+            "line": 25,
             "character": 4
           },
           "end": {
-            "line": 22,
-            "character": 34
+            "line": 25,
+            "character": 24
           }
         },
-        "newText": "string content = \"create xml\";"
+        "newText": "newData2 = [11, 22];"
       }
     ]
   }

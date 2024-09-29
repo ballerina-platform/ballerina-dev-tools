@@ -4,10 +4,11 @@
   "diagram": {
     "id": "54754",
     "metadata": {
-      "label": "Update Variable"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "update_data.bal",
         "startLine": {
@@ -18,7 +19,8 @@
           "line": 23,
           "offset": 70
         }
-      }
+      },
+      "sourceCode": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
     },
     "returning": false,
     "properties": {
@@ -27,7 +29,7 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "json[]",
+        "valueType": "EXPRESSION",
         "value": "[check calculate(amount), check calculate(amount + 1)]",
         "optional": false,
         "editable": true
@@ -37,7 +39,7 @@
           "label": "Variable",
           "description": "Result Variable"
         },
-        "valueType": "json",
+        "valueType": "IDENTIFIER",
         "value": "newData1",
         "optional": false,
         "editable": true

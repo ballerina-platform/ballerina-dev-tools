@@ -2,24 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "33871",
+    "id": "63687",
     "metadata": {
-      "label": "New Variable",
-      "description": "New variable 'f' with type 'float'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "NEW_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 2,
+          "line": 32,
           "offset": 4
         },
         "endLine": {
-          "line": 2,
-          "offset": 19
+          "line": 32,
+          "offset": 75
         }
-      }
+      },
+      "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
     },
     "returning": false,
     "properties": {
@@ -28,8 +29,8 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "float",
-        "value": "1.2f",
+        "valueType": "EXPRESSION",
+        "value": "[check calculate(amount), check calculate(amount + 1)]",
         "optional": false,
         "editable": true
       },
@@ -38,7 +39,8 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "f",
+        "valueType": "IDENTIFIER",
+        "value": "newData1",
         "optional": false,
         "editable": true
       },
@@ -47,7 +49,8 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "float",
+        "valueType": "TYPE",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -59,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 2,
+            "line": 32,
             "character": 4
           },
           "end": {
-            "line": 2,
-            "character": 19
+            "line": 32,
+            "character": 75
           }
         },
-        "newText": "float f = 1.2f;"
+        "newText": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
       }
     ]
   }

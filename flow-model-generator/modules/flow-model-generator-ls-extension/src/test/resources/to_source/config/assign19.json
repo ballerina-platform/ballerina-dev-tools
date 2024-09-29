@@ -2,34 +2,35 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "49767",
+    "id": "34854",
     "metadata": {
-      "label": "Update Variable",
-      "description": "Update the value of the variable 'x1'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "update_data.bal",
         "startLine": {
-          "line": 18,
+          "line": 3,
           "offset": 4
         },
         "endLine": {
-          "line": 18,
-          "offset": 43
+          "line": 3,
+          "offset": 10
         }
-      }
+      },
+      "sourceCode": "_ = 4;"
     },
     "returning": false,
     "properties": {
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Update variable"
+          "description": "Expression"
         },
-        "valueType": "lang.xml:Element",
-        "value": "xml `<book>The Lost World</book>`",
+        "valueType": "EXPRESSION",
+        "value": "4",
         "optional": false,
         "editable": true
       },
@@ -38,8 +39,8 @@
           "label": "Variable",
           "description": "Result Variable"
         },
-        "valueType": "xml",
-        "value": "x1",
+        "valueType": "IDENTIFIER",
+        "value": "_",
         "optional": false,
         "editable": true
       }
@@ -51,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 18,
+            "line": 3,
             "character": 4
           },
           "end": {
-            "line": 18,
-            "character": 43
+            "line": 3,
+            "character": 10
           }
         },
-        "newText": "x1 = xml `<book>The Lost World</book>`;"
+        "newText": "_ = 4;"
       }
     ]
   }

@@ -2,34 +2,35 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "34854",
+    "id": "44802",
     "metadata": {
-      "label": "Update Variable",
-      "description": "Update the value of the variable '_'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "update_data.bal",
         "startLine": {
-          "line": 3,
+          "line": 13,
           "offset": 4
         },
         "endLine": {
-          "line": 3,
-          "offset": 10
+          "line": 13,
+          "offset": 38
         }
-      }
+      },
+      "sourceCode": "j1 = {\"name\": \"Marry\", \"age\": 33};"
     },
     "returning": false,
     "properties": {
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Update variable"
+          "description": "Expression"
         },
-        "valueType": "int",
-        "value": "4",
+        "valueType": "EXPRESSION",
+        "value": "{\"name\": \"Marry\", \"age\": 33}",
         "optional": false,
         "editable": true
       },
@@ -38,8 +39,8 @@
           "label": "Variable",
           "description": "Result Variable"
         },
-        "valueType": "any",
-        "value": "_",
+        "valueType": "IDENTIFIER",
+        "value": "j1",
         "optional": false,
         "editable": true
       }
@@ -51,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 3,
+            "line": 13,
             "character": 4
           },
           "end": {
-            "line": 3,
-            "character": 10
+            "line": 13,
+            "character": 38
           }
         },
-        "newText": "_ = 4;"
+        "newText": "j1 = {\"name\": \"Marry\", \"age\": 33};"
       }
     ]
   }

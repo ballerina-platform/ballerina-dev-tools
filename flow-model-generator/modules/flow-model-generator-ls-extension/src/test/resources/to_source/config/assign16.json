@@ -2,24 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "45799",
+    "id": "65677",
     "metadata": {
-      "label": "New Variable",
-      "description": "New variable 'str2' with type 'string'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "NEW_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 14,
+          "line": 34,
           "offset": 4
         },
         "endLine": {
-          "line": 14,
-          "offset": 43
+          "line": 34,
+          "offset": 81
         }
-      }
+      },
+      "sourceCode": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
     },
     "returning": false,
     "properties": {
@@ -28,8 +29,8 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "string",
-        "value": "string `${str1} ${str1}`",
+        "valueType": "EXPRESSION",
+        "value": "[check calculate(amount), check calculate(amount + 1)]",
         "optional": false,
         "editable": true
       },
@@ -38,7 +39,8 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "str2",
+        "valueType": "IDENTIFIER",
+        "value": "newData3",
         "optional": false,
         "editable": true
       },
@@ -47,7 +49,8 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "string",
+        "valueType": "TYPE",
+        "value": "[int, int]",
         "optional": false,
         "editable": true
       }
@@ -59,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 14,
+            "line": 34,
             "character": 4
           },
           "end": {
-            "line": 14,
-            "character": 43
+            "line": 34,
+            "character": 81
           }
         },
-        "newText": "string str2 = string `${str1} ${str1}`;"
+        "newText": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
       }
     ]
   }

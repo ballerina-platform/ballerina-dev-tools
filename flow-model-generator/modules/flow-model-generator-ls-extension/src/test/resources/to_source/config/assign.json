@@ -4,11 +4,11 @@
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Update Variable",
-      "description": "Update the value of the variable 'name'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "UPDATE_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
@@ -25,18 +25,28 @@
     "properties": {
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Result Variable"
+          "label": "Data variable",
+          "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
         "value": "item",
-        "optional": true,
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "var",
+        "optional": false,
         "editable": true
       },
       "expression": {
         "metadata": {
           "label": "Expression",
-          "description": "Update variable"
+          "description": "Expression"
         },
         "valueType": "EXPRESSION",
         "value": "",
@@ -59,7 +69,7 @@
             "character": 0
           }
         },
-        "newText": "item = ;"
+        "newText": "var item = ;"
       }
     ]
   }

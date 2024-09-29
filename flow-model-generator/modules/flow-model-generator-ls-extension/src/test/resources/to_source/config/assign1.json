@@ -2,24 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "54721",
+    "id": "32874",
     "metadata": {
-      "label": "New Variable",
-      "description": "New variable 'x1' with type 'xml'"
+      "label": "Assign",
+      "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "NEW_DATA",
+      "node": "ASSIGN",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 23,
+          "line": 1,
           "offset": 4
         },
         "endLine": {
-          "line": 23,
-          "offset": 37
+          "line": 1,
+          "offset": 14
         }
-      }
+      },
+      "sourceCode": "int i = 2;"
     },
     "returning": false,
     "properties": {
@@ -28,8 +29,8 @@
           "label": "Expression",
           "description": "Expression"
         },
-        "valueType": "lang.xml:Element",
-        "value": "xml `<p>${content}</p>`",
+        "valueType": "EXPRESSION",
+        "value": "2",
         "optional": false,
         "editable": true
       },
@@ -38,7 +39,8 @@
           "label": "Data variable",
           "description": "Name of the variable"
         },
-        "value": "x1",
+        "valueType": "IDENTIFIER",
+        "value": "i",
         "optional": false,
         "editable": true
       },
@@ -47,7 +49,8 @@
           "label": "Data type",
           "description": "Type of the variable"
         },
-        "value": "xml",
+        "valueType": "TYPE",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -59,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 23,
+            "line": 1,
             "character": 4
           },
           "end": {
-            "line": 23,
-            "character": 37
+            "line": 1,
+            "character": 14
           }
         },
-        "newText": "xml x1 = xml `<p>${content}</p>`;"
+        "newText": "int i = 2;"
       }
     ]
   }
