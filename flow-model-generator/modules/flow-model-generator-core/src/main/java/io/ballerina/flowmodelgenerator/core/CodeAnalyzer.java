@@ -29,6 +29,7 @@ import io.ballerina.compiler.api.symbols.TypeDescKind;
 import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
@@ -96,6 +97,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
@@ -417,7 +419,9 @@ class CodeAnalyzer extends NodeVisitor {
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
         } else if (nodeBuilder instanceof XMLPayload) {
-            nodeBuilder.properties().xmlPayload(variableDeclarationNode.typedBindingPattern());
+            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "xml");
+        } else if (nodeBuilder instanceof JSONPayload) {
+            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "json");
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
@@ -455,7 +459,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
-        if (nodeBuilder instanceof XMLPayload) {
+        if (nodeBuilder instanceof XMLPayload || nodeBuilder instanceof JSONPayload) {
             nodeBuilder.properties().variable(assignmentStatementNode.varRef());
         }
         endNode(assignmentStatementNode);
@@ -750,6 +754,12 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
+        if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
+            startJsonPayloadNode(constructorExprNode);
+            return;
+        }
+
         startNode(NodeKind.ASSIGN)
                 .metadata()
                     .description(Assign.DESCRIPTION)
@@ -760,6 +770,19 @@ class CodeAnalyzer extends NodeVisitor {
         if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
             nodeBuilder.properties().variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
         }
+    }
+
+    private void startJsonPayloadNode(ExpressionNode constructorExprNode) {
+        startNode(FlowNode.Kind.JSON_PAYLOAD)
+                .metadata()
+                .description(JSONPayload.DESCRIPTION)
+                .stepOut()
+                .properties().expression(constructorExprNode);
+    }
+
+    private static boolean isVarTypeJson(Symbol parentSymbol) {
+        return CommonUtils.getRawType(
+                ((VariableSymbol) parentSymbol).typeDescriptor()).typeKind() == TypeDescKind.JSON;
     }
 
     // Utility methods

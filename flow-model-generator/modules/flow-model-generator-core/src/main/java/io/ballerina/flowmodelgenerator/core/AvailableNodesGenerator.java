@@ -38,6 +38,7 @@ import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -138,7 +139,6 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.STATEMENT)
                     .node(NodeKind.ASSIGN)
                     .node(function)
-                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.CONTROL)
                     .stepIn(Category.Name.BRANCH)
@@ -152,6 +152,11 @@ public class AvailableNodesGenerator {
                     .stepIn(Category.Name.TERMINATION)
                         .node(NodeKind.RETURN)
                         .stepOut()
+                    .stepOut()
+                .stepIn(Category.Name.DATA)
+                    .node(NodeKind.JSON_PAYLOAD)
+                    .node(NodeKind.XML_PAYLOAD)
+                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(NodeKind.ERROR_HANDLER)

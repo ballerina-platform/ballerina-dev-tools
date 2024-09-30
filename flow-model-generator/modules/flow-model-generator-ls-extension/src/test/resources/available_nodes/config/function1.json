@@ -144,6 +144,42 @@
     },
     {
       "metadata": {
+        "label": "Data",
+        "description": "Data nodes are used to create, read, update, delete, and transform data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "New Variable"
+          },
+          "codedata": {
+            "node": "NEW_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Update Variable"
+          },
+          "codedata": {
+            "node": "UPDATE_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Data Mapper",
+            "description": "Map data from multiple variables to a record type"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
         "label": "Error Handling",
         "description": "Handle errors that occur during execution"
       },

@@ -47,6 +47,8 @@ import io.ballerina.flowmodelgenerator.core.model.node.Foreach;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
@@ -124,6 +126,7 @@ public abstract class NodeBuilder {
         put(NodeKind.LOCK, Lock::new);
         put(NodeKind.FAIL, Fail::new);
         put(NodeKind.XML_PAYLOAD, XMLPayload::new);
+        put(NodeKind.JSON_PAYLOAD, JSONPayload::new);
         put(NodeKind.STOP, Stop::new);
         put(NodeKind.FUNCTION_CALL, FunctionCall::new);
         put(NodeKind.FOREACH, Foreach::new);
@@ -325,19 +328,19 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> xmlPayload(Node node) {
+        public PropertiesBuilder<T> payload(Node node, String type) {
             data(node);
 
             propertyBuilder
-                .metadata()
-                    .label(Property.DATA_TYPE_LABEL)
-                    .description(Property.DATA_TYPE_DOC)
-                    .stepOut()
-                .type(Property.ValueType.TYPE)
-                .editable();
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.TYPE)
+                    .editable();
 
             if (node == null) {
-                propertyBuilder.value("xml");
+                propertyBuilder.value(type);
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
@@ -630,9 +633,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(Property.EXPRESSION_DOC)
-                    .description(expressionDoc)
-                    .stepOut()
+                        .label(Property.EXPRESSION_DOC)
+                        .description(expressionDoc)
+                        .stepOut()
                     .value(expr)
                     .type(Property.ValueType.EXPRESSION)
                     .editable()

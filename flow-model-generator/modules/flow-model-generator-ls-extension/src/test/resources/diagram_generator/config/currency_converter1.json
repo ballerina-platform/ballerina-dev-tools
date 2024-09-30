@@ -465,11 +465,11 @@
                       {
                         "id": "58112",
                         "metadata": {
-                          "label": "Assign",
-                          "description": "Assign a value to a variable"
+                          "label": "JSON Payload",
+                          "description": "JSON Payload"
                         },
                         "codedata": {
-                          "node": "ASSIGN",
+                          "node": "JSON_PAYLOAD",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
@@ -1058,11 +1058,11 @@
                       {
                         "id": "75968",
                         "metadata": {
-                          "label": "Assign",
-                          "description": "Assign a value to a variable"
+                          "label": "JSON Payload",
+                          "description": "JSON Payload"
                         },
                         "codedata": {
-                          "node": "ASSIGN",
+                          "node": "JSON_PAYLOAD",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
