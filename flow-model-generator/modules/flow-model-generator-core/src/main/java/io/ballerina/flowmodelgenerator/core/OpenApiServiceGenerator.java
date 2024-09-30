@@ -129,15 +129,14 @@ public class OpenApiServiceGenerator {
         writeGeneratedSources(genFiles, projectPath);
 
         Path serviceImplPath = projectPath.resolve(SERVICE_IMPL_FILE);
-        GeneratedFiles generatedFileDetails = getFileDetails(genFiles);
+        GeneratedFiles generatedFileDetails = getGeneratedFileDetails(genFiles);
         String serviceImplContent = genServiceDeclaration(generatedFileDetails, serviceImplPath);
 
         Project project = this.workspaceManager.loadProject(serviceImplPath);
         Package currentPackage = project.currentPackage();
         Module oldModule = currentPackage.module(ModuleName.from(currentPackage.packageName()));
         DocumentId serviceImplDocId = DocumentId.create(serviceImplPath.toString(), oldModule.moduleId());
-        DocumentConfig documentConfig = DocumentConfig.from(
-                serviceImplDocId, serviceImplContent, serviceImplPath.getFileName().toString());
+        DocumentConfig documentConfig = DocumentConfig.from(serviceImplDocId, serviceImplContent, SERVICE_IMPL_FILE);
         Module newModule = oldModule.modify().addDocument(documentConfig).apply();
         Document serviceImplDoc = newModule.document(serviceImplDocId);
 
@@ -335,7 +334,7 @@ public class OpenApiServiceGenerator {
         }
     }
 
-    private GeneratedFiles getFileDetails(List<GenSrcFile> files) throws BallerinaOpenApiException {
+    private GeneratedFiles getGeneratedFileDetails(List<GenSrcFile> files) throws BallerinaOpenApiException {
         String serviceObjContent = "";
         String serviceObjFile = "";
         String typesContent = "";
