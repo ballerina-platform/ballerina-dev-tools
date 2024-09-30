@@ -634,13 +634,18 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> retryCount(int retryCount) {
+            return retryCount(retryCount, false);
+        }
+
+        public PropertiesBuilder<T> retryCount(int retryCount, boolean optional) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.RETRY_COUNT_LABEL)
-                        .description(Property.RETRY_COUNT_DOC)
-                        .stepOut()
+                    .label(Property.RETRY_COUNT_LABEL)
+                    .description(Property.RETRY_COUNT_DOC)
+                    .stepOut()
                     .value(String.valueOf(retryCount))
                     .type(Property.ValueType.EXPRESSION)
+                    .optional(optional)
                     .editable()
                     .build();
             addProperty(Property.RETRY_COUNT_KEY, property);

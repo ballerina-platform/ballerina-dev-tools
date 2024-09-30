@@ -50,7 +50,8 @@ public class Retry extends NodeBuilder {
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
+        properties().retryCount(3);
     }
 
     @Override
