@@ -72,9 +72,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 Path projectPath = this.workspaceManager.projectRoot(filePath);
 
                 // Create a temporary directory and load the project
-                ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
+                ProjectCacheManager projectCacheManager =
+                        ProjectCacheManager.InstanceHandler.getInstance(projectPath, filePath);
                 projectCacheManager.createTempDirectory();
-                Path destination = projectCacheManager.getDestination();
+                Path destination = projectCacheManager.getDestination(filePath);
                 this.workspaceManager.loadProject(destination);
 
                 // Get the document
@@ -90,7 +91,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument);
+                projectCacheManager.writeContent(newTextDocument, filePath);
                 document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();

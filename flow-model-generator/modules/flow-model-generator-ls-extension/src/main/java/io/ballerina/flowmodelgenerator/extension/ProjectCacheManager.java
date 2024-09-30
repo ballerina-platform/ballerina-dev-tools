@@ -26,6 +26,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
@@ -36,27 +38,27 @@ import java.util.stream.Stream;
 public class ProjectCacheManager {
 
     private final Path sourceDir;
-    private final Path filePath;
     private Path destinationProjectPath;
-    private Path destinationPath;
 
-    public ProjectCacheManager(Path sourceDir, Path filePath) {
+    public ProjectCacheManager(Path sourceDir) {
         this.sourceDir = sourceDir;
-        this.filePath = filePath;
     }
 
     public void createTempDirectory() throws IOException {
         // Create a temporary directory
-        Path tempDir = Files.createTempDirectory("project-cache");
-        Path tempDesintaitonPath = tempDir.resolve(sourceDir.getFileName());
-        destinationProjectPath = tempDesintaitonPath;
+        if (destinationProjectPath == null) {
+            Path tempDir = Files.createTempDirectory("project-cache");
+            destinationProjectPath = tempDir.resolve(sourceDir.getFileName());
+        } else {
+            Files.createDirectories(destinationProjectPath);
+        }
 
         // Copy contents from sourceDir to destinationDir
         if (Files.isDirectory(sourceDir)) {
             try (Stream<Path> paths = Files.walk(sourceDir)) {
                 paths.forEach(source -> {
                     try {
-                        Files.copy(source, tempDesintaitonPath.resolve(sourceDir.relativize(source)),
+                        Files.copy(source, destinationProjectPath.resolve(sourceDir.relativize(source)),
                                 StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
                         throw new RuntimeException("Failed to copy project directory to cache", e);
@@ -65,7 +67,7 @@ public class ProjectCacheManager {
             }
             return;
         }
-        Files.copy(sourceDir, tempDesintaitonPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(sourceDir, destinationProjectPath, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public void deleteCache() throws IOException {
@@ -84,21 +86,43 @@ public class ProjectCacheManager {
         Files.delete(destinationProjectPath);
     }
 
-    public void writeContent(TextDocument textDocument) throws IOException {
+    public void writeContent(TextDocument textDocument, Path filePath) throws IOException {
         if (destinationProjectPath == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        Files.writeString(getDestination(), new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
+        Files.writeString(getDestination(filePath), new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public Path getDestination() {
+    public Path getDestination(Path filePath) {
         if (destinationProjectPath == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        if (destinationPath == null) {
-            destinationPath = destinationProjectPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+        return destinationProjectPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+    }
+
+    /**
+     * The multiton design pattern to handle `ProjectCacheManager` instances mapped by source directory. Ensures that
+     * there is only one copy per each project.
+     *
+     * @since 1.4.0
+     */
+    public static class InstanceHandler {
+
+        private static final Map<Path, ProjectCacheManager> instances = new ConcurrentHashMap<>();
+
+        private InstanceHandler() {
         }
-        return destinationPath;
+
+        public static ProjectCacheManager getInstance(Path sourceDir, Path filePath) {
+            return instances.computeIfAbsent(sourceDir, key -> new ProjectCacheManager(sourceDir));
+        }
+
+        public static void removeInstance(Path sourceDir) throws IOException {
+            ProjectCacheManager manager = instances.remove(sourceDir);
+            if (manager != null) {
+                manager.deleteCache();
+            }
+        }
     }
 }
