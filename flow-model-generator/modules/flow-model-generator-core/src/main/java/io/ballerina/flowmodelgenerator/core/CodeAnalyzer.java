@@ -754,32 +754,32 @@ class CodeAnalyzer extends NodeVisitor {
         if (kind == SyntaxKind.LOCAL_VAR_DECL || kind == SyntaxKind.MODULE_VAR_DECL) {
             Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
             if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
-                startNode(FlowNode.Kind.JSON_PAYLOAD)
-                        .metadata()
-                        .description(JSONPayload.DESCRIPTION)
-                        .stepOut()
-                        .properties().expression(constructorExprNode);
+                startJsonPayloadNode(constructorExprNode);
                 return;
             }
             startNode(FlowNode.Kind.NEW_DATA)
                     .metadata()
-                        .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
-                        .stepOut()
+                    .description(NewData.DESCRIPTION, this.typedBindingPatternNode, typeDescription)
+                    .stepOut()
                     .properties().expression(constructorExprNode);
         } else if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
             Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
             if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
-                startNode(FlowNode.Kind.JSON_PAYLOAD)
-                        .metadata()
-                        .description(JSONPayload.DESCRIPTION)
-                        .stepOut()
-                        .properties().expression(constructorExprNode);
+                startJsonPayloadNode(constructorExprNode);
                 return;
             }
             startNode(FlowNode.Kind.UPDATE_DATA).properties()
                     .expression(constructorExprNode)
                     .variable(((AssignmentStatementNode) parent).varRef());
         }
+    }
+
+    private void startJsonPayloadNode(ExpressionNode constructorExprNode) {
+        startNode(FlowNode.Kind.JSON_PAYLOAD)
+                .metadata()
+                .description(JSONPayload.DESCRIPTION)
+                .stepOut()
+                .properties().expression(constructorExprNode);
     }
 
     private static boolean isVarTypeJson(Symbol parentSymbol) {
