@@ -51,11 +51,11 @@
       {
         "id": "53767",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'newData1' with type 'list'"
+          "label": "JSON Payload",
+          "description": "JSON Payload"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "JSON_PAYLOAD",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {

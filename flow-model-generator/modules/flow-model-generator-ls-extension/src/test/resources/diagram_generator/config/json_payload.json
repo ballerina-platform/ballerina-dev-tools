@@ -1,55 +1,19 @@
 {
   "start": {
-    "line": 11,
+    "line": 1,
     "offset": 0
   },
   "end": {
-    "line": 14,
+    "line": 3,
     "offset": 1
   },
-  "source": "update_data.bal",
-  "description": "Tests a simple diagram flow",
+  "source": "json_payload.bal",
+  "description": "Test model generation for json payloads",
   "diagram": {
-    "fileName": "update_data.bal",
+    "fileName": "json_payload.bal",
     "nodes": [
       {
-        "id": "42750",
-        "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
-        },
-        "codedata": {
-          "node": "EXPRESSION",
-          "lineRange": {
-            "fileName": "update_data.bal",
-            "startLine": {
-              "line": 11,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 14,
-              "offset": 1
-            }
-          },
-          "sourceCode": "function testNewDataJson() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n    j1 = {\"name\": \"Marry\", \"age\": 33};\n}"
-        },
-        "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testNewDataJson() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n    j1 = {\"name\": \"Marry\", \"age\": 33};\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "43814",
+        "id": "32892",
         "metadata": {
           "label": "JSON Payload",
           "description": "JSON Payload"
@@ -57,17 +21,17 @@
         "codedata": {
           "node": "JSON_PAYLOAD",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "json_payload.bal",
             "startLine": {
-              "line": 12,
+              "line": 1,
               "offset": 4
             },
             "endLine": {
-              "line": 12,
-              "offset": 42
+              "line": 1,
+              "offset": 32
             }
           },
-          "sourceCode": "json j1 = {\"name\": \"John\", \"age\": 34};"
+          "sourceCode": "json j1 = {\"name\": \"value\"};"
         },
         "returning": false,
         "properties": {
@@ -77,7 +41,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "{\"name\": \"John\", \"age\": 34}",
+            "value": "{\"name\": \"value\"}",
             "optional": false,
             "editable": true
           },
@@ -105,24 +69,24 @@
         "flags": 0
       },
       {
-        "id": "44802",
+        "id": "33899",
         "metadata": {
           "label": "Update Variable"
         },
         "codedata": {
           "node": "UPDATE_DATA",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "json_payload.bal",
             "startLine": {
-              "line": 13,
+              "line": 2,
               "offset": 4
             },
             "endLine": {
-              "line": 13,
-              "offset": 38
+              "line": 2,
+              "offset": 47
             }
           },
-          "sourceCode": "j1 = {\"name\": \"Marry\", \"age\": 33};"
+          "sourceCode": "j1 = {\"name\": \"value1\", \"name2\": \"value2\"};"
         },
         "returning": false,
         "properties": {
@@ -132,7 +96,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "{\"name\": \"Marry\", \"age\": 33}",
+            "value": "{\"name\": \"value1\", \"name2\": \"value2\"}",
             "optional": false,
             "editable": true
           },
