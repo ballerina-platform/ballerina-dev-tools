@@ -706,11 +706,11 @@ class CodeAnalyzer extends NodeVisitor {
 
         StatementNode statementNode = retryStatementNode.retryBody();
         if (statementNode.kind() == SyntaxKind.BLOCK_STATEMENT) {
-            startNode(FlowNode.Kind.RETRY)
+            startNode(NodeKind.RETRY)
                     .properties().retryCount(retryCount);
 
             Branch.Builder branchBuilder =
-                    startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+                    startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
             analyzeBlock((BlockStatementNode) statementNode, branchBuilder);
             endBranch(branchBuilder, statementNode);
             retryStatementNode.onFailClause().ifPresent(this::processOnFailClause);
@@ -718,10 +718,10 @@ class CodeAnalyzer extends NodeVisitor {
         } else { // retry transaction node
             TransactionStatementNode transactionStatementNode = (TransactionStatementNode) statementNode;
             BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
-            startNode(FlowNode.Kind.TRANSACTION)
+            startNode(NodeKind.TRANSACTION)
                 .properties().retryCount(retryCount);
             Branch.Builder branchBuilder =
-                    startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+                    startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
             analyzeBlock(blockStatementNode, branchBuilder);
             endBranch(branchBuilder, blockStatementNode);
             transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);

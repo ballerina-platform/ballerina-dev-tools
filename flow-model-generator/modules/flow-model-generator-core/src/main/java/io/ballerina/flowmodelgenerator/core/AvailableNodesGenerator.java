@@ -156,6 +156,7 @@ public class AvailableNodesGenerator {
                         .stepOut()
                     .stepIn(Category.Name.TERMINATION)
                         .node(NodeKind.RETURN)
+                        .stepOut()
                     .stepIn(Category.Name.FLOWS)
                         .node(function)
                         .node(NodeKind.RETRY)
