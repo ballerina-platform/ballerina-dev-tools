@@ -245,18 +245,19 @@ public class OpenApiServiceGenerator {
         Path serviceObjPath = projectPath.resolve(SERVICE_OBJ_FILE);
         Project project = this.workspaceManager.loadProject(serviceObjPath);
         Package currentPackage = project.currentPackage();
-        Module oldModule = currentPackage.module(ModuleName.from(currentPackage.packageName()));
-        DocumentId serviceObjDocId = DocumentId.create(serviceObjPath.toString(), oldModule.moduleId());
+        Module module = currentPackage.module(ModuleName.from(currentPackage.packageName()));
+        ModuleId moduleId = module.moduleId();
+        DocumentId serviceObjDocId = DocumentId.create(serviceObjPath.toString(), moduleId);
         DocumentConfig documentConfig = DocumentConfig.from(
                 serviceObjDocId, generatedFileDetails.serviceObjContent(), generatedFileDetails.serviceObjContent());
-        Module newModule = oldModule.modify().addDocument(documentConfig).apply();
+        module = module.modify().addDocument(documentConfig).apply();
 
-        DocumentId typesDocId = DocumentId.create(generatedFileDetails.typesFile(), newModule.moduleId());
+        DocumentId typesDocId = DocumentId.create(generatedFileDetails.typesFile(), moduleId);
         DocumentConfig typeDocConfig = DocumentConfig.from(typesDocId, generatedFileDetails.typesContent(),
                 generatedFileDetails.typesFile());
-        newModule.modify().addDocument(typeDocConfig).apply();
+        module.modify().addDocument(typeDocConfig).apply();
 
-        SemanticModel semanticModel = project.currentPackage().getCompilation().getSemanticModel(newModule.moduleId());
+        SemanticModel semanticModel = project.currentPackage().getCompilation().getSemanticModel(moduleId);
         TypeDefinitionSymbol symbol = getServiceTypeSymbol(semanticModel.moduleSymbols(), "OASServiceType");
         if (symbol == null) {
             throw new BallerinaOpenApiException("Cannot find service type definition");
