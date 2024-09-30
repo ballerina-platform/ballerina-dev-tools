@@ -44,10 +44,12 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Generates functions based on a given keyword.
@@ -120,6 +122,7 @@ public class FunctionGenerator {
 
     private void buildUtilityNodes(Map<String, String> queryMap) {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
+        Set<String> functionSet = new HashSet<>();
 
         if (CommonUtils.hasNoKeyword(queryMap)) {
             utilityBuilder.items(LocalIndexCentral.getInstance().getFunctions());
@@ -152,6 +155,7 @@ public class FunctionGenerator {
                     .stepOut();
 
             for (Function function : functions) {
+                functionSet.add(function.name());
                 Metadata metadata = new Metadata.Builder<>(null)
                         .label(function.name())
                         .description(function.description())
@@ -171,6 +175,9 @@ public class FunctionGenerator {
         SymbolResponse symbolResponse = RemoteCentral.getInstance().searchSymbols(queryMap);
         for (SymbolResponse.Symbol symbol : symbolResponse.symbols()) {
             if (!symbol.symbolType().equals("function") || (isNonBallerinaOrg(symbol.organization()))) {
+                continue;
+            }
+            if (functionSet.contains(symbol.symbolName())) {
                 continue;
             }
             Metadata metadata = new Metadata.Builder<>(null)
