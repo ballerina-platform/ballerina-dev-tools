@@ -63,36 +63,4 @@ public record FlowNode(
     public static final int NODE_FLAG_REMOTE = 1 << 10;
     public static final int NODE_FLAG_RESOURCE = 1 << 11;
 
-    public enum Kind {
-        EVENT_HTTP_API,
-        IF,
-        ACTION_CALL,
-        FUNCTION_CALL,
-        NEW_CONNECTION,
-        RETURN,
-        EXPRESSION,
-        ERROR_HANDLER,
-        WHILE,
-        CONTINUE,
-        BREAK,
-        PANIC,
-        START,
-        TRANSACTION,
-        LOCK,
-        FAIL,
-        CONDITIONAL,
-        ELSE,
-        ON_FAILURE,
-        BODY,
-        NEW_DATA,
-        UPDATE_DATA,
-        XML_PAYLOAD,
-        JSON_PAYLOAD,
-        STOP,
-        FOREACH,
-        DATA_MAPPER,
-        COMMENT,
-        SWITCH,
-        FUNCTION
-    }
 }

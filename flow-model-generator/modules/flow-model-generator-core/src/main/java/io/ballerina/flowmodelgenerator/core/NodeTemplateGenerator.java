@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.tools.text.LinePosition;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 
@@ -39,7 +40,7 @@ public class NodeTemplateGenerator {
                 .build();
 
         // TODO: Need to keep an array on which nodes are note not cacheable
-        if (codedata.node() != FlowNode.Kind.DATA_MAPPER) {
+        if (codedata.node() != NodeKind.DATA_MAPPER) {
             nodeCache.put(codedata, flowNode);
         }
         return gson.toJsonTree(flowNode);

@@ -20,8 +20,8 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -45,7 +45,7 @@ public class ErrorHandler extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.ERROR_HANDLER);
+        codedata().node(NodeKind.ERROR_HANDLER);
     }
 
     @Override

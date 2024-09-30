@@ -1,46 +1,34 @@
 {
   "source": "empty.bal",
-  "description": "Test to source functionality of json payload node",
+  "description": "Sample diagram node",
   "diagram": {
     "id": "31",
     "metadata": {
-      "label": "Custom Expression",
-      "description": "Represents a custom Ballerina expression"
+      "label": "JSON Payload"
     },
     "codedata": {
-      "node": "EXPRESSION",
+      "node": "JSON_PAYLOAD",
       "lineRange": {
-        "fileName": "json_payload.bal",
+        "fileName": "test.bal",
         "startLine": {
-          "line": 1,
-          "offset": 4
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 1,
-          "offset": 32
+          "line": 0,
+          "offset": 0
         }
-      },
-      "sourceCode": "json j1 = {\"name\": \"value\"};"
+      }
     },
     "returning": false,
     "properties": {
-      "expression": {
-        "metadata": {
-          "label": "Expression",
-          "description": "Expression"
-        },
-        "valueType": "EXPRESSION",
-        "value": "{\"name\": \"value\"}",
-        "optional": false,
-        "editable": true
-      },
       "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "j1",
+        "value": "item",
         "optional": false,
         "editable": true
       },
@@ -53,6 +41,16 @@
         "value": "json",
         "optional": false,
         "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new JSON payload"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\"value\": \"Dummy JSON value\"}",
+        "optional": false,
+        "editable": true
       }
     },
     "flags": 0
@@ -62,15 +60,15 @@
       {
         "range": {
           "start": {
-            "line": 1,
-            "character": 4
+            "line": 0,
+            "character": 0
           },
           "end": {
-            "line": 1,
-            "character": 32
+            "line": 0,
+            "character": 0
           }
         },
-        "newText": "json j1 = {\"name\": \"value\"};"
+        "newText": "json item = {\"value\": \"Dummy JSON value\"};"
       }
     ]
   }

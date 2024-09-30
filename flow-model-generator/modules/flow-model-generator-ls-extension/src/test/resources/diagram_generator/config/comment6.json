@@ -51,11 +51,11 @@
       {
         "id": "78506",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'x' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
@@ -222,11 +222,11 @@
               {
                 "id": "83594",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'x'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
@@ -245,7 +245,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "x + 1",

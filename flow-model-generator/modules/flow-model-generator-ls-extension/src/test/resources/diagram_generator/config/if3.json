@@ -115,11 +115,11 @@
               {
                 "id": "69847",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'food.comment'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -138,7 +138,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
@@ -286,11 +286,11 @@
                       {
                         "id": "73945",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'food.comment'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
@@ -309,7 +309,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"fresh; \"",
@@ -354,11 +354,11 @@
                       {
                         "id": "75931",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'food.comment'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
@@ -377,7 +377,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"expired; \"",
@@ -499,11 +499,11 @@
               {
                 "id": "80763",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'food.comment'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -522,7 +522,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"expensive\"",

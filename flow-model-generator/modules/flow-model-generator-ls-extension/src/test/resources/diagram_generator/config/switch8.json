@@ -115,11 +115,11 @@
               {
                 "id": "176982",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'q' with type 'var'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {

@@ -49,7 +49,7 @@
             "metadata": {
               "label": "get",
               "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+              "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
             },
             "codedata": {
               "node": "ACTION_CALL",
@@ -111,15 +111,6 @@
                 "optional": true,
                 "editable": true
               },
-              "targetType": {
-                "metadata": {
-                  "label": "targetType",
-                  "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-                },
-                "valueType": "EXPRESSION",
-                "optional": true,
-                "editable": true
-              },
               "type": {
                 "metadata": {
                   "label": "Data type",
@@ -136,11 +127,11 @@
           {
             "id": "60964",
             "metadata": {
-              "label": "Update Variable",
-              "description": "Update the value of the variable 'msg'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "UPDATE_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -159,7 +150,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Update variable"
+                  "description": "Expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"Response received from food service: \" + response.toString()",
@@ -208,7 +199,7 @@
                   "description": "Ballerina statement"
                 },
                 "valueType": "EXPRESSION",
-                "value": "            i += 1;\n",
+                "value": "i += 1;",
                 "optional": false,
                 "editable": true
               }
@@ -240,11 +231,11 @@
           {
             "id": "63923",
             "metadata": {
-              "label": "Update Variable",
-              "description": "Update the value of the variable 'msg'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "UPDATE_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "while.bal",
                 "startLine": {
@@ -263,7 +254,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Update variable"
+                  "description": "Expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"Error occurred while invoking food service\"",

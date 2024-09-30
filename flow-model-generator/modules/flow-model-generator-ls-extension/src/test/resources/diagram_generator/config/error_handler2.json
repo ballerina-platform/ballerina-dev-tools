@@ -183,11 +183,11 @@
               {
                 "id": "50998",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'msg'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -206,7 +206,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "res3.toString()",
@@ -251,11 +251,11 @@
               {
                 "id": "52995",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'msg'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -274,7 +274,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
@@ -439,11 +439,11 @@
                       {
                         "id": "56102",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'msg'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -462,7 +462,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "msg.toString() + res.toString()",
@@ -507,11 +507,11 @@
                       {
                         "id": "58095",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'msg'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -530,7 +530,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"Error occurred while logging the error\"",

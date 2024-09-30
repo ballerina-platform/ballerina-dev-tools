@@ -143,11 +143,11 @@
       {
         "id": "54730",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'name' with type 'future<string>'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
