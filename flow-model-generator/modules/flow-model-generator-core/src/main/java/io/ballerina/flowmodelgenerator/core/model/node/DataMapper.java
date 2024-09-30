@@ -29,8 +29,8 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
@@ -78,7 +78,7 @@ public class DataMapper extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.DATA_MAPPER);
+        codedata().node(NodeKind.DATA_MAPPER);
     }
 
     @Override

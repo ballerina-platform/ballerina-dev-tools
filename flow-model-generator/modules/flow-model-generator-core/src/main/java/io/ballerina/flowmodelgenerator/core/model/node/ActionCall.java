@@ -22,6 +22,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
@@ -43,7 +44,7 @@ public class ActionCall extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(FlowNode.Kind.ACTION_CALL);
+        codedata().node(NodeKind.ACTION_CALL);
     }
 
     @Override

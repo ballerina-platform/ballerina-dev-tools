@@ -47,11 +47,11 @@
           {
             "id": "39946",
             "metadata": {
-              "label": "New Variable",
-              "description": "New variable 'i' with type 'int'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "NEW_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -146,11 +146,11 @@
                   {
                     "id": "42054",
                     "metadata": {
-                      "label": "Update Variable",
-                      "description": "Update the value of the variable 'i'"
+                      "label": "Assign",
+                      "description": "Assign a value to a variable"
                     },
                     "codedata": {
-                      "node": "UPDATE_DATA",
+                      "node": "ASSIGN",
                       "lineRange": {
                         "fileName": "lock.bal",
                         "startLine": {
@@ -169,7 +169,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Update variable"
+                          "description": "Expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "3",

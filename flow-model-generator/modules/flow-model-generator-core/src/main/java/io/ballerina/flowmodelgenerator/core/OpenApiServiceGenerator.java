@@ -253,7 +253,7 @@ public class OpenApiServiceGenerator {
         ModuleId moduleId = module.moduleId();
         DocumentId serviceObjDocId = DocumentId.create(serviceObjPath.toString(), moduleId);
         DocumentConfig documentConfig = DocumentConfig.from(
-                serviceObjDocId, generatedFileDetails.serviceObjContent(), generatedFileDetails.serviceObjContent());
+                serviceObjDocId, generatedFileDetails.serviceObjContent(), generatedFileDetails.serviceObjFile());
         module = module.modify().addDocument(documentConfig).apply();
 
         DocumentId typesDocId = DocumentId.create(generatedFileDetails.typesFile(), moduleId);

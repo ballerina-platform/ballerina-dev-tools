@@ -64,7 +64,7 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         deleteFolder(project.toFile());
         if (!resp.getAsJsonObject("service").equals(testConfig.lineRange())) {
             TestConfig updatedConfig = new TestConfig(testConfig.contractFile(), resp.get("service").getAsJsonObject());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
         TestUtil.shutdownLanguageServer(endpoint);

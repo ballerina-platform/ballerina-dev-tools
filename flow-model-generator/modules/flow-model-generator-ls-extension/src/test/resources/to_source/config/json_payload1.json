@@ -1,0 +1,77 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "32892",
+    "metadata": {
+      "label": "JSON Payload",
+      "description": "JSON Payload"
+    },
+    "codedata": {
+      "node": "JSON_PAYLOAD",
+      "lineRange": {
+        "fileName": "json_payload.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 32
+        }
+      },
+      "sourceCode": "json j1 = {\"name\": \"value\"};"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\"name\": \"value\"}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "j1",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 4
+          },
+          "end": {
+            "line": 1,
+            "character": 32
+          }
+        },
+        "newText": "json j1 = {\"name\": \"value\"};"
+      }
+    ]
+  }
+}

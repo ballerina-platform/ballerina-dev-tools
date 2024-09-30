@@ -51,7 +51,7 @@ public class CopilotContextTest extends AbstractLSTest {
         if (!prefix.equals(testConfig.prefix()) || !suffix.equals(testConfig.suffix())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.position(),
                     testConfig.source(), prefix, suffix);
-            updateConfig(config, updateConfig);
+//            updateConfig(config, updateConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

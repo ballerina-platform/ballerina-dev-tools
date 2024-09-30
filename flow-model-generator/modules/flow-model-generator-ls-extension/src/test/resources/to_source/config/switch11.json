@@ -136,11 +136,11 @@
           {
             "id": "274329",
             "metadata": {
-              "label": "New Variable",
-              "description": "New variable ''type' with type 'string'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "NEW_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {

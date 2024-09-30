@@ -15,13 +15,36 @@
     },
     {
       "metadata": {
-        "label": "Flow",
-        "description": "Flow control nodes",
-        "keywords": [
-          "Core",
-          "Control",
-          "Flow"
-        ]
+        "label": "Statement",
+        "description": "Fundamental executable units in a program"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Assign",
+            "description": "Assign a value to a variable"
+          },
+          "codedata": {
+            "node": "ASSIGN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Function Call",
+            "description": "Both project and utility functions"
+          },
+          "codedata": {
+            "node": "FUNCTION"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Control",
+        "description": "Control nodes"
       },
       "items": [
         {
@@ -82,32 +105,8 @@
         },
         {
           "metadata": {
-            "label": "Flows",
-            "description": "Flows that invoke local or utility functions",
-            "keywords": [
-              "Function",
-              "Call",
-              "Utility",
-              "Local"
-            ]
-          },
-          "items": [
-            {
-              "metadata": {
-                "label": "Function",
-                "description": "Both project and utility functions"
-              },
-              "codedata": {
-                "node": "FUNCTION"
-              },
-              "enabled": true
-            }
-          ]
-        },
-        {
-          "metadata": {
-            "label": "Control",
-            "description": "Control nodes"
+            "label": "Termination",
+            "description": "Termination nodes"
           },
           "items": [
             {
@@ -129,24 +128,6 @@
         "description": "Data nodes are used to create, read, update, delete, and transform data"
       },
       "items": [
-        {
-          "metadata": {
-            "label": "New Variable"
-          },
-          "codedata": {
-            "node": "NEW_DATA"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Update Variable"
-          },
-          "codedata": {
-            "node": "UPDATE_DATA"
-          },
-          "enabled": true
-        },
         {
           "metadata": {
             "label": "JSON Payload"

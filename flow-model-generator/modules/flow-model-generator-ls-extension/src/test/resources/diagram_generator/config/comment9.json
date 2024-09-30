@@ -130,11 +130,11 @@
               {
                 "id": "112375",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
