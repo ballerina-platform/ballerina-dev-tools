@@ -150,11 +150,11 @@
               {
                 "id": "41943",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -254,11 +254,11 @@
               {
                 "id": "45911",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {

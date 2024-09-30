@@ -30,27 +30,27 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a xml payload node.
+ * Represents the properties of a JSON payload node.
  *
  * @since 1.4.0
  */
-public class XMLPayload extends NodeBuilder {
+public class JsonPayload extends NodeBuilder {
 
-    public static final String LABEL = "XML Payload";
+    public static final String LABEL = "JSON Payload";
     public static final String DESCRIPTION = LABEL;
-    public static final String XML_PAYLOAD_DOC = "Create new XML payload";
-    private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";
+    public static final String JSON_PAYLOAD_DOC = "Create new JSON payload";
+    private static final String DUMMY_JSON_PAYLOAD = "{\"value\": \"Dummy JSON value\"}";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(NodeKind.XML_PAYLOAD);
+        codedata().node(NodeKind.JSON_PAYLOAD);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().payload(null, "xml")
-                .expression(DUMMY_XML_PAYLOAD, XML_PAYLOAD_DOC);
+        properties().payload(null, "json")
+                .expression(DUMMY_JSON_PAYLOAD, JSON_PAYLOAD_DOC);
     }
 
     @Override

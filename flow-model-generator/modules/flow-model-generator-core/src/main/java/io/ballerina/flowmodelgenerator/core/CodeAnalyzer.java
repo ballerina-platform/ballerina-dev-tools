@@ -97,11 +97,11 @@ import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
-import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
-import io.ballerina.flowmodelgenerator.core.model.node.XMLPayload;
+import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -390,7 +390,7 @@ class CodeAnalyzer extends NodeVisitor {
         if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
             startNode(NodeKind.XML_PAYLOAD)
                     .metadata()
-                    .description(XMLPayload.DESCRIPTION)
+                    .description(XmlPayload.DESCRIPTION)
                     .stepOut()
                     .properties().expression(templateExpressionNode);
         }
@@ -418,9 +418,9 @@ class CodeAnalyzer extends NodeVisitor {
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
             nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
-        } else if (nodeBuilder instanceof XMLPayload) {
+        } else if (nodeBuilder instanceof XmlPayload) {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "xml");
-        } else if (nodeBuilder instanceof JSONPayload) {
+        } else if (nodeBuilder instanceof JsonPayload) {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "json");
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
@@ -459,7 +459,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
-        if (nodeBuilder instanceof XMLPayload || nodeBuilder instanceof JSONPayload) {
+        if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload) {
             nodeBuilder.properties().variable(assignmentStatementNode.varRef());
         }
         endNode(assignmentStatementNode);
@@ -721,7 +721,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(CheckExpressionNode checkExpressionNode) {
         checkExpressionNode.expression().accept(this);
         if (isNodeUnidentified()) {
-            startNode(NodeKind.EXPRESSION)
+            startNode(NodeKind.ASSIGN)
                     .properties()
                     .expression(checkExpressionNode);
         }
@@ -760,7 +760,7 @@ class CodeAnalyzer extends NodeVisitor {
                 ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
             startNode(NodeKind.JSON_PAYLOAD)
                     .metadata()
-                    .description(JSONPayload.DESCRIPTION)
+                    .description(JsonPayload.DESCRIPTION)
                     .stepOut()
                     .properties().expression(constructorExprNode);
             return;

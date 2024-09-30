@@ -767,11 +767,11 @@
                       {
                         "id": "68005",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "main.bal",
                             "startLine": {
