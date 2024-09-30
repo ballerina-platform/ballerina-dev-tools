@@ -46,6 +46,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Foreach;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
+import io.ballerina.flowmodelgenerator.core.model.node.JSONPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.NewData;
@@ -127,6 +128,7 @@ public abstract class NodeBuilder {
         put(FlowNode.Kind.NEW_DATA, NewData::new);
         put(FlowNode.Kind.UPDATE_DATA, UpdateData::new);
         put(FlowNode.Kind.XML_PAYLOAD, XMLPayload::new);
+        put(FlowNode.Kind.JSON_PAYLOAD, JSONPayload::new);
         put(FlowNode.Kind.STOP, Stop::new);
         put(FlowNode.Kind.FUNCTION_CALL, FunctionCall::new);
         put(FlowNode.Kind.FOREACH, Foreach::new);
@@ -289,6 +291,20 @@ public abstract class NodeBuilder {
             return this;
         }
 
+        public PropertiesBuilder<T> type(String typeName) {
+            propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .value(typeName)
+                    .type(Property.ValueType.TYPE)
+                    .editable();
+
+            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            return this;
+        }
+
         public PropertiesBuilder<T> dataVariable(Node node) {
             data(node);
 
@@ -313,19 +329,19 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> xmlPayload(Node node) {
+        public PropertiesBuilder<T> payload(Node node, String type) {
             data(node);
 
             propertyBuilder
-                .metadata()
-                    .label(Property.DATA_TYPE_LABEL)
-                    .description(Property.DATA_TYPE_DOC)
-                    .stepOut()
-                .type(Property.ValueType.TYPE)
-                .editable();
+                    .metadata()
+                        .label(Property.DATA_TYPE_LABEL)
+                        .description(Property.DATA_TYPE_DOC)
+                        .stepOut()
+                    .type(Property.ValueType.TYPE)
+                    .editable();
 
             if (node == null) {
-                propertyBuilder.value("xml");
+                propertyBuilder.value(type);
             } else {
                 Optional<TypeSymbol> optTypeSymbol = CommonUtils.getTypeSymbol(semanticModel, node);
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
@@ -618,9 +634,9 @@ public abstract class NodeBuilder {
         public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
             Property property = propertyBuilder
                     .metadata()
-                    .label(Property.EXPRESSION_DOC)
-                    .description(expressionDoc)
-                    .stepOut()
+                        .label(Property.EXPRESSION_DOC)
+                        .description(expressionDoc)
+                        .stepOut()
                     .value(expr)
                     .type(Property.ValueType.EXPRESSION)
                     .editable()

@@ -1,38 +1,46 @@
 {
   "source": "empty.bal",
-  "description": "Sample diagram node",
+  "description": "Test to source functionality of json payload node",
   "diagram": {
-    "id": "103328",
+    "id": "31",
     "metadata": {
-      "label": "asum"
+      "label": "Custom Expression",
+      "description": "Represents a custom Ballerina expression"
     },
     "codedata": {
-      "node": "FUNCTION_CALL",
-      "org": "$anon",
-      "module": ".",
-      "symbol": "asum",
+      "node": "EXPRESSION",
       "lineRange": {
-        "fileName": "function_call.bal",
+        "fileName": "json_payload.bal",
         "startLine": {
-          "line": 72,
+          "line": 1,
           "offset": 4
         },
         "endLine": {
-          "line": 72,
-          "offset": 36
+          "line": 1,
+          "offset": 32
         }
       },
-      "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+      "sourceCode": "json j1 = {\"name\": \"value\"};"
     },
     "returning": false,
     "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "{\"name\": \"value\"}",
+        "optional": false,
+        "editable": true
+      },
       "variable": {
         "metadata": {
           "label": "Data variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "total",
+        "value": "j1",
         "optional": false,
         "editable": true
       },
@@ -42,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -54,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 72,
+            "line": 1,
             "character": 4
           },
           "end": {
-            "line": 72,
-            "character": 36
+            "line": 1,
+            "character": 32
           }
         },
-        "newText": "int total = asum();"
+        "newText": "json j1 = {\"name\": \"value\"};"
       }
     ]
   }

@@ -19,6 +19,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
+import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -41,40 +43,45 @@ public class FunctionCall extends NodeBuilder {
 
         if (isLocalFunction(codedata)) {
             WorkspaceManager workspaceManager = context.workspaceManager();
+
             try {
                 workspaceManager.loadProject(context.filePath());
-                SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
-                Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
-                        .findFirst();
-                if (outSymbol.isEmpty()) {
-                    throw new RuntimeException("Function not found: " + codedata.symbol());
-                }
-
-                FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
-                FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-
-                metadata().label(codedata.symbol());
-                codedata()
-                        .node(FlowNode.Kind.FUNCTION_CALL)
-                        .symbol(codedata.symbol());
-
-                Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-                if (params.isPresent()) {
-                    for (ParameterSymbol param : params.get()) {
-                        Optional<String> name = param.getName();
-                        if (name.isEmpty()) {
-                            continue;
-                        }
-                        properties().custom(name.get(), name.get(), "", Property.ValueType.EXPRESSION,
-                                param.typeDescriptor().signature(),
-                                DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""),
-                                param.paramKind() != ParameterKind.REQUIRED);
-                    }
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("Error while loading the project: " + e.getMessage(), e);
+            } catch (WorkspaceDocumentException | EventSyncException e) {
+                throw new RuntimeException("Error loading project: " + e.getMessage());
             }
+            SemanticModel semanticModel = workspaceManager.semanticModel(context.filePath()).orElseThrow();
+            Optional<Symbol> outSymbol = semanticModel.moduleSymbols().stream()
+                    .filter(symbol -> symbol.kind() == SymbolKind.FUNCTION && symbol.nameEquals(codedata.symbol()))
+                    .findFirst();
+            if (outSymbol.isEmpty()) {
+                throw new RuntimeException("Function not found: " + codedata.symbol());
+            }
+
+            FunctionSymbol functionSymbol = (FunctionSymbol) outSymbol.get();
+            FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+
+            metadata().label(codedata.symbol());
+            codedata()
+                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .symbol(codedata.symbol());
+
+            Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
+            if (params.isPresent()) {
+                for (ParameterSymbol param : params.get()) {
+                    Optional<String> name = param.getName();
+                    if (name.isEmpty()) {
+                        continue;
+                    }
+                    properties().custom(name.get(), name.get(), "", Property.ValueType.EXPRESSION,
+                            param.typeDescriptor().signature(),
+                            DefaultValueGenerationUtil.getDefaultValueForType(param.typeDescriptor()).orElse(""),
+                            param.paramKind() != ParameterKind.REQUIRED);
+                }
+            }
+
+            functionTypeSymbol.returnTypeDescriptor().ifPresent(returnType -> {
+                properties().type(CommonUtils.getTypeSignature(semanticModel, returnType, true)).data(null);
+            });
             properties().dataVariable(null);
             return;
         }
@@ -91,6 +98,7 @@ public class FunctionCall extends NodeBuilder {
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
+                .version(codedata.version())
                 .symbol(codedata.symbol());
 
         for (Function.Parameter parameter : function.parameters()) {
@@ -103,7 +111,10 @@ public class FunctionCall extends NodeBuilder {
                     Property.ValueType.EXPRESSION, typeName, defaultString, optional);
         }
 
-        properties().dataVariable(null);
+        List<Function.ReturnParameter> returnParameters = function.returnParameters();
+        if (!returnParameters.isEmpty()) {
+            properties().type(returnParameters.get(0).type().name()).data(null);
+        }
     }
 
     @Override

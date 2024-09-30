@@ -179,6 +179,24 @@
         },
         {
           "metadata": {
+            "label": "JSON Payload"
+          },
+          "codedata": {
+            "node": "JSON_PAYLOAD"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "XML Payload"
+          },
+          "codedata": {
+            "node": "XML_PAYLOAD"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Data Mapper",
             "description": "Map data from multiple variables to a record type"
           },

@@ -163,8 +163,8 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Create a temporary directory for the in-memory cache
                 Project newProject = project.duplicate();
-                DocumentId documentId = project.documentId(filePath);
-                Module newModule = project.currentPackage().module(documentId.moduleId());
+                DocumentId documentId = newProject.documentId(filePath);
+                Module newModule = newProject.currentPackage().module(documentId.moduleId());
                 SemanticModel newSemanticModel =
                         newProject.currentPackage().getCompilation().getSemanticModel(newModule.moduleId());
                 Document newDocument = newModule.document(documentId);
