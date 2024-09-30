@@ -1883,16 +1883,6 @@
             "node": "FUNCTION"
           },
           "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Data Mapper",
-            "description": "Map data from multiple variables to a record type"
-          },
-          "codedata": {
-            "node": "DATA_MAPPER"
-          },
-          "enabled": true
         }
       ]
     },
@@ -1985,19 +1975,19 @@
       "items": [
         {
           "metadata": {
-            "label": "New Variable"
+            "label": "JSON Payload"
           },
           "codedata": {
-            "node": "NEW_DATA"
+            "node": "JSON_PAYLOAD"
           },
           "enabled": true
         },
         {
           "metadata": {
-            "label": "Update Variable"
+            "label": "XML Payload"
           },
           "codedata": {
-            "node": "UPDATE_DATA"
+            "node": "XML_PAYLOAD"
           },
           "enabled": true
         },

@@ -738,16 +738,17 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(MappingConstructorExpressionNode mappingCtrExprNode) {
-        handleConstructorExpressionNode(mappingCtrExprNode, "map");
+        handleConstructorExpressionNode(mappingCtrExprNode);
     }
 
     @Override
     public void visit(ListConstructorExpressionNode listCtrExprNode) {
-        handleConstructorExpressionNode(listCtrExprNode, "list");
+        handleConstructorExpressionNode(listCtrExprNode);
     }
 
-    private void handleConstructorExpressionNode(ExpressionNode constructorExprNode, String typeDescription) {
-        SyntaxKind kind = constructorExprNode.parent().kind();
+    private void handleConstructorExpressionNode(ExpressionNode constructorExprNode) {
+        NonTerminalNode parent = constructorExprNode.parent();
+        SyntaxKind kind = parent.kind();
 
         if (kind != SyntaxKind.ASSIGNMENT_STATEMENT && kind != SyntaxKind.MODULE_VAR_DECL &&
                 kind != SyntaxKind.LOCAL_VAR_DECL) {
@@ -755,8 +756,13 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
-        if (parentSymbol.isPresent() && isVarTypeJson(parentSymbol.get())) {
-            startJsonPayloadNode(constructorExprNode);
+        if (parentSymbol.isPresent() && CommonUtils.getRawType(
+                ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+            startNode(NodeKind.JSON_PAYLOAD)
+                    .metadata()
+                    .description(JSONPayload.DESCRIPTION)
+                    .stepOut()
+                    .properties().expression(constructorExprNode);
             return;
         }
 
@@ -768,25 +774,11 @@ class CodeAnalyzer extends NodeVisitor {
                     .expression(constructorExprNode);
 
         if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
-            nodeBuilder.properties().variable(((AssignmentStatementNode) constructorExprNode.parent()).varRef());
+            nodeBuilder.properties().variable(((AssignmentStatementNode) parent).varRef());
         }
     }
 
-    private void startJsonPayloadNode(ExpressionNode constructorExprNode) {
-        startNode(FlowNode.Kind.JSON_PAYLOAD)
-                .metadata()
-                .description(JSONPayload.DESCRIPTION)
-                .stepOut()
-                .properties().expression(constructorExprNode);
-    }
-
-    private static boolean isVarTypeJson(Symbol parentSymbol) {
-        return CommonUtils.getRawType(
-                ((VariableSymbol) parentSymbol).typeDescriptor()).typeKind() == TypeDescKind.JSON;
-    }
-
     // Utility methods
-
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
      * only adds the node to the diagram if there is no active parent node which is building its branches.

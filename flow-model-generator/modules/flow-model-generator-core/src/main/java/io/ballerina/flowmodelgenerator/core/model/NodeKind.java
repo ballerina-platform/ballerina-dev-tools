@@ -26,6 +26,7 @@ public enum NodeKind {
     FAIL,
     ASSIGN,
     XML_PAYLOAD,
+    JSON_PAYLOAD,
     STOP,
     FOREACH,
     DATA_MAPPER,

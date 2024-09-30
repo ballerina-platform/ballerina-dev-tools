@@ -71,10 +71,11 @@
       {
         "id": "33899",
         "metadata": {
-          "label": "Update Variable"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "UPDATE_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "json_payload.bal",
             "startLine": {
