@@ -144,18 +144,24 @@ public class AvailableNodesGenerator {
         if (!forceAssign) {
             this.rootBuilder.stepIn(Category.Name.STATEMENT)
                     .node(function)
-                    .node(NodeKind.DATA_MAPPER);
-        }
-
-        this.rootBuilder.stepIn(Category.Name.CONTROL)
-                .node(NodeKind.IF)
-                .node(NodeKind.MATCH)
-                .node(NodeKind.WHILE)
-                .node(NodeKind.FOREACH)
-                .node(NodeKind.RETURN);
-
-        if (!forceAssign) {
-            this.rootBuilder.stepIn(Category.Name.DATA)
+                    .stepOut()
+                .stepIn(Category.Name.CONTROL)
+                    .stepIn(Category.Name.BRANCH)
+                        .node(NodeKind.IF)
+                        .node(NodeKind.MATCH)
+                        .stepOut()
+                    .stepIn(Category.Name.ITERATION)
+                        .node(NodeKind.WHILE)
+                        .node(NodeKind.FOREACH)
+                        .stepOut()
+                    .stepIn(Category.Name.TERMINATION)
+                        .node(NodeKind.RETURN)
+                    .stepIn(Category.Name.FLOWS)
+                        .node(function)
+                        .node(NodeKind.RETRY)
+                        .stepOut()
+                    .stepOut()
+                .stepIn(Category.Name.DATA)
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
                     .node(NodeKind.BINARY_DATA);
