@@ -158,6 +158,15 @@
         },
         {
           "metadata": {
+            "label": "Binary Data"
+          },
+          "codedata": {
+            "node": "BINARY_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Data Mapper",
             "description": "Map data from multiple variables to a record type"
           },
