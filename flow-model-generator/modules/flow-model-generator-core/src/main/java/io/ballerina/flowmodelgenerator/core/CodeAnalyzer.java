@@ -80,6 +80,7 @@ import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TemplateExpressionNode;
 import io.ballerina.compiler.syntax.tree.Token;
@@ -699,7 +700,33 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RetryStatementNode retryStatementNode) {
-        handleDefaultStatementNode(retryStatementNode, () -> super.visit(retryStatementNode));
+        int retryCount = retryStatementNode.arguments().isEmpty() ? 3 :
+                Integer.parseInt(retryStatementNode.arguments()
+                        .map(arg -> arg.arguments().get(0)).get().toString());
+
+        StatementNode statementNode = retryStatementNode.retryBody();
+        if (statementNode.kind() == SyntaxKind.BLOCK_STATEMENT) {
+            startNode(FlowNode.Kind.RETRY)
+                    .properties().retryCount(retryCount);
+
+            Branch.Builder branchBuilder =
+                    startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+            analyzeBlock((BlockStatementNode) statementNode, branchBuilder);
+            endBranch(branchBuilder, statementNode);
+            retryStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+            endNode(retryStatementNode);
+        } else { // retry transaction node
+            TransactionStatementNode transactionStatementNode = (TransactionStatementNode) statementNode;
+            BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
+            startNode(FlowNode.Kind.TRANSACTION)
+                .properties().retryCount(retryCount);
+            Branch.Builder branchBuilder =
+                    startBranch(Branch.BODY_LABEL, FlowNode.Kind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+            analyzeBlock(blockStatementNode, branchBuilder);
+            endBranch(branchBuilder, blockStatementNode);
+            transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+            endNode(retryStatementNode);
+        }
     }
 
     @Override

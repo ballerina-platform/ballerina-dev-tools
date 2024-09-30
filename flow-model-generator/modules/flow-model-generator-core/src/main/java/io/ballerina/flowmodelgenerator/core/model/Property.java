@@ -110,6 +110,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String GUARD_KEY = "guard";
     public static final String GUARD_DOC = "Guard expression";
 
+    public static final String RETRY_COUNT_KEY = "retryCount";
+    public static final String RETRY_COUNT_LABEL = "Retry Count";
+    public static final String RETRY_COUNT_DOC = "Number of retries";
+
     public String toSourceCode() {
         return value.toString();
     }

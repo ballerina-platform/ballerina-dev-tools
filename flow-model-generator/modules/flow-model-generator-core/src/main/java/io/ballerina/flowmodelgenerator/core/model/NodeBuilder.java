@@ -53,6 +53,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Match;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
+import io.ballerina.flowmodelgenerator.core.model.node.Retry;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Stop;
@@ -123,6 +124,7 @@ public abstract class NodeBuilder {
         put(NodeKind.NEW_CONNECTION, NewConnection::new);
         put(NodeKind.START, Start::new);
         put(NodeKind.TRANSACTION, Transaction::new);
+        put(NodeKind.RETRY, Retry::new);
         put(NodeKind.LOCK, Lock::new);
         put(NodeKind.FAIL, Fail::new);
         put(NodeKind.XML_PAYLOAD, XmlPayload::new);
@@ -628,6 +630,20 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, condition);
+            return this;
+        }
+
+        public PropertiesBuilder<T> retryCount(int retryCount) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.RETRY_COUNT_LABEL)
+                        .description(Property.RETRY_COUNT_DOC)
+                        .stepOut()
+                    .value(String.valueOf(retryCount))
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.RETRY_COUNT_KEY, property);
             return this;
         }
 
