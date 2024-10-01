@@ -18,9 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import io.ballerina.flowmodelgenerator.extension.Category;
-
-import java.util.List;
+import com.google.gson.JsonArray;
 
 /**
  * Represents the response containing visible variable types for the given cursor position.
@@ -29,17 +27,17 @@ import java.util.List;
  */
 public class VisibleVariableTypesResponse extends AbstractFlowModelResponse {
 
-    private List<Category> categories;
+    private JsonArray categories;
 
     public VisibleVariableTypesResponse() {
 
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(JsonArray categories) {
         this.categories = categories;
     }
 
-    public List<Category> getVisibleTypes() {
+    public JsonArray getVisibleTypes() {
         return categories;
     }
 }

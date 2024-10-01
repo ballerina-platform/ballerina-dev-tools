@@ -18,10 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
@@ -31,7 +30,6 @@ import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextEdit;
 import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.annotation.JavaSPIService;
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionItem;
@@ -45,8 +43,6 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -82,46 +78,10 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                List<Category.Variable> moduleVariables = new ArrayList<>();
-                List<Category.Variable> configurableVariables = new ArrayList<>();
-                List<Category.Variable> localVariables = new ArrayList<>();
-                List<String> variableNames = new ArrayList<>();
-
-                semanticModel.get().moduleSymbols().stream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                        .forEach(symbol -> {
-                            VariableSymbol variableSymbol = (VariableSymbol) symbol;
-                            String name = symbol.getName().orElse("");
-                            Type type = Type.fromSemanticSymbol(symbol);
-
-                            if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
-                                configurableVariables.add(new Category.Variable(name, type));
-
-                            } else {
-                                moduleVariables.add(new Category.Variable(name, type));
-                            }
-                            variableNames.add(name);
-                        });
-
-                semanticModel.get().visibleSymbols(document.get(), request.position()).stream()
-                        .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                        .forEach(symbol -> {
-                            String name = symbol.getName().orElse("");
-                            Type type = Type.fromSemanticSymbol(symbol);
-
-                            if (!variableNames.contains(name)) {
-                                localVariables.add(new Category.Variable(name, type));
-                            }
-                        });
-
-                Collections.sort(moduleVariables);
-                Collections.sort(configurableVariables);
-                Collections.sort(localVariables);
-                response.setCategories(List.of(
-                        new Category(Category.MODULE_CATEGORY, moduleVariables),
-                        new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
-                        new Category(Category.LOCAL_CATEGORY, localVariables)
-                ));
+                VisibleVariableTypesGenerator visibleVariableTypesGenerator = new VisibleVariableTypesGenerator(
+                        semanticModel.get(), document.get(), request.position());
+                JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
+                response.setCategories(visibleVariableTypes);
             } catch (Throwable e) {
                 response.setError(e);
             }
