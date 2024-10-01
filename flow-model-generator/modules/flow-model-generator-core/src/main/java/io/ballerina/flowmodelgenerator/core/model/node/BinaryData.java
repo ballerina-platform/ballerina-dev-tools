@@ -43,7 +43,7 @@ public class BinaryData extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        metadata().label(LABEL);
+        metadata().label(LABEL).description(DESCRIPTION);
         codedata().node(NodeKind.BINARY_DATA);
     }
 

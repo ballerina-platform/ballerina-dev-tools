@@ -391,7 +391,8 @@
         },
         {
           "metadata": {
-            "label": "Binary Data"
+            "label": "Binary Data",
+            "description": "Binary Data"
           },
           "codedata": {
             "node": "BINARY_DATA"

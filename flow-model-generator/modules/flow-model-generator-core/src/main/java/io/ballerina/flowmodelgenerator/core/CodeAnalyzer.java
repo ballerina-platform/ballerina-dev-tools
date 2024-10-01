@@ -402,7 +402,6 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(ByteArrayLiteralNode byteArrayLiteralNode) {
         startNode(NodeKind.BINARY_DATA)
                 .metadata()
-                .description(BinaryData.DESCRIPTION)
                 .stepOut()
                 .properties().expression(byteArrayLiteralNode);
     }
