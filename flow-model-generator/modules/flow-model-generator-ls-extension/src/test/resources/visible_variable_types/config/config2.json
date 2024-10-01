@@ -85,6 +85,25 @@
             "defaultable": false,
             "isRestType": false
           }
+        },
+        {
+          "name": "self",
+          "type": {
+            "fields": [],
+            "typeName": "object",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
+          "name": "w",
+          "type": {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
         }
       ]
     },
@@ -264,16 +283,6 @@
               "moduleName": "new_connection1",
               "version": "0.1.0"
             },
-            "defaultable": false,
-            "isRestType": false
-          }
-        },
-        {
-          "name": "self",
-          "type": {
-            "fields": [],
-            "typeName": "object",
-            "optional": false,
             "defaultable": false,
             "isRestType": false
           }

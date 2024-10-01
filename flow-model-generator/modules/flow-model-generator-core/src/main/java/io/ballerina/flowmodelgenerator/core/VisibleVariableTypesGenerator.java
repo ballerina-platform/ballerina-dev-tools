@@ -28,7 +28,6 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.projects.Document;
-import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
@@ -36,6 +35,8 @@ import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,10 +50,6 @@ public class VisibleVariableTypesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final LinePosition position;
-
-    List<Category.Variable> moduleVariables = new ArrayList<>();
-    List<Category.Variable> configurableVariables = new ArrayList<>();
-    List<Category.Variable> localVariables = new ArrayList<>();
     private final Gson gson;
 
     public VisibleVariableTypesGenerator(SemanticModel semanticModel, Document document, LinePosition position) {
@@ -64,44 +61,53 @@ public class VisibleVariableTypesGenerator {
 
     public JsonArray getVisibleVariableTypes() {
         Optional<LineRange> functionLineRange = findFunctionLineRange();
-        Category moduleCategory = new Category(Category.MODULE_CATEGORY, moduleVariables);
-        Category configurableCategory = new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables);
-        Category localCategory = new Category(Category.LOCAL_CATEGORY, localVariables);
+        List<Category.Variable> moduleVariables = new ArrayList<>();
+        List<Category.Variable> configurableVariables = new ArrayList<>();
+        List<Category.Variable> localVariables = new ArrayList<>();
+        List<Category> categories = Arrays.asList(
+                new Category(Category.MODULE_CATEGORY, moduleVariables),
+                new Category(Category.CONFIGURABLE_CATEGORY, configurableVariables),
+                new Category(Category.LOCAL_CATEGORY, localVariables)
+        );
+
         semanticModel.visibleSymbols(document, position).stream()
                 .filter(symbol -> symbol.kind() == SymbolKind.VARIABLE)
-                .forEach(symbol -> {
-                    VariableSymbol variableSymbol = (VariableSymbol) symbol;
-                    String name = symbol.getName().orElse("");
-                    Type type = Type.fromSemanticSymbol(symbol);
+                .map(symbol -> (VariableSymbol) symbol)
+                .forEach(variableSymbol -> {
+                    String name = variableSymbol.getName().orElse("");
+                    Type type = Type.fromSemanticSymbol(variableSymbol);
 
                     if (variableSymbol.qualifiers().contains(Qualifier.CONFIGURABLE)) {
                         configurableVariables.add(new Category.Variable(name, type));
-                        return;
-                    }
-
-                    Optional<Location> location = symbol.getLocation();
-                    if (location.isPresent() && functionLineRange.isPresent() &&
-                            PositionUtil.isWithinLineRange(location.get().lineRange(), functionLineRange.get())) {
+                    } else if (functionLineRange.isPresent() &&
+                            isInFunctionRange(variableSymbol, functionLineRange.get())) {
                         localVariables.add(new Category.Variable(name, type));
+                    } else {
+                        moduleVariables.add(new Category.Variable(name, type));
                     }
-                    moduleVariables.add(new Category.Variable(name, type));
                 });
 
-        List<Category> categories = new ArrayList<>();
-        categories.add(moduleCategory);
-        categories.add(configurableCategory);
-        categories.add(localCategory);
+        categories.forEach(category -> Collections.sort(category.types()));
         return gson.toJsonTree(categories).getAsJsonArray();
+    }
+
+    private boolean isInFunctionRange(VariableSymbol variableSymbol, LineRange functionLineRange) {
+        return variableSymbol.getLocation().isPresent() &&
+                PositionUtil.isWithinLineRange(variableSymbol.getLocation().get().lineRange(), functionLineRange);
     }
 
     private Optional<LineRange> findFunctionLineRange() {
         ModulePartNode rootNode = document.syntaxTree().rootNode();
         NonTerminalNode parent =
                 rootNode.findNode(TextRange.from(document.textDocument().textPositionFrom(position), 0));
-        while (parent != null && parent.kind() != SyntaxKind.FUNCTION_DEFINITION) {
+        while (parent != null && notDefinitionKind(parent.kind())) {
             parent = parent.parent();
         }
         return parent == null ? Optional.empty() : Optional.of(parent.lineRange());
+    }
+
+    private static boolean notDefinitionKind(SyntaxKind kind) {
+        return kind != SyntaxKind.FUNCTION_DEFINITION && kind != SyntaxKind.RESOURCE_ACCESSOR_DEFINITION;
     }
 
     /**

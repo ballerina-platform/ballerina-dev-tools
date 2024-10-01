@@ -284,6 +284,15 @@
           }
         },
         {
+          "name": "w",
+          "type": {
+            "typeName": "boolean",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        },
+        {
           "name": "x",
           "type": {
             "typeName": "int",
