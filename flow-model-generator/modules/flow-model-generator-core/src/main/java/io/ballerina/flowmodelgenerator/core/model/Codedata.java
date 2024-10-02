@@ -35,7 +35,7 @@ import io.ballerina.tools.text.LineRange;
  * @param id         The unique identifier of the component if exists
  * @since 1.5.0
  */
-public record Codedata(FlowNode.Kind node, String org, String module, String object, String symbol,
+public record Codedata(NodeKind node, String org, String module, String object, String symbol,
                        String version, LineRange lineRange, String sourceCode, String id) {
 
     @Override
@@ -57,7 +57,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
 
     public static class Builder<T> extends FacetedBuilder<T> {
 
-        private FlowNode.Kind node;
+        private NodeKind node;
         private String org;
         private String module;
         private String object;
@@ -71,7 +71,7 @@ public record Codedata(FlowNode.Kind node, String org, String module, String obj
             super(parentBuilder);
         }
 
-        public Builder<T> node(FlowNode.Kind node) {
+        public Builder<T> node(NodeKind node) {
             this.node = node;
             return this;
         }

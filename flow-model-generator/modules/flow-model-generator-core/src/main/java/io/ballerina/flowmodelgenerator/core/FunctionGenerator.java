@@ -36,18 +36,20 @@ import io.ballerina.flowmodelgenerator.core.central.SymbolResponse;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Generates functions based on a given keyword.
@@ -103,7 +105,7 @@ public class FunctionGenerator {
                     .build();
 
             Codedata.Builder<Object> codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .symbol(symbol.getName().get());
             Optional<ModuleSymbol> module = functionSymbol.getModule();
             if (module.isPresent()) {
@@ -120,6 +122,7 @@ public class FunctionGenerator {
 
     private void buildUtilityNodes(Map<String, String> queryMap) {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
+        Set<String> functionSet = new HashSet<>();
 
         if (CommonUtils.hasNoKeyword(queryMap)) {
             utilityBuilder.items(LocalIndexCentral.getInstance().getFunctions());
@@ -152,12 +155,13 @@ public class FunctionGenerator {
                     .stepOut();
 
             for (Function function : functions) {
+                functionSet.add(function.name());
                 Metadata metadata = new Metadata.Builder<>(null)
                         .label(function.name())
                         .description(function.description())
                         .build();
                 Codedata codedata = new Codedata.Builder<>(null)
-                        .node(FlowNode.Kind.FUNCTION_CALL)
+                        .node(NodeKind.FUNCTION_CALL)
                         .org(pkg.organization())
                         .module(pkg.name())
                         .symbol(function.name())
@@ -173,13 +177,16 @@ public class FunctionGenerator {
             if (!symbol.symbolType().equals("function") || (isNonBallerinaOrg(symbol.organization()))) {
                 continue;
             }
+            if (functionSet.contains(symbol.symbolName())) {
+                continue;
+            }
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.symbolName())
                     .description(symbol.description())
                     .icon(symbol.icon())
                     .build();
             Codedata codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .org(symbol.organization())
                     .module(symbol.name())
                     .symbol(symbol.symbolName())

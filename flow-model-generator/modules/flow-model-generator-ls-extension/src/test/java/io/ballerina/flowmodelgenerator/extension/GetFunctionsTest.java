@@ -54,6 +54,7 @@ public class GetFunctionsTest extends AbstractLSTest {
                     new TestConfig(testConfig.description(), testConfig.source(), testConfig.position(),
                             testConfig.queryMap(), categories);
 //            updateConfig(configJsonPath, updateConfig);
+            compareJsonElements(categories, testConfig.categories());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

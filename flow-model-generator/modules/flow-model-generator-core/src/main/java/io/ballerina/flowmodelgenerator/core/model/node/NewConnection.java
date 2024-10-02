@@ -26,6 +26,7 @@ import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
@@ -51,7 +52,7 @@ public class NewConnection extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(NEW_CONNECTION_LABEL);
-        codedata().node(FlowNode.Kind.NEW_CONNECTION).symbol("init");
+        codedata().node(NodeKind.NEW_CONNECTION).symbol("init");
     }
 
     @Override
@@ -73,7 +74,7 @@ public class NewConnection extends NodeBuilder {
                     .icon(connector.icon())
                     .description(connector.documentation());
             codedata()
-                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .node(NodeKind.NEW_CONNECTION)
                     .org(connector.packageInfo().organization())
                     .module(connector.moduleName())
                     .object(connector.name())

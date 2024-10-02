@@ -38,9 +38,9 @@ import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -115,57 +115,56 @@ public class AvailableNodesGenerator {
     private void setAvailableNodesForIteratingBlock(NonTerminalNode node, SemanticModel semanticModel) {
         setDefaultNodes();
         setStopNode(node);
-        this.rootBuilder
-                .stepIn(Category.Name.FLOW)
-                    .stepIn(Category.Name.ITERATION)
-                        .node(FlowNode.Kind.BREAK)
-                        .node(FlowNode.Kind.CONTINUE)
-                    .stepOut()
-                .stepOut();
+        this.rootBuilder.stepIn(Category.Name.CONTROL)
+                .stepIn(Category.Name.ITERATION)
+                    .node(NodeKind.BREAK)
+                    .node(NodeKind.CONTINUE)
+                    .stepOut();
     }
 
     private void setDefaultNodes() {
         AvailableNode function = new AvailableNode(
                 new Metadata.Builder<>(null)
-                        .label("Function")
+                        .label("Function Call")
                         .description("Both project and utility functions")
                         .build(),
                 new Codedata.Builder<>(null)
-                        .node(FlowNode.Kind.FUNCTION)
+                        .node(NodeKind.FUNCTION)
                         .build(),
                 true
         );
 
         this.rootBuilder
-                .stepIn(Category.Name.FLOW)
+                .stepIn(Category.Name.STATEMENT)
+                    .node(NodeKind.ASSIGN)
+                    .node(function)
+                    .stepOut()
+                .stepIn(Category.Name.CONTROL)
                     .stepIn(Category.Name.BRANCH)
-                        .node(FlowNode.Kind.IF)
-                        .node(FlowNode.Kind.SWITCH)
+                        .node(NodeKind.IF)
+                        .node(NodeKind.SWITCH)
                         .stepOut()
                     .stepIn(Category.Name.ITERATION)
-                        .node(FlowNode.Kind.WHILE)
-                        .node(FlowNode.Kind.FOREACH)
+                        .node(NodeKind.WHILE)
+                        .node(NodeKind.FOREACH)
                         .stepOut()
-                    .stepIn(Category.Name.FLOWS)
-                        .node(function)
-                        .stepOut()
-                    .stepIn(Category.Name.CONTROL)
-                        .node(FlowNode.Kind.RETURN)
+                    .stepIn(Category.Name.TERMINATION)
+                        .node(NodeKind.RETURN)
                         .stepOut()
                     .stepOut()
                 .stepIn(Category.Name.DATA)
-                    .node(FlowNode.Kind.NEW_DATA)
-                    .node(FlowNode.Kind.UPDATE_DATA)
-                    .node(FlowNode.Kind.DATA_MAPPER)
+                    .node(NodeKind.JSON_PAYLOAD)
+                    .node(NodeKind.XML_PAYLOAD)
+                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
-                    .node(FlowNode.Kind.ERROR_HANDLER)
-                    .node(FlowNode.Kind.PANIC)
+                    .node(NodeKind.ERROR_HANDLER)
+                    .node(NodeKind.PANIC)
                     .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
-                    .node(FlowNode.Kind.TRANSACTION)
-                    .node(FlowNode.Kind.LOCK)
-                    .node(FlowNode.Kind.START)
+                    .node(NodeKind.TRANSACTION)
+                    .node(NodeKind.LOCK)
+                    .node(NodeKind.START)
                     .stepOut();
     }
 
@@ -173,12 +172,10 @@ public class AvailableNodesGenerator {
         Node parent = node;
         while (parent != null) {
             if (isStopNodeAvailable(parent)) {
-                this.rootBuilder
-                        .stepIn(Category.Name.FLOW)
-                            .stepIn(Category.Name.CONTROL)
-                                .node(FlowNode.Kind.STOP)
-                            .stepOut()
-                        .stepOut();
+                this.rootBuilder.stepIn(Category.Name.CONTROL)
+                        .stepIn(Category.Name.TERMINATION)
+                            .node(NodeKind.STOP)
+                            .stepOut();
             }
             parent = parent.parent();
         }
@@ -209,7 +206,7 @@ public class AvailableNodesGenerator {
 
             ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
             Codedata codedata = new Codedata.Builder<>(null)
-                    .node(FlowNode.Kind.NEW_CONNECTION)
+                    .node(NodeKind.NEW_CONNECTION)
                     .org(moduleSymbol.id().orgName())
                     .module(moduleSymbol.getName().orElseThrow())
                     .object("Client")

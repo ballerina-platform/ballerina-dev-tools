@@ -44,16 +44,16 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
     public static final Branch DEFAULT_BODY_BRANCH =
             new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
-                    .codedata().node(FlowNode.Kind.BODY).stepOut().build();
+                    .codedata().node(NodeKind.BODY).stepOut().build();
 
-    public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {
+    public static Branch getEmptyBranch(String label, NodeKind kind) {
         return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(kind).stepOut().build();
     }
 
     public static Branch getDefaultOnFailBranch(boolean value) {
         return new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
-                .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
+                .codedata().node(NodeKind.ON_FAILURE).stepOut()
                 .properties().ignore(value).onErrorVariable(null).stepOut().build();
     }
 

@@ -80,11 +80,11 @@
           {
             "id": "78904",
             "metadata": {
-              "label": "Update Variable",
-              "description": "Update the value of the variable 'fruit.quality'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "UPDATE_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
@@ -103,7 +103,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Update variable"
+                  "description": "Expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"cheap\"",
@@ -257,11 +257,11 @@
                   {
                     "id": "84130",
                     "metadata": {
-                      "label": "Update Variable",
-                      "description": "Update the value of the variable 'fruit.quality'"
+                      "label": "Assign",
+                      "description": "Assign a value to a variable"
                     },
                     "codedata": {
-                      "node": "UPDATE_DATA",
+                      "node": "ASSIGN",
                       "lineRange": {
                         "fileName": "match.bal",
                         "startLine": {
@@ -280,7 +280,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Update variable"
+                          "description": "Expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"fresh; moderate\"",
@@ -348,11 +348,11 @@
                   {
                     "id": "87108",
                     "metadata": {
-                      "label": "Update Variable",
-                      "description": "Update the value of the variable 'fruit.quality'"
+                      "label": "Assign",
+                      "description": "Assign a value to a variable"
                     },
                     "codedata": {
-                      "node": "UPDATE_DATA",
+                      "node": "ASSIGN",
                       "lineRange": {
                         "fileName": "match.bal",
                         "startLine": {
@@ -371,7 +371,7 @@
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Update variable"
+                          "description": "Expression"
                         },
                         "valueType": "EXPRESSION",
                         "value": "\"expired; moderate\"",
@@ -510,11 +510,11 @@
           {
             "id": "93788",
             "metadata": {
-              "label": "Update Variable",
-              "description": "Update the value of the variable 'fruit.quality'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "UPDATE_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
@@ -533,7 +533,7 @@
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Update variable"
+                  "description": "Expression"
                 },
                 "valueType": "EXPRESSION",
                 "value": "\"expensive\"",

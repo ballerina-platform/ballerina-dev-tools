@@ -183,11 +183,11 @@
               {
                 "id": "41078",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'msg'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -206,7 +206,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "res2.toString()",
@@ -251,11 +251,11 @@
               {
                 "id": "43075",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable 'msg'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -274,7 +274,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",

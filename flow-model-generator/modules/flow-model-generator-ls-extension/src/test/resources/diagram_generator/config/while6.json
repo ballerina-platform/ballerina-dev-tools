@@ -60,11 +60,11 @@
       {
         "id": "105418",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'i' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -294,11 +294,11 @@
                       {
                         "id": "109700",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'msg'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -317,7 +317,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"Response received from food service: \" + response.toString()",
@@ -362,11 +362,11 @@
                       {
                         "id": "111690",
                         "metadata": {
-                          "label": "Update Variable",
-                          "description": "Update the value of the variable 'msg'"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "UPDATE_DATA",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -385,7 +385,7 @@
                           "expression": {
                             "metadata": {
                               "label": "Expression",
-                              "description": "Update variable"
+                              "description": "Expression"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"Error occurred while invoking food service: \" + response.message()",

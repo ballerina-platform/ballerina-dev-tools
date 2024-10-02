@@ -1,0 +1,120 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 3,
+    "offset": 1
+  },
+  "source": "json_payload.bal",
+  "description": "Test model generation for json payloads",
+  "diagram": {
+    "fileName": "json_payload.bal",
+    "nodes": [
+      {
+        "id": "32892",
+        "metadata": {
+          "label": "JSON Payload",
+          "description": "JSON Payload"
+        },
+        "codedata": {
+          "node": "JSON_PAYLOAD",
+          "lineRange": {
+            "fileName": "json_payload.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 32
+            }
+          },
+          "sourceCode": "json j1 = {\"name\": \"value\"};"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\"name\": \"value\"}",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Data variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "j1",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Data type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33899",
+        "metadata": {
+          "label": "Assign",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "json_payload.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 47
+            }
+          },
+          "sourceCode": "j1 = {\"name\": \"value1\", \"name2\": \"value2\"};"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "{\"name\": \"value1\", \"name2\": \"value2\"}",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Result Variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "j1",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

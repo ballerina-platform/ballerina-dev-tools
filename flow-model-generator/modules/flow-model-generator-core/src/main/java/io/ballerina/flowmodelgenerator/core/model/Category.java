@@ -40,22 +40,21 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
     public enum Name {
         ROOT("Root", "The topmost category of the palette", null),
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
+        STATEMENT("Statement", "Fundamental executable units in a program", null),
         CONNECTIONS("Connections", "The connections used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
         FLOWS("Flows", "Flows that invoke local or utility functions",
                 List.of("Function", "Call", "Utility", "Local")),
+        TERMINATION("Termination", "Termination nodes", null),
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
         ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
-        ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
         PROJECT_FUNCTIONS("Project", "Functions defined within the project",
                 List.of("Project", "Local", "Function")),
         UTILITIES("Utilities", "Reusable functions from external libraries",
-                List.of("Utility", "Library", "Function", "External")),
-        HTTP_API("HTTP API", "Make HTTP requests", null),
-        REDIS_CLIENT("Redis Client", "Interact with a Redis server", null);
+                List.of("Utility", "Library", "Function", "External"));
 
         final String name;
         final String description;
@@ -116,7 +115,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return parentBuilder;
         }
 
-        public Builder node(FlowNode.Kind kind) {
+        public Builder node(NodeKind kind) {
             AvailableNode node = NodeBuilder.getNodeFromKind(kind).buildAvailableNode();
             this.availableNodes.add(node);
             return this;

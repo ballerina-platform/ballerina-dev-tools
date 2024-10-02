@@ -25,8 +25,8 @@ import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import org.ballerinalang.central.client.model.Package;
 
@@ -69,7 +69,7 @@ public class ConnectorGenerator {
                             .keywords(packageInfo.getKeywords())
                             .icon(connector.icon).build();
                     Codedata codedata = new Codedata.Builder<>(null)
-                            .node(FlowNode.Kind.NEW_CONNECTION)
+                            .node(NodeKind.NEW_CONNECTION)
                             .org(packageInfo.getOrganization())
                             .module(packageInfo.getName())
                             .object(connector.name)

@@ -1,0 +1,77 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "65677",
+    "metadata": {
+      "label": "Assign",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "new_data.bal",
+        "startLine": {
+          "line": 34,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 34,
+          "offset": 81
+        }
+      },
+      "sourceCode": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "[check calculate(amount), check calculate(amount + 1)]",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "newData3",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "[int, int]",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 34,
+            "character": 4
+          },
+          "end": {
+            "line": 34,
+            "character": 81
+          }
+        },
+        "newText": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
+      }
+    ]
+  }
+}

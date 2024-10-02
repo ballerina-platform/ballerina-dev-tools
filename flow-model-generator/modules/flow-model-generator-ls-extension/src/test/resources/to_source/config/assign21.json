@@ -1,0 +1,67 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "39840",
+    "metadata": {
+      "label": "Assign",
+      "description": "Assign a value to a variable"
+    },
+    "codedata": {
+      "node": "ASSIGN",
+      "lineRange": {
+        "fileName": "update_data.bal",
+        "startLine": {
+          "line": 8,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 8,
+          "offset": 36
+        }
+      },
+      "sourceCode": "str1 = string `${str1} ${str1}`;"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Expression"
+        },
+        "valueType": "EXPRESSION",
+        "value": "string `${str1} ${str1}`",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Result Variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "str1",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 4
+          },
+          "end": {
+            "line": 8,
+            "character": 36
+          }
+        },
+        "newText": "str1 = string `${str1} ${str1}`;"
+      }
+    ]
+  }
+}
