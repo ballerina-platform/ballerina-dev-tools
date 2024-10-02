@@ -1,16 +1,16 @@
 {
   "description": "Sample diagram node",
   "codedata": {
-    "node": "SWITCH"
+    "node": "MATCH"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Switch",
+      "label": "Match",
       "description": "Switches the data flow based on the value of an expression."
     },
     "codedata": {
-      "node": "SWITCH"
+      "node": "MATCH"
     },
     "returning": false,
     "branches": [

@@ -55,7 +55,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Stop;
-import io.ballerina.flowmodelgenerator.core.model.node.Switch;
+import io.ballerina.flowmodelgenerator.core.model.node.Match;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
@@ -134,7 +134,7 @@ public abstract class NodeBuilder {
         put(NodeKind.DATA_MAPPER, DataMapper::new);
         put(NodeKind.ASSIGN, Assign::new);
         put(NodeKind.COMMENT, Comment::new);
-        put(NodeKind.SWITCH, Switch::new);
+        put(NodeKind.MATCH, Match::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {

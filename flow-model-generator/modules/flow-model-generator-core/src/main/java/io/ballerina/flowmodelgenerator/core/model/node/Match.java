@@ -38,15 +38,15 @@ import java.util.stream.Collectors;
  *
  * @since 1.4.0
  */
-public class Switch extends NodeBuilder {
+public class Match extends NodeBuilder {
 
-    public static final String LABEL = "Switch";
+    public static final String LABEL = "Match";
     public static final String DESCRIPTION = "Switches the data flow based on the value of an expression.";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.SWITCH);
+        codedata().node(NodeKind.MATCH);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Switch extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> condition = sourceBuilder.flowNode.getProperty(Property.CONDITION_KEY);
         if (condition.isEmpty()) {
-            throw new IllegalStateException("Switch node does not have a condition");
+            throw new IllegalStateException("Match node does not have a condition");
         }
 
         sourceBuilder.token()

@@ -2,45 +2,45 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "43223",
+    "id": "141431",
     "metadata": {
-      "label": "Switch",
+      "label": "Match",
       "description": "Switches the data flow based on the value of an expression."
     },
     "codedata": {
-      "node": "SWITCH",
+      "node": "MATCH",
       "lineRange": {
         "fileName": "match.bal",
         "startLine": {
-          "line": 11,
+          "line": 110,
           "offset": 8
         },
         "endLine": {
-          "line": 21,
+          "line": 120,
           "offset": 9
         }
       },
-      "sourceCode": "match color {\n            \"red\"|\"blue\" => {\n                return \"sweet\";\n            }\n            \"green\" => {\n                return \"sour\";\n            }\n            _ => {\n                return \"unknown\";\n            }\n        }"
+      "sourceCode": "match count {\n            var c if c > 0 => {\n                return \"available\";\n            }\n            0 => {\n                return \"out of stock\";\n            }\n            _ => {\n                return \"invalid count\";\n            }\n        }"
     },
     "returning": false,
     "branches": [
       {
-        "label": "\"red\"|\"blue\"",
+        "label": "var c if c > 0",
         "kind": "BLOCK",
         "codedata": {
           "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 12,
-              "offset": 28
+              "line": 111,
+              "offset": 30
             },
             "endLine": {
-              "line": 14,
+              "line": 113,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                return \"sweet\";\n            }"
+          "sourceCode": "{\n                return \"available\";\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -57,46 +57,46 @@
                   "description": "Binding pattern"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"red\"",
-                "optional": false,
-                "editable": true
-              },
-              {
-                "metadata": {
-                  "label": "Pattern",
-                  "description": "Binding pattern"
-                },
-                "valueType": "EXPRESSION",
-                "value": "\"blue\"",
+                "value": "var c",
                 "optional": false,
                 "editable": true
               }
             ],
             "optional": false,
             "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "c > 0 ",
+            "optional": false,
+            "editable": true
           }
         },
         "children": [
           {
-            "id": "45167",
+            "id": "143379",
             "metadata": {
               "label": "Return",
-              "description": "Value of '\"sweet\"'"
+              "description": "Value of '\"available\"'"
             },
             "codedata": {
               "node": "RETURN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 13,
+                  "line": 112,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 13,
-                  "offset": 31
+                  "line": 112,
+                  "offset": 35
                 }
               },
-              "sourceCode": "return \"sweet\";"
+              "sourceCode": "return \"available\";"
             },
             "returning": true,
             "properties": {
@@ -106,7 +106,7 @@
                   "description": "Return value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"sweet\"",
+                "value": "\"available\"",
                 "optional": false,
                 "editable": true
               }
@@ -116,22 +116,22 @@
         ]
       },
       {
-        "label": "\"green\"",
+        "label": "0",
         "kind": "BLOCK",
         "codedata": {
           "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 15,
-              "offset": 23
+              "line": 114,
+              "offset": 17
             },
             "endLine": {
-              "line": 17,
+              "line": 116,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                return \"sour\";\n            }"
+          "sourceCode": "{\n                return \"out of stock\";\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -148,7 +148,7 @@
                   "description": "Binding pattern"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"green\"",
+                "value": "0",
                 "optional": false,
                 "editable": true
               }
@@ -159,25 +159,25 @@
         },
         "children": [
           {
-            "id": "48142",
+            "id": "146358",
             "metadata": {
               "label": "Return",
-              "description": "Value of '\"sour\"'"
+              "description": "Value of '\"out of stock\"'"
             },
             "codedata": {
               "node": "RETURN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 16,
+                  "line": 115,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 16,
-                  "offset": 30
+                  "line": 115,
+                  "offset": 38
                 }
               },
-              "sourceCode": "return \"sour\";"
+              "sourceCode": "return \"out of stock\";"
             },
             "returning": true,
             "properties": {
@@ -187,7 +187,7 @@
                   "description": "Return value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"sour\"",
+                "value": "\"out of stock\"",
                 "optional": false,
                 "editable": true
               }
@@ -204,15 +204,15 @@
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 18,
+              "line": 117,
               "offset": 17
             },
             "endLine": {
-              "line": 20,
+              "line": 119,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                return \"unknown\";\n            }"
+          "sourceCode": "{\n                return \"invalid count\";\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -240,25 +240,25 @@
         },
         "children": [
           {
-            "id": "51121",
+            "id": "149335",
             "metadata": {
               "label": "Return",
-              "description": "Value of '\"unknown\"'"
+              "description": "Value of '\"invalid count\"'"
             },
             "codedata": {
               "node": "RETURN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 19,
+                  "line": 118,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 19,
-                  "offset": 33
+                  "line": 118,
+                  "offset": 39
                 }
               },
-              "sourceCode": "return \"unknown\";"
+              "sourceCode": "return \"invalid count\";"
             },
             "returning": true,
             "properties": {
@@ -268,7 +268,7 @@
                   "description": "Return value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"unknown\"",
+                "value": "\"invalid count\"",
                 "optional": false,
                 "editable": true
               }
@@ -285,7 +285,7 @@
           "description": "Boolean Condition"
         },
         "valueType": "EXPRESSION",
-        "value": "color ",
+        "value": "count ",
         "optional": false,
         "editable": true
       }
@@ -297,15 +297,15 @@
       {
         "range": {
           "start": {
-            "line": 11,
+            "line": 110,
             "character": 8
           },
           "end": {
-            "line": 21,
+            "line": 120,
             "character": 9
           }
         },
-        "newText": "match color {\n    \"red\"|\"blue\" => {\n        return \"sweet\";\n    }\n    \"green\" => {\n        return \"sour\";\n    }\n    _ => {\n        return \"unknown\";\n    }\n}"
+        "newText": "match count {\n    var cif c > 0 => {\n        return \"available\";\n    }\n    0 => {\n        return \"out of stock\";\n    }\n    _ => {\n        return \"invalid count\";\n    }\n}"
       }
     ]
   }

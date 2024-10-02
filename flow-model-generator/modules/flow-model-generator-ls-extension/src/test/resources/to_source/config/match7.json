@@ -2,45 +2,45 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "77230",
+    "id": "155536",
     "metadata": {
-      "label": "Switch",
+      "label": "Match",
       "description": "Switches the data flow based on the value of an expression."
     },
     "codedata": {
-      "node": "SWITCH",
+      "node": "MATCH",
       "lineRange": {
         "fileName": "match.bal",
         "startLine": {
-          "line": 45,
+          "line": 124,
           "offset": 8
         },
         "endLine": {
-          "line": 64,
+          "line": 141,
           "offset": 9
         }
       },
-      "sourceCode": "match fruit.price {\n            var p if p < 100 => {\n                fruit.quality = \"cheap\";\n            }\n            var p if p >= 100 && p < 200 => {\n                match fruit.quantity {\n                    var q if q is int && q > 0 => {\n                        fruit.quality = \"fresh; moderate\";\n                    }\n                    _ => {\n                        fruit.quality = \"expired; moderate\";\n                    }\n                }\n            }\n            var p if p >= 200 => {\n            }\n            _ => {\n                fruit.quality = \"expensive\";\n            }\n        }"
+      "sourceCode": "match quantity {\n            var q if q > 10 => {\n                return \"bulk order\";\n            }\n            var q if q > 5 => {\n                match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }\n            }\n            _ => {\n                return \"small pack\";\n            }\n        }"
     },
     "returning": false,
     "branches": [
       {
-        "label": "var p if p < 100",
+        "label": "var q if q > 10",
         "kind": "BLOCK",
         "codedata": {
           "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 46,
-              "offset": 32
+              "line": 125,
+              "offset": 31
             },
             "endLine": {
-              "line": 48,
+              "line": 127,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                fruit.quality = \"cheap\";\n            }"
+          "sourceCode": "{\n                return \"bulk order\";\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -57,7 +57,7 @@
                   "description": "Binding pattern"
                 },
                 "valueType": "EXPRESSION",
-                "value": "var p",
+                "value": "var q",
                 "optional": false,
                 "editable": true
               }
@@ -71,52 +71,42 @@
               "description": "Guard expression"
             },
             "valueType": "EXPRESSION",
-            "value": "p < 100 ",
+            "value": "q > 10 ",
             "optional": false,
             "editable": true
           }
         },
         "children": [
           {
-            "id": "78904",
+            "id": "157268",
             "metadata": {
-              "label": "Assign",
-              "description": "Assign a value to a variable"
+              "label": "Return",
+              "description": "Value of '\"bulk order\"'"
             },
             "codedata": {
-              "node": "ASSIGN",
+              "node": "RETURN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 47,
+                  "line": 126,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 47,
-                  "offset": 40
+                  "line": 126,
+                  "offset": 36
                 }
               },
-              "sourceCode": "fruit.quality = \"cheap\";"
+              "sourceCode": "return \"bulk order\";"
             },
-            "returning": false,
+            "returning": true,
             "properties": {
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Return value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"cheap\"",
-                "optional": false,
-                "editable": true
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "fruit.quality",
+                "value": "\"bulk order\"",
                 "optional": false,
                 "editable": true
               }
@@ -126,22 +116,22 @@
         ]
       },
       {
-        "label": "var p if p >= 100 && p < 200",
+        "label": "var q if q > 5",
         "kind": "BLOCK",
         "codedata": {
           "node": "CONDITIONAL",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 49,
-              "offset": 44
+              "line": 128,
+              "offset": 30
             },
             "endLine": {
-              "line": 58,
+              "line": 137,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                match fruit.quantity {\n                    var q if q is int && q > 0 => {\n                        fruit.quality = \"fresh; moderate\";\n                    }\n                    _ => {\n                        fruit.quality = \"expired; moderate\";\n                    }\n                }\n            }"
+          "sourceCode": "{\n                match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -158,7 +148,7 @@
                   "description": "Binding pattern"
                 },
                 "valueType": "EXPRESSION",
-                "value": "var p",
+                "value": "var q",
                 "optional": false,
                 "editable": true
               }
@@ -172,52 +162,52 @@
               "description": "Guard expression"
             },
             "valueType": "EXPRESSION",
-            "value": "p >= 100 && p < 200 ",
+            "value": "q > 5 ",
             "optional": false,
             "editable": true
           }
         },
         "children": [
           {
-            "id": "82074",
+            "id": "160442",
             "metadata": {
-              "label": "Switch",
+              "label": "Match",
               "description": "Switches the data flow based on the value of an expression."
             },
             "codedata": {
-              "node": "SWITCH",
+              "node": "MATCH",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 50,
+                  "line": 129,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 57,
+                  "line": 136,
                   "offset": 17
                 }
               },
-              "sourceCode": "match fruit.quantity {\n                    var q if q is int && q > 0 => {\n                        fruit.quality = \"fresh; moderate\";\n                    }\n                    _ => {\n                        fruit.quality = \"expired; moderate\";\n                    }\n                }"
+              "sourceCode": "match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }"
             },
             "returning": false,
             "branches": [
               {
-                "label": "var q if q is int && q > 0",
+                "label": "var n if n > 8",
                 "kind": "BLOCK",
                 "codedata": {
                   "node": "CONDITIONAL",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
-                      "line": 51,
-                      "offset": 50
+                      "line": 130,
+                      "offset": 38
                     },
                     "endLine": {
-                      "line": 53,
+                      "line": 132,
                       "offset": 21
                     }
                   },
-                  "sourceCode": "{\n                        fruit.quality = \"fresh; moderate\";\n                    }"
+                  "sourceCode": "{\n                        return \"large pack\";\n                    }"
                 },
                 "repeatable": "ONE_OR_MORE",
                 "properties": {
@@ -234,7 +224,7 @@
                           "description": "Binding pattern"
                         },
                         "valueType": "EXPRESSION",
-                        "value": "var q",
+                        "value": "var n",
                         "optional": false,
                         "editable": true
                       }
@@ -248,52 +238,42 @@
                       "description": "Guard expression"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "q is int && q > 0 ",
+                    "value": "n > 8 ",
                     "optional": false,
                     "editable": true
                   }
                 },
                 "children": [
                   {
-                    "id": "84130",
+                    "id": "162484",
                     "metadata": {
-                      "label": "Assign",
-                      "description": "Assign a value to a variable"
+                      "label": "Return",
+                      "description": "Value of '\"large pack\"'"
                     },
                     "codedata": {
-                      "node": "ASSIGN",
+                      "node": "RETURN",
                       "lineRange": {
                         "fileName": "match.bal",
                         "startLine": {
-                          "line": 52,
+                          "line": 131,
                           "offset": 24
                         },
                         "endLine": {
-                          "line": 52,
-                          "offset": 58
+                          "line": 131,
+                          "offset": 44
                         }
                       },
-                      "sourceCode": "fruit.quality = \"fresh; moderate\";"
+                      "sourceCode": "return \"large pack\";"
                     },
-                    "returning": false,
+                    "returning": true,
                     "properties": {
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Return value"
                         },
                         "valueType": "EXPRESSION",
-                        "value": "\"fresh; moderate\"",
-                        "optional": false,
-                        "editable": true
-                      },
-                      "variable": {
-                        "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
-                        },
-                        "valueType": "IDENTIFIER",
-                        "value": "fruit.quality",
+                        "value": "\"large pack\"",
                         "optional": false,
                         "editable": true
                       }
@@ -310,15 +290,15 @@
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
-                      "line": 54,
+                      "line": 133,
                       "offset": 25
                     },
                     "endLine": {
-                      "line": 56,
+                      "line": 135,
                       "offset": 21
                     }
                   },
-                  "sourceCode": "{\n                        fruit.quality = \"expired; moderate\";\n                    }"
+                  "sourceCode": "{\n                        return \"medium pack\";\n                    }"
                 },
                 "repeatable": "ONE_OR_MORE",
                 "properties": {
@@ -346,45 +326,35 @@
                 },
                 "children": [
                   {
-                    "id": "87108",
+                    "id": "165461",
                     "metadata": {
-                      "label": "Assign",
-                      "description": "Assign a value to a variable"
+                      "label": "Return",
+                      "description": "Value of '\"medium pack\"'"
                     },
                     "codedata": {
-                      "node": "ASSIGN",
+                      "node": "RETURN",
                       "lineRange": {
                         "fileName": "match.bal",
                         "startLine": {
-                          "line": 55,
+                          "line": 134,
                           "offset": 24
                         },
                         "endLine": {
-                          "line": 55,
-                          "offset": 60
+                          "line": 134,
+                          "offset": 45
                         }
                       },
-                      "sourceCode": "fruit.quality = \"expired; moderate\";"
+                      "sourceCode": "return \"medium pack\";"
                     },
-                    "returning": false,
+                    "returning": true,
                     "properties": {
                       "expression": {
                         "metadata": {
                           "label": "Expression",
-                          "description": "Expression"
+                          "description": "Return value"
                         },
                         "valueType": "EXPRESSION",
-                        "value": "\"expired; moderate\"",
-                        "optional": false,
-                        "editable": true
-                      },
-                      "variable": {
-                        "metadata": {
-                          "label": "Variable",
-                          "description": "Result Variable"
-                        },
-                        "valueType": "IDENTIFIER",
-                        "value": "fruit.quality",
+                        "value": "\"medium pack\"",
                         "optional": false,
                         "editable": true
                       }
@@ -401,7 +371,7 @@
                   "description": "Boolean Condition"
                 },
                 "valueType": "EXPRESSION",
-                "value": "fruit.quantity ",
+                "value": "q ",
                 "optional": false,
                 "editable": true
               }
@@ -411,60 +381,6 @@
         ]
       },
       {
-        "label": "var p if p >= 200",
-        "kind": "BLOCK",
-        "codedata": {
-          "node": "CONDITIONAL",
-          "lineRange": {
-            "fileName": "match.bal",
-            "startLine": {
-              "line": 59,
-              "offset": 33
-            },
-            "endLine": {
-              "line": 60,
-              "offset": 13
-            }
-          },
-          "sourceCode": "{\n            }"
-        },
-        "repeatable": "ONE_OR_MORE",
-        "properties": {
-          "patterns": {
-            "metadata": {
-              "label": "Patterns",
-              "description": "List of binding patterns"
-            },
-            "valueType": "SINGLE_SELECT",
-            "value": [
-              {
-                "metadata": {
-                  "label": "Pattern",
-                  "description": "Binding pattern"
-                },
-                "valueType": "EXPRESSION",
-                "value": "var p",
-                "optional": false,
-                "editable": true
-              }
-            ],
-            "optional": false,
-            "editable": true
-          },
-          "guard": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Guard expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "p >= 200 ",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "children": []
-      },
-      {
         "label": "_",
         "kind": "BLOCK",
         "codedata": {
@@ -472,15 +388,15 @@
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
-              "line": 61,
+              "line": 138,
               "offset": 17
             },
             "endLine": {
-              "line": 63,
+              "line": 140,
               "offset": 13
             }
           },
-          "sourceCode": "{\n                fruit.quality = \"expensive\";\n            }"
+          "sourceCode": "{\n                return \"small pack\";\n            }"
         },
         "repeatable": "ONE_OR_MORE",
         "properties": {
@@ -508,45 +424,35 @@
         },
         "children": [
           {
-            "id": "93788",
+            "id": "170164",
             "metadata": {
-              "label": "Assign",
-              "description": "Assign a value to a variable"
+              "label": "Return",
+              "description": "Value of '\"small pack\"'"
             },
             "codedata": {
-              "node": "ASSIGN",
+              "node": "RETURN",
               "lineRange": {
                 "fileName": "match.bal",
                 "startLine": {
-                  "line": 62,
+                  "line": 139,
                   "offset": 16
                 },
                 "endLine": {
-                  "line": 62,
-                  "offset": 44
+                  "line": 139,
+                  "offset": 36
                 }
               },
-              "sourceCode": "fruit.quality = \"expensive\";"
+              "sourceCode": "return \"small pack\";"
             },
-            "returning": false,
+            "returning": true,
             "properties": {
               "expression": {
                 "metadata": {
                   "label": "Expression",
-                  "description": "Expression"
+                  "description": "Return value"
                 },
                 "valueType": "EXPRESSION",
-                "value": "\"expensive\"",
-                "optional": false,
-                "editable": true
-              },
-              "variable": {
-                "metadata": {
-                  "label": "Variable",
-                  "description": "Result Variable"
-                },
-                "valueType": "IDENTIFIER",
-                "value": "fruit.quality",
+                "value": "\"small pack\"",
                 "optional": false,
                 "editable": true
               }
@@ -563,7 +469,7 @@
           "description": "Boolean Condition"
         },
         "valueType": "EXPRESSION",
-        "value": "fruit.price ",
+        "value": "quantity ",
         "optional": false,
         "editable": true
       }
@@ -575,15 +481,15 @@
       {
         "range": {
           "start": {
-            "line": 45,
+            "line": 124,
             "character": 8
           },
           "end": {
-            "line": 64,
+            "line": 141,
             "character": 9
           }
         },
-        "newText": "match fruit.price {\n    var pif p < 100 => {\n        fruit.quality = \"cheap\";\n    }\n    var pif p >= 100 && p < 200 => {\n        match fruit.quantity {\n            var qif q is int && q > 0 => {\n                fruit.quality = \"fresh; moderate\";\n            }\n            _ => {\n                fruit.quality = \"expired; moderate\";\n            }\n        }\n    }\n    var pif p >= 200 => {\n    }\n    _ => {\n        fruit.quality = \"expensive\";\n    }\n}"
+        "newText": "match quantity {\n    var qif q > 10 => {\n        return \"bulk order\";\n    }\n    var qif q > 5 => {\n        match q {\n            var nif n > 8 => {\n                return \"large pack\";\n            }\n            _ => {\n                return \"medium pack\";\n            }\n        }\n    }\n    _ => {\n        return \"small pack\";\n    }\n}"
       }
     ]
   }

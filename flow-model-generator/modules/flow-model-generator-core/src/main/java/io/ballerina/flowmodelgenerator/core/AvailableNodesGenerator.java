@@ -140,7 +140,7 @@ public class AvailableNodesGenerator {
                     .stepOut()
                 .stepIn(Category.Name.CONTROL)
                     .node(NodeKind.IF)
-                    .node(NodeKind.SWITCH)
+                    .node(NodeKind.MATCH)
                     .node(NodeKind.WHILE)
                     .node(NodeKind.FOREACH)
                     .node(NodeKind.RETURN)

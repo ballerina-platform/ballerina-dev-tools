@@ -32,7 +32,7 @@ public enum NodeKind {
     FOREACH,
     DATA_MAPPER,
     COMMENT,
-    SWITCH,
+    MATCH,
     FUNCTION,
 
     // Branches
