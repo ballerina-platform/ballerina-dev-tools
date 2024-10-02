@@ -16,10 +16,14 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -31,6 +35,9 @@ import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.CompletionItem;
 import org.eclipse.lsp4j.CompletionList;
 import org.eclipse.lsp4j.CompletionParams;
+import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
+import org.eclipse.lsp4j.FileChangeType;
+import org.eclipse.lsp4j.FileEvent;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
@@ -62,19 +69,50 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     }
 
     @JsonRequest
+    public CompletableFuture<VisibleVariableTypesResponse> visibleVariableTypes(VisibleVariableTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            VisibleVariableTypesResponse response = new VisibleVariableTypesResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+
+                VisibleVariableTypesGenerator visibleVariableTypesGenerator = new VisibleVariableTypesGenerator(
+                        semanticModel.get(), document.get(), request.position());
+                JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
+                response.setCategories(visibleVariableTypes);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
     public CompletableFuture<Either<List<CompletionItem>, CompletionList>> completion(
             ExpressionEditorCompletionRequest request) {
         return CompletableFuture.supplyAsync(() -> {
+            Path projectPath = null;
             try {
-                // Load the project
+                // Load the original project
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
-                Path projectPath = this.workspaceManager.projectRoot(filePath);
+                projectPath = this.workspaceManager.projectRoot(filePath);
 
-                // Create a temporary directory and load the project
-                ProjectCacheManager projectCacheManager = new ProjectCacheManager(projectPath, filePath);
-                projectCacheManager.createTempDirectory();
-                Path destination = projectCacheManager.getDestination();
+                // Load the shadowed project
+                ProjectCacheManager projectCacheManager =
+                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
+                projectCacheManager.copyContent();
+                Path destination = projectCacheManager.getDestination(filePath);
+
+                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
+                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
+                        new DidChangeWatchedFilesParams(List.of(fileEvent));
+                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
                 this.workspaceManager.loadProject(destination);
 
                 // Get the document
@@ -90,7 +128,7 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
                 TextDocument newTextDocument =
                         textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
-                projectCacheManager.writeContent(newTextDocument);
+                projectCacheManager.writeContent(newTextDocument, filePath);
                 document.get().modify()
                         .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
                         .apply();
@@ -105,10 +143,14 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 CompletableFuture<Either<List<CompletionItem>, CompletionList>> completableFuture =
                         langServer.getTextDocumentService().completion(params);
                 Either<List<CompletionItem>, CompletionList> completions = completableFuture.join();
-                projectCacheManager.deleteCache();
+                projectCacheManager.deleteContent();
                 return completions;
             } catch (Throwable e) {
                 return Either.forLeft(List.of());
+            } finally {
+                if (projectPath != null) {
+                    ProjectCacheManager.InstanceHandler.release(projectPath);
+                }
             }
         });
     }

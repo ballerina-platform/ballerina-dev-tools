@@ -116,10 +116,9 @@ public class AvailableNodesGenerator {
         setDefaultNodes();
         setStopNode(node);
         this.rootBuilder.stepIn(Category.Name.CONTROL)
-                .stepIn(Category.Name.ITERATION)
-                    .node(NodeKind.BREAK)
-                    .node(NodeKind.CONTINUE)
-                    .stepOut();
+                .node(NodeKind.BREAK)
+                .node(NodeKind.CONTINUE)
+                .stepOut();
     }
 
     private void setDefaultNodes() {
@@ -140,25 +139,21 @@ public class AvailableNodesGenerator {
                     .node(function)
                     .stepOut()
                 .stepIn(Category.Name.CONTROL)
-                    .stepIn(Category.Name.BRANCH)
-                        .node(NodeKind.IF)
-                        .node(NodeKind.SWITCH)
-                        .stepOut()
-                    .stepIn(Category.Name.ITERATION)
-                        .node(NodeKind.WHILE)
-                        .node(NodeKind.FOREACH)
-                        .stepOut()
-                    .stepIn(Category.Name.TERMINATION)
-                        .node(NodeKind.RETURN)
-                        .stepOut()
+                    .node(NodeKind.IF)
+                    .node(NodeKind.MATCH)
+                    .node(NodeKind.WHILE)
+                    .node(NodeKind.FOREACH)
+                    .node(NodeKind.RETURN)
                     .stepOut()
                 .stepIn(Category.Name.DATA)
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
+                    .node(NodeKind.BINARY_DATA)
                     .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                     .node(NodeKind.ERROR_HANDLER)
+                    .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
                     .stepOut()
                 .stepIn(Category.Name.CONCURRENCY)
@@ -173,9 +168,8 @@ public class AvailableNodesGenerator {
         while (parent != null) {
             if (isStopNodeAvailable(parent)) {
                 this.rootBuilder.stepIn(Category.Name.CONTROL)
-                        .stepIn(Category.Name.TERMINATION)
-                            .node(NodeKind.STOP)
-                            .stepOut();
+                        .node(NodeKind.STOP)
+                        .stepOut();
             }
             parent = parent.parent();
         }

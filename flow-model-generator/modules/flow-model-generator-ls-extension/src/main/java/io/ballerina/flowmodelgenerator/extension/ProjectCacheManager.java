@@ -26,6 +26,10 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
 /**
@@ -33,30 +37,28 @@ import java.util.stream.Stream;
  *
  * @since 1.4.0
  */
-public class ProjectCacheManager {
+class ProjectCacheManager {
 
     private final Path sourceDir;
-    private final Path filePath;
-    private Path destinationProjectPath;
-    private Path destinationPath;
+    private final Path tempDir;
 
-    public ProjectCacheManager(Path sourceDir, Path filePath) {
+    public ProjectCacheManager(Path sourceDir) {
         this.sourceDir = sourceDir;
-        this.filePath = filePath;
+        try {
+            Path tempDirPath = Files.createTempDirectory("project-cache");
+            this.tempDir = tempDirPath.resolve(sourceDir.getFileName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void createTempDirectory() throws IOException {
-        // Create a temporary directory
-        Path tempDir = Files.createTempDirectory("project-cache");
-        Path tempDesintaitonPath = tempDir.resolve(sourceDir.getFileName());
-        destinationProjectPath = tempDesintaitonPath;
-
+    public void copyContent() throws IOException {
         // Copy contents from sourceDir to destinationDir
         if (Files.isDirectory(sourceDir)) {
             try (Stream<Path> paths = Files.walk(sourceDir)) {
                 paths.forEach(source -> {
                     try {
-                        Files.copy(source, tempDesintaitonPath.resolve(sourceDir.relativize(source)),
+                        Files.copy(source, tempDir.resolve(sourceDir.relativize(source)),
                                 StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
                         throw new RuntimeException("Failed to copy project directory to cache", e);
@@ -65,12 +67,12 @@ public class ProjectCacheManager {
             }
             return;
         }
-        Files.copy(sourceDir, tempDesintaitonPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(sourceDir, tempDir, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    public void deleteCache() throws IOException {
-        if (Files.isDirectory(destinationProjectPath)) {
-            try (Stream<Path> paths = Files.walk(destinationProjectPath)) {
+    public void deleteContent() throws IOException {
+        if (Files.isDirectory(tempDir)) {
+            try (Stream<Path> paths = Files.walk(tempDir)) {
                 paths.sorted(Comparator.reverseOrder()).forEach(source -> {
                     try {
                         Files.delete(source);
@@ -81,24 +83,51 @@ public class ProjectCacheManager {
             }
             return;
         }
-        Files.delete(destinationProjectPath);
+        Files.delete(tempDir);
     }
 
-    public void writeContent(TextDocument textDocument) throws IOException {
-        if (destinationProjectPath == null) {
+    public void writeContent(TextDocument textDocument, Path filePath) throws IOException {
+        if (tempDir == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        Files.writeString(getDestination(), new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
+        Files.writeString(getDestination(filePath), new String(textDocument.toCharArray()), StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    public Path getDestination() {
-        if (destinationProjectPath == null) {
+    public Path getDestination(Path filePath) {
+        if (tempDir == null) {
             throw new RuntimeException("Destination directory is not created");
         }
-        if (destinationPath == null) {
-            destinationPath = destinationProjectPath.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+        return tempDir.resolve(sourceDir.relativize(sourceDir.resolve(filePath)));
+    }
+
+    /**
+     * The multiton design pattern to handle `ProjectCacheManager` instances mapped by source directory. Ensures that
+     * there is only one copy per each project.
+     *
+     * @since 1.4.0
+     */
+
+    static class InstanceHandler {
+
+        private static final Map<Path, ProjectCacheManager> instances = new ConcurrentHashMap<>();
+        private static final Map<Path, Lock> locks = new ConcurrentHashMap<>();
+
+        private InstanceHandler() {
         }
-        return destinationPath;
+
+        public static ProjectCacheManager getInstance(Path sourceDir) {
+            Lock lock = locks.computeIfAbsent(sourceDir, key -> new ReentrantLock());
+            lock.lock();
+            return instances.computeIfAbsent(sourceDir, key -> new ProjectCacheManager(sourceDir));
+        }
+
+        public static void release(Path sourceDir) {
+            Lock lock = locks.get(sourceDir);
+            if (lock != null) {
+                lock.unlock();
+                locks.remove(sourceDir);
+            }
+        }
     }
 }

@@ -1,0 +1,559 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "204268",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 173,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 194,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match quantity {\n            var q if q > 10 => {\n                match season {\n                    \"summer\" => {\n                        return \"large summer pack\";\n                    }\n                    _ => {\n                        return \"large off-season pack\";\n                    }\n                }\n            }\n            _ => {\n                match season {\n                    \"summer\" => {\n                        return \"regular summer pack\";\n                    }\n                    _ => {\n                        return \"regular off-season pack\";\n                    }\n                }\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "var q if q > 10",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 174,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 183,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                match season {\n                    \"summer\" => {\n                        return \"large summer pack\";\n                    }\n                    _ => {\n                        return \"large off-season pack\";\n                    }\n                }\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "206074",
+            "metadata": {
+              "label": "Match",
+              "description": "Switches the data flow based on the value of an expression."
+            },
+            "codedata": {
+              "node": "MATCH",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 175,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 182,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "match season {\n                    \"summer\" => {\n                        return \"large summer pack\";\n                    }\n                    _ => {\n                        return \"large off-season pack\";\n                    }\n                }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "\"summer\"",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 176,
+                      "offset": 32
+                    },
+                    "endLine": {
+                      "line": 178,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"large summer pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"summer\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "208123",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"large summer pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 177,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 177,
+                          "offset": 51
+                        }
+                      },
+                      "sourceCode": "return \"large summer pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"large summer pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "_",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 179,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 181,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"large off-season pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "_",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "211103",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"large off-season pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 180,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 180,
+                          "offset": 55
+                        }
+                      },
+                      "sourceCode": "return \"large off-season pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"large off-season pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "season ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 184,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 193,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                match season {\n                    \"summer\" => {\n                        return \"regular summer pack\";\n                    }\n                    _ => {\n                        return \"regular off-season pack\";\n                    }\n                }\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "215994",
+            "metadata": {
+              "label": "Match",
+              "description": "Switches the data flow based on the value of an expression."
+            },
+            "codedata": {
+              "node": "MATCH",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 185,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 192,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "match season {\n                    \"summer\" => {\n                        return \"regular summer pack\";\n                    }\n                    _ => {\n                        return \"regular off-season pack\";\n                    }\n                }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "\"summer\"",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 186,
+                      "offset": 32
+                    },
+                    "endLine": {
+                      "line": 188,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"regular summer pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"summer\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "218045",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"regular summer pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 187,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 187,
+                          "offset": 53
+                        }
+                      },
+                      "sourceCode": "return \"regular summer pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"regular summer pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "_",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 189,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 191,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"regular off-season pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "_",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "221025",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"regular off-season pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 190,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 190,
+                          "offset": 57
+                        }
+                      },
+                      "sourceCode": "return \"regular off-season pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"regular off-season pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "season ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "quantity ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 173,
+            "character": 8
+          },
+          "end": {
+            "line": 194,
+            "character": 9
+          }
+        },
+        "newText": "match quantity {\n    var qif q > 10 => {\n        match season {\n            \"summer\" => {\n                return \"large summer pack\";\n            }\n            _ => {\n                return \"large off-season pack\";\n            }\n        }\n    }\n    _ => {\n        match season {\n            \"summer\" => {\n                return \"regular summer pack\";\n            }\n            _ => {\n                return \"regular off-season pack\";\n            }\n        }\n    }\n}"
+      }
+    ]
+  }
+}

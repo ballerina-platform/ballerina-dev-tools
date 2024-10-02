@@ -1,0 +1,658 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "229130",
+    "metadata": {
+      "label": "Match",
+      "description": "Switches the data flow based on the value of an expression."
+    },
+    "codedata": {
+      "node": "MATCH",
+      "lineRange": {
+        "fileName": "match.bal",
+        "startLine": {
+          "line": 198,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 221,
+          "offset": 9
+        }
+      },
+      "sourceCode": "match quantity {\n            var q if q > 10 => {\n                return \"bulk order\";\n            }\n            var q if q > 5 => {\n                match ripeness {\n                    1 => {\n                        return \"medium unripe pack\";\n                    }\n                    2 => {\n                        return \"medium ripe pack\";\n                    }\n                    _ => {\n                        return \"medium mixed pack\";\n                    }\n                }\n            }\n            var q if q > 0 => {\n                return \"small pack\";\n            }\n            _ => {\n                return \"invalid order\";\n            }\n        }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "var q if q > 10",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 199,
+              "offset": 31
+            },
+            "endLine": {
+              "line": 201,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"bulk order\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 10 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "230676",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"bulk order\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 200,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 200,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "return \"bulk order\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"bulk order\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "var q if q > 5",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 202,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 214,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                match ripeness {\n                    1 => {\n                        return \"medium unripe pack\";\n                    }\n                    2 => {\n                        return \"medium ripe pack\";\n                    }\n                    _ => {\n                        return \"medium mixed pack\";\n                    }\n                }\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 5 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "233943",
+            "metadata": {
+              "label": "Match",
+              "description": "Switches the data flow based on the value of an expression."
+            },
+            "codedata": {
+              "node": "MATCH",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 203,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 213,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "match ripeness {\n                    1 => {\n                        return \"medium unripe pack\";\n                    }\n                    2 => {\n                        return \"medium ripe pack\";\n                    }\n                    _ => {\n                        return \"medium mixed pack\";\n                    }\n                }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "1",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 204,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 206,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"medium unripe pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "1",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "235900",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"medium unripe pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 205,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 205,
+                          "offset": 52
+                        }
+                      },
+                      "sourceCode": "return \"medium unripe pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"medium unripe pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "2",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 207,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 209,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"medium ripe pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "2",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "238874",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"medium ripe pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 208,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 208,
+                          "offset": 50
+                        }
+                      },
+                      "sourceCode": "return \"medium ripe pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"medium ripe pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              },
+              {
+                "label": "_",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "match.bal",
+                    "startLine": {
+                      "line": 210,
+                      "offset": 25
+                    },
+                    "endLine": {
+                      "line": 212,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "{\n                        return \"medium mixed pack\";\n                    }"
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "patterns": {
+                    "metadata": {
+                      "label": "Patterns",
+                      "description": "List of binding patterns"
+                    },
+                    "valueType": "SINGLE_SELECT",
+                    "value": [
+                      {
+                        "metadata": {
+                          "label": "Pattern",
+                          "description": "Binding pattern"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "_",
+                        "optional": false,
+                        "editable": true
+                      }
+                    ],
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "241851",
+                    "metadata": {
+                      "label": "Return",
+                      "description": "Value of '\"medium mixed pack\"'"
+                    },
+                    "codedata": {
+                      "node": "RETURN",
+                      "lineRange": {
+                        "fileName": "match.bal",
+                        "startLine": {
+                          "line": 211,
+                          "offset": 24
+                        },
+                        "endLine": {
+                          "line": 211,
+                          "offset": 51
+                        }
+                      },
+                      "sourceCode": "return \"medium mixed pack\";"
+                    },
+                    "returning": true,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Return value"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "\"medium mixed pack\"",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "ripeness ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "var q if q > 0",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 215,
+              "offset": 30
+            },
+            "endLine": {
+              "line": 217,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"small pack\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "var q",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          },
+          "guard": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Guard expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "q > 0 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "246548",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"small pack\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 216,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 216,
+                  "offset": 36
+                }
+              },
+              "sourceCode": "return \"small pack\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"small pack\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      },
+      {
+        "label": "_",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL",
+          "lineRange": {
+            "fileName": "match.bal",
+            "startLine": {
+              "line": 218,
+              "offset": 17
+            },
+            "endLine": {
+              "line": 220,
+              "offset": 13
+            }
+          },
+          "sourceCode": "{\n                return \"invalid order\";\n            }"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "patterns": {
+            "metadata": {
+              "label": "Patterns",
+              "description": "List of binding patterns"
+            },
+            "valueType": "SINGLE_SELECT",
+            "value": [
+              {
+                "metadata": {
+                  "label": "Pattern",
+                  "description": "Binding pattern"
+                },
+                "valueType": "EXPRESSION",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              }
+            ],
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "249527",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of '\"invalid order\"'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "match.bal",
+                "startLine": {
+                  "line": 219,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 219,
+                  "offset": 39
+                }
+              },
+              "sourceCode": "return \"invalid order\";"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "\"invalid order\"",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "properties": {
+      "condition": {
+        "metadata": {
+          "label": "Condition",
+          "description": "Boolean Condition"
+        },
+        "valueType": "EXPRESSION",
+        "value": "quantity ",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 198,
+            "character": 8
+          },
+          "end": {
+            "line": 221,
+            "character": 9
+          }
+        },
+        "newText": "match quantity {\n    var qif q > 10 => {\n        return \"bulk order\";\n    }\n    var qif q > 5 => {\n        match ripeness {\n            1 => {\n                return \"medium unripe pack\";\n            }\n            2 => {\n                return \"medium ripe pack\";\n            }\n            _ => {\n                return \"medium mixed pack\";\n            }\n        }\n    }\n    var qif q > 0 => {\n        return \"small pack\";\n    }\n    _ => {\n        return \"invalid order\";\n    }\n}"
+      }
+    ]
+  }
+}
