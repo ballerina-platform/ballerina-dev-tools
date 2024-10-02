@@ -267,7 +267,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 AvailableNodesGenerator availableNodesGenerator =
-                        new AvailableNodesGenerator(semanticModel.get(), document.get());
+                        new AvailableNodesGenerator(semanticModel.get(), document.get(), request.forceAssign());
                 response.setCategories(
                         availableNodesGenerator.getAvailableNodes(request.position()));
             } catch (Throwable e) {
