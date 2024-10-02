@@ -51,11 +51,11 @@
       {
         "id": "55705",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'intArr' with type 'list'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
@@ -150,11 +150,11 @@
               {
                 "id": "57801",
                 "metadata": {
-                  "label": "Update Variable",
-                  "description": "Update the value of the variable '_'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "UPDATE_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "foreach.bal",
                     "startLine": {
@@ -173,7 +173,7 @@
                   "expression": {
                     "metadata": {
                       "label": "Expression",
-                      "description": "Update variable"
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "item",

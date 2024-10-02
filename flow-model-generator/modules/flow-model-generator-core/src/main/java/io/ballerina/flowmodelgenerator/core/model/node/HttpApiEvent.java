@@ -18,8 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -45,7 +45,7 @@ public class HttpApiEvent extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(FlowNode.Kind.EVENT_HTTP_API);
+        codedata().node(NodeKind.EVENT_HTTP_API);
     }
 
     @Override

@@ -50,11 +50,11 @@ def write_json(output_node, output_filename, node_kind):
         json.dump(output_data, output_file)
 
 
-def process_file_code(file_code):
+def process_file_code(file_code, in_codedata_type):
     # Split the user input by "-"
     input_parts = file_code.split("-")
     input_node_name = input_parts[0]
-    codedata_type = input_node_name.upper()
+    codedata_type = input_node_name.upper() if in_codedata_type is None else in_codedata_type.upper()
 
     # Relative to this path, read the file
     diagram_dir_name = os.path.join(
@@ -117,6 +117,8 @@ def process_file_code(file_code):
 
 # Get the user input from the command line argument
 file_code = sys.argv[1]
+# Get the optional second argument from the command line
+in_codedata_type = sys.argv[2] if len(sys.argv) > 2 else None
 
 # Exit the program if the user input is empty
 if not file_code:
@@ -134,7 +136,7 @@ if file_code == "all":
     for template_file in template_files:
         prefix = template_file.split(".")[0]
         print(f"Generating node: {template_file}...")
-        process_file_code(prefix)
+        process_file_code(prefix, in_codedata_type)
 else:
     # Call the function with the file_code input
-    process_file_code(file_code)
+    process_file_code(file_code, in_codedata_type)

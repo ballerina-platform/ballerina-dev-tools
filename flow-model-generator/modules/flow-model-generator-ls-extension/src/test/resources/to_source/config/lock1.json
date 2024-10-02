@@ -47,11 +47,11 @@
           {
             "id": "33994",
             "metadata": {
-              "label": "New Variable",
-              "description": "New variable 'i' with type 'int'"
+              "label": "Assign",
+              "description": "Assign a value to a variable"
             },
             "codedata": {
-              "node": "NEW_DATA",
+              "node": "ASSIGN",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {

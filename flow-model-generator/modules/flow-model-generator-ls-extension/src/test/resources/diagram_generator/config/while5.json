@@ -60,11 +60,11 @@
       {
         "id": "80618",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'i' with type 'int'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -116,11 +116,11 @@
       {
         "id": "81621",
         "metadata": {
-          "label": "New Variable",
-          "description": "New variable 'finalMsg' with type 'string'"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_DATA",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -421,11 +421,11 @@
               {
                 "id": "87697",
                 "metadata": {
-                  "label": "New Variable",
-                  "description": "New variable 'attempts' with type 'int'"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "NEW_DATA",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {

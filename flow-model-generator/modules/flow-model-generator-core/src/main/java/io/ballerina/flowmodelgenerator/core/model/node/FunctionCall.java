@@ -16,6 +16,7 @@ import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
@@ -34,7 +35,7 @@ public class FunctionCall extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        codedata().node(FlowNode.Kind.FUNCTION_CALL);
+        codedata().node(NodeKind.FUNCTION_CALL);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class FunctionCall extends NodeBuilder {
 
             metadata().label(codedata.symbol());
             codedata()
-                    .node(FlowNode.Kind.FUNCTION_CALL)
+                    .node(NodeKind.FUNCTION_CALL)
                     .symbol(codedata.symbol());
 
             Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
@@ -94,7 +95,7 @@ public class FunctionCall extends NodeBuilder {
                 .label(function.name())
                 .description(function.description());
         codedata()
-                .node(FlowNode.Kind.FUNCTION_CALL)
+                .node(NodeKind.FUNCTION_CALL)
                 .org(codedata.org())
                 .module(codedata.module())
                 .object(codedata.object())
