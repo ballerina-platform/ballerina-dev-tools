@@ -177,7 +177,7 @@
           "items": [
             {
               "metadata": {
-                "label": "Schema To JSON",
+                "label": "Type To JSON",
                 "description": "Converts a value of type `anydata` to `json`.\n\n",
                 "icon": ""
               },
@@ -192,7 +192,7 @@
             },
             {
               "metadata": {
-                "label": "Schema To XML",
+                "label": "Type To XML",
                 "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
                 "icon": ""
               },
@@ -207,7 +207,7 @@
             },
             {
               "metadata": {
-                "label": "JSON To Schema",
+                "label": "JSON To Type",
                 "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
                 "icon": ""
               },
@@ -222,7 +222,7 @@
             },
             {
               "metadata": {
-                "label": "XML To Schema",
+                "label": "XML To Type",
                 "description": "Converts XML to record type with projection.\n\n",
                 "icon": ""
               },

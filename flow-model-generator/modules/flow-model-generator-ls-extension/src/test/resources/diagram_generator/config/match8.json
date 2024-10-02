@@ -171,11 +171,11 @@
               {
                 "id": "178573",
                 "metadata": {
-                  "label": "Switch",
+                  "label": "Match",
                   "description": "Switches the data flow based on the value of an expression."
                 },
                 "codedata": {
-                  "node": "SWITCH",
+                  "node": "MATCH",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -338,11 +338,11 @@
                       {
                         "id": "183479",
                         "metadata": {
-                          "label": "Switch",
+                          "label": "Match",
                           "description": "Switches the data flow based on the value of an expression."
                         },
                         "codedata": {
-                          "node": "SWITCH",
+                          "node": "MATCH",
                           "lineRange": {
                             "fileName": "match.bal",
                             "startLine": {

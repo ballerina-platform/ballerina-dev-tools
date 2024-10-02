@@ -685,7 +685,7 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(MatchStatementNode matchStatementNode) {
-        startNode(NodeKind.SWITCH)
+        startNode(NodeKind.MATCH)
                 .properties().condition(matchStatementNode.condition());
 
         NodeList<MatchClauseNode> matchClauseNodes = matchStatementNode.matchClauses();

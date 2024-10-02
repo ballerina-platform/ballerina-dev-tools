@@ -60,11 +60,11 @@
       {
         "id": "204268",
         "metadata": {
-          "label": "Switch",
+          "label": "Match",
           "description": "Switches the data flow based on the value of an expression."
         },
         "codedata": {
-          "node": "SWITCH",
+          "node": "MATCH",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -136,11 +136,11 @@
               {
                 "id": "206074",
                 "metadata": {
-                  "label": "Switch",
+                  "label": "Match",
                   "description": "Switches the data flow based on the value of an expression."
                 },
                 "codedata": {
-                  "node": "SWITCH",
+                  "node": "MATCH",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -381,11 +381,11 @@
               {
                 "id": "215994",
                 "metadata": {
-                  "label": "Switch",
+                  "label": "Match",
                   "description": "Switches the data flow based on the value of an expression."
                 },
                 "codedata": {
-                  "node": "SWITCH",
+                  "node": "MATCH",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {

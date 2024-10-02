@@ -49,86 +49,62 @@
       "items": [
         {
           "metadata": {
-            "label": "Branch",
-            "description": "Branching nodes"
+            "label": "If",
+            "description": "Add conditional branch to the integration flow."
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "If",
-                "description": "Add conditional branch to the integration flow."
-              },
-              "codedata": {
-                "node": "IF"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Switch",
-                "description": "Switches the data flow based on the value of an expression."
-              },
-              "codedata": {
-                "node": "SWITCH"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "IF"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Iteration",
-            "description": "Iteration nodes"
+            "label": "Match",
+            "description": "Switches the data flow based on the value of an expression."
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "While",
-                "description": "Loop over a block of code."
-              },
-              "codedata": {
-                "node": "WHILE"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Foreach",
-                "description": "Iterate over a block of code."
-              },
-              "codedata": {
-                "node": "FOREACH"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "MATCH"
+          },
+          "enabled": true
         },
         {
           "metadata": {
-            "label": "Termination",
-            "description": "Termination nodes"
+            "label": "While",
+            "description": "Loop over a block of code."
           },
-          "items": [
-            {
-              "metadata": {
-                "label": "Return"
-              },
-              "codedata": {
-                "node": "RETURN"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "Stop",
-                "description": "Stop the flow"
-              },
-              "codedata": {
-                "node": "STOP"
-              },
-              "enabled": true
-            }
-          ]
+          "codedata": {
+            "node": "WHILE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Foreach",
+            "description": "Iterate over a block of code."
+          },
+          "codedata": {
+            "node": "FOREACH"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Return"
+          },
+          "codedata": {
+            "node": "RETURN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Stop",
+            "description": "Stop the flow"
+          },
+          "codedata": {
+            "node": "STOP"
+          },
+          "enabled": true
         }
       ]
     },
@@ -191,6 +167,16 @@
           },
           "codedata": {
             "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Fail",
+            "description": "Fail the execution"
+          },
+          "codedata": {
+            "node": "FAIL"
           },
           "enabled": true
         },
@@ -318,7 +304,7 @@
       "items": [
         {
           "metadata": {
-            "label": "Schema To JSON",
+            "label": "Type To JSON",
             "description": "Converts a value of type `anydata` to `json`.\n\n",
             "icon": ""
           },
@@ -333,7 +319,7 @@
         },
         {
           "metadata": {
-            "label": "Schema To XML",
+            "label": "Type To XML",
             "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
             "icon": ""
           },
@@ -348,7 +334,7 @@
         },
         {
           "metadata": {
-            "label": "JSON To Schema",
+            "label": "JSON To Type",
             "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
             "icon": ""
           },
@@ -363,7 +349,7 @@
         },
         {
           "metadata": {
-            "label": "XML To Schema",
+            "label": "XML To Type",
             "description": "Converts XML to record type with projection.\n\n",
             "icon": ""
           },
