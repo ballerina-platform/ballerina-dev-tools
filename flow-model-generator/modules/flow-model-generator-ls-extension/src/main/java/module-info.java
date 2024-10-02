@@ -26,4 +26,5 @@ module io.ballerina.LSExtensions.FlowService {
     requires io.ballerina.diagram.util;
     requires io.ballerina.flow.model.generator;
     requires io.ballerina.openapi.core;
+    requires io.ballerina.language.server.core;
 }
