@@ -1,5 +1,5 @@
 {
-  "contractFile": "petstore.yaml",
+  "contractFile": "petstore_original.yaml",
   "lineRange": {
     "fileName": "service_implementation.bal",
     "startLine": {
@@ -7,7 +7,7 @@
       "offset": 0
     },
     "endLine": {
-      "line": 23,
+      "line": 135,
       "offset": 1
     }
   }

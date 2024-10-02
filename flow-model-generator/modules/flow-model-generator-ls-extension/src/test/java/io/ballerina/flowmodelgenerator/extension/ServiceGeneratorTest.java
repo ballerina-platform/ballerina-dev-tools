@@ -43,7 +43,9 @@ public class ServiceGeneratorTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("config1.json")}
+                {Path.of("config1.json")},
+                {Path.of("config2.json")},
+                {Path.of("config3.json")}
         };
     }
 
@@ -55,7 +57,7 @@ public class ServiceGeneratorTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
         Path contractPath = resDir.resolve("contracts").resolve(testConfig.contractFile());
 
-        Path project = resDir.resolve("project");
+        Path project = configDir.resolve(config.getFileName().toString().split(".json")[0]);
         Files.createDirectories(project);
         String projectPath = project.toAbsolutePath().toString();
         OpenAPIServiceGenerationRequest request =
