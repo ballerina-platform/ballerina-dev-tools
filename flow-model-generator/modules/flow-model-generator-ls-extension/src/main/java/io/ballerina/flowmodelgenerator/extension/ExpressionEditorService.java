@@ -16,10 +16,14 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
@@ -62,6 +66,30 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
     @Override
     public Class<?> getRemoteInterface() {
         return null;
+    }
+
+    @JsonRequest
+    public CompletableFuture<VisibleVariableTypesResponse> visibleVariableTypes(VisibleVariableTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            VisibleVariableTypesResponse response = new VisibleVariableTypesResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+
+                VisibleVariableTypesGenerator visibleVariableTypesGenerator = new VisibleVariableTypesGenerator(
+                        semanticModel.get(), document.get(), request.position());
+                JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
+                response.setCategories(visibleVariableTypes);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
     }
 
     @JsonRequest

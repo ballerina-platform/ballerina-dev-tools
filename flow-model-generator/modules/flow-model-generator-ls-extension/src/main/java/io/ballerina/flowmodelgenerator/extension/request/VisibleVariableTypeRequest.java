@@ -16,15 +16,16 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.diagram.util;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
-    requires io.ballerina.language.server.core;
+package io.ballerina.flowmodelgenerator.extension.request;
+
+import io.ballerina.tools.text.LinePosition;
+
+/**
+ * Represents a request to get the visible variable types at a specific position in a file.
+ *
+ * @param filePath the path of the file
+ * @param position the line position in the file
+ * @since 1.4.0
+ */
+public record VisibleVariableTypeRequest(String filePath, LinePosition position) {
 }

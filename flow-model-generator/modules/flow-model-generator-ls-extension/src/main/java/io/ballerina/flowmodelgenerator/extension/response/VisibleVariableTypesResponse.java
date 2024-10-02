@@ -16,15 +16,28 @@
  *  under the License.
  */
 
-module io.ballerina.LSExtensions.FlowService {
-    requires io.ballerina.language.server.commons;
-    requires io.ballerina.lang;
-    requires org.eclipse.lsp4j.jsonrpc;
-    requires org.eclipse.lsp4j;
-    requires com.google.gson;
-    requires io.ballerina.tools.api;
-    requires io.ballerina.diagram.util;
-    requires io.ballerina.flow.model.generator;
-    requires io.ballerina.openapi.core;
-    requires io.ballerina.language.server.core;
+package io.ballerina.flowmodelgenerator.extension.response;
+
+import com.google.gson.JsonArray;
+
+/**
+ * Represents the response containing visible variable types for the given cursor position.
+ *
+ * @since 1.4.0
+ */
+public class VisibleVariableTypesResponse extends AbstractFlowModelResponse {
+
+    private JsonArray categories;
+
+    public VisibleVariableTypesResponse() {
+
+    }
+
+    public void setCategories(JsonArray categories) {
+        this.categories = categories;
+    }
+
+    public JsonArray getVisibleTypes() {
+        return categories;
+    }
 }
