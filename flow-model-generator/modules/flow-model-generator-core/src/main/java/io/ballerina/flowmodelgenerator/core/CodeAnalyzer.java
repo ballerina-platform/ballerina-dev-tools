@@ -34,6 +34,7 @@ import io.ballerina.compiler.syntax.tree.ActionNode;
 import io.ballerina.compiler.syntax.tree.AssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.BlockStatementNode;
 import io.ballerina.compiler.syntax.tree.BreakStatementNode;
+import io.ballerina.compiler.syntax.tree.ByteArrayLiteralNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CommentNode;
@@ -94,6 +95,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
+import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
@@ -397,6 +399,14 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     @Override
+    public void visit(ByteArrayLiteralNode byteArrayLiteralNode) {
+        startNode(NodeKind.BINARY_DATA)
+                .metadata()
+                .stepOut()
+                .properties().expression(byteArrayLiteralNode);
+    }
+
+    @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
         if (initializer.isEmpty()) {
@@ -422,6 +432,8 @@ class CodeAnalyzer extends NodeVisitor {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "xml");
         } else if (nodeBuilder instanceof JsonPayload) {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "json");
+        } else if (nodeBuilder instanceof BinaryData) {
+            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "byte[]");
         } else {
             nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
         }
@@ -459,7 +471,8 @@ class CodeAnalyzer extends NodeVisitor {
                         .variable(assignmentStatementNode.varRef());
         }
 
-        if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload) {
+        if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload
+                || nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().variable(assignmentStatementNode.varRef());
         }
         endNode(assignmentStatementNode);

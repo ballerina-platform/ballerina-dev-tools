@@ -36,6 +36,7 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
+import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
@@ -126,6 +127,7 @@ public abstract class NodeBuilder {
         put(NodeKind.FAIL, Fail::new);
         put(NodeKind.XML_PAYLOAD, XmlPayload::new);
         put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
+        put(NodeKind.BINARY_DATA, BinaryData::new);
         put(NodeKind.STOP, Stop::new);
         put(NodeKind.FUNCTION_CALL, FunctionCall::new);
         put(NodeKind.FOREACH, Foreach::new);

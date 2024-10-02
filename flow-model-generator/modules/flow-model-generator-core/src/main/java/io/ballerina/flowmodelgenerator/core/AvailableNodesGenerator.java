@@ -155,6 +155,7 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.DATA)
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
+                    .node(NodeKind.BINARY_DATA)
                     .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
