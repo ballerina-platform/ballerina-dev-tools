@@ -1,0 +1,50 @@
+{
+  "description": "Test generating template for binary data node",
+  "codedata": {
+    "node": "BINARY_DATA"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Binary Data",
+      "description": "Binary Data"
+    },
+    "codedata": {
+      "node": "BINARY_DATA"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "byte[]",
+        "optional": false,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new Binary Data"
+        },
+        "valueType": "EXPRESSION",
+        "value": "base64 `abcd`",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}
