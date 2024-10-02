@@ -101,6 +101,26 @@
     },
     {
       "metadata": {
+        "label": "mongodb",
+        "description": "Connects to MongoDB from ballerina ",
+        "keywords": [
+          "MongoDB",
+          "NoSQL"
+        ],
+        "icon": ""
+      },
+      "codedata": {
+        "node": "NEW_CONNECTION",
+        "org": "ballerinax",
+        "module": "mongodb",
+        "object": "Client",
+        "symbol": "init",
+        "id": "86"
+      },
+      "enabled": true
+    },
+    {
+      "metadata": {
         "label": "oracledb",
         "description": "This package provides the functionality required to access and manipulate data stored in an Oracle database.",
         "keywords": [
@@ -121,26 +141,6 @@
         "object": "Client",
         "symbol": "init",
         "id": "9560"
-      },
-      "enabled": true
-    },
-    {
-      "metadata": {
-        "label": "mongodb",
-        "description": "Connects to MongoDB from ballerina ",
-        "keywords": [
-          "MongoDB",
-          "NoSQL"
-        ],
-        "icon": ""
-      },
-      "codedata": {
-        "node": "NEW_CONNECTION",
-        "org": "ballerinax",
-        "module": "mongodb",
-        "object": "Client",
-        "symbol": "init",
-        "id": "86"
       },
       "enabled": true
     },
