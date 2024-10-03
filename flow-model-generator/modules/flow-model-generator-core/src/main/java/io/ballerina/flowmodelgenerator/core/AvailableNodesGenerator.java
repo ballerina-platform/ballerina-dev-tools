@@ -156,15 +156,17 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
-                    .node(NodeKind.ERROR_HANDLER)
+                // TODO: Uncomment when error handling is implemented
+//                    .node(NodeKind.ERROR_HANDLER)
                     .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
-                    .stepOut()
-                .stepIn(Category.Name.CONCURRENCY)
-                    .node(NodeKind.TRANSACTION)
-                    .node(NodeKind.LOCK)
-                    .node(NodeKind.START)
                     .stepOut();
+        // TODO: Uncomment when concurrency is implemented
+//                .stepIn(Category.Name.CONCURRENCY)
+//                    .node(NodeKind.TRANSACTION)
+//                    .node(NodeKind.LOCK)
+//                    .node(NodeKind.START)
+//                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
