@@ -158,7 +158,7 @@ public class AvailableNodesGenerator {
             this.rootBuilder.stepIn(Category.Name.DATA)
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
-                    .node(NodeKind.BINARY_DATA)
+                    .node(NodeKind.BINARY_DATA);
         }
 
         this.rootBuilder
