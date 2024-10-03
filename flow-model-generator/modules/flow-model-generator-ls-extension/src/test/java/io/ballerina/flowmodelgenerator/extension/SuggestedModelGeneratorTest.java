@@ -94,6 +94,7 @@ public class SuggestedModelGeneratorTest extends AbstractLSTest {
      * @param text        the AI generated text
      * @param position    the position of the AI generated text
      * @param description The description of the test
+     * @param forceAssign whether to render the assign node wherever possible
      * @param diagram     The expected diagram for the given inputs
      * @since 1.4.0
      */

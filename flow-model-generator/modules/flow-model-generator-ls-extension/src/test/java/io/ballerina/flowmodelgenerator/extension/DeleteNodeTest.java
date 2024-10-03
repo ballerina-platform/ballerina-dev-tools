@@ -162,6 +162,7 @@ public class DeleteNodeTest extends AbstractLSTest {
      * @param nodeStart     The end position of the node to be deleted
      * @param nodeEnd       The start position of the node to be deleted
      * @param source        The source file that contains the nodes to be deleted
+     * @param forceAssign   whether to render the assign node wherever possible
      * @param output        The expected output
      */
     private record TestConfig(String description, LinePosition functionStart, LinePosition functionEnd,
