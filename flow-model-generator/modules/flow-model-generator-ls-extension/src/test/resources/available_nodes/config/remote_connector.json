@@ -1,0 +1,1257 @@
+{
+  "description": "A simple example of a package",
+  "position": {
+    "line": 8,
+    "offset": 0
+  },
+  "source": "remote_connector.bal",
+  "categories": [
+    {
+      "metadata": {
+        "label": "Connections",
+        "description": "The connections used in the flow"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "covidClient"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "getGlobalStatus",
+                "description": "Get global COVID-19 totals for today, yesterday and two days ago\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getGlobalStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAllUSAStatesStatus",
+                "description": "Get COVID-19 totals for all US States\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAllUSAStatesStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getUSAStatusByState",
+                "description": "Get COVID-19 totals for specific US State(s)\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getUSAStatusByState"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAllContinentsStatus",
+                "description": "Get COVID-19 totals for all continents\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAllContinentsStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getStatusByContinent",
+                "description": "Get COVID-19 totals for a specific continent\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getStatusByContinent"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAllCountriesStatus",
+                "description": "Get COVID-19 totals for all countries\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAllCountriesStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getStatusByCountry",
+                "description": "Get COVID-19 totals for a specific country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getStatusByCountry"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getMultipleCountriesStatus",
+                "description": "Get COVID-19 totals for a specific set of countries\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getMultipleCountriesStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAllCountriesAndProvincesStatus",
+                "description": "Get COVID-19 totals for all countries and their provinces\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAllCountriesAndProvincesStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getUSCountiesStatus",
+                "description": "Get COVID-19 totals for all US counties\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getUSCountiesStatus"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getUSAStatusByCounty",
+                "description": "Get COVID-19 totals for a specific county\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getUSAStatusByCounty"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesForAllCountriesAndProvinces",
+                "description": "Get COVID-19 time series data for all countries and their provinces\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesForAllCountriesAndProvinces"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getGlobalStatusInTimeSeries",
+                "description": "Get global accumulated COVID-19 time series data\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getGlobalStatusInTimeSeries"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesBycountry",
+                "description": "Get COVID-19 time series data for a specific country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesBycountry"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesOfMultipleCountries",
+                "description": "Get COVID-19 time series data for a specific set of countries\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesOfMultipleCountries"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesByProvince",
+                "description": "Get COVID-19 time series data for a specific province in a country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesByProvince"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesDataForMultipleProvinces",
+                "description": "Get COVID-19 time series data for a set of provinces in a country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesDataForMultipleProvinces"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesForUSACounties",
+                "description": "Get all possible US States to query the /historical/usacounties/{state} endpoint with\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesForUSACounties"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getUSACountiesDataByState",
+                "description": "Get COVID-19 time series data for all counties in a specified US state\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getUSACountiesDataByState"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesForAllUSAStatesNYT",
+                "description": "Get COVID-19 time series data for all states, with an entry for each day since the pandemic began\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesForAllUSAStatesNYT"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesByUSAStateNYT",
+                "description": "Get COVID-19 time series data for a state or set of states, with an entry for each day since the pandemic began\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesByUSAStateNYT"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesByUSACountyNYT",
+                "description": "Get COVID-19 time series data for a county or set of counties, with an entry for each day since the pandemic began\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesByUSACountyNYT"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTimeSeriesForUSANYT",
+                "description": "Get COVID-19 time series data for the entire USA, with an entry for each day since the pandemic began\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTimeSeriesForUSANYT"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAppleMobilityDataSupportedCountries",
+                "description": "Get a list of supported countries for Apple mobility data\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAppleMobilityDataSupportedCountries"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getAppleMobilityDataSupportedSubRegions",
+                "description": "Get a list of supported subregions for specific country in the Apple mobility data set\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getAppleMobilityDataSupportedSubRegions"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getStatusBySubRegionUsingAppleMobilotyData",
+                "description": "Get COVID-19 Apple mobility data for subregions of a country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getStatusBySubRegionUsingAppleMobilotyData"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getGovenrmentDataSupportedCountries",
+                "description": "Get a list of supported countries for government specific data\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getGovenrmentDataSupportedCountries"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getGovernmentReportedDataByCountry",
+                "description": "Get COVID-19 government reported data for a specific country\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getGovernmentReportedDataByCountry"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getVaccineTrialData",
+                "description": "Get vaccine trial data from RAPS (Regulatory Affairs Professional Society). Specifically published by Jeff Craven at https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-vaccine-tracker\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getVaccineTrialData"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTotalGlobalVaccineDosesAdministered",
+                "description": "Get total global COVID-19 vaccine doses administered. Sourced from https://covid.ourworldindata.org/\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTotalGlobalVaccineDosesAdministered"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getVaccineCoverageOfAllCountries",
+                "description": "Get COVID-19 vaccine doses administered for all countries that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getVaccineCoverageOfAllCountries"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getVaccineCoverageByCountry",
+                "description": "Get COVID-19 vaccine doses administered for a country that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getVaccineCoverageByCountry"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getVaccineCoverageOfAllUSAStates",
+                "description": "Get COVID-19 vaccine doses administered for all states that have reported rolling out vaccination. Sourced  from https://covid.ourworldindata.org/\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getVaccineCoverageOfAllUSAStates"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getVaccineCoverageByUSAState",
+                "description": "Get COVID-19 vaccine doses administered for a state that has reported vaccination rollout. Sourced from https://covid.ourworldindata.org/\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getVaccineCoverageByUSAState"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getTherapeuticsTrialData",
+                "description": "Get therapeutics trial data from RAPS (Regulatory Affairs Professional Society). Specifically published by Jeff Craven at https://www.raps.org/news-and-articles/news-articles/2020/3/covid-19-therapeutics-tracker\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getTherapeuticsTrialData"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getInfluenzaLikeIllnessData",
+                "description": "Get Influenza-like-illness data for the 2019 and 2020 outbreaks from the US Center for Disease Control\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getInfluenzaLikeIllnessData"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getInfluenzaReportsByUCLA",
+                "description": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US clinical labs\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getInfluenzaReportsByUCLA"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getInfluenzaReportsByUSPHL",
+                "description": "Get Influenza report data for the 2019 and 2020 outbreaks from the US Center for Disease Control, reported by US public health labs\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerinax",
+                "module": "covid19",
+                "object": "Client",
+                "symbol": "getInfluenzaReportsByUSPHL"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Statement",
+        "description": "Fundamental executable units in a program"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Assign",
+            "description": "Assign a value to a variable"
+          },
+          "codedata": {
+            "node": "ASSIGN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Function Call",
+            "description": "Both project and utility functions"
+          },
+          "codedata": {
+            "node": "FUNCTION"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Control",
+        "description": "Control nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "If",
+            "description": "Add conditional branch to the integration flow."
+          },
+          "codedata": {
+            "node": "IF"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Match",
+            "description": "Switches the data flow based on the value of an expression."
+          },
+          "codedata": {
+            "node": "MATCH"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "While",
+            "description": "Loop over a block of code."
+          },
+          "codedata": {
+            "node": "WHILE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Foreach",
+            "description": "Iterate over a block of code."
+          },
+          "codedata": {
+            "node": "FOREACH"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Return"
+          },
+          "codedata": {
+            "node": "RETURN"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Data",
+        "description": "Data nodes are used to create, read, update, delete, and transform data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "JSON Payload"
+          },
+          "codedata": {
+            "node": "JSON_PAYLOAD"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "XML Payload"
+          },
+          "codedata": {
+            "node": "XML_PAYLOAD"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Binary Data",
+            "description": "Binary Data"
+          },
+          "codedata": {
+            "node": "BINARY_DATA"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Data Mapper",
+            "description": "Map data from multiple variables to a record type"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Error Handling",
+        "description": "Handle errors that occur during execution"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "ErrorHandler",
+            "description": "Catch and handle errors"
+          },
+          "codedata": {
+            "node": "ERROR_HANDLER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Fail",
+            "description": "Fail the execution"
+          },
+          "codedata": {
+            "node": "FAIL"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Panic",
+            "description": "Panic and stop the execution"
+          },
+          "codedata": {
+            "node": "PANIC"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Concurrency",
+        "description": "Concurrency nodes"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Transaction",
+            "description": "Handle transaction."
+          },
+          "codedata": {
+            "node": "TRANSACTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Lock",
+            "description": "Allow to access mutable states safely"
+          },
+          "codedata": {
+            "node": "LOCK"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Start",
+            "description": "Execute a function or a method invocation in a new strand"
+          },
+          "codedata": {
+            "node": "START"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Logging"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Log Info",
+            "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printInfo",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Error",
+            "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printError",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Warn",
+            "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printWarn",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Log Debug",
+            "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "log",
+            "symbol": "printDebug",
+            "version": "2.10.0"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Data Conversion"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Type To JSON",
+            "description": "Converts a value of type `anydata` to `json`.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "toJson",
+            "version": "0.2.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Type To XML",
+            "description": "Converts a `Map` or `Record` representation to its XML representation.\nAdditionally, when converting from a record, the `xmldata:Namespace`, `xmldata:Name`, and `xmldata:Attribute`\nannotations can be used to add `namespaces`, `name of elements`, and `attributes` to XML representation.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "toXml",
+            "version": "1.0.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "JSON To Type",
+            "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "parseAsType",
+            "version": "0.2.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "XML To Type",
+            "description": "Converts XML to record type with projection.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.xmldata",
+            "symbol": "parseAsType",
+            "version": "1.0.0"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "JSON"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Evaluate JSON Path",
+            "description": "Extract details from the given JSON value using the provided query template expression.\n\n```ballerina\nread({id: 1, \"name\": \"John Doe\"}, `$.name`) => \"John Doe\"\n```\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "read",
+            "version": "0.2.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "JSON Pretty Print",
+            "description": "Prettifies a `json` value to print it.\n\n",
+            "icon": ""
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "data.jsondata",
+            "symbol": "prettify",
+            "version": "0.2.0"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "XML"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "XSLT Transform",
+            "description": "Transforms the single-rooted XML content to another XML/HTML/plain text using XSL transformations.\n```ballerina\nxml|error target = xslt:transform(sourceXml, xsl);\n```\n\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_xslt_2.7.0.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "xslt",
+            "symbol": "transform",
+            "version": "2.7.0"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "File Data"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Read CSV",
+            "description": "Read file content as a CSV.\nWhen the expected data type is record[], the first entry of the csv file should contain matching headers.\n```ballerina\nstring[][]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\nrecord{}[]|io:Error content = io:fileReadCsv(\"./resources/myfile.csv\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadCsv",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Read JSON",
+            "description": "Reads file content as a JSON.\n```ballerina\njson|io:Error content = io:fileReadJson(\"./resources/myfile.json\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadJson",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Read Bytes",
+            "description": "Read the entire file content as a byte array.\n```ballerina\nbyte[]|io:Error content = io:fileReadBytes(\"./resources/myfile.txt\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadBytes",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Read XML",
+            "description": "Reads file content as an XML.\n```ballerina\nxml|io:Error content = io:fileReadXml(\"./resources/myfile.xml\");\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileReadXml",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Write CSV",
+            "description": "Write CSV content to a file.\nWhen the input is a record[] type in `OVERWRITE`,  headers will be written to the CSV file by default.\nFor `APPEND`, order of the existing csv file is inferred using the headers and used as the order.\n```ballerina\ntype Coord record {int x;int y;};\nCoord[] contentRecord = [{x: 1,y: 2},{x: 1,y: 2}]\nstring[][] content = [[\"Anne\", \"Johnson\", \"SE\"], [\"John\", \"Cameron\", \"QA\"]];\nio:Error? result = io:fileWriteCsv(\"./resources/myfile.csv\", content);\nio:Error? resultRecord = io:fileWriteCsv(\"./resources/myfileRecord.csv\", contentRecord);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteCsv",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Write JSON",
+            "description": "Write a JSON to a file.\n```ballerina\njson content = {\"name\": \"Anne\", \"age\": 30};\nio:Error? result = io:fileWriteJson(\"./resources/myfile.json\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteJson",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Write Bytes",
+            "description": "Write a set of bytes to a file.\n```ballerina\nbyte[] content = [60, 78, 39, 28];\nio:Error? result = io:fileWriteBytes(\"./resources/myfile.txt\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteBytes",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Write XML",
+            "description": "Write XML content to a file.\n```ballerina\nxml content = xml `<book>The Lost World</book>`;\nio:Error? result = io:fileWriteXml(\"./resources/myfile.xml\", content);\n```\n",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "io",
+            "symbol": "fileWriteXml",
+            "version": "1.6.1"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "label": "Time",
+        "description": "This package provides a set of APIs that have the capabilities to generate and manipulate UTC and localized time.",
+        "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Get Current UTC Time",
+            "description": "Returns the UTC representing the current time."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcNow",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Current Monotonic Time",
+            "description": "Returns the number of seconds from an unspecified epoch."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "monotonicNow",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Time Zone",
+            "description": "Return the time zone object of a given zone ID."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "getZone",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Get Day of Week",
+            "description": "Get the day of week for a specified date."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "dayOfWeek",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "UTC Time Difference in Seconds",
+            "description": "Returns the difference in seconds between `utc1` and `utc2`."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcDiffSeconds",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Add Seconds to UTC",
+            "description": "Returns UTC time that occurs seconds after `utc`."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcAddSeconds",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Validate Gregorian Date",
+            "description": "Check that days and months are within range as per Gregorian calendar rules."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "dateValidate",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Convert Civil to UTC",
+            "description": "Converts a given `Civil` value to a `Utc` timestamp."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcFromCivil",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Convert UTC to Civil",
+            "description": "Converts a given `time:Utc` timestamp to a `time:Civil` value."
+          },
+          "codedata": {
+            "node": "FUNCTION_CALL",
+            "org": "ballerina",
+            "module": "time",
+            "symbol": "utcToCivil",
+            "version": "2.5.0"
+          },
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}
