@@ -57,6 +57,14 @@ public class AvailableNodesTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        //TODO: Need a better approach on how we can mock the central data
+        return new String[] {
+                "remote_connector.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "available_nodes";
     }

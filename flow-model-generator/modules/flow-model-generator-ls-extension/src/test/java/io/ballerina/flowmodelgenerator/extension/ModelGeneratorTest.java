@@ -71,6 +71,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
 
     @Override
     protected String[] skipList() {
+        // TODO: Remove after fixing the log symbol issue
         return new String[]{
                 "function_call-log1.json",
                 "currency_converter1.json"
