@@ -56,6 +56,7 @@ public class SuggestedModelGenerator {
                 } else {
                     i = handleSuggestedNode(newNodes, i, newNode);
                 }
+                setSuggestedNodes(newNode);
                 continue;
             }
 
