@@ -569,6 +569,7 @@
           "org": "nipunaf",
           "module": "new_connection1",
           "symbol": "logEmployee",
+          "version": "0.1.0",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {

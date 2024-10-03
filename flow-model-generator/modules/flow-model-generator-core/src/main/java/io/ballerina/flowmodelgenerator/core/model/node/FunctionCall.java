@@ -137,7 +137,10 @@ public class FunctionCall extends NodeBuilder {
                     .build();
         }
 
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        FlowNode nodeTemplate = getNodeTemplate(codedata);
+        if (nodeTemplate == null) {
+            throw new IllegalStateException("Function call node template not found");
+        }
 
         String module = nodeTemplate.codedata().module();
         String methodCallPrefix = (module != null) ? module.substring(module.lastIndexOf('.') + 1) + ":" : "";
@@ -152,7 +155,48 @@ public class FunctionCall extends NodeBuilder {
                 .build();
     }
 
-    private String escapeDefaultValue(String value) {
+    public static FlowNode getNodeTemplate(Codedata codedata) {
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate == null) {
+            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.FUNCTION_CALL), codedata);
+        }
+        return nodeTemplate;
+    }
+
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+        FunctionResponse functionResponse = RemoteCentral.getInstance()
+                .function(codedata.org(), codedata.module(), codedata.version(), codedata.symbol());
+        Function function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
+
+        nodeBuilder.metadata()
+                .label(function.name())
+                .description(function.description());
+        nodeBuilder.codedata()
+                .node(NodeKind.FUNCTION_CALL)
+                .org(codedata.org())
+                .module(codedata.module())
+                .object(codedata.object())
+                .version(codedata.version())
+                .symbol(codedata.symbol());
+
+        for (Function.Parameter parameter : function.parameters()) {
+            String typeName = parameter.type().name();
+            String defaultValue = parameter.defaultValue();
+            String defaultString = defaultValue != null ? escapeDefaultValue(defaultValue) :
+                    CommonUtils.getDefaultValueForType(typeName);
+            boolean optional = defaultValue != null && !defaultValue.isEmpty();
+            nodeBuilder.properties().custom(parameter.name(), parameter.name(), parameter.description(),
+                    Property.ValueType.EXPRESSION, typeName, defaultString, optional);
+        }
+
+        List<Function.ReturnParameter> returnParameters = function.returnParameters();
+        if (!returnParameters.isEmpty()) {
+            nodeBuilder.properties().type(returnParameters.get(0).type().name()).data(null);
+        }
+        return nodeBuilder.build();
+    }
+
+    private static String escapeDefaultValue(String value) {
         return value.isEmpty() ? "\"\"" : value;
     }
 

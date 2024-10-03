@@ -58,6 +58,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "greet",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -115,6 +116,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "power",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -180,6 +182,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "power",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -239,11 +242,15 @@
       {
         "id": "102361",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "println",
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "io",
+          "symbol": "println",
+          "version": "1.6.1",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -258,18 +265,7 @@
           "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed)",
-            "optional": false,
-            "editable": true
-          }
-        },
+        "properties": {},
         "flags": 0
       },
       {
@@ -282,6 +278,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "asum",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -330,6 +327,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "operate",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -398,11 +396,15 @@
       {
         "id": "108287",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "println",
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "io",
+          "symbol": "println",
+          "version": "1.6.1",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -417,18 +419,7 @@
           "sourceCode": "io:println(\"6 * 3 = \", result);"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "io:println(\"6 * 3 = \", result)",
-            "optional": false,
-            "editable": true
-          }
-        },
+        "properties": {},
         "flags": 0
       },
       {
@@ -441,6 +432,7 @@
           "org": "$anon",
           "module": ".",
           "symbol": "print",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
