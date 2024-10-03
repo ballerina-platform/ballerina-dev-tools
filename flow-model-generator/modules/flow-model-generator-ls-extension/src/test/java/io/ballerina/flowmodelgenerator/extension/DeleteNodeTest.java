@@ -61,7 +61,7 @@ public class DeleteNodeTest extends AbstractLSTest {
 
         String sourceFile = sourceDir.resolve(testConfig.source()).toAbsolutePath().toString();
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(sourceFile, testConfig.functionStart(),
-                testConfig.functionEnd());
+                testConfig.functionEnd(), testConfig.forceAssign());
         Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         JsonObject jsonMap = getResponse(endpoint, request, "getFlowModel").getAsJsonObject("flowModel");
 
@@ -72,7 +72,7 @@ public class DeleteNodeTest extends AbstractLSTest {
             if (optNodeToDelete.isPresent()) {
                 nodeToDelete = optNodeToDelete.get();
             }
-         }
+        }
         if (nodeToDelete == null) {
             Assert.fail(String.format("Failed test: '%s', cannot find the node to delete", configJsonPath));
         }
@@ -100,7 +100,8 @@ public class DeleteNodeTest extends AbstractLSTest {
         if (assertFailure) {
             TestConfig updatedConfig =
                     new TestConfig(testConfig.description(), testConfig.functionStart(), testConfig.functionEnd(),
-                            testConfig.nodeStart(), testConfig.nodeEnd(), testConfig.source(), newMap);
+                            testConfig.nodeStart(), testConfig.nodeEnd(), testConfig.source(), testConfig.forceAssign(),
+                            newMap);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -156,7 +157,7 @@ public class DeleteNodeTest extends AbstractLSTest {
      * @param output        The expected output
      */
     private record TestConfig(String description, LinePosition functionStart, LinePosition functionEnd,
-                              LinePosition nodeStart, LinePosition nodeEnd, String source,
+                              LinePosition nodeStart, LinePosition nodeEnd, String source, boolean forceAssign,
                               Map<String, List<TextEdit>> output) {
 
         public String description() {
