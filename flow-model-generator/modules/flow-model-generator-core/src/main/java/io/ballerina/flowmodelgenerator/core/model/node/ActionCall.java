@@ -89,6 +89,10 @@ public class ActionCall extends NodeBuilder {
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+        if (codedata.org().equals("$anon")) {
+            return null;
+        }
+
         ConnectorResponse connector = codedata.id() != null ? RemoteCentral.getInstance().connector(codedata.id()) :
                 RemoteCentral.getInstance()
                         .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
