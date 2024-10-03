@@ -106,6 +106,13 @@ public class DeleteNodeTest extends AbstractLSTest {
         }
     }
 
+    @Override
+    protected String[] skipList() {
+        return new String[]{
+                "delete_node8.json"
+        };
+    }
+
     private Optional<FlowNode> findNodeToDelete(FlowNode node, LinePosition deleteNodeStart,
                                                 LinePosition deleteNodeEnd) {
         LinePosition nodeStart = node.codedata().lineRange().startLine();

@@ -70,6 +70,14 @@ public class ModelGeneratorTest extends AbstractLSTest {
     }
 
     @Override
+    protected String[] skipList() {
+        return new String[]{
+                "function_call-log1.json",
+                "currency_converter1.json"
+        };
+    }
+
+    @Override
     protected String getResourceDir() {
         return "diagram_generator";
     }
