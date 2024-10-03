@@ -116,7 +116,7 @@
       "items": [
         {
           "metadata": {
-            "label": "JSON Payload"
+            "label": "Assign JSON"
           },
           "codedata": {
             "node": "JSON_PAYLOAD"
@@ -125,7 +125,7 @@
         },
         {
           "metadata": {
-            "label": "XML Payload"
+            "label": "Assign XML"
           },
           "codedata": {
             "node": "XML_PAYLOAD"
@@ -134,8 +134,8 @@
         },
         {
           "metadata": {
-            "label": "Binary Data",
-            "description": "Binary Data"
+            "label": "Assign Binary",
+            "description": "Assign Binary"
           },
           "codedata": {
             "node": "BINARY_DATA"

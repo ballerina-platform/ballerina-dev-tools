@@ -15,8 +15,8 @@
       {
         "id": "32894",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -71,8 +71,8 @@
       {
         "id": "33882",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -127,8 +127,8 @@
       {
         "id": "34881",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -183,8 +183,8 @@
       {
         "id": "35867",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -239,8 +239,8 @@
       {
         "id": "36855",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",

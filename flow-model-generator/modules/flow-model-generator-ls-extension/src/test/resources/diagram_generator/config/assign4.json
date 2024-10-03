@@ -107,8 +107,8 @@
       {
         "id": "54721",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -163,8 +163,8 @@
       {
         "id": "55723",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",

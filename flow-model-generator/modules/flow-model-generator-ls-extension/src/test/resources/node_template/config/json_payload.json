@@ -6,7 +6,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "JSON Payload"
+      "label": "Assign JSON"
     },
     "codedata": {
       "node": "JSON_PAYLOAD"

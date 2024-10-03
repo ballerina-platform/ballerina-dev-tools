@@ -6,7 +6,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "XML Payload"
+      "label": "Assign XML"
     },
     "codedata": {
       "node": "XML_PAYLOAD"

@@ -51,8 +51,8 @@
       {
         "id": "49766",
         "metadata": {
-          "label": "JSON Payload",
-          "description": "JSON Payload"
+          "label": "Assign JSON",
+          "description": "Assign JSON"
         },
         "codedata": {
           "node": "JSON_PAYLOAD",

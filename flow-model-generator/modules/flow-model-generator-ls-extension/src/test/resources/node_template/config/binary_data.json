@@ -6,8 +6,8 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Binary Data",
-      "description": "Binary Data"
+      "label": "Assign Binary",
+      "description": "Assign Binary"
     },
     "codedata": {
       "node": "BINARY_DATA"
