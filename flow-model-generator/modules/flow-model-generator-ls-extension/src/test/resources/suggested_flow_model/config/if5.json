@@ -287,6 +287,7 @@
                           "org": "$anon",
                           "module": ".",
                           "symbol": "print",
+                          "version": "0.0.0",
                           "lineRange": {
                             "fileName": "if.bal",
                             "startLine": {
@@ -347,6 +348,7 @@
                           "org": "$anon",
                           "module": ".",
                           "symbol": "print",
+                          "version": "0.0.0",
                           "lineRange": {
                             "fileName": "if.bal",
                             "startLine": {
@@ -378,7 +380,8 @@
                     ]
                   }
                 ],
-                "flags": 0
+                "flags": 0,
+                "suggested": true
               },
               {
                 "id": "47069",
@@ -390,6 +393,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "print",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -450,6 +454,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "print",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {

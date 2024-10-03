@@ -99,6 +99,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
@@ -547,8 +548,9 @@ class CodeAnalyzer extends NodeVisitor {
                     .org(orgName)
                     .module(moduleName)
                     .symbol(functionName)
+                    .version(functionSymbol.getModule().get().id().version())
                     .build();
-            FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+            FlowNode nodeTemplate = FunctionCall.getNodeTemplate(codedata);
             if (nodeTemplate == null) {
                 handleExpressionNode(functionCallExpressionNode);
                 return;
@@ -564,6 +566,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .org(nodeTemplate.codedata().org())
                         .module(nodeTemplate.codedata().module())
                         .object(nodeTemplate.codedata().object())
+                        .version(nodeTemplate.codedata().version())
                         .symbol(nodeTemplate.codedata().symbol());
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
@@ -587,6 +590,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .org(orgName)
                             .module(defaultModuleName)
+                            .version(functionSymbol.getModule().get().id().version())
                             .symbol(functionName);
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties()
