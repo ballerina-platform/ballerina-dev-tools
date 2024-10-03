@@ -36,7 +36,7 @@ import java.util.Optional;
  */
 public class JsonPayload extends NodeBuilder {
 
-    public static final String LABEL = "JSON Payload";
+    public static final String LABEL = "Assign JSON";
     public static final String DESCRIPTION = LABEL;
     public static final String JSON_PAYLOAD_DOC = "Create new JSON payload";
     private static final String DUMMY_JSON_PAYLOAD = "{\"value\": \"Dummy JSON value\"}";

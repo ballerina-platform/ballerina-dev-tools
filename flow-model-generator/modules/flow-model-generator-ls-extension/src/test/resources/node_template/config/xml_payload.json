@@ -6,7 +6,7 @@
   "output": {
     "id": "31",
     "metadata": {
-      "label": "XML Payload"
+      "label": "Assign XML"
     },
     "codedata": {
       "node": "XML_PAYLOAD"
@@ -15,7 +15,7 @@
     "properties": {
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
@@ -25,7 +25,7 @@
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",

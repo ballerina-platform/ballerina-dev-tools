@@ -1,0 +1,121 @@
+{
+  "source": "new_connection-http/main.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "New Connection",
+      "description": "This is a generated connector from [Novel COVID-19 API version 3.0.0](https://disease.sh/docs/) OpenAPI Specification.\nBallerina connector for COVID-19 provides easy access to latest COVID-19 related data across the world. Please refer to [API documentation](https://disease.sh) for more detail.\n",
+      "keywords": [
+        "Lifestyle & Entertainment/News & Lifestyle",
+        "Cost/Free"
+      ],
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_covid19_1.5.1.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "covid19",
+      "object": "Client",
+      "symbol": "init",
+      "id": "6267",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "The configurations to be used when initializing the `connector` \n"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "record",
+        "value": "{}",
+        "optional": false,
+        "editable": true
+      },
+      "serviceUrl": {
+        "metadata": {
+          "label": "serviceUrl",
+          "description": "URL of the target service \n"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "string",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "covid19:Client",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "scope": {
+        "metadata": {
+          "label": "Connection Scope",
+          "description": "Scope of the connection, Global or Local"
+        },
+        "valueType": "ENUM",
+        "value": "Global",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "new_connection-http/connections.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerinax/covid19;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "covid19:Client item = check new ({}, \"\");"
+      }
+    ]
+  }
+}
