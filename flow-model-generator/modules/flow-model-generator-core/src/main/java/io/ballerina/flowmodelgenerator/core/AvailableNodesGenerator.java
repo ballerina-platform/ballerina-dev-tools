@@ -246,6 +246,7 @@ public class AvailableNodesGenerator {
                         .org(codedata.org())
                         .module(codedata.module())
                         .object(codedata.object())
+                        .id(String.valueOf(connector.id()))
                         .symbol(function.name());
             connectorActions.add(actionBuilder.buildAvailableNode());
         }

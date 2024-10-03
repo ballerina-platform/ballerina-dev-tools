@@ -28,7 +28,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getGlobalStatus"
+                "symbol": "getGlobalStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -43,7 +44,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAllUSAStatesStatus"
+                "symbol": "getAllUSAStatesStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -58,7 +60,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getUSAStatusByState"
+                "symbol": "getUSAStatusByState",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -73,7 +76,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAllContinentsStatus"
+                "symbol": "getAllContinentsStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -88,7 +92,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getStatusByContinent"
+                "symbol": "getStatusByContinent",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -103,7 +108,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAllCountriesStatus"
+                "symbol": "getAllCountriesStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -118,7 +124,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getStatusByCountry"
+                "symbol": "getStatusByCountry",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -133,7 +140,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getMultipleCountriesStatus"
+                "symbol": "getMultipleCountriesStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -148,7 +156,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAllCountriesAndProvincesStatus"
+                "symbol": "getAllCountriesAndProvincesStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -163,7 +172,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getUSCountiesStatus"
+                "symbol": "getUSCountiesStatus",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -178,7 +188,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getUSAStatusByCounty"
+                "symbol": "getUSAStatusByCounty",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -193,7 +204,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesForAllCountriesAndProvinces"
+                "symbol": "getTimeSeriesForAllCountriesAndProvinces",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -208,7 +220,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getGlobalStatusInTimeSeries"
+                "symbol": "getGlobalStatusInTimeSeries",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -223,7 +236,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesBycountry"
+                "symbol": "getTimeSeriesBycountry",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -238,7 +252,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesOfMultipleCountries"
+                "symbol": "getTimeSeriesOfMultipleCountries",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -253,7 +268,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesByProvince"
+                "symbol": "getTimeSeriesByProvince",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -268,7 +284,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesDataForMultipleProvinces"
+                "symbol": "getTimeSeriesDataForMultipleProvinces",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -283,7 +300,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesForUSACounties"
+                "symbol": "getTimeSeriesForUSACounties",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -298,7 +316,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getUSACountiesDataByState"
+                "symbol": "getUSACountiesDataByState",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -313,7 +332,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesForAllUSAStatesNYT"
+                "symbol": "getTimeSeriesForAllUSAStatesNYT",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -328,7 +348,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesByUSAStateNYT"
+                "symbol": "getTimeSeriesByUSAStateNYT",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -343,7 +364,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesByUSACountyNYT"
+                "symbol": "getTimeSeriesByUSACountyNYT",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -358,7 +380,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTimeSeriesForUSANYT"
+                "symbol": "getTimeSeriesForUSANYT",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -373,7 +396,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAppleMobilityDataSupportedCountries"
+                "symbol": "getAppleMobilityDataSupportedCountries",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -388,7 +412,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getAppleMobilityDataSupportedSubRegions"
+                "symbol": "getAppleMobilityDataSupportedSubRegions",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -403,7 +428,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getStatusBySubRegionUsingAppleMobilotyData"
+                "symbol": "getStatusBySubRegionUsingAppleMobilotyData",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -418,7 +444,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getGovenrmentDataSupportedCountries"
+                "symbol": "getGovenrmentDataSupportedCountries",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -433,7 +460,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getGovernmentReportedDataByCountry"
+                "symbol": "getGovernmentReportedDataByCountry",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -448,7 +476,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getVaccineTrialData"
+                "symbol": "getVaccineTrialData",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -463,7 +492,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTotalGlobalVaccineDosesAdministered"
+                "symbol": "getTotalGlobalVaccineDosesAdministered",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -478,7 +508,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getVaccineCoverageOfAllCountries"
+                "symbol": "getVaccineCoverageOfAllCountries",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -493,7 +524,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getVaccineCoverageByCountry"
+                "symbol": "getVaccineCoverageByCountry",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -508,7 +540,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getVaccineCoverageOfAllUSAStates"
+                "symbol": "getVaccineCoverageOfAllUSAStates",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -523,7 +556,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getVaccineCoverageByUSAState"
+                "symbol": "getVaccineCoverageByUSAState",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -538,7 +572,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getTherapeuticsTrialData"
+                "symbol": "getTherapeuticsTrialData",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -553,7 +588,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getInfluenzaLikeIllnessData"
+                "symbol": "getInfluenzaLikeIllnessData",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -568,7 +604,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getInfluenzaReportsByUCLA"
+                "symbol": "getInfluenzaReportsByUCLA",
+                "id": "6267"
               },
               "enabled": true
             },
@@ -583,7 +620,8 @@
                 "org": "ballerinax",
                 "module": "covid19",
                 "object": "Client",
-                "symbol": "getInfluenzaReportsByUSPHL"
+                "symbol": "getInfluenzaReportsByUSPHL",
+                "id": "6267"
               },
               "enabled": true
             }

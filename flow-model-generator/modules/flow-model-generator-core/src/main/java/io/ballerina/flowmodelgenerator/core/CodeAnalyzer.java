@@ -94,6 +94,7 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
@@ -257,9 +258,10 @@ class CodeAnalyzer extends NodeVisitor {
                 .org(orgName)
                 .module(moduleName)
                 .object("Client")
+                .version(symbol.get().getModule().get().id().version())
                 .symbol(methodName)
                 .build();
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        FlowNode nodeTemplate = ActionCall.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(actionNode);
             return;
