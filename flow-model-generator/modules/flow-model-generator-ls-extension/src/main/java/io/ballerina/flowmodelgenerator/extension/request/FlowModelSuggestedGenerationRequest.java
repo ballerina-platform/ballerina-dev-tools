@@ -24,15 +24,16 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the request for the flow model getFlowDesignModel API.
  *
- * @param filePath  file path of the source file
- * @param startLine start line of the source range
- * @param endLine   end line of the source range
- * @param text      the AI generated text
- * @param position  the position of the AI generated text
+ * @param filePath    file path of the source file
+ * @param startLine   start line of the source range
+ * @param endLine     end line of the source range
+ * @param text        the AI generated text
+ * @param position    the position of the AI generated text
+ * @param forceAssign whether to render the assign node wherever possible
  * @since 1.4.0
  */
 public record FlowModelSuggestedGenerationRequest(String filePath, LinePosition startLine, LinePosition endLine,
-                                                  String text, LinePosition position) {
+                                                  String text, LinePosition position, boolean forceAssign) {
 
     public LineRange lineRange() {
         return LineRange.from(filePath, startLine, endLine);

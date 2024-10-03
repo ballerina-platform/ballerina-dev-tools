@@ -48,7 +48,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
 
         FlowModelGeneratorRequest request = new FlowModelGeneratorRequest(
                 sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
-                testConfig.end());
+                testConfig.end(), testConfig.forceAssign());
         JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine
@@ -61,7 +61,7 @@ public class ModelGeneratorTest extends AbstractLSTest {
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
             TestConfig updatedConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
-                    testConfig.description(), modifiedDiagram);
+                    testConfig.description(), testConfig.forceAssign(), modifiedDiagram);
 //            updateConfig(configJsonPath, updatedConfig);
             compareJsonElements(modifiedDiagram, testConfig.diagram());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
@@ -100,11 +100,12 @@ public class ModelGeneratorTest extends AbstractLSTest {
      * @param end         The end position of the diagram
      * @param source      The source file
      * @param description The description of the test
+     * @param forceAssign whether to render the assign node wherever possible
      * @param diagram     The expected diagram for the given inputs
      * @since 1.4.0
      */
     private record TestConfig(LinePosition start, LinePosition end, String source, String description,
-                              JsonObject diagram) {
+                              boolean forceAssign, JsonObject diagram) {
 
         public String description() {
             return description == null ? "" : description;

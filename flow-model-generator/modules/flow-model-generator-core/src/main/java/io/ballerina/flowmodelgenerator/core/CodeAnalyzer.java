@@ -133,9 +133,10 @@ class CodeAnalyzer extends NodeVisitor {
     private final String connectionScope;
     private final TextDocument textDocument;
     private final String defaultModuleName;
+    private final boolean forceAssign;
 
     public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, Map<String, LineRange> dataMappings,
-                        TextDocument textDocument, String defaultModuleName) {
+                        TextDocument textDocument, String defaultModuleName, boolean forceAssign) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
@@ -143,6 +144,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
         this.defaultModuleName = defaultModuleName;
+        this.forceAssign = forceAssign;
     }
 
     @Override
@@ -391,6 +393,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(TemplateExpressionNode templateExpressionNode) {
+        if (forceAssign) {
+            return;
+        }
         if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
             startNode(NodeKind.XML_PAYLOAD)
                     .metadata()
@@ -402,6 +407,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ByteArrayLiteralNode byteArrayLiteralNode) {
+        if (forceAssign) {
+            return;
+        }
         startNode(NodeKind.BINARY_DATA)
                 .metadata()
                 .stepOut()
@@ -416,6 +424,7 @@ class CodeAnalyzer extends NodeVisitor {
         }
         ExpressionNode initializerNode = initializer.get();
         this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
@@ -519,6 +528,10 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode);
         if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
             handleExpressionNode(functionCallExpressionNode);
+            return;
+        }
+
+        if (forceAssign && this.typedBindingPatternNode != null) {
             return;
         }
 
@@ -772,7 +785,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
         if (parentSymbol.isPresent() && CommonUtils.getRawType(
-                ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+                ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON &&
+                !forceAssign) {
             startNode(NodeKind.JSON_PAYLOAD)
                     .metadata()
                     .description(JsonPayload.DESCRIPTION)
@@ -794,6 +808,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     // Utility methods
+
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
      * only adds the node to the diagram if there is no active parent node which is building its branches.

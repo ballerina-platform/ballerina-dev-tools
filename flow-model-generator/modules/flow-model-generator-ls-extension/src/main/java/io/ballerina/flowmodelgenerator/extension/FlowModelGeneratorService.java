@@ -122,7 +122,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
-                        request.lineRange(), filePath, dataMappingsDoc.orElse(null));
+                        request.lineRange(), filePath, dataMappingsDoc.orElse(null), request.forceAssign());
                 response.setFlowDesignModel(modelGenerator.getFlowModel());
             } catch (Throwable e) {
                 response.setError(e);
@@ -158,7 +158,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Generate the flow design model
                 ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
-                        request.lineRange(), filePath, dataMappingsDoc.orElse(null));
+                        request.lineRange(), filePath, dataMappingsDoc.orElse(null), request.forceAssign());
                 JsonElement oldFlowModel = modelGenerator.getFlowModel();
 
                 // Create a temporary directory for the in-memory cache
@@ -196,7 +196,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 ModelGenerator suggestedModelGenerator =
                         new ModelGenerator(newDoc.module().getCompilation().getSemanticModel(), newDoc,
-                                endLineRange, filePath, newDataMappingsDoc.orElse(null));
+                                endLineRange, filePath, newDataMappingsDoc.orElse(null), request.forceAssign());
                 JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
 
                 LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
@@ -267,7 +267,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 AvailableNodesGenerator availableNodesGenerator =
-                        new AvailableNodesGenerator(semanticModel.get(), document.get());
+                        new AvailableNodesGenerator(semanticModel.get(), document.get(), request.forceAssign());
                 response.setCategories(
                         availableNodesGenerator.getAvailableNodes(request.position()));
             } catch (Throwable e) {
