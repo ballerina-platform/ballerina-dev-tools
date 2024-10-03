@@ -538,6 +538,10 @@ class CodeAnalyzer extends NodeVisitor {
                     .version(functionSymbol.getModule().get().id().version())
                     .build();
             FlowNode nodeTemplate = FunctionCall.getNodeTemplate(codedata);
+            if (nodeTemplate == null) {
+                handleExpressionNode(functionCallExpressionNode);
+                return;
+            }
 
             startNode(NodeKind.FUNCTION_CALL)
                     .metadata()

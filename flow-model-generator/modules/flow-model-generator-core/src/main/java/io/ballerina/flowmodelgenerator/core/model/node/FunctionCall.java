@@ -166,7 +166,12 @@ public class FunctionCall extends NodeBuilder {
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
         FunctionResponse functionResponse = RemoteCentral.getInstance()
                 .function(codedata.org(), codedata.module(), codedata.version(), codedata.symbol());
-        Function function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
+        Function function;
+        try {
+            function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
+        } catch (Exception e) {
+            return null;
+        }
 
         nodeBuilder.metadata()
                 .label(function.name())
