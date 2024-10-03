@@ -344,7 +344,7 @@ public class OpenApiServiceGenerator {
             }
             if (possibleErrorReturningType.isEmpty()) {
                 throw new BallerinaOpenApiException("Cannot find default return value for: "
-                        + resourceMethodSymbol.signature());
+                        + resourceMethodSymbol.signature() + "and " + typeSymbol.signature());
             }
         }
         return LS + "\t" + sanitizePackageNames(resourceSignature) + " {" + LS + "\t\tdo {" + LS + "\t\t} on fail " +
