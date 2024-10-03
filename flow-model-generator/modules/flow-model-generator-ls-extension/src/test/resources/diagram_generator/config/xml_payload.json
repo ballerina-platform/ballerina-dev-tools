@@ -15,8 +15,8 @@
       {
         "id": "32896",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -47,7 +47,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -57,7 +57,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -71,8 +71,8 @@
       {
         "id": "33881",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -103,7 +103,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -113,7 +113,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -127,8 +127,8 @@
       {
         "id": "34880",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -159,7 +159,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -169,7 +169,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -183,8 +183,8 @@
       {
         "id": "35872",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -215,7 +215,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -225,7 +225,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -239,8 +239,8 @@
       {
         "id": "36860",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -271,7 +271,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -281,7 +281,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

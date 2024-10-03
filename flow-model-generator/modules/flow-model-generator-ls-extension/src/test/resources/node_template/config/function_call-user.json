@@ -31,23 +31,23 @@
         "optional": false,
         "editable": true
       },
-      "variable": {
-        "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "item",
-        "optional": false,
-        "editable": true
-      },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
         "value": "var",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
         "optional": false,
         "editable": true
       }

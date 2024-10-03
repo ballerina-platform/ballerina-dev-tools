@@ -34,13 +34,17 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Item;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.TextRange;
@@ -138,7 +142,9 @@ public class AvailableNodesGenerator {
         this.rootBuilder.stepIn(Category.Name.STATEMENT).node(NodeKind.ASSIGN);
 
         if (!forceAssign) {
-            this.rootBuilder.stepIn(Category.Name.STATEMENT).node(function);
+            this.rootBuilder.stepIn(Category.Name.STATEMENT)
+                    .node(function)
+                    .node(NodeKind.DATA_MAPPER);
         }
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
@@ -153,20 +159,21 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
                     .node(NodeKind.BINARY_DATA)
-                    .node(NodeKind.DATA_MAPPER);
         }
 
         this.rootBuilder
                 .stepIn(Category.Name.ERROR_HANDLING)
-                    .node(NodeKind.ERROR_HANDLER)
+                // TODO: Uncomment when error handling is implemented
+//                    .node(NodeKind.ERROR_HANDLER)
                     .node(NodeKind.FAIL)
                     .node(NodeKind.PANIC)
-                    .stepOut()
-                .stepIn(Category.Name.CONCURRENCY)
-                    .node(NodeKind.TRANSACTION)
-                    .node(NodeKind.LOCK)
-                    .node(NodeKind.START)
                     .stepOut();
+        // TODO: Uncomment when concurrency is implemented
+//                .stepIn(Category.Name.CONCURRENCY)
+//                    .node(NodeKind.TRANSACTION)
+//                    .node(NodeKind.LOCK)
+//                    .node(NodeKind.START)
+//                    .stepOut();
     }
 
     private void setStopNode(NonTerminalNode node) {
@@ -209,10 +216,15 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.NEW_CONNECTION)
                     .org(moduleSymbol.id().orgName())
                     .module(moduleSymbol.getName().orElseThrow())
+                    .version(moduleSymbol.id().version())
                     .object("Client")
                     .symbol("init")
                     .build();
             List<Item> connections = LocalIndexCentral.getInstance().getConnectorActions(codedata);
+
+            if (connections == null) {
+                connections = fetchConnections(codedata);
+            }
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())
@@ -222,4 +234,32 @@ public class AvailableNodesGenerator {
             return Optional.empty();
         }
     }
+
+    private static List<Item> fetchConnections(Codedata codedata) {
+        List<Item> connectorActions = new ArrayList<>();
+        ConnectorResponse connector = RemoteCentral.getInstance()
+                .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
+        for (ConnectorResponse.Function function : connector.functions()) {
+            if (function.name().equals(NewConnection.INIT_SYMBOL)) {
+                continue;
+            }
+            NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
+            actionBuilder
+                    .metadata()
+                        .label(function.name())
+                        .icon(connector.icon())
+                        .description(function.documentation())
+                        .stepOut()
+                    .codedata()
+                        .node(NodeKind.ACTION_CALL)
+                        .org(codedata.org())
+                        .module(codedata.module())
+                        .object(codedata.object())
+                        .id(String.valueOf(connector.id()))
+                        .symbol(function.name());
+            connectorActions.add(actionBuilder.buildAvailableNode());
+        }
+        return connectorActions;
+    }
+
 }

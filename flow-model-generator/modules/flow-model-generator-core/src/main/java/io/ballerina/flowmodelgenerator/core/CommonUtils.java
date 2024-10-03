@@ -37,6 +37,7 @@ import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
@@ -297,5 +298,12 @@ public class CommonUtils {
             return rawType;
         }
         return typeDescriptor;
+    }
+
+    public static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {
+        return switch (typeName) {
+            case "inclusion" -> param.inclusionType();
+            default -> typeName;
+        };
     }
 }

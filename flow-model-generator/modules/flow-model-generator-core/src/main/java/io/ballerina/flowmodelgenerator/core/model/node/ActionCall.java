@@ -19,7 +19,11 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
@@ -60,6 +64,13 @@ public class ActionCall extends NodeBuilder {
         }
 
         FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        if (nodeTemplate == null) {
+            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
+                    sourceBuilder.flowNode.codedata());
+        }
+        if (nodeTemplate == null) {
+            throw new IllegalStateException("Action call node template not found");
+        }
 
         Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
         if (connection.isEmpty()) {
@@ -77,8 +88,72 @@ public class ActionCall extends NodeBuilder {
                 .build();
     }
 
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+        if (codedata.org().equals("$anon")) {
+            return null;
+        }
+
+        ConnectorResponse connector = codedata.id() != null ? RemoteCentral.getInstance().connector(codedata.id()) :
+                RemoteCentral.getInstance()
+                        .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
+
+        if (connector == null) {
+            return null;
+        }
+
+        Optional<ConnectorResponse.Function> optFunction = connector.functions().stream()
+                .filter(f -> f.name().equals(codedata.symbol()))
+                .findFirst();
+        if (optFunction.isEmpty()) {
+            return null;
+        }
+        nodeBuilder
+                .metadata()
+                    .label(optFunction.get().name())
+                    .icon(connector.icon())
+                    .description(optFunction.get().documentation())
+                    .stepOut()
+                .codedata()
+                    .org(codedata.org())
+                    .module(codedata.module())
+                    .object(codedata.object())
+                    .id(codedata.id())
+                    .symbol(codedata.symbol());
+
+        for (ConnectorResponse.Parameter param : optFunction.get().parameters()) {
+            nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
+                    Property.valueTypeFrom(param.typeName()),
+                    CommonUtils.getTypeConstraint(param, param.typeName()),
+                    CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+        }
+
+        String returnType = optFunction.get().returnType().typeName();
+        if (returnType != null) {
+            nodeBuilder.properties().type(returnType).data(null);
+        }
+
+        nodeBuilder.properties().custom(Property.CONNECTION_KEY, connector.name(), connector.documentation(),
+                Property.ValueType.EXPRESSION, connector.moduleName() + ":" + connector.name(), connector.name(),
+                false);
+        return nodeBuilder.build();
+    }
+
+    public static FlowNode getNodeTemplate(Codedata codedata) {
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate == null) {
+            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL), codedata);
+        }
+        return nodeTemplate;
+    }
+
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        this.cachedFlowNode = LocalIndexCentral.getInstance().getNodeTemplate(context.codedata());
+        Codedata codedata = context.codedata();
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate != null) {
+            this.cachedFlowNode = nodeTemplate;
+        } else {
+            fetchNodeTemplate(this, codedata);
+        }
     }
 }

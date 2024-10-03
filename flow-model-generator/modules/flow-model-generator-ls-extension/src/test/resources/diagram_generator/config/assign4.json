@@ -83,7 +83,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -93,7 +93,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -107,8 +107,8 @@
       {
         "id": "54721",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -139,7 +139,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -149,7 +149,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -163,8 +163,8 @@
       {
         "id": "55723",
         "metadata": {
-          "label": "XML Payload",
-          "description": "XML Payload"
+          "label": "Assign XML",
+          "description": "Assign XML"
         },
         "codedata": {
           "node": "XML_PAYLOAD",
@@ -195,7 +195,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -205,7 +205,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

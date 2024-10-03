@@ -97,7 +97,9 @@ public class ModelGenerator {
                 semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
                         .sorted(Comparator.comparing(
-                                node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
+                                node -> Optional.ofNullable(node.properties().get(Property.VARIABLE_KEY))
+                                        .map(property -> property.value().toString())
+                                        .orElse("")))
                         .toList();
 
         // Obtain the data mapping function names
