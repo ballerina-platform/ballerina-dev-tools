@@ -141,6 +141,7 @@ public class AvailableNodesGenerator {
                 .stepIn(Category.Name.STATEMENT)
                     .node(NodeKind.ASSIGN)
                     .node(function)
+                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.CONTROL)
                     .node(NodeKind.IF)
@@ -153,7 +154,6 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.JSON_PAYLOAD)
                     .node(NodeKind.XML_PAYLOAD)
                     .node(NodeKind.BINARY_DATA)
-                    .node(NodeKind.DATA_MAPPER)
                     .stepOut()
                 .stepIn(Category.Name.ERROR_HANDLING)
                 // TODO: Uncomment when error handling is implemented

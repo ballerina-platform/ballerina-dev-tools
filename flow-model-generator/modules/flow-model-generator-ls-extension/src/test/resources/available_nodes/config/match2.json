@@ -38,6 +38,16 @@
             "node": "FUNCTION"
           },
           "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Data Mapper",
+            "description": "Map data from multiple variables to a record type"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER"
+          },
+          "enabled": true
         }
       ]
     },
@@ -139,16 +149,6 @@
           },
           "codedata": {
             "node": "BINARY_DATA"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Data Mapper",
-            "description": "Map data from multiple variables to a record type"
-          },
-          "codedata": {
-            "node": "DATA_MAPPER"
           },
           "enabled": true
         }
