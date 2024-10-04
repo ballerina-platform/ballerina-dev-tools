@@ -9,6 +9,7 @@
   },
   "source": "retry.bal",
   "description": "Tests flow nodes generation for retry statement",
+  "forceAssign": false,
   "diagram": {
     "fileName": "retry.bal",
     "nodes": [
@@ -65,6 +66,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry.bal",
                     "startLine": {
@@ -152,6 +154,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry.bal",
                     "startLine": {
@@ -329,6 +332,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry.bal",
                     "startLine": {

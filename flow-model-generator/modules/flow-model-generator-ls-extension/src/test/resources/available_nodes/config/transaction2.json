@@ -5,6 +5,7 @@
     "offset": 23
   },
   "source": "transaction.bal",
+  "forceAssign": false,
   "categories": [
     {
       "metadata": {
@@ -46,6 +47,16 @@
           },
           "codedata": {
             "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Retry Block",
+            "description": "Retry block."
+          },
+          "codedata": {
+            "node": "RETRY"
           },
           "enabled": true
         }

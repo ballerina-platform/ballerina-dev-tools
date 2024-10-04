@@ -5,6 +5,7 @@
     "offset": 0
   },
   "source": "connector.bal",
+  "forceAssign": false,
   "categories": [
     {
       "metadata": {
@@ -1891,6 +1892,16 @@
           },
           "codedata": {
             "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Retry Block",
+            "description": "Retry block."
+          },
+          "codedata": {
+            "node": "RETRY"
           },
           "enabled": true
         }

@@ -9,6 +9,7 @@
   },
   "source": "retry_transaction.bal",
   "description": "Tests flow nodes generation for retry transaction statement",
+  "forceAssign": false,
   "diagram": {
     "fileName": "retry_transaction.bal",
     "nodes": [
@@ -65,6 +66,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry_transaction.bal",
                     "startLine": {
@@ -188,6 +190,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry_transaction.bal",
                     "startLine": {
@@ -401,6 +404,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "nameOrError",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "retry_transaction.bal",
                     "startLine": {
