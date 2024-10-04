@@ -22,6 +22,7 @@ public enum NodeKind {
     PANIC,
     START,
     TRANSACTION,
+    RETRY,
     LOCK,
     FAIL,
     ASSIGN,

@@ -9,6 +9,7 @@
   },
   "source": "function_call.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "function_call.bal",
     "nodes": [

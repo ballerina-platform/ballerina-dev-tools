@@ -1,16 +1,16 @@
 {
-  "description": "Sample diagram node",
+  "description": "Test node template for the retry node",
   "codedata": {
-    "node": "TRANSACTION"
+    "node": "RETRY"
   },
   "output": {
     "id": "31",
     "metadata": {
-      "label": "Transaction",
-      "description": "Handle transaction."
+      "label": "Retry Block",
+      "description": "Retry block."
     },
     "codedata": {
-      "node": "TRANSACTION"
+      "node": "RETRY"
     },
     "returning": false,
     "branches": [
@@ -73,7 +73,7 @@
         },
         "valueType": "EXPRESSION",
         "value": "3",
-        "optional": true,
+        "optional": false,
         "editable": true
       }
     },

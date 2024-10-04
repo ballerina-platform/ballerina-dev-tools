@@ -144,7 +144,8 @@ public class AvailableNodesGenerator {
         if (!forceAssign) {
             this.rootBuilder.stepIn(Category.Name.STATEMENT)
                     .node(function)
-                    .node(NodeKind.DATA_MAPPER);
+                    .node(NodeKind.DATA_MAPPER)
+                    .node(NodeKind.RETRY);
         }
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)

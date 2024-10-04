@@ -33,53 +33,42 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Represents the properties of a transaction node in the flow model.
+ * Represents retry block in the flow model.
  *
  * @since 1.4.0
  */
-public class Transaction extends NodeBuilder {
+public class Retry extends NodeBuilder {
 
-    public static final String LABEL = "Transaction";
-    public static final String DESCRIPTION = "Handle transaction.";
+    public static final String LABEL = "Retry Block";
+    public static final String DESCRIPTION = "Retry block.";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(NodeKind.TRANSACTION);
-    }
-
-    @Override
-    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
-
-        if (sourceBuilder.flowNode.properties() != null) {
-            Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
-            return sourceBuilder.token()
-                    .keyword(SyntaxKind.RETRY_KEYWORD)
-                    .openParen()
-                    .expression(retryCount)
-                    .closeParen()
-                    .whiteSpace()
-                    .keyword(SyntaxKind.TRANSACTION_KEYWORD)
-                    .stepOut()
-                    .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                    .onFailure()
-                    .textEdit(false)
-                    .build();
-        }
-
-        return sourceBuilder.token()
-                .keyword(SyntaxKind.TRANSACTION_KEYWORD)
-                .stepOut()
-                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
-                .onFailure()
-                .textEdit(false)
-                .build();
+        codedata().node(NodeKind.RETRY);
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
-        properties().retryCount(3, true);
+        properties().retryCount(3);
+    }
+
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
+        Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
+
+        return sourceBuilder.token()
+                .keyword(SyntaxKind.RETRY_KEYWORD)
+                .openParen()
+                .expression(retryCount)
+                .closeParen()
+                .whiteSpace()
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                .onFailure()
+                .textEdit(false)
+                .build();
     }
 }

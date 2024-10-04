@@ -1,0 +1,1135 @@
+{
+  "start": {
+    "line": 1,
+    "offset": 0
+  },
+  "end": {
+    "line": 37,
+    "offset": 1
+  },
+  "source": "retry_transaction.bal",
+  "description": "Tests flow nodes generation for retry transaction statement",
+  "forceAssign": false,
+  "diagram": {
+    "fileName": "retry_transaction.bal",
+    "nodes": [
+      {
+        "id": "32958",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 5
+            }
+          },
+          "sourceCode": "retry transaction {\n        check nameOrError();\n        check commit;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 1,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 4,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check nameOrError();\n        check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "34004",
+                "metadata": {
+                  "label": "nameOrError"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "nameOrError",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 2,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 2,
+                      "offset": 28
+                    }
+                  },
+                  "sourceCode": "check nameOrError();"
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 1
+              },
+              {
+                "id": "34989",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 3,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 3,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "check commit;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check commit;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "retryCount": {
+            "metadata": {
+              "label": "Retry Count",
+              "description": "Number of retries"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "37980",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 11,
+              "offset": 5
+            }
+          },
+          "sourceCode": "retry transaction {\n        check nameOrError();\n        check commit;\n    } on fail var err {\n        check err;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 6,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 9,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check nameOrError();\n        check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "38964",
+                "metadata": {
+                  "label": "nameOrError"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "nameOrError",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 7,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 7,
+                      "offset": 28
+                    }
+                  },
+                  "sourceCode": "check nameOrError();"
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 1
+              },
+              {
+                "id": "39949",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 8,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 8,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "check commit;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check commit;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 9,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 11,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check err;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "err ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "41930",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 10,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 10,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "check err;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check err;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "retryCount": {
+            "metadata": {
+              "label": "Retry Count",
+              "description": "Number of retries"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "44924",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 13,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 18,
+              "offset": 5
+            }
+          },
+          "sourceCode": "retry (4) transaction {\n        check nameOrError();\n        check commit;\n    } on fail var err {\n        check err;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 13,
+                  "offset": 26
+                },
+                "endLine": {
+                  "line": 16,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check nameOrError();\n        check commit;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "45908",
+                "metadata": {
+                  "label": "nameOrError"
+                },
+                "codedata": {
+                  "node": "FUNCTION_CALL",
+                  "org": "$anon",
+                  "module": ".",
+                  "symbol": "nameOrError",
+                  "version": "0.0.0",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 14,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 14,
+                      "offset": 28
+                    }
+                  },
+                  "sourceCode": "check nameOrError();"
+                },
+                "returning": false,
+                "properties": {},
+                "flags": 1
+              },
+              {
+                "id": "46893",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 15,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 15,
+                      "offset": 21
+                    }
+                  },
+                  "sourceCode": "check commit;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check commit;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check err;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "err ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "48874",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 17,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 17,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "check err;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check err;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "retryCount": {
+            "metadata": {
+              "label": "Retry Count",
+              "description": "Number of retries"
+            },
+            "valueType": "EXPRESSION",
+            "value": "4",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "51930",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 20,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 27,
+              "offset": 5
+            }
+          },
+          "sourceCode": "retry (4) transaction {\n        if true {\n            check commit;\n        }\n        fail error(\"failed retry\");\n    } on fail var err {\n        check err;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 20,
+                  "offset": 26
+                },
+                "endLine": {
+                  "line": 25,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        if true {\n            check commit;\n        }\n        fail error(\"failed retry\");\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "52895",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 21,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 23,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "if true {\n            check commit;\n        }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "retry_transaction.bal",
+                        "startLine": {
+                          "line": 21,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 23,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            check commit;\n        }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "true ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "53965",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "retry_transaction.bal",
+                            "startLine": {
+                              "line": 22,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 22,
+                              "offset": 25
+                            }
+                          },
+                          "sourceCode": "check commit;"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "statement": {
+                            "metadata": {
+                              "label": "Statement",
+                              "description": "Ballerina statement"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "check commit;",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 1
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "55835",
+                "metadata": {
+                  "label": "Fail",
+                  "description": "Fail the execution"
+                },
+                "codedata": {
+                  "node": "FAIL",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 24,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 24,
+                      "offset": 35
+                    }
+                  },
+                  "sourceCode": "fail error(\"failed retry\");"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Fail value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "error(\"failed retry\")",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 25,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 27,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check err;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "err ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "57802",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 26,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 26,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "check err;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check err;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "retryCount": {
+            "metadata": {
+              "label": "Retry Count",
+              "description": "Number of retries"
+            },
+            "valueType": "EXPRESSION",
+            "value": "4",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "60858",
+        "metadata": {
+          "label": "Transaction",
+          "description": "Handle transaction."
+        },
+        "codedata": {
+          "node": "TRANSACTION",
+          "lineRange": {
+            "fileName": "retry_transaction.bal",
+            "startLine": {
+              "line": 29,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 36,
+              "offset": 5
+            }
+          },
+          "sourceCode": "retry<error:DefaultRetryManager> (4) transaction {\n        if true {\n            check commit;\n        }\n        fail error(\"failed retry\");\n    } on fail var err {\n        check err;\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 29,
+                  "offset": 53
+                },
+                "endLine": {
+                  "line": 34,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        if true {\n            check commit;\n        }\n        fail error(\"failed retry\");\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "61823",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 30,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 32,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "if true {\n            check commit;\n        }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "retry_transaction.bal",
+                        "startLine": {
+                          "line": 30,
+                          "offset": 16
+                        },
+                        "endLine": {
+                          "line": 32,
+                          "offset": 9
+                        }
+                      },
+                      "sourceCode": "{\n            check commit;\n        }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "true ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "62893",
+                        "metadata": {
+                          "label": "Custom Expression",
+                          "description": "Represents a custom Ballerina expression"
+                        },
+                        "codedata": {
+                          "node": "EXPRESSION",
+                          "lineRange": {
+                            "fileName": "retry_transaction.bal",
+                            "startLine": {
+                              "line": 31,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 31,
+                              "offset": 25
+                            }
+                          },
+                          "sourceCode": "check commit;"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "statement": {
+                            "metadata": {
+                              "label": "Statement",
+                              "description": "Ballerina statement"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "check commit;",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 1
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "64763",
+                "metadata": {
+                  "label": "Fail",
+                  "description": "Fail the execution"
+                },
+                "codedata": {
+                  "node": "FAIL",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 33,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 33,
+                      "offset": 35
+                    }
+                  },
+                  "sourceCode": "fail error(\"failed retry\");"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Fail value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "error(\"failed retry\")",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "retry_transaction.bal",
+                "startLine": {
+                  "line": 34,
+                  "offset": 22
+                },
+                "endLine": {
+                  "line": 36,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        check err;\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "err ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "66730",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "retry_transaction.bal",
+                    "startLine": {
+                      "line": 35,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 35,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "check err;"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "check err;",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 1
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "retryCount": {
+            "metadata": {
+              "label": "Retry Count",
+              "description": "Number of retries"
+            },
+            "valueType": "EXPRESSION",
+            "value": "4",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

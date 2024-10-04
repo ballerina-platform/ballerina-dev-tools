@@ -386,6 +386,16 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder openParen() {
+            sb.append(SyntaxKind.OPEN_PAREN_TOKEN.stringValue());
+            return this;
+        }
+
+        public TokenBuilder closeParen() {
+            sb.append(SyntaxKind.CLOSE_PAREN_TOKEN.stringValue());
+            return this;
+        }
+
         public TokenBuilder endOfStatement() {
             sb.append(SyntaxKind.SEMICOLON_TOKEN.stringValue()).append(System.lineSeparator());
             return this;
