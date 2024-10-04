@@ -9,6 +9,7 @@
   },
   "source": "comment.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "comment.bal",
     "nodes": [
@@ -130,11 +131,11 @@
               {
                 "id": "112375",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "Commit",
+                  "description": "Commit transaction"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "COMMIT",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
@@ -150,16 +151,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "check commit",
-                    "optional": false,
-                    "editable": true
-                  },
                   "variable": {
                     "metadata": {
                       "label": "Variable",

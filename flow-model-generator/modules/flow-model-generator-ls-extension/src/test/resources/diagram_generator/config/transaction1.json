@@ -9,6 +9,7 @@
   },
   "source": "transaction.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "transaction.bal",
     "nodes": [
@@ -58,11 +59,11 @@
               {
                 "id": "34007",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "Commit",
+                  "description": "Commit transaction"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "COMMIT",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -78,16 +79,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "check commit",
-                    "optional": false,
-                    "editable": true
-                  },
                   "variable": {
                     "metadata": {
                       "label": "Variable",

@@ -9,6 +9,7 @@
   },
   "source": "nested_node.bal",
   "description": "Tests a diagram flow with nested nodes",
+  "forceAssign": false,
   "diagram": {
     "fileName": "nested_node.bal",
     "nodes": [
@@ -288,11 +289,11 @@
                               {
                                 "id": "78029",
                                 "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
+                                  "label": "Commit",
+                                  "description": "Commit transaction"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION",
+                                  "node": "COMMIT",
                                   "lineRange": {
                                     "fileName": "nested_node.bal",
                                     "startLine": {
@@ -307,18 +308,6 @@
                                   "sourceCode": "check commit;"
                                 },
                                 "returning": false,
-                                "properties": {
-                                  "statement": {
-                                    "metadata": {
-                                      "label": "Statement",
-                                      "description": "Ballerina statement"
-                                    },
-                                    "valueType": "EXPRESSION",
-                                    "value": "check commit;",
-                                    "optional": false,
-                                    "editable": true
-                                  }
-                                },
                                 "flags": 1
                               }
                             ]

@@ -9,6 +9,7 @@
   },
   "source": "nested_node.bal",
   "description": "Tests a diagram flow with nested nodes",
+  "forceAssign": false,
   "diagram": {
     "fileName": "nested_node.bal",
     "nodes": [
@@ -345,11 +346,11 @@
               {
                 "id": "50012",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "Commit",
+                  "description": "Commit transaction"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "COMMIT",
                   "lineRange": {
                     "fileName": "nested_node.bal",
                     "startLine": {
@@ -365,16 +366,6 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "commit",
-                    "optional": false,
-                    "editable": true
-                  },
                   "variable": {
                     "metadata": {
                       "label": "Variable",
