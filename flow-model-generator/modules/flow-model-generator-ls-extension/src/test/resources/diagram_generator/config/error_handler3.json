@@ -29,7 +29,8 @@
               "line": 38,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get pineapples() returns string {\n        do {\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        } on fail http:ClientError err {\n            return err.message();\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "pineapples",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 37,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "do {\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        } on fail http:ClientError err {\n            return err.message();\n        }"
         },
         "returning": false,
         "branches": [
@@ -80,6 +84,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -90,17 +95,24 @@
                   "line": 35,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "64920",
                 "metadata": {
-                  "label": "HTTP GET"
+                  "label": "get",
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "get",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -111,16 +123,17 @@
                       "line": 33,
                       "offset": 68
                     }
-                  }
+                  },
+                  "sourceCode": "json res = check foodClient->get(\"/western/pineapples\");"
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "HTTP Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
-                    "valueType": "http:Client",
+                    "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
                     "editable": true
@@ -128,30 +141,40 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "json",
-                    "value": "res ",
+                    "valueType": "IDENTIFIER",
+                    "value": "res",
                     "optional": false,
                     "editable": true
                   },
                   "path": {
                     "metadata": {
-                      "label": "Path",
-                      "description": "HTTP Path"
+                      "label": "path",
+                      "description": "Request path\n"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"/western/pineapples\"",
                     "optional": false,
                     "editable": true
                   },
                   "headers": {
                     "metadata": {
-                      "label": "Headers",
-                      "description": "HTTP Headers"
+                      "label": "headers",
+                      "description": "The entity headers\n"
                     },
-                    "valueType": "map<string|string[]>?",
+                    "valueType": "EXPRESSION",
                     "optional": true,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "json",
+                    "optional": false,
                     "editable": true
                   }
                 },
@@ -161,7 +184,7 @@
                 "id": "65878",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'res.toString()'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -175,7 +198,8 @@
                       "line": 34,
                       "offset": 34
                     }
-                  }
+                  },
+                  "sourceCode": "return res.toString();"
                 },
                 "returning": true,
                 "properties": {
@@ -184,7 +208,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "res.toString()",
                     "optional": false,
                     "editable": true
@@ -198,6 +222,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -208,7 +233,8 @@
                   "line": 37,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            return err.message();\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "properties": {
@@ -217,7 +243,8 @@
                   "label": "Ignore",
                   "description": "Ignore the error value"
                 },
-                "value": "true",
+                "valueType": "EXPRESSION",
+                "value": "false",
                 "optional": false,
                 "editable": true
               },
@@ -226,6 +253,7 @@
                   "label": "Error Variable",
                   "description": "Name of the error variable"
                 },
+                "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
                 "editable": true
@@ -235,6 +263,7 @@
                   "label": "Error Type",
                   "description": "Type of the error"
                 },
+                "valueType": "TYPE",
                 "value": "http:ClientError",
                 "optional": false,
                 "editable": true
@@ -245,7 +274,7 @@
                 "id": "67861",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'err.message()'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -259,7 +288,8 @@
                       "line": 36,
                       "offset": 33
                     }
-                  }
+                  },
+                  "sourceCode": "return err.message();"
                 },
                 "returning": true,
                 "properties": {
@@ -268,7 +298,7 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "err.message()",
                     "optional": false,
                     "editable": true
@@ -282,25 +312,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "error_handler.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33789",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 61
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

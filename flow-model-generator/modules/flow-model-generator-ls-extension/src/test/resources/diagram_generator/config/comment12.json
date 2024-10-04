@@ -1,0 +1,146 @@
+{
+  "start": {
+    "line": 109,
+    "offset": 0
+  },
+  "end": {
+    "line": 112,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "139966",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 109,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 112,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function emptyComment() {\n    //\n    int i = 0;\n}"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function emptyComment() {\n    //\n    int i = 0;\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "140870",
+        "metadata": {
+          "label": "Comment",
+          "description": ""
+        },
+        "codedata": {
+          "node": "COMMENT",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 110,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 110,
+              "offset": 6
+            }
+          },
+          "sourceCode": ""
+        },
+        "returning": false,
+        "properties": {
+          "comment": {
+            "metadata": {
+              "label": "Comment",
+              "description": "Comment to describe the flow"
+            },
+            "valueType": "STRING",
+            "value": "",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "141994",
+        "metadata": {
+          "label": "Assign",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 111,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 111,
+              "offset": 14
+            }
+          },
+          "sourceCode": "//\n    int i = 0;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "0",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "i",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

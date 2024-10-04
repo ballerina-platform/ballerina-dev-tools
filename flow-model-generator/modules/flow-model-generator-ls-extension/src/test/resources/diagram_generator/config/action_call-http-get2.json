@@ -29,7 +29,8 @@
               "line": 33,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get pears() {\n        json|error res1 = foodClient->get(\"/pears\");\n        json|http:ClientError res2 = foodClient->get(\"/pears\");\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "pears",
             "optional": false,
             "editable": true
@@ -57,10 +60,16 @@
       {
         "id": "62796",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -71,16 +80,17 @@
               "line": 31,
               "offset": 52
             }
-          }
+          },
+          "sourceCode": "json|error res1 = foodClient->get(\"/pears\");"
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -88,30 +98,40 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "json|annotations:error",
-            "value": "res1 ",
+            "valueType": "IDENTIFIER",
+            "value": "res1",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Request path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/pears\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "optional": false,
             "editable": true
           }
         },
@@ -120,10 +140,16 @@
       {
         "id": "63799",
         "metadata": {
-          "label": "HTTP GET"
+          "label": "get",
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "get",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -134,16 +160,17 @@
               "line": 32,
               "offset": 63
             }
-          }
+          },
+          "sourceCode": "json|http:ClientError res2 = foodClient->get(\"/pears\");"
         },
         "returning": false,
         "properties": {
-          "client": {
+          "connection": {
             "metadata": {
-              "label": "Client",
-              "description": "HTTP Client Connection"
+              "label": "Connection",
+              "description": "Connection to use"
             },
-            "valueType": "http:Client",
+            "valueType": "EXPRESSION",
             "value": "foodClient",
             "optional": false,
             "editable": true
@@ -151,55 +178,125 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "json|http:ClientError",
-            "value": "res2 ",
+            "valueType": "IDENTIFIER",
+            "value": "res2",
             "optional": false,
             "editable": true
           },
           "path": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "path",
+              "description": "Request path\n"
             },
-            "valueType": "string",
+            "valueType": "EXPRESSION",
             "value": "\"/pears\"",
             "optional": false,
             "editable": true
           },
           "headers": {
             "metadata": {
-              "label": "Headers",
-              "description": "HTTP Headers"
+              "label": "headers",
+              "description": "The entity headers\n"
             },
-            "valueType": "map<string|string[]>?",
+            "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "optional": false,
             "editable": true
           }
         },
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "http_get_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "http_get_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

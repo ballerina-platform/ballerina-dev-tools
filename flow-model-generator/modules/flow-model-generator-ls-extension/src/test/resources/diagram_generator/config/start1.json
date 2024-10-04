@@ -30,9 +30,22 @@
               "line": 2,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -53,7 +66,8 @@
               "line": 1,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start sum(40, 50)"
         },
         "returning": false,
         "properties": {
@@ -62,7 +76,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "sum(40, 50)",
             "optional": false,
             "editable": true
@@ -73,11 +87,11 @@
       {
         "id": "32906",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -88,7 +102,8 @@
               "line": 1,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<int> futureVar = start sum(40, 50);"
         },
         "returning": false,
         "properties": {
@@ -97,7 +112,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "future<int>",
+            "valueType": "EXPRESSION",
             "value": "start sum(40, 50)",
             "optional": false,
             "editable": true
@@ -105,10 +120,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "future<int>",
-            "value": "futureVar ",
+            "valueType": "IDENTIFIER",
+            "value": "futureVar",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "future<int>",
             "optional": false,
             "editable": true
           }
@@ -116,6 +141,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

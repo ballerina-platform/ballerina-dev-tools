@@ -21,9 +21,14 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -39,26 +44,23 @@ public class Rollback extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
-        codedata().node(FlowNode.Kind.ROLLBACK);
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.ROLLBACK);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public void setConcreteTemplateData(TemplateContext context) {
+        properties().expression("", ROLLBACK_EXPRESSION_DOC);
+    }
 
-        sourceBuilder.keyword(SyntaxKind.ROLLBACK_KEYWORD);
-        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.token().keyword(SyntaxKind.ROLLBACK_KEYWORD);
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
-        sourceBuilder.endOfStatement();
-        return sourceBuilder.build(false);
-    }
-
-    @Override
-    public void setConcreteTemplateData() {
-        properties().defaultExpression(ROLLBACK_EXPRESSION_DOC);
+        sourceBuilder.token().endOfStatement();
+        return sourceBuilder.textEdit(false).build();
     }
 }

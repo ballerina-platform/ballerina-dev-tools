@@ -1,0 +1,112 @@
+{
+  "description": "Sample flow model",
+  "source": "empty.bal",
+  "position": {
+    "startLine": {
+      "line": 1,
+      "offset": 1
+    },
+    "endLine": {
+      "line": 1,
+      "offset": 1
+    }
+  },
+  "queryMap": {
+    "q": ""
+  },
+  "categories": [
+    {
+      "metadata": {
+        "label": "Project",
+        "description": "Functions defined within the project",
+        "keywords": [
+          "Project",
+          "Local",
+          "Function"
+        ]
+      },
+      "items": []
+    },
+    {
+      "metadata": {
+        "label": "Utilities",
+        "description": "Reusable functions from external libraries",
+        "keywords": [
+          "Utility",
+          "Library",
+          "Function",
+          "External"
+        ]
+      },
+      "items": [
+        {
+          "metadata": {
+            "label": "Logging"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "Log Info",
+                "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printInfo",
+                "version": "2.10.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Log Error",
+                "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printError",
+                "version": "2.10.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Log Warn",
+                "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printWarn",
+                "version": "2.10.0"
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "Log Debug",
+                "description": "Prints debug logs.\n```ballerina\nlog:printDebug(\"debug message\", id = 845315)\n```\n\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "log",
+                "symbol": "printDebug",
+                "version": "2.10.0"
+              },
+              "enabled": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

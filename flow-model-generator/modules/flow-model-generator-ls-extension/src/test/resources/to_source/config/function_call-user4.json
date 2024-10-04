@@ -1,0 +1,69 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "103328",
+    "metadata": {
+      "label": "asum"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "asum",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 72,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 72,
+          "offset": 36
+        }
+      },
+      "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "total",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 72,
+            "character": 4
+          },
+          "end": {
+            "line": 72,
+            "character": 36
+          }
+        },
+        "newText": "int total = asum();"
+      }
+    ]
+  }
+}

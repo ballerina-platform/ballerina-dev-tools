@@ -30,19 +30,32 @@
               "line": 19,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc4() {\n    error e = error(\"AssertionError\");\n    panic e;\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function panicFunc4() {\n    error e = error(\"AssertionError\");\n    panic e;\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
         "id": "48770",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "panic.bal",
             "startLine": {
@@ -53,7 +66,8 @@
               "line": 17,
               "offset": 38
             }
-          }
+          },
+          "sourceCode": "error e = error(\"AssertionError\");"
         },
         "returning": false,
         "properties": {
@@ -62,7 +76,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "annotations:error",
+            "valueType": "EXPRESSION",
             "value": "error(\"AssertionError\")",
             "optional": false,
             "editable": true
@@ -70,10 +84,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "annotations:error",
-            "value": "e ",
+            "valueType": "IDENTIFIER",
+            "value": "e",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "error",
             "optional": false,
             "editable": true
           }
@@ -98,7 +122,8 @@
               "line": 18,
               "offset": 12
             }
-          }
+          },
+          "sourceCode": "panic e;"
         },
         "returning": false,
         "properties": {
@@ -107,7 +132,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "annotations:error",
+            "valueType": "EXPRESSION",
             "value": "e",
             "optional": false,
             "editable": true
@@ -116,6 +141,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

@@ -29,7 +29,8 @@
               "line": 13,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function post menu/[int year]/[boolean... flags](string item) {\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "post",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "menu/[int year]/[boolean... flags]",
             "optional": false,
             "editable": true
@@ -55,6 +58,6 @@
         "flags": 2048
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

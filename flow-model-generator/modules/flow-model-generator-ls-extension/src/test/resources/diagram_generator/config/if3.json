@@ -29,7 +29,8 @@
               "line": 52,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get oranges(Food food) returns Food {\n        if food.price < 100 {\n            food.comment = \"cheap\";\n            return food;\n        } else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "oranges",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 51,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if food.price < 100 {\n            food.comment = \"cheap\";\n            return food;\n        } else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }"
         },
         "returning": false,
         "branches": [
@@ -80,6 +84,7 @@
             "label": "Then",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -90,7 +95,8 @@
                   "line": 40,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            food.comment = \"cheap\";\n            return food;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -99,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "food.price < 100 ",
                 "optional": false,
                 "editable": true
@@ -109,11 +115,11 @@
               {
                 "id": "69847",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -124,7 +130,8 @@
                       "line": 38,
                       "offset": 35
                     }
-                  }
+                  },
+                  "sourceCode": "food.comment = \"cheap\";"
                 },
                 "returning": false,
                 "properties": {
@@ -133,7 +140,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
                     "editable": true
@@ -143,7 +150,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string",
+                    "valueType": "IDENTIFIER",
                     "value": "food.comment",
                     "optional": false,
                     "editable": true
@@ -155,7 +162,7 @@
                 "id": "70828",
                 "metadata": {
                   "label": "Return",
-                  "description": "Return a value"
+                  "description": "Value of 'food'"
                 },
                 "codedata": {
                   "node": "RETURN",
@@ -169,7 +176,8 @@
                       "line": 39,
                       "offset": 24
                     }
-                  }
+                  },
+                  "sourceCode": "return food;"
                 },
                 "returning": true,
                 "properties": {
@@ -178,7 +186,287 @@
                       "label": "Expression",
                       "description": "Return value"
                     },
-                    "valueType": "Food",
+                    "valueType": "EXPRESSION",
+                    "value": "food",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "food.price < 200",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "if_node.bal",
+                "startLine": {
+                  "line": 40,
+                  "offset": 35
+                },
+                "endLine": {
+                  "line": 48,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "{\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        }"
+            },
+            "repeatable": "ONE_OR_MORE",
+            "properties": {
+              "condition": {
+                "metadata": {
+                  "label": "Condition",
+                  "description": "Boolean Condition"
+                },
+                "valueType": "EXPRESSION",
+                "value": "food.price < 200 ",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "72925",
+                "metadata": {
+                  "label": "If",
+                  "description": "Add conditional branch to the integration flow."
+                },
+                "codedata": {
+                  "node": "IF",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 41,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 45,
+                      "offset": 13
+                    }
+                  },
+                  "sourceCode": "if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }"
+                },
+                "returning": false,
+                "branches": [
+                  {
+                    "label": "Then",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "CONDITIONAL",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 41,
+                          "offset": 34
+                        },
+                        "endLine": {
+                          "line": 43,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n                food.comment = \"fresh; \";\n            }"
+                    },
+                    "repeatable": "ONE_OR_MORE",
+                    "properties": {
+                      "condition": {
+                        "metadata": {
+                          "label": "Condition",
+                          "description": "Boolean Condition"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "food.remaining > 0 ",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "children": [
+                      {
+                        "id": "73945",
+                        "metadata": {
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
+                        },
+                        "codedata": {
+                          "node": "ASSIGN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 42,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 42,
+                              "offset": 41
+                            }
+                          },
+                          "sourceCode": "food.comment = \"fresh; \";"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "\"fresh; \"",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "food.comment",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Else",
+                    "kind": "BLOCK",
+                    "codedata": {
+                      "node": "ELSE",
+                      "lineRange": {
+                        "fileName": "if_node.bal",
+                        "startLine": {
+                          "line": 43,
+                          "offset": 19
+                        },
+                        "endLine": {
+                          "line": 45,
+                          "offset": 13
+                        }
+                      },
+                      "sourceCode": "{\n                food.comment = \"expired; \";\n            }"
+                    },
+                    "repeatable": "ZERO_OR_ONE",
+                    "children": [
+                      {
+                        "id": "75931",
+                        "metadata": {
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
+                        },
+                        "codedata": {
+                          "node": "ASSIGN",
+                          "lineRange": {
+                            "fileName": "if_node.bal",
+                            "startLine": {
+                              "line": 44,
+                              "offset": 16
+                            },
+                            "endLine": {
+                              "line": 44,
+                              "offset": 43
+                            }
+                          },
+                          "sourceCode": "food.comment = \"expired; \";"
+                        },
+                        "returning": false,
+                        "properties": {
+                          "expression": {
+                            "metadata": {
+                              "label": "Expression",
+                              "description": "Expression"
+                            },
+                            "valueType": "EXPRESSION",
+                            "value": "\"expired; \"",
+                            "optional": false,
+                            "editable": true
+                          },
+                          "variable": {
+                            "metadata": {
+                              "label": "Variable",
+                              "description": "Result Variable"
+                            },
+                            "valueType": "IDENTIFIER",
+                            "value": "food.comment",
+                            "optional": false,
+                            "editable": true
+                          }
+                        },
+                        "flags": 0
+                      }
+                    ]
+                  }
+                ],
+                "flags": 0
+              },
+              {
+                "id": "77787",
+                "metadata": {
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
+                },
+                "codedata": {
+                  "node": "EXPRESSION",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 46,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 46,
+                      "offset": 39
+                    }
+                  },
+                  "sourceCode": "food.comment += \"moderate\";"
+                },
+                "returning": false,
+                "properties": {
+                  "statement": {
+                    "metadata": {
+                      "label": "Statement",
+                      "description": "Ballerina statement"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "food.comment += \"moderate\";",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "78764",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'food'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 47,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 47,
+                      "offset": 24
+                    }
+                  },
+                  "sourceCode": "return food;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
                     "value": "food",
                     "optional": false,
                     "editable": true
@@ -192,411 +480,102 @@
             "label": "Else",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ELSE",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
-                  "line": 40,
-                  "offset": 10
+                  "line": 48,
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 51,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            food.comment = \"expensive\";\n            return food;\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
-                "id": "72239",
+                "id": "80763",
                 "metadata": {
-                  "label": "If",
-                  "description": "Add conditional branch to the integration flow."
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "IF",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
-                      "line": 40,
-                      "offset": 15
+                      "line": 49,
+                      "offset": 12
                     },
                     "endLine": {
-                      "line": 51,
-                      "offset": 9
+                      "line": 49,
+                      "offset": 39
                     }
-                  }
+                  },
+                  "sourceCode": "food.comment = \"expensive\";"
                 },
                 "returning": false,
-                "branches": [
-                  {
-                    "label": "Then",
-                    "kind": "BLOCK",
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "if_node.bal",
-                        "startLine": {
-                          "line": 40,
-                          "offset": 35
-                        },
-                        "endLine": {
-                          "line": 48,
-                          "offset": 9
-                        }
-                      }
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
                     },
-                    "repeatable": "ONE_OR_MORE",
-                    "properties": {
-                      "condition": {
-                        "metadata": {
-                          "label": "Condition",
-                          "description": "Boolean Condition"
-                        },
-                        "valueType": "boolean",
-                        "value": "food.price < 200 ",
-                        "optional": false,
-                        "editable": true
-                      }
-                    },
-                    "children": [
-                      {
-                        "id": "72925",
-                        "metadata": {
-                          "label": "If",
-                          "description": "Add conditional branch to the integration flow."
-                        },
-                        "codedata": {
-                          "node": "IF",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 41,
-                              "offset": 12
-                            },
-                            "endLine": {
-                              "line": 45,
-                              "offset": 13
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "branches": [
-                          {
-                            "label": "Then",
-                            "kind": "BLOCK",
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "if_node.bal",
-                                "startLine": {
-                                  "line": 41,
-                                  "offset": 34
-                                },
-                                "endLine": {
-                                  "line": 43,
-                                  "offset": 13
-                                }
-                              }
-                            },
-                            "repeatable": "ONE_OR_MORE",
-                            "properties": {
-                              "condition": {
-                                "metadata": {
-                                  "label": "Condition",
-                                  "description": "Boolean Condition"
-                                },
-                                "valueType": "boolean",
-                                "value": "food.remaining > 0 ",
-                                "optional": false,
-                                "editable": true
-                              }
-                            },
-                            "children": [
-                              {
-                                "id": "73945",
-                                "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
-                                },
-                                "codedata": {
-                                  "node": "EXPRESSION",
-                                  "lineRange": {
-                                    "fileName": "if_node.bal",
-                                    "startLine": {
-                                      "line": 42,
-                                      "offset": 16
-                                    },
-                                    "endLine": {
-                                      "line": 42,
-                                      "offset": 41
-                                    }
-                                  }
-                                },
-                                "returning": false,
-                                "properties": {
-                                  "expression": {
-                                    "metadata": {
-                                      "label": "Expression",
-                                      "description": "Expression"
-                                    },
-                                    "valueType": "string",
-                                    "value": "\"fresh; \"",
-                                    "optional": false,
-                                    "editable": true
-                                  },
-                                  "variable": {
-                                    "metadata": {
-                                      "label": "Variable",
-                                      "description": "Result Variable"
-                                    },
-                                    "valueType": "string",
-                                    "value": "food.comment",
-                                    "optional": false,
-                                    "editable": true
-                                  }
-                                },
-                                "flags": 0
-                              }
-                            ]
-                          },
-                          {
-                            "label": "Else",
-                            "kind": "BLOCK",
-                            "codedata": {
-                              "lineRange": {
-                                "fileName": "if_node.bal",
-                                "startLine": {
-                                  "line": 43,
-                                  "offset": 14
-                                },
-                                "endLine": {
-                                  "line": 45,
-                                  "offset": 13
-                                }
-                              }
-                            },
-                            "repeatable": "ZERO_OR_ONE",
-                            "children": [
-                              {
-                                "id": "75931",
-                                "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
-                                },
-                                "codedata": {
-                                  "node": "EXPRESSION",
-                                  "lineRange": {
-                                    "fileName": "if_node.bal",
-                                    "startLine": {
-                                      "line": 44,
-                                      "offset": 16
-                                    },
-                                    "endLine": {
-                                      "line": 44,
-                                      "offset": 43
-                                    }
-                                  }
-                                },
-                                "returning": false,
-                                "properties": {
-                                  "expression": {
-                                    "metadata": {
-                                      "label": "Expression",
-                                      "description": "Expression"
-                                    },
-                                    "valueType": "string",
-                                    "value": "\"expired; \"",
-                                    "optional": false,
-                                    "editable": true
-                                  },
-                                  "variable": {
-                                    "metadata": {
-                                      "label": "Variable",
-                                      "description": "Result Variable"
-                                    },
-                                    "valueType": "string",
-                                    "value": "food.comment",
-                                    "optional": false,
-                                    "editable": true
-                                  }
-                                },
-                                "flags": 0
-                              }
-                            ]
-                          }
-                        ],
-                        "flags": 0
-                      },
-                      {
-                        "id": "77787",
-                        "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
-                        },
-                        "codedata": {
-                          "node": "EXPRESSION",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 46,
-                              "offset": 12
-                            },
-                            "endLine": {
-                              "line": 46,
-                              "offset": 39
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "statement": {
-                            "metadata": {
-                              "label": "Statement",
-                              "description": "Ballerina statement"
-                            },
-                            "value": "            food.comment += \"moderate\";\n",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "78764",
-                        "metadata": {
-                          "label": "Return",
-                          "description": "Return a value"
-                        },
-                        "codedata": {
-                          "node": "RETURN",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 47,
-                              "offset": 12
-                            },
-                            "endLine": {
-                              "line": 47,
-                              "offset": 24
-                            }
-                          }
-                        },
-                        "returning": true,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Return value"
-                            },
-                            "valueType": "Food",
-                            "value": "food",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      }
-                    ]
+                    "valueType": "EXPRESSION",
+                    "value": "\"expensive\"",
+                    "optional": false,
+                    "editable": true
                   },
-                  {
-                    "label": "Else",
-                    "kind": "BLOCK",
-                    "codedata": {
-                      "lineRange": {
-                        "fileName": "if_node.bal",
-                        "startLine": {
-                          "line": 48,
-                          "offset": 10
-                        },
-                        "endLine": {
-                          "line": 51,
-                          "offset": 9
-                        }
-                      }
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
                     },
-                    "repeatable": "ZERO_OR_ONE",
-                    "children": [
-                      {
-                        "id": "80763",
-                        "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
-                        },
-                        "codedata": {
-                          "node": "EXPRESSION",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 49,
-                              "offset": 12
-                            },
-                            "endLine": {
-                              "line": 49,
-                              "offset": 39
-                            }
-                          }
-                        },
-                        "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "string",
-                            "value": "\"expensive\"",
-                            "optional": false,
-                            "editable": true
-                          },
-                          "variable": {
-                            "metadata": {
-                              "label": "Variable",
-                              "description": "Result Variable"
-                            },
-                            "valueType": "string",
-                            "value": "food.comment",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      },
-                      {
-                        "id": "81740",
-                        "metadata": {
-                          "label": "Return",
-                          "description": "Return a value"
-                        },
-                        "codedata": {
-                          "node": "RETURN",
-                          "lineRange": {
-                            "fileName": "if_node.bal",
-                            "startLine": {
-                              "line": 50,
-                              "offset": 12
-                            },
-                            "endLine": {
-                              "line": 50,
-                              "offset": 24
-                            }
-                          }
-                        },
-                        "returning": true,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Return value"
-                            },
-                            "valueType": "Food",
-                            "value": "food",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
-                        "flags": 0
-                      }
-                    ]
+                    "valueType": "IDENTIFIER",
+                    "value": "food.comment",
+                    "optional": false,
+                    "editable": true
                   }
-                ],
+                },
+                "flags": 0
+              },
+              {
+                "id": "81740",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'food'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "if_node.bal",
+                    "startLine": {
+                      "line": 50,
+                      "offset": 12
+                    },
+                    "endLine": {
+                      "line": 50,
+                      "offset": 24
+                    }
+                  },
+                  "sourceCode": "return food;"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "food",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
                 "flags": 0
               }
             ]
@@ -605,25 +584,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

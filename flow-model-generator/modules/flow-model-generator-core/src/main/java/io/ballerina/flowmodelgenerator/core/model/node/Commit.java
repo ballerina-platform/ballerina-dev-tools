@@ -21,7 +21,13 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the properties of a break node.
@@ -35,25 +41,26 @@ public class Commit extends NodeBuilder {
 
     @Override
     public void setConcreteConstData() {
-        this.label = LABEL;
-        this.description = DESCRIPTION;
-        codedata().node(FlowNode.Kind.COMMIT);
+        metadata().label(LABEL).description(DESCRIPTION);
+        codedata().node(NodeKind.COMMIT);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public void setConcreteTemplateData(TemplateContext context) {
+    }
 
-        if (node.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
-            sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
+    @Override
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
-        sourceBuilder.keyword(SyntaxKind.COMMIT_KEYWORD).endOfStatement();
 
-        return sourceBuilder.build(false);
-    }
-
-    @Override
-    public void setConcreteTemplateData() {
+        return sourceBuilder
+                .token()
+                .keyword(SyntaxKind.BREAK_KEYWORD)
+                .endOfStatement()
+                .stepOut()
+                .textEdit(false).build();
 
     }
 }

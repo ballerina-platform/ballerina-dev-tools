@@ -1,0 +1,30 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "FAIL"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Fail",
+      "description": "Fail the execution"
+    },
+    "codedata": {
+      "node": "FAIL"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Fail value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

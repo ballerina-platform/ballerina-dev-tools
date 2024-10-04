@@ -29,7 +29,8 @@
               "line": 20,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get path2(boolean isKandy) returns error? {\n        transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "path2",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 19,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
         },
         "returning": false,
         "branches": [
@@ -80,6 +84,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "nested_node.bal",
                 "startLine": {
@@ -90,7 +95,8 @@
                   "line": 19,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }"
             },
             "repeatable": "ONE",
             "children": [
@@ -112,7 +118,8 @@
                       "line": 17,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -120,6 +127,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "nested_node.bal",
                         "startLine": {
@@ -130,7 +138,8 @@
                           "line": 15,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -139,7 +148,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "isKandy ",
                         "optional": false,
                         "editable": true
@@ -149,10 +158,16 @@
                       {
                         "id": "46195",
                         "metadata": {
-                          "label": "HTTP GET"
+                          "label": "get",
+                          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "get",
                           "lineRange": {
                             "fileName": "nested_node.bal",
                             "startLine": {
@@ -163,16 +178,17 @@
                               "line": 14,
                               "offset": 67
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/kandy\");"
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "asiri",
                             "optional": false,
                             "editable": true
@@ -180,30 +196,40 @@
                           "variable": {
                             "metadata": {
                               "label": "Variable",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
-                            "value": "j ",
+                            "valueType": "IDENTIFIER",
+                            "value": "j",
                             "optional": false,
                             "editable": true
                           },
                           "path": {
                             "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
+                              "label": "path",
+                              "description": "Request path\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"/doctors/kandy\"",
                             "optional": false,
                             "editable": true
                           },
                           "headers": {
                             "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
+                              "label": "headers",
+                              "description": "The entity headers\n"
                             },
-                            "valueType": "map<string|string[]>?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
+                            "editable": true
+                          },
+                          "type": {
+                            "metadata": {
+                              "label": "Type",
+                              "description": "Type of the variable"
+                            },
+                            "valueType": "TYPE",
+                            "value": "json",
+                            "optional": false,
                             "editable": true
                           }
                         },
@@ -215,27 +241,35 @@
                     "label": "Else",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ELSE",
                       "lineRange": {
                         "fileName": "nested_node.bal",
                         "startLine": {
                           "line": 15,
-                          "offset": 14
+                          "offset": 19
                         },
                         "endLine": {
                           "line": 17,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
                         "id": "48181",
                         "metadata": {
-                          "label": "HTTP GET"
+                          "label": "get",
+                          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "get",
                           "lineRange": {
                             "fileName": "nested_node.bal",
                             "startLine": {
@@ -246,16 +280,17 @@
                               "line": 16,
                               "offset": 69
                             }
-                          }
+                          },
+                          "sourceCode": "json j = check asiri->get(path = \"/doctors/colombo\");"
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "asiri",
                             "optional": false,
                             "editable": true
@@ -263,30 +298,40 @@
                           "variable": {
                             "metadata": {
                               "label": "Variable",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
-                            "value": "j ",
+                            "valueType": "IDENTIFIER",
+                            "value": "j",
                             "optional": false,
                             "editable": true
                           },
                           "path": {
                             "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
+                              "label": "path",
+                              "description": "Request path\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"/doctors/colombo\"",
                             "optional": false,
                             "editable": true
                           },
                           "headers": {
                             "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
+                              "label": "headers",
+                              "description": "The entity headers\n"
                             },
-                            "valueType": "map<string|string[]>?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
+                            "editable": true
+                          },
+                          "type": {
+                            "metadata": {
+                              "label": "Type",
+                              "description": "Type of the variable"
+                            },
+                            "valueType": "TYPE",
+                            "value": "json",
+                            "optional": false,
                             "editable": true
                           }
                         },
@@ -300,11 +345,11 @@
               {
                 "id": "50012",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "nested_node.bal",
                     "startLine": {
@@ -315,7 +360,8 @@
                       "line": 18,
                       "offset": 40
                     }
-                  }
+                  },
+                  "sourceCode": "error? unionResult = commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -324,6 +370,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
+                    "valueType": "EXPRESSION",
                     "value": "commit",
                     "optional": false,
                     "editable": true
@@ -331,10 +378,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "annotations:error|()",
-                    "value": "unionResult ",
+                    "valueType": "IDENTIFIER",
+                    "value": "unionResult",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
                     "optional": false,
                     "editable": true
                   }
@@ -347,25 +404,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34309",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "nested_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 18
+        "id": "33790",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "nested_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 62
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 23
+          "sourceCode": "final http:Client asiri = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "asiri",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "asiri",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

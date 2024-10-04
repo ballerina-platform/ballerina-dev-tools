@@ -1,0 +1,30 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "PANIC"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Panic",
+      "description": "Panic and stop the execution"
+    },
+    "codedata": {
+      "node": "PANIC"
+    },
+    "returning": false,
+    "properties": {
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Panic value"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

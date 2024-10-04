@@ -1,0 +1,93 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "42944",
+    "metadata": {
+      "label": "printInfo",
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "log",
+      "symbol": "printInfo",
+      "version": "1.6.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 11,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 11,
+          "offset": 40
+        }
+      },
+      "sourceCode": "log:printInfo(\"Getting apples\");"
+    },
+    "returning": false,
+    "properties": {
+      "msg": {
+        "metadata": {
+          "label": "msg",
+          "description": "The message to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"Getting apples\"",
+        "optional": false,
+        "editable": true
+      },
+      "stackTrace": {
+        "metadata": {
+          "label": "stackTrace",
+          "description": "The error stack trace to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": true,
+        "editable": true
+      },
+      "keyValues": {
+        "metadata": {
+          "label": "keyValues",
+          "description": "The key-value pairs to be logged\n"
+        },
+        "valueType": "EXPRESSION",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/log;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 11,
+            "character": 8
+          },
+          "end": {
+            "line": 11,
+            "character": 40
+          }
+        },
+        "newText": "log:printInfo(\"Getting apples\");"
+      }
+    ]
+  }
+}

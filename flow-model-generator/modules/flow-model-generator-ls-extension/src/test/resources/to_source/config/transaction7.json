@@ -1,0 +1,319 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "76730",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION",
+      "lineRange": {
+        "fileName": "transaction.bal",
+        "startLine": {
+          "line": 45,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 52,
+          "offset": 5
+        }
+      },
+      "sourceCode": "transaction {\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    } on fail error e {\n        return e;\n    }"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "BODY",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 45,
+              "offset": 16
+            },
+            "endLine": {
+              "line": 50,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        transaction {\n            var _ = check commit;\n        }\n        var _ = check commit;\n    }"
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "77695",
+            "metadata": {
+              "label": "Transaction",
+              "description": "Handle transaction."
+            },
+            "codedata": {
+              "node": "TRANSACTION",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 46,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 48,
+                  "offset": 9
+                }
+              },
+              "sourceCode": "transaction {\n            var _ = check commit;\n        }"
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Body",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "BODY",
+                  "lineRange": {
+                    "fileName": "transaction.bal",
+                    "startLine": {
+                      "line": 46,
+                      "offset": 20
+                    },
+                    "endLine": {
+                      "line": 48,
+                      "offset": 9
+                    }
+                  },
+                  "sourceCode": "{\n            var _ = check commit;\n        }"
+                },
+                "repeatable": "ONE",
+                "children": [
+                  {
+                    "id": "78773",
+                    "metadata": {
+                      "label": "Custom Expression",
+                      "description": "Represents a custom Ballerina expression"
+                    },
+                    "codedata": {
+                      "node": "EXPRESSION",
+                      "lineRange": {
+                        "fileName": "transaction.bal",
+                        "startLine": {
+                          "line": 47,
+                          "offset": 12
+                        },
+                        "endLine": {
+                          "line": 47,
+                          "offset": 33
+                        }
+                      },
+                      "sourceCode": "var _ = check commit;"
+                    },
+                    "returning": false,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Expression"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "check commit",
+                        "optional": false,
+                        "editable": true
+                      },
+                      "variable": {
+                        "metadata": {
+                          "label": "Data variable",
+                          "description": "Name of the variable"
+                        },
+                        "valueType": "IDENTIFIER",
+                        "value": "_",
+                        "optional": false,
+                        "editable": true
+                      },
+                      "type": {
+                        "metadata": {
+                          "label": "Data type",
+                          "description": "Type of the variable"
+                        },
+                        "valueType": "TYPE",
+                        "value": "()",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 1
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          },
+          {
+            "id": "80629",
+            "metadata": {
+              "label": "Custom Expression",
+              "description": "Represents a custom Ballerina expression"
+            },
+            "codedata": {
+              "node": "EXPRESSION",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 49,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 49,
+                  "offset": 29
+                }
+              },
+              "sourceCode": "var _ = check commit;"
+            },
+            "returning": false,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Expression"
+                },
+                "valueType": "EXPRESSION",
+                "value": "check commit",
+                "optional": false,
+                "editable": true
+              },
+              "variable": {
+                "metadata": {
+                  "label": "Data variable",
+                  "description": "Name of the variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "_",
+                "optional": false,
+                "editable": true
+              },
+              "type": {
+                "metadata": {
+                  "label": "Data type",
+                  "description": "Type of the variable"
+                },
+                "valueType": "TYPE",
+                "value": "()",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 1
+          }
+        ]
+      },
+      {
+        "label": "On Failure",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ON_FAILURE",
+          "lineRange": {
+            "fileName": "transaction.bal",
+            "startLine": {
+              "line": 50,
+              "offset": 22
+            },
+            "endLine": {
+              "line": 52,
+              "offset": 5
+            }
+          },
+          "sourceCode": "{\n        return e;\n    }"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "properties": {
+          "ignore": {
+            "metadata": {
+              "label": "Ignore",
+              "description": "Ignore the error value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "false",
+            "optional": false,
+            "editable": true
+          },
+          "errorVariable": {
+            "metadata": {
+              "label": "Error Variable",
+              "description": "Name of the error variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "e ",
+            "optional": false,
+            "editable": true
+          },
+          "errorType": {
+            "metadata": {
+              "label": "Error Type",
+              "description": "Type of the error"
+            },
+            "valueType": "TYPE",
+            "value": "error",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": [
+          {
+            "id": "82601",
+            "metadata": {
+              "label": "Return",
+              "description": "Value of 'e'"
+            },
+            "codedata": {
+              "node": "RETURN",
+              "lineRange": {
+                "fileName": "transaction.bal",
+                "startLine": {
+                  "line": 51,
+                  "offset": 8
+                },
+                "endLine": {
+                  "line": 51,
+                  "offset": 17
+                }
+              },
+              "sourceCode": "return e;"
+            },
+            "returning": true,
+            "properties": {
+              "expression": {
+                "metadata": {
+                  "label": "Expression",
+                  "description": "Return value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "e",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 45,
+            "character": 4
+          },
+          "end": {
+            "line": 52,
+            "character": 5
+          }
+        },
+        "newText": "transaction {\n    transaction {\n        () _ = check commit;\n    }\n    () _ = check commit;\n} on fail error e {\n    return e;\n}"
+      }
+    ]
+  }
+}

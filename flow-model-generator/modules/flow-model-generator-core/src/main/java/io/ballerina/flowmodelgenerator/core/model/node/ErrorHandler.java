@@ -20,13 +20,15 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
-import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -43,45 +45,24 @@ public class ErrorHandler extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.ERROR_HANDLER);
+        codedata().node(NodeKind.ERROR_HANDLER);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Branch> body = node.getBranch(ERROR_HANDLER_BODY);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        Optional<Branch> body = sourceBuilder.flowNode.getBranch(ERROR_HANDLER_BODY);
 
-        sourceBuilder
+        sourceBuilder.token()
                 .keyword(SyntaxKind.DO_KEYWORD)
-                .openBrace();
-        body.ifPresent(branch -> sourceBuilder.addChildren(branch.children()));
-        sourceBuilder.closeBrace();
+                .stepOut()
+                .body(body.isPresent() ? body.get().children() : Collections.emptyList());
 
-        Optional<Branch> onFailBranch = node.getBranch(Branch.ON_FAILURE_LABEL);
-        if (onFailBranch.isPresent()) {
-            // Build the keywords
-            sourceBuilder
-                    .keyword(SyntaxKind.ON_KEYWORD)
-                    .keyword(SyntaxKind.FAIL_KEYWORD);
-
-            // Build the parameters
-            Optional<Property> onErrorType = onFailBranch.get().getProperty(Property.ON_ERROR_TYPE_KEY);
-            Optional<Property> onErrorValue = onFailBranch.get().getProperty(Property.ON_ERROR_VARIABLE_KEY);
-            if (onErrorType.isPresent() && onErrorValue.isPresent()) {
-                sourceBuilder.expressionWithType(onErrorType.get(), onErrorValue.get());
-            }
-
-            // Build the body
-            sourceBuilder.openBrace()
-                    .addChildren(onFailBranch.get().children())
-                    .closeBrace();
-        }
-
-        return sourceBuilder.build(false);
+        sourceBuilder.onFailure();
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.DEFAULT_ON_FAIL_BRANCH);
+    public void setConcreteTemplateData(TemplateContext context) {
+        this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(false));
     }
 }

@@ -112,7 +112,7 @@ abstract class AbstractLSTest {
      * @return The list of tests to be skipped
      */
     protected String[] skipList() {
-        return new String[]{};
+        return new String[]{ };
     }
 
     /**
@@ -133,11 +133,16 @@ abstract class AbstractLSTest {
 
     // Remove this function after fixing https://github.com/ballerina-platform/ballerina-lang/issues/43086
     protected JsonObject getResponse(Endpoint endpoint, Object request) {
-        CompletableFuture<?> result = endpoint.request("flowDesignService/" + getApiName(), request);
+        return getResponse(endpoint, request, getApiName());
+    }
+
+    protected JsonObject getResponse(Endpoint endpoint, Object request, String api) {
+        CompletableFuture<?> result = endpoint.request(getServiceName() + "/" + api, request);
         String response = TestUtil.getResponseString(result);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject().getAsJsonObject("result");
         JsonPrimitive errorMsg = jsonObject.getAsJsonPrimitive("errorMsg");
         if (errorMsg != null) {
+            log.error("Stacktrace: {}", jsonObject.getAsJsonPrimitive("stacktrace").getAsString());
             Assert.fail("Error occurred: " + errorMsg.getAsString());
         }
         return jsonObject;
@@ -252,6 +257,10 @@ abstract class AbstractLSTest {
         }
     }
 
+    protected String getSourcePath(String source) {
+        return sourceDir.resolve(source).toAbsolutePath().toString();
+    }
+
     /**
      * Returns the resource directory of the API test.
      *
@@ -272,6 +281,10 @@ abstract class AbstractLSTest {
      * @return The name of the API
      */
     protected abstract String getApiName();
+
+    protected String getServiceName() {
+        return "flowDesignService";
+    }
 
     @AfterClass
     public void shutDownLanguageServer() {

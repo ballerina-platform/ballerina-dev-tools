@@ -29,7 +29,8 @@
               "line": 29,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get oranges() {\n        string? msg;\n        do {\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "oranges",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 28,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "do {\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }"
         },
         "returning": false,
         "branches": [
@@ -80,6 +84,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -90,17 +95,24 @@
                   "line": 20,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "50038",
                 "metadata": {
-                  "label": "HTTP GET"
+                  "label": "get",
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
+                  "org": "ballerina",
+                  "module": "http",
+                  "object": "Client",
+                  "symbol": "get",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -111,16 +123,17 @@
                       "line": 18,
                       "offset": 66
                     }
-                  }
+                  },
+                  "sourceCode": "json res3 = check foodClient->get(\"/western/oranges\");"
                 },
                 "returning": false,
                 "properties": {
-                  "client": {
+                  "connection": {
                     "metadata": {
-                      "label": "Client",
-                      "description": "HTTP Client Connection"
+                      "label": "Connection",
+                      "description": "Connection to use"
                     },
-                    "valueType": "http:Client",
+                    "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
                     "editable": true
@@ -128,30 +141,40 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "json",
-                    "value": "res3 ",
+                    "valueType": "IDENTIFIER",
+                    "value": "res3",
                     "optional": false,
                     "editable": true
                   },
                   "path": {
                     "metadata": {
-                      "label": "Path",
-                      "description": "HTTP Path"
+                      "label": "path",
+                      "description": "Request path\n"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"/western/oranges\"",
                     "optional": false,
                     "editable": true
                   },
                   "headers": {
                     "metadata": {
-                      "label": "Headers",
-                      "description": "HTTP Headers"
+                      "label": "headers",
+                      "description": "The entity headers\n"
                     },
-                    "valueType": "map<string|string[]>?",
+                    "valueType": "EXPRESSION",
                     "optional": true,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "json",
+                    "optional": false,
                     "editable": true
                   }
                 },
@@ -160,11 +183,11 @@
               {
                 "id": "50998",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -175,7 +198,8 @@
                       "line": 19,
                       "offset": 34
                     }
-                  }
+                  },
+                  "sourceCode": "msg = res3.toString();"
                 },
                 "returning": false,
                 "properties": {
@@ -184,7 +208,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "res3.toString()",
                     "optional": false,
                     "editable": true
@@ -194,7 +218,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string|()",
+                    "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
                     "editable": true
@@ -208,6 +232,7 @@
             "label": "On Failure",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ON_FAILURE",
               "lineRange": {
                 "fileName": "error_handler.bal",
                 "startLine": {
@@ -218,18 +243,19 @@
                   "line": 28,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "52995",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -240,7 +266,8 @@
                       "line": 21,
                       "offset": 47
                     }
-                  }
+                  },
+                  "sourceCode": "msg = \"Failed to get the response\";"
                 },
                 "returning": false,
                 "properties": {
@@ -249,7 +276,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
                     "optional": false,
                     "editable": true
@@ -259,7 +286,7 @@
                       "label": "Variable",
                       "description": "Result Variable"
                     },
-                    "valueType": "string|()",
+                    "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
                     "editable": true
@@ -285,7 +312,8 @@
                       "line": 27,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -293,6 +321,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "BODY",
                       "lineRange": {
                         "fileName": "error_handler.bal",
                         "startLine": {
@@ -303,17 +332,24 @@
                           "line": 25,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            }"
                     },
                     "repeatable": "ONE",
                     "children": [
                       {
                         "id": "55159",
                         "metadata": {
-                          "label": "HTTP POST"
+                          "label": "post",
+                          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
+                          "org": "ballerina",
+                          "module": "http",
+                          "object": "Client",
+                          "symbol": "post",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -324,16 +360,17 @@
                               "line": 23,
                               "offset": 103
                             }
-                          }
+                          },
+                          "sourceCode": "json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");"
                         },
                         "returning": false,
                         "properties": {
-                          "client": {
+                          "connection": {
                             "metadata": {
-                              "label": "Client",
-                              "description": "HTTP Client Connection"
+                              "label": "Connection",
+                              "description": "Connection to use"
                             },
-                            "valueType": "http:Client",
+                            "valueType": "EXPRESSION",
                             "value": "foodClient",
                             "optional": false,
                             "editable": true
@@ -341,49 +378,59 @@
                           "variable": {
                             "metadata": {
                               "label": "Variable",
-                              "description": "Result Variable"
+                              "description": "Name of the variable"
                             },
-                            "valueType": "json",
-                            "value": "res ",
+                            "valueType": "IDENTIFIER",
+                            "value": "res",
                             "optional": false,
                             "editable": true
                           },
                           "path": {
                             "metadata": {
-                              "label": "Path",
-                              "description": "HTTP Path"
+                              "label": "path",
+                              "description": "Resource path\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"/log\"",
                             "optional": false,
                             "editable": true
                           },
                           "message": {
                             "metadata": {
-                              "label": "Message",
-                              "description": "HTTP Post Message"
+                              "label": "message",
+                              "description": "An HTTP outbound request or any allowed payload\n"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while getting the response\"",
                             "optional": false,
                             "editable": true
                           },
                           "headers": {
                             "metadata": {
-                              "label": "Headers",
-                              "description": "HTTP Headers"
+                              "label": "headers",
+                              "description": "The entity headers\n"
                             },
-                            "valueType": "map<string|string[]>?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
                             "editable": true
                           },
                           "mediaType": {
                             "metadata": {
-                              "label": "Media Type",
-                              "description": "HTTP Post Media Type"
+                              "label": "mediaType",
+                              "description": "The MIME type header of the request entity\n"
                             },
-                            "valueType": "string?",
+                            "valueType": "EXPRESSION",
                             "optional": true,
+                            "editable": true
+                          },
+                          "type": {
+                            "metadata": {
+                              "label": "Type",
+                              "description": "Type of the variable"
+                            },
+                            "valueType": "TYPE",
+                            "value": "json",
+                            "optional": false,
                             "editable": true
                           }
                         },
@@ -392,11 +439,11 @@
                       {
                         "id": "56102",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -407,7 +454,8 @@
                               "line": 24,
                               "offset": 54
                             }
-                          }
+                          },
+                          "sourceCode": "msg = msg.toString() + res.toString();"
                         },
                         "returning": false,
                         "properties": {
@@ -416,7 +464,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "msg.toString() + res.toString()",
                             "optional": false,
                             "editable": true
@@ -426,7 +474,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -440,6 +488,7 @@
                     "label": "On Failure",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "ON_FAILURE",
                       "lineRange": {
                         "fileName": "error_handler.bal",
                         "startLine": {
@@ -450,18 +499,19 @@
                           "line": 27,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                msg = \"Error occurred while logging the error\";\n            }"
                     },
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
                         "id": "58095",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -472,7 +522,8 @@
                               "line": 26,
                               "offset": 63
                             }
-                          }
+                          },
+                          "sourceCode": "msg = \"Error occurred while logging the error\";"
                         },
                         "returning": false,
                         "properties": {
@@ -481,7 +532,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "string",
+                            "valueType": "EXPRESSION",
                             "value": "\"Error occurred while logging the error\"",
                             "optional": false,
                             "editable": true
@@ -491,7 +542,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "string|()",
+                            "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
                             "editable": true
@@ -510,25 +561,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "error_handler.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33789",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 61
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

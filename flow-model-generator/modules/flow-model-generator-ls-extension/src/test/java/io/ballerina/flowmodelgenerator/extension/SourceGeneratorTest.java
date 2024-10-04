@@ -18,8 +18,8 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import org.eclipse.lsp4j.TextEdit;
@@ -30,7 +30,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests for the flow model source generator service.
@@ -39,21 +42,42 @@ import java.util.List;
  */
 public class SourceGeneratorTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<List<TextEdit>>() {
+    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
     }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
     public void test(Path config) throws IOException {
-        Path configJsonPath = resDir.resolve(config);
+        Path configJsonPath = configDir.resolve(config);
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
-        FlowModelSourceGeneratorRequest request = new FlowModelSourceGeneratorRequest(testConfig.diagram());
-        JsonArray jsonArray = getResponse(request).getAsJsonArray("textEdits");
+        FlowModelSourceGeneratorRequest request =
+                new FlowModelSourceGeneratorRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
+                        testConfig.diagram());
+        JsonObject jsonMap = getResponse(request).getAsJsonObject("textEdits");
 
-        List<TextEdit> actualTextEdits = gson.fromJson(jsonArray, textEditListType);
-        if (!assertArray("text edits", actualTextEdits, testConfig.output())) {
-            TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.diagram(), actualTextEdits);
+        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
+
+        boolean assertFailure = false;
+        Map<String, List<TextEdit>> newMap = new HashMap<>();
+        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
+            Path fullPath = Paths.get(entry.getKey());
+            String relativePath = sourceDir.relativize(fullPath).toString();
+
+            List<TextEdit> textEdits = testConfig.output().get(relativePath.replace("\\", "/"));
+            if (textEdits == null) {
+                log.info("No text edits found for the file: " + relativePath);
+                assertFailure = true;
+            } else if (!assertArray("text edits", entry.getValue(), textEdits)) {
+                assertFailure = true;
+            }
+
+            newMap.put(relativePath, entry.getValue());
+        }
+
+        if (assertFailure) {
+            TestConfig updatedConfig =
+                    new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(), newMap);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -86,11 +110,13 @@ public class SourceGeneratorTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the source generator test.
      *
+     * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
      * @param output      The expected output source code
      */
-    private record TestConfig(String description, JsonElement diagram, List<TextEdit> output) {
+    private record TestConfig(String source, String description, JsonElement diagram,
+                              Map<String, List<TextEdit>> output) {
 
         public String description() {
             return description == null ? "" : description;

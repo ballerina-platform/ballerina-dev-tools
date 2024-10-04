@@ -24,12 +24,14 @@ import io.ballerina.tools.text.LineRange;
 /**
  * Represents the request for the flow model getFlowDesignModel API.
  *
- * @param filePath  file path of the source file
- * @param startLine start line of the source range
- * @param endLine   end line of the source range
+ * @param filePath    file path of the source file
+ * @param startLine   start line of the source range
+ * @param endLine     end line of the source range
+ * @param forceAssign whether to render the assign node wherever possible
  * @since 1.4.0
  */
-public record FlowModelGeneratorRequest(String filePath, LinePosition startLine, LinePosition endLine) {
+public record FlowModelGeneratorRequest(String filePath, LinePosition startLine, LinePosition endLine,
+                                        boolean forceAssign) {
 
     public LineRange lineRange() {
         return LineRange.from(filePath, startLine, endLine);

@@ -1,0 +1,79 @@
+{
+  "source": "data_mapper/service.bal",
+  "position": {
+    "line": 7,
+    "offset": 0
+  },
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "DATA_MAPPER"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "Data Mapper",
+      "description": "Map data from multiple variables to a record type"
+    },
+    "codedata": {
+      "node": "DATA_MAPPER"
+    },
+    "returning": false,
+    "properties": {
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "item",
+        "optional": false,
+        "editable": true
+      },
+      "functionName": {
+        "metadata": {
+          "label": "Data mapper name",
+          "description": "Name of the data mapper function"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "transform",
+        "optional": false,
+        "editable": true
+      },
+      "inputs": {
+        "metadata": {
+          "label": "Inputs",
+          "description": "Input variables of the data mapper function"
+        },
+        "valueType": "MULTIPLE_SELECT",
+        "valueTypeConstraint": [
+          "Input localInput",
+          "Input moduleInput",
+          "http:Client cl"
+        ],
+        "value": "",
+        "optional": false,
+        "editable": true
+      },
+      "output": {
+        "metadata": {
+          "label": "Output",
+          "description": "Output of the data mapper function"
+        },
+        "valueType": "SINGLE_SELECT",
+        "valueTypeConstraint": [
+          "Address",
+          "Admission",
+          "Employee",
+          "Input",
+          "Location",
+          "Output",
+          "Person"
+        ],
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  }
+}

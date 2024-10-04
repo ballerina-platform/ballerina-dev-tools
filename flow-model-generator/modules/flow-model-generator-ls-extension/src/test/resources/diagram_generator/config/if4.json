@@ -29,7 +29,8 @@
               "line": 70,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get grapes(int price) {\n        int mod = price % 4;\n        if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "grapes",
             "optional": false,
             "editable": true
@@ -57,11 +60,11 @@
       {
         "id": "86580",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -72,7 +75,8 @@
               "line": 55,
               "offset": 28
             }
-          }
+          },
+          "sourceCode": "int mod = price % 4;"
         },
         "returning": false,
         "properties": {
@@ -81,7 +85,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "price % 4",
             "optional": false,
             "editable": true
@@ -89,10 +93,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "int",
-            "value": "mod ",
+            "valueType": "IDENTIFIER",
+            "value": "mod",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -117,7 +131,8 @@
               "line": 69,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
         },
         "returning": false,
         "branches": [
@@ -125,6 +140,7 @@
             "label": "Then",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -135,7 +151,8 @@
                   "line": 58,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            return;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -144,7 +161,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "price > 100 ",
                 "optional": false,
                 "editable": true
@@ -154,11 +171,11 @@
               {
                 "id": "88679",
                 "metadata": {
-                  "label": "Return",
-                  "description": "Return a value"
+                  "label": "Stop",
+                  "description": "Stop the flow"
                 },
                 "codedata": {
-                  "node": "RETURN",
+                  "node": "STOP",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -169,7 +186,8 @@
                       "line": 57,
                       "offset": 19
                     }
-                  }
+                  },
+                  "sourceCode": "return;"
                 },
                 "returning": true,
                 "flags": 0
@@ -180,17 +198,19 @@
             "label": "Else",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ELSE",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
                   "line": 58,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 69,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
@@ -212,7 +232,8 @@
                       "line": 65,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -220,6 +241,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
@@ -230,7 +252,8 @@
                           "line": 65,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -239,7 +262,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "price < 50 ",
                         "optional": false,
                         "editable": true
@@ -264,7 +287,8 @@
                               "line": 64,
                               "offset": 17
                             }
-                          }
+                          },
+                          "sourceCode": "if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
                         },
                         "returning": false,
                         "branches": [
@@ -272,6 +296,7 @@
                             "label": "Then",
                             "kind": "BLOCK",
                             "codedata": {
+                              "node": "CONDITIONAL",
                               "lineRange": {
                                 "fileName": "if_node.bal",
                                 "startLine": {
@@ -282,7 +307,8 @@
                                   "line": 64,
                                   "offset": 17
                                 }
-                              }
+                              },
+                              "sourceCode": "{\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }"
                             },
                             "repeatable": "ONE_OR_MORE",
                             "properties": {
@@ -291,7 +317,7 @@
                                   "label": "Condition",
                                   "description": "Boolean Condition"
                                 },
-                                "valueType": "boolean",
+                                "valueType": "EXPRESSION",
                                 "value": "price < 25 ",
                                 "optional": false,
                                 "editable": true
@@ -316,7 +342,8 @@
                                       "line": 63,
                                       "offset": 21
                                     }
-                                  }
+                                  },
+                                  "sourceCode": "if price < 10 && mod == 1 {\n                        return;\n                    }"
                                 },
                                 "returning": false,
                                 "branches": [
@@ -324,6 +351,7 @@
                                     "label": "Then",
                                     "kind": "BLOCK",
                                     "codedata": {
+                                      "node": "CONDITIONAL",
                                       "lineRange": {
                                         "fileName": "if_node.bal",
                                         "startLine": {
@@ -334,7 +362,8 @@
                                           "line": 63,
                                           "offset": 21
                                         }
-                                      }
+                                      },
+                                      "sourceCode": "{\n                        return;\n                    }"
                                     },
                                     "repeatable": "ONE_OR_MORE",
                                     "properties": {
@@ -343,7 +372,7 @@
                                           "label": "Condition",
                                           "description": "Boolean Condition"
                                         },
-                                        "valueType": "boolean",
+                                        "valueType": "EXPRESSION",
                                         "value": "price < 10 && mod == 1 ",
                                         "optional": false,
                                         "editable": true
@@ -353,11 +382,11 @@
                                       {
                                         "id": "94023",
                                         "metadata": {
-                                          "label": "Return",
-                                          "description": "Return a value"
+                                          "label": "Stop",
+                                          "description": "Stop the flow"
                                         },
                                         "codedata": {
-                                          "node": "RETURN",
+                                          "node": "STOP",
                                           "lineRange": {
                                             "fileName": "if_node.bal",
                                             "startLine": {
@@ -368,7 +397,8 @@
                                               "line": 62,
                                               "offset": 31
                                             }
-                                          }
+                                          },
+                                          "sourceCode": "return;"
                                         },
                                         "returning": true,
                                         "flags": 0
@@ -406,7 +436,8 @@
                       "line": 68,
                       "offset": 13
                     }
-                  }
+                  },
+                  "sourceCode": "if mod == 0 {\n                return;\n            }"
                 },
                 "returning": false,
                 "branches": [
@@ -414,6 +445,7 @@
                     "label": "Then",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "CONDITIONAL",
                       "lineRange": {
                         "fileName": "if_node.bal",
                         "startLine": {
@@ -424,7 +456,8 @@
                           "line": 68,
                           "offset": 13
                         }
-                      }
+                      },
+                      "sourceCode": "{\n                return;\n            }"
                     },
                     "repeatable": "ONE_OR_MORE",
                     "properties": {
@@ -433,7 +466,7 @@
                           "label": "Condition",
                           "description": "Boolean Condition"
                         },
-                        "valueType": "boolean",
+                        "valueType": "EXPRESSION",
                         "value": "mod == 0 ",
                         "optional": false,
                         "editable": true
@@ -443,11 +476,11 @@
                       {
                         "id": "98727",
                         "metadata": {
-                          "label": "Return",
-                          "description": "Return a value"
+                          "label": "Stop",
+                          "description": "Stop the flow"
                         },
                         "codedata": {
-                          "node": "RETURN",
+                          "node": "STOP",
                           "lineRange": {
                             "fileName": "if_node.bal",
                             "startLine": {
@@ -458,7 +491,8 @@
                               "line": 67,
                               "offset": 23
                             }
-                          }
+                          },
+                          "sourceCode": "return;"
                         },
                         "returning": true,
                         "flags": 0
@@ -474,25 +508,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

@@ -44,15 +44,17 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
     public static final Branch DEFAULT_BODY_BRANCH =
             new Builder().label(BODY_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ONE)
-                    .codedata().node(FlowNode.Kind.BODY).stepOut().build();
-    public static final Branch DEFAULT_ON_FAIL_BRANCH =
-            new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
-                    .codedata().node(FlowNode.Kind.ON_FAILURE).stepOut()
-                    .properties().ignore().defaultOnErrorVariable().stepOut().build();
+                    .codedata().node(NodeKind.BODY).stepOut().build();
 
-    public static Branch getEmptyBranch(String label, FlowNode.Kind kind) {
+    public static Branch getEmptyBranch(String label, NodeKind kind) {
         return new Builder().label(label).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
                 .codedata().node(kind).stepOut().build();
+    }
+
+    public static Branch getDefaultOnFailBranch(boolean value) {
+        return new Builder().label(ON_FAILURE_LABEL).kind(BranchKind.BLOCK).repeatable(Repeatable.ZERO_OR_ONE)
+                .codedata().node(NodeKind.ON_FAILURE).stepOut()
+                .properties().ignore(value).onErrorVariable(null).stepOut().build();
     }
 
     public enum BranchKind {
@@ -104,6 +106,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         protected Codedata.Builder<Builder> codedataBuilder;
         protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
+        private String defaultModuleName;
 
         public Builder() {
             children = new ArrayList<>();
@@ -111,6 +114,11 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public Builder semanticModel(SemanticModel semanticModel) {
             this.semanticModel = semanticModel;
+            return this;
+        }
+
+        public Builder defaultModuleName(String defaultModuleName) {
+            this.defaultModuleName = defaultModuleName;
             return this;
         }
 
@@ -141,7 +149,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
-                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, this);
+                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, defaultModuleName, this);
             }
             return this.propertiesBuilder;
         }

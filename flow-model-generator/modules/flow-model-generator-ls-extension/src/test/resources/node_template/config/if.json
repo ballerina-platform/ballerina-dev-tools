@@ -1,0 +1,50 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "IF"
+  },
+  "output": {
+    "id": "31",
+    "metadata": {
+      "label": "If",
+      "description": "Add conditional branch to the integration flow."
+    },
+    "codedata": {
+      "node": "IF"
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Then",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "CONDITIONAL"
+        },
+        "repeatable": "ONE_OR_MORE",
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "true",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "children": []
+      },
+      {
+        "label": "Else",
+        "kind": "BLOCK",
+        "codedata": {
+          "node": "ELSE"
+        },
+        "repeatable": "ZERO_OR_ONE",
+        "children": []
+      }
+    ],
+    "flags": 0
+  }
+}

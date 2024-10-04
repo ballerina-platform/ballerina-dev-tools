@@ -1,0 +1,68 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "NEW_CONNECTION",
+    "org": "ballerinax",
+    "module": "redis",
+    "object": "Client",
+    "symbol": "init"
+  },
+  "output": {
+    "metadata": {
+      "label": "New Connection",
+      "description": "Create a new connection",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
+    },
+    "codedata": {
+      "node": "NEW_CONNECTION",
+      "org": "ballerinax",
+      "module": "redis",
+      "object": "Client",
+      "symbol": "init"
+    },
+    "returning": false,
+    "properties": {
+      "config": {
+        "metadata": {
+          "label": "config",
+          "description": "configuration for the connector\n"
+        },
+        "valueType": "Expression",
+        "value": "{}",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "redis:Client",
+        "optional": false,
+        "editable": false
+      },
+      "scope": {
+        "metadata": {
+          "label": "Scope",
+          "description": "Scope of the connection"
+        },
+        "valueType": "Enum",
+        "value": "Global",
+        "optional": false,
+        "editable": false
+      }
+    },
+    "flags": 1
+  }
+}

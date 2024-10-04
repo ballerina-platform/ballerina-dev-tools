@@ -1,0 +1,537 @@
+{
+  "start": {
+    "line": 67,
+    "offset": 0
+  },
+  "end": {
+    "line": 79,
+    "offset": 1
+  },
+  "source": "function_call.bal",
+  "description": "Tests a simple diagram flow",
+  "forceAssign": false,
+  "diagram": {
+    "fileName": "function_call.bal",
+    "nodes": [
+      {
+        "id": "98581",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 67,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 79,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "99361",
+        "metadata": {
+          "label": "greet"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "greet",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 68,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 68,
+              "offset": 37
+            }
+          },
+          "sourceCode": "string greeting = greet(\"Alice\");"
+        },
+        "returning": false,
+        "properties": {
+          "name": {
+            "metadata": {
+              "label": "name"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"Alice\"",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "greeting",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "100343",
+        "metadata": {
+          "label": "power"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "power",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 69,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 69,
+              "offset": 27
+            }
+          },
+          "sourceCode": "int squared = power(3);"
+        },
+        "returning": false,
+        "properties": {
+          "base": {
+            "metadata": {
+              "label": "base"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "exponent": {
+            "metadata": {
+              "label": "exponent"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "squared",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "101336",
+        "metadata": {
+          "label": "power"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "power",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 70,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 70,
+              "offset": 28
+            }
+          },
+          "sourceCode": "int cubed = power(3, 3);"
+        },
+        "returning": false,
+        "properties": {
+          "base": {
+            "metadata": {
+              "label": "base"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "exponent": {
+            "metadata": {
+              "label": "exponent"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": true,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "cubed",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "102361",
+        "metadata": {
+          "label": "println",
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "io",
+          "symbol": "println",
+          "version": "1.6.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 71,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 71,
+              "offset": 61
+            }
+          },
+          "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
+        },
+        "returning": false,
+        "properties": {},
+        "flags": 0
+      },
+      {
+        "id": "103328",
+        "metadata": {
+          "label": "asum"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "asum",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 72,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 72,
+              "offset": 36
+            }
+          },
+          "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+        },
+        "returning": false,
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "total",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "105353",
+        "metadata": {
+          "label": "operate"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "operate",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 74,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 76,
+              "offset": 15
+            }
+          },
+          "sourceCode": "int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });"
+        },
+        "returning": false,
+        "properties": {
+          "a": {
+            "metadata": {
+              "label": "a"
+            },
+            "valueType": "EXPRESSION",
+            "value": "6",
+            "optional": false,
+            "editable": true
+          },
+          "b": {
+            "metadata": {
+              "label": "b"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "func": {
+            "metadata": {
+              "label": "func"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "result",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "108287",
+        "metadata": {
+          "label": "println",
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "io",
+          "symbol": "println",
+          "version": "1.6.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 77,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 77,
+              "offset": 35
+            }
+          },
+          "sourceCode": "io:println(\"6 * 3 = \", result);"
+        },
+        "returning": false,
+        "properties": {},
+        "flags": 0
+      },
+      {
+        "id": "109256",
+        "metadata": {
+          "label": "print"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "print",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 78,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 78,
+              "offset": 12
+            }
+          },
+          "sourceCode": "print();"
+        },
+        "returning": false,
+        "properties": {},
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "36771",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 67
+            }
+          },
+          "sourceCode": "final http:Client foodClient = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

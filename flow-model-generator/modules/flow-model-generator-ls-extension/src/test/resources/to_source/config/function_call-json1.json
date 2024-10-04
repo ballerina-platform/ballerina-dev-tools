@@ -1,0 +1,95 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "52881",
+    "metadata": {
+      "label": "toJson",
+      "description": "Converts a value of type `anydata` to `json`.\n\n",
+      "icon": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "data.jsondata",
+      "symbol": "toJson",
+      "version": "0.2.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 21,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 21,
+          "offset": 57
+        }
+      },
+      "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
+    },
+    "returning": false,
+    "properties": {
+      "v": {
+        "metadata": {
+          "label": "v",
+          "description": "Source anydata value\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "payload",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "jsonResult",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/data.jsondata;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 21,
+            "character": 8
+          },
+          "end": {
+            "line": 21,
+            "character": 57
+          }
+        },
+        "newText": "json jsonResult = check jsondata:toJson(payload);"
+      }
+    ]
+  }
+}

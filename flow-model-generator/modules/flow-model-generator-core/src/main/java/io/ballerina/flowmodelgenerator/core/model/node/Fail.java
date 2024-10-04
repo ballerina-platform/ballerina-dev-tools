@@ -19,12 +19,15 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -41,24 +44,22 @@ public class Fail extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.FAIL);
+        codedata().node(NodeKind.FAIL);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-
-        sourceBuilder.keyword(SyntaxKind.FAIL_KEYWORD);
-        Optional<Property> property = node.getProperty(Property.EXPRESSION_KEY);
-        property.ifPresent(value -> sourceBuilder
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.token().keyword(SyntaxKind.FAIL_KEYWORD);
+        Optional<Property> property = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        property.ifPresent(value -> sourceBuilder.token()
                 .whiteSpace()
                 .expression(value));
-        sourceBuilder.endOfStatement();
-        return sourceBuilder.build(false);
+        sourceBuilder.token().endOfStatement();
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        properties().defaultExpression(FAIL_EXPRESSION_DOC);
+    public void setConcreteTemplateData(TemplateContext context) {
+        properties().expression("", FAIL_EXPRESSION_DOC);
     }
 }

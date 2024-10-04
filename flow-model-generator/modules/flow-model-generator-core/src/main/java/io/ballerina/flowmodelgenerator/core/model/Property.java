@@ -18,20 +18,39 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+
+import java.util.List;
 
 /**
  * Represents an expression in the flow model.
  *
- * @param metadata  metadata of the property
- * @param valueType acceptable value types of the property
- * @param value     value of the property
- * @param optional  whether the property is optional
- * @param editable  whether the property is editable
+ * @param metadata            metadata of the property
+ * @param valueType           acceptable value types of the property
+ * @param valueTypeConstraint constraint of the value type
+ * @param value               value of the property
+ * @param optional            whether the property is optional
+ * @param editable            whether the property is editable
  * @since 1.4.0
  */
-public record Property(Metadata metadata, String valueType, String value, boolean optional, boolean editable) {
+public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
+                       boolean editable) {
+
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
+    public static final TypeToken<List<Property>> LIST_PROPERTY_TYPE_TOKEN = new TypeToken<List<Property>>() { };
+
+    @SuppressWarnings("unchecked")
+    public <T> T valueAsType(TypeToken<T> typeToken) {
+        if (value instanceof List) {
+            return (T) gson.fromJson(gson.toJson(value), typeToken.getType());
+        }
+        return (T) value;
+    }
 
     public static final String VARIABLE_LABEL = "Variable";
     public static final String VARIABLE_KEY = "variable";
@@ -57,8 +76,67 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static final String ON_ERROR_TYPE_KEY = "errorType";
     public static final String ON_ERROR_TYPE_DOC = "Type of the error";
 
+    public static final String COLLECTION_LABEL = "Collection";
+    public static final String COLLECTION_KEY = "collection";
+    public static final String COLLECTION_DOC = "Collection to iterate";
+
+    public static final String DATA_VARIABLE_LABEL = "Variable";
+    public static final String DATA_VARIABLE_KEY = "variable";
+    public static final String DATA_VARIABLE_DOC = "Name of the variable";
+
+    public static final String DATA_TYPE_LABEL = "Type";
+    public static final String DATA_TYPE_KEY = "type";
+    public static final String DATA_TYPE_DOC = "Type of the variable";
+
+    public static final String SCOPE_LABEL = "Connection Scope";
+    public static final String SCOPE_KEY = "scope";
+    public static final String SCOPE_DOC = "Scope of the connection, Global or Local";
+    public static final String GLOBAL_SCOPE = "Global";
+    public static final String SERVICE_SCOPE = "Service";
+    public static final String LOCAL_SCOPE = "Local";
+
+    public static final String CONNECTION_KEY = "connection";
+
+    public static final String COMMENT_LABEL = "Comment";
+    public static final String COMMENT_KEY = "comment";
+    public static final String COMMENT_DOC = "Comment to describe the flow";
+
+    public static final String PATTERNS_KEY = "patterns";
+    public static final String PATTERNS_LABEL = "Patterns";
+    public static final String PATTERNS_DOC = "List of binding patterns";
+    public static final String PATTERN_LABEL = "Pattern";
+    public static final String PATTERN_DOC = "Binding pattern";
+
+    public static final String GUARD_KEY = "guard";
+    public static final String GUARD_DOC = "Guard expression";
+
+    public static final String RETRY_COUNT_KEY = "retryCount";
+    public static final String RETRY_COUNT_LABEL = "Retry Count";
+    public static final String RETRY_COUNT_DOC = "Number of retries";
+
     public String toSourceCode() {
-        return value;
+        return value.toString();
+    }
+
+    public enum ValueType {
+        EXPRESSION,
+        IDENTIFIER,
+        STRING,
+        TYPE,
+        ENUM,
+        SINGLE_SELECT,
+        MULTIPLE_SELECT,
+        VIEW,
+        INCLUSION,
+        UNION
+    }
+
+    public static ValueType valueTypeFrom(String s) {
+        return switch (s) {
+            case "inclusion" -> ValueType.INCLUSION;
+            case "union" -> ValueType.UNION;
+            default -> ValueType.EXPRESSION;
+        };
     }
 
     /**
@@ -69,9 +147,10 @@ public record Property(Metadata metadata, String valueType, String value, boolea
     public static class Builder {
 
         private String type;
-        private String value;
+        private Object value;
         private boolean optional;
         private boolean editable;
+        private Object typeConstraint;
         private Metadata.Builder<Builder> metadataBuilder;
 
         private Builder() {
@@ -88,16 +167,21 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Builder type(TypeSymbol typeSymbol) {
-            this.type = CommonUtils.getTypeSignature(typeSymbol);
+            this.type = CommonUtils.getTypeSignature(null, typeSymbol, false);
             return this;
         }
 
-        public Builder type(String type) {
-            this.type = type;
+        public Builder type(ValueType type) {
+            this.type = type.name();
             return this;
         }
 
-        public Builder value(String value) {
+        public Builder typeConstraint(Object typeConstraint) {
+            this.typeConstraint = typeConstraint;
+            return this;
+        }
+
+        public Builder value(Object value) {
             this.value = value;
             return this;
         }
@@ -120,10 +204,12 @@ public record Property(Metadata metadata, String valueType, String value, boolea
         }
 
         public Property build() {
-            Property property = new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, value,
-                    optional, editable);
+            Property property =
+                    new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
+                            optional, editable);
             this.metadataBuilder = null;
             this.type = null;
+            this.typeConstraint = null;
             this.value = null;
             this.optional = false;
             this.editable = false;

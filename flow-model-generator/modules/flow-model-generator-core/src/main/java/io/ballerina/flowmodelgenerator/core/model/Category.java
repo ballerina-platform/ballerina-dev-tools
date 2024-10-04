@@ -40,14 +40,21 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
     public enum Name {
         ROOT("Root", "The topmost category of the palette", null),
         FLOW("Flow", "Flow control nodes", List.of("Core", "Control", "Flow")),
+        STATEMENT("Statement", "Fundamental executable units in a program", null),
+        CONNECTIONS("Connections", "The connections used in the flow", null),
         BRANCH("Branch", "Branching nodes", null),
+        FLOWS("Flows", "Flows that invoke local or utility functions",
+                List.of("Function", "Call", "Utility", "Local")),
+        TERMINATION("Termination", "Termination nodes", null),
         ITERATION("Iteration", "Iteration nodes", null),
         CONTROL("Control", "Control nodes", null),
         CONCURRENCY("Concurrency", "Concurrency nodes", null),
+        ERROR_HANDLING("Error Handling", "Handle errors that occur during execution", null),
         DATA("Data", "Data nodes are used to create, read, update, delete, and transform data", null),
-        ACTION("Action", "Connect to different services, APIs, SaaS products, etc.", null),
-        HTTP_API("HTTP API", "Make HTTP requests", null),
-        REDIS_CLIENT("Redis Client", "Interact with a Redis server", null);
+        PROJECT_FUNCTIONS("Project", "Functions defined within the project",
+                List.of("Project", "Local", "Function")),
+        UTILITIES("Utilities", "Reusable functions from external libraries",
+                List.of("Utility", "Library", "Function", "External"));
 
         final String name;
         final String description;
@@ -67,22 +74,35 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
      */
     public static class Builder {
 
-        private final Name name;
         private final Builder parentBuilder;
-        private final Map<Name, Builder> childBuilders;
+        private final Map<String, Builder> childBuilders;
         private final List<AvailableNode> availableNodes;
+        private List<Item> prebuiltItems;
+        private Metadata.Builder<Category.Builder> metadataBuilder;
 
-        public Builder(Name name, Builder parentBuilder) {
-            this.name = name;
+        public Builder(Builder parentBuilder) {
             this.parentBuilder = parentBuilder;
             this.childBuilders = new LinkedHashMap<>();
             this.availableNodes = new ArrayList<>();
         }
 
         public Builder stepIn(Name childName) {
+            Builder builder = this.childBuilders.get(childName.name);
+            if (builder == null) {
+                builder = new Builder(this).metadata()
+                        .label(childName.name)
+                        .description(childName.description)
+                        .keywords(childName.keywords)
+                        .stepOut();
+                this.childBuilders.put(childName.name, builder);
+            }
+            return builder;
+        }
+
+        public Builder stepIn(String childName) {
             Builder builder = this.childBuilders.get(childName);
             if (builder == null) {
-                builder = new Builder(childName, this);
+                builder = new Builder(this).metadata().label(childName).stepOut();
                 this.childBuilders.put(childName, builder);
             }
             return builder;
@@ -95,28 +115,45 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             return parentBuilder;
         }
 
-        public Builder node(FlowNode.Kind kind) {
+        public Builder node(NodeKind kind) {
             AvailableNode node = NodeBuilder.getNodeFromKind(kind).buildAvailableNode();
             this.availableNodes.add(node);
             return this;
         }
 
-        public Builder node(FlowNode.Kind kind, String module, String symbol) {
-            NodeAttributes.Info info = NodeAttributes.getByKey(module, symbol);
-            AvailableNode node = NodeBuilder.getNodeFromKind(kind)
-                    .codedata()
-                    .module(module)
-                    .symbol(symbol)
-                    .stepOut()
-                    .metadata()
-                    .label(info.label())
-                    .stepOut()
-                    .buildAvailableNode();
+        public Builder node(AvailableNode node) {
             this.availableNodes.add(node);
             return this;
         }
 
+        public Builder items(List<Item> items) {
+            this.prebuiltItems = items;
+            return this;
+        }
+
+        public Metadata.Builder<Category.Builder> metadata() {
+            if (this.metadataBuilder == null) {
+                this.metadataBuilder = new Metadata.Builder<>(this);
+            }
+            return this.metadataBuilder;
+        }
+
+        public Builder name(Name name) {
+            this.metadataBuilder = new Metadata.Builder<>(this)
+                    .label(name.name)
+                    .description(name.description)
+                    .keywords(name.keywords);
+            return this;
+        }
+
         public Category build() {
+            Metadata newMetadata = this.metadataBuilder != null ? this.metadataBuilder.build() : null;
+
+            // Check if there exist prebuilt items
+            if (this.prebuiltItems != null) {
+                return new Category(newMetadata, this.prebuiltItems);
+            }
+
             // Check for illegal state where both nodes and categories are present
             if (!this.availableNodes.isEmpty() && !this.childBuilders.isEmpty()) {
                 throw new IllegalStateException("A category cannot have both categories and nodes as items");
@@ -133,7 +170,7 @@ public record Category(Metadata metadata, List<Item> items) implements Item {
             }
 
             // Create and return the new category with the built items
-            return new Category(new Metadata(name.name, name.description, name.keywords), items);
+            return new Category(newMetadata, items);
         }
     }
 }

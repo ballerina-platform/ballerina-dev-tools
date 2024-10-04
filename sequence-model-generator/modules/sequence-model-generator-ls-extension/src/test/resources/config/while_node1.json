@@ -1,0 +1,144 @@
+{
+  "source": "while_node1.bal",
+  "description": "Tests a simple diagram flow",
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 3,
+    "offset": 1
+  },
+  "diagram": {
+    "location": {
+      "fileName": "while_node1.bal",
+      "startLine": {
+        "line": 0,
+        "offset": 0
+      },
+      "endLine": {
+        "line": 3,
+        "offset": 1
+      }
+    },
+    "participants": [
+      {
+        "id": "39721",
+        "name": "fn2",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "RETURN",
+            "branches": [],
+            "properties": {
+              "value": {
+                "type": "int"
+              }
+            },
+            "location": {
+              "fileName": "while_node1.bal",
+              "startLine": {
+                "line": 8,
+                "offset": 35
+              },
+              "endLine": {
+                "line": 8,
+                "offset": 40
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "while_node1.bal",
+          "startLine": {
+            "line": 8,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 8,
+            "offset": 41
+          }
+        }
+      },
+      {
+        "id": "31931",
+        "name": "fn1",
+        "kind": "FUNCTION",
+        "moduleName": ".",
+        "nodes": [
+          {
+            "kind": "WHILE",
+            "branches": [
+              {
+                "label": "Body",
+                "children": [
+                  {
+                    "interactionType": "FUNCTION_CALL",
+                    "targetId": "39721",
+                    "kind": "INTERACTION",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "value": "fn2"
+                      },
+                      "params": [
+                        {
+                          "type": "int",
+                          "value": "count"
+                        }
+                      ],
+                      "value": {
+                        "type": "int",
+                        "value": "val"
+                      }
+                    },
+                    "location": {
+                      "fileName": "while_node1.bal",
+                      "startLine": {
+                        "line": 3,
+                        "offset": 18
+                      },
+                      "endLine": {
+                        "line": 3,
+                        "offset": 28
+                      }
+                    }
+                  }
+                ]
+              }
+            ],
+            "properties": {
+              "condition": {
+                "type": "boolean",
+                "value": "count < 100"
+              }
+            },
+            "location": {
+              "fileName": "while_node1.bal",
+              "startLine": {
+                "line": 2,
+                "offset": 4
+              },
+              "endLine": {
+                "line": 5,
+                "offset": 5
+              }
+            }
+          }
+        ],
+        "location": {
+          "fileName": "while_node1.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 6,
+            "offset": 1
+          }
+        }
+      }
+    ]
+  }
+}

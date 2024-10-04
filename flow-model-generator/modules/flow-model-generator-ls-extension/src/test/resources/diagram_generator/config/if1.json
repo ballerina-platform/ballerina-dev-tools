@@ -29,7 +29,8 @@
               "line": 21,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "resource function get apples(boolean flag) {\n        if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }\n    }"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "apples",
             "optional": false,
             "editable": true
@@ -72,7 +75,8 @@
               "line": 20,
               "offset": 9
             }
-          }
+          },
+          "sourceCode": "if flag {\n            int a = 1;\n        } else {\n            int b = 2;\n            string c = \"12\";\n        }"
         },
         "returning": false,
         "branches": [
@@ -80,6 +84,7 @@
             "label": "Then",
             "kind": "BLOCK",
             "codedata": {
+              "node": "CONDITIONAL",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
@@ -90,7 +95,8 @@
                   "line": 17,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            int a = 1;\n        }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -99,7 +105,7 @@
                   "label": "Condition",
                   "description": "Boolean Condition"
                 },
-                "valueType": "boolean",
+                "valueType": "EXPRESSION",
                 "value": "flag ",
                 "optional": false,
                 "editable": true
@@ -109,11 +115,11 @@
               {
                 "id": "48010",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -124,7 +130,8 @@
                       "line": 16,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "int a = 1;"
                 },
                 "returning": false,
                 "properties": {
@@ -133,7 +140,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "1",
                     "optional": false,
                     "editable": true
@@ -141,10 +148,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
-                    "value": "a ",
+                    "valueType": "IDENTIFIER",
+                    "value": "a",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -157,28 +174,30 @@
             "label": "Else",
             "kind": "BLOCK",
             "codedata": {
+              "node": "ELSE",
               "lineRange": {
                 "fileName": "if_node.bal",
                 "startLine": {
                   "line": 17,
-                  "offset": 10
+                  "offset": 15
                 },
                 "endLine": {
                   "line": 20,
                   "offset": 9
                 }
-              }
+              },
+              "sourceCode": "{\n            int b = 2;\n            string c = \"12\";\n        }"
             },
             "repeatable": "ZERO_OR_ONE",
             "children": [
               {
                 "id": "49994",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -189,7 +208,8 @@
                       "line": 18,
                       "offset": 22
                     }
-                  }
+                  },
+                  "sourceCode": "int b = 2;"
                 },
                 "returning": false,
                 "properties": {
@@ -198,7 +218,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "2",
                     "optional": false,
                     "editable": true
@@ -206,10 +226,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
-                    "value": "b ",
+                    "valueType": "IDENTIFIER",
+                    "value": "b",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -219,11 +249,11 @@
               {
                 "id": "50992",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -234,7 +264,8 @@
                       "line": 19,
                       "offset": 28
                     }
-                  }
+                  },
+                  "sourceCode": "string c = \"12\";"
                 },
                 "returning": false,
                 "properties": {
@@ -243,7 +274,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "string",
+                    "valueType": "EXPRESSION",
                     "value": "\"12\"",
                     "optional": false,
                     "editable": true
@@ -251,10 +282,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "string",
-                    "value": "c ",
+                    "valueType": "IDENTIFIER",
+                    "value": "c",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "string",
                     "optional": false,
                     "editable": true
                   }
@@ -267,25 +308,85 @@
         "flags": 0
       }
     ],
-    "clients": [
+    "connections": [
       {
-        "id": "34122",
-        "label": "Client",
-        "kind": "HTTP",
-        "lineRange": {
-          "fileName": "if_node.bal",
-          "startLine": {
-            "line": 2,
-            "offset": 12
+        "id": "33773",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "if_node.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 45
+            }
           },
-          "endLine": {
-            "line": 2,
-            "offset": 22
+          "sourceCode": "http:Client foodClient = check new (\"/food\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"/food\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
           }
         },
-        "scope": "GLOBAL",
-        "value": "foodClient",
-        "flags": 0
+        "flags": 1
       }
     ]
   }

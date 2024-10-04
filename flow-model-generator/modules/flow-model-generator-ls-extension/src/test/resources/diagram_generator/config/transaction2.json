@@ -30,19 +30,32 @@
               "line": 17,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testTransaction2(int i) returns int|error {\n    int x = i;\n\n    transaction {\n        var res = check commit;\n    }\n\n    transaction {\n        var res = check commit;\n    }\n    return x;\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testTransaction2(int i) returns int|error {\n    int x = i;\n\n    transaction {\n        var res = check commit;\n    }\n\n    transaction {\n        var res = check commit;\n    }\n    return x;\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
         "id": "38826",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {
@@ -53,7 +66,8 @@
               "line": 7,
               "offset": 14
             }
-          }
+          },
+          "sourceCode": "int x = i;"
         },
         "returning": false,
         "properties": {
@@ -62,7 +76,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "i",
             "optional": false,
             "editable": true
@@ -70,10 +84,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "int",
-            "value": "x ",
+            "valueType": "IDENTIFIER",
+            "value": "x",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -98,7 +122,8 @@
               "line": 11,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -106,6 +131,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -116,18 +142,19 @@
                   "line": 11,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "41943",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -138,7 +165,8 @@
                       "line": 10,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -147,7 +175,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -155,10 +183,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "()",
-                    "value": "res ",
+                    "valueType": "IDENTIFIER",
+                    "value": "res",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
                     "optional": false,
                     "editable": true
                   }
@@ -188,7 +226,8 @@
               "line": 15,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -196,6 +235,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -206,18 +246,19 @@
                   "line": 15,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "45911",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -228,7 +269,8 @@
                       "line": 14,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -237,7 +279,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -245,10 +287,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "()",
-                    "value": "res ",
+                    "valueType": "IDENTIFIER",
+                    "value": "res",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
                     "optional": false,
                     "editable": true
                   }
@@ -264,7 +316,7 @@
         "id": "47753",
         "metadata": {
           "label": "Return",
-          "description": "Return a value"
+          "description": "Value of 'x'"
         },
         "codedata": {
           "node": "RETURN",
@@ -278,7 +330,8 @@
               "line": 16,
               "offset": 13
             }
-          }
+          },
+          "sourceCode": "return x;"
         },
         "returning": true,
         "properties": {
@@ -287,7 +340,7 @@
               "label": "Expression",
               "description": "Return value"
             },
-            "valueType": "int",
+            "valueType": "EXPRESSION",
             "value": "x",
             "optional": false,
             "editable": true
@@ -296,6 +349,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

@@ -1,0 +1,87 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "101336",
+    "metadata": {
+      "label": "power"
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "$anon",
+      "module": ".",
+      "symbol": "power",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 70,
+          "offset": 4
+        },
+        "endLine": {
+          "line": 70,
+          "offset": 28
+        }
+      },
+      "sourceCode": "int cubed = power(3, 3);"
+    },
+    "returning": false,
+    "properties": {
+      "base": {
+        "metadata": {
+          "label": "base"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": false,
+        "editable": true
+      },
+      "exponent": {
+        "metadata": {
+          "label": "exponent"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": true,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "cubed",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 70,
+            "character": 4
+          },
+          "end": {
+            "line": 70,
+            "character": 28
+          }
+        },
+        "newText": "int cubed = power(3);"
+      }
+    ]
+  }
+}

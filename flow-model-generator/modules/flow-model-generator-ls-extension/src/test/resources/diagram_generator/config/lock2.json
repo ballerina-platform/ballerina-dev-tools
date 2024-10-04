@@ -30,9 +30,22 @@
               "line": 13,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLock2() {\n    lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testLock2() {\n    lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -53,7 +66,8 @@
               "line": 12,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
         },
         "returning": false,
         "branches": [
@@ -61,6 +75,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -71,18 +86,19 @@
                   "line": 12,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        int i = 0;\n        lock {\n            i = 3;\n        }\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "39946",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "lock.bal",
                     "startLine": {
@@ -93,7 +109,8 @@
                       "line": 8,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -102,7 +119,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -110,10 +127,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
-                    "value": "i ",
+                    "valueType": "IDENTIFIER",
+                    "value": "i",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -138,7 +165,8 @@
                       "line": 11,
                       "offset": 9
                     }
-                  }
+                  },
+                  "sourceCode": "lock {\n            i = 3;\n        }"
                 },
                 "returning": false,
                 "branches": [
@@ -146,6 +174,7 @@
                     "label": "Body",
                     "kind": "BLOCK",
                     "codedata": {
+                      "node": "BODY",
                       "lineRange": {
                         "fileName": "lock.bal",
                         "startLine": {
@@ -156,18 +185,19 @@
                           "line": 11,
                           "offset": 9
                         }
-                      }
+                      },
+                      "sourceCode": "{\n            i = 3;\n        }"
                     },
                     "repeatable": "ONE",
                     "children": [
                       {
                         "id": "42054",
                         "metadata": {
-                          "label": "Custom Expression",
-                          "description": "Represents a custom Ballerina expression"
+                          "label": "Assign",
+                          "description": "Assign a value to a variable"
                         },
                         "codedata": {
-                          "node": "EXPRESSION",
+                          "node": "ASSIGN",
                           "lineRange": {
                             "fileName": "lock.bal",
                             "startLine": {
@@ -178,7 +208,8 @@
                               "line": 10,
                               "offset": 18
                             }
-                          }
+                          },
+                          "sourceCode": "i = 3;"
                         },
                         "returning": false,
                         "properties": {
@@ -187,7 +218,7 @@
                               "label": "Expression",
                               "description": "Expression"
                             },
-                            "valueType": "int",
+                            "valueType": "EXPRESSION",
                             "value": "3",
                             "optional": false,
                             "editable": true
@@ -197,7 +228,7 @@
                               "label": "Variable",
                               "description": "Result Variable"
                             },
-                            "valueType": "int",
+                            "valueType": "IDENTIFIER",
                             "value": "i",
                             "optional": false,
                             "editable": true
@@ -216,6 +247,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

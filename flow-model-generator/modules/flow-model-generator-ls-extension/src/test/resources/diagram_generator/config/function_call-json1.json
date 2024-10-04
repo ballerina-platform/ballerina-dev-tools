@@ -1,0 +1,308 @@
+{
+  "start": {
+    "line": 21,
+    "offset": 4
+  },
+  "end": {
+    "line": 25,
+    "offset": 5
+  },
+  "source": "function_call.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "function_call.bal",
+    "nodes": [
+      {
+        "id": "52829",
+        "metadata": {
+          "label": "HTTP API"
+        },
+        "codedata": {
+          "node": "EVENT_HTTP_API",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 21,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 25,
+              "offset": 5
+            }
+          },
+          "sourceCode": "resource function post apples(string payload) returns Apple|jsondata:Error {\n        json jsonResult = check jsondata:toJson(payload);\n        Apple apple = check jsondata:parseAsType(jsonResult);\n        return apple;\n    }"
+        },
+        "returning": false,
+        "properties": {
+          "method": {
+            "metadata": {
+              "label": "Method",
+              "description": "HTTP Method"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "post",
+            "optional": false,
+            "editable": true
+          },
+          "path": {
+            "metadata": {
+              "label": "Path",
+              "description": "HTTP Path"
+            },
+            "valueType": "STRING",
+            "value": "apples",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 2048
+      },
+      {
+        "id": "53873",
+        "metadata": {
+          "label": "toJson",
+          "description": "Converts a value of type `anydata` to `json`.\n\n",
+          "icon": ""
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "data.jsondata",
+          "symbol": "toJson",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 22,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 22,
+              "offset": 57
+            }
+          },
+          "sourceCode": "json jsonResult = check jsondata:toJson(payload);"
+        },
+        "returning": false,
+        "properties": {
+          "v": {
+            "metadata": {
+              "label": "v",
+              "description": "Source anydata value\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "payload",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "jsonResult",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "json",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "54869",
+        "metadata": {
+          "label": "parseAsType",
+          "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+          "icon": ""
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "data.jsondata",
+          "symbol": "parseAsType",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 23,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 23,
+              "offset": 61
+            }
+          },
+          "sourceCode": "Apple apple = check jsondata:parseAsType(jsonResult);"
+        },
+        "returning": false,
+        "properties": {
+          "v": {
+            "metadata": {
+              "label": "v",
+              "description": "Source JSON value\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "jsonResult",
+            "optional": false,
+            "editable": true
+          },
+          "options": {
+            "metadata": {
+              "label": "options",
+              "description": "Options to be used for filtering in the projection\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "apple",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Apple",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      },
+      {
+        "id": "55821",
+        "metadata": {
+          "label": "Return",
+          "description": "Value of 'apple'"
+        },
+        "codedata": {
+          "node": "RETURN",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 21
+            }
+          },
+          "sourceCode": "return apple;"
+        },
+        "returning": true,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Return value"
+            },
+            "valueType": "EXPRESSION",
+            "value": "apple",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": [
+      {
+        "id": "36771",
+        "metadata": {
+          "label": "New Connection",
+          "description": "Create a new connection"
+        },
+        "codedata": {
+          "node": "NEW_CONNECTION",
+          "org": "ballerina",
+          "module": "http",
+          "object": "Client",
+          "symbol": "init",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 5,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 5,
+              "offset": 67
+            }
+          },
+          "sourceCode": "final http:Client foodClient = check new (\"http://localhost:9090\");"
+        },
+        "returning": false,
+        "properties": {
+          "scope": {
+            "metadata": {
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
+            },
+            "valueType": "ENUM",
+            "value": "Global",
+            "optional": false,
+            "editable": true
+          },
+          "url": {
+            "metadata": {
+              "label": "url",
+              "description": "URL of the target service\n"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"http://localhost:9090\"",
+            "optional": false,
+            "editable": true
+          },
+          "config": {
+            "metadata": {
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "foodClient",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "http:Client",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 1
+      }
+    ]
+  }
+}

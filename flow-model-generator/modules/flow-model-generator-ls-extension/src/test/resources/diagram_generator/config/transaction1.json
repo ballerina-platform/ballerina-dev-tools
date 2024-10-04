@@ -30,7 +30,8 @@
               "line": 3,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "transaction {\n        var res = check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -38,6 +39,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "transaction.bal",
                 "startLine": {
@@ -48,18 +50,19 @@
                   "line": 3,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        var res = check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "34007",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -70,7 +73,8 @@
                       "line": 2,
                       "offset": 31
                     }
-                  }
+                  },
+                  "sourceCode": "var res = check commit;"
                 },
                 "returning": false,
                 "properties": {
@@ -79,7 +83,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "()",
+                    "valueType": "EXPRESSION",
                     "value": "check commit",
                     "optional": false,
                     "editable": true
@@ -87,10 +91,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "()",
-                    "value": "res ",
+                    "valueType": "IDENTIFIER",
+                    "value": "res",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "()",
                     "optional": false,
                     "editable": true
                   }
@@ -103,6 +117,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

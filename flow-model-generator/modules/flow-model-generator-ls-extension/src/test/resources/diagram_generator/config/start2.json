@@ -30,9 +30,22 @@
               "line": 24,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -53,16 +66,17 @@
               "line": 21,
               "offset": 25
             }
-          }
+          },
+          "sourceCode": "Foo1 f1 = new(\"foo\");"
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "statement": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "Statement",
+              "description": "Ballerina statement"
             },
-            "valueType": "Foo1",
+            "valueType": "EXPRESSION",
             "value": "new(\"foo\")",
             "optional": false,
             "editable": true
@@ -70,10 +84,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "Foo1",
-            "value": "f1 ",
+            "valueType": "IDENTIFIER",
+            "value": "f1",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Foo1",
             "optional": false,
             "editable": true
           }
@@ -98,7 +122,8 @@
               "line": 23,
               "offset": 45
             }
-          }
+          },
+          "sourceCode": "start f1->getName()"
         },
         "returning": false,
         "properties": {
@@ -107,7 +132,7 @@
               "label": "Expression",
               "description": "Call action or expression"
             },
-            "valueType": "future<string>",
+            "valueType": "EXPRESSION",
             "value": "f1->getName()",
             "optional": false,
             "editable": true
@@ -118,11 +143,11 @@
       {
         "id": "54730",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -133,7 +158,8 @@
               "line": 23,
               "offset": 46
             }
-          }
+          },
+          "sourceCode": "future<string> name = start f1->getName();"
         },
         "returning": false,
         "properties": {
@@ -142,7 +168,7 @@
               "label": "Expression",
               "description": "Expression"
             },
-            "valueType": "future<string>",
+            "valueType": "EXPRESSION",
             "value": "start f1->getName()",
             "optional": false,
             "editable": true
@@ -150,10 +176,20 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
-            "valueType": "future<string>",
-            "value": "name ",
+            "valueType": "IDENTIFIER",
+            "value": "name",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "future<string>",
             "optional": false,
             "editable": true
           }
@@ -161,26 +197,6 @@
         "flags": 0
       }
     ],
-    "clients": [
-      {
-        "id": "52711",
-        "label": "Client",
-        "kind": "OTHER",
-        "lineRange": {
-          "fileName": "start.bal",
-          "startLine": {
-            "line": 21,
-            "offset": 4
-          },
-          "endLine": {
-            "line": 21,
-            "offset": 11
-          }
-        },
-        "scope": "LOCAL",
-        "value": "f1 ",
-        "flags": 0
-      }
-    ]
+    "connections": []
   }
 }

@@ -18,13 +18,15 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
-import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -44,39 +46,34 @@ public class DefaultExpression extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.EXPRESSION);
+        codedata().node(NodeKind.EXPRESSION);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
-        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
-        Optional<Property> expression = node.getProperty(Property.EXPRESSION_KEY);
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        if (variable.isPresent() && expression.isPresent()) {
-            sourceBuilder
-                    .expressionWithType(variable.get())
-                    .whiteSpace()
-                    .keyword(SyntaxKind.EQUAL_TOKEN)
-                    .whiteSpace()
+        Optional<Property> expression = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
+        if (expression.isPresent()) {
+            sourceBuilder.token()
                     .expression(expression.get())
                     .endOfStatement();
-            return sourceBuilder.build(false);
+            return sourceBuilder.textEdit(false).build();
         }
 
-        Optional<Property> statement = node.getProperty(STATEMENT_KEY);
+        Optional<Property> statement = sourceBuilder.flowNode.getProperty(STATEMENT_KEY);
         if (statement.isEmpty()) {
             throw new IllegalStateException(
                     "One of from the following properties is required: variable, expression, statement");
         }
-        sourceBuilder
+        sourceBuilder.token()
                 .expression(statement.get())
                 .endOfStatement();
-        return sourceBuilder.build(false);
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         properties().statement(null);
     }
 }

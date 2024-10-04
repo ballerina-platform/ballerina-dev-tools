@@ -29,7 +29,8 @@
               "line": 9,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "resource function get menu() returns Menu => {year: 0, modified: \"\", items: []};"
         },
         "returning": false,
         "properties": {
@@ -38,6 +39,7 @@
               "label": "Method",
               "description": "HTTP Method"
             },
+            "valueType": "IDENTIFIER",
             "value": "get",
             "optional": false,
             "editable": true
@@ -47,6 +49,7 @@
               "label": "Path",
               "description": "HTTP Path"
             },
+            "valueType": "STRING",
             "value": "menu",
             "optional": false,
             "editable": true
@@ -55,6 +58,6 @@
         "flags": 2048
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

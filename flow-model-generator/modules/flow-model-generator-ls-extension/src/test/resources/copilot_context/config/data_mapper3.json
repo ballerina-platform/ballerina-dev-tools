@@ -1,0 +1,10 @@
+{
+  "description": "",
+  "position": {
+    "line": 17,
+    "offset": 17
+  },
+  "source": "data_mapper/main.bal",
+  "prefix": "import ballerina/http;\nfunction transform(Person person, Admission admission) returns Employee => {\n    name: person.name,\n    empId: admission.empId,\n    email: person.email,\n    location: {\n        city: person.address.city,\n        country: person.address.country\n    }\n};\n\ntype Location record {|\n    string city;\n    string country;\n|};\n\ntype Address record {|\n    string houseNo;\n    string line1;\n    string line2;\n    string city;\n    string country;\n|};\n\ntype Employee record {|\n    string name;\n    string empId;\n    string email;\n    Location location;\n|};\n\ntype Person record {|\n    string name;\n    string email;\n    Address address;\n|};\n\ntype Admission record {\n    string empId;\n    string admissionDate;\n};\n\ntype Input record {\n    string name;\n    int age;\n};\n\ntype Output record {\n    string name;\n    int age;\n};\n\n\nfinal http:Client httpEp = check new (\"http://localhost:9090\");\n\n\nhttp:Client cl = check new (\"http://localhost:9090\");\n\npublic function main() {\n    int x = 32;\n    while x < 50 {\n        if (x % 2 == 0) {\n            int y = 12;\n        } else {\n            string z = \"hello\";\n            do {\n                if z.length() == x {\n                    Address address = {houseNo: \"10\", line1: \"foo\", line2: \"bar\", city: \"Colombo\", country: \"Sri Lanka\"};\n                    \n                } else {\n                    fail error(\"error\");\n                }\n                ",
+  "suffix": "\n            } on fail {\n                break;\n            }\n        }\n        x += 2;\n    }\n}\n"
+}

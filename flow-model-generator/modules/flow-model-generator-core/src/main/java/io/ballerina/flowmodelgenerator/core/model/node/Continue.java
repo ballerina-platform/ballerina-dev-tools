@@ -19,9 +19,14 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the properties of a continue node.
@@ -36,16 +41,22 @@ public class Continue extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.CONTINUE);
+        codedata().node(NodeKind.CONTINUE);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        return SyntaxKind.CONTINUE_KEYWORD.stringValue() + SyntaxKind.SEMICOLON_TOKEN.stringValue();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        return sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.CONTINUE_KEYWORD)
+                    .endOfStatement()
+                    .stepOut()
+                .textEdit(false)
+                .build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
 
     }
 }

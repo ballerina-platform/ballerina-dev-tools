@@ -19,16 +19,23 @@
 package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
+import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
+import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.ExpressionAttributes;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
-import io.ballerina.flowmodelgenerator.core.model.NodeAttributes;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents the generalized action invocation node in the flow model.
@@ -37,82 +44,116 @@ import java.util.Optional;
  */
 public class ActionCall extends NodeBuilder {
 
+    public static final String TARGET_TYPE_KEY = "targetType";
+
     @Override
     public void setConcreteConstData() {
-        codedata().node(FlowNode.Kind.ACTION_CALL);
+        codedata().node(NodeKind.ACTION_CALL);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        sourceBuilder.newVariable();
 
-        Optional<Property> variable = node.getProperty(Property.VARIABLE_KEY);
-        variable.ifPresent(property -> sourceBuilder
-                .expressionWithType(property)
-                .keyword(SyntaxKind.EQUAL_TOKEN));
-
-        if (node.returning()) {
-            sourceBuilder.keyword(SyntaxKind.RETURN_KEYWORD);
+        if (sourceBuilder.flowNode.returning()) {
+            sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (node.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
-            sourceBuilder.keyword(SyntaxKind.CHECK_KEYWORD);
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+            sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
-        NodeAttributes.Info info = NodeAttributes.getByLabel(node.metadata().label());
-        Optional<Property> client = node.getProperty(info.callExpression().key());
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+        if (nodeTemplate == null) {
+            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL),
+                    sourceBuilder.flowNode.codedata());
+        }
+        if (nodeTemplate == null) {
+            throw new IllegalStateException("Action call node template not found");
+        }
 
-        if (client.isEmpty()) {
+        Optional<Property> connection = sourceBuilder.flowNode.getProperty(Property.CONNECTION_KEY);
+        if (connection.isEmpty()) {
             throw new IllegalStateException("Client must be defined for an action call node");
         }
-        sourceBuilder.expression(client.get())
+        return sourceBuilder.token()
+                .name(connection.get().value().toString())
                 .keyword(SyntaxKind.RIGHT_ARROW_TOKEN)
-                .name(info.method())
-                .keyword(SyntaxKind.OPEN_PAREN_TOKEN);
+                .name(nodeTemplate.metadata().label())
+                .stepOut()
+                .functionParameters(nodeTemplate,
+                        Set.of(Property.CONNECTION_KEY, Property.VARIABLE_KEY, Property.DATA_TYPE_KEY, TARGET_TYPE_KEY))
+                .textEdit(false)
+                .acceptImport()
+                .build();
+    }
 
-        List<ExpressionAttributes.Info> parameterExpressions = info.parameterExpressions();
-
-        if (!parameterExpressions.isEmpty()) {
-            Optional<Property> firstParameter = node.getProperty(parameterExpressions.get(0).key());
-            firstParameter.ifPresent(sourceBuilder::expression);
-
-            boolean hasEmptyParam = false;
-            for (int i = 1; i < parameterExpressions.size(); i++) {
-                String parameterKey = parameterExpressions.get(i).key();
-                Optional<Property> parameter = node.getProperty(parameterKey);
-
-                if (parameter.isEmpty() || parameter.get().value() == null) {
-                    hasEmptyParam = true;
-                    continue;
-                }
-
-                sourceBuilder.keyword(SyntaxKind.COMMA_TOKEN);
-                if (hasEmptyParam) {
-                    sourceBuilder
-                            .name(parameterKey)
-                            .keyword(SyntaxKind.EQUAL_TOKEN);
-                    hasEmptyParam = false;
-                }
-                sourceBuilder.expression(parameter.get());
-            }
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+        if (codedata.org().equals("$anon")) {
+            return null;
         }
 
-        sourceBuilder
-                .keyword(SyntaxKind.CLOSE_PAREN_TOKEN)
-                .endOfStatement();
+        ConnectorResponse connector = codedata.id() != null ? RemoteCentral.getInstance().connector(codedata.id()) :
+                RemoteCentral.getInstance()
+                        .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
 
-        return sourceBuilder.build(false);
+        if (connector == null) {
+            return null;
+        }
+
+        Optional<ConnectorResponse.Function> optFunction = connector.functions().stream()
+                .filter(f -> f.name().equals(codedata.symbol()))
+                .findFirst();
+        if (optFunction.isEmpty()) {
+            return null;
+        }
+        nodeBuilder
+                .metadata()
+                    .label(optFunction.get().name())
+                    .icon(connector.icon())
+                    .description(optFunction.get().documentation())
+                    .stepOut()
+                .codedata()
+                    .org(codedata.org())
+                    .module(codedata.module())
+                    .object(codedata.object())
+                    .id(codedata.id())
+                    .symbol(codedata.symbol());
+
+        for (ConnectorResponse.Parameter param : optFunction.get().parameters()) {
+            nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
+                    Property.valueTypeFrom(param.typeName()),
+                    CommonUtils.getTypeConstraint(param, param.typeName()),
+                    CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+        }
+
+        String returnType = optFunction.get().returnType().typeName();
+        if (returnType != null) {
+            nodeBuilder.properties().type(returnType).data(null);
+        }
+
+        nodeBuilder.properties().custom(Property.CONNECTION_KEY, connector.name(), connector.documentation(),
+                Property.ValueType.EXPRESSION, connector.moduleName() + ":" + connector.name(), connector.name(),
+                false);
+        return nodeBuilder.build();
+    }
+
+    public static FlowNode getNodeTemplate(Codedata codedata) {
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate == null) {
+            return fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL), codedata);
+        }
+        return nodeTemplate;
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
-        NodeAttributes.Info info = NodeAttributes.getByKey(codedata.module(), codedata.symbol());
-        metadata().label(info.label()).stepOut()
-                .properties()
-                .defaultExpression(info.callExpression())
-                .defaultVariable();
-
-        info.parameterExpressions()
-                .forEach(expressionInfo -> properties().defaultExpression(expressionInfo));
+    public void setConcreteTemplateData(TemplateContext context) {
+        Codedata codedata = context.codedata();
+        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        if (nodeTemplate != null) {
+            this.cachedFlowNode = nodeTemplate;
+        } else {
+            fetchNodeTemplate(this, codedata);
+        }
     }
 }

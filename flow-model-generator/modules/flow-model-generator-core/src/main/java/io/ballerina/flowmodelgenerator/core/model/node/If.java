@@ -20,13 +20,16 @@ package io.ballerina.flowmodelgenerator.core.model.node;
 
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -45,54 +48,68 @@ public class If extends NodeBuilder {
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL).description(DESCRIPTION);
-        codedata().node(FlowNode.Kind.IF);
+        codedata().node(NodeKind.IF);
     }
 
     @Override
-    public String toSource(FlowNode node) {
-        SourceBuilder sourceBuilder = new SourceBuilder();
+    public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
+        List<Branch> branches = sourceBuilder.flowNode.branches();
+        Optional<Branch> ifBranch = Optional.empty();
+        Optional<Branch> elseBranch = Optional.empty();
+        List<Branch> remainingBranches = new ArrayList<>();
 
-        Optional<Branch> ifBranch = node.getBranch(IF_THEN_LABEL);
-        if (ifBranch.isEmpty()) {
-            throw new IllegalStateException("If node does not have a then branch");
-        }
-        Optional<Property> condition = ifBranch.get().getProperty(Property.CONDITION_KEY);
-        if (condition.isEmpty()) {
-            throw new IllegalStateException("If node does not have a condition");
-        }
-        sourceBuilder.keyword(SyntaxKind.IF_KEYWORD)
-                .expression(condition.get())
-                .openBrace()
-                .addChildren(ifBranch.get().children());
-
-        Optional<Branch> elseBranch = node.getBranch(IF_ELSE_LABEL);
-        if (elseBranch.isPresent()) {
-            List<FlowNode> children = elseBranch.get().children();
-            sourceBuilder
-                    .closeBrace()
-                    .whiteSpace()
-                    .keyword(SyntaxKind.ELSE_KEYWORD);
-
-            // If there is only one child, and if that is an if node, generate an `else if` statement`
-            if (children.size() != 1 || children.get(0).codedata().node() != FlowNode.Kind.IF) {
-                sourceBuilder.openBrace();
+        for (Branch branch : branches) {
+            switch (branch.label()) {
+                case IF_THEN_LABEL -> ifBranch = Optional.of(branch);
+                case IF_ELSE_LABEL -> elseBranch = Optional.of(branch);
+                default -> remainingBranches.add(branch);
             }
-            sourceBuilder.addChildren(children);
         }
 
-        sourceBuilder.closeBrace();
-        return sourceBuilder.build(false);
+        if (ifBranch.isEmpty() || ifBranch.get().getProperty(Property.CONDITION_KEY).isEmpty()) {
+            throw new IllegalStateException("If node does not have a valid then branch or condition");
+        }
+
+        sourceBuilder
+                .token()
+                    .keyword(SyntaxKind.IF_KEYWORD)
+                    .expression(ifBranch.get().getProperty(Property.CONDITION_KEY).get())
+                    .stepOut()
+                .body(ifBranch.get().children());
+
+        for (Branch branch : remainingBranches) {
+            Optional<Property> branchCondition = branch.getProperty(Property.CONDITION_KEY);
+            if (branchCondition.isEmpty()) {
+                throw new IllegalStateException("Else-if branch does not have a condition");
+            }
+            sourceBuilder
+                    .token()
+                        .keyword(SyntaxKind.ELSE_KEYWORD)
+                        .keyword(SyntaxKind.IF_KEYWORD)
+                        .expression(branchCondition.get())
+                        .stepOut()
+                    .body(branch.children());
+        }
+
+        elseBranch.ifPresent(branch -> sourceBuilder
+                .token()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.ELSE_KEYWORD)
+                    .stepOut()
+                .body(branch.children()));
+
+        return sourceBuilder.textEdit(false).build();
     }
 
     @Override
-    public void setConcreteTemplateData(Codedata codedata) {
+    public void setConcreteTemplateData(TemplateContext context) {
         Branch.Builder thenBranchBuilder = new Branch.Builder()
                 .label(IF_THEN_LABEL)
                 .kind(Branch.BranchKind.BLOCK)
                 .repeatable(Branch.Repeatable.ONE_OR_MORE)
-                .codedata().node(FlowNode.Kind.CONDITIONAL).stepOut();
-        thenBranchBuilder.properties().defaultCondition(IF_CONDITION_DOC);
+                .codedata().node(NodeKind.CONDITIONAL).stepOut();
+        thenBranchBuilder.properties().condition(null);
 
-        this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, FlowNode.Kind.ELSE));
+        this.branches = List.of(thenBranchBuilder.build(), Branch.getEmptyBranch(IF_ELSE_LABEL, NodeKind.ELSE));
     }
 }

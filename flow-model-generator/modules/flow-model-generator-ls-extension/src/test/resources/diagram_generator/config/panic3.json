@@ -30,9 +30,22 @@
               "line": 14,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function panicFunc3() {\n    panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function panicFunc3() {\n    panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -53,7 +66,8 @@
               "line": 13,
               "offset": 84
             }
-          }
+          },
+          "sourceCode": "panic error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\");"
         },
         "returning": false,
         "properties": {
@@ -62,7 +76,7 @@
               "label": "Expression",
               "description": "Panic value"
             },
-            "valueType": "AssertionError",
+            "valueType": "EXPRESSION",
             "value": "error AssertionError(ASSERTION_ERROR_REASON, message = \"Assertion error\")",
             "optional": false,
             "editable": true
@@ -71,6 +85,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

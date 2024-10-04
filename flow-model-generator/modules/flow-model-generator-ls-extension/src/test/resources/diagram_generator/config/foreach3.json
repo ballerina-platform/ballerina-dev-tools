@@ -1,0 +1,294 @@
+{
+  "start": {
+    "line": 14,
+    "offset": 0
+  },
+  "end": {
+    "line": 21,
+    "offset": 1
+  },
+  "source": "foreach.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "foreach.bal",
+    "nodes": [
+      {
+        "id": "45850",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 14,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 21,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function testForeachWithOnFail1() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }\n}"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function testForeachWithOnFail1() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "46777",
+        "metadata": {
+          "label": "Assign",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 15,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 15,
+              "offset": 29
+            }
+          },
+          "sourceCode": "int[] intArr = [1, 2, 3];"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "[1, 2, 3]",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "intArr",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int[]",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "47869",
+        "metadata": {
+          "label": "Foreach",
+          "description": "Iterate over a block of code."
+        },
+        "codedata": {
+          "node": "FOREACH",
+          "lineRange": {
+            "fileName": "foreach.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 20,
+              "offset": 5
+            }
+          },
+          "sourceCode": "foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "BODY",
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 16,
+                  "offset": 31
+                },
+                "endLine": {
+                  "line": 18,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        _ = item;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "48873",
+                "metadata": {
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "ASSIGN",
+                  "lineRange": {
+                    "fileName": "foreach.bal",
+                    "startLine": {
+                      "line": 17,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 17,
+                      "offset": 17
+                    }
+                  },
+                  "sourceCode": "_ = item;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "item",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "foreach.bal",
+                "startLine": {
+                  "line": 18,
+                  "offset": 14
+                },
+                "endLine": {
+                  "line": 20,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        return error(\"Error message\");\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "children": [
+              {
+                "id": "50878",
+                "metadata": {
+                  "label": "Return",
+                  "description": "Value of 'error(\"Error message\")'"
+                },
+                "codedata": {
+                  "node": "RETURN",
+                  "lineRange": {
+                    "fileName": "foreach.bal",
+                    "startLine": {
+                      "line": 19,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 19,
+                      "offset": 38
+                    }
+                  },
+                  "sourceCode": "return error(\"Error message\");"
+                },
+                "returning": true,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Return value"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "error(\"Error message\")",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "item",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          },
+          "collection": {
+            "metadata": {
+              "label": "Collection",
+              "description": "Collection to iterate"
+            },
+            "valueType": "EXPRESSION",
+            "value": "intArr ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

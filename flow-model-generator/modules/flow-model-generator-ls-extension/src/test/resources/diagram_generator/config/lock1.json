@@ -30,9 +30,22 @@
               "line": 4,
               "offset": 1
             }
-          }
+          },
+          "sourceCode": "function testLock1() {\n    lock {\n        int i = 0;\n    }\n}"
         },
         "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "function testLock1() {\n    lock {\n        int i = 0;\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {
@@ -53,7 +66,8 @@
               "line": 3,
               "offset": 5
             }
-          }
+          },
+          "sourceCode": "lock {\n        int i = 0;\n    }"
         },
         "returning": false,
         "branches": [
@@ -61,6 +75,7 @@
             "label": "Body",
             "kind": "BLOCK",
             "codedata": {
+              "node": "BODY",
               "lineRange": {
                 "fileName": "lock.bal",
                 "startLine": {
@@ -71,18 +86,19 @@
                   "line": 3,
                   "offset": 5
                 }
-              }
+              },
+              "sourceCode": "{\n        int i = 0;\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
                 "id": "33994",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "lock.bal",
                     "startLine": {
@@ -93,7 +109,8 @@
                       "line": 2,
                       "offset": 18
                     }
-                  }
+                  },
+                  "sourceCode": "int i = 0;"
                 },
                 "returning": false,
                 "properties": {
@@ -102,7 +119,7 @@
                       "label": "Expression",
                       "description": "Expression"
                     },
-                    "valueType": "int",
+                    "valueType": "EXPRESSION",
                     "value": "0",
                     "optional": false,
                     "editable": true
@@ -110,10 +127,20 @@
                   "variable": {
                     "metadata": {
                       "label": "Variable",
-                      "description": "Result Variable"
+                      "description": "Name of the variable"
                     },
-                    "valueType": "int",
-                    "value": "i ",
+                    "valueType": "IDENTIFIER",
+                    "value": "i",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "int",
                     "optional": false,
                     "editable": true
                   }
@@ -126,6 +153,6 @@
         "flags": 0
       }
     ],
-    "clients": []
+    "connections": []
   }
 }

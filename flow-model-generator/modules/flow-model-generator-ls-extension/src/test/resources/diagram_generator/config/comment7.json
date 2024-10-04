@@ -1,0 +1,342 @@
+{
+  "start": {
+    "line": 58,
+    "offset": 0
+  },
+  "end": {
+    "line": 67,
+    "offset": 1
+  },
+  "source": "comment.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "comment.bal",
+    "nodes": [
+      {
+        "id": "89560",
+        "metadata": {
+          "label": "Custom Expression",
+          "description": "Represents a custom Ballerina expression"
+        },
+        "codedata": {
+          "node": "EXPRESSION",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 58,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 67,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function commentOnFailBody1(int i) {\n    while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }\n}"
+        },
+        "returning": false,
+        "properties": {
+          "statement": {
+            "metadata": {
+              "label": "Statement",
+              "description": "Ballerina statement"
+            },
+            "valueType": "EXPRESSION",
+            "value": "public function commentOnFailBody1(int i) {\n    while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }\n}",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "90618",
+        "metadata": {
+          "label": "While",
+          "description": "Loop over a block of code."
+        },
+        "codedata": {
+          "node": "WHILE",
+          "lineRange": {
+            "fileName": "comment.bal",
+            "startLine": {
+              "line": 59,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 66,
+              "offset": 5
+            }
+          },
+          "sourceCode": "while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
+        },
+        "returning": false,
+        "branches": [
+          {
+            "label": "Body",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "CONDITIONAL",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 59,
+                  "offset": 16
+                },
+                "endLine": {
+                  "line": 61,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        _ = i + 1;\n    }"
+            },
+            "repeatable": "ONE",
+            "children": [
+              {
+                "id": "91530",
+                "metadata": {
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "ASSIGN",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 60,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 60,
+                      "offset": 18
+                    }
+                  },
+                  "sourceCode": "_ = i + 1;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "i + 1",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Result Variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "_",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          },
+          {
+            "label": "On Failure",
+            "kind": "BLOCK",
+            "codedata": {
+              "node": "ON_FAILURE",
+              "lineRange": {
+                "fileName": "comment.bal",
+                "startLine": {
+                  "line": 61,
+                  "offset": 20
+                },
+                "endLine": {
+                  "line": 66,
+                  "offset": 5
+                }
+              },
+              "sourceCode": "{\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }"
+            },
+            "repeatable": "ZERO_OR_ONE",
+            "properties": {
+              "ignore": {
+                "metadata": {
+                  "label": "Ignore",
+                  "description": "Ignore the error value"
+                },
+                "valueType": "EXPRESSION",
+                "value": "false",
+                "optional": false,
+                "editable": true
+              },
+              "errorVariable": {
+                "metadata": {
+                  "label": "Error Variable",
+                  "description": "Name of the error variable"
+                },
+                "valueType": "IDENTIFIER",
+                "value": "e ",
+                "optional": false,
+                "editable": true
+              },
+              "errorType": {
+                "metadata": {
+                  "label": "Error Type",
+                  "description": "Type of the error"
+                },
+                "valueType": "TYPE",
+                "value": "error",
+                "optional": false,
+                "editable": true
+              }
+            },
+            "children": [
+              {
+                "id": "93287",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "This is a comment in on fail"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 62,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 62,
+                      "offset": 39
+                    }
+                  },
+                  "sourceCode": "This is a comment in on fail"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "This is a comment in on fail",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "94510",
+                "metadata": {
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
+                },
+                "codedata": {
+                  "node": "ASSIGN",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 63,
+                      "offset": 8
+                    },
+                    "endLine": {
+                      "line": 63,
+                      "offset": 22
+                    }
+                  },
+                  "sourceCode": "// This is a comment in on fail\n        error err = e;"
+                },
+                "returning": false,
+                "properties": {
+                  "expression": {
+                    "metadata": {
+                      "label": "Expression",
+                      "description": "Expression"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "e",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "variable": {
+                    "metadata": {
+                      "label": "Variable",
+                      "description": "Name of the variable"
+                    },
+                    "valueType": "IDENTIFIER",
+                    "value": "err",
+                    "optional": false,
+                    "editable": true
+                  },
+                  "type": {
+                    "metadata": {
+                      "label": "Type",
+                      "description": "Type of the variable"
+                    },
+                    "valueType": "TYPE",
+                    "value": "error",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              },
+              {
+                "id": "95296",
+                "metadata": {
+                  "label": "Comment",
+                  "description": "Panic with error `err`"
+                },
+                "codedata": {
+                  "node": "COMMENT",
+                  "lineRange": {
+                    "fileName": "comment.bal",
+                    "startLine": {
+                      "line": 64,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 65,
+                      "offset": 33
+                    }
+                  },
+                  "sourceCode": "Panic with error `err`"
+                },
+                "returning": false,
+                "properties": {
+                  "comment": {
+                    "metadata": {
+                      "label": "Comment",
+                      "description": "Comment to describe the flow"
+                    },
+                    "valueType": "STRING",
+                    "value": "Panic with error `err`",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "flags": 0
+              }
+            ]
+          }
+        ],
+        "properties": {
+          "condition": {
+            "metadata": {
+              "label": "Condition",
+              "description": "Boolean Condition"
+            },
+            "valueType": "EXPRESSION",
+            "value": "i < 4 ",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

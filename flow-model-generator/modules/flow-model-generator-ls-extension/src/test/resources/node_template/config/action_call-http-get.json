@@ -1,0 +1,79 @@
+{
+  "description": "Sample diagram node",
+  "codedata": {
+    "node": "ACTION_CALL",
+    "org": "ballerina",
+    "module": "http",
+    "object": "Client",
+    "symbol": "get",
+    "version": "2.12.0"
+  },
+  "output": {
+    "metadata": {
+      "label": "get",
+      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+    },
+    "codedata": {
+      "node": "ACTION_CALL",
+      "org": "ballerina",
+      "module": "http",
+      "object": "Client",
+      "symbol": "get"
+    },
+    "returning": false,
+    "properties": {
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Request path\n"
+        },
+        "valueType": "Expression",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers\n"
+        },
+        "valueType": "Expression",
+        "value": "()",
+        "optional": true,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "json",
+        "optional": false,
+        "editable": false
+      },
+      "connection": {
+        "metadata": {
+          "label": "Connection",
+          "description": "Connection to use"
+        },
+        "valueType": "Identifier",
+        "value": "connection",
+        "optional": false,
+        "editable": false
+      }
+    },
+    "flags": 1
+  }
+}
