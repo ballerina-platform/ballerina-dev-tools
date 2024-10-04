@@ -1,0 +1,12 @@
+{
+  "description": "",
+  "projectPath": "project1",
+  "startLine": {
+    "line": 13,
+    "offset": 8
+  },
+  "offset": 22,
+  "variable": "config1",
+  "type": "string",
+  "value": "AsdcfeWPdf34FD"
+}
