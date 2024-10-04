@@ -57,7 +57,7 @@ public class Commit extends NodeBuilder {
 
         return sourceBuilder
                 .token()
-                .keyword(SyntaxKind.BREAK_KEYWORD)
+                .keyword(SyntaxKind.COMMIT_KEYWORD)
                 .endOfStatement()
                 .stepOut()
                 .textEdit(false).build();

@@ -194,27 +194,27 @@
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
-                        "id": "31",
+                        "id": "37097",
                         "metadata": {
-                          "label": "Commit",
-                          "description": "Commit transaction"
+                          "label": "Rollback",
+                          "description": "Rollback the transaction"
                         },
                         "codedata": {
-                          "node": "COMMIT"
+                          "node": "ROLLBACK",
+                          "lineRange": {
+                            "fileName": "rollback.bal",
+                            "startLine": {
+                              "line": 5,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 5,
+                              "offset": 21
+                            }
+                          },
+                          "sourceCode": "rollback;"
                         },
                         "returning": false,
-                        "properties": {
-                          "expression": {
-                            "metadata": {
-                              "label": "Expression",
-                              "description": "Expression"
-                            },
-                            "valueType": "EXPRESSION",
-                            "value": "",
-                            "optional": false,
-                            "editable": true
-                          }
-                        },
                         "flags": 0
                       }
                     ]

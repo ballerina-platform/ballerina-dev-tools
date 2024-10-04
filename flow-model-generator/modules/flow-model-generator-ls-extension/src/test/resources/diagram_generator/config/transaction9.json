@@ -194,13 +194,25 @@
                     "repeatable": "ZERO_OR_ONE",
                     "children": [
                       {
-                        "id": "31",
+                        "id": "47051",
                         "metadata": {
-                          "label": "Commit",
-                          "description": "Commit transaction"
+                          "label": "Rollback",
+                          "description": "Rollback the transaction"
                         },
                         "codedata": {
-                          "node": "COMMIT"
+                          "node": "ROLLBACK",
+                          "lineRange": {
+                            "fileName": "rollback.bal",
+                            "startLine": {
+                              "line": 15,
+                              "offset": 12
+                            },
+                            "endLine": {
+                              "line": 15,
+                              "offset": 55
+                            }
+                          },
+                          "sourceCode": "rollback error(\"Rollback the transaction\");"
                         },
                         "returning": false,
                         "properties": {

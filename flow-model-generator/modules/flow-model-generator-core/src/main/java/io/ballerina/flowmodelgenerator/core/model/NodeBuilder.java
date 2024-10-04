@@ -131,7 +131,7 @@ public abstract class NodeBuilder {
             put(NodeKind.LOCK, Lock::new);
             put(NodeKind.FAIL, Fail::new);
             put(NodeKind.COMMIT, Commit::new);
-            put(NodeKind.ROLLBACK, Commit::new);
+            put(NodeKind.ROLLBACK, Rollback::new);
             put(NodeKind.XML_PAYLOAD, XmlPayload::new);
             put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
             put(NodeKind.BINARY_DATA, BinaryData::new);

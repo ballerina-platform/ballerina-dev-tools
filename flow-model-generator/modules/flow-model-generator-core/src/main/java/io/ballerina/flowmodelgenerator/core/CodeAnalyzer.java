@@ -697,16 +697,14 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RollbackStatementNode rollbackStatementNode) {
-        startNode(NodeKind.ROLLBACK)
-                .properties()
-                .expression(rollbackStatementNode.expression().orElse(null));
+        startNode(NodeKind.ROLLBACK);
         Optional<ExpressionNode> optExpr = rollbackStatementNode.expression();
         if (optExpr.isPresent()) {
             ExpressionNode expr = optExpr.get();
             expr.accept(this);
             nodeBuilder.properties().expression(expr, Rollback.ROLLBACK_EXPRESSION_DOC);
         }
-        endNode();
+        endNode(rollbackStatementNode);
     }
 
     @Override
