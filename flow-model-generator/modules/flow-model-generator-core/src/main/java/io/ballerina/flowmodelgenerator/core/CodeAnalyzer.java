@@ -38,6 +38,7 @@ import io.ballerina.compiler.syntax.tree.ByteArrayLiteralNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CommentNode;
+import io.ballerina.compiler.syntax.tree.CommitActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
@@ -105,6 +106,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.tools.text.LinePosition;
@@ -695,7 +697,14 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RollbackStatementNode rollbackStatementNode) {
-        handleDefaultStatementNode(rollbackStatementNode, () -> super.visit(rollbackStatementNode));
+        startNode(NodeKind.ROLLBACK);
+        Optional<ExpressionNode> optExpr = rollbackStatementNode.expression();
+        if (optExpr.isPresent()) {
+            ExpressionNode expr = optExpr.get();
+            expr.accept(this);
+            nodeBuilder.properties().expression(expr, Rollback.ROLLBACK_EXPRESSION_DOC);
+        }
+        endNode(rollbackStatementNode);
     }
 
     @Override
@@ -727,6 +736,12 @@ class CodeAnalyzer extends NodeVisitor {
             transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
             endNode(retryStatementNode);
         }
+    }
+
+    @Override
+    public void visit(CommitActionNode commitActionNode) {
+        startNode(NodeKind.COMMIT);
+        endNode();
     }
 
     @Override

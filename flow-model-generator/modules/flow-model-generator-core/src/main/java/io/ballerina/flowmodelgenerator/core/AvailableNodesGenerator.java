@@ -170,8 +170,11 @@ public class AvailableNodesGenerator {
                     .node(NodeKind.PANIC)
                     .stepOut();
         // TODO: Uncomment when concurrency is implemented
+//        this.rootBuilder
 //                .stepIn(Category.Name.CONCURRENCY)
 //                    .node(NodeKind.TRANSACTION)
+//                    .node(NodeKind.COMMIT)
+//                    .node(NodeKind.ROLLBACK)
 //                    .node(NodeKind.LOCK)
 //                    .node(NodeKind.START)
 //                    .stepOut();

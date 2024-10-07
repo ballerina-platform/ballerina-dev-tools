@@ -25,6 +25,8 @@ public enum NodeKind {
     RETRY,
     LOCK,
     FAIL,
+    COMMIT,
+    ROLLBACK,
     ASSIGN,
     XML_PAYLOAD,
     JSON_PAYLOAD,

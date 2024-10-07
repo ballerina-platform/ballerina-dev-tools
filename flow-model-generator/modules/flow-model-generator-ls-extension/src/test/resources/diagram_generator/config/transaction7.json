@@ -7,11 +7,11 @@
     "line": 3,
     "offset": 1
   },
-  "source": "transaction.bal",
+  "source": "commit.bal",
   "description": "Tests a simple diagram flow",
   "forceAssign": false,
   "diagram": {
-    "fileName": "transaction.bal",
+    "fileName": "commit.bal",
     "nodes": [
       {
         "id": "32927",
@@ -22,7 +22,7 @@
         "codedata": {
           "node": "TRANSACTION",
           "lineRange": {
-            "fileName": "transaction.bal",
+            "fileName": "commit.bal",
             "startLine": {
               "line": 1,
               "offset": 4
@@ -32,7 +32,7 @@
               "offset": 5
             }
           },
-          "sourceCode": "transaction {\n        var res = check commit;\n    }"
+          "sourceCode": "transaction {\n        check commit;\n    }"
         },
         "returning": false,
         "branches": [
@@ -42,7 +42,7 @@
             "codedata": {
               "node": "BODY",
               "lineRange": {
-                "fileName": "transaction.bal",
+                "fileName": "commit.bal",
                 "startLine": {
                   "line": 1,
                   "offset": 16
@@ -52,12 +52,12 @@
                   "offset": 5
                 }
               },
-              "sourceCode": "{\n        var res = check commit;\n    }"
+              "sourceCode": "{\n        check commit;\n    }"
             },
             "repeatable": "ONE",
             "children": [
               {
-                "id": "34007",
+                "id": "33997",
                 "metadata": {
                   "label": "Commit",
                   "description": "Commit transaction"
@@ -65,41 +65,19 @@
                 "codedata": {
                   "node": "COMMIT",
                   "lineRange": {
-                    "fileName": "transaction.bal",
+                    "fileName": "commit.bal",
                     "startLine": {
                       "line": 2,
                       "offset": 8
                     },
                     "endLine": {
                       "line": 2,
-                      "offset": 31
+                      "offset": 21
                     }
                   },
-                  "sourceCode": "var res = check commit;"
+                  "sourceCode": "check commit;"
                 },
                 "returning": false,
-                "properties": {
-                  "variable": {
-                    "metadata": {
-                      "label": "Variable",
-                      "description": "Name of the variable"
-                    },
-                    "valueType": "IDENTIFIER",
-                    "value": "res",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "type": {
-                    "metadata": {
-                      "label": "Type",
-                      "description": "Type of the variable"
-                    },
-                    "valueType": "TYPE",
-                    "value": "()",
-                    "optional": false,
-                    "editable": true
-                  }
-                },
                 "flags": 1
               }
             ]
