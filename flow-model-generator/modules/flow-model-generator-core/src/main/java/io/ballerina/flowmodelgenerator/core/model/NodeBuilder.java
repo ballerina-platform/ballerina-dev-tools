@@ -112,8 +112,7 @@ public abstract class NodeBuilder {
     protected FlowNode cachedFlowNode;
     protected String defaultModuleName;
 
-    private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {
-        {
+    private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
             put(NodeKind.IF, If::new);
             put(NodeKind.RETURN, Return::new);
             put(NodeKind.EXPRESSION, DefaultExpression::new);

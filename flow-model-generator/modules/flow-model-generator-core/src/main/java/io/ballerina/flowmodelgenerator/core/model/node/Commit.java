@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents the properties of a break node.
+ * Represents the properties of a commit node.
  *
  * @since 1.4.0
  */
@@ -61,6 +61,5 @@ public class Commit extends NodeBuilder {
                 .endOfStatement()
                 .stepOut()
                 .textEdit(false).build();
-
     }
 }
