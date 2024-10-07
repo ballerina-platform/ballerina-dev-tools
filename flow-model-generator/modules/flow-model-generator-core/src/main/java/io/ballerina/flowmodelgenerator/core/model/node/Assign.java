@@ -51,7 +51,11 @@ public class Assign extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         FlowNode flowNode = sourceBuilder.flowNode;
         Optional<Property> dataType = flowNode.getProperty(Property.DATA_TYPE_KEY);
-        dataType.ifPresent(value -> sourceBuilder.token().expression(value).whiteSpace());
+
+
+        if (dataType.isPresent() && !dataType.get().toSourceCode().isEmpty()) {
+            sourceBuilder.token().expression(dataType.get()).whiteSpace();
+        }
 
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {

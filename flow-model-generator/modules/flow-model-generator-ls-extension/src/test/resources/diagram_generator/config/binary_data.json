@@ -15,8 +15,8 @@
       {
         "id": "32894",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -47,7 +47,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -57,7 +57,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -71,8 +71,8 @@
       {
         "id": "33882",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -103,7 +103,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -113,7 +113,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -127,8 +127,8 @@
       {
         "id": "34881",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -159,7 +159,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -169,7 +169,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -183,8 +183,8 @@
       {
         "id": "35867",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -215,7 +215,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -225,7 +225,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -239,8 +239,8 @@
       {
         "id": "36855",
         "metadata": {
-          "label": "Binary Data",
-          "description": "Binary Data"
+          "label": "Assign Binary",
+          "description": "Assign Binary"
         },
         "codedata": {
           "node": "BINARY_DATA",
@@ -271,7 +271,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -281,7 +281,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

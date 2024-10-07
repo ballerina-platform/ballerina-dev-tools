@@ -61,40 +61,9 @@ public class NewConnection extends NodeBuilder {
         FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
         if (nodeTemplate != null) {
             this.cachedFlowNode = nodeTemplate;
+        } else {
+            fetchNodeTemplate(this, codedata);
         }
-
-        if (codedata.id() != null) {
-            ConnectorResponse connector = RemoteCentral.getInstance().connector(codedata.id());
-            Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
-                    .filter(function -> function.name().equals(INIT_SYMBOL))
-                    .findFirst();
-            metadata()
-                    .label(connector.moduleName())
-                    .keywords(connector.packageInfo().keywords())
-                    .icon(connector.icon())
-                    .description(connector.documentation());
-            codedata()
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(connector.packageInfo().organization())
-                    .module(connector.moduleName())
-                    .object(connector.name())
-                    .symbol(INIT_SYMBOL);
-
-            if (initFunction.isPresent()) {
-                for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
-                    properties().custom(param.name(), param.name(), param.documentation(),
-                            Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
-                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
-                }
-
-                String returnType = initFunction.get().returnType().typeName();
-                if (returnType != null) {
-                    properties().type(returnType).data(null);
-                }
-            }
-        }
-
-        //TODO: Obtain the connector from the codedata information if id doesn't exist.
     }
 
     @Override
@@ -102,6 +71,17 @@ public class NewConnection extends NodeBuilder {
         sourceBuilder.newVariable();
 
         FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
+
+        // Fetch the information from the central if there is a cache miss.
+        if (nodeTemplate == null) {
+            nodeTemplate = fetchNodeTemplate(NodeBuilder.getNodeFromKind(NodeKind.NEW_CONNECTION),
+                    sourceBuilder.flowNode.codedata());
+        }
+
+        if (nodeTemplate == null) {
+            throw new IllegalStateException("Node template is not available for the new connection node");
+        }
+
         sourceBuilder.token()
                 .keyword(SyntaxKind.CHECK_KEYWORD)
                 .keyword(SyntaxKind.NEW_KEYWORD)
@@ -118,6 +98,44 @@ public class NewConnection extends NodeBuilder {
             case Property.GLOBAL_SCOPE -> sourceBuilder.textEdit(false, "connections.bal").build();
             default -> throw new IllegalStateException("Invalid scope for the new connection node");
         };
+    }
+
+    private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
+        if (codedata.id() != null) {
+            ConnectorResponse connector = RemoteCentral.getInstance().connector(codedata.id());
+            Optional<ConnectorResponse.Function> initFunction = connector.functions().stream()
+                    .filter(function -> function.name().equals(INIT_SYMBOL))
+                    .findFirst();
+            nodeBuilder.metadata()
+                    .label(connector.moduleName())
+                    .keywords(connector.packageInfo().keywords())
+                    .icon(connector.icon())
+                    .description(connector.documentation());
+            nodeBuilder.codedata()
+                    .node(NodeKind.NEW_CONNECTION)
+                    .org(connector.packageInfo().organization())
+                    .module(connector.moduleName())
+                    .object(connector.name())
+                    .id(String.valueOf(connector.id()))
+                    .symbol(INIT_SYMBOL);
+
+            if (initFunction.isPresent()) {
+                for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
+                    nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
+                            Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
+                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+                }
+
+                String returnType = initFunction.get().returnType().typeName();
+                if (returnType != null) {
+                    nodeBuilder.properties().type(connector.moduleName() + ":" + connector.name()).data(null);
+                }
+            }
+            nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
+            return nodeBuilder.build();
+        }
+        return null;
+        //TODO: Obtain the connector from the codedata information if id doesn't exist.
     }
 
     private static Object getTypeConstraint(ConnectorResponse.Parameter param, String typeName) {

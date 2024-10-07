@@ -48,7 +48,7 @@ public class SuggestedModelGeneratorTest extends AbstractLSTest {
 
         FlowModelSuggestedGenerationRequest request = new FlowModelSuggestedGenerationRequest(
                 sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
-                testConfig.end(), testConfig.text(), testConfig.position());
+                testConfig.end(), testConfig.text(), testConfig.position(), testConfig.forceAssign());
         JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine
@@ -61,7 +61,8 @@ public class SuggestedModelGeneratorTest extends AbstractLSTest {
         boolean flowEquality = modifiedDiagram.equals(testConfig.diagram());
         if (!fileNameEquality || !flowEquality) {
             TestConfig updatedConfig = new TestConfig(testConfig.start(), testConfig.end(), testConfig.source(),
-                    testConfig.text(), testConfig.position(), testConfig.description(), modifiedDiagram);
+                    testConfig.text(), testConfig.position(), testConfig.description(), testConfig.forceAssign(),
+                    modifiedDiagram);
 //            updateConfig(configJsonPath, updatedConfig);
             compareJsonElements(modifiedDiagram, testConfig.diagram());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
@@ -93,11 +94,12 @@ public class SuggestedModelGeneratorTest extends AbstractLSTest {
      * @param text        the AI generated text
      * @param position    the position of the AI generated text
      * @param description The description of the test
+     * @param forceAssign whether to render the assign node wherever possible
      * @param diagram     The expected diagram for the given inputs
      * @since 1.4.0
      */
     private record TestConfig(LinePosition start, LinePosition end, String source, String text, LinePosition position,
-                              String description, JsonObject diagram) {
+                              String description, boolean forceAssign, JsonObject diagram) {
 
         public String description() {
             return description == null ? "" : description;

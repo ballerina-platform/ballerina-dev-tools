@@ -1,0 +1,44 @@
+{
+  "source": "empty.bal",
+  "description": "Test to source of commit statement",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Commit",
+      "description": "Commit transaction"
+    },
+    "codedata": {
+      "node": "COMMIT",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "commit;"
+      }
+    ]
+  }
+}

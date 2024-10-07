@@ -65,6 +65,18 @@
         "children": []
       }
     ],
+    "properties": {
+      "retryCount": {
+        "metadata": {
+          "label": "Retry Count",
+          "description": "Number of retries"
+        },
+        "valueType": "EXPRESSION",
+        "value": "3",
+        "optional": true,
+        "editable": true
+      }
+    },
     "flags": 0
   }
 }

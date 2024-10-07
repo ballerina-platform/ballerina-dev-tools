@@ -357,7 +357,10 @@ public class SourceBuilder {
         }
 
         public TokenBuilder expressionWithType(Property type, Property variable) {
-            sb.append(type.toSourceCode()).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
+            String typeSourceCode = type.toSourceCode();
+            int lastDotIndex = typeSourceCode.lastIndexOf('.');
+            String typeName = lastDotIndex >= 0 ? typeSourceCode.substring(lastDotIndex + 1) : type.toSourceCode();
+            sb.append(typeName).append(WHITE_SPACE).append(variable.toSourceCode()).append(WHITE_SPACE);
             return this;
         }
 
@@ -380,6 +383,16 @@ public class SourceBuilder {
             sb.append(WHITE_SPACE)
                     .append(SyntaxKind.CLOSE_BRACE_TOKEN.stringValue())
                     .append(WHITE_SPACE);
+            return this;
+        }
+
+        public TokenBuilder openParen() {
+            sb.append(SyntaxKind.OPEN_PAREN_TOKEN.stringValue());
+            return this;
+        }
+
+        public TokenBuilder closeParen() {
+            sb.append(SyntaxKind.CLOSE_PAREN_TOKEN.stringValue());
             return this;
         }
 

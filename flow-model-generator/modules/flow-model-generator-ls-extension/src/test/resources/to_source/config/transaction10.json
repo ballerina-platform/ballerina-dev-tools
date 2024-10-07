@@ -1,0 +1,201 @@
+{
+  "source": "empty.bal",
+  "description": "Test complex transaction block",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Transaction",
+      "description": "Handle transaction."
+    },
+    "codedata": {
+      "node": "TRANSACTION",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "branches": [
+      {
+        "label": "Body",
+        "kind": "BLOCK",
+        "lineRange": {
+          "fileName": "test.bal",
+          "startLine": {
+            "line": 0,
+            "offset": 0
+          },
+          "endLine": {
+            "line": 0,
+            "offset": 0
+          }
+        },
+        "repeatable": "ONE",
+        "children": [
+          {
+            "id": "31",
+            "metadata": {
+              "label": "If",
+              "description": "Add conditional branch to the integration flow."
+            },
+            "codedata": {
+              "node": "IF",
+              "lineRange": {
+                "fileName": "test.bal",
+                "startLine": {
+                  "line": 0,
+                  "offset": 0
+                },
+                "endLine": {
+                  "line": 0,
+                  "offset": 0
+                }
+              }
+            },
+            "returning": false,
+            "branches": [
+              {
+                "label": "Then",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "CONDITIONAL",
+                  "lineRange": {
+                    "fileName": "test.bal",
+                    "startLine": {
+                      "line": 0,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 0,
+                      "offset": 0
+                    }
+                  }
+                },
+                "repeatable": "ONE_OR_MORE",
+                "properties": {
+                  "condition": {
+                    "metadata": {
+                      "label": "Condition",
+                      "description": "Boolean Condition"
+                    },
+                    "valueType": "EXPRESSION",
+                    "value": "i is () ",
+                    "optional": false,
+                    "editable": true
+                  }
+                },
+                "children": [
+                  {
+                    "id": "31",
+                    "metadata": {
+                      "label": "Commit",
+                      "description": "Commit transaction"
+                    },
+                    "codedata": {
+                      "node": "COMMIT",
+                      "lineRange": {
+                        "fileName": "test.bal",
+                        "startLine": {
+                          "line": 0,
+                          "offset": 0
+                        },
+                        "endLine": {
+                          "line": 0,
+                          "offset": 0
+                        }
+                      }
+                    },
+                    "returning": false,
+                    "flags": 1
+                  }
+                ]
+              },
+              {
+                "label": "Else",
+                "kind": "BLOCK",
+                "codedata": {
+                  "node": "ELSE",
+                  "lineRange": {
+                    "fileName": "test.bal",
+                    "startLine": {
+                      "line": 0,
+                      "offset": 0
+                    },
+                    "endLine": {
+                      "line": 0,
+                      "offset": 0
+                    }
+                  }
+                },
+                "repeatable": "ZERO_OR_ONE",
+                "children": [
+                  {
+                    "id": "31",
+                    "metadata": {
+                      "label": "Rollback",
+                      "description": "Rollback the transaction"
+                    },
+                    "codedata": {
+                      "node": "ROLLBACK",
+                      "lineRange": {
+                        "fileName": "test.bal",
+                        "startLine": {
+                          "line": 0,
+                          "offset": 0
+                        },
+                        "endLine": {
+                          "line": 0,
+                          "offset": 0
+                        }
+                      }
+                    },
+                    "returning": false,
+                    "properties": {
+                      "expression": {
+                        "metadata": {
+                          "label": "Expression",
+                          "description": "Rollback transaction"
+                        },
+                        "valueType": "EXPRESSION",
+                        "value": "error(\"Rollback the transaction\")",
+                        "optional": false,
+                        "editable": true
+                      }
+                    },
+                    "flags": 0
+                  }
+                ]
+              }
+            ],
+            "flags": 0
+          }
+        ]
+      }
+    ],
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "transaction {\n    if i is () {\n        check commit;\n    } else {\n        rollback error(\"Rollback the transaction\");\n    }\n}"
+      }
+    ]
+  }
+}

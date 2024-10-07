@@ -80,11 +80,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String COLLECTION_KEY = "collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
-    public static final String DATA_VARIABLE_LABEL = "Data variable";
+    public static final String DATA_VARIABLE_LABEL = "Variable";
     public static final String DATA_VARIABLE_KEY = "variable";
     public static final String DATA_VARIABLE_DOC = "Name of the variable";
 
-    public static final String DATA_TYPE_LABEL = "Data type";
+    public static final String DATA_TYPE_LABEL = "Type";
     public static final String DATA_TYPE_KEY = "type";
     public static final String DATA_TYPE_DOC = "Type of the variable";
 
@@ -109,6 +109,10 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
     public static final String GUARD_KEY = "guard";
     public static final String GUARD_DOC = "Guard expression";
+
+    public static final String RETRY_COUNT_KEY = "retryCount";
+    public static final String RETRY_COUNT_LABEL = "Retry Count";
+    public static final String RETRY_COUNT_DOC = "Number of retries";
 
     public String toSourceCode() {
         return value.toString();

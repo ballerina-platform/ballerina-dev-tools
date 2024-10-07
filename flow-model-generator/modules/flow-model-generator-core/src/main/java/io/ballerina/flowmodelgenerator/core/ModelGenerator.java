@@ -65,15 +65,17 @@ public class ModelGenerator {
     private final Path filePath;
     private final Document dataMappingDoc;
     private final Gson gson;
+    private final boolean forceAssign;
 
     public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath,
-                          Document dataMappingDoc) {
+                          Document dataMappingDoc, boolean forceAssign) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
         this.filePath = filePath;
         this.dataMappingDoc = dataMappingDoc;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+        this.forceAssign = forceAssign;
     }
 
     /**
@@ -95,7 +97,9 @@ public class ModelGenerator {
                 semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
                         .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
                         .sorted(Comparator.comparing(
-                                node -> node.properties().get(Property.VARIABLE_KEY).value().toString()))
+                                node -> Optional.ofNullable(node.properties().get(Property.VARIABLE_KEY))
+                                        .map(property -> property.value().toString())
+                                        .orElse("")))
                         .toList();
 
         // Obtain the data mapping function names
@@ -114,7 +118,7 @@ public class ModelGenerator {
 
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument,
-                CommonUtils.getProjectName(document));
+                CommonUtils.getProjectName(document), forceAssign);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -164,7 +168,8 @@ public class ModelGenerator {
             return Optional.empty();
         }
         CodeAnalyzer codeAnalyzer =
-                new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document));
+                new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document),
+                        forceAssign);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

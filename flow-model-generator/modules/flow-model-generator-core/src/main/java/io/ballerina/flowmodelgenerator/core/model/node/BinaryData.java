@@ -36,7 +36,7 @@ import java.util.Optional;
  */
 public class BinaryData extends NodeBuilder {
 
-    public static final String LABEL = "Binary Data";
+    public static final String LABEL = "Assign Binary";
     public static final String DESCRIPTION = LABEL;
     public static final String BINARY_DATA_DOC = "Create new Binary Data";
     private static final String DUMMY_BINARY_DATA_EXPR = "base64 `abcd`";

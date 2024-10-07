@@ -43,17 +43,25 @@ public class AvailableNodesTest extends AbstractLSTest {
 
         FlowModelAvailableNodesRequest request =
                 new FlowModelAvailableNodesRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.position());
+                        testConfig.position(), testConfig.forceAssign());
         JsonArray availableNodes = getResponse(request).getAsJsonArray("categories");
 
         JsonArray categories = availableNodes.getAsJsonArray();
         if (!categories.equals(testConfig.categories())) {
             TestConfig updateConfig = new TestConfig(testConfig.description(), testConfig.position(),
-                    testConfig.source(), categories);
+                    testConfig.source(), testConfig.forceAssign(), categories);
 //            updateConfig(config, updateConfig);
             compareJsonElements(categories, testConfig.categories());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @Override
+    protected String[] skipList() {
+        //TODO: Need a better approach on how we can mock the central data
+        return new String[]{
+                "remote_connector.json"
+        };
     }
 
     @Override
@@ -77,9 +85,11 @@ public class AvailableNodesTest extends AbstractLSTest {
      * @param description The description of the test
      * @param position    The position of the node to be added
      * @param source      The source file path
+     * @param forceAssign whether to render the assign node wherever possible
      * @param categories  The available categories for the given input
      */
-    private record TestConfig(String description, LinePosition position, String source, JsonArray categories) {
+    private record TestConfig(String description, LinePosition position, String source, boolean forceAssign,
+                              JsonArray categories) {
 
     }
 }

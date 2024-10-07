@@ -9,6 +9,7 @@
   },
   "source": "transaction.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "transaction.bal",
     "nodes": [
@@ -83,7 +84,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -93,7 +94,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -150,11 +151,11 @@
               {
                 "id": "41943",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "Commit",
+                  "description": "Commit transaction"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "COMMIT",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -170,19 +171,9 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "check commit",
-                    "optional": false,
-                    "editable": true
-                  },
                   "variable": {
                     "metadata": {
-                      "label": "Data variable",
+                      "label": "Variable",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -192,7 +183,7 @@
                   },
                   "type": {
                     "metadata": {
-                      "label": "Data type",
+                      "label": "Type",
                       "description": "Type of the variable"
                     },
                     "valueType": "TYPE",
@@ -254,11 +245,11 @@
               {
                 "id": "45911",
                 "metadata": {
-                  "label": "Assign",
-                  "description": "Assign a value to a variable"
+                  "label": "Commit",
+                  "description": "Commit transaction"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "COMMIT",
                   "lineRange": {
                     "fileName": "transaction.bal",
                     "startLine": {
@@ -274,19 +265,9 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
-                    "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
-                    },
-                    "valueType": "EXPRESSION",
-                    "value": "check commit",
-                    "optional": false,
-                    "editable": true
-                  },
                   "variable": {
                     "metadata": {
-                      "label": "Data variable",
+                      "label": "Variable",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -296,7 +277,7 @@
                   },
                   "type": {
                     "metadata": {
-                      "label": "Data type",
+                      "label": "Type",
                       "description": "Type of the variable"
                     },
                     "valueType": "TYPE",

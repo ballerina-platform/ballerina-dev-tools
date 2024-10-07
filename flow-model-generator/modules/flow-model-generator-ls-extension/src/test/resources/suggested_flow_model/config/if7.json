@@ -88,7 +88,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -98,7 +98,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -145,7 +145,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -155,7 +155,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -202,7 +202,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -212,7 +212,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -289,6 +289,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "print",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -379,7 +380,8 @@
             ]
           }
         ],
-        "flags": 0
+        "flags": 0,
+        "suggested": true
       },
       {
         "id": "48861",
@@ -446,6 +448,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "print",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
@@ -505,6 +508,7 @@
                   "org": "$anon",
                   "module": ".",
                   "symbol": "print",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "if.bal",
                     "startLine": {
