@@ -9,17 +9,17 @@
   },
   "source": "comment.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "comment.bal",
     "nodes": [
       {
         "id": "145515",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function commentWithNewLines(int i) {\n    // Initialize `x`\n    // with new lines\n\n\n\n\n\n    int x = 0;\n\n    do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function commentWithNewLines(int i) {\n    // Initialize `x`\n    // with new lines\n\n\n\n\n\n    int x = 0;\n\n    do {\n        // Increment `x`\n\n\n\n        x = x + 1;\n\n        // Precess `x`\n\n\n\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

@@ -22,7 +22,6 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.api.symbols.TypeDescKind;
@@ -158,17 +157,7 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        switch (symbol.get().kind()) {
-            case RESOURCE_METHOD -> {
-                startNode(NodeKind.EVENT_HTTP_API)
-                        .flag(FlowNode.NODE_FLAG_RESOURCE)
-                        .properties()
-                            .resourceSymbol((ResourceMethodSymbol) symbol.get());
-            }
-            default -> {
-                handleExpressionNode(functionDefinitionNode);
-            }
-        }
+        startNode(NodeKind.EVENT_START);
         endNode(functionDefinitionNode);
         super.visit(functionDefinitionNode);
     }
@@ -728,7 +717,7 @@ class CodeAnalyzer extends NodeVisitor {
             TransactionStatementNode transactionStatementNode = (TransactionStatementNode) statementNode;
             BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
             startNode(NodeKind.TRANSACTION)
-                .properties().retryCount(retryCount);
+                    .properties().retryCount(retryCount);
             Branch.Builder branchBuilder =
                     startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
             analyzeBlock(blockStatementNode, branchBuilder);

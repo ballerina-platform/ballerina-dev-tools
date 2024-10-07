@@ -16,11 +16,10 @@
       {
         "id": "98581",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -35,18 +34,6 @@
           "sourceCode": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

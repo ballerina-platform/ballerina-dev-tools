@@ -8,7 +8,7 @@ package io.ballerina.flowmodelgenerator.core.model;
  */
 public enum NodeKind {
     // Flow nodes
-    EVENT_HTTP_API,
+    EVENT_START,
     IF,
     ACTION_CALL,
     FUNCTION_CALL,

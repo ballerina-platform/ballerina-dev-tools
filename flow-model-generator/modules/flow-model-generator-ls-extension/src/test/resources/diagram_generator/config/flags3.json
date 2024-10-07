@@ -9,16 +9,17 @@
   },
   "source": "flags.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "flags.bal",
     "nodes": [
       {
         "id": "51775",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function accessor path() {\n\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "accessor",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "path",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       }
     ],
     "connections": []

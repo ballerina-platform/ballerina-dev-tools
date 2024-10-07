@@ -9,16 +9,17 @@
   },
   "source": "while.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "while.bal",
     "nodes": [
       {
         "id": "103700",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get bananas(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|error response = foodClient->get(\"/food/bananas\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }\n            i += 1;\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "bananas",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "105418",

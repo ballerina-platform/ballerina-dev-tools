@@ -9,16 +9,17 @@
   },
   "source": "http_get_node.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "http_get_node.bal",
     "nodes": [
       {
         "id": "45234",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get apples() returns http:ClientError? {\n        var res1 = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json, headers = ());\n        json res2 = check foodClient->/western/apples.get();\n        json res3 = check foodClient->/apples.get();\n        json res4 = check foodClient->/.get();\n        var res5 = check foodClient->/apples.get(targetType = json);\n        json res6 = check foodClient->/apples.get();\n        json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.get();\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "apples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "45951",

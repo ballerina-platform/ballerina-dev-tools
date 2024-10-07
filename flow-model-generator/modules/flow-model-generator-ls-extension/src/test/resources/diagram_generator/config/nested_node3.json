@@ -9,16 +9,17 @@
   },
   "source": "nested_node.bal",
   "description": "Tests a diagram flow with nested nodes",
+  "forceAssign": false,
   "diagram": {
     "fileName": "nested_node.bal",
     "nodes": [
       {
         "id": "53821",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "nested_node.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function options path() {\n        do {\n\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "options",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "path",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "54972",

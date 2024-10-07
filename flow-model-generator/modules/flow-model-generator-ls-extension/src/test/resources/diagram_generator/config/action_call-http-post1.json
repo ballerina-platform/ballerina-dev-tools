@@ -9,16 +9,17 @@
   },
   "source": "http_post_node.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "http_post_node.bal",
     "nodes": [
       {
         "id": "45172",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function post apples() returns http:ClientError? {\n        var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);\n        _ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");\n        json res2 = check foodClient->/western/apples.post(\"western red apple\");\n        json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");\n        json res4 = check foodClient->/.post(\"green apple\");\n        var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);\n        json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.post(\"red apple\");\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "post",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "apples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "45965",

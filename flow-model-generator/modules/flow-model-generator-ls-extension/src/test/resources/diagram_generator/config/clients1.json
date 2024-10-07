@@ -9,17 +9,17 @@
   },
   "source": "clients.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "clients.bal",
     "nodes": [
       {
         "id": "45137",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

@@ -9,17 +9,17 @@
   },
   "source": "new_connection.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "new_connection.bal",
     "nodes": [
       {
         "id": "37790",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function fn1() returns error? {\n    http:Client localHttpCl = check new (\"http://localhost:8080\");\n    redis:Client localRedisCl = check new;\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function fn1() returns error? {\n    http:Client localHttpCl = check new (\"http://localhost:8080\");\n    redis:Client localRedisCl = check new;\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

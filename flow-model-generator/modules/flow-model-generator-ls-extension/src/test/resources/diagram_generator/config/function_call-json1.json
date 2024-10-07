@@ -9,16 +9,17 @@
   },
   "source": "function_call.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "function_call.bal",
     "nodes": [
       {
         "id": "52829",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function post apples(string payload) returns Apple|jsondata:Error {\n        json jsonResult = check jsondata:toJson(payload);\n        Apple apple = check jsondata:parseAsType(jsonResult);\n        return apple;\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "post",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "apples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "53873",

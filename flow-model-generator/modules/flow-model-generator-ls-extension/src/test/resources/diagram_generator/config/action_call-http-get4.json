@@ -9,16 +9,17 @@
   },
   "source": "http_get_node.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "http_get_node.bal",
     "nodes": [
       {
         "id": "70654",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get milkshake() returns json|http:ClientError {\n        http:Client drinkClient = check new (\"/drink\");\n        return drinkClient->get(\"/milkshake\");\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "milkshake",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "71727",

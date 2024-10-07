@@ -9,16 +9,17 @@
   },
   "source": "simple_flow.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "simple_flow.bal",
     "nodes": [
       {
         "id": "38073",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "simple_flow.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get search/doctors/[string area]() returns json|error {\n        if area == \"kandy\" {\n            json j = check asiri->get(path = \"/doctors/kandy\");\n            return j;\n        } else {\n            json j = check nawaloka->get(\"/doctors\");\n            return j;\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "search/doctors/[string area]",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "39131",

@@ -9,17 +9,17 @@
   },
   "source": "flags.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "flags.bal",
     "nodes": [
       {
         "id": "34969",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

@@ -9,17 +9,17 @@
   },
   "source": "stop.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "stop.bal",
     "nodes": [
       {
         "id": "35930",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "stop.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "function testStop2(int x) returns int? {\n    if x == 2 {\n        return;\n    } else if x == 3 {\n        return x;\n    }\n    return;\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testStop2(int x) returns int? {\n    if x == 2 {\n        return;\n    } else if x == 3 {\n        return x;\n    }\n    return;\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

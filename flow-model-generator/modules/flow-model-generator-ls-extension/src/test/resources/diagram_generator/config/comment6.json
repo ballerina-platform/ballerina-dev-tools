@@ -9,17 +9,17 @@
   },
   "source": "comment.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "comment.bal",
     "nodes": [
       {
         "id": "77687",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "comment.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function commentInWhileBody(int i) {\n    int x = 0;\n\n    // This is a while block\n    while i > 3 {\n        // update `x`\n        x = x + 1;\n\n        // Generate new node\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

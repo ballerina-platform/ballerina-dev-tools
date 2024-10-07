@@ -9,17 +9,17 @@
   },
   "source": "data_mapper/main.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "main.bal",
     "nodes": [
       {
         "id": "40394",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

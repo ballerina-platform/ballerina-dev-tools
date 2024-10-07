@@ -9,17 +9,17 @@
   },
   "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "new_data.bal",
     "nodes": [
       {
         "id": "58591",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "function testNewDataJson2(int amount) returns error? {\n    json newData = {value: check calculate(amount)};\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testNewDataJson2(int amount) returns error? {\n    json newData = {value: check calculate(amount)};\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {

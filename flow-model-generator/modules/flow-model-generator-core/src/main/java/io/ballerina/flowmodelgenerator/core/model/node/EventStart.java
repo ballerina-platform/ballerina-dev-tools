@@ -32,20 +32,14 @@ import java.util.Map;
  *
  * @since 1.4.0
  */
-public class HttpApiEvent extends NodeBuilder {
+public class EventStart extends NodeBuilder {
 
-    public static final String LABEL = "HTTP API";
-    public static final String EVENT_HTTP_API_METHOD = "Method";
-    public static final String EVENT_HTTP_API_METHOD_KEY = "method";
-    public static final String EVENT_HTTP_API_METHOD_DOC = "HTTP Method";
-    public static final String EVENT_HTTP_API_PATH = "Path";
-    public static final String EVENT_HTTP_API_PATH_KEY = "path";
-    public static final String EVENT_HTTP_API_PATH_DOC = "HTTP Path";
+    public static final String LABEL = "Start";
 
     @Override
     public void setConcreteConstData() {
         metadata().label(LABEL);
-        codedata().node(NodeKind.EVENT_HTTP_API);
+        codedata().node(NodeKind.EVENT_START);
     }
 
     @Override

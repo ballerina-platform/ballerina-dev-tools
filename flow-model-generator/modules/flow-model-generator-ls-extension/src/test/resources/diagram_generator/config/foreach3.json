@@ -9,17 +9,17 @@
   },
   "source": "foreach.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "foreach.bal",
     "nodes": [
       {
         "id": "45850",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
@@ -34,18 +34,6 @@
           "sourceCode": "public function testForeachWithOnFail1() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function testForeachWithOnFail1() returns error? {\n    int[] intArr = [1, 2, 3];\n    foreach int item in intArr {\n        _ = item;\n    } on fail {\n        return error(\"Error message\");\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
