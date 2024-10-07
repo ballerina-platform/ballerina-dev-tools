@@ -94,11 +94,11 @@
               {
                 "id": "48010",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -172,11 +172,11 @@
               {
                 "id": "49994",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {
@@ -228,11 +228,11 @@
               {
                 "id": "50992",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "if_node.bal",
                     "startLine": {

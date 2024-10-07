@@ -163,11 +163,11 @@
               {
                 "id": "66730",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {
@@ -313,11 +313,11 @@
               {
                 "id": "71690",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "comment.bal",
                     "startLine": {

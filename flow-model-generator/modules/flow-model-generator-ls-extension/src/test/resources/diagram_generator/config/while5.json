@@ -39,11 +39,11 @@
       {
         "id": "80618",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -95,11 +95,11 @@
       {
         "id": "81621",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -400,11 +400,11 @@
               {
                 "id": "87697",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {

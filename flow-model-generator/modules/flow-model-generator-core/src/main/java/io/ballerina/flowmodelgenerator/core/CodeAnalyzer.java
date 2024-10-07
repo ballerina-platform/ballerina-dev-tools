@@ -422,7 +422,7 @@ class CodeAnalyzer extends NodeVisitor {
 
         // Generate the default expression node if a node is not built
         if (isNodeUnidentified()) {
-            startNode(NodeKind.ASSIGN)
+            startNode(NodeKind.VARIABLE)
                     .metadata()
                         .description(Assign.DESCRIPTION)
                         .stepOut()
