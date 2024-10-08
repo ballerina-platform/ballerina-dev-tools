@@ -1,99 +1,43 @@
 {
   "start": {
-    "line": 21,
+    "line": 16,
     "offset": 0
   },
   "end": {
-    "line": 25,
+    "line": 19,
     "offset": 1
   },
-  "source": "new_data.bal",
+  "source": "update_data.bal",
   "description": "Tests a simple diagram flow",
   "forceAssign": false,
   "diagram": {
-    "fileName": "new_data.bal",
+    "fileName": "update_data.bal",
     "nodes": [
       {
-        "id": "52701",
+        "id": "47710",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
-              "line": 21,
+              "line": 16,
               "offset": 0
             },
             "endLine": {
-              "line": 25,
+              "line": 19,
               "offset": 1
             }
           },
-          "sourceCode": "function testNewDataXml() {\n    string content = \"create xml\";\n    xml x1 = xml `<p>${content}</p>`;\n    xml x2 = xml `<book>The Lost World</book>`;\n}"
+          "sourceCode": "function testNewDataXml() {\n    xml x1 = xml `<p>content</p>`;\n    x1 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
         "flags": 0
       },
       {
-        "id": "53726",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 22,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 22,
-              "offset": 34
-            }
-          },
-          "sourceCode": "string content = \"create xml\";"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"create xml\"",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "content",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "string",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "54721",
+        "id": "48766",
         "metadata": {
           "label": "Assign XML",
           "description": "Assign XML"
@@ -101,17 +45,17 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
-              "line": 23,
+              "line": 17,
               "offset": 4
             },
             "endLine": {
-              "line": 23,
-              "offset": 37
+              "line": 17,
+              "offset": 34
             }
           },
-          "sourceCode": "xml x1 = xml `<p>${content}</p>`;"
+          "sourceCode": "xml x1 = xml `<p>content</p>`;"
         },
         "returning": false,
         "properties": {
@@ -121,7 +65,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "xml `<p>${content}</p>`",
+            "value": "xml `<p>content</p>`",
             "optional": false,
             "editable": true
           },
@@ -149,7 +93,7 @@
         "flags": 0
       },
       {
-        "id": "55723",
+        "id": "49767",
         "metadata": {
           "label": "Assign XML",
           "description": "Assign XML"
@@ -157,17 +101,17 @@
         "codedata": {
           "node": "XML_PAYLOAD",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
-              "line": 24,
+              "line": 18,
               "offset": 4
             },
             "endLine": {
-              "line": 24,
-              "offset": 47
+              "line": 18,
+              "offset": 43
             }
           },
-          "sourceCode": "xml x2 = xml `<book>The Lost World</book>`;"
+          "sourceCode": "x1 = xml `<book>The Lost World</book>`;"
         },
         "returning": false,
         "properties": {
@@ -184,20 +128,10 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Name of the variable"
+              "description": "Result Variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "x2",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "xml",
+            "value": "x1",
             "optional": false,
             "editable": true
           }

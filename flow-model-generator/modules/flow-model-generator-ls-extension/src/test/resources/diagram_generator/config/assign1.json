@@ -1,18 +1,41 @@
 {
   "start": {
-    "line": 1,
+    "line": 0,
     "offset": 0
   },
   "end": {
-    "line": 10,
+    "line": 4,
     "offset": 1
   },
-  "source": "new_data.bal",
+  "source": "update_data.bal",
   "description": "Tests a simple diagram flow",
   "forceAssign": false,
   "diagram": {
-    "fileName": "new_data.bal",
+    "fileName": "update_data.bal",
     "nodes": [
+      {
+        "id": "31869",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "update_data.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 1
+            }
+          },
+          "sourceCode": "function testNewData() {\n    int i = 2;\n    i = 3;\n    _ = 4;\n}"
+        },
+        "returning": false,
+        "flags": 0
+      },
       {
         "id": "32874",
         "metadata": {
@@ -22,7 +45,7 @@
         "codedata": {
           "node": "VARIABLE",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
               "line": 1,
               "offset": 4
@@ -70,193 +93,25 @@
         "flags": 0
       },
       {
-        "id": "33871",
+        "id": "33862",
         "metadata": {
-          "label": "Variable",
+          "label": "Assign",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "ASSIGN",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
               "line": 2,
               "offset": 4
             },
             "endLine": {
               "line": 2,
-              "offset": 19
+              "offset": 10
             }
           },
-          "sourceCode": "float f = 1.2f;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "1.2f",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "f",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "float",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "34870",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 3,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 3,
-              "offset": 26
-            }
-          },
-          "sourceCode": "decimal d = 100000.0d;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "100000.0d",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "d",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "decimal",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "35855",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 4,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 4,
-              "offset": 19
-            }
-          },
-          "sourceCode": "decimal d1 = d;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "d",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "d1",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "decimal",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "37834",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 6,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 6,
-              "offset": 14
-            }
-          },
-          "sourceCode": "int j = 3;"
+          "sourceCode": "i = 3;"
         },
         "returning": false,
         "properties": {
@@ -273,20 +128,10 @@
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Name of the variable"
+              "description": "Result Variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "j",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "int",
+            "value": "i",
             "optional": false,
             "editable": true
           }
@@ -294,25 +139,25 @@
         "flags": 0
       },
       {
-        "id": "38830",
+        "id": "34854",
         "metadata": {
-          "label": "Variable",
+          "label": "Assign",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "ASSIGN",
           "lineRange": {
-            "fileName": "new_data.bal",
+            "fileName": "update_data.bal",
             "startLine": {
-              "line": 7,
+              "line": 3,
               "offset": 4
             },
             "endLine": {
-              "line": 7,
-              "offset": 18
+              "line": 3,
+              "offset": 10
             }
           },
-          "sourceCode": "int k = i + j;"
+          "sourceCode": "_ = 4;"
         },
         "returning": false,
         "properties": {
@@ -322,139 +167,17 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "i + j",
+            "value": "4",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "k",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "int",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "39822",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 8,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 8,
-              "offset": 18
-            }
-          },
-          "sourceCode": "var l = i + j;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "i + j",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "l",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "int",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "40814",
-        "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "VARIABLE",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 9,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 9,
-              "offset": 18
-            }
-          },
-          "sourceCode": "var _ = k + l;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "k + l",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
+              "description": "Result Variable"
             },
             "valueType": "IDENTIFIER",
             "value": "_",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "int",
             "optional": false,
             "editable": true
           }

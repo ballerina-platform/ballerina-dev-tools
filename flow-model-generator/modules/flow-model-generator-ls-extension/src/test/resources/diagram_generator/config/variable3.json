@@ -1,43 +1,43 @@
 {
   "start": {
-    "line": 11,
+    "line": 17,
     "offset": 0
   },
   "end": {
-    "line": 14,
+    "line": 19,
     "offset": 1
   },
-  "source": "update_data.bal",
+  "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
   "forceAssign": false,
   "diagram": {
-    "fileName": "update_data.bal",
+    "fileName": "new_data.bal",
     "nodes": [
       {
-        "id": "42750",
+        "id": "48671",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 11,
+              "line": 17,
               "offset": 0
             },
             "endLine": {
-              "line": 14,
+              "line": 19,
               "offset": 1
             }
           },
-          "sourceCode": "function testNewDataJson() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n    j1 = {\"name\": \"Marry\", \"age\": 33};\n}"
+          "sourceCode": "function testNewDataJson1() {\n    json j1 = {\"name\": \"John\", \"age\": 34};\n}"
         },
         "returning": false,
         "flags": 0
       },
       {
-        "id": "43814",
+        "id": "49766",
         "metadata": {
           "label": "Assign JSON",
           "description": "Assign JSON"
@@ -45,13 +45,13 @@
         "codedata": {
           "node": "JSON_PAYLOAD",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 12,
+              "line": 18,
               "offset": 4
             },
             "endLine": {
-              "line": 12,
+              "line": 18,
               "offset": 42
             }
           },
@@ -86,52 +86,6 @@
             },
             "valueType": "TYPE",
             "value": "json",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "44802",
-        "metadata": {
-          "label": "Assign",
-          "description": "Assign a value to a variable"
-        },
-        "codedata": {
-          "node": "ASSIGN",
-          "lineRange": {
-            "fileName": "update_data.bal",
-            "startLine": {
-              "line": 13,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 13,
-              "offset": 38
-            }
-          },
-          "sourceCode": "j1 = {\"name\": \"Marry\", \"age\": 33};"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "{\"name\": \"Marry\", \"age\": 33}",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Result Variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "j1",
             "optional": false,
             "editable": true
           }
