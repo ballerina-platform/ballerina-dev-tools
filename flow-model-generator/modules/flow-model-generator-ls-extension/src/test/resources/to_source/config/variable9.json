@@ -2,21 +2,21 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "38844",
+    "id": "44796",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 7,
+          "line": 13,
           "offset": 4
         },
         "endLine": {
-          "line": 7,
+          "line": 13,
           "offset": 32
         }
       },
@@ -36,7 +36,7 @@
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
@@ -46,7 +46,7 @@
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
@@ -62,11 +62,11 @@
       {
         "range": {
           "start": {
-            "line": 7,
+            "line": 13,
             "character": 4
           },
           "end": {
-            "line": 7,
+            "line": 13,
             "character": 32
           }
         },

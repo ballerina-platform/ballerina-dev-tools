@@ -340,7 +340,7 @@
             "character": 9
           }
         },
-        "newText": "if price > 10 {\n    if price > 100 {\n        int c = 12;\n        return \"expensive\";\n    } else {\n        int b = 2;\n        return \"moderate\";\n    }\n}"
+        "newText": "if price > 10 {\n    if price > 100 {\n        c = 12;\n        return \"expensive\";\n    } else {\n        b = 2;\n        return \"moderate\";\n    }\n}"
       }
     ]
   }

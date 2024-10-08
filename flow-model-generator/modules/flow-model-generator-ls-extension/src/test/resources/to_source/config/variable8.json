@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "65677",
+    "id": "40814",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 34,
+          "line": 9,
           "offset": 4
         },
         "endLine": {
-          "line": 34,
-          "offset": 81
+          "line": 9,
+          "offset": 18
         }
       },
-      "sourceCode": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
+      "sourceCode": "var _ = k + l;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[check calculate(amount), check calculate(amount + 1)]",
+        "value": "k + l",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "newData3",
+        "value": "_",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "[int, int]",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 34,
+            "line": 9,
             "character": 4
           },
           "end": {
-            "line": 34,
-            "character": 81
+            "line": 9,
+            "character": 18
           }
         },
-        "newText": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
+        "newText": "int _ = k + l;"
       }
     ]
   }
