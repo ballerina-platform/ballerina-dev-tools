@@ -1,5 +1,5 @@
 {
-  "configFile": "config1.bal",
+  "configFile": "config2.bal",
   "configVariables": {
     "configVariables": [
       {
@@ -9,14 +9,14 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "config1.bal",
+            "fileName": "config2.bal",
             "startLine": {
               "line": 0,
               "offset": 0
             },
             "endLine": {
               "line": 0,
-              "offset": 32
+              "offset": 30
             }
           }
         },
@@ -27,7 +27,7 @@
               "description": "Type of the configuration"
             },
             "valueType": "TYPE",
-            "value": "string",
+            "value": "int",
             "optional": false,
             "editable": true
           },
@@ -47,7 +47,7 @@
               "description": "Default value for the config, if empty your need to provide a value at runtime"
             },
             "valueType": "EXPRESSION",
-            "value": "",
+            "value": "10",
             "optional": false,
             "editable": true
           }
@@ -60,7 +60,7 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "config1.bal",
+            "fileName": "config2.bal",
             "startLine": {
               "line": 1,
               "offset": 0

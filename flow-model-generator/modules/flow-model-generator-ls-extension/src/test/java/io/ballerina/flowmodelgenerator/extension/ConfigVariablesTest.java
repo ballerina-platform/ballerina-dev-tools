@@ -18,9 +18,9 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
-import io.ballerina.flowmodelgenerator.extension.request.ConfigurableVariablesGeneratorRequest;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
 import org.eclipse.lsp4j.jsonrpc.Endpoint;
@@ -43,17 +43,19 @@ public class ConfigVariablesTest extends AbstractLSTest {
     public void test(Path config) throws IOException {
         Endpoint endpoint = TestUtil.newLanguageServer().withLanguageServer(new BallerinaLanguageServer()).build();
         Path configJsonPath = configDir.resolve(config);
-        ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), ConfigVariablesTestConfig.class);
+        ConfigVariablesTestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath),
+                ConfigVariablesTestConfig.class);
 
-        ConfigVariablesGetRequest request = new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString());
+        ConfigVariablesGetRequest request =
+                new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString());
         JsonObject configVariables = getResponse(endpoint, request);
 
-//        if (!configurableVariablesEdits.getAsJsonObject("textEdits").equals(testConfig.textEdits())) {
-//            TestConfig updatedConfig = new TestConfig(testConfig.projectPath(), testConfig.variable(),
-//                    testConfig.type(), testConfig.value(), configurableVariablesEdits);
-////            updateConfig(configJsonPath, updatedConfig);
-//            Assert.fail(String.format("Failed test: '%s'", configJsonPath));
-//        }
+        if (!configVariables.equals(testConfig.configVariables())) {
+            ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.configFile(),
+                    configVariables);
+            updateConfig(configJsonPath, updatedConfig);
+            Assert.fail(String.format("Failed test: '%s'", configJsonPath));
+        }
         TestUtil.shutdownLanguageServer(endpoint);
     }
 
@@ -80,11 +82,11 @@ public class ConfigVariablesTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      *
-     * @param configFile Path to config file
-     *
+     * @param configFile      Path to config file
+     * @param configVariables Config variables
      * @since 1.4.0
      */
-    private record ConfigVariablesTestConfig(String configFile) {
+    private record ConfigVariablesTestConfig(String configFile, JsonElement configVariables) {
 
     }
 }

@@ -21,19 +21,24 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.syntax.tree.*;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.ModulePartNode;
+import io.ballerina.compiler.syntax.tree.ModuleVariableDeclarationNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.SyntaxTree;
+import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
-import io.ballerina.tools.text.LineRange;
-import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
-import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
-import org.eclipse.lsp4j.TextEdit;
 
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Generates functions based on a given keyword.
@@ -43,7 +48,6 @@ import java.util.*;
 public class ConfigVariablesManager {
 
     private final Gson gson;
-
     public static final String CONFIG_TYPE = "Config type";
     public static final String CONFIG_TYPE_DESCRIPTION = "Type of the configuration";
     public static final String CONFIG_NAME = "Config name";
@@ -59,57 +63,70 @@ public class ConfigVariablesManager {
     public JsonElement get(Document document) {
         SyntaxTree syntaxTree = document.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
-        Map<String, Property> properties = new LinkedHashMap<>();
-        for (Node node: modulePartNode.children()) {
+        List<ConfigVariable> configVariables = new ArrayList<>();
+        for (Node node : modulePartNode.children()) {
             if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
                 ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
                 if (hasConfigurableQualifier(modVarDeclarationNode)) {
-                    Optional<ExpressionNode> initializer = modVarDeclarationNode.initializer();
-                    if (initializer.isEmpty()) {
-                        continue;
-                    }
-                    Metadata metadata = new Metadata(CONFIG_TYPE, CONFIG_NAME_DESCRIPTION, null, null);
-                    Property property = new Property(metadata, Property.ValueType.TYPE.name(), null, modVarDeclarationNode.typedBindingPattern().typeDescriptor().toSourceCode(), false, true);
-                    properties.put("type", property);
-                    property = new Property(metadata, Property.ValueType.IDENTIFIER.name(), null, modVarDeclarationNode.typedBindingPattern().bindingPattern().toString(), false, true);
-                    properties.put("variable", property);
-                    property = new Property(metadata, Property.ValueType.EXPRESSION.name(), null, initializer.get(), false, true);
-                    properties.put("defaultable", property);
+                    configVariables.add(genConfigVariable(modVarDeclarationNode));
                 }
             }
         }
-        return null;
+        return gson.toJsonTree(configVariables);
     }
-
-//    public JsonElement textEditsToAddConfigurableVariables(String variable, String type, String value) throws WorkspaceDocumentException, EventSyncException {
-//        Path projectPath = Path.of(projectName);
-//        Path configFile = projectPath.resolve(CONFIG_BAL);
-//        this.workspaceManager.loadProject(configFile);
-//        Optional<Document> document = this.workspaceManager.document(configFile);
-//        if (document.isEmpty()) {
-//            return null;
-//        }
-//        SyntaxTree syntaxTree = document.get().syntaxTree();
-//        LineRange lineRange = syntaxTree.rootNode().lineRange();
-//        String configurableStmt = String.format("configurable %s %s = %s;", type, variable, value) + System.lineSeparator();
-//        TextEdit textEdit = new TextEdit(CommonUtils.toRange(lineRange), configurableStmt);
-//        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
-//        textEditsMap.put(configFile, List.of(textEdit));
-//        return gson.toJsonTree(textEditsMap);
-//    }
 
     private static boolean hasConfigurableQualifier(ModuleVariableDeclarationNode modVarDeclarationNode) {
         return modVarDeclarationNode.qualifiers()
                 .stream().anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
     }
 
-    public record ConfigVariables(
-            ConfigVariable[] configVariables
-    ) {}
+    private ConfigVariable genConfigVariable(ModuleVariableDeclarationNode modVarDeclNode) {
+        Metadata metadata = new Metadata.Builder<>(null)
+                .label("Config variables")
+                .build();
+
+        Codedata codedata = new Codedata.Builder<>(null)
+                .node(NodeKind.ASSIGN)
+                .lineRange(modVarDeclNode.lineRange())
+                .build();
+
+        Map<String, Property> properties = new LinkedHashMap<>();
+        TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
+        properties.put(Property.DATA_TYPE_KEY, property(CONFIG_TYPE, CONFIG_TYPE_DESCRIPTION, Property.ValueType.TYPE
+                , typedBindingPattern.typeDescriptor().toSourceCode().trim()));
+        properties.put(Property.VARIABLE_KEY, property(CONFIG_NAME, CONFIG_NAME_DESCRIPTION,
+                Property.ValueType.IDENTIFIER, typedBindingPattern.bindingPattern().toSourceCode().trim()));
+        Optional<ExpressionNode> optInitializer = modVarDeclNode.initializer();
+        String value = "";
+        if (optInitializer.isPresent()) {
+            ExpressionNode initializer = optInitializer.get();
+            if (initializer.kind() != SyntaxKind.REQUIRED_EXPRESSION) {
+                value = initializer.toSourceCode();
+            }
+        }
+        properties.put("defaultable", property(DEFAULT_VALUE, DEFAULT_VALUE_DESCRIPTION,
+                Property.ValueType.EXPRESSION, value));
+
+        return new ConfigVariable(metadata, codedata, properties);
+    }
+
+    private Property property(String label, String description, Property.ValueType valueType, String value) {
+        Property.Builder propertyBuilder = Property.Builder.getInstance();
+        propertyBuilder
+                .metadata()
+                    .label(label)
+                    .description(description)
+                    .stepOut()
+                .type(valueType)
+                .value(value)
+                .editable();
+        return propertyBuilder.build();
+    }
 
     private record ConfigVariable(
             Metadata metadata,
             Codedata codedata,
             Map<String, Property> properties
-    ) {}
+    ) {
+    }
 }
