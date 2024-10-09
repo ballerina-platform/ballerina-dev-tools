@@ -91,7 +91,7 @@ class RestClient {
     }
 
     public ConnectorResponse connector(String org, String module, String version, String connector) {
-        String path = String.format("connectors/%s/%s/%s/%s/%s", org, module, version, module, connector);
+        String path = String.format("%s/connectors/%s/%s/%s/%s/%s", BASE_URL, org, module, version, module, connector);
         String response = query(path);
         return gson.fromJson(response, ConnectorResponse.class);
     }

@@ -22,6 +22,7 @@ import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -51,6 +52,22 @@ public class Transaction extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Branch> body = sourceBuilder.flowNode.getBranch(Branch.BODY_LABEL);
 
+        if (sourceBuilder.flowNode.properties() != null) {
+            Property retryCount = sourceBuilder.flowNode.properties().get(Property.RETRY_COUNT_KEY);
+            return sourceBuilder.token()
+                    .keyword(SyntaxKind.RETRY_KEYWORD)
+                    .openParen()
+                    .expression(retryCount)
+                    .closeParen()
+                    .whiteSpace()
+                    .keyword(SyntaxKind.TRANSACTION_KEYWORD)
+                    .stepOut()
+                    .body(body.isPresent() ? body.get().children() : Collections.emptyList())
+                    .onFailure()
+                    .textEdit(false)
+                    .build();
+        }
+
         return sourceBuilder.token()
                 .keyword(SyntaxKind.TRANSACTION_KEYWORD)
                 .stepOut()
@@ -63,5 +80,6 @@ public class Transaction extends NodeBuilder {
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
         this.branches = List.of(Branch.DEFAULT_BODY_BRANCH, Branch.getDefaultOnFailBranch(true));
+        properties().retryCount(3, true);
     }
 }

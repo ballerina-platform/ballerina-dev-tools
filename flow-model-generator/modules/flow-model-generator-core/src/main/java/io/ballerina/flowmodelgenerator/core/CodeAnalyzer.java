@@ -38,6 +38,7 @@ import io.ballerina.compiler.syntax.tree.ByteArrayLiteralNode;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ClientResourceAccessActionNode;
 import io.ballerina.compiler.syntax.tree.CommentNode;
+import io.ballerina.compiler.syntax.tree.CommitActionNode;
 import io.ballerina.compiler.syntax.tree.CompoundAssignmentStatementNode;
 import io.ballerina.compiler.syntax.tree.ContinueStatementNode;
 import io.ballerina.compiler.syntax.tree.DoStatementNode;
@@ -80,6 +81,7 @@ import io.ballerina.compiler.syntax.tree.RollbackStatementNode;
 import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.StartActionNode;
+import io.ballerina.compiler.syntax.tree.StatementNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TemplateExpressionNode;
 import io.ballerina.compiler.syntax.tree.Token;
@@ -94,14 +96,17 @@ import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
+import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.tools.text.LinePosition;
@@ -132,9 +137,10 @@ class CodeAnalyzer extends NodeVisitor {
     private final String connectionScope;
     private final TextDocument textDocument;
     private final String defaultModuleName;
+    private final boolean forceAssign;
 
     public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, Map<String, LineRange> dataMappings,
-                        TextDocument textDocument, String defaultModuleName) {
+                        TextDocument textDocument, String defaultModuleName, boolean forceAssign) {
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
@@ -142,6 +148,7 @@ class CodeAnalyzer extends NodeVisitor {
         this.connectionScope = connectionScope;
         this.textDocument = textDocument;
         this.defaultModuleName = defaultModuleName;
+        this.forceAssign = forceAssign;
     }
 
     @Override
@@ -257,9 +264,10 @@ class CodeAnalyzer extends NodeVisitor {
                 .org(orgName)
                 .module(moduleName)
                 .object("Client")
+                .version(symbol.get().getModule().get().id().version())
                 .symbol(methodName)
                 .build();
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+        FlowNode nodeTemplate = ActionCall.getNodeTemplate(codedata);
         if (nodeTemplate == null) {
             handleExpressionNode(actionNode);
             return;
@@ -389,6 +397,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(TemplateExpressionNode templateExpressionNode) {
+        if (forceAssign) {
+            return;
+        }
         if (templateExpressionNode.kind() == SyntaxKind.XML_TEMPLATE_EXPRESSION) {
             startNode(NodeKind.XML_PAYLOAD)
                     .metadata()
@@ -400,6 +411,9 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ByteArrayLiteralNode byteArrayLiteralNode) {
+        if (forceAssign) {
+            return;
+        }
         startNode(NodeKind.BINARY_DATA)
                 .metadata()
                 .stepOut()
@@ -414,6 +428,7 @@ class CodeAnalyzer extends NodeVisitor {
         }
         ExpressionNode initializerNode = initializer.get();
         this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+
         initializerNode.accept(this);
 
         // Generate the default expression node if a node is not built
@@ -520,6 +535,10 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
+        if (forceAssign && this.typedBindingPatternNode != null) {
+            return;
+        }
+
         FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         String orgName = CommonUtils.getOrgName(functionSymbol);
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
@@ -532,8 +551,9 @@ class CodeAnalyzer extends NodeVisitor {
                     .org(orgName)
                     .module(moduleName)
                     .symbol(functionName)
+                    .version(functionSymbol.getModule().get().id().version())
                     .build();
-            FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
+            FlowNode nodeTemplate = FunctionCall.getNodeTemplate(codedata);
             if (nodeTemplate == null) {
                 handleExpressionNode(functionCallExpressionNode);
                 return;
@@ -549,6 +569,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .org(nodeTemplate.codedata().org())
                         .module(nodeTemplate.codedata().module())
                         .object(nodeTemplate.codedata().object())
+                        .version(nodeTemplate.codedata().version())
                         .symbol(nodeTemplate.codedata().symbol());
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
@@ -572,6 +593,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .codedata()
                             .org(orgName)
                             .module(defaultModuleName)
+                            .version(functionSymbol.getModule().get().id().version())
                             .symbol(functionName);
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties()
@@ -675,12 +697,51 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(RollbackStatementNode rollbackStatementNode) {
-        handleDefaultStatementNode(rollbackStatementNode, () -> super.visit(rollbackStatementNode));
+        startNode(NodeKind.ROLLBACK);
+        Optional<ExpressionNode> optExpr = rollbackStatementNode.expression();
+        if (optExpr.isPresent()) {
+            ExpressionNode expr = optExpr.get();
+            expr.accept(this);
+            nodeBuilder.properties().expression(expr, Rollback.ROLLBACK_EXPRESSION_DOC);
+        }
+        endNode(rollbackStatementNode);
     }
 
     @Override
     public void visit(RetryStatementNode retryStatementNode) {
-        handleDefaultStatementNode(retryStatementNode, () -> super.visit(retryStatementNode));
+        int retryCount = retryStatementNode.arguments().isEmpty() ? 3 :
+                Integer.parseInt(retryStatementNode.arguments()
+                        .map(arg -> arg.arguments().get(0)).get().toString());
+
+        StatementNode statementNode = retryStatementNode.retryBody();
+        if (statementNode.kind() == SyntaxKind.BLOCK_STATEMENT) {
+            startNode(NodeKind.RETRY)
+                    .properties().retryCount(retryCount);
+
+            Branch.Builder branchBuilder =
+                    startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+            analyzeBlock((BlockStatementNode) statementNode, branchBuilder);
+            endBranch(branchBuilder, statementNode);
+            retryStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+            endNode(retryStatementNode);
+        } else { // retry transaction node
+            TransactionStatementNode transactionStatementNode = (TransactionStatementNode) statementNode;
+            BlockStatementNode blockStatementNode = transactionStatementNode.blockStatement();
+            startNode(NodeKind.TRANSACTION)
+                .properties().retryCount(retryCount);
+            Branch.Builder branchBuilder =
+                    startBranch(Branch.BODY_LABEL, NodeKind.BODY, Branch.BranchKind.BLOCK, Branch.Repeatable.ONE);
+            analyzeBlock(blockStatementNode, branchBuilder);
+            endBranch(branchBuilder, blockStatementNode);
+            transactionStatementNode.onFailClause().ifPresent(this::processOnFailClause);
+            endNode(retryStatementNode);
+        }
+    }
+
+    @Override
+    public void visit(CommitActionNode commitActionNode) {
+        startNode(NodeKind.COMMIT);
+        endNode();
     }
 
     @Override
@@ -770,7 +831,8 @@ class CodeAnalyzer extends NodeVisitor {
 
         Optional<Symbol> parentSymbol = semanticModel.symbol(parent);
         if (parentSymbol.isPresent() && CommonUtils.getRawType(
-                ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON) {
+                ((VariableSymbol) parentSymbol.get()).typeDescriptor()).typeKind() == TypeDescKind.JSON &&
+                !forceAssign) {
             startNode(NodeKind.JSON_PAYLOAD)
                     .metadata()
                     .description(JsonPayload.DESCRIPTION)
@@ -792,6 +854,7 @@ class CodeAnalyzer extends NodeVisitor {
     }
 
     // Utility methods
+
     /**
      * It's the responsibility of the parent node to add the children nodes when building the diagram. Hence, the method
      * only adds the node to the diagram if there is no active parent node which is building its branches.

@@ -23,10 +23,11 @@ import io.ballerina.tools.text.LinePosition;
 /**
  * Represents the request for the flow model getAvailableNodes API.
  *
- * @param filePath file path of the source file
- * @param position position of the node to be added
+ * @param filePath    file path of the source file
+ * @param position    position of the node to be added
+ * @param forceAssign whether to render the assign node wherever possible
  * @since 1.4.0
  */
-public record FlowModelAvailableNodesRequest(String filePath, LinePosition position) {
+public record FlowModelAvailableNodesRequest(String filePath, LinePosition position, boolean forceAssign) {
 
 }

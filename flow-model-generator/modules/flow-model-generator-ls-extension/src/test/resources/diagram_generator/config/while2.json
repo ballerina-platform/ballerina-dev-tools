@@ -176,7 +176,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -186,7 +186,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

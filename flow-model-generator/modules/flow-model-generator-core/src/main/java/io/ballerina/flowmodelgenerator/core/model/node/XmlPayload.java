@@ -36,7 +36,7 @@ import java.util.Optional;
  */
 public class XmlPayload extends NodeBuilder {
 
-    public static final String LABEL = "XML Payload";
+    public static final String LABEL = "Assign XML";
     public static final String DESCRIPTION = LABEL;
     public static final String XML_PAYLOAD_DOC = "Create new XML payload";
     private static final String DUMMY_XML_PAYLOAD = "xml `<dummy>Dummy XML value</dummy>`";

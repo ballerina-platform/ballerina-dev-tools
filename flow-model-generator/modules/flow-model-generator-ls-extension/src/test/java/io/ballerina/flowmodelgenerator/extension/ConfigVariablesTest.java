@@ -53,7 +53,7 @@ public class ConfigVariablesTest extends AbstractLSTest {
         if (!configVariables.equals(testConfig.configVariables())) {
             ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.configFile(),
                     configVariables);
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
         TestUtil.shutdownLanguageServer(endpoint);

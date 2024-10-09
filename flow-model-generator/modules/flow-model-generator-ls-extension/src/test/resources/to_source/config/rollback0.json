@@ -1,0 +1,44 @@
+{
+  "source": "empty.bal",
+  "description": "Test to source of rollback statement",
+  "diagram": {
+    "id": "31",
+    "metadata": {
+      "label": "Rollback",
+      "description": "Rollback the transaction"
+    },
+    "codedata": {
+      "node": "ROLLBACK",
+      "lineRange": {
+        "fileName": "test.bal",
+        "startLine": {
+          "line": 0,
+          "offset": 0
+        },
+        "endLine": {
+          "line": 0,
+          "offset": 0
+        }
+      }
+    },
+    "returning": false,
+    "flags": 0
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 0
+          }
+        },
+        "newText": "rollback;"
+      }
+    ]
+  }
+}

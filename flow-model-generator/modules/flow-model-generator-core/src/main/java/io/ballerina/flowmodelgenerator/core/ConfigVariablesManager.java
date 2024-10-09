@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Generates functions based on a given keyword.
+ * Manage the configurable variables.
  *
  * @since 1.4.0
  */

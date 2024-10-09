@@ -9,6 +9,7 @@
   },
   "source": "nested_node.bal",
   "description": "Tests a diagram flow with nested nodes",
+  "forceAssign": false,
   "diagram": {
     "fileName": "nested_node.bal",
     "nodes": [
@@ -226,7 +227,7 @@
                                   },
                                   "variable": {
                                     "metadata": {
-                                      "label": "Data variable",
+                                      "label": "Variable",
                                       "description": "Name of the variable"
                                     },
                                     "valueType": "IDENTIFIER",
@@ -274,7 +275,7 @@
                                   },
                                   "type": {
                                     "metadata": {
-                                      "label": "Data type",
+                                      "label": "Type",
                                       "description": "Type of the variable"
                                     },
                                     "valueType": "TYPE",
@@ -288,11 +289,11 @@
                               {
                                 "id": "78029",
                                 "metadata": {
-                                  "label": "Custom Expression",
-                                  "description": "Represents a custom Ballerina expression"
+                                  "label": "Commit",
+                                  "description": "Commit transaction"
                                 },
                                 "codedata": {
-                                  "node": "EXPRESSION",
+                                  "node": "COMMIT",
                                   "lineRange": {
                                     "fileName": "nested_node.bal",
                                     "startLine": {
@@ -307,18 +308,6 @@
                                   "sourceCode": "check commit;"
                                 },
                                 "returning": false,
-                                "properties": {
-                                  "statement": {
-                                    "metadata": {
-                                      "label": "Statement",
-                                      "description": "Ballerina statement"
-                                    },
-                                    "valueType": "EXPRESSION",
-                                    "value": "check commit;",
-                                    "optional": false,
-                                    "editable": true
-                                  }
-                                },
                                 "flags": 1
                               }
                             ]
@@ -409,7 +398,7 @@
                                   },
                                   "variable": {
                                     "metadata": {
-                                      "label": "Data variable",
+                                      "label": "Variable",
                                       "description": "Name of the variable"
                                     },
                                     "valueType": "IDENTIFIER",
@@ -438,7 +427,7 @@
                                   },
                                   "type": {
                                     "metadata": {
-                                      "label": "Data type",
+                                      "label": "Type",
                                       "description": "Type of the variable"
                                     },
                                     "valueType": "TYPE",
@@ -560,7 +549,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -570,7 +559,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

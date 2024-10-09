@@ -39,6 +39,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Comment;
+import io.ballerina.flowmodelgenerator.core.model.node.Commit;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
@@ -53,7 +54,9 @@ import io.ballerina.flowmodelgenerator.core.model.node.Lock;
 import io.ballerina.flowmodelgenerator.core.model.node.Match;
 import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
+import io.ballerina.flowmodelgenerator.core.model.node.Retry;
 import io.ballerina.flowmodelgenerator.core.model.node.Return;
+import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
@@ -110,32 +113,36 @@ public abstract class NodeBuilder {
     protected String defaultModuleName;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
-        put(NodeKind.IF, If::new);
-        put(NodeKind.RETURN, Return::new);
-        put(NodeKind.EXPRESSION, DefaultExpression::new);
-        put(NodeKind.ERROR_HANDLER, ErrorHandler::new);
-        put(NodeKind.WHILE, While::new);
-        put(NodeKind.CONTINUE, Continue::new);
-        put(NodeKind.BREAK, Break::new);
-        put(NodeKind.PANIC, Panic::new);
-        put(NodeKind.EVENT_HTTP_API, HttpApiEvent::new);
-        put(NodeKind.ACTION_CALL, ActionCall::new);
-        put(NodeKind.NEW_CONNECTION, NewConnection::new);
-        put(NodeKind.START, Start::new);
-        put(NodeKind.TRANSACTION, Transaction::new);
-        put(NodeKind.LOCK, Lock::new);
-        put(NodeKind.FAIL, Fail::new);
-        put(NodeKind.XML_PAYLOAD, XmlPayload::new);
-        put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
-        put(NodeKind.BINARY_DATA, BinaryData::new);
-        put(NodeKind.STOP, Stop::new);
-        put(NodeKind.FUNCTION_CALL, FunctionCall::new);
-        put(NodeKind.FOREACH, Foreach::new);
-        put(NodeKind.DATA_MAPPER, DataMapper::new);
-        put(NodeKind.ASSIGN, Assign::new);
-        put(NodeKind.COMMENT, Comment::new);
-        put(NodeKind.MATCH, Match::new);
-    }};
+            put(NodeKind.IF, If::new);
+            put(NodeKind.RETURN, Return::new);
+            put(NodeKind.EXPRESSION, DefaultExpression::new);
+            put(NodeKind.ERROR_HANDLER, ErrorHandler::new);
+            put(NodeKind.WHILE, While::new);
+            put(NodeKind.CONTINUE, Continue::new);
+            put(NodeKind.BREAK, Break::new);
+            put(NodeKind.PANIC, Panic::new);
+            put(NodeKind.EVENT_HTTP_API, HttpApiEvent::new);
+            put(NodeKind.ACTION_CALL, ActionCall::new);
+            put(NodeKind.NEW_CONNECTION, NewConnection::new);
+            put(NodeKind.START, Start::new);
+            put(NodeKind.TRANSACTION, Transaction::new);
+            put(NodeKind.RETRY, Retry::new);
+            put(NodeKind.LOCK, Lock::new);
+            put(NodeKind.FAIL, Fail::new);
+            put(NodeKind.COMMIT, Commit::new);
+            put(NodeKind.ROLLBACK, Rollback::new);
+            put(NodeKind.XML_PAYLOAD, XmlPayload::new);
+            put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
+            put(NodeKind.BINARY_DATA, BinaryData::new);
+            put(NodeKind.STOP, Stop::new);
+            put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+            put(NodeKind.FOREACH, Foreach::new);
+            put(NodeKind.DATA_MAPPER, DataMapper::new);
+            put(NodeKind.ASSIGN, Assign::new);
+            put(NodeKind.COMMENT, Comment::new);
+            put(NodeKind.MATCH, Match::new);
+        }};
+
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {
         return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
@@ -628,6 +635,25 @@ public abstract class NodeBuilder {
                     .editable()
                     .build();
             addProperty(Property.CONDITION_KEY, condition);
+            return this;
+        }
+
+        public PropertiesBuilder<T> retryCount(int retryCount) {
+            return retryCount(retryCount, false);
+        }
+
+        public PropertiesBuilder<T> retryCount(int retryCount, boolean optional) {
+            Property property = propertyBuilder
+                    .metadata()
+                    .label(Property.RETRY_COUNT_LABEL)
+                    .description(Property.RETRY_COUNT_DOC)
+                    .stepOut()
+                    .value(String.valueOf(retryCount))
+                    .type(Property.ValueType.EXPRESSION)
+                    .optional(optional)
+                    .editable()
+                    .build();
+            addProperty(Property.RETRY_COUNT_KEY, property);
             return this;
         }
 
