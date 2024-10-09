@@ -65,14 +65,12 @@ public class AvailableNodesGenerator {
     private final SemanticModel semanticModel;
     private final Document document;
     private final Gson gson;
-    private final boolean forceAssign;
 
-    public AvailableNodesGenerator(SemanticModel semanticModel, Document document, boolean forceAssign) {
+    public AvailableNodesGenerator(SemanticModel semanticModel, Document document) {
         this.rootBuilder = new Category.Builder(null).name(Category.Name.ROOT);
         this.gson = new Gson();
         this.semanticModel = semanticModel;
         this.document = document;
-        this.forceAssign = forceAssign;
     }
 
     public JsonArray getAvailableNodes(LinePosition position) {
@@ -139,14 +137,11 @@ public class AvailableNodesGenerator {
                 true
         );
 
-        this.rootBuilder.stepIn(Category.Name.STATEMENT).node(NodeKind.ASSIGN);
-
-        if (!forceAssign) {
-            this.rootBuilder.stepIn(Category.Name.STATEMENT)
-                    .node(function)
-                    .node(NodeKind.DATA_MAPPER)
-                    .node(NodeKind.RETRY);
-        }
+        this.rootBuilder.stepIn(Category.Name.STATEMENT)
+                .node(NodeKind.ASSIGN)
+                .node(function)
+                .node(NodeKind.DATA_MAPPER)
+                .node(NodeKind.RETRY);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
@@ -154,13 +149,6 @@ public class AvailableNodesGenerator {
                 .node(NodeKind.WHILE)
                 .node(NodeKind.FOREACH)
                 .node(NodeKind.RETURN);
-
-        if (!forceAssign) {
-            this.rootBuilder.stepIn(Category.Name.DATA)
-                    .node(NodeKind.JSON_PAYLOAD)
-                    .node(NodeKind.XML_PAYLOAD)
-                    .node(NodeKind.BINARY_DATA);
-        }
 
         this.rootBuilder
                 .stepIn(Category.Name.ERROR_HANDLING)

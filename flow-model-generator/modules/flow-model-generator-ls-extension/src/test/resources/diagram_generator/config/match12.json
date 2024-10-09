@@ -9,7 +9,6 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
@@ -115,11 +114,11 @@
               {
                 "id": "273373",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "Assign",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "ASSIGN",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -135,10 +134,10 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "expression": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "Expression",
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
                     "value": "int:fromString(obj.quantity.toString())",

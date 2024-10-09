@@ -9,7 +9,6 @@
   },
   "source": "flags.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "flags.bal",
     "nodes": [
@@ -95,14 +94,11 @@
       {
         "id": "38859",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -118,6 +114,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -144,14 +150,11 @@
       {
         "id": "39856",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -167,6 +170,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -193,14 +206,11 @@
       {
         "id": "40845",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -216,6 +226,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -242,14 +262,11 @@
       {
         "id": "41842",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -265,6 +282,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",

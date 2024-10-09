@@ -9,7 +9,6 @@
   },
   "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "new_data.bal",
     "nodes": [
@@ -95,11 +94,11 @@
       {
         "id": "54721",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
@@ -151,11 +150,11 @@
       {
         "id": "55723",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {

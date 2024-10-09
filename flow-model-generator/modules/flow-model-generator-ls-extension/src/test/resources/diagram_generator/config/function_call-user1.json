@@ -9,7 +9,6 @@
   },
   "source": "function_call.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "function_call.bal",
     "nodes": [
@@ -39,14 +38,11 @@
       {
         "id": "99361",
         "metadata": {
-          "label": "greet"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "greet",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -62,12 +58,13 @@
         },
         "returning": false,
         "properties": {
-          "name": {
+          "expression": {
             "metadata": {
-              "label": "name"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"Alice\"",
+            "value": "greet(\"Alice\")",
             "optional": false,
             "editable": true
           },
@@ -97,14 +94,11 @@
       {
         "id": "100343",
         "metadata": {
-          "label": "power"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "power",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -120,21 +114,14 @@
         },
         "returning": false,
         "properties": {
-          "base": {
+          "expression": {
             "metadata": {
-              "label": "base"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "3",
+            "value": "power(3)",
             "optional": false,
-            "editable": true
-          },
-          "exponent": {
-            "metadata": {
-              "label": "exponent"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
             "editable": true
           },
           "variable": {
@@ -163,14 +150,11 @@
       {
         "id": "101336",
         "metadata": {
-          "label": "power"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "power",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -186,22 +170,14 @@
         },
         "returning": false,
         "properties": {
-          "base": {
+          "expression": {
             "metadata": {
-              "label": "base"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "3",
+            "value": "power(3, 3)",
             "optional": false,
-            "editable": true
-          },
-          "exponent": {
-            "metadata": {
-              "label": "exponent"
-            },
-            "valueType": "EXPRESSION",
-            "value": "3",
-            "optional": true,
             "editable": true
           },
           "variable": {
@@ -259,14 +235,11 @@
       {
         "id": "103328",
         "metadata": {
-          "label": "asum"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "asum",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -282,6 +255,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "asum(1, 2, 3, 4, 5)",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -308,14 +291,11 @@
       {
         "id": "105353",
         "metadata": {
-          "label": "operate"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "operate",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -331,30 +311,13 @@
         },
         "returning": false,
         "properties": {
-          "a": {
+          "expression": {
             "metadata": {
-              "label": "a"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "6",
-            "optional": false,
-            "editable": true
-          },
-          "b": {
-            "metadata": {
-              "label": "b"
-            },
-            "valueType": "EXPRESSION",
-            "value": "3",
-            "optional": false,
-            "editable": true
-          },
-          "func": {
-            "metadata": {
-              "label": "func"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
+            "value": "operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            })",
             "optional": false,
             "editable": true
           },

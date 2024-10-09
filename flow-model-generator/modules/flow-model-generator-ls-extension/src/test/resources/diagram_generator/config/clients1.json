@@ -9,7 +9,6 @@
   },
   "source": "clients.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "clients.bal",
     "nodes": [
@@ -155,15 +154,11 @@
       {
         "id": "48794",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -179,32 +174,13 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"http://localhost:8080\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
+            "value": "new (\"http://localhost:8080\")",
             "optional": false,
             "editable": true
           },
@@ -314,11 +290,11 @@
       {
         "id": "50745",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -334,10 +310,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new",

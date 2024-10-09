@@ -9,7 +9,6 @@
   },
   "source": "start.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "start.bal",
     "nodes": [
@@ -39,11 +38,11 @@
       {
         "id": "52725",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -59,10 +58,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new(\"foo\")",

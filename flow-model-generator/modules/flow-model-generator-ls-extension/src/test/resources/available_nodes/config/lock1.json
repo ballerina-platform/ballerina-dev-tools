@@ -5,7 +5,6 @@
     "offset": 14
   },
   "source": "lock.bal",
-  "forceAssign": false,
   "categories": [
     {
       "metadata": {
@@ -124,42 +123,6 @@
           },
           "codedata": {
             "node": "STOP"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Data",
-        "description": "Data nodes are used to create, read, update, delete, and transform data"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Assign JSON"
-          },
-          "codedata": {
-            "node": "JSON_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign XML"
-          },
-          "codedata": {
-            "node": "XML_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign Binary",
-            "description": "Assign Binary"
-          },
-          "codedata": {
-            "node": "BINARY_DATA"
           },
           "enabled": true
         }

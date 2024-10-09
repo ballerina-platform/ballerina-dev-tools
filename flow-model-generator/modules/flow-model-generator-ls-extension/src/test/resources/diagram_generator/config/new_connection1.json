@@ -9,7 +9,6 @@
   },
   "source": "new_connection.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "new_connection.bal",
     "nodes": [
@@ -39,15 +38,11 @@
       {
         "id": "38878",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -63,32 +58,13 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"http://localhost:8080\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
+            "value": "new (\"http://localhost:8080\")",
             "optional": false,
             "editable": true
           },
@@ -118,15 +94,11 @@
       {
         "id": "39846",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
-          "object": "Client",
-          "symbol": "init",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -142,22 +114,13 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "configuration for the connector\n"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
+            "value": "new",
             "optional": false,
             "editable": true
           },

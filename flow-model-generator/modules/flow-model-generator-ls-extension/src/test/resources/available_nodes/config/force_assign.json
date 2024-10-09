@@ -5,7 +5,6 @@
     "offset": 8
   },
   "source": "function_body.bal",
-  "forceAssign": true,
   "categories": [
     {
       "metadata": {
@@ -27,6 +26,36 @@
           },
           "codedata": {
             "node": "ASSIGN"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Function Call",
+            "description": "Both project and utility functions"
+          },
+          "codedata": {
+            "node": "FUNCTION"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Data Mapper",
+            "description": "Map data from multiple variables to a record type"
+          },
+          "codedata": {
+            "node": "DATA_MAPPER"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
+            "label": "Retry Block",
+            "description": "Retry block."
+          },
+          "codedata": {
+            "node": "RETRY"
           },
           "enabled": true
         }

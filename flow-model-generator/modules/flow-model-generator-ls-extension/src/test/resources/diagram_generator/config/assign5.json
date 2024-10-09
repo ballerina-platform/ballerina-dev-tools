@@ -9,7 +9,6 @@
   },
   "source": "update_data.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "update_data.bal",
     "nodes": [
@@ -39,11 +38,11 @@
       {
         "id": "53767",
         "metadata": {
-          "label": "Assign JSON",
-          "description": "Assign JSON"
+          "label": "Assign",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "JSON_PAYLOAD",
+          "node": "ASSIGN",
           "lineRange": {
             "fileName": "update_data.bal",
             "startLine": {

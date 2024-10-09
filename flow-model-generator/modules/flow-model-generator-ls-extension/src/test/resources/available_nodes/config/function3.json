@@ -5,7 +5,6 @@
     "offset": 8
   },
   "source": "function_body.bal",
-  "forceAssign": false,
   "categories": [
     {
       "metadata": {
@@ -114,42 +113,6 @@
           },
           "codedata": {
             "node": "RETURN"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Data",
-        "description": "Data nodes are used to create, read, update, delete, and transform data"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Assign JSON"
-          },
-          "codedata": {
-            "node": "JSON_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign XML"
-          },
-          "codedata": {
-            "node": "XML_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign Binary",
-            "description": "Assign Binary"
-          },
-          "codedata": {
-            "node": "BINARY_DATA"
           },
           "enabled": true
         }
