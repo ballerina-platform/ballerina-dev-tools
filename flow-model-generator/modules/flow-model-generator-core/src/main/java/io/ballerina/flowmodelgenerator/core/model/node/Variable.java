@@ -18,6 +18,7 @@
 
 package io.ballerina.flowmodelgenerator.core.model.node;
 
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
@@ -50,14 +51,17 @@ public class Variable extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.DATA_TYPE_KEY);
         Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
-
         if (type.isPresent() && variable.isPresent()) {
-
+            sourceBuilder.token().expressionWithType(type.get(), variable.get());
         }
 
         Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
-        exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());
-
+        if (exprProperty.isPresent() && !exprProperty.get().toSourceCode().isEmpty()) {
+            sourceBuilder.token()
+                    .keyword(SyntaxKind.EQUAL_TOKEN)
+                    .expression(exprProperty.get());
+        }
+        sourceBuilder.token().endOfStatement();
         return sourceBuilder.textEdit(false).build();
     }
 
