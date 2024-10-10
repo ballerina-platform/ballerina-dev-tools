@@ -9,7 +9,6 @@
   },
   "source": "error_handler.bal",
   "description": "Tests a error handler",
-  "forceAssign": false,
   "diagram": {
     "fileName": "error_handler.bal",
     "nodes": [
@@ -34,6 +33,62 @@
           "sourceCode": "resource function get apples() {\n        string? msg;\n        do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }\n    }"
         },
         "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "37964",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string? msg;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "msg",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string|()",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

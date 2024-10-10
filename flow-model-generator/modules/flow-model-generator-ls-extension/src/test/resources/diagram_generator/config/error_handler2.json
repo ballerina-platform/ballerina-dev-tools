@@ -9,7 +9,6 @@
   },
   "source": "error_handler.bal",
   "description": "Tests a error handler",
-  "forceAssign": false,
   "diagram": {
     "fileName": "error_handler.bal",
     "nodes": [
@@ -34,6 +33,62 @@
           "sourceCode": "resource function get oranges() {\n        string? msg;\n        do {\n            json res3 = check foodClient->get(\"/western/oranges\");\n            msg = res3.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n            do {\n                json res = check foodClient->post(\"/log\", \"Error occurred while getting the response\");\n                msg = msg.toString() + res.toString();\n            } on fail {\n                msg = \"Error occurred while logging the error\";\n            }\n        }\n    }"
         },
         "returning": false,
+        "flags": 0
+      },
+      {
+        "id": "47884",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 16,
+              "offset": 8
+            },
+            "endLine": {
+              "line": 16,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string? msg;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "msg",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string|()",
+            "optional": false,
+            "editable": true
+          }
+        },
         "flags": 0
       },
       {

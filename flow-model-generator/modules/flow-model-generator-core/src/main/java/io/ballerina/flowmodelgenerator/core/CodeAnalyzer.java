@@ -417,20 +417,24 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
         if (initializer.isEmpty()) {
-            return;
-        }
-        ExpressionNode initializerNode = initializer.get();
-        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
-
-        initializerNode.accept(this);
-
-        // Generate the default expression node if a node is not built
-        if (isNodeUnidentified()) {
             startNode(NodeKind.VARIABLE)
                     .metadata()
                         .description(Assign.DESCRIPTION)
                         .stepOut()
-                    .properties().expression(initializerNode);
+                    .properties().expression(null);
+        } else {
+            ExpressionNode initializerNode = initializer.get();
+            this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+            initializerNode.accept(this);
+
+            // Generate the default expression node if a node is not built
+            if (isNodeUnidentified()) {
+                startNode(NodeKind.VARIABLE)
+                        .metadata()
+                            .description(Assign.DESCRIPTION)
+                            .stepOut()
+                        .properties().expression(initializerNode);
+            }
         }
 
         // TODO: Find a better way on how we can achieve this

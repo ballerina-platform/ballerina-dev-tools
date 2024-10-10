@@ -27,7 +27,7 @@
           "label": "config",
           "description": "configuration for the connector\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "{}",
         "optional": false,
         "editable": true
