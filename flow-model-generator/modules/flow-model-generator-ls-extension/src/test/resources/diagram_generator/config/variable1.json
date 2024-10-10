@@ -1,42 +1,20 @@
 {
   "start": {
-    "line": 6,
+    "line": 1,
     "offset": 0
   },
   "end": {
-    "line": 9,
+    "line": 10,
     "offset": 1
   },
-  "source": "new_connection.bal",
+  "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
-    "fileName": "new_connection.bal",
+    "fileName": "new_data.bal",
     "nodes": [
       {
-        "id": "37790",
-        "metadata": {
-          "label": "Start"
-        },
-        "codedata": {
-          "node": "EVENT_START",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 6,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 9,
-              "offset": 1
-            }
-          },
-          "sourceCode": "public function fn1() returns error? {\n    http:Client localHttpCl = check new (\"http://localhost:8080\");\n    redis:Client localRedisCl = check new;\n}"
-        },
-        "returning": false,
-        "flags": 0
-      },
-      {
-        "id": "38878",
+        "id": "32874",
         "metadata": {
           "label": "Variable",
           "description": "Assign a value to a variable"
@@ -44,17 +22,17 @@
         "codedata": {
           "node": "VARIABLE",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 7,
+              "line": 1,
               "offset": 4
             },
             "endLine": {
-              "line": 7,
-              "offset": 66
+              "line": 1,
+              "offset": 14
             }
           },
-          "sourceCode": "http:Client localHttpCl = check new (\"http://localhost:8080\");"
+          "sourceCode": "int i = 2;"
         },
         "returning": false,
         "properties": {
@@ -64,7 +42,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "check new (\"http://localhost:8080\")",
+            "value": "2",
             "optional": false,
             "editable": true
           },
@@ -74,7 +52,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "localHttpCl",
+            "value": "i",
             "optional": false,
             "editable": true
           },
@@ -84,7 +62,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "http:Client",
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -92,7 +70,7 @@
         "flags": 0
       },
       {
-        "id": "39846",
+        "id": "33871",
         "metadata": {
           "label": "Variable",
           "description": "Assign a value to a variable"
@@ -100,17 +78,17 @@
         "codedata": {
           "node": "VARIABLE",
           "lineRange": {
-            "fileName": "new_connection.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 8,
+              "line": 2,
               "offset": 4
             },
             "endLine": {
-              "line": 8,
-              "offset": 42
+              "line": 2,
+              "offset": 19
             }
           },
-          "sourceCode": "redis:Client localRedisCl = check new;"
+          "sourceCode": "float f = 1.2f;"
         },
         "returning": false,
         "properties": {
@@ -120,7 +98,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "check new",
+            "value": "1.2f",
             "optional": false,
             "editable": true
           },
@@ -130,7 +108,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "localRedisCl",
+            "value": "f",
             "optional": false,
             "editable": true
           },
@@ -140,7 +118,343 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "redis:Client",
+            "value": "float",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34870",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 26
+            }
+          },
+          "sourceCode": "decimal d = 100000.0d;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "100000.0d",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "d",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "decimal",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "35855",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 4,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 19
+            }
+          },
+          "sourceCode": "decimal d1 = d;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "d",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "d1",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "decimal",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "37834",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 6,
+              "offset": 14
+            }
+          },
+          "sourceCode": "int j = 3;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "3",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "j",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "38830",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 7,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 7,
+              "offset": 18
+            }
+          },
+          "sourceCode": "int k = i + j;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "i + j",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "k",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "39822",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 8,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 8,
+              "offset": 18
+            }
+          },
+          "sourceCode": "var l = i + j;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "i + j",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "l",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "40814",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 9,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 9,
+              "offset": 18
+            }
+          },
+          "sourceCode": "var _ = k + l;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "k + l",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "_",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
             "optional": false,
             "editable": true
           }
@@ -148,303 +462,6 @@
         "flags": 0
       }
     ],
-    "connections": [
-      {
-        "id": "34783",
-        "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
-        },
-        "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 3,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 3,
-              "offset": 63
-            }
-          },
-          "sourceCode": "http:Client moduleHttpCl = check new (\"http://localhost:9090\");"
-        },
-        "returning": false,
-        "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"http://localhost:9090\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleHttpCl",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "http:Client",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 1
-      },
-      {
-        "id": "42732",
-        "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
-        },
-        "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 11,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 11,
-              "offset": 76
-            }
-          },
-          "sourceCode": "http:Client moduleHttpExCl = check new http:Client(\"http://localhost:9090\");"
-        },
-        "returning": false,
-        "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
-            },
-            "valueType": "EXPRESSION",
-            "value": "\"http://localhost:9090\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleHttpExCl",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "http:Client",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 1
-      },
-      {
-        "id": "35751",
-        "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
-        },
-        "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
-          "object": "Client",
-          "symbol": "init",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 4,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 4,
-              "offset": 39
-            }
-          },
-          "sourceCode": "redis:Client moduleRedisCl = check new;"
-        },
-        "returning": false,
-        "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "configuration for the connector\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleRedisCl",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "redis:Client",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 1
-      },
-      {
-        "id": "43704",
-        "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
-        },
-        "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerinax",
-          "module": "redis",
-          "object": "Client",
-          "symbol": "init",
-          "lineRange": {
-            "fileName": "new_connection.bal",
-            "startLine": {
-              "line": 12,
-              "offset": 0
-            },
-            "endLine": {
-              "line": 12,
-              "offset": 56
-            }
-          },
-          "sourceCode": "redis:Client moduleRedisExCl = check new redis:Client();"
-        },
-        "returning": false,
-        "properties": {
-          "scope": {
-            "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Global",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "configuration for the connector\n"
-            },
-            "valueType": "EXPRESSION",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "moduleRedisExCl",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "redis:Client",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 1
-      }
-    ]
+    "connections": []
   }
 }

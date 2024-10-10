@@ -25,21 +25,11 @@
     "properties": {
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
         "value": "item",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "var",
         "optional": false,
         "editable": true
       },
@@ -69,7 +59,7 @@
             "character": 0
           }
         },
-        "newText": "var item = ;"
+        "newText": "item = ;"
       }
     ]
   }

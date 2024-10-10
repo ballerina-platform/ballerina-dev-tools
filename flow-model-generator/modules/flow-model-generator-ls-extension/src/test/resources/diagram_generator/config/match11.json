@@ -9,16 +9,17 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
         "id": "254515",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get peaches(map<anydata> data) returns string {\n        match data {\n            [var quantity, var ripeness] if quantity is int && ripeness is int => {\n                if quantity < 0 || ripeness < 1 || ripeness > 5 {\n                    panic error(\"Invalid input values\");\n                }\n                return string `Order for ${quantity} peaches with ripeness ${ripeness}`;\n            }\n            _ => {\n                panic error(\"Invalid data format\");\n            }\n        } on fail var e {\n            return string `Error processing peach order: ${e.message()}`;\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "peaches",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "255573",

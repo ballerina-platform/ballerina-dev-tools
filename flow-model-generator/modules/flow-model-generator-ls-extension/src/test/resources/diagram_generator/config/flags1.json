@@ -15,11 +15,10 @@
       {
         "id": "34969",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -34,18 +33,6 @@
           "sourceCode": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function main() returns error? {\n    check fnWithError();\n    checkpanic fnWithError();\n\n    boolean res1 = check fnWithErrorAndValue();\n    boolean res2 = checkpanic fnWithErrorAndValue();\n    final var res3 = check fnWithErrorAndValue();\n    final var res4 = checkpanic fnWithErrorAndValue();\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
@@ -107,14 +94,11 @@
       {
         "id": "38859",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -130,6 +114,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "check fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -151,19 +145,16 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "39856",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -179,6 +170,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "checkpanic fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -200,19 +201,16 @@
             "editable": true
           }
         },
-        "flags": 2
+        "flags": 0
       },
       {
         "id": "40845",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -228,6 +226,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "check fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -249,19 +257,16 @@
             "editable": true
           }
         },
-        "flags": 5
+        "flags": 4
       },
       {
         "id": "41842",
         "metadata": {
-          "label": "fnWithErrorAndValue"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "FUNCTION_CALL",
-          "org": "$anon",
-          "module": ".",
-          "symbol": "fnWithErrorAndValue",
-          "version": "0.0.0",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -277,6 +282,16 @@
         },
         "returning": false,
         "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "checkpanic fnWithErrorAndValue()",
+            "optional": false,
+            "editable": true
+          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -298,7 +313,7 @@
             "editable": true
           }
         },
-        "flags": 6
+        "flags": 4
       }
     ],
     "connections": []

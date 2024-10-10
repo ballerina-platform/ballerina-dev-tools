@@ -1,55 +1,42 @@
 {
   "start": {
-    "line": 0,
+    "line": 31,
     "offset": 0
   },
   "end": {
-    "line": 4,
+    "line": 35,
     "offset": 1
   },
-  "source": "update_data.bal",
+  "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "update_data.bal",
+    "fileName": "new_data.bal",
     "nodes": [
       {
-        "id": "31869",
+        "id": "62621",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 0,
+              "line": 31,
               "offset": 0
             },
             "endLine": {
-              "line": 4,
+              "line": 35,
               "offset": 1
             }
           },
-          "sourceCode": "function testNewData() {\n    int i = 2;\n    i = 3;\n    _ = 4;\n}"
+          "sourceCode": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    [int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testNewData() {\n    int i = 2;\n    i = 3;\n    _ = 4;\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
-        "id": "32874",
+        "id": "63687",
         "metadata": {
           "label": "Assign",
           "description": "Assign a value to a variable"
@@ -57,17 +44,17 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 1,
+              "line": 32,
               "offset": 4
             },
             "endLine": {
-              "line": 1,
-              "offset": 14
+              "line": 32,
+              "offset": 75
             }
           },
-          "sourceCode": "int i = 2;"
+          "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
         },
         "returning": false,
         "properties": {
@@ -77,7 +64,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "2",
+            "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
           },
@@ -87,7 +74,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "i",
+            "value": "newData1",
             "optional": false,
             "editable": true
           },
@@ -97,7 +84,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "int",
+            "value": "json",
             "optional": false,
             "editable": true
           }
@@ -105,7 +92,7 @@
         "flags": 0
       },
       {
-        "id": "33862",
+        "id": "64637",
         "metadata": {
           "label": "Assign",
           "description": "Assign a value to a variable"
@@ -113,17 +100,17 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 2,
+              "line": 33,
               "offset": 4
             },
             "endLine": {
-              "line": 2,
-              "offset": 10
+              "line": 33,
+              "offset": 33
             }
           },
-          "sourceCode": "i = 3;"
+          "sourceCode": "[int, int] newData2 = [1, 2];"
         },
         "returning": false,
         "properties": {
@@ -133,17 +120,27 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "3",
+            "value": "[1, 2]",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "i",
+            "value": "newData2",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "[int, int]",
             "optional": false,
             "editable": true
           }
@@ -151,7 +148,7 @@
         "flags": 0
       },
       {
-        "id": "34854",
+        "id": "65677",
         "metadata": {
           "label": "Assign",
           "description": "Assign a value to a variable"
@@ -159,17 +156,17 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "update_data.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 3,
+              "line": 34,
               "offset": 4
             },
             "endLine": {
-              "line": 3,
-              "offset": 10
+              "line": 34,
+              "offset": 81
             }
           },
-          "sourceCode": "_ = 4;"
+          "sourceCode": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
         },
         "returning": false,
         "properties": {
@@ -179,17 +176,27 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "4",
+            "value": "[check calculate(amount), check calculate(amount + 1)]",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
               "label": "Variable",
-              "description": "Result Variable"
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "_",
+            "value": "newData3",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "[int, int]",
             "optional": false,
             "editable": true
           }

@@ -1,61 +1,60 @@
 {
   "start": {
-    "line": 16,
+    "line": 27,
     "offset": 0
   },
   "end": {
-    "line": 19,
+    "line": 29,
     "offset": 1
   },
-  "source": "panic.bal",
+  "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
-    "fileName": "panic.bal",
+    "fileName": "new_data.bal",
     "nodes": [
       {
-        "id": "47710",
+        "id": "58591",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "panic.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 16,
+              "line": 27,
               "offset": 0
             },
             "endLine": {
-              "line": 19,
+              "line": 29,
               "offset": 1
             }
           },
-          "sourceCode": "function panicFunc4() {\n    error e = error(\"AssertionError\");\n    panic e;\n}"
+          "sourceCode": "function testNewDataJson2(int amount) returns error? {\n    json newData = {value: check calculate(amount)};\n}"
         },
         "returning": false,
         "flags": 0
       },
       {
-        "id": "48770",
+        "id": "59696",
         "metadata": {
-          "label": "Variable",
+          "label": "Assign",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "ASSIGN",
           "lineRange": {
-            "fileName": "panic.bal",
+            "fileName": "new_data.bal",
             "startLine": {
-              "line": 17,
+              "line": 28,
               "offset": 4
             },
             "endLine": {
-              "line": 17,
-              "offset": 38
+              "line": 28,
+              "offset": 52
             }
           },
-          "sourceCode": "error e = error(\"AssertionError\");"
+          "sourceCode": "json newData = {value: check calculate(amount)};"
         },
         "returning": false,
         "properties": {
@@ -65,7 +64,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "error(\"AssertionError\")",
+            "value": "{value: check calculate(amount)}",
             "optional": false,
             "editable": true
           },
@@ -75,7 +74,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "e",
+            "value": "newData",
             "optional": false,
             "editable": true
           },
@@ -85,43 +84,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "error",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "49736",
-        "metadata": {
-          "label": "Panic",
-          "description": "Panic and stop the execution"
-        },
-        "codedata": {
-          "node": "PANIC",
-          "lineRange": {
-            "fileName": "panic.bal",
-            "startLine": {
-              "line": 18,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 18,
-              "offset": 12
-            }
-          },
-          "sourceCode": "panic e;"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Panic value"
-            },
-            "valueType": "EXPRESSION",
-            "value": "e",
+            "value": "json",
             "optional": false,
             "editable": true
           }

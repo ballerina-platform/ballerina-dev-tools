@@ -15,11 +15,11 @@
       {
         "id": "32896",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "xml_payload.bal",
             "startLine": {
@@ -41,7 +41,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "xml `<p>value</p>`",
+            "value": "((xml `<p>value</p>`))",
             "optional": false,
             "editable": true
           },
@@ -71,11 +71,11 @@
       {
         "id": "33881",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "xml_payload.bal",
             "startLine": {
@@ -127,11 +127,11 @@
       {
         "id": "34880",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "xml_payload.bal",
             "startLine": {
@@ -183,11 +183,11 @@
       {
         "id": "35872",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "xml_payload.bal",
             "startLine": {
@@ -239,11 +239,11 @@
       {
         "id": "36860",
         "metadata": {
-          "label": "Assign XML",
-          "description": "Assign XML"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "XML_PAYLOAD",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "xml_payload.bal",
             "startLine": {

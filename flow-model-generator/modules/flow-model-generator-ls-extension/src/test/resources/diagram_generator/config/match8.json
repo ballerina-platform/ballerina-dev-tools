@@ -9,16 +9,17 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
         "id": "175527",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get tomatoes(any quantity) returns string {\n        if quantity is int {\n            var q = <int>quantity;\n            match q {\n                var n if n > 10 => {\n                    return \"bulk\";\n                }\n                var n if n > 5 => {\n                    match n {\n                        var m if m > 8 => {\n                            return \"large pack\";\n                        }\n                        var m if m > 6 => {\n                            return \"medium pack\";\n                        }\n                        _ => {\n                            return \"small pack\";\n                        }\n                    }\n                }\n                _ => {\n                    return \"individual\";\n                }\n            }\n        }\n        return \"invalid quantity\";\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "tomatoes",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "176554",
@@ -115,11 +94,11 @@
               {
                 "id": "176982",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {

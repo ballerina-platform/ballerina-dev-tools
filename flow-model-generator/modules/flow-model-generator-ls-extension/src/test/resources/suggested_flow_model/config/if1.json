@@ -14,17 +14,17 @@
     "offset": 0
   },
   "description": "",
+  "forceAssign": false,
   "diagram": {
     "fileName": "if.bal",
     "nodes": [
       {
         "id": "31931",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -39,28 +39,16 @@
           "sourceCode": "function fn1(boolean flag) {\n    int i = 12;\n   if (i > 10) {\n i = i + 3;\n    }\n    string val = i.toString();\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function fn1(boolean flag) {\n    int i = 12;\n   if (i > 10) {\n i = i + 3;\n    }\n    string val = i.toString();\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "32875",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -221,11 +209,11 @@
       {
         "id": "36858",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {

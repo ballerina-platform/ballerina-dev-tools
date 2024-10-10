@@ -9,16 +9,17 @@
   },
   "source": "if_node.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "if_node.bal",
     "nodes": [
       {
         "id": "68081",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get oranges(Food food) returns Food {\n        if food.price < 100 {\n            food.comment = \"cheap\";\n            return food;\n        } else if food.price < 200 {\n            if food.remaining > 0 {\n                food.comment = \"fresh; \";\n            } else {\n                food.comment = \"expired; \";\n            }\n            food.comment += \"moderate\";\n            return food;\n        } else {\n            food.comment = \"expensive\";\n            return food;\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "oranges",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "69139",

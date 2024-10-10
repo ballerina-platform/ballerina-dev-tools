@@ -14,17 +14,17 @@
     "offset": 0
   },
   "description": "",
+  "forceAssign": false,
   "diagram": {
     "fileName": "if.bal",
     "nodes": [
       {
         "id": "38131",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -39,28 +39,16 @@
           "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n   int z = x + y;\n        if (z > 30) {\n            print(\"Sum is greater than 30\");\n        } else {\n            print(\"Sum is less than or equal to 30);\n        }\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function fn2() {\n    int x = 10;\n    int y = 20;\n   int z = x + y;\n        if (z > 30) {\n            print(\"Sum is greater than 30\");\n        } else {\n            print(\"Sum is less than or equal to 30);\n        }\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "38827",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -113,11 +101,11 @@
       {
         "id": "39819",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -170,11 +158,11 @@
       {
         "id": "40782",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {

@@ -14,16 +14,17 @@
     "offset": 0
   },
   "description": "",
+  "forceAssign": false,
   "diagram": {
     "fileName": "service.bal",
     "nodes": [
       {
         "id": "36089",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "service.bal",
             "startLine": {
@@ -38,29 +39,7 @@
           "sourceCode": "resource function get greeting(string? name) returns string|error {\n        do {\n            if name is string {\n\n            }\n        } on fail error e {\n     return message in e;            \n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "greeting",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "37147",

@@ -15,10 +15,10 @@
       {
         "id": "80171",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -33,38 +33,16 @@
           "sourceCode": "resource function get pineapples(int count, int retries) returns string {\n        int i = 0;\n        string finalMsg = \"\";\n        while i < count {\n            json response = check foodClient->get(\"/food/pineapples\");\n            finalMsg += response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            int attempts = 0;\n            http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");\n            if adminClient is http:ClientError {\n                return \"Error occurred while creating admin client\";\n            }\n            while attempts < retries {\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            } on fail {\n                return \"Error occurred while invoking admin service\";\n            }\n            return \"Error occurred while invoking food service\";\n        }\n        return finalMsg;\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "pineapples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "80618",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -116,11 +94,11 @@
       {
         "id": "81621",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -421,11 +399,11 @@
               {
                 "id": "87697",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -477,15 +455,11 @@
               {
                 "id": "88745",
                 "metadata": {
-                  "label": "New Connection",
-                  "description": "Create a new connection"
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "NEW_CONNECTION",
-                  "org": "ballerina",
-                  "module": "http",
-                  "object": "Client",
-                  "symbol": "init",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -501,32 +475,13 @@
                 },
                 "returning": false,
                 "properties": {
-                  "scope": {
+                  "expression": {
                     "metadata": {
-                      "label": "Connection Scope",
-                      "description": "Scope of the connection, Global or Local"
-                    },
-                    "valueType": "ENUM",
-                    "value": "Local",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "url": {
-                    "metadata": {
-                      "label": "url",
-                      "description": "URL of the target service\n"
+                      "label": "Expression",
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "\"http://localhost:9090\"",
-                    "optional": false,
-                    "editable": true
-                  },
-                  "config": {
-                    "metadata": {
-                      "label": "config",
-                      "description": "The configurations to be used when initializing the `client`\n"
-                    },
-                    "valueType": "EXPRESSION",
+                    "value": "new (\"http://localhost:9090\")",
                     "optional": false,
                     "editable": true
                   },

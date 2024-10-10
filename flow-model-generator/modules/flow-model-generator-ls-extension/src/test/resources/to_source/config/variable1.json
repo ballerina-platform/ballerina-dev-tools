@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "53726",
+    "id": "32874",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 22,
+          "line": 1,
           "offset": 4
         },
         "endLine": {
-          "line": 22,
-          "offset": 34
+          "line": 1,
+          "offset": 14
         }
       },
-      "sourceCode": "string content = \"create xml\";"
+      "sourceCode": "int i = 2;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "\"create xml\"",
+        "value": "2",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "content",
+        "value": "i",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 22,
+            "line": 1,
             "character": 4
           },
           "end": {
-            "line": 22,
-            "character": 34
+            "line": 1,
+            "character": 14
           }
         },
-        "newText": "string content = \"create xml\";"
+        "newText": "int i = 2;"
       }
     ]
   }

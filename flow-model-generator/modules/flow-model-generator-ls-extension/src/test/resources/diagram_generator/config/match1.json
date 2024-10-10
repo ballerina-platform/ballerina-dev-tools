@@ -9,16 +9,17 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
         "id": "42165",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get apples(string color) returns string {\n        match color {\n            \"red\"|\"blue\" => {\n                return \"sweet\";\n            }\n            \"green\" => {\n                return \"sour\";\n            }\n            _ => {\n                return \"unknown\";\n            }\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "apples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "43223",

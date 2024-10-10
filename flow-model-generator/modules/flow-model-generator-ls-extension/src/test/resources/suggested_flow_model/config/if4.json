@@ -14,17 +14,17 @@
     "offset": 33
   },
   "description": "",
+  "forceAssign": false,
   "diagram": {
     "fileName": "if.bal",
     "nodes": [
       {
         "id": "38100",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -39,28 +39,16 @@
           "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function fn2() {\n    int x = 10;\n    int y = 20;\n\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");   if (x == 10) {\n            print(\"x is equal to 10\");\n        } else {\n            print(\"x is not equal to 10\");\n        }\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "38827",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {
@@ -113,11 +101,11 @@
       {
         "id": "39819",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if.bal",
             "startLine": {

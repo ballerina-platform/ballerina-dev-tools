@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "34870",
+    "id": "39840",
     "metadata": {
       "label": "Assign",
       "description": "Assign a value to a variable"
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 3,
+          "line": 8,
           "offset": 4
         },
         "endLine": {
-          "line": 3,
-          "offset": 26
+          "line": 8,
+          "offset": 36
         }
       },
-      "sourceCode": "decimal d = 100000.0d;"
+      "sourceCode": "str1 = string `${str1} ${str1}`;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,17 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "100000.0d",
+        "value": "string `${str1} ${str1}`",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Result Variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "d",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "decimal",
+        "value": "str1",
         "optional": false,
         "editable": true
       }
@@ -62,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 3,
+            "line": 8,
             "character": 4
           },
           "end": {
-            "line": 3,
-            "character": 26
+            "line": 8,
+            "character": 36
           }
         },
-        "newText": "decimal d = 100000.0d;"
+        "newText": "str1 = string `${str1} ${str1}`;"
       }
     ]
   }

@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "33871",
+    "id": "34854",
     "metadata": {
       "label": "Assign",
       "description": "Assign a value to a variable"
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 2,
+          "line": 3,
           "offset": 4
         },
         "endLine": {
-          "line": 2,
-          "offset": 19
+          "line": 3,
+          "offset": 10
         }
       },
-      "sourceCode": "float f = 1.2f;"
+      "sourceCode": "_ = 4;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,17 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "1.2f",
+        "value": "4",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Result Variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "f",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "float",
+        "value": "_",
         "optional": false,
         "editable": true
       }
@@ -62,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 2,
+            "line": 3,
             "character": 4
           },
           "end": {
-            "line": 2,
-            "character": 19
+            "line": 3,
+            "character": 10
           }
         },
-        "newText": "float f = 1.2f;"
+        "newText": "_ = 4;"
       }
     ]
   }

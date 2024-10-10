@@ -16,11 +16,10 @@
       {
         "id": "38038",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {
@@ -35,28 +34,16 @@
           "sourceCode": "function testTransaction2(int i) returns int|error {\n    int x = i;\n\n    transaction {\n        var res = check commit;\n    }\n\n    transaction {\n        var res = check commit;\n    }\n    return x;\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testTransaction2(int i) returns int|error {\n    int x = i;\n\n    transaction {\n        var res = check commit;\n    }\n\n    transaction {\n        var res = check commit;\n    }\n    return x;\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "38826",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "transaction.bal",
             "startLine": {

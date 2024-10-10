@@ -65,17 +65,15 @@ public class ModelGenerator {
     private final Path filePath;
     private final Document dataMappingDoc;
     private final Gson gson;
-    private final boolean forceAssign;
 
     public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath,
-                          Document dataMappingDoc, boolean forceAssign) {
+                          Document dataMappingDoc) {
         this.semanticModel = model;
         this.document = document;
         this.lineRange = lineRange;
         this.filePath = filePath;
         this.dataMappingDoc = dataMappingDoc;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-        this.forceAssign = forceAssign;
     }
 
     /**
@@ -118,7 +116,7 @@ public class ModelGenerator {
 
         // Analyze the code block to find the flow nodes
         CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, Property.LOCAL_SCOPE, dataMappings, textDocument,
-                CommonUtils.getProjectName(document), forceAssign);
+                CommonUtils.getProjectName(document), true);
         canvasNode.accept(codeAnalyzer);
 
         // Generate the flow model
@@ -169,7 +167,7 @@ public class ModelGenerator {
         }
         CodeAnalyzer codeAnalyzer =
                 new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document),
-                        forceAssign);
+                        false);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

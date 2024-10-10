@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "54754",
+    "id": "39822",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 23,
+          "line": 8,
           "offset": 4
         },
         "endLine": {
-          "line": 23,
-          "offset": 70
+          "line": 8,
+          "offset": 18
         }
       },
-      "sourceCode": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
+      "sourceCode": "var l = i + j;"
     },
     "returning": false,
     "properties": {
@@ -30,17 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[check calculate(amount), check calculate(amount + 1)]",
+        "value": "i + j",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
           "label": "Variable",
-          "description": "Result Variable"
+          "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "newData1",
+        "value": "l",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -52,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 23,
+            "line": 8,
             "character": 4
           },
           "end": {
-            "line": 23,
-            "character": 70
+            "line": 8,
+            "character": 18
           }
         },
-        "newText": "newData1 = [check calculate(amount), check calculate(amount + 1)];"
+        "newText": "int l = i + j;"
       }
     ]
   }
