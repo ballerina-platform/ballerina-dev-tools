@@ -38,11 +38,11 @@
       {
         "id": "71727",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -64,7 +64,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "new (\"/drink\")",
+            "value": "check new (\"/drink\")",
             "optional": false,
             "editable": true
           },
@@ -89,7 +89,7 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "72710",

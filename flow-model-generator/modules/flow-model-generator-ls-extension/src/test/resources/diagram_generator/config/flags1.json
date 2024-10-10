@@ -94,11 +94,11 @@
       {
         "id": "38859",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -120,7 +120,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
+            "value": "check fnWithErrorAndValue()",
             "optional": false,
             "editable": true
           },
@@ -145,16 +145,16 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "39856",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -176,7 +176,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
+            "value": "checkpanic fnWithErrorAndValue()",
             "optional": false,
             "editable": true
           },
@@ -201,16 +201,16 @@
             "editable": true
           }
         },
-        "flags": 2
+        "flags": 0
       },
       {
         "id": "40845",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -232,7 +232,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
+            "value": "check fnWithErrorAndValue()",
             "optional": false,
             "editable": true
           },
@@ -257,16 +257,16 @@
             "editable": true
           }
         },
-        "flags": 5
+        "flags": 4
       },
       {
         "id": "41842",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -288,7 +288,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "fnWithErrorAndValue()",
+            "value": "checkpanic fnWithErrorAndValue()",
             "optional": false,
             "editable": true
           },
@@ -313,7 +313,7 @@
             "editable": true
           }
         },
-        "flags": 6
+        "flags": 4
       }
     ],
     "connections": []

@@ -154,11 +154,11 @@
       {
         "id": "48794",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -180,7 +180,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "new (\"http://localhost:8080\")",
+            "value": "check new (\"http://localhost:8080\")",
             "optional": false,
             "editable": true
           },
@@ -205,7 +205,7 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "49773",

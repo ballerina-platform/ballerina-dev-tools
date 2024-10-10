@@ -9,7 +9,6 @@
   },
   "source": "function_call.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": true,
   "diagram": {
     "fileName": "function_call.bal",
     "nodes": [
@@ -39,11 +38,11 @@
       {
         "id": "53873",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -65,7 +64,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "jsondata:toJson(payload)",
+            "value": "check jsondata:toJson(payload)",
             "optional": false,
             "editable": true
           },
@@ -90,16 +89,16 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "54869",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -121,7 +120,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "jsondata:parseAsType(jsonResult)",
+            "value": "check jsondata:parseAsType(jsonResult)",
             "optional": false,
             "editable": true
           },
@@ -146,7 +145,7 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "55821",

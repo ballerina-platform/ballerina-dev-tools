@@ -677,8 +677,7 @@ public abstract class NodeBuilder {
                         .description(Property.EXPRESSION_DOC)
                         .stepOut()
                     .editable()
-                    .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .value(expressionNode == null ? "" : expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);

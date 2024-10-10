@@ -788,9 +788,7 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(CheckExpressionNode checkExpressionNode) {
         checkExpressionNode.expression().accept(this);
         if (isNodeUnidentified()) {
-            startNode(NodeKind.ASSIGN)
-                    .properties()
-                    .expression(checkExpressionNode);
+            return;
         }
 
         String checkText = checkExpressionNode.checkKeyword().text();

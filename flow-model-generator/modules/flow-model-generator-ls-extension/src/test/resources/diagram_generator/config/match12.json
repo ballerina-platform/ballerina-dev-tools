@@ -114,11 +114,11 @@
               {
                 "id": "273373",
                 "metadata": {
-                  "label": "Assign",
+                  "label": "Variable",
                   "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "ASSIGN",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -140,7 +140,7 @@
                       "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "int:fromString(obj.quantity.toString())",
+                    "value": "check int:fromString(obj.quantity.toString())",
                     "optional": false,
                     "editable": true
                   },
@@ -165,7 +165,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               },
               {
                 "id": "274329",
