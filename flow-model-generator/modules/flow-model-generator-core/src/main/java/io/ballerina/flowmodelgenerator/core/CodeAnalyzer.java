@@ -417,6 +417,12 @@ class CodeAnalyzer extends NodeVisitor {
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
         if (initializer.isEmpty()) {
+            startNode(NodeKind.VARIABLE)
+                    .metadata()
+                        .description(Assign.DESCRIPTION)
+                        .stepOut()
+                    .properties().expression(null);
+            endNode(variableDeclarationNode);
             return;
         }
         ExpressionNode initializerNode = initializer.get();
