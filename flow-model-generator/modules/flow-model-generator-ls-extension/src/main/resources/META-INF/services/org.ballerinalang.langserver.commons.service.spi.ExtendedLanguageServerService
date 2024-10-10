@@ -1,2 +1,3 @@
 io.ballerina.flowmodelgenerator.extension.FlowModelGeneratorService
 io.ballerina.flowmodelgenerator.extension.ExpressionEditorService
+io.ballerina.flowmodelgenerator.extension.ConfigEditorService

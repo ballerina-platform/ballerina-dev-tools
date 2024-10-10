@@ -1,0 +1,109 @@
+{
+  "configFile": "config1.bal",
+  "configVariables": {
+    "configVariables": [
+      {
+        "metadata": {
+          "label": "Config variables"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "config1.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 32
+            }
+          }
+        },
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Config type",
+              "description": "Type of the configuration"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Config name",
+              "description": "Name of the config variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config1",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
+        "metadata": {
+          "label": "Config variables"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "config1.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 32
+            }
+          }
+        },
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Config type",
+              "description": "Type of the configuration"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Config name",
+              "description": "Name of the config variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config2",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
+            "optional": false,
+            "editable": true
+          }
+        }
+      }
+    ]
+  }
+}
