@@ -15,11 +15,10 @@
       {
         "id": "31900",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {
@@ -34,28 +33,16 @@
           "sourceCode": "public function testForeach1() {\n    int[] intArr = [1, 2, 3];\n    foreach var item in intArr {\n        _ = item;\n    }\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function testForeach1() {\n    int[] intArr = [1, 2, 3];\n    foreach var item in intArr {\n        _ = item;\n    }\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "32889",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {

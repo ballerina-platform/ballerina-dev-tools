@@ -24,16 +24,6 @@
         "optional": false,
         "editable": true
       },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "var",
-        "optional": false,
-        "editable": true
-      },
       "expression": {
         "metadata": {
           "label": "Expression",

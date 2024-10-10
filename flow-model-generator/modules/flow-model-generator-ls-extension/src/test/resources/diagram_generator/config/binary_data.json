@@ -15,11 +15,11 @@
       {
         "id": "32894",
         "metadata": {
-          "label": "Assign Binary",
-          "description": "Assign Binary"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "BINARY_DATA",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "binary_data.bal",
             "startLine": {
@@ -41,7 +41,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "base64 `abcd`",
+            "value": "((base64 `abcd`))",
             "optional": false,
             "editable": true
           },
@@ -71,11 +71,11 @@
       {
         "id": "33882",
         "metadata": {
-          "label": "Assign Binary",
-          "description": "Assign Binary"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "BINARY_DATA",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "binary_data.bal",
             "startLine": {
@@ -127,11 +127,11 @@
       {
         "id": "34881",
         "metadata": {
-          "label": "Assign Binary",
-          "description": "Assign Binary"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "BINARY_DATA",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "binary_data.bal",
             "startLine": {
@@ -183,11 +183,11 @@
       {
         "id": "35867",
         "metadata": {
-          "label": "Assign Binary",
-          "description": "Assign Binary"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "BINARY_DATA",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "binary_data.bal",
             "startLine": {
@@ -239,11 +239,11 @@
       {
         "id": "36855",
         "metadata": {
-          "label": "Assign Binary",
-          "description": "Assign Binary"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "BINARY_DATA",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "binary_data.bal",
             "startLine": {

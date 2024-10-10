@@ -15,11 +15,10 @@
       {
         "id": "51709",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -34,28 +33,16 @@
           "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
         "id": "52725",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {
@@ -71,10 +58,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new(\"foo\")",
@@ -143,11 +130,11 @@
       {
         "id": "54730",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "start.bal",
             "startLine": {

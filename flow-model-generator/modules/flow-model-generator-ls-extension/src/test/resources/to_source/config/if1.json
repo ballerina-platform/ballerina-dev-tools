@@ -264,7 +264,7 @@
             "character": 9
           }
         },
-        "newText": "if flag {\n    int a = 1;\n} else {\n    int b = 2;\n    string c = \"12\";\n}"
+        "newText": "if flag {\n    a = 1;\n} else {\n    b = 2;\n    c = \"12\";\n}"
       }
     ]
   }

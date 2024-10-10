@@ -15,10 +15,10 @@
       {
         "id": "37205",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -33,38 +33,72 @@
           "sourceCode": "resource function get apples(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|http:ClientError response = foodClient->get(\"/food/apples\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n            }\n            i = i + 1;\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
+        "flags": 0
+      },
+      {
+        "id": "37964",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "while.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 8
             },
-            "valueType": "IDENTIFIER",
-            "value": "get",
+            "endLine": {
+              "line": 6,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string? msg;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
             "optional": false,
             "editable": true
           },
-          "path": {
+          "variable": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "Variable",
+              "description": "Name of the variable"
             },
-            "valueType": "STRING",
-            "value": "apples",
+            "valueType": "IDENTIFIER",
+            "value": "msg",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string|()",
             "optional": false,
             "editable": true
           }
         },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "38954",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {

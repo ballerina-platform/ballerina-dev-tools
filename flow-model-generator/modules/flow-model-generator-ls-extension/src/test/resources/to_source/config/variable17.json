@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "32874",
+    "id": "64637",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 1,
+          "line": 33,
           "offset": 4
         },
         "endLine": {
-          "line": 1,
-          "offset": 14
+          "line": 33,
+          "offset": 33
         }
       },
-      "sourceCode": "int i = 2;"
+      "sourceCode": "[int, int] newData2 = [1, 2];"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "2",
+        "value": "[1, 2]",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "i",
+        "value": "newData2",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "[int, int]",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 1,
+            "line": 33,
             "character": 4
           },
           "end": {
-            "line": 1,
-            "character": 14
+            "line": 33,
+            "character": 33
           }
         },
-        "newText": "int i = 2;"
+        "newText": "[int, int] newData2 = [1, 2];"
       }
     ]
   }

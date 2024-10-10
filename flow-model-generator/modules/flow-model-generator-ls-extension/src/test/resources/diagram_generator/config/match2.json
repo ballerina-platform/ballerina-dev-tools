@@ -9,16 +9,17 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
         "id": "56239",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get bananas(int ripeness) returns string {\n        match ripeness {\n            1 => {\n                return \"unripe\";\n            }\n            2 => {\n                return \"ripe\";\n            }\n            3 => {\n                return \"overripe\";\n            }\n            var r if r > 3 => {\n                return \"spoiled\";\n            }\n            _ => {\n                return \"invalid ripeness level\";\n            }\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "bananas",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "57297",

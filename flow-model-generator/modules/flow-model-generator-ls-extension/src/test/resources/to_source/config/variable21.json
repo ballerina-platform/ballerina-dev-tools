@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "45799",
+    "id": "71559",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 14,
+          "line": 40,
           "offset": 4
         },
         "endLine": {
-          "line": 14,
-          "offset": 43
+          "line": 40,
+          "offset": 11
         }
       },
-      "sourceCode": "string str2 = string `${str1} ${str1}`;"
+      "sourceCode": "json j;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "string `${str1} ${str1}`",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "str2",
+        "value": "j",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string",
+        "value": "json",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 14,
+            "line": 40,
             "character": 4
           },
           "end": {
-            "line": 14,
-            "character": 43
+            "line": 40,
+            "character": 11
           }
         },
-        "newText": "string str2 = string `${str1} ${str1}`;"
+        "newText": "json j;"
       }
     ]
   }

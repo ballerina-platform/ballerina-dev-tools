@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "35855",
+    "id": "44802",
     "metadata": {
       "label": "Assign",
       "description": "Assign a value to a variable"
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 4,
+          "line": 13,
           "offset": 4
         },
         "endLine": {
-          "line": 4,
-          "offset": 19
+          "line": 13,
+          "offset": 38
         }
       },
-      "sourceCode": "decimal d1 = d;"
+      "sourceCode": "j1 = {\"name\": \"Marry\", \"age\": 33};"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,17 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "d",
+        "value": "{\"name\": \"Marry\", \"age\": 33}",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Result Variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "d1",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "decimal",
+        "value": "j1",
         "optional": false,
         "editable": true
       }
@@ -62,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 4,
+            "line": 13,
             "character": 4
           },
           "end": {
-            "line": 4,
-            "character": 19
+            "line": 13,
+            "character": 38
           }
         },
-        "newText": "decimal d1 = d;"
+        "newText": "j1 = {\"name\": \"Marry\", \"age\": 33};"
       }
     ]
   }

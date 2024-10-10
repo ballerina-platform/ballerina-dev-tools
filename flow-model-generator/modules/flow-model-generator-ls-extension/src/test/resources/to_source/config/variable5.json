@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "33862",
+    "id": "37834",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 2,
+          "line": 6,
           "offset": 4
         },
         "endLine": {
-          "line": 2,
-          "offset": 10
+          "line": 6,
+          "offset": 14
         }
       },
-      "sourceCode": "i = 3;"
+      "sourceCode": "int j = 3;"
     },
     "returning": false,
     "properties": {
@@ -37,10 +37,20 @@
       "variable": {
         "metadata": {
           "label": "Variable",
-          "description": "Result Variable"
+          "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "i",
+        "value": "j",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -52,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 2,
+            "line": 6,
             "character": 4
           },
           "end": {
-            "line": 2,
-            "character": 10
+            "line": 6,
+            "character": 14
           }
         },
-        "newText": "i = 3;"
+        "newText": "int j = 3;"
       }
     ]
   }

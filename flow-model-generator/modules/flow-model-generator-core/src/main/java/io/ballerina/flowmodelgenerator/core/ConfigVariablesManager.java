@@ -52,7 +52,7 @@ import java.util.Optional;
 public class ConfigVariablesManager {
 
     public static final String DEFAULTABLE = "defaultable";
-    public static final String LS = System.lineSeparator();
+    public static final String LINE_SEPARATOR = System.lineSeparator();
     private final Gson gson;
     public static final String CONFIG_TYPE = "Config type";
     public static final String CONFIG_TYPE_DESCRIPTION = "Type of the configuration";
@@ -141,7 +141,7 @@ public class ConfigVariablesManager {
             String config = String.format("configurable %s %s = %s;",
                     properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
                     properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
-            sb.append(config).append(LS);
+            sb.append(config).append(LINE_SEPARATOR);
         }
 
         SyntaxTree syntaxTree = document.syntaxTree();

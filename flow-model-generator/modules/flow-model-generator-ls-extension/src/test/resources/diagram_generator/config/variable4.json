@@ -1,10 +1,10 @@
 {
   "start": {
-    "line": 31,
+    "line": 21,
     "offset": 0
   },
   "end": {
-    "line": 35,
+    "line": 25,
     "offset": 1
   },
   "source": "new_data.bal",
@@ -13,117 +13,48 @@
     "fileName": "new_data.bal",
     "nodes": [
       {
-        "id": "62621",
+        "id": "52701",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
-              "line": 31,
+              "line": 21,
               "offset": 0
             },
             "endLine": {
-              "line": 35,
+              "line": 25,
               "offset": 1
             }
           },
-          "sourceCode": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    [int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];\n}"
+          "sourceCode": "function testNewDataXml() {\n    string content = \"create xml\";\n    xml x1 = xml `<p>${content}</p>`;\n    xml x2 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "function testNewDataJson3(int amount) returns error? {\n    json newData1 = [check calculate(amount), check calculate(amount + 1)];\n    [int, int] newData2 = [1, 2];\n    [int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
-        "id": "63687",
+        "id": "53726",
         "metadata": {
-          "label": "Assign JSON",
-          "description": "Assign JSON"
-        },
-        "codedata": {
-          "node": "JSON_PAYLOAD",
-          "lineRange": {
-            "fileName": "new_data.bal",
-            "startLine": {
-              "line": 32,
-              "offset": 4
-            },
-            "endLine": {
-              "line": 32,
-              "offset": 75
-            }
-          },
-          "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
-        },
-        "returning": false,
-        "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "[check calculate(amount), check calculate(amount + 1)]",
-            "optional": false,
-            "editable": true
-          },
-          "variable": {
-            "metadata": {
-              "label": "Variable",
-              "description": "Name of the variable"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "newData1",
-            "optional": false,
-            "editable": true
-          },
-          "type": {
-            "metadata": {
-              "label": "Type",
-              "description": "Type of the variable"
-            },
-            "valueType": "TYPE",
-            "value": "json",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 0
-      },
-      {
-        "id": "64637",
-        "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
-              "line": 33,
+              "line": 22,
               "offset": 4
             },
             "endLine": {
-              "line": 33,
-              "offset": 33
+              "line": 22,
+              "offset": 34
             }
           },
-          "sourceCode": "[int, int] newData2 = [1, 2];"
+          "sourceCode": "string content = \"create xml\";"
         },
         "returning": false,
         "properties": {
@@ -133,7 +64,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "[1, 2]",
+            "value": "\"create xml\"",
             "optional": false,
             "editable": true
           },
@@ -143,7 +74,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "newData2",
+            "value": "content",
             "optional": false,
             "editable": true
           },
@@ -153,7 +84,7 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "[int, int]",
+            "value": "string",
             "optional": false,
             "editable": true
           }
@@ -161,25 +92,25 @@
         "flags": 0
       },
       {
-        "id": "65677",
+        "id": "54721",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
-              "line": 34,
+              "line": 23,
               "offset": 4
             },
             "endLine": {
-              "line": 34,
-              "offset": 81
+              "line": 23,
+              "offset": 37
             }
           },
-          "sourceCode": "[int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];"
+          "sourceCode": "xml x1 = xml `<p>${content}</p>`;"
         },
         "returning": false,
         "properties": {
@@ -189,7 +120,7 @@
               "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "[check calculate(amount), check calculate(amount + 1)]",
+            "value": "xml `<p>${content}</p>`",
             "optional": false,
             "editable": true
           },
@@ -199,7 +130,7 @@
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "newData3",
+            "value": "x1",
             "optional": false,
             "editable": true
           },
@@ -209,7 +140,63 @@
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
-            "value": "[int, int]",
+            "value": "xml",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "55723",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "new_data.bal",
+            "startLine": {
+              "line": 24,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 24,
+              "offset": 47
+            }
+          },
+          "sourceCode": "xml x2 = xml `<book>The Lost World</book>`;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "xml `<book>The Lost World</book>`",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "x2",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "xml",
             "optional": false,
             "editable": true
           }

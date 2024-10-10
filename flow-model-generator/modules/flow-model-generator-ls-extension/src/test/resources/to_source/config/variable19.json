@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "64637",
+    "id": "69574",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 33,
+          "line": 38,
           "offset": 4
         },
         "endLine": {
-          "line": 33,
-          "offset": 33
+          "line": 38,
+          "offset": 10
         }
       },
-      "sourceCode": "[int, int] newData2 = [1, 2];"
+      "sourceCode": "int a;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[1, 2]",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "newData2",
+        "value": "a",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "[int, int]",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 33,
+            "line": 38,
             "character": 4
           },
           "end": {
-            "line": 33,
-            "character": 33
+            "line": 38,
+            "character": 10
           }
         },
-        "newText": "[int, int] newData2 = [1, 2];"
+        "newText": "int a;"
       }
     ]
   }

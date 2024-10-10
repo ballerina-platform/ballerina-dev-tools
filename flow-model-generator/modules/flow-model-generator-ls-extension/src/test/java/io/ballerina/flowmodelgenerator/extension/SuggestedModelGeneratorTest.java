@@ -48,7 +48,7 @@ public class SuggestedModelGeneratorTest extends AbstractLSTest {
 
         FlowModelSuggestedGenerationRequest request = new FlowModelSuggestedGenerationRequest(
                 sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(), testConfig.start(),
-                testConfig.end(), testConfig.text(), testConfig.position(), testConfig.forceAssign());
+                testConfig.end(), testConfig.text(), testConfig.position());
         JsonObject jsonModel = getResponse(endpoint, request).getAsJsonObject("flowModel");
 
         // Assert only the file name since the absolute path may vary depending on the machine

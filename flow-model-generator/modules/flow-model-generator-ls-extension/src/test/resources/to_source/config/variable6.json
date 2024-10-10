@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "38844",
+    "id": "38830",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
           "line": 7,
           "offset": 4
         },
         "endLine": {
           "line": 7,
-          "offset": 32
+          "offset": 18
         }
       },
-      "sourceCode": "string str1 = \"Hello world\";"
+      "sourceCode": "int k = i + j;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "\"Hello world\"",
+        "value": "i + j",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "str1",
+        "value": "k",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "string",
+        "value": "int",
         "optional": false,
         "editable": true
       }
@@ -67,10 +67,10 @@
           },
           "end": {
             "line": 7,
-            "character": 32
+            "character": 18
           }
         },
-        "newText": "string str1 = \"Hello world\";"
+        "newText": "int k = i + j;"
       }
     ]
   }

@@ -21,7 +21,6 @@ package io.ballerina.flowmodelgenerator.core.model;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
-import io.ballerina.compiler.api.symbols.ResourceMethodSymbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -44,10 +43,10 @@ import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
 import io.ballerina.flowmodelgenerator.core.model.node.ErrorHandler;
+import io.ballerina.flowmodelgenerator.core.model.node.EventStart;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
 import io.ballerina.flowmodelgenerator.core.model.node.Foreach;
 import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
-import io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Lock;
@@ -60,6 +59,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.Stop;
 import io.ballerina.flowmodelgenerator.core.model.node.Transaction;
+import io.ballerina.flowmodelgenerator.core.model.node.Variable;
 import io.ballerina.flowmodelgenerator.core.model.node.While;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
 import io.ballerina.tools.text.LinePosition;
@@ -88,12 +88,6 @@ import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.INPUTS_
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_DOC;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_KEY;
 import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_LABEL;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_METHOD_KEY;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_PATH;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_PATH_DOC;
-import static io.ballerina.flowmodelgenerator.core.model.node.HttpApiEvent.EVENT_HTTP_API_PATH_KEY;
 
 /**
  * Represents a builder for the flow node.
@@ -113,36 +107,36 @@ public abstract class NodeBuilder {
     protected String defaultModuleName;
 
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
-            put(NodeKind.IF, If::new);
-            put(NodeKind.RETURN, Return::new);
-            put(NodeKind.EXPRESSION, DefaultExpression::new);
-            put(NodeKind.ERROR_HANDLER, ErrorHandler::new);
-            put(NodeKind.WHILE, While::new);
-            put(NodeKind.CONTINUE, Continue::new);
-            put(NodeKind.BREAK, Break::new);
-            put(NodeKind.PANIC, Panic::new);
-            put(NodeKind.EVENT_HTTP_API, HttpApiEvent::new);
-            put(NodeKind.ACTION_CALL, ActionCall::new);
-            put(NodeKind.NEW_CONNECTION, NewConnection::new);
-            put(NodeKind.START, Start::new);
-            put(NodeKind.TRANSACTION, Transaction::new);
-            put(NodeKind.RETRY, Retry::new);
-            put(NodeKind.LOCK, Lock::new);
-            put(NodeKind.FAIL, Fail::new);
-            put(NodeKind.COMMIT, Commit::new);
-            put(NodeKind.ROLLBACK, Rollback::new);
-            put(NodeKind.XML_PAYLOAD, XmlPayload::new);
-            put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
-            put(NodeKind.BINARY_DATA, BinaryData::new);
-            put(NodeKind.STOP, Stop::new);
-            put(NodeKind.FUNCTION_CALL, FunctionCall::new);
-            put(NodeKind.FOREACH, Foreach::new);
-            put(NodeKind.DATA_MAPPER, DataMapper::new);
-            put(NodeKind.ASSIGN, Assign::new);
-            put(NodeKind.COMMENT, Comment::new);
-            put(NodeKind.MATCH, Match::new);
-        }};
-
+        put(NodeKind.IF, If::new);
+        put(NodeKind.RETURN, Return::new);
+        put(NodeKind.EXPRESSION, DefaultExpression::new);
+        put(NodeKind.ERROR_HANDLER, ErrorHandler::new);
+        put(NodeKind.WHILE, While::new);
+        put(NodeKind.CONTINUE, Continue::new);
+        put(NodeKind.BREAK, Break::new);
+        put(NodeKind.PANIC, Panic::new);
+        put(NodeKind.EVENT_START, EventStart::new);
+        put(NodeKind.ACTION_CALL, ActionCall::new);
+        put(NodeKind.NEW_CONNECTION, NewConnection::new);
+        put(NodeKind.START, Start::new);
+        put(NodeKind.TRANSACTION, Transaction::new);
+        put(NodeKind.RETRY, Retry::new);
+        put(NodeKind.LOCK, Lock::new);
+        put(NodeKind.FAIL, Fail::new);
+        put(NodeKind.COMMIT, Commit::new);
+        put(NodeKind.ROLLBACK, Rollback::new);
+        put(NodeKind.XML_PAYLOAD, XmlPayload::new);
+        put(NodeKind.JSON_PAYLOAD, JsonPayload::new);
+        put(NodeKind.BINARY_DATA, BinaryData::new);
+        put(NodeKind.STOP, Stop::new);
+        put(NodeKind.FUNCTION_CALL, FunctionCall::new);
+        put(NodeKind.FOREACH, Foreach::new);
+        put(NodeKind.DATA_MAPPER, DataMapper::new);
+        put(NodeKind.VARIABLE, Variable::new);
+        put(NodeKind.ASSIGN, Assign::new);
+        put(NodeKind.COMMENT, Comment::new);
+        put(NodeKind.MATCH, Match::new);
+    }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {
         return CONSTRUCTOR_MAP.getOrDefault(kind, DefaultExpression::new).get();
@@ -601,29 +595,6 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> resourceSymbol(ResourceMethodSymbol resourceMethodSymbol) {
-            propertyBuilder
-                    .metadata()
-                        .label(EVENT_HTTP_API_METHOD)
-                        .description(EVENT_HTTP_API_METHOD_DOC)
-                        .stepOut()
-                    .type(Property.ValueType.IDENTIFIER)
-                    .editable();
-            resourceMethodSymbol.getName().ifPresent(name -> propertyBuilder.value(name));
-            addProperty(EVENT_HTTP_API_METHOD_KEY, propertyBuilder.build());
-
-            propertyBuilder
-                    .metadata()
-                        .label(EVENT_HTTP_API_PATH)
-                        .description(EVENT_HTTP_API_PATH_DOC)
-                        .stepOut()
-                    .editable()
-                    .type(Property.ValueType.STRING)
-                    .value(resourceMethodSymbol.resourcePath().signature());
-            addProperty(EVENT_HTTP_API_PATH_KEY, propertyBuilder.build());
-            return this;
-        }
-
         public PropertiesBuilder<T> condition(ExpressionNode expressionNode) {
             Property condition = propertyBuilder
                     .metadata()
@@ -706,8 +677,7 @@ public abstract class NodeBuilder {
                         .description(Property.EXPRESSION_DOC)
                         .stepOut()
                     .editable()
-                    .value(expressionNode == null ? "" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
-                            ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
+                    .value(expressionNode == null ? "" : expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);

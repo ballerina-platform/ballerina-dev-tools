@@ -2,7 +2,7 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "39822",
+    "id": "56692",
     "metadata": {
       "label": "Assign",
       "description": "Assign a value to a variable"
@@ -10,17 +10,17 @@
     "codedata": {
       "node": "ASSIGN",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "update_data.bal",
         "startLine": {
-          "line": 8,
+          "line": 25,
           "offset": 4
         },
         "endLine": {
-          "line": 8,
-          "offset": 18
+          "line": 25,
+          "offset": 24
         }
       },
-      "sourceCode": "var l = i + j;"
+      "sourceCode": "newData2 = [11, 22];"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,17 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "i + j",
+        "value": "[11, 22]",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
+          "label": "Variable",
+          "description": "Result Variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "l",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "int",
+        "value": "newData2",
         "optional": false,
         "editable": true
       }
@@ -62,15 +52,15 @@
       {
         "range": {
           "start": {
-            "line": 8,
+            "line": 25,
             "character": 4
           },
           "end": {
-            "line": 8,
-            "character": 18
+            "line": 25,
+            "character": 24
           }
         },
-        "newText": "int l = i + j;"
+        "newText": "newData2 = [11, 22];"
       }
     ]
   }

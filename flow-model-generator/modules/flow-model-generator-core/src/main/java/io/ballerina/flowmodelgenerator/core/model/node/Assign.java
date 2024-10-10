@@ -50,12 +50,6 @@ public class Assign extends NodeBuilder {
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         FlowNode flowNode = sourceBuilder.flowNode;
-        Optional<Property> dataType = flowNode.getProperty(Property.DATA_TYPE_KEY);
-
-
-        if (dataType.isPresent() && !dataType.get().toSourceCode().isEmpty()) {
-            sourceBuilder.token().expression(dataType.get()).whiteSpace();
-        }
 
         Optional<Property> variable = flowNode.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {
@@ -74,11 +68,10 @@ public class Assign extends NodeBuilder {
         sourceBuilder.token().expression(expression.get()).endOfStatement();
 
         return sourceBuilder.textEdit(false).build();
-
     }
 
     @Override
     public void setConcreteTemplateData(TemplateContext context) {
-        properties().dataVariable(null).expression("", Property.EXPRESSION_DOC);
+        properties().data(null).expression("", Property.EXPRESSION_DOC);
     }
 }

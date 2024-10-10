@@ -35,6 +35,17 @@ function testNewDataJson3(int amount) returns error? {
     [int, int] newData3 = [check calculate(amount), check calculate(amount + 1)];
 }
 
+function testNewDataWithoutExpression() returns error? {
+    int a;
+    string s;
+    json j;
+    xml x;
+
+    a = 5;
+    s = "Ballerina";
+    j = {"key": "value"};
+}
+
 function calculate(int i) returns int|error {
     return 3;
 }

@@ -16,10 +16,10 @@
       {
         "id": "72917",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "nested_node.bal",
             "startLine": {
@@ -34,29 +34,7 @@
           "sourceCode": "resource function put path() returns error? {\n        do {\n            do {\n                transaction {\n                    json j = check asiri->post(path = \"/doctors/kandy\", message = \"text\");\n                    check commit;\n                }\n                do {\n                    json k = check asiri->get(path = \"/doctors/kandy\");\n                }\n            }\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "put",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "path",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "74068",

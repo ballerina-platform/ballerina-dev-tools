@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "44802",
+    "id": "72550",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 13,
+          "line": 41,
           "offset": 4
         },
         "endLine": {
-          "line": 13,
-          "offset": 38
+          "line": 41,
+          "offset": 10
         }
       },
-      "sourceCode": "j1 = {\"name\": \"Marry\", \"age\": 33};"
+      "sourceCode": "xml x;"
     },
     "returning": false,
     "properties": {
@@ -30,17 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "{\"name\": \"Marry\", \"age\": 33}",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
           "label": "Variable",
-          "description": "Result Variable"
+          "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "j1",
+        "value": "x",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "xml",
         "optional": false,
         "editable": true
       }
@@ -52,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 13,
+            "line": 41,
             "character": 4
           },
           "end": {
-            "line": 13,
-            "character": 38
+            "line": 41,
+            "character": 10
           }
         },
-        "newText": "j1 = {\"name\": \"Marry\", \"age\": 33};"
+        "newText": "xml x;"
       }
     ]
   }

@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "49766",
+    "id": "35855",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
         "fileName": "new_data.bal",
         "startLine": {
-          "line": 18,
+          "line": 4,
           "offset": 4
         },
         "endLine": {
-          "line": 18,
-          "offset": 42
+          "line": 4,
+          "offset": 19
         }
       },
-      "sourceCode": "json j1 = {\"name\": \"John\", \"age\": 34};"
+      "sourceCode": "decimal d1 = d;"
     },
     "returning": false,
     "properties": {
@@ -30,27 +30,27 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "{\"name\": \"John\", \"age\": 34}",
+        "value": "d",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "j1",
+        "value": "d1",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json",
+        "value": "decimal",
         "optional": false,
         "editable": true
       }
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 18,
+            "line": 4,
             "character": 4
           },
           "end": {
-            "line": 18,
-            "character": 42
+            "line": 4,
+            "character": 19
           }
         },
-        "newText": "json j1 = {\"name\": \"John\", \"age\": 34};"
+        "newText": "decimal d1 = d;"
       }
     ]
   }

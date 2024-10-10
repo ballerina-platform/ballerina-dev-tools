@@ -2,25 +2,25 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "53767",
+    "id": "59696",
     "metadata": {
-      "label": "Assign",
+      "label": "Variable",
       "description": "Assign a value to a variable"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "update_data.bal",
+        "fileName": "new_data.bal",
         "startLine": {
-          "line": 22,
+          "line": 28,
           "offset": 4
         },
         "endLine": {
-          "line": 22,
-          "offset": 75
+          "line": 28,
+          "offset": 52
         }
       },
-      "sourceCode": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
+      "sourceCode": "json newData = {value: check calculate(amount)};"
     },
     "returning": false,
     "properties": {
@@ -30,23 +30,23 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "[check calculate(amount), check calculate(amount + 1)]",
+        "value": "{value: check calculate(amount)}",
         "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "newData1",
+        "value": "newData",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
@@ -62,15 +62,15 @@
       {
         "range": {
           "start": {
-            "line": 22,
+            "line": 28,
             "character": 4
           },
           "end": {
-            "line": 22,
-            "character": 75
+            "line": 28,
+            "character": 52
           }
         },
-        "newText": "json newData1 = [check calculate(amount), check calculate(amount + 1)];"
+        "newText": "json newData = {value: check calculate(amount)};"
       }
     ]
   }

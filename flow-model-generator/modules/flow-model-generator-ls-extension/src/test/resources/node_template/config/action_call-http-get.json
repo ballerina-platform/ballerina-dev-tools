@@ -28,7 +28,7 @@
           "label": "path",
           "description": "Request path\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
         "editable": true
@@ -38,7 +38,7 @@
           "label": "headers",
           "description": "The entity headers\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
         "editable": true

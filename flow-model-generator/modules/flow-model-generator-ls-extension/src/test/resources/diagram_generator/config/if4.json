@@ -9,16 +9,17 @@
   },
   "source": "if_node.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "if_node.bal",
     "nodes": [
       {
         "id": "85937",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -33,38 +34,16 @@
           "sourceCode": "resource function get grapes(int price) {\n        int mod = price % 4;\n        if price > 100 {\n            return;\n        } else {\n            if price < 50 {\n                if price < 25 {\n                    if price < 10 && mod == 1 {\n                        return;\n                    }\n                }\n            }\n            if mod == 0 {\n                return;\n            }\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "grapes",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "86580",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {

@@ -2,55 +2,54 @@
   "source": "empty.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "40814",
+    "id": "31",
     "metadata": {
-      "label": "Assign",
-      "description": "Assign a value to a variable"
+      "label": "Variable",
+      "description": "New variable with type"
     },
     "codedata": {
-      "node": "ASSIGN",
+      "node": "VARIABLE",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "test.bal",
         "startLine": {
-          "line": 9,
-          "offset": 4
+          "line": 0,
+          "offset": 0
         },
         "endLine": {
-          "line": 9,
-          "offset": 18
+          "line": 0,
+          "offset": 0
         }
-      },
-      "sourceCode": "var _ = k + l;"
+      }
     },
     "returning": false,
     "properties": {
-      "expression": {
-        "metadata": {
-          "label": "Expression",
-          "description": "Expression"
-        },
-        "valueType": "EXPRESSION",
-        "value": "k + l",
-        "optional": false,
-        "editable": true
-      },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "_",
+        "value": "item",
         "optional": false,
         "editable": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "int",
+        "value": "var",
+        "optional": false,
+        "editable": true
+      },
+      "expression": {
+        "metadata": {
+          "label": "Expression",
+          "description": "Create new variable"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
         "optional": false,
         "editable": true
       }
@@ -62,15 +61,15 @@
       {
         "range": {
           "start": {
-            "line": 9,
-            "character": 4
+            "line": 0,
+            "character": 0
           },
           "end": {
-            "line": 9,
-            "character": 18
+            "line": 0,
+            "character": 0
           }
         },
-        "newText": "int _ = k + l;"
+        "newText": "var item;"
       }
     ]
   }

@@ -15,10 +15,10 @@
       {
         "id": "37081",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -33,29 +33,63 @@
           "sourceCode": "resource function get apples() {\n        string? msg;\n        do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
+        "flags": 0
+      },
+      {
+        "id": "37964",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "error_handler.bal",
+            "startLine": {
+              "line": 6,
+              "offset": 8
             },
-            "valueType": "IDENTIFIER",
-            "value": "get",
+            "endLine": {
+              "line": 6,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string? msg;"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "",
             "optional": false,
             "editable": true
           },
-          "path": {
+          "variable": {
             "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
+              "label": "Variable",
+              "description": "Name of the variable"
             },
-            "valueType": "STRING",
-            "value": "apples",
+            "valueType": "IDENTIFIER",
+            "value": "msg",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string|()",
             "optional": false,
             "editable": true
           }
         },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "39100",

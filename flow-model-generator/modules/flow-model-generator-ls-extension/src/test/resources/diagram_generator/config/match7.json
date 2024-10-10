@@ -9,16 +9,17 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
+  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
         "id": "154478",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "match.bal",
             "startLine": {
@@ -33,29 +34,7 @@
           "sourceCode": "resource function get mangoes(int quantity) returns string {\n        match quantity {\n            var q if q > 10 => {\n                return \"bulk order\";\n            }\n            var q if q > 5 => {\n                match q {\n                    var n if n > 8 => {\n                        return \"large pack\";\n                    }\n                    _ => {\n                        return \"medium pack\";\n                    }\n                }\n            }\n            _ => {\n                return \"small pack\";\n            }\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "mangoes",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "155536",

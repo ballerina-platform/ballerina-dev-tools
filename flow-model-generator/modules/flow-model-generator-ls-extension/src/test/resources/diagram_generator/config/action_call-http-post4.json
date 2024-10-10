@@ -15,10 +15,10 @@
       {
         "id": "68670",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -33,42 +33,16 @@
           "sourceCode": "resource function post milkshake() returns json|http:ClientError {\n        http:Client drinkClient = check new (\"/drink\");\n        return drinkClient->post(\"/milkshake\", \"mixed fruit\");\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "post",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "milkshake",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "69743",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -84,32 +58,13 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"/drink\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
+            "value": "check new (\"/drink\")",
             "optional": false,
             "editable": true
           },
@@ -134,7 +89,7 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "70742",

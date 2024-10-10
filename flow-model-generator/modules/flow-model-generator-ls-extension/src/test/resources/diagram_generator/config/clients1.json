@@ -15,11 +15,10 @@
       {
         "id": "45137",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -34,18 +33,6 @@
           "sourceCode": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "//TODO: Support union types: MyClient|http:Client unionCl = new MyClient();\n\npublic function main() returns error? {\n    json moduleVal = check moduleCl->get(\"/hello\");\n    myModuleCl->myRemoteFn();\n\n    http:Client localCl = check new (\"http://localhost:8080\");\n    json localVal = check localCl->get(\"/hello\");\n    MyClient myLocalCl = new;\n    myLocalCl->myRemoteFn();\n\n    //TODO: Support clients in the object scope\n    // var myObj = object {\n    //     MyClient myObjCl = new;\n    //     http:Client|http:ClientError objCl = new (\"http://localhost:5005\");\n    // };\n    // (myObj.myObjCl)->myRemoteFn();\n    // json objVal = check (check myObj.objCl)->get(\"/hello\");\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
@@ -167,15 +154,11 @@
       {
         "id": "48794",
         "metadata": {
-          "label": "New Connection",
-          "description": "Create a new connection"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "ballerina",
-          "module": "http",
-          "object": "Client",
-          "symbol": "init",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -191,32 +174,13 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
-            },
-            "valueType": "ENUM",
-            "value": "Local",
-            "optional": false,
-            "editable": true
-          },
-          "url": {
-            "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
-            "value": "\"http://localhost:8080\"",
-            "optional": false,
-            "editable": true
-          },
-          "config": {
-            "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
-            },
-            "valueType": "EXPRESSION",
+            "value": "check new (\"http://localhost:8080\")",
             "optional": false,
             "editable": true
           },
@@ -241,7 +205,7 @@
             "editable": true
           }
         },
-        "flags": 1
+        "flags": 0
       },
       {
         "id": "49773",
@@ -326,11 +290,11 @@
       {
         "id": "50745",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -346,10 +310,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new",

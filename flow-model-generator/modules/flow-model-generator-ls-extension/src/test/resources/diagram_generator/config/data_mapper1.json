@@ -15,11 +15,10 @@
       {
         "id": "40394",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -34,18 +33,6 @@
           "sourceCode": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}"
         },
         "returning": false,
-        "properties": {
-          "statement": {
-            "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
-            },
-            "valueType": "EXPRESSION",
-            "value": "public function main() {\n    // Define local variables for input parameters\n    string name = \"John Doe\";\n    string email = \"john.doe@example.com\";\n    Address address = {\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    };\n\n    // Transform to Person\n    Person person = transformToPerson(name, email, address);\n\n    Admission admission = {\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    };\n\n    // Transform to Employee\n    Employee employee = transformToEmployee(person, admission);\n    logEmployee(employee);\n}",
-            "optional": false,
-            "editable": true
-          }
-        },
         "flags": 0
       },
       {
@@ -87,11 +74,11 @@
       {
         "id": "41817",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -143,11 +130,11 @@
       {
         "id": "42822",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -199,11 +186,11 @@
       {
         "id": "43964",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -291,11 +278,11 @@
       {
         "id": "52760",
         "metadata": {
-          "label": "Data Mapper",
-          "description": "Map data from multiple variables to a record type"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "DATA_MAPPER",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -311,59 +298,15 @@
         },
         "returning": false,
         "properties": {
-          "functionName": {
+          "expression": {
             "metadata": {
-              "label": "Data mapper name",
-              "description": "Name of the data mapper function"
+              "label": "Expression",
+              "description": "Expression"
             },
-            "valueType": "IDENTIFIER",
-            "value": "transformToPerson",
+            "valueType": "EXPRESSION",
+            "value": "transformToPerson(name, email, address)",
             "optional": false,
             "editable": true
-          },
-          "output": {
-            "metadata": {
-              "label": "Output",
-              "description": "Output of the data mapper function"
-            },
-            "valueType": "SINGLE_SELECT",
-            "value": "Person",
-            "optional": false,
-            "editable": true
-          },
-          "inputs": {
-            "metadata": {
-              "label": "Inputs",
-              "description": "Input variables of the data mapper function"
-            },
-            "valueType": "MULTIPLE_SELECT",
-            "value": [
-              "string name",
-              "string email",
-              "Address address"
-            ],
-            "optional": false,
-            "editable": true
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Visualize the data mapper function"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "data_mappings.bal",
-              "startLine": {
-                "line": 0,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 4,
-                "offset": 2
-              }
-            },
-            "optional": false,
-            "editable": false
           },
           "variable": {
             "metadata": {
@@ -374,6 +317,16 @@
             "value": "person",
             "optional": false,
             "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Person",
+            "optional": false,
+            "editable": true
           }
         },
         "flags": 0
@@ -381,11 +334,11 @@
       {
         "id": "54783",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -473,11 +426,11 @@
       {
         "id": "60699",
         "metadata": {
-          "label": "Data Mapper",
-          "description": "Map data from multiple variables to a record type"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "DATA_MAPPER",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -493,58 +446,15 @@
         },
         "returning": false,
         "properties": {
-          "functionName": {
+          "expression": {
             "metadata": {
-              "label": "Data mapper name",
-              "description": "Name of the data mapper function"
+              "label": "Expression",
+              "description": "Expression"
             },
-            "valueType": "IDENTIFIER",
-            "value": "transformToEmployee",
+            "valueType": "EXPRESSION",
+            "value": "transformToEmployee(person, admission)",
             "optional": false,
             "editable": true
-          },
-          "output": {
-            "metadata": {
-              "label": "Output",
-              "description": "Output of the data mapper function"
-            },
-            "valueType": "SINGLE_SELECT",
-            "value": "Employee",
-            "optional": false,
-            "editable": true
-          },
-          "inputs": {
-            "metadata": {
-              "label": "Inputs",
-              "description": "Input variables of the data mapper function"
-            },
-            "valueType": "MULTIPLE_SELECT",
-            "value": [
-              "Person person",
-              "Admission admission"
-            ],
-            "optional": false,
-            "editable": true
-          },
-          "view": {
-            "metadata": {
-              "label": "View",
-              "description": "Visualize the data mapper function"
-            },
-            "valueType": "VIEW",
-            "value": {
-              "fileName": "data_mappings.bal",
-              "startLine": {
-                "line": 6,
-                "offset": 0
-              },
-              "endLine": {
-                "line": 14,
-                "offset": 2
-              }
-            },
-            "optional": false,
-            "editable": false
           },
           "variable": {
             "metadata": {
@@ -553,6 +463,16 @@
             },
             "valueType": "IDENTIFIER",
             "value": "employee",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "Employee",
             "optional": false,
             "editable": true
           }

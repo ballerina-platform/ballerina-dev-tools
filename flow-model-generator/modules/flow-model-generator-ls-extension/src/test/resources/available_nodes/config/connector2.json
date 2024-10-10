@@ -5,7 +5,6 @@
     "offset": 0
   },
   "source": "connector.bal",
-  "forceAssign": false,
   "categories": [
     {
       "metadata": {
@@ -1867,6 +1866,15 @@
       "items": [
         {
           "metadata": {
+            "label": "Variable"
+          },
+          "codedata": {
+            "node": "VARIABLE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Assign",
             "description": "Assign a value to a variable"
           },
@@ -1892,16 +1900,6 @@
           },
           "codedata": {
             "node": "DATA_MAPPER"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Retry Block",
-            "description": "Retry block."
-          },
-          "codedata": {
-            "node": "RETRY"
           },
           "enabled": true
         }
@@ -1959,42 +1957,6 @@
           },
           "codedata": {
             "node": "RETURN"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    {
-      "metadata": {
-        "label": "Data",
-        "description": "Data nodes are used to create, read, update, delete, and transform data"
-      },
-      "items": [
-        {
-          "metadata": {
-            "label": "Assign JSON"
-          },
-          "codedata": {
-            "node": "JSON_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign XML"
-          },
-          "codedata": {
-            "node": "XML_PAYLOAD"
-          },
-          "enabled": true
-        },
-        {
-          "metadata": {
-            "label": "Assign Binary",
-            "description": "Assign Binary"
-          },
-          "codedata": {
-            "node": "BINARY_DATA"
           },
           "enabled": true
         }
