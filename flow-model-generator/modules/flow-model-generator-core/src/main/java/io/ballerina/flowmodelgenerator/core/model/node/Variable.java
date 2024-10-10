@@ -48,7 +48,12 @@ public class Variable extends NodeBuilder {
 
     @Override
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
-        sourceBuilder.newVariable();
+        Optional<Property> type = sourceBuilder.flowNode.getProperty(Property.DATA_TYPE_KEY);
+        Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
+
+        if (type.isPresent() && variable.isPresent()) {
+
+        }
 
         Optional<Property> exprProperty = sourceBuilder.flowNode.getProperty(Property.EXPRESSION_KEY);
         exprProperty.ifPresent(value -> sourceBuilder.token().expression(value).endOfStatement());

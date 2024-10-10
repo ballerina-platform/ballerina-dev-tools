@@ -422,21 +422,19 @@ class CodeAnalyzer extends NodeVisitor {
                         .description(Assign.DESCRIPTION)
                         .stepOut()
                     .properties().expression(null);
-            endNode(variableDeclarationNode);
-            return;
-        }
-        ExpressionNode initializerNode = initializer.get();
-        this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+        } else {
+            ExpressionNode initializerNode = initializer.get();
+            this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
+            initializerNode.accept(this);
 
-        initializerNode.accept(this);
-
-        // Generate the default expression node if a node is not built
-        if (isNodeUnidentified()) {
-            startNode(NodeKind.VARIABLE)
-                    .metadata()
-                        .description(Assign.DESCRIPTION)
-                        .stepOut()
-                    .properties().expression(initializerNode);
+            // Generate the default expression node if a node is not built
+            if (isNodeUnidentified()) {
+                startNode(NodeKind.VARIABLE)
+                        .metadata()
+                            .description(Assign.DESCRIPTION)
+                            .stepOut()
+                        .properties().expression(initializerNode);
+            }
         }
 
         // TODO: Find a better way on how we can achieve this
