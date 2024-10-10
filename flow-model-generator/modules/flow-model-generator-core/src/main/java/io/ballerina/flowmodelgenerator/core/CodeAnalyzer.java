@@ -157,8 +157,10 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        startNode(NodeKind.EVENT_START);
-        endNode(functionDefinitionNode);
+        startNode(NodeKind.EVENT_START).codedata()
+                .lineRange(functionDefinitionNode.functionBody().lineRange())
+                .sourceCode(functionDefinitionNode.toSourceCode().strip());
+        endNode();
         super.visit(functionDefinitionNode);
     }
 

@@ -9,12 +9,11 @@
   },
   "source": "comment.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "comment.bal",
     "nodes": [
       {
-        "id": "109338",
+        "id": "111167",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "comment.bal",
             "startLine": {
               "line": 78,
-              "offset": 0
+              "offset": 59
             },
             "endLine": {
               "line": 85,

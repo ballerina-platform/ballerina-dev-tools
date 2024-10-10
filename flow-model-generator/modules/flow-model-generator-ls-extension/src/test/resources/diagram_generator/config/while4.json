@@ -13,7 +13,7 @@
     "fileName": "while.bal",
     "nodes": [
       {
-        "id": "67895",
+        "id": "69135",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "while.bal",
             "startLine": {
               "line": 36,
-              "offset": 4
+              "offset": 44
             },
             "endLine": {
               "line": 46,
