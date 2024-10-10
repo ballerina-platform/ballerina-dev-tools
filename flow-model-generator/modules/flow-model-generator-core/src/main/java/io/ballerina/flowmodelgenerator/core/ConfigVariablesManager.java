@@ -33,8 +33,12 @@ import io.ballerina.flowmodelgenerator.core.model.Metadata;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
+import io.ballerina.tools.text.LinePosition;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +51,8 @@ import java.util.Optional;
  */
 public class ConfigVariablesManager {
 
+    public static final String DEFAULTABLE = "defaultable";
+    public static final String LS = System.lineSeparator();
     private final Gson gson;
     public static final String CONFIG_TYPE = "Config type";
     public static final String CONFIG_TYPE_DESCRIPTION = "Type of the configuration";
@@ -104,7 +110,7 @@ public class ConfigVariablesManager {
                 value = initializer.toSourceCode();
             }
         }
-        properties.put("defaultable", property(DEFAULT_VALUE, DEFAULT_VALUE_DESCRIPTION,
+        properties.put(DEFAULTABLE, property(DEFAULT_VALUE, DEFAULT_VALUE_DESCRIPTION,
                 Property.ValueType.EXPRESSION, value));
 
         return new ConfigVariable(metadata, codedata, properties);
@@ -121,6 +127,37 @@ public class ConfigVariablesManager {
                 .value(value)
                 .editable();
         return propertyBuilder.build();
+    }
+
+    public JsonElement update(Document document, Path configFile, JsonElement configs) {
+        List<ConfigVariable> configVariables = gson.fromJson(configs, ConfigVariables.class).configVariables();
+        StringBuilder sb = new StringBuilder();
+        for (ConfigVariable configVariable : configVariables) {
+            Map<String, Property> properties = configVariable.properties();
+            String value = properties.get(DEFAULTABLE).toSourceCode();
+            if (value.isEmpty()) {
+                value = "?";
+            }
+            String config = String.format("configurable %s %s = %s;",
+                    properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
+                    properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
+            sb.append(config).append(LS);
+        }
+
+        SyntaxTree syntaxTree = document.syntaxTree();
+        ModulePartNode modulePartNode = syntaxTree.rootNode();
+
+        List<TextEdit> textEdits = new ArrayList<>();
+        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+        textEdits.add(new TextEdit(CommonUtils.toRange(startPos), sb.toString()));
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(configFile, textEdits);
+        return gson.toJsonTree(textEditsMap);
+    }
+
+    private record ConfigVariables(
+            List<ConfigVariable> configVariables
+    ) {
     }
 
     private record ConfigVariable(
