@@ -254,6 +254,15 @@
       "items": [
         {
           "metadata": {
+            "label": "Variable"
+          },
+          "codedata": {
+            "node": "VARIABLE"
+          },
+          "enabled": true
+        },
+        {
+          "metadata": {
             "label": "Assign",
             "description": "Assign a value to a variable"
           },
