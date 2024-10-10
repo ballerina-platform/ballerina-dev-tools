@@ -9,7 +9,6 @@
   },
   "source": "foreach.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "foreach.bal",
     "nodes": [
@@ -39,11 +38,11 @@
       {
         "id": "55705",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "foreach.bal",
             "startLine": {

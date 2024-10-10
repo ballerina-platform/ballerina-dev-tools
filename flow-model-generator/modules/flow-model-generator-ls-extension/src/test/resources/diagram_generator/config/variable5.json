@@ -38,11 +38,11 @@
       {
         "id": "59696",
         "metadata": {
-          "label": "Assign",
+          "label": "Variable",
           "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "new_data.bal",
             "startLine": {
