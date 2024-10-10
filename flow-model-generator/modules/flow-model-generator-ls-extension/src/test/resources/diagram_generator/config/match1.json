@@ -9,12 +9,11 @@
   },
   "source": "match.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "match.bal",
     "nodes": [
       {
-        "id": "42165",
+        "id": "43963",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "match.bal",
             "startLine": {
               "line": 10,
-              "offset": 4
+              "offset": 62
             },
             "endLine": {
               "line": 22,

@@ -9,12 +9,11 @@
   },
   "source": "error_handler.bal",
   "description": "Tests a error handler",
-  "forceAssign": false,
   "diagram": {
     "fileName": "error_handler.bal",
     "nodes": [
       {
-        "id": "62842",
+        "id": "64392",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "error_handler.bal",
             "startLine": {
               "line": 31,
-              "offset": 4
+              "offset": 54
             },
             "endLine": {
               "line": 38,

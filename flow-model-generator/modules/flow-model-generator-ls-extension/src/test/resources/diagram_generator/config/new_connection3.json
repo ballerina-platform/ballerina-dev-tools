@@ -9,12 +9,11 @@
   },
   "source": "new_connection.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "new_connection.bal",
     "nodes": [
       {
-        "id": "57727",
+        "id": "58533",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "new_connection.bal",
             "startLine": {
               "line": 26,
-              "offset": 4
+              "offset": 30
             },
             "endLine": {
               "line": 28,

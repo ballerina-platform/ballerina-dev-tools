@@ -9,12 +9,11 @@
   },
   "source": "http_post_node.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "http_post_node.bal",
     "nodes": [
       {
-        "id": "45172",
+        "id": "46970",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "http_post_node.bal",
             "startLine": {
               "line": 13,
-              "offset": 4
+              "offset": 62
             },
             "endLine": {
               "line": 26,

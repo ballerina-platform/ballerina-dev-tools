@@ -19,7 +19,7 @@
     "fileName": "if.bal",
     "nodes": [
       {
-        "id": "31962",
+        "id": "32799",
         "metadata": {
           "label": "Start"
         },
@@ -29,7 +29,7 @@
             "fileName": "if.bal",
             "startLine": {
               "line": 0,
-              "offset": 0
+              "offset": 27
             },
             "endLine": {
               "line": 7,

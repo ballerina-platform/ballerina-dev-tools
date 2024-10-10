@@ -13,7 +13,7 @@
     "fileName": "http_get_node.bal",
     "nodes": [
       {
-        "id": "70654",
+        "id": "72638",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "http_get_node.bal",
             "startLine": {
               "line": 39,
-              "offset": 4
+              "offset": 68
             },
             "endLine": {
               "line": 42,

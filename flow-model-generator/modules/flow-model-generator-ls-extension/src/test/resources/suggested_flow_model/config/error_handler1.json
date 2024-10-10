@@ -19,7 +19,7 @@
     "fileName": "service.bal",
     "nodes": [
       {
-        "id": "36089",
+        "id": "38135",
         "metadata": {
           "label": "Start"
         },
@@ -29,7 +29,7 @@
             "fileName": "service.bal",
             "startLine": {
               "line": 4,
-              "offset": 4
+              "offset": 70
             },
             "endLine": {
               "line": 12,

@@ -13,7 +13,7 @@
     "fileName": "new_connection.bal",
     "nodes": [
       {
-        "id": "45726",
+        "id": "46873",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "new_connection.bal",
             "startLine": {
               "line": 14,
-              "offset": 0
+              "offset": 37
             },
             "endLine": {
               "line": 17,

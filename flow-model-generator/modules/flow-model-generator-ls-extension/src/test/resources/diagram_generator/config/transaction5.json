@@ -9,12 +9,11 @@
   },
   "source": "transaction.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "transaction.bal",
     "nodes": [
       {
-        "id": "67643",
+        "id": "69162",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "transaction.bal",
             "startLine": {
               "line": 36,
-              "offset": 0
+              "offset": 49
             },
             "endLine": {
               "line": 42,

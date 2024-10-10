@@ -9,12 +9,11 @@
   },
   "source": "simple_flow.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "simple_flow.bal",
     "nodes": [
       {
-        "id": "38073",
+        "id": "40305",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "simple_flow.bal",
             "startLine": {
               "line": 6,
-              "offset": 4
+              "offset": 76
             },
             "endLine": {
               "line": 14,

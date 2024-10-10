@@ -13,7 +13,7 @@
     "fileName": "foreach.bal",
     "nodes": [
       {
-        "id": "63644",
+        "id": "65070",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "foreach.bal",
             "startLine": {
               "line": 32,
-              "offset": 0
+              "offset": 46
             },
             "endLine": {
               "line": 37,

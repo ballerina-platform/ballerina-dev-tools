@@ -9,12 +9,11 @@
   },
   "source": "lock.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "lock.bal",
     "nodes": [
       {
-        "id": "37914",
+        "id": "38565",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "lock.bal",
             "startLine": {
               "line": 6,
-              "offset": 0
+              "offset": 21
             },
             "endLine": {
               "line": 13,

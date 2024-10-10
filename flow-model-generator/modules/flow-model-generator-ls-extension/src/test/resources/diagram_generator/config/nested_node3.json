@@ -9,12 +9,11 @@
   },
   "source": "nested_node.bal",
   "description": "Tests a diagram flow with nested nodes",
-  "forceAssign": false,
   "diagram": {
     "fileName": "nested_node.bal",
     "nodes": [
       {
-        "id": "53821",
+        "id": "54844",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "nested_node.bal",
             "startLine": {
               "line": 22,
-              "offset": 4
+              "offset": 37
             },
             "endLine": {
               "line": 26,

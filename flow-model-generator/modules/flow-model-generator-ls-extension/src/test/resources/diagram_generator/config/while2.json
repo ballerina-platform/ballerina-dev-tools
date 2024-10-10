@@ -9,12 +9,11 @@
   },
   "source": "while.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "while.bal",
     "nodes": [
       {
-        "id": "50814",
+        "id": "51806",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "while.bal",
             "startLine": {
               "line": 19,
-              "offset": 4
+              "offset": 36
             },
             "endLine": {
               "line": 22,

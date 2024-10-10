@@ -9,12 +9,11 @@
   },
   "source": "rollback.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "rollback.bal",
     "nodes": [
       {
-        "id": "41913",
+        "id": "43742",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "rollback.bal",
             "startLine": {
               "line": 10,
-              "offset": 0
+              "offset": 59
             },
             "endLine": {
               "line": 18,

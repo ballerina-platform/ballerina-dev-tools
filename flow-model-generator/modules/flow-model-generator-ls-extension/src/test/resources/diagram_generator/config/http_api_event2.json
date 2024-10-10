@@ -9,12 +9,11 @@
   },
   "source": "http_api_event_node.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "http_api_event_node.bal",
     "nodes": [
       {
-        "id": "41880",
+        "id": "43523",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "http_api_event_node.bal",
             "startLine": {
               "line": 10,
-              "offset": 4
+              "offset": 57
             },
             "endLine": {
               "line": 10,
