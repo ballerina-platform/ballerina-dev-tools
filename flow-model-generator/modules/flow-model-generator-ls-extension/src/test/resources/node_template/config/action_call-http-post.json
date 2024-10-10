@@ -27,7 +27,7 @@
           "label": "path",
           "description": "Resource path\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
         "editable": true
@@ -37,7 +37,7 @@
           "label": "message",
           "description": "An HTTP outbound request or any allowed payload\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
         "editable": true
@@ -47,7 +47,7 @@
           "label": "headers",
           "description": "The entity headers\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
         "editable": true
@@ -57,7 +57,7 @@
           "label": "mediaType",
           "description": "The MIME type header of the request entity\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
         "editable": true

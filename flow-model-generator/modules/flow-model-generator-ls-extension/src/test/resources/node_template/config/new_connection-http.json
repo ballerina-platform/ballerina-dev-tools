@@ -28,7 +28,7 @@
           "label": "url",
           "description": "URL of the target service\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
         "editable": true
@@ -38,7 +38,7 @@
           "label": "config",
           "description": "The configurations to be used when initializing the `client`\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "{}",
         "optional": false,
         "editable": true

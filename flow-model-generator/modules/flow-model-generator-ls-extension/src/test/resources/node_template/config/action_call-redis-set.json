@@ -27,7 +27,7 @@
           "label": "key",
           "description": "Key referring to a value\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
         "editable": true
@@ -37,7 +37,7 @@
           "label": "value",
           "description": "Values\n"
         },
-        "valueType": "Expression",
+        "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
         "editable": true
