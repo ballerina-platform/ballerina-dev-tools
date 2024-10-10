@@ -831,17 +831,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(constructorExprNode);
             return;
         }
-
-        startNode(NodeKind.ASSIGN)
-                .metadata()
-                    .description(Assign.DESCRIPTION)
-                    .stepOut()
-                .properties()
-                    .expression(constructorExprNode);
-
-        if (kind == SyntaxKind.ASSIGNMENT_STATEMENT) {
-            nodeBuilder.properties().variable(((AssignmentStatementNode) parent).varRef());
-        }
     }
 
     // Utility methods
