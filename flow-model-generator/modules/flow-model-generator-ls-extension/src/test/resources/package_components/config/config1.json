@@ -13,7 +13,7 @@
           "endColumn": 1,
           "resources": [
             {
-              "name": "post",
+              "name": "post-book",
               "filePath": "file.bal",
               "startLine": 24,
               "startColumn": 4,
@@ -21,7 +21,7 @@
               "endColumn": 5
             },
             {
-              "name": "get",
+              "name": "get-book/[ISBN isbn]",
               "filePath": "file.bal",
               "startLine": 32,
               "startColumn": 4,
@@ -29,7 +29,7 @@
               "endColumn": 5
             },
             {
-              "name": "put",
+              "name": "put-book/[ISBN isbn]",
               "filePath": "file.bal",
               "startLine": 41,
               "startColumn": 4,
@@ -37,7 +37,7 @@
               "endColumn": 5
             },
             {
-              "name": "delete",
+              "name": "delete-book/[ISBN isbn]",
               "filePath": "file.bal",
               "startLine": 50,
               "startColumn": 4,
@@ -89,7 +89,9 @@
           "endLine": 19,
           "endColumn": 25
         }
-      ]
+      ],
+      "configurableVariables": [],
+      "automations": []
     }
   ]
 }
