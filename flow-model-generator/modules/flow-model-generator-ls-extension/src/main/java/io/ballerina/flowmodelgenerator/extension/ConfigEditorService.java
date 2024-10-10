@@ -20,7 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
+import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -63,6 +65,29 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
 
                 ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
                 response.setConfigVariables(configVariablesManager.get(document.get()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(
+            ConfigVariablesUpdateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
+            try {
+                Path configFile = Path.of(request.configFilePath());
+                this.workspaceManager.loadProject(configFile);
+                Optional<Document> document = this.workspaceManager.document(configFile);
+                if (document.isEmpty()) {
+                    return response;
+                }
+
+                ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
+                response.setTextEdits(configVariablesManager.update(document.get(), configFile,
+                        request.configVariables()));
             } catch (Throwable e) {
                 response.setError(e);
             }
