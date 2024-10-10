@@ -141,8 +141,7 @@ public class AvailableNodesGenerator {
                 .node(NodeKind.VARIABLE)
                 .node(NodeKind.ASSIGN)
                 .node(function)
-                .node(NodeKind.DATA_MAPPER)
-                .node(NodeKind.RETRY);
+                .node(NodeKind.DATA_MAPPER);
 
         this.rootBuilder.stepIn(Category.Name.CONTROL)
                 .node(NodeKind.IF)
@@ -164,6 +163,7 @@ public class AvailableNodesGenerator {
 //                    .node(NodeKind.TRANSACTION)
 //                    .node(NodeKind.COMMIT)
 //                    .node(NodeKind.ROLLBACK)
+//                    .node(NodeKind.RETRY);
 //                    .node(NodeKind.LOCK)
 //                    .node(NodeKind.START)
 //                    .stepOut();
