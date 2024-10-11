@@ -13,7 +13,7 @@
     "fileName": "clients.bal",
     "nodes": [
       {
-        "id": "45137",
+        "id": "46315",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "clients.bal",
             "startLine": {
               "line": 13,
-              "offset": 0
+              "offset": 38
             },
             "endLine": {
               "line": 29,

@@ -13,7 +13,7 @@
     "fileName": "function_call.bal",
     "nodes": [
       {
-        "id": "52829",
+        "id": "55154",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "function_call.bal",
             "startLine": {
               "line": 21,
-              "offset": 4
+              "offset": 79
             },
             "endLine": {
               "line": 25,

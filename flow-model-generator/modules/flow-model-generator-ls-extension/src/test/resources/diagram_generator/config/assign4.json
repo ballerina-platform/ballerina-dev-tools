@@ -13,7 +13,7 @@
     "fileName": "update_data.bal",
     "nodes": [
       {
-        "id": "47710",
+        "id": "48516",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "update_data.bal",
             "startLine": {
               "line": 16,
-              "offset": 0
+              "offset": 26
             },
             "endLine": {
               "line": 19,

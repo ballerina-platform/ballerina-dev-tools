@@ -13,7 +13,7 @@
     "fileName": "error_handler.bal",
     "nodes": [
       {
-        "id": "37081",
+        "id": "38042",
         "metadata": {
           "label": "Start"
         },
@@ -23,7 +23,7 @@
             "fileName": "error_handler.bal",
             "startLine": {
               "line": 5,
-              "offset": 4
+              "offset": 35
             },
             "endLine": {
               "line": 13,

@@ -9,12 +9,11 @@
   },
   "source": "panic.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "panic.bal",
     "nodes": [
       {
-        "id": "43711",
+        "id": "44393",
         "metadata": {
           "label": "Start"
         },
@@ -24,7 +23,7 @@
             "fileName": "panic.bal",
             "startLine": {
               "line": 12,
-              "offset": 0
+              "offset": 22
             },
             "endLine": {
               "line": 14,
