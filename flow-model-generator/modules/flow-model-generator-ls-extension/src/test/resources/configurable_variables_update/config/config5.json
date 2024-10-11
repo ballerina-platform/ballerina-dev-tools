@@ -1,5 +1,5 @@
 {
-  "configFile": "config2.bal",
+  "configFile": "config5.bal",
   "configVariables": {
     "configVariables": [
       {
@@ -9,14 +9,14 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "config2.bal",
+            "fileName": "config5.bal",
             "startLine": {
-              "line": 0,
+              "line": 1,
               "offset": 0
             },
             "endLine": {
-              "line": 0,
-              "offset": 30
+              "line": 1,
+              "offset": 43
             }
           }
         },
@@ -37,7 +37,7 @@
               "description": "Name of the config variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "config3",
+            "value": "config2",
             "optional": false,
             "editable": true
           },
@@ -47,7 +47,7 @@
               "description": "Default value for the config, if empty your need to provide a value at runtime"
             },
             "valueType": "EXPRESSION",
-            "value": "10",
+            "value": "11",
             "optional": false,
             "editable": true
           }
@@ -60,14 +60,14 @@
         "codedata": {
           "node": "ASSIGN",
           "lineRange": {
-            "fileName": "config2.bal",
+            "fileName": "config5.bal",
             "startLine": {
               "line": 1,
               "offset": 0
             },
             "endLine": {
               "line": 1,
-              "offset": 32
+              "offset": 43
             }
           }
         },
@@ -78,7 +78,7 @@
               "description": "Type of the configuration"
             },
             "valueType": "TYPE",
-            "value": "string",
+            "value": "int",
             "optional": false,
             "editable": true
           },
@@ -98,7 +98,58 @@
               "description": "Default value for the config, if empty your need to provide a value at runtime"
             },
             "valueType": "EXPRESSION",
-            "value": "",
+            "value": "112",
+            "optional": false,
+            "editable": true
+          }
+        }
+      },
+      {
+        "metadata": {
+          "label": "Config variables"
+        },
+        "codedata": {
+          "node": "ASSIGN",
+          "lineRange": {
+            "fileName": "config5.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 43
+            }
+          }
+        },
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Config type",
+              "description": "Type of the configuration"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Config name",
+              "description": "Name of the config variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config5",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "1123",
             "optional": false,
             "editable": true
           }
@@ -107,19 +158,32 @@
     ]
   },
   "output": {
-    "config2.bal": [
+    "config5.bal": [
       {
         "range": {
           "start": {
-            "line": 2,
+            "line": 1,
             "character": 0
           },
           "end": {
-            "line": 2,
+            "line": 1,
+            "character": 43
+          }
+        },
+        "newText": "configurable int config2 = 11;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 0
+          },
+          "end": {
+            "line": 3,
             "character": 0
           }
         },
-        "newText": "configurable int config3 = 10;\nconfigurable string config4 = ?;\n"
+        "newText": "configurable int config4 = 112;\nconfigurable int config5 = 1123;\n"
       }
     ]
   }

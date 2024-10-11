@@ -37,7 +37,7 @@
               "description": "Name of the config variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "config1",
+            "value": "config3",
             "optional": false,
             "editable": true
           },
@@ -88,7 +88,7 @@
               "description": "Name of the config variable"
             },
             "valueType": "IDENTIFIER",
-            "value": "config2",
+            "value": "config4",
             "optional": false,
             "editable": true
           },
@@ -119,7 +119,7 @@
             "character": 0
           }
         },
-        "newText": "configurable int config1 = 10;\nconfigurable string config2 = \"new config\";\n"
+        "newText": "configurable int config3 = 10;\nconfigurable string config4 = \"new config\";\n"
       }
     ]
   }

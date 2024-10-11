@@ -34,6 +34,7 @@ import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -130,29 +131,57 @@ public class ConfigVariablesManager {
     }
 
     public JsonElement update(Document document, Path configFile, JsonElement configs) {
-        List<ConfigVariable> configVariables = gson.fromJson(configs, ConfigVariables.class).configVariables();
-        StringBuilder sb = new StringBuilder();
-        for (ConfigVariable configVariable : configVariables) {
-            Map<String, Property> properties = configVariable.properties();
-            String value = properties.get(DEFAULTABLE).toSourceCode();
-            if (value.isEmpty()) {
-                value = "?";
-            }
-            String config = String.format("configurable %s %s = %s;",
-                    properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
-                    properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
-            sb.append(config).append(LINE_SEPARATOR);
-        }
-
         SyntaxTree syntaxTree = document.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
 
+        Map<String, LineRange> existingConfigVariables = existingConfigVariables(modulePartNode);
+
+        List<ConfigVariable> configVariables = gson.fromJson(configs, ConfigVariables.class).configVariables();
         List<TextEdit> textEdits = new ArrayList<>();
-        LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
-        textEdits.add(new TextEdit(CommonUtils.toRange(startPos), sb.toString()));
+        StringBuilder sb = new StringBuilder();
+        for (ConfigVariable configVariable : configVariables) {
+            Map<String, Property> properties = configVariable.properties();
+            String configStmt = configStmt(properties);
+            String variableName = properties.get(Property.VARIABLE_KEY).toSourceCode();
+            if (existingConfigVariables.containsKey(variableName)) {
+                textEdits.add(
+                        new TextEdit(CommonUtils.toRange(existingConfigVariables.get(variableName)), configStmt));
+            } else {
+                sb.append(configStmt).append(LINE_SEPARATOR);
+            }
+        }
+
+        if (!sb.isEmpty()) {
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), sb.toString()));
+        }
         Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
         textEditsMap.put(configFile, textEdits);
         return gson.toJsonTree(textEditsMap);
+    }
+
+    private String configStmt(Map<String, Property> properties) {
+        String value = properties.get(DEFAULTABLE).toSourceCode();
+        if (value.isEmpty()) {
+            value = "?";
+        }
+        return String.format("configurable %s %s = %s;", properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
+                properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
+    }
+
+    private Map<String, LineRange> existingConfigVariables(ModulePartNode modulePartNode) {
+        Map<String, LineRange> configVariables = new HashMap<>();
+        for (Node node : modulePartNode.children()) {
+            if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
+                if (hasConfigurableQualifier(modVarDeclarationNode)) {
+                    configVariables.put(
+                            modVarDeclarationNode.typedBindingPattern().bindingPattern().toSourceCode().trim(),
+                            modVarDeclarationNode.lineRange());
+                }
+            }
+        }
+        return configVariables;
     }
 
     private record ConfigVariables(
