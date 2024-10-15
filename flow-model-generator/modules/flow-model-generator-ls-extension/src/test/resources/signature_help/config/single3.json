@@ -1,0 +1,41 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "expression": "multiplyByTwo();",
+  "startLine": {
+    "line": 19,
+    "offset": 17
+  },
+  "offset": 13,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "multiplyByTwo(int value)",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nMultiplies the given integer value by two."
+        }
+      },
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 18,
+              "second": 23
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`int`value**: The integer value to be multiplied."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
