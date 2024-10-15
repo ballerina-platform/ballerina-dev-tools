@@ -54,7 +54,7 @@ public class ExpressionEditorSignatureTest extends AbstractLSTest {
                     testConfig.expression(), testConfig.startLine(), testConfig.offset(), testConfig.context(),
                     actualSignatureHelp);
             compareJsonElements(actualSignatureHelp, testConfig.signatureHelp());
-            updateConfig(configJsonPath, updatedConfig);
+//            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }
