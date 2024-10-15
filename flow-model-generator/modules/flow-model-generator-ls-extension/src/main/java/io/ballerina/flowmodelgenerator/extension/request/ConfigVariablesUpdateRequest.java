@@ -24,8 +24,8 @@ import com.google.gson.JsonElement;
  * Represents the request to update config variables.
  *
  * @param configFilePath  path of the config file
- * @param configVariables new config variables
+ * @param configVariable new config variables
  * @since 1.4.0
  */
-public record ConfigVariablesUpdateRequest(String configFilePath, JsonElement configVariables) {
+public record ConfigVariablesUpdateRequest(String configFilePath, JsonElement configVariable) {
 }

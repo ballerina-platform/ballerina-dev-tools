@@ -56,7 +56,7 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
         TestConfig testConfig = gson.fromJson(Files.newBufferedReader(configJsonPath), TestConfig.class);
 
         ConfigVariablesUpdateRequest request = new ConfigVariablesUpdateRequest(
-                sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString(), testConfig.configVariables());
+                sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString(), testConfig.configVariable());
         JsonObject jsonMap = getResponse(endpoint, request).getAsJsonObject("textEdits");
 
         Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
@@ -78,7 +78,7 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
         }
 
         if (assertFailure) {
-            TestConfig updatedConfig = new TestConfig(testConfig.configFile(), testConfig.configVariables(), newMap);
+            TestConfig updatedConfig = new TestConfig(testConfig.configFile(), testConfig.configVariable(), newMap);
 //            updateConfig(configJsonPath, updatedConfig);
             Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
@@ -109,11 +109,11 @@ public class ConfigVariablesUpdateTest extends AbstractLSTest {
      * Represents the test configuration for the model generator test.
      *
      * @param configFile      Path to config file
-     * @param configVariables Config variables
+     * @param configVariable Config variables
      * @param output          The expected output source code
      * @since 1.4.0
      */
-    private record TestConfig(String configFile, JsonElement configVariables, Map<String, List<TextEdit>> output) {
+    private record TestConfig(String configFile, JsonElement configVariable, Map<String, List<TextEdit>> output) {
 
     }
 }

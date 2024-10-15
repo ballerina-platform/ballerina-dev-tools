@@ -87,7 +87,7 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
 
                 ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
                 response.setTextEdits(configVariablesManager.update(document.get(), configFile,
-                        request.configVariables()));
+                        request.configVariable()));
             } catch (Throwable e) {
                 response.setError(e);
             }
