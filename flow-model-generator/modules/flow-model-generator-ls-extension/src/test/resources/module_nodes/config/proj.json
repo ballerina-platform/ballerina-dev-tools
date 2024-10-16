@@ -1,8 +1,8 @@
 {
-  "source": "proj/main.bal",
+  "source": "proj",
   "description": "",
   "flowModel": {
-    "fileName": "main.bal",
+    "fileName": "proj",
     "nodes": [],
     "connections": [
       {
