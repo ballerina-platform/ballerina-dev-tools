@@ -20,10 +20,12 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
@@ -88,6 +90,27 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                         semanticModel.get(), document.get(), request.position());
                 JsonArray visibleVariableTypes = visibleVariableTypesGenerator.getVisibleVariableTypes();
                 response.setCategories(visibleVariableTypes);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ExpressionEditorTypeResponse> types(VisibleVariableTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+
+                TypesGenerator typesGenerator = new TypesGenerator(semanticModel.get());
+                response.setTypes(typesGenerator.getTypes());
             } catch (Throwable e) {
                 response.setError(e);
             }
