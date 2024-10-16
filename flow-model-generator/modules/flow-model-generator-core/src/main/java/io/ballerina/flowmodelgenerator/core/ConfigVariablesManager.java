@@ -28,14 +28,18 @@ import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
-import io.ballerina.flowmodelgenerator.core.model.Metadata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import org.eclipse.lsp4j.TextEdit;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,28 +51,25 @@ import java.util.Optional;
  */
 public class ConfigVariablesManager {
 
+    public static final String DEFAULTABLE = "defaultable";
+    public static final String LINE_SEPARATOR = System.lineSeparator();
     private final Gson gson;
-    public static final String CONFIG_TYPE = "Config type";
-    public static final String CONFIG_TYPE_DESCRIPTION = "Type of the configuration";
-    public static final String CONFIG_NAME = "Config name";
-    public static final String CONFIG_NAME_DESCRIPTION = "Name of the config variable";
-    public static final String DEFAULT_VALUE = "Default value";
-    public static final String DEFAULT_VALUE_DESCRIPTION = "Default value for the config, if empty your need to " +
-            "provide a value at runtime";
 
     public ConfigVariablesManager() {
         this.gson = new Gson();
     }
 
-    public JsonElement get(Document document) {
-        SyntaxTree syntaxTree = document.syntaxTree();
-        ModulePartNode modulePartNode = syntaxTree.rootNode();
-        List<ConfigVariable> configVariables = new ArrayList<>();
-        for (Node node : modulePartNode.children()) {
-            if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
-                ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
-                if (hasConfigurableQualifier(modVarDeclarationNode)) {
-                    configVariables.add(genConfigVariable(modVarDeclarationNode));
+    public JsonElement get(List<Document> documents) {
+        List<FlowNode> configVariables = new ArrayList<>();
+        for (Document document : documents) {
+            SyntaxTree syntaxTree = document.syntaxTree();
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            for (Node node : modulePartNode.children()) {
+                if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                    ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
+                    if (hasConfigurableQualifier(modVarDeclarationNode)) {
+                        configVariables.add(genConfigVariable(modVarDeclarationNode));
+                    }
                 }
             }
         }
@@ -80,22 +81,11 @@ public class ConfigVariablesManager {
                 .stream().anyMatch(q -> q.text().equals(Qualifier.CONFIGURABLE.getValue()));
     }
 
-    private ConfigVariable genConfigVariable(ModuleVariableDeclarationNode modVarDeclNode) {
-        Metadata metadata = new Metadata.Builder<>(null)
-                .label("Config variables")
-                .build();
+    private FlowNode genConfigVariable(ModuleVariableDeclarationNode modVarDeclNode) {
+        NodeBuilder nodeBuilder = NodeBuilder.getNodeFromKind(NodeKind.CONFIG_VARIABLE)
+                .semanticModel(null)
+                .defaultModuleName(null);
 
-        Codedata codedata = new Codedata.Builder<>(null)
-                .node(NodeKind.ASSIGN)
-                .lineRange(modVarDeclNode.lineRange())
-                .build();
-
-        Map<String, Property> properties = new LinkedHashMap<>();
-        TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
-        properties.put(Property.DATA_TYPE_KEY, property(CONFIG_TYPE, CONFIG_TYPE_DESCRIPTION, Property.ValueType.TYPE
-                , typedBindingPattern.typeDescriptor().toSourceCode().trim()));
-        properties.put(Property.VARIABLE_KEY, property(CONFIG_NAME, CONFIG_NAME_DESCRIPTION,
-                Property.ValueType.IDENTIFIER, typedBindingPattern.bindingPattern().toSourceCode().trim()));
         Optional<ExpressionNode> optInitializer = modVarDeclNode.initializer();
         String value = "";
         if (optInitializer.isPresent()) {
@@ -104,29 +94,52 @@ public class ConfigVariablesManager {
                 value = initializer.toSourceCode();
             }
         }
-        properties.put("defaultable", property(DEFAULT_VALUE, DEFAULT_VALUE_DESCRIPTION,
-                Property.ValueType.EXPRESSION, value));
 
-        return new ConfigVariable(metadata, codedata, properties);
+        TypedBindingPatternNode typedBindingPattern = modVarDeclNode.typedBindingPattern();
+        return
+                nodeBuilder
+                    .metadata()
+                        .label("Config variables")
+                        .stepOut()
+                    .codedata()
+                        .node(NodeKind.CONFIG_VARIABLE)
+                        .lineRange(modVarDeclNode.lineRange())
+                        .stepOut()
+                    .properties()
+                        .type(typedBindingPattern.typeDescriptor().toSourceCode().trim())
+                        .defaultableName(typedBindingPattern.bindingPattern().toSourceCode().trim())
+                        .defaultableVariable(value)
+                        .stepOut()
+                    .build();
     }
 
-    private Property property(String label, String description, Property.ValueType valueType, String value) {
-        Property.Builder propertyBuilder = Property.Builder.getInstance();
-        propertyBuilder
-                .metadata()
-                    .label(label)
-                    .description(description)
-                    .stepOut()
-                .type(valueType)
-                .value(value)
-                .editable();
-        return propertyBuilder.build();
+    public JsonElement update(Document document, Path configFile, JsonElement configs) {
+        List<TextEdit> textEdits = new ArrayList<>();
+        Map<Path, List<TextEdit>> textEditsMap = new HashMap<>();
+        textEditsMap.put(configFile, textEdits);
+
+        FlowNode configVariable = gson.fromJson(configs, FlowNode.class);
+        LineRange lineRange = configVariable.codedata().lineRange();
+        Map<String, Property> properties = configVariable.properties();
+        String configStmt = configStmt(properties);
+        if (lineRange == null) {
+            SyntaxTree syntaxTree = document.syntaxTree();
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            LinePosition startPos = LinePosition.from(modulePartNode.lineRange().endLine().line() + 1, 0);
+            textEdits.add(new TextEdit(CommonUtils.toRange(startPos), configStmt));
+        } else {
+            textEdits.add(new TextEdit(CommonUtils.toRange(lineRange), configStmt));
+        }
+
+        return gson.toJsonTree(textEditsMap);
     }
 
-    private record ConfigVariable(
-            Metadata metadata,
-            Codedata codedata,
-            Map<String, Property> properties
-    ) {
+    private String configStmt(Map<String, Property> properties) {
+        String value = properties.get(DEFAULTABLE).toSourceCode();
+        if (value.isEmpty()) {
+            value = "?";
+        }
+        return String.format("configurable %s %s = %s;", properties.get(Property.DATA_TYPE_KEY).toSourceCode(),
+                properties.get(Property.VARIABLE_KEY).toSourceCode(), value);
     }
 }

@@ -114,6 +114,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String RETRY_COUNT_LABEL = "Retry Count";
     public static final String RETRY_COUNT_DOC = "Number of retries";
 
+    public static final String DEFAULTABLE_KEY = "defaultable";
+    public static final String DEFAULT_VALUE_LABEL = "Default value";
+    public static final String DEFAULT_VALUE_DOC = "Default value for the config, if empty your need to " +
+            "provide a value at runtime";
+
     public String toSourceCode() {
         return value.toString();
     }

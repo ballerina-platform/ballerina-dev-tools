@@ -39,6 +39,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.Commit;
+import io.ballerina.flowmodelgenerator.core.model.node.ConfigVariable;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
@@ -136,6 +137,7 @@ public abstract class NodeBuilder {
         put(NodeKind.ASSIGN, Assign::new);
         put(NodeKind.COMMENT, Comment::new);
         put(NodeKind.MATCH, Match::new);
+        put(NodeKind.CONFIG_VARIABLE, ConfigVariable::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {
@@ -359,6 +361,21 @@ public abstract class NodeBuilder {
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
                     .value(node == null ? "item" : CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable()
+                    .build();
+            addProperty(Property.DATA_VARIABLE_KEY, property);
+
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultableName(String data) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.DATA_VARIABLE_LABEL)
+                        .description(Property.DATA_VARIABLE_DOC)
+                        .stepOut()
+                    .value(data)
                     .type(Property.ValueType.IDENTIFIER)
                     .editable()
                     .build();
@@ -681,6 +698,20 @@ public abstract class NodeBuilder {
                     .type(Property.ValueType.EXPRESSION)
                     .build();
             addProperty(Property.EXPRESSION_KEY, property);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultableVariable(String data) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.DEFAULT_VALUE_LABEL)
+                        .description(Property.DEFAULT_VALUE_DOC)
+                        .stepOut()
+                    .value(data)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.DEFAULTABLE_KEY, property);
             return this;
         }
 

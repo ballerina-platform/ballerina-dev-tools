@@ -1,0 +1,227 @@
+{
+  "project": "config4",
+  "configVariables": {
+    "configVariables": [
+      {
+        "id": "31774",
+        "metadata": {
+          "label": "Config",
+          "description": "Create a configurable variable"
+        },
+        "codedata": {
+          "node": "CONFIG_VARIABLE",
+          "lineRange": {
+            "fileName": "config.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 0,
+              "offset": 30
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config1",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "10",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "32779",
+        "metadata": {
+          "label": "Config",
+          "description": "Create a configurable variable"
+        },
+        "codedata": {
+          "node": "CONFIG_VARIABLE",
+          "lineRange": {
+            "fileName": "config.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 43
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config2",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"new config\"",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "33758",
+        "metadata": {
+          "label": "Config",
+          "description": "Create a configurable variable"
+        },
+        "codedata": {
+          "node": "CONFIG_VARIABLE",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 30
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config3",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "10",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34763",
+        "metadata": {
+          "label": "Config",
+          "description": "Create a configurable variable"
+        },
+        "codedata": {
+          "node": "CONFIG_VARIABLE",
+          "lineRange": {
+            "fileName": "main.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 0
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 43
+            }
+          }
+        },
+        "returning": false,
+        "properties": {
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "config4",
+            "optional": false,
+            "editable": true
+          },
+          "defaultable": {
+            "metadata": {
+              "label": "Default value",
+              "description": "Default value for the config, if empty your need to provide a value at runtime"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"new config\"",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ]
+  }
+}

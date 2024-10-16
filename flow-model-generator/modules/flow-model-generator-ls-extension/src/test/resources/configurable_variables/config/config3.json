@@ -1,13 +1,15 @@
 {
-  "configFile": "config3.bal",
+  "project": "config3",
   "configVariables": {
     "configVariables": [
       {
+        "id": "31774",
         "metadata": {
-          "label": "Config variables"
+          "label": "Config",
+          "description": "Create a configurable variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "CONFIG_VARIABLE",
           "lineRange": {
             "fileName": "config3.bal",
             "startLine": {
@@ -20,11 +22,12 @@
             }
           }
         },
+        "returning": false,
         "properties": {
           "type": {
             "metadata": {
-              "label": "Config type",
-              "description": "Type of the configuration"
+              "label": "Type",
+              "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "int",
@@ -33,8 +36,8 @@
           },
           "variable": {
             "metadata": {
-              "label": "Config name",
-              "description": "Name of the config variable"
+              "label": "Variable",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "config1",
@@ -51,14 +54,17 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       },
       {
+        "id": "32779",
         "metadata": {
-          "label": "Config variables"
+          "label": "Config",
+          "description": "Create a configurable variable"
         },
         "codedata": {
-          "node": "ASSIGN",
+          "node": "CONFIG_VARIABLE",
           "lineRange": {
             "fileName": "config3.bal",
             "startLine": {
@@ -71,11 +77,12 @@
             }
           }
         },
+        "returning": false,
         "properties": {
           "type": {
             "metadata": {
-              "label": "Config type",
-              "description": "Type of the configuration"
+              "label": "Type",
+              "description": "Type of the variable"
             },
             "valueType": "TYPE",
             "value": "string",
@@ -84,8 +91,8 @@
           },
           "variable": {
             "metadata": {
-              "label": "Config name",
-              "description": "Name of the config variable"
+              "label": "Variable",
+              "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
             "value": "config2",
@@ -102,7 +109,8 @@
             "optional": false,
             "editable": true
           }
-        }
+        },
+        "flags": 0
       }
     ]
   }

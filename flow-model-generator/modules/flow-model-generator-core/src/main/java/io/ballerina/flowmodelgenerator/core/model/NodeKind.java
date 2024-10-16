@@ -28,6 +28,7 @@ public enum NodeKind {
     COMMIT,
     ROLLBACK,
     VARIABLE,
+    CONFIG_VARIABLE,
     ASSIGN,
     XML_PAYLOAD,
     JSON_PAYLOAD,

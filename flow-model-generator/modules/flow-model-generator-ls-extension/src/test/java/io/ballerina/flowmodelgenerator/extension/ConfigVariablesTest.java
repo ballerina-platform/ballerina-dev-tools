@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2023, WSO2 LLC. (http://www.wso2.com)
+ *  Copyright (c) 2024, WSO2 LLC. (http://www.wso2.com)
  *
  *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
@@ -47,14 +47,14 @@ public class ConfigVariablesTest extends AbstractLSTest {
                 ConfigVariablesTestConfig.class);
 
         ConfigVariablesGetRequest request =
-                new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.configFile()).toAbsolutePath().toString());
+                new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.project()).toAbsolutePath().toString());
         JsonObject configVariables = getResponse(endpoint, request);
 
         if (!configVariables.equals(testConfig.configVariables())) {
-            ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.configFile(),
+            ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.project(),
                     configVariables);
 //            updateConfig(configJsonPath, updatedConfig);
-            Assert.fail(String.format("Failed test: '%s'", configJsonPath));
+            Assert.fail(String.format("Failed test: '%s'", updatedConfig));
         }
         TestUtil.shutdownLanguageServer(endpoint);
     }
@@ -82,11 +82,12 @@ public class ConfigVariablesTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      *
-     * @param configFile      Path to config file
+     * @param project      Path to config file
      * @param configVariables Config variables
+     *
      * @since 1.4.0
      */
-    private record ConfigVariablesTestConfig(String configFile, JsonElement configVariables) {
+    private record ConfigVariablesTestConfig(String project, JsonElement configVariables) {
 
     }
 }
