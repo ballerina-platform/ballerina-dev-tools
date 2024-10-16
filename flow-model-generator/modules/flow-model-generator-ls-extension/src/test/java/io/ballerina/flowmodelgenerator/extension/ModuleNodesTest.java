@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import io.ballerina.flowmodelgenerator.extension.request.ModuleNodesRequest;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;

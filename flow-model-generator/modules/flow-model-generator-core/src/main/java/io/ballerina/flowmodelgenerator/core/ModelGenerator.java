@@ -42,6 +42,7 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.DocumentId;
 import io.ballerina.projects.Project;
+import io.ballerina.projects.ProjectKind;
 import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
@@ -63,14 +64,12 @@ import java.util.function.Function;
 public class ModelGenerator {
 
     private final SemanticModel semanticModel;
-    private final Document document;
     private final Path filePath;
     private final Gson gson;
     private final Project project;
 
-    public ModelGenerator(Project project, SemanticModel model, Document document, Path filePath) {
+    public ModelGenerator(Project project, SemanticModel model, Path filePath) {
         this.semanticModel = model;
-        this.document = document;
         this.filePath = filePath;
         this.project = project;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -81,7 +80,7 @@ public class ModelGenerator {
      *
      * @return JSON representation of the flow model
      */
-    public JsonElement getFlowModel(LineRange lineRange, Document dataMappingDoc) {
+    public JsonElement getFlowModel(Document document, LineRange lineRange, Document dataMappingDoc) {
         // Obtain the code block representing the canvas
         SyntaxTree syntaxTree = document.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
@@ -146,6 +145,7 @@ public class ModelGenerator {
         NonTerminalNode statementNode;
         TypeSymbol typeSymbol;
         String scope;
+        Document document;
 
         switch (symbol.kind()) {
             case VARIABLE -> {
@@ -169,8 +169,10 @@ public class ModelGenerator {
                 return Optional.empty();
             }
             Location location = symbol.getLocation().orElseThrow();
-            DocumentId documentId = project.documentId(project.sourceRoot().resolve(location.lineRange().fileName()));
-            Document document = project.currentPackage().getDefaultModule().document(documentId);
+            DocumentId documentId = project.documentId(
+                    project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
+                            project.sourceRoot().resolve(location.lineRange().fileName()));
+            document = project.currentPackage().getDefaultModule().document(documentId);
             NonTerminalNode childNode =
                     symbol.getLocation().map(loc -> CommonUtils.getNode(document.syntaxTree(), loc.textRange()))
                             .orElseThrow();
