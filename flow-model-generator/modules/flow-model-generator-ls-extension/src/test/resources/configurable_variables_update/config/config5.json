@@ -1,0 +1,60 @@
+{
+  "configFile": "config5.bal",
+  "configVariable": {
+    "metadata": {
+      "label": "Config variables"
+    },
+    "codedata": {
+      "node": "ASSIGN"
+    },
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Config type",
+          "description": "Type of the configuration"
+        },
+        "valueType": "TYPE",
+        "value": "int",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Config name",
+          "description": "Name of the config variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "config6",
+        "optional": false,
+        "editable": true
+      },
+      "defaultable": {
+        "metadata": {
+          "label": "Default value",
+          "description": "Default value for the config, if empty your need to provide a value at runtime"
+        },
+        "valueType": "EXPRESSION",
+        "value": "1123",
+        "optional": false,
+        "editable": true
+      }
+    }
+  },
+  "output": {
+    "config5.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 3,
+            "character": 0
+          },
+          "end": {
+            "line": 3,
+            "character": 0
+          }
+        },
+        "newText": "configurable int config6 = 1123;"
+      }
+    ]
+  }
+}

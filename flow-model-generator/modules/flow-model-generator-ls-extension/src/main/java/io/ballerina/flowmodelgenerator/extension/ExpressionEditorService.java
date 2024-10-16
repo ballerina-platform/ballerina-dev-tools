@@ -20,9 +20,12 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonArray;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.TypesGenerator;
 import io.ballerina.flowmodelgenerator.core.VisibleVariableTypesGenerator;
 import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorCompletionRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ExpressionEditorSignatureRequest;
 import io.ballerina.flowmodelgenerator.extension.request.VisibleVariableTypeRequest;
+import io.ballerina.flowmodelgenerator.extension.response.ExpressionEditorTypeResponse;
 import io.ballerina.flowmodelgenerator.extension.response.VisibleVariableTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.tools.text.TextDocument;
@@ -39,6 +42,8 @@ import org.eclipse.lsp4j.DidChangeWatchedFilesParams;
 import org.eclipse.lsp4j.FileChangeType;
 import org.eclipse.lsp4j.FileEvent;
 import org.eclipse.lsp4j.Position;
+import org.eclipse.lsp4j.SignatureHelp;
+import org.eclipse.lsp4j.SignatureHelpParams;
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
@@ -89,6 +94,89 @@ public class ExpressionEditorService implements ExtendedLanguageServerService {
                 response.setError(e);
             }
             return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ExpressionEditorTypeResponse> types(VisibleVariableTypeRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ExpressionEditorTypeResponse response = new ExpressionEditorTypeResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                if (semanticModel.isEmpty()) {
+                    return response;
+                }
+
+                TypesGenerator typesGenerator = new TypesGenerator(semanticModel.get());
+                response.setTypes(typesGenerator.getTypes());
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<SignatureHelp> signatureHelp(ExpressionEditorSignatureRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            Path projectPath = null;
+            try {
+                // Load the original project
+                Path filePath = Path.of(request.filePath());
+                this.workspaceManager.loadProject(filePath);
+                projectPath = this.workspaceManager.projectRoot(filePath);
+
+                // Load the shadowed project
+                ProjectCacheManager projectCacheManager =
+                        ProjectCacheManager.InstanceHandler.getInstance(projectPath);
+                projectCacheManager.copyContent();
+                Path destination = projectCacheManager.getDestination(filePath);
+
+                FileEvent fileEvent = new FileEvent(destination.toUri().toString(), FileChangeType.Changed);
+                DidChangeWatchedFilesParams didChangeWatchedFilesParams =
+                        new DidChangeWatchedFilesParams(List.of(fileEvent));
+                this.langServer.getWorkspaceService().didChangeWatchedFiles(didChangeWatchedFilesParams);
+                this.workspaceManager.loadProject(destination);
+
+                // Get the document
+                Optional<Document> document = this.workspaceManager.document(destination);
+                if (document.isEmpty()) {
+                    return new SignatureHelp();
+                }
+                TextDocument textDocument = document.get().textDocument();
+
+                // Determine the cursor position
+                int textPosition = textDocument.textPositionFrom(request.startLine());
+                String statement = String.format("%s;%n", request.expression());
+                TextEdit textEdit = TextEdit.from(TextRange.from(textPosition, 0), statement);
+                TextDocument newTextDocument =
+                        textDocument.apply(TextDocumentChange.from(List.of(textEdit).toArray(new TextEdit[0])));
+                projectCacheManager.writeContent(newTextDocument, filePath);
+                document.get().modify()
+                        .withContent(String.join(System.lineSeparator(), newTextDocument.textLines()))
+                        .apply();
+
+                // Generate the signature help params
+                Position position =
+                        new Position(request.startLine().line(), request.startLine().offset() + request.offset());
+                TextDocumentIdentifier identifier = new TextDocumentIdentifier(destination.toUri().toString());
+                SignatureHelpParams params = new SignatureHelpParams(identifier, position, request.context());
+
+                // Get the signature help
+                CompletableFuture<SignatureHelp> completableFuture =
+                        langServer.getTextDocumentService().signatureHelp(params);
+                SignatureHelp signatureHelp = completableFuture.join();
+                projectCacheManager.deleteContent();
+                return signatureHelp;
+            } catch (Throwable e) {
+                return new SignatureHelp();
+            } finally {
+                if (projectPath != null) {
+                    ProjectCacheManager.InstanceHandler.release(projectPath);
+                }
+            }
         });
     }
 

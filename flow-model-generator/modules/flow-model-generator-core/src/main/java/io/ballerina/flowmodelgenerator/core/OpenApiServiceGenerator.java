@@ -100,6 +100,7 @@ public class OpenApiServiceGenerator {
     public static final String COLON = ":";
     public static final String COMMA = ",";
     public static final String BALLERINA_HTTP = "ballerina/http";
+    public static final String BALLERINA_LANG = "ballerina/lang";
     public static final String DEFAULT_HTTP_RESPONSE = "DefaultStatusCodeResponse";
     public static final String DEFAULT_HTTP_RESPONSE_VALUE = "status: new (0)";
     public static final String IMPORT = "import " + BALLERINA_HTTP + ";";
@@ -324,6 +325,10 @@ public class OpenApiServiceGenerator {
         String resourceSignature = resourceMethodSymbol.signature();
         if (Objects.nonNull(parentModuleName)) {
             resourceSignature = resourceSignature.replace(parentModuleName + COLON, "");
+        }
+        if (resourceSignature.contains(BALLERINA_LANG)) {
+            resourceSignature = resourceSignature.replace(BALLERINA_LANG + ".", "");
+            resourceSignature = resourceSignature.replaceAll("\\d+\\.\\d+\\.\\d+:", "");
         }
         return genResourceFunctionBody(resourceMethodSymbol, resourceSignature);
     }

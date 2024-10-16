@@ -33,9 +33,12 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.SuggestedModelGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.CopilotContextTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ExpressionEditorCompletionTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ExpressionEditorSignatureTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ExpressionEditorTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ServiceGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.VisibleVariableTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesUpdateTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.DataMapperTypesTest"/>
         </classes>
     </test>
