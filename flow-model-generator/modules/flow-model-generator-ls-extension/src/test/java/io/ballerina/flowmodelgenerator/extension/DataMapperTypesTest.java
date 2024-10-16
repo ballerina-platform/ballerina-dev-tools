@@ -40,7 +40,7 @@ public class DataMapperTypesTest extends AbstractLSTest {
     @Override
     protected Object[] getConfigsList() {
         return new Object[][]{
-                {Path.of("variable2.json")}
+                {Path.of("function_call2.json")}
         };
     }
 

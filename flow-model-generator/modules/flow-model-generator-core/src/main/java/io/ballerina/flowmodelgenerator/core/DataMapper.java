@@ -87,7 +87,7 @@ public class DataMapper {
             }
             throw new IllegalStateException("Type cannot be found for : " + propertyKey);
         } else {
-            throw new IllegalStateException("Unhandled node kind : " + nodeKind.name());
+            return new JsonObject();
         }
     }
 
