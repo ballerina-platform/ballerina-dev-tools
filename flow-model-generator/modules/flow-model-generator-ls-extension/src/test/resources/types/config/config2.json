@@ -1,0 +1,36 @@
+{
+  "description": "",
+  "source": "data_mapper/service.bal",
+  "position": {
+    "line": 14,
+    "offset": 0
+  },
+  "types": [
+    "Input",
+    "Output",
+    "Location",
+    "Address",
+    "Employee",
+    "Person",
+    "Admission",
+    "int",
+    "string",
+    "float",
+    "boolean",
+    "decimal",
+    "xml",
+    "error",
+    "function",
+    "future",
+    "typedesc",
+    "handle",
+    "stream",
+    "any",
+    "anydata",
+    "stream",
+    "never",
+    "readonly",
+    "json",
+    "byte"
+  ]
+}
