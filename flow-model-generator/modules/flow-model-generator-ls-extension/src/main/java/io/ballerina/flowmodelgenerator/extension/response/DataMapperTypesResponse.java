@@ -18,7 +18,6 @@
 
 package io.ballerina.flowmodelgenerator.extension.response;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 /**
@@ -28,17 +27,17 @@ import com.google.gson.JsonElement;
  */
 public class DataMapperTypesResponse extends AbstractFlowModelResponse {
 
-    private JsonElement types;
+    private JsonElement type;
 
     public DataMapperTypesResponse() {
 
     }
 
-    public void setTypes(JsonArray types) {
-        this.types = types;
+    public void setType(JsonElement type) {
+        this.type = type;
     }
 
-    public JsonElement getTypes() {
-        return types;
+    public JsonElement getType() {
+        return type;
     }
 }

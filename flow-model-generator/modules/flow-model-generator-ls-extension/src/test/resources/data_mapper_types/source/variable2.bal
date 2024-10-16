@@ -3,10 +3,11 @@ int i = 0;
 type UserInfo record {|
    readonly string username;
    string password;
+   Address address;
 |};
 
-const string CONST2 = "maximum payload (in MB): ";
+type Address record {|
+   string city;
+   string country;
+|};
 
-public function foo(int i, int j) {
-
-}

@@ -1,5 +1,5 @@
 {
-  "source": "variable1.bal",
+  "source": "variable2.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,7 +10,7 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "new_data.bal",
+        "fileName": "variable2.bal",
         "startLine": {
           "line": 1,
           "offset": 4
@@ -57,7 +57,6 @@
     },
     "flags": 0
   },
-  "property": "variable",
   "type": {
     "fields": [
       {
@@ -71,6 +70,36 @@
         "name": "password",
         "typeName": "string",
         "optional": false,
+        "defaultable": false,
+        "isRestType": false
+      },
+      {
+        "fields": [
+          {
+            "name": "city",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          },
+          {
+            "name": "country",
+            "typeName": "string",
+            "optional": false,
+            "defaultable": false,
+            "isRestType": false
+          }
+        ],
+        "hasRestType": false,
+        "name": "address",
+        "typeName": "record",
+        "optional": false,
+        "typeInfo": {
+          "name": "Address",
+          "orgName": "$anon",
+          "moduleName": ".",
+          "version": "0.0.0"
+        },
         "defaultable": false,
         "isRestType": false
       }

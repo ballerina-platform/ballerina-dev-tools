@@ -23,11 +23,12 @@ import com.google.gson.JsonElement;
 /**
  * Represents a request to get the data mapper model for types.
  *
- * @param filePath file path of the source file
- * @param flowNode diagram node
+ * @param filePath    file path of the source file
+ * @param flowNode    diagram node
+ * @param propertyKey The property that needs to consider to get the type
  *
  * @since 1.4.0
  */
-public record DataMapperTypesRequest(String filePath, JsonElement flowNode) {
+public record DataMapperTypesRequest(String filePath, JsonElement flowNode, String propertyKey) {
 
 }

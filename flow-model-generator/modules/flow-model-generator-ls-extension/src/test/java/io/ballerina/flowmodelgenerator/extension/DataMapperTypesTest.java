@@ -20,31 +20,29 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
-import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
-import org.eclipse.lsp4j.TextEdit;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Tests for the flow model source generator service.
+ * Tests for the data mapper types service.
  *
  * @since 1.4.0
  */
 public class DataMapperTypesTest extends AbstractLSTest {
 
-    private static final Type textEditListType = new TypeToken<Map<String, List<TextEdit>>>() {
-    }.getType();
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[][]{
+                {Path.of("variable2.json")}
+        };
+    }
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -54,34 +52,16 @@ public class DataMapperTypesTest extends AbstractLSTest {
 
         DataMapperTypesRequest request =
                 new DataMapperTypesRequest(sourceDir.resolve(testConfig.source()).toAbsolutePath().toString(),
-                        testConfig.diagram());
-        JsonObject jsonMap = getResponse(request).getAsJsonObject("types");
+                        testConfig.diagram(), testConfig.propertyKey());
+        JsonObject type = getResponse(request).getAsJsonObject("type");
 
-        Map<String, List<TextEdit>> actualTextEdits = gson.fromJson(jsonMap, textEditListType);
-
-//        boolean assertFailure = false;
-//        Map<String, List<TextEdit>> newMap = new HashMap<>();
-//        for (Map.Entry<String, List<TextEdit>> entry : actualTextEdits.entrySet()) {
-//            Path fullPath = Paths.get(entry.getKey());
-//            String relativePath = sourceDir.relativize(fullPath).toString();
-//
-//            List<TextEdit> textEdits = testConfig.types().get(relativePath.replace("\\", "/"));
-//            if (textEdits == null) {
-//                log.info("No text edits found for the file: " + relativePath);
-//                assertFailure = true;
-//            } else if (!assertArray("text edits", entry.getValue(), textEdits)) {
-//                assertFailure = true;
-//            }
-//
-//            newMap.put(relativePath, entry.getValue());
-//        }
-//
-//        if (assertFailure) {
-//            TestConfig updatedConfig =
-//                    new TestConfig(testConfig.source(), testConfig.description(), testConfig.diagram(), newMap);
-////            updateConfig(configJsonPath, updatedConfig);
-//            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
-//        }
+        if (!type.equals(testConfig.type())) {
+            TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
+                    testConfig.diagram(), testConfig.propertyKey(), type);
+            updateConfig(configJsonPath, updateConfig);
+            compareJsonElements(type, testConfig.type());
+            Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
+        }
     }
 
     @Override
@@ -110,10 +90,11 @@ public class DataMapperTypesTest extends AbstractLSTest {
      * @param source      The source file name
      * @param description The description of the test
      * @param diagram     The diagram to generate the source code
-     * @param types      The expected types list
+     * @param propertyKey The property that needs to consider to get the type
+     * @param type        The expected type list
      */
-    private record TestConfig(String source, String description, JsonElement diagram,
-                              List<org.ballerinalang.diagramutil.connector.models.connector.Type> types) {
+    private record TestConfig(String source, String description, JsonElement diagram, String propertyKey,
+                              JsonElement type) {
 
         public String description() {
             return description == null ? "" : description;
