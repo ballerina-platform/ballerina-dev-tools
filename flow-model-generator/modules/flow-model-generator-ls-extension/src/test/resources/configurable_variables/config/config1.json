@@ -1,5 +1,5 @@
 {
-  "configFile": "config1.bal",
+  "project": "config1",
   "configVariables": {
     "configVariables": [
       {

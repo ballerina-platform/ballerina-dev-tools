@@ -59,15 +59,17 @@ public class ConfigVariablesManager {
         this.gson = new Gson();
     }
 
-    public JsonElement get(Document document) {
-        SyntaxTree syntaxTree = document.syntaxTree();
-        ModulePartNode modulePartNode = syntaxTree.rootNode();
+    public JsonElement get(List<Document> documents) {
         List<FlowNode> configVariables = new ArrayList<>();
-        for (Node node : modulePartNode.children()) {
-            if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
-                ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
-                if (hasConfigurableQualifier(modVarDeclarationNode)) {
-                    configVariables.add(genConfigVariable(modVarDeclarationNode));
+        for (Document document : documents) {
+            SyntaxTree syntaxTree = document.syntaxTree();
+            ModulePartNode modulePartNode = syntaxTree.rootNode();
+            for (Node node : modulePartNode.children()) {
+                if (node.kind() == SyntaxKind.MODULE_VAR_DECL) {
+                    ModuleVariableDeclarationNode modVarDeclarationNode = (ModuleVariableDeclarationNode) node;
+                    if (hasConfigurableQualifier(modVarDeclarationNode)) {
+                        configVariables.add(genConfigVariable(modVarDeclarationNode));
+                    }
                 }
             }
         }
