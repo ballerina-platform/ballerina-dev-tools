@@ -40,6 +40,9 @@ import io.ballerina.flowmodelgenerator.core.model.Diagram;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Project;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextRange;
@@ -61,18 +64,15 @@ public class ModelGenerator {
 
     private final SemanticModel semanticModel;
     private final Document document;
-    private final LineRange lineRange;
     private final Path filePath;
-    private final Document dataMappingDoc;
     private final Gson gson;
+    private final Project project;
 
-    public ModelGenerator(SemanticModel model, Document document, LineRange lineRange, Path filePath,
-                          Document dataMappingDoc) {
+    public ModelGenerator(Project project, SemanticModel model, Document document, Path filePath) {
         this.semanticModel = model;
         this.document = document;
-        this.lineRange = lineRange;
         this.filePath = filePath;
-        this.dataMappingDoc = dataMappingDoc;
+        this.project = project;
         this.gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     }
 
@@ -81,7 +81,7 @@ public class ModelGenerator {
      *
      * @return JSON representation of the flow model
      */
-    public JsonElement getFlowModel() {
+    public JsonElement getFlowModel(LineRange lineRange, Document dataMappingDoc) {
         // Obtain the code block representing the canvas
         SyntaxTree syntaxTree = document.syntaxTree();
         ModulePartNode modulePartNode = syntaxTree.rootNode();
@@ -93,7 +93,7 @@ public class ModelGenerator {
         // Obtain the connections visible at the module-level
         List<FlowNode> moduleConnections =
                 semanticModel.visibleSymbols(document, canvasNode.lineRange().startLine()).stream()
-                        .flatMap(symbol -> buildConnection(syntaxTree, symbol, textDocument).stream())
+                        .flatMap(symbol -> buildConnection(symbol).stream())
                         .sorted(Comparator.comparing(
                                 node -> Optional.ofNullable(node.properties().get(Property.VARIABLE_KEY))
                                         .map(property -> property.value().toString())
@@ -124,12 +124,24 @@ public class ModelGenerator {
         return gson.toJsonTree(diagram);
     }
 
+    public JsonElement getModuleNodes() {
+        List<FlowNode> connectionsList = semanticModel.moduleSymbols().stream()
+                .flatMap(symbol -> buildConnection(symbol).stream())
+                .sorted(Comparator.comparing(
+                        node -> Optional.ofNullable(node.properties().get(Property.VARIABLE_KEY))
+                                .map(property -> property.value().toString())
+                                .orElse("")))
+                .toList();
+        Diagram diagram = new Diagram(filePath.toString(), List.of(), connectionsList);
+        return gson.toJsonTree(diagram);
+    }
+
     /**
      * Builds a client from the given type symbol.
      *
      * @return the client if the type symbol is a client, otherwise empty
      */
-    private Optional<FlowNode> buildConnection(SyntaxTree syntaxTree, Symbol symbol, TextDocument textDocument) {
+    private Optional<FlowNode> buildConnection(Symbol symbol) {
         Function<NonTerminalNode, NonTerminalNode> getStatementNode;
         NonTerminalNode statementNode;
         TypeSymbol typeSymbol;
@@ -156,8 +168,12 @@ public class ModelGenerator {
                     !((ClassSymbol) typeDescriptorSymbol).qualifiers().contains(Qualifier.CLIENT)) {
                 return Optional.empty();
             }
+            Location location = symbol.getLocation().orElseThrow();
+            DocumentId documentId = project.documentId(project.sourceRoot().resolve(location.lineRange().fileName()));
+            Document document = project.currentPackage().getDefaultModule().document(documentId);
             NonTerminalNode childNode =
-                    symbol.getLocation().map(loc -> CommonUtils.getNode(syntaxTree, loc.textRange())).orElseThrow();
+                    symbol.getLocation().map(loc -> CommonUtils.getNode(document.syntaxTree(), loc.textRange()))
+                            .orElseThrow();
             statementNode = getStatementNode.apply(childNode);
         } catch (RuntimeException ignored) {
             return Optional.empty();
@@ -165,9 +181,8 @@ public class ModelGenerator {
         if (statementNode == null) {
             return Optional.empty();
         }
-        CodeAnalyzer codeAnalyzer =
-                new CodeAnalyzer(semanticModel, scope, Map.of(), textDocument, CommonUtils.getProjectName(document),
-                        false);
+        CodeAnalyzer codeAnalyzer = new CodeAnalyzer(semanticModel, scope, Map.of(), document.textDocument(),
+                CommonUtils.getProjectName(document), false);
         statementNode.accept(codeAnalyzer);
         List<FlowNode> connections = codeAnalyzer.getFlowNodes();
         return connections.stream().findFirst();

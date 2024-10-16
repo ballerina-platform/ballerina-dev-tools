@@ -42,6 +42,7 @@ import io.ballerina.flowmodelgenerator.extension.request.FlowModelNodeTemplateRe
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSourceGeneratorRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelSuggestedGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.FlowNodeDeleteRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ModuleNodesRequest;
 import io.ballerina.flowmodelgenerator.extension.request.OpenAPIServiceGenerationRequest;
 import io.ballerina.flowmodelgenerator.extension.request.SuggestedComponentRequest;
 import io.ballerina.flowmodelgenerator.extension.response.CopilotContextResponse;
@@ -105,7 +106,7 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 Path filePath = Path.of(request.filePath());
 
                 // Obtain the semantic model and the document
-                this.workspaceManager.loadProject(filePath);
+                Project project = this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
                 Optional<Document> document = this.workspaceManager.document(filePath);
                 if (semanticModel.isEmpty() || document.isEmpty()) {
@@ -121,9 +122,10 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 // Generate the flow design model
-                ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
-                        request.lineRange(), filePath, dataMappingsDoc.orElse(null));
-                response.setFlowDesignModel(modelGenerator.getFlowModel());
+                ModelGenerator modelGenerator =
+                        new ModelGenerator(project, semanticModel.get(), document.get(), filePath);
+                response.setFlowDesignModel(
+                        modelGenerator.getFlowModel(request.lineRange(), dataMappingsDoc.orElse(null)));
             } catch (Throwable e) {
                 response.setError(e);
             }
@@ -157,9 +159,10 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 }
 
                 // Generate the flow design model
-                ModelGenerator modelGenerator = new ModelGenerator(semanticModel.get(), document.get(),
-                        request.lineRange(), filePath, dataMappingsDoc.orElse(null));
-                JsonElement oldFlowModel = modelGenerator.getFlowModel();
+                ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(),
+                        document.get(), filePath);
+                JsonElement oldFlowModel = modelGenerator.getFlowModel(request.lineRange(),
+                        dataMappingsDoc.orElse(null));
 
                 // Create a temporary directory for the in-memory cache
                 Project newProject = project.duplicate();
@@ -195,9 +198,10 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                         newTextDocument.linePositionFrom(end + request.text().length()));
 
                 ModelGenerator suggestedModelGenerator =
-                        new ModelGenerator(newDoc.module().getCompilation().getSemanticModel(), newDoc,
-                                endLineRange, filePath, newDataMappingsDoc.orElse(null));
-                JsonElement newFlowModel = suggestedModelGenerator.getFlowModel();
+                        new ModelGenerator(newProject, newDoc.module().getCompilation().getSemanticModel(),
+                                newDoc, filePath);
+                JsonElement newFlowModel = suggestedModelGenerator.getFlowModel(endLineRange,
+                        newDataMappingsDoc.orElse(null));
 
                 LinePosition endPosition = newTextDocument.linePositionFrom(textPosition + request.text().length());
                 LineRange newLineRange =
@@ -288,6 +292,34 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
                 JsonElement nodeTemplate =
                         generator.getNodeTemplate(workspaceManager, filePath, request.position(), request.id());
                 response.setFlowNode(nodeTemplate);
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<FlowModelGeneratorResponse> getModuleNodes(ModuleNodesRequest request) {
+
+        return CompletableFuture.supplyAsync(() -> {
+            FlowModelGeneratorResponse response = new FlowModelGeneratorResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+
+                // Obtain the semantic model and the document
+                Project project = this.workspaceManager.loadProject(filePath);
+                Path projectPath = this.workspaceManager.projectRoot(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+
+                // Generate the flow design model
+                ModelGenerator modelGenerator =
+                        new ModelGenerator(project, semanticModel.get(), document.get(), filePath);
+                response.setFlowDesignModel(modelGenerator.getModuleNodes());
             } catch (Throwable e) {
                 response.setError(e);
             }

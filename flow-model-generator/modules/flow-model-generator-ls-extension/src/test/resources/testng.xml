@@ -36,6 +36,7 @@ under the License.
             <class name="io.ballerina.flowmodelgenerator.extension.ServiceGeneratorTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.VisibleVariableTypesTest"/>
             <class name="io.ballerina.flowmodelgenerator.extension.ConfigVariablesTest"/>
+            <class name="io.ballerina.flowmodelgenerator.extension.ModuleNodesTest"/>
         </classes>
     </test>
 </suite>
