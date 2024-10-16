@@ -1,0 +1,75 @@
+{
+  "configFile": "config1.bal",
+  "configVariable": {
+    "id": "31776",
+    "metadata": {
+      "label": "Config",
+      "description": "Create a configurable variable"
+    },
+    "codedata": {
+      "node": "CONFIG_VARIABLE",
+      "lineRange": {
+        "fileName": "config1.bal",
+        "startLine": {
+          "line": 1,
+          "offset": 23
+        },
+        "endLine": {
+          "line": 1,
+          "offset": 23
+        }
+      }
+    },
+    "returning": false,
+    "properties": {
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "string",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "config1",
+        "optional": false,
+        "editable": true
+      },
+      "defaultable": {
+        "metadata": {
+          "label": "Default value",
+          "description": "Default value for the config, if empty your need to provide a value at runtime"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 0
+  },
+  "output": {
+    "config1.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 23
+          },
+          "end": {
+            "line": 1,
+            "character": 23
+          }
+        },
+        "newText": "configurable string config1 = ?;"
+      }
+    ]
+  }
+}

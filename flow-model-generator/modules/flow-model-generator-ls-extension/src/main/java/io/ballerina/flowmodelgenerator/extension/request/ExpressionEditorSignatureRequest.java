@@ -18,12 +18,18 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import io.ballerina.tools.text.LinePosition;
+import org.eclipse.lsp4j.SignatureHelpContext;
+
 /**
- * Represents the request to get config variables.
+ * Represents a request for expression editor signature help.
  *
- * @param projectPath path of the config file
- *
- * @since 1.4.0
+ * @param filePath   The file path which contains the expression
+ * @param expression The modified expression
+ * @param startLine  The start line of the node
+ * @param offset     The offset of cursor compared to the start of the expression
+ * @param context    The signature help context
  */
-public record ConfigVariablesGetRequest(String projectPath) {
+public record ExpressionEditorSignatureRequest(String filePath, String expression, LinePosition startLine, int offset,
+                                               SignatureHelpContext context) {
 }

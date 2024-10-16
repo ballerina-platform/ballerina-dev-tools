@@ -16,7 +16,6 @@
  *  under the License.
  */
 
-
 package io.ballerina.flowmodelgenerator.extension.request;
 
 import com.google.gson.JsonObject;

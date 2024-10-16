@@ -1,0 +1,55 @@
+{
+  "description": "",
+  "filePath": "source.bal",
+  "expression": "info(\"John\", );",
+  "startLine": {
+    "line": 19,
+    "offset": 4
+  },
+  "offset": 11,
+  "context": {
+    "triggerKind": "Invoked",
+    "isRetrigger": false
+  },
+  "signatureHelp": [
+    {
+      "label": "info(string name, int age)",
+      "documentation": {
+        "right": {
+          "kind": "markdown",
+          "value": "**Description**  \nProvides information about a person."
+        }
+      },
+      "parameters": [
+        {
+          "label": {
+            "right": {
+              "first": 12,
+              "second": 16
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`string`name**: The name of the person"
+            }
+          }
+        },
+        {
+          "label": {
+            "right": {
+              "first": 22,
+              "second": 25
+            }
+          },
+          "documentation": {
+            "right": {
+              "kind": "markdown",
+              "value": "**Parameter**  \n**`int`age**: The age of the person (default is 25)"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

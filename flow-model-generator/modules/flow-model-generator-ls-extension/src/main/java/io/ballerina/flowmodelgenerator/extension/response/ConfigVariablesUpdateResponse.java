@@ -16,14 +16,24 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.request;
+package io.ballerina.flowmodelgenerator.extension.response;
+
+import com.google.gson.JsonElement;
 
 /**
- * Represents the request to get config variables.
- *
- * @param projectPath path of the config file
+ * Represents the response for updating config variables.
  *
  * @since 1.4.0
  */
-public record ConfigVariablesGetRequest(String projectPath) {
+public class ConfigVariablesUpdateResponse extends AbstractFlowModelResponse {
+
+    private JsonElement textEdits;
+
+    public void setTextEdits(JsonElement textEdits) {
+        this.textEdits = textEdits;
+    }
+
+    public JsonElement textEdits() {
+        return textEdits;
+    }
 }

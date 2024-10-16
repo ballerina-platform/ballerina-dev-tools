@@ -20,7 +20,9 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.flowmodelgenerator.core.ConfigVariablesManager;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
+import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesUpdateRequest;
 import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesResponse;
+import io.ballerina.flowmodelgenerator.extension.response.ConfigVariablesUpdateResponse;
 import io.ballerina.projects.Document;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
@@ -29,7 +31,13 @@ import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 import org.eclipse.lsp4j.jsonrpc.services.JsonSegment;
 import org.eclipse.lsp4j.services.LanguageServer;
 
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -54,6 +62,35 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
         return CompletableFuture.supplyAsync(() -> {
             ConfigVariablesResponse response = new ConfigVariablesResponse();
             try {
+                Path projectFolder = Path.of(request.projectPath());
+                List<Path> filePaths = new ArrayList<>();
+                Files.walkFileTree(projectFolder, new FileReader(filePaths));
+
+                List<Document> documents = new ArrayList<>();
+                for (Path filePath : filePaths) {
+                    this.workspaceManager.loadProject(filePath);
+                    Optional<Document> document = this.workspaceManager.document(filePath);
+                    if (document.isEmpty()) {
+                        return response;
+                    }
+                    documents.add(document.get());
+                }
+
+                ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
+                response.setConfigVariables(configVariablesManager.get(documents));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<ConfigVariablesUpdateResponse> updateConfigVariables(
+            ConfigVariablesUpdateRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            ConfigVariablesUpdateResponse response = new ConfigVariablesUpdateResponse();
+            try {
                 Path configFile = Path.of(request.configFilePath());
                 this.workspaceManager.loadProject(configFile);
                 Optional<Document> document = this.workspaceManager.document(configFile);
@@ -62,11 +99,27 @@ public class ConfigEditorService implements ExtendedLanguageServerService {
                 }
 
                 ConfigVariablesManager configVariablesManager = new ConfigVariablesManager();
-                response.setConfigVariables(configVariablesManager.get(document.get()));
+                response.setTextEdits(configVariablesManager.update(document.get(), configFile,
+                        request.configVariable()));
             } catch (Throwable e) {
                 response.setError(e);
             }
             return response;
         });
+    }
+
+    private static class FileReader extends SimpleFileVisitor<Path> {
+        List<Path> filePaths;
+
+        public FileReader(List<Path> filePaths) {
+            this.filePaths = filePaths;
+        }
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            if (file.toString().endsWith(".bal")) {
+                filePaths.add(file);
+            }
+            return FileVisitResult.CONTINUE;
+        }
     }
 }

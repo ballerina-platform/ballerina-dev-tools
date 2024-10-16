@@ -18,12 +18,14 @@
 
 package io.ballerina.flowmodelgenerator.extension.request;
 
+import com.google.gson.JsonElement;
+
 /**
- * Represents the request to get config variables.
+ * Represents the request to update config variables.
  *
- * @param projectPath path of the config file
- *
+ * @param configFilePath  path of the config file
+ * @param configVariable new config variables
  * @since 1.4.0
  */
-public record ConfigVariablesGetRequest(String projectPath) {
+public record ConfigVariablesUpdateRequest(String configFilePath, JsonElement configVariable) {
 }

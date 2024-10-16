@@ -356,6 +356,11 @@ public class SourceBuilder {
             return this;
         }
 
+        public TokenBuilder expression(String exprAsStr) {
+            sb.append(exprAsStr);
+            return this;
+        }
+
         public TokenBuilder expressionWithType(Property type, Property variable) {
             String typeSourceCode = type.toSourceCode();
             int lastDotIndex = typeSourceCode.lastIndexOf('.');

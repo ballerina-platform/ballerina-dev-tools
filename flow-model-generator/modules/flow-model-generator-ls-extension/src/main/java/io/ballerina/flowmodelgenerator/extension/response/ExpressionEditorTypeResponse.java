@@ -16,14 +16,24 @@
  *  under the License.
  */
 
-package io.ballerina.flowmodelgenerator.extension.request;
+package io.ballerina.flowmodelgenerator.extension.response;
+
+import com.google.gson.JsonArray;
 
 /**
- * Represents the request to get config variables.
- *
- * @param projectPath path of the config file
+ * This class represents the response for the expression editor types.
  *
  * @since 1.4.0
  */
-public record ConfigVariablesGetRequest(String projectPath) {
+public class ExpressionEditorTypeResponse extends AbstractFlowModelResponse {
+
+    private JsonArray types;
+
+    public void setTypes(JsonArray types) {
+        this.types = types;
+    }
+
+    public JsonArray types() {
+        return types;
+    }
 }
