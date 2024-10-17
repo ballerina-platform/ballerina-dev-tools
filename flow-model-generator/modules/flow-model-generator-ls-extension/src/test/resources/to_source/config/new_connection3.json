@@ -16,12 +16,12 @@
       "lineRange": {
         "fileName": "new_connection.bal",
         "startLine": {
-          "line": 3,
+          "line": 0,
           "offset": 0
         },
         "endLine": {
-          "line": 3,
-          "offset": 63
+          "line": 0,
+          "offset": 0
         }
       }
     },
