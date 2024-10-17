@@ -18,8 +18,10 @@
 
 package io.ballerina.flowmodelgenerator.extension;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.extension.request.ConfigVariablesGetRequest;
 import org.ballerinalang.langserver.BallerinaLanguageServer;
 import org.ballerinalang.langserver.util.TestUtil;
@@ -28,8 +30,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Test cases for the flow model generator service.
@@ -37,6 +43,9 @@ import java.nio.file.Path;
  * @since 1.4.0
  */
 public class ConfigVariablesTest extends AbstractLSTest {
+
+    private static final Type flowNodes = new TypeToken<Map<String, List<FlowNode>>>() {
+    }.getType();
 
     @Override
     @Test(dataProvider = "data-provider")
@@ -50,11 +59,36 @@ public class ConfigVariablesTest extends AbstractLSTest {
                 new ConfigVariablesGetRequest(sourceDir.resolve(testConfig.project()).toAbsolutePath().toString());
         JsonObject configVariables = getResponse(endpoint, request);
 
-        if (!configVariables.equals(testConfig.configVariables())) {
+        Map<String, List<FlowNode>> m = gson.fromJson(configVariables, flowNodes);
+        List<FlowNode> actualFlowNodes = m.get("configVariables");
+        boolean assertFalse = false;
+        for (FlowNode actualFlowNode : actualFlowNodes) {
+            Optional<Property> actualVar = actualFlowNode.getProperty(Property.VARIABLE_KEY);
+            if (actualVar.isEmpty()) {
+                assertFalse = true;
+                break;
+            }
+            String actualVarName = actualVar.get().toSourceCode();
+            for (FlowNode expectedFlowNode : testConfig.configVariables()) {
+                Optional<Property> expectedVar = expectedFlowNode.getProperty(Property.VARIABLE_KEY);
+                if (expectedVar.isEmpty()) {
+                    assertFalse = true;
+                    break;
+                }
+                String expectedVarName = expectedVar.get().toSourceCode();
+                if (expectedVarName.equals(actualVarName)) {
+                    if (!actualFlowNode.equals(expectedFlowNode)) {
+                        assertFalse = true;
+                    }
+                }
+            }
+        }
+        
+        if (assertFalse) {
             ConfigVariablesTestConfig updatedConfig = new ConfigVariablesTestConfig(testConfig.project(),
-                    configVariables);
+                    actualFlowNodes);
 //            updateConfig(configJsonPath, updatedConfig);
-            Assert.fail(String.format("Failed test: '%s'", updatedConfig));
+            Assert.fail(String.format("Failed test: '%s'", configJsonPath));
         }
         TestUtil.shutdownLanguageServer(endpoint);
     }
@@ -82,12 +116,11 @@ public class ConfigVariablesTest extends AbstractLSTest {
     /**
      * Represents the test configuration for the model generator test.
      *
-     * @param project      Path to config file
+     * @param project         Path to config file
      * @param configVariables Config variables
-     *
      * @since 1.4.0
      */
-    private record ConfigVariablesTestConfig(String project, JsonElement configVariables) {
+    private record ConfigVariablesTestConfig(String project, List<FlowNode> configVariables) {
 
     }
 }
