@@ -187,7 +187,7 @@ public class DataMapper extends NodeBuilder {
                 .name(bodyText)
                 .closeBrace()
                 .stepOut()
-                .textEdit(false, "data_mappings.bal");
+                .textEdit(false, "data_mappings.bal", false);
 
         Optional<Property> variable = sourceBuilder.flowNode.getProperty(Property.VARIABLE_KEY);
         if (variable.isEmpty()) {
