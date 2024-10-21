@@ -305,7 +305,7 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
+                      "label": "Name",
                       "description": "Result Variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -409,7 +409,7 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
+                      "label": "Name",
                       "description": "Result Variable"
                     },
                     "valueType": "IDENTIFIER",
