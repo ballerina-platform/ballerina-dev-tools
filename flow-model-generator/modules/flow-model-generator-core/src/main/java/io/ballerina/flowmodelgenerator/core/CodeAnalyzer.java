@@ -418,7 +418,9 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        boolean implicit = false;
         if (initializer.isEmpty()) {
+            implicit = true;
             startNode(NodeKind.VARIABLE)
                     .metadata()
                         .description(Assign.DESCRIPTION)
@@ -431,6 +433,7 @@ class CodeAnalyzer extends NodeVisitor {
 
             // Generate the default expression node if a node is not built
             if (isNodeUnidentified()) {
+                implicit = true;
                 startNode(NodeKind.VARIABLE)
                         .metadata()
                             .description(Assign.DESCRIPTION)
@@ -449,7 +452,7 @@ class CodeAnalyzer extends NodeVisitor {
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "byte[]");
         } else {
-            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern(), implicit);
         }
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);

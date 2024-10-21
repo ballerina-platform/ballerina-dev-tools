@@ -80,11 +80,13 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String COLLECTION_KEY = "collection";
     public static final String COLLECTION_DOC = "Collection to iterate";
 
-    public static final String DATA_VARIABLE_LABEL = "Variable";
+    public static final String DATA_VARIABLE_LABEL = "Variable Name";
+    public static final String DATA_IMPLICIT_VARIABLE_LABEL = "Name";
     public static final String DATA_VARIABLE_KEY = "variable";
     public static final String DATA_VARIABLE_DOC = "Name of the variable";
 
-    public static final String DATA_TYPE_LABEL = "Type";
+    public static final String DATA_TYPE_LABEL = "Variable Type";
+    public static final String DATA_IMPLICIT_TYPE_LABEL = "Type";
     public static final String DATA_TYPE_KEY = "type";
     public static final String DATA_TYPE_DOC = "Type of the variable";
 
