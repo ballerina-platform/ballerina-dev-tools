@@ -828,7 +828,16 @@
             "valueType": "IDENTIFIER",
             "value": "c",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "cannot assign a value to function argument 'c'"
+                }
+              ]
+            }
           }
         },
         "diagnostics": {
@@ -877,7 +886,16 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "redeclared symbol 'i'"
+                }
+              ]
+            }
           },
           "type": {
             "metadata": {

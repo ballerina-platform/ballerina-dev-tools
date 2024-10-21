@@ -55,7 +55,7 @@ public class DiagnosticHandler {
         while (currentDiagnostic != null) {
             LineRange diagnosticLineRange = currentDiagnostic.location().lineRange();
             LinePosition diagnosticEndLine = diagnosticLineRange.endLine();
-            while (hasDiagnosticPassed(nodeStartLine, diagnosticEndLine)) {
+            while (hasDiagnosticPassed(nodeStartLine, diagnosticEndLine, isLeafNode)) {
                 if (iterator.hasNext()) {
                     currentDiagnostic = iterator.next();
                     hasNodeAnnotated = false;
@@ -122,9 +122,11 @@ public class DiagnosticHandler {
                 .diagnostic(currentDiagnostic.diagnosticInfo().severity(), currentDiagnostic.message());
     }
 
-    private static boolean hasDiagnosticPassed(LinePosition nodeStartLine, LinePosition diagnosticEndLine) {
-        return nodeStartLine.line() > diagnosticEndLine.line() || (nodeStartLine.line() == diagnosticEndLine.line() &&
-                nodeStartLine.offset() > diagnosticEndLine.offset());
+    private static boolean hasDiagnosticPassed(LinePosition nodeStartLine, LinePosition diagnosticEndLine,
+                                               boolean isLeafNode) {
+        return !isLeafNode && (nodeStartLine.line() > diagnosticEndLine.line() ||
+                (nodeStartLine.line() == diagnosticEndLine.line() &&
+                        nodeStartLine.offset() > diagnosticEndLine.offset()));
     }
 
     public interface DiagnosticCapable {
