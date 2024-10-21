@@ -3,6 +3,8 @@ public function main() {
     return;
 
     // Unreachable code
-    string s = "s";
-    return;
+    if (true) {
+        string s = "s";
+        return;
+    }
 }
