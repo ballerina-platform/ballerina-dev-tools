@@ -534,10 +534,6 @@ class CodeAnalyzer extends NodeVisitor {
             return;
         }
 
-        if (forceAssign && this.typedBindingPatternNode != null) {
-            return;
-        }
-
         FunctionSymbol functionSymbol = (FunctionSymbol) symbol.get();
         String orgName = CommonUtils.getOrgName(functionSymbol);
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();

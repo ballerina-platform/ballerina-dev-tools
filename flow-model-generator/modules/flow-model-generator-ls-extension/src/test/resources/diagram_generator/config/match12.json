@@ -114,11 +114,11 @@
               {
                 "id": "273373",
                 "metadata": {
-                  "label": "Variable",
-                  "description": "Assign a value to a variable"
+                  "label": "Custom Expression",
+                  "description": "Represents a custom Ballerina expression"
                 },
                 "codedata": {
-                  "node": "VARIABLE",
+                  "node": "EXPRESSION",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -134,13 +134,13 @@
                 },
                 "returning": false,
                 "properties": {
-                  "expression": {
+                  "statement": {
                     "metadata": {
-                      "label": "Expression",
-                      "description": "Expression"
+                      "label": "Statement",
+                      "description": "Ballerina statement"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "check int:fromString(obj.quantity.toString())",
+                    "value": "int:fromString(obj.quantity.toString())",
                     "optional": false,
                     "editable": true
                   },
@@ -165,7 +165,7 @@
                     "editable": true
                   }
                 },
-                "flags": 0
+                "flags": 1
               },
               {
                 "id": "274329",

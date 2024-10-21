@@ -94,11 +94,14 @@
       {
         "id": "38859",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -114,16 +117,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "check fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -145,16 +138,19 @@
             "editable": true
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "39856",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -170,16 +166,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "checkpanic fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -201,16 +187,19 @@
             "editable": true
           }
         },
-        "flags": 0
+        "flags": 2
       },
       {
         "id": "40845",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -226,16 +215,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "check fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -257,16 +236,19 @@
             "editable": true
           }
         },
-        "flags": 4
+        "flags": 5
       },
       {
         "id": "41842",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "fnWithErrorAndValue"
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fnWithErrorAndValue",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "flags.bal",
             "startLine": {
@@ -282,16 +264,6 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
-            "metadata": {
-              "label": "Expression",
-              "description": "Expression"
-            },
-            "valueType": "EXPRESSION",
-            "value": "checkpanic fnWithErrorAndValue()",
-            "optional": false,
-            "editable": true
-          },
           "variable": {
             "metadata": {
               "label": "Variable",
@@ -313,7 +285,7 @@
             "editable": true
           }
         },
-        "flags": 4
+        "flags": 6
       }
     ],
     "connections": []

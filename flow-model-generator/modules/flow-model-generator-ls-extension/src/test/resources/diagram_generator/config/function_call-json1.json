@@ -38,11 +38,15 @@
       {
         "id": "53873",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "toJson",
+          "description": "Converts a value of type `anydata` to `json`.\n\n",
+          "icon": ""
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "data.jsondata",
+          "symbol": "toJson",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -58,13 +62,13 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "v": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "v",
+              "description": "Source anydata value\n"
             },
             "valueType": "EXPRESSION",
-            "value": "check jsondata:toJson(payload)",
+            "value": "payload",
             "optional": false,
             "editable": true
           },
@@ -89,16 +93,20 @@
             "editable": true
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "54869",
         "metadata": {
-          "label": "Variable",
-          "description": "Assign a value to a variable"
+          "label": "parseAsType",
+          "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
+          "icon": ""
         },
         "codedata": {
-          "node": "VARIABLE",
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "data.jsondata",
+          "symbol": "parseAsType",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -114,14 +122,23 @@
         },
         "returning": false,
         "properties": {
-          "expression": {
+          "v": {
             "metadata": {
-              "label": "Expression",
-              "description": "Expression"
+              "label": "v",
+              "description": "Source JSON value\n"
             },
             "valueType": "EXPRESSION",
-            "value": "check jsondata:parseAsType(jsonResult)",
+            "value": "jsonResult",
             "optional": false,
+            "editable": true
+          },
+          "options": {
+            "metadata": {
+              "label": "options",
+              "description": "Options to be used for filtering in the projection\n"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
             "editable": true
           },
           "variable": {
@@ -145,7 +162,7 @@
             "editable": true
           }
         },
-        "flags": 0
+        "flags": 1
       },
       {
         "id": "55821",
