@@ -335,7 +335,7 @@
           "view": {
             "metadata": {
               "label": "View",
-              "description": "Visualize the data mapper function"
+              "description": "Function definition location"
             },
             "valueType": "VIEW",
             "value": {
@@ -516,7 +516,7 @@
           "view": {
             "metadata": {
               "label": "View",
-              "description": "Visualize the data mapper function"
+              "description": "Function definition location"
             },
             "valueType": "VIEW",
             "value": {
@@ -580,6 +580,26 @@
             "value": "employee",
             "optional": false,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "main.bal",
+              "startLine": {
+                "line": 4,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 6,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
           }
         },
         "flags": 0

@@ -301,6 +301,26 @@
                     "value": "\"Sum is greater than 30\"",
                     "optional": false,
                     "editable": true
+                  },
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 24,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 26,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
                   }
                 },
                 "flags": 0,
@@ -460,6 +480,26 @@
                     "value": "\"x is greater than y\"",
                     "optional": false,
                     "editable": true
+                  },
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 24,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 26,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
                   }
                 },
                 "flags": 0
@@ -520,6 +560,26 @@
                     "value": "\"x is equal to y\"",
                     "optional": false,
                     "editable": true
+                  },
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 24,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 26,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
                   }
                 },
                 "flags": 0

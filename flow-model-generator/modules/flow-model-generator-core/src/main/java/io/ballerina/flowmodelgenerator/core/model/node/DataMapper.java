@@ -73,7 +73,7 @@ public class DataMapper extends NodeBuilder {
 
     public static final String VIEW_KEY = "view";
     public static final String VIEW_LABEL = "View";
-    public static final String VIEW_DOC = "Visualize the data mapper function";
+    public static final String VIEW_DOC = "Function definition location";
 
     @Override
     public void setConcreteConstData() {

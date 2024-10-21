@@ -108,9 +108,11 @@ import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +129,7 @@ import java.util.stream.Collectors;
 class CodeAnalyzer extends NodeVisitor {
 
     //TODO: Wrap the class variables inside another class
+    private final Project project;
     private final List<FlowNode> flowNodeList;
     private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
@@ -138,8 +141,10 @@ class CodeAnalyzer extends NodeVisitor {
     private final String defaultModuleName;
     private final boolean forceAssign;
 
-    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, Map<String, LineRange> dataMappings,
-                        TextDocument textDocument, String defaultModuleName, boolean forceAssign) {
+    public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
+                        Map<String, LineRange> dataMappings, TextDocument textDocument, String defaultModuleName,
+                        boolean forceAssign) {
+        this.project = project;
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
@@ -596,6 +601,10 @@ class CodeAnalyzer extends NodeVisitor {
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties()
                                 .functionArguments(functionCallExpressionNode.arguments(), params));
+                functionSymbol.getLocation()
+                        .flatMap(location -> CommonUtil.findNode(functionSymbol,
+                                CommonUtils.getDocument(project, location).syntaxTree()))
+                        .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);

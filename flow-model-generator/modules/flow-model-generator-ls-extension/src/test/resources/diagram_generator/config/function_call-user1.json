@@ -70,6 +70,26 @@
             "optional": false,
             "editable": true
           },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 33,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 35,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -135,6 +155,26 @@
             "valueType": "EXPRESSION",
             "optional": true,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 37,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 45,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {
@@ -202,6 +242,26 @@
             "value": "3",
             "optional": true,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 37,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 45,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {
@@ -281,6 +341,26 @@
         },
         "returning": false,
         "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 47,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 53,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
+          },
           "variable": {
             "metadata": {
               "label": "Variable Name",
@@ -356,6 +436,26 @@
             "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
             "optional": false,
             "editable": true
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 55,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 59,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
           },
           "variable": {
             "metadata": {
@@ -434,7 +534,28 @@
           "sourceCode": "print();"
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "function_call.bal",
+              "startLine": {
+                "line": 61,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 63,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
+          }
+        },
         "flags": 0
       }
     ],
