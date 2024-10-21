@@ -263,13 +263,13 @@ public abstract class NodeBuilder {
             this.defaultModuleName = defaultModuleName;
         }
 
-        public PropertiesBuilder<T> variable(Node node) {
+        public PropertiesBuilder<T> variable(Node node, boolean implicit) {
             if (node == null) {
                 return this;
             }
             propertyBuilder
                     .metadata()
-                        .label(Property.VARIABLE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_LABEL)
                         .description(Property.VARIABLE_DOC)
                         .stepOut()
                     .value(CommonUtils.getVariableName(node))
@@ -278,6 +278,10 @@ public abstract class NodeBuilder {
 
             addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
             return this;
+        }
+
+        public PropertiesBuilder<T> variable(Node node) {
+            return variable(node, false);
         }
 
         public PropertiesBuilder<T> type(Node node) {
