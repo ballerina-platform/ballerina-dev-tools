@@ -39,6 +39,9 @@
           "sourceCode": "function fn1(boolean flag) {\n       if flag {\n int j = 12 - 1;\n string val = j.toString() + \".\";\n    }int i = 12;\n\n    string val = i.toString();\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -207,12 +210,24 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'val'"
+                    }
+                  ]
+                },
                 "flags": 0,
                 "suggested": true
               }
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0,
         "suggested": true
       },
@@ -326,6 +341,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'val'"
+            }
+          ]
         },
         "flags": 0,
         "suggested": false
