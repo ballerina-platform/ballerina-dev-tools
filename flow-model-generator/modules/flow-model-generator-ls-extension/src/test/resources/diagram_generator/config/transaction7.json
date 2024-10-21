@@ -9,7 +9,6 @@
   },
   "source": "commit.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "commit.bal",
     "nodes": [

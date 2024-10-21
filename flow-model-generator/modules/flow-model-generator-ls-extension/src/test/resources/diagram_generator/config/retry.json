@@ -9,7 +9,6 @@
   },
   "source": "retry.bal",
   "description": "Tests flow nodes generation for retry statement",
-  "forceAssign": false,
   "diagram": {
     "fileName": "retry.bal",
     "nodes": [
@@ -260,7 +259,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -438,7 +437,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -624,7 +623,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -810,7 +809,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }

@@ -9,7 +9,6 @@
   },
   "source": "retry_transaction.bal",
   "description": "Tests flow nodes generation for retry transaction statement",
-  "forceAssign": false,
   "diagram": {
     "fileName": "retry_transaction.bal",
     "nodes": [
@@ -308,7 +307,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -510,7 +509,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -780,7 +779,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -1050,7 +1049,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }

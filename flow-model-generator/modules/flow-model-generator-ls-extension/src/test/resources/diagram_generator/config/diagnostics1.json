@@ -10,27 +10,27 @@
   "source": "diagnostics1.bal",
   "description": "Tests a simple diagram flow",
   "diagram": {
-    "fileName": "diagnostics.bal",
+    "fileName": "diagnostics1.bal",
     "nodes": [
       {
-        "id": "32582",
+        "id": "32551",
         "metadata": {
           "label": "Start"
         },
         "codedata": {
           "node": "EVENT_START",
           "lineRange": {
-            "fileName": "diagnostics.bal",
+            "fileName": "diagnostics1.bal",
             "startLine": {
               "line": 0,
-              "offset": 23
+              "offset": 22
             },
             "endLine": {
               "line": 4,
               "offset": 1
             }
           },
-          "sourceCode": "public function main() {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n}"
+          "sourceCode": "public function fn1() {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n}"
         },
         "returning": false,
         "diagnostics": {
@@ -50,7 +50,7 @@
           "symbol": "fn",
           "version": "0.0.0",
           "lineRange": {
-            "fileName": "diagnostics.bal",
+            "fileName": "diagnostics1.bal",
             "startLine": {
               "line": 1,
               "offset": 4
@@ -84,7 +84,7 @@
         "codedata": {
           "node": "VARIABLE",
           "lineRange": {
-            "fileName": "diagnostics.bal",
+            "fileName": "diagnostics1.bal",
             "startLine": {
               "line": 2,
               "offset": 4
@@ -138,6 +138,9 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -149,7 +152,7 @@
         "codedata": {
           "node": "VARIABLE",
           "lineRange": {
-            "fileName": "diagnostics.bal",
+            "fileName": "diagnostics1.bal",
             "startLine": {
               "line": 3,
               "offset": 4

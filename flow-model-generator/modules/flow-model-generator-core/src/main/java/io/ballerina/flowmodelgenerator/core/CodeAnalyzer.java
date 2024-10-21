@@ -519,7 +519,11 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(ExpressionStatementNode expressionStatementNode) {
-        handleDefaultStatementNode(expressionStatementNode, () -> super.visit(expressionStatementNode));
+        super.visit(expressionStatementNode);
+        if (isNodeUnidentified()) {
+            handleExpressionNode(expressionStatementNode);
+        }
+        endNode(expressionStatementNode);
     }
 
     @Override
