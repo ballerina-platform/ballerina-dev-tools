@@ -33,6 +33,9 @@
           "sourceCode": "public function commentInFunctionBody1() {\n    int i = 0;\n    // This is a function body comment\n    // to generate AI flow\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'i'"
+            }
+          ]
         },
         "flags": 0
       },

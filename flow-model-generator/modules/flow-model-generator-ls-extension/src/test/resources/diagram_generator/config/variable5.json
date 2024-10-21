@@ -33,6 +33,9 @@
           "sourceCode": "function testNewDataJson2(int amount) returns error? {\n    json newData = {value: check calculate(amount)};\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'newData'"
+            }
+          ]
         },
         "flags": 0
       }

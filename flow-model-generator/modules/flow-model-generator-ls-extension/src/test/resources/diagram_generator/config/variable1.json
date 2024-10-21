@@ -9,7 +9,6 @@
   },
   "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "new_data.bal",
     "nodes": [
@@ -123,6 +122,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'f'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -234,6 +242,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'd1'"
+            }
+          ]
         },
         "flags": 0
       },

@@ -33,6 +33,9 @@
           "sourceCode": "resource function post apples() returns http:ClientError? {\n        var res1 = check foodClient->post(\"/apples\", \"red apple\", targetType = json);\n        _ = check foodClient->post(\"/apples\", targetType = json, message = \"green apple\");\n        json res2 = check foodClient->/western/apples.post(\"western red apple\");\n        json res3 = check foodClient->/apples.post({\"type\": \"red apple\"}, mediaType = \"application/json\");\n        json res4 = check foodClient->/.post(\"green apple\");\n        var res5 = check foodClient->/apples.post(\"green apple\", targetType = json);\n        json res7 = check foodClient->/apples.post(\"red apple\", headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.post(\"red apple\");\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].post(\"green apple\");\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -131,6 +134,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res1'"
+            }
+          ]
         },
         "flags": 1
       },
@@ -300,6 +312,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res2'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
@@ -390,6 +411,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res3'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
@@ -479,6 +509,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res4'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
@@ -567,6 +606,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res5'"
+            }
+          ]
         },
         "flags": 1
       },
@@ -658,6 +706,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res7'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
@@ -747,6 +804,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res8'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
@@ -835,6 +901,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res9'"
+            }
+          ]
         },
         "flags": 1
       }

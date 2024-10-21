@@ -66,6 +66,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x1'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -121,6 +130,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x2'"
+            }
+          ]
         },
         "flags": 0
       },
@@ -178,6 +196,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x3'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -234,6 +261,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x4'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -289,6 +325,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x5'"
+            }
+          ]
         },
         "flags": 0
       }

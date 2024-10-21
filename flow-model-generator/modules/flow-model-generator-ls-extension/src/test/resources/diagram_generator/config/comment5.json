@@ -33,6 +33,9 @@
           "sourceCode": "public function commentInElseBody1(int i) {\n    if i == 3 {\n\n    } else if i == 5 {\n\n        // This is a comment for i = 0\n        int x = 0;\n\n        // This is a comment for if-else body\n    } else {\n        // This is a comment for x = 0\n        int x = 0;\n\n        // This is a comment for else body\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -213,6 +216,15 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'x'"
+                    }
+                  ]
+                },
                 "flags": 0
               },
               {
@@ -363,6 +375,15 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'x'"
+                    }
+                  ]
+                },
                 "flags": 0
               },
               {
@@ -404,6 +425,9 @@
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       }
     ],

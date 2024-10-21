@@ -33,6 +33,9 @@
           "sourceCode": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'greeting'"
+            }
+          ]
         },
         "flags": 0
       },
@@ -285,6 +297,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'total'"
+            }
+          ]
         },
         "flags": 0
       },

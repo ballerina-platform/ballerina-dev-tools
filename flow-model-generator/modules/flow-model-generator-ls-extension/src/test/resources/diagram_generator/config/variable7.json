@@ -33,6 +33,9 @@
           "sourceCode": "function testNewDataWithoutExpression() returns error? {\n    int a;\n    string s;\n    json j;\n    xml x;\n\n    a = 5;\n    s = \"Ballerina\";\n    j = {\"key\": \"value\"};\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'a'"
+            }
+          ]
         },
         "flags": 0
       },
@@ -145,6 +157,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 's'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -201,6 +222,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'j'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -256,6 +286,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x'"
+            }
+          ]
         },
         "flags": 0
       },

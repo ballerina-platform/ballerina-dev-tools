@@ -9,7 +9,6 @@
   },
   "source": "transaction.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "transaction.bal",
     "nodes": [
@@ -100,11 +99,23 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'res'"
+                    }
+                  ]
+                },
                 "flags": 1
               }
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       }
     ],

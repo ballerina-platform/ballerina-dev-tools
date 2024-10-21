@@ -36,9 +36,11 @@ public class DiagnosticHandler {
 
     private final Iterator<Diagnostic> iterator;
     private Diagnostic currentDiagnostic;
+    private boolean hasNodeAnnotated;
 
     public DiagnosticHandler(SemanticModel semanticModel) {
         iterator = semanticModel.diagnostics().iterator();
+        hasNodeAnnotated = false;
         if (iterator.hasNext()) {
             currentDiagnostic = iterator.next();
         }
@@ -51,13 +53,14 @@ public class DiagnosticHandler {
         LinePosition nodeStartLine = nodeLineRange.startLine();
 
         while (currentDiagnostic != null) {
-            // Check whether the diagnostic is passed the node, and obtain the diagnostic line range
             LineRange diagnosticLineRange = currentDiagnostic.location().lineRange();
             LinePosition diagnosticEndLine = diagnosticLineRange.endLine();
             while (hasDiagnosticPassed(nodeStartLine, diagnosticEndLine)) {
                 if (iterator.hasNext()) {
                     currentDiagnostic = iterator.next();
+                    hasNodeAnnotated = false;
                     diagnosticLineRange = currentDiagnostic.location().lineRange();
+                    diagnosticEndLine = diagnosticLineRange.endLine();
                     continue;
                 }
                 currentDiagnostic = null;
@@ -69,28 +72,49 @@ public class DiagnosticHandler {
 
             // Both node and diagnostic are within the same range
             if (isNodeWithinDiagnostic && isDiagnosticWithinNode) {
+                if (!isLeafNode) {
+                    hasNodeAnnotated = true;
+                }
                 addDiagnostic(builder);
-                currentDiagnostic = iterator.hasNext() ? iterator.next() : null;
+                next();
                 continue;
             }
 
             // Node is within the diagnostic range
             if (isNodeWithinDiagnostic) {
+                if (handleLeafNode(builder, isLeafNode)) {
+                    continue;
+                }
+                hasNodeAnnotated = true;
                 addDiagnostic(builder);
                 return;
             }
 
             // Diagnostic is within the node range
             if (isDiagnosticWithinNode) {
-                if (isLeafNode) {
-                    addDiagnostic(builder);
-                    currentDiagnostic = iterator.hasNext() ? iterator.next() : null;
+                if (handleLeafNode(builder, isLeafNode)) {
                     continue;
                 }
                 builder.diagnostics().hasDiagnostics();
             }
             return;
         }
+    }
+
+    private boolean handleLeafNode(DiagnosticCapable builder, boolean isLeafNode) {
+        if (isLeafNode) {
+            if (!hasNodeAnnotated) {
+                addDiagnostic(builder);
+            }
+            next();
+            return true;
+        }
+        return false;
+    }
+
+    private void next() {
+        this.currentDiagnostic = iterator.hasNext() ? iterator.next() : null;
+        hasNodeAnnotated = false;
     }
 
     private void addDiagnostic(DiagnosticCapable builder) {
