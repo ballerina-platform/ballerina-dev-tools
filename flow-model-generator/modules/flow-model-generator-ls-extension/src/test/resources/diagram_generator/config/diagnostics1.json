@@ -1,0 +1,202 @@
+{
+  "start": {
+    "line": 0,
+    "offset": 0
+  },
+  "end": {
+    "line": 3,
+    "offset": 1
+  },
+  "source": "diagnostics1.bal",
+  "description": "Tests a simple diagram flow",
+  "diagram": {
+    "fileName": "diagnostics.bal",
+    "nodes": [
+      {
+        "id": "32582",
+        "metadata": {
+          "label": "Start"
+        },
+        "codedata": {
+          "node": "EVENT_START",
+          "lineRange": {
+            "fileName": "diagnostics.bal",
+            "startLine": {
+              "line": 0,
+              "offset": 23
+            },
+            "endLine": {
+              "line": 4,
+              "offset": 1
+            }
+          },
+          "sourceCode": "public function main() {\n    fn();\n    int i = \"12\";\n    string s = \"12\";\n}"
+        },
+        "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
+        "flags": 0
+      },
+      {
+        "id": "32869",
+        "metadata": {
+          "label": "fn"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "symbol": "fn",
+          "version": "0.0.0",
+          "lineRange": {
+            "fileName": "diagnostics.bal",
+            "startLine": {
+              "line": 1,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 1,
+              "offset": 9
+            }
+          },
+          "sourceCode": "fn();"
+        },
+        "returning": false,
+        "properties": {},
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "ERROR",
+              "message": "variable assignment is required"
+            }
+          ]
+        },
+        "flags": 0
+      },
+      {
+        "id": "33869",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "diagnostics.bal",
+            "startLine": {
+              "line": 2,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 2,
+              "offset": 17
+            }
+          },
+          "sourceCode": "int i = \"12\";"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"12\"",
+            "optional": false,
+            "editable": true,
+            "diagnostics": {
+              "hasDiagnostics": true,
+              "diagnostics": [
+                {
+                  "severity": "ERROR",
+                  "message": "incompatible types: expected 'int', found 'string'"
+                }
+              ]
+            }
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "i",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "int",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      },
+      {
+        "id": "34864",
+        "metadata": {
+          "label": "Variable",
+          "description": "Assign a value to a variable"
+        },
+        "codedata": {
+          "node": "VARIABLE",
+          "lineRange": {
+            "fileName": "diagnostics.bal",
+            "startLine": {
+              "line": 3,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 3,
+              "offset": 20
+            }
+          },
+          "sourceCode": "string s = \"12\";"
+        },
+        "returning": false,
+        "properties": {
+          "expression": {
+            "metadata": {
+              "label": "Expression",
+              "description": "Expression"
+            },
+            "valueType": "EXPRESSION",
+            "value": "\"12\"",
+            "optional": false,
+            "editable": true
+          },
+          "variable": {
+            "metadata": {
+              "label": "Variable",
+              "description": "Name of the variable"
+            },
+            "valueType": "IDENTIFIER",
+            "value": "s",
+            "optional": false,
+            "editable": true
+          },
+          "type": {
+            "metadata": {
+              "label": "Type",
+              "description": "Type of the variable"
+            },
+            "valueType": "TYPE",
+            "value": "string",
+            "optional": false,
+            "editable": true
+          }
+        },
+        "flags": 0
+      }
+    ],
+    "connections": []
+  }
+}

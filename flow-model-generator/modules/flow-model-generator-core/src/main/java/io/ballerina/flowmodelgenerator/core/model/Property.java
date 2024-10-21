@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ import java.util.List;
  * @since 1.4.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
-                       boolean editable) {
+                       boolean editable, Diagnostics diagnostics) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -144,7 +145,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
      *
      * @since 1.4.0
      */
-    public static class Builder {
+    public static class Builder implements DiagnosticHandler.DiagnosticCapable {
 
         private String type;
         private Object value;
@@ -152,6 +153,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         private boolean editable;
         private Object typeConstraint;
         private Metadata.Builder<Builder> metadataBuilder;
+        private Diagnostics.Builder<Builder> diagnosticsBuilder;
 
         private Builder() {
 
@@ -203,16 +205,25 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this.metadataBuilder;
         }
 
+        @Override
+        public Diagnostics.Builder<Builder> diagnostics() {
+            if (this.diagnosticsBuilder == null) {
+                this.diagnosticsBuilder = new Diagnostics.Builder<>(this);
+            }
+            return this.diagnosticsBuilder;
+        }
+
         public Property build() {
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
-                            optional, editable);
+                            optional, editable, diagnosticsBuilder == null ? null : diagnosticsBuilder.build());
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
             this.value = null;
             this.optional = false;
             this.editable = false;
+            this.diagnosticsBuilder = null;
             return property;
         }
     }

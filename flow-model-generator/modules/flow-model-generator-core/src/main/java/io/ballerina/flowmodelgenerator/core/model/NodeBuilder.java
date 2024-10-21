@@ -33,6 +33,7 @@ import io.ballerina.compiler.syntax.tree.SeparatedNodeList;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
@@ -94,12 +95,14 @@ import static io.ballerina.flowmodelgenerator.core.model.node.DataMapper.OUTPUT_
  *
  * @since 1.4.0
  */
-public abstract class NodeBuilder {
+public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable {
 
     protected List<Branch> branches;
     protected Metadata.Builder<NodeBuilder> metadataBuilder;
     protected Codedata.Builder<NodeBuilder> codedataBuilder;
     protected PropertiesBuilder<NodeBuilder> propertiesBuilder;
+    protected Diagnostics.Builder<NodeBuilder> diagnosticBuilder;
+    protected DiagnosticHandler diagnosticHandler;
     protected int flags;
     protected boolean returning;
     protected SemanticModel semanticModel;
@@ -168,6 +171,11 @@ public abstract class NodeBuilder {
         return this;
     }
 
+    public NodeBuilder diagnosticHandler(DiagnosticHandler diagnosticHandler) {
+        this.diagnosticHandler = diagnosticHandler;
+        return this;
+    }
+
     public NodeBuilder defaultModuleName(String defaultModuleName) {
         this.defaultModuleName = defaultModuleName;
         return this;
@@ -204,9 +212,16 @@ public abstract class NodeBuilder {
 
     public PropertiesBuilder<NodeBuilder> properties() {
         if (this.propertiesBuilder == null) {
-            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, defaultModuleName, this);
+            this.propertiesBuilder = new PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
         }
         return this.propertiesBuilder;
+    }
+
+    public Diagnostics.Builder<NodeBuilder> diagnostics() {
+        if (this.diagnosticBuilder == null) {
+            this.diagnosticBuilder = new Diagnostics.Builder<>(this);
+        }
+        return this.diagnosticBuilder;
     }
 
     public FlowNode build() {
@@ -225,6 +240,7 @@ public abstract class NodeBuilder {
                 returning,
                 branches.isEmpty() ? null : branches,
                 propertiesBuilder == null ? null : propertiesBuilder.build(),
+                diagnosticBuilder == null ? null : diagnosticBuilder.build(),
                 flags
         );
     }
@@ -250,14 +266,17 @@ public abstract class NodeBuilder {
 
         private final Map<String, Property> nodeProperties;
         private final SemanticModel semanticModel;
+        private final DiagnosticHandler diagnosticHandler;
         protected Property.Builder propertyBuilder;
         private final String defaultModuleName;
 
-        public PropertiesBuilder(SemanticModel semanticModel, String defaultModuleName, T parentBuilder) {
+        public PropertiesBuilder(SemanticModel semanticModel, DiagnosticHandler diagnosticHandler,
+                                 String defaultModuleName, T parentBuilder) {
             super(parentBuilder);
             this.nodeProperties = new LinkedHashMap<>();
             this.propertyBuilder = Property.Builder.getInstance();
             this.semanticModel = semanticModel;
+            this.diagnosticHandler = diagnosticHandler;
             this.defaultModuleName = defaultModuleName;
         }
 
@@ -274,7 +293,7 @@ public abstract class NodeBuilder {
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
 
-            addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
+            addProperty(Property.VARIABLE_KEY, node);
             return this;
         }
 
@@ -288,7 +307,7 @@ public abstract class NodeBuilder {
                     .type(Property.ValueType.TYPE)
                     .editable();
 
-            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            addProperty(Property.DATA_TYPE_KEY);
             return this;
         }
 
@@ -302,7 +321,7 @@ public abstract class NodeBuilder {
                     .type(Property.ValueType.TYPE)
                     .editable();
 
-            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            addProperty(Property.DATA_TYPE_KEY);
             return this;
         }
 
@@ -325,8 +344,7 @@ public abstract class NodeBuilder {
                         CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
             }
 
-            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
-
+            addProperty(Property.DATA_TYPE_KEY);
             return this;
         }
 
@@ -348,22 +366,20 @@ public abstract class NodeBuilder {
                 optTypeSymbol.ifPresent(typeSymbol -> propertyBuilder.value(
                         CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
             }
-            addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
+            addProperty(Property.DATA_TYPE_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> data(Node node) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.DATA_VARIABLE_LABEL)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
                     .value(node == null ? "item" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
-                    .editable()
-                    .build();
-            addProperty(Property.DATA_VARIABLE_KEY, property);
-
+                    .editable();
+            addProperty(Property.DATA_VARIABLE_KEY, node);
             return this;
         }
 
@@ -382,23 +398,22 @@ public abstract class NodeBuilder {
                 properties.add(property);
             }
 
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.PATTERNS_LABEL)
                         .description(Property.PATTERNS_DOC)
                         .stepOut()
                     .value(properties)
                     .type(Property.ValueType.SINGLE_SELECT)
-                    .editable()
-                    .build();
-            addProperty(Property.PATTERNS_KEY, property);
+                    .editable();
+            addProperty(Property.PATTERNS_KEY);
 
             return this;
         }
 
         public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key,
                                                    Property propertyTemplate) {
-            Property client = Property.Builder.getInstance()
+            Property.Builder.getInstance()
                     .metadata()
                         .label(propertyTemplate.metadata().label())
                         .description(propertyTemplate.metadata().description())
@@ -406,9 +421,8 @@ public abstract class NodeBuilder {
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(key, client);
+                    .editable();
+            addProperty(key);
             return this;
         }
 
@@ -434,7 +448,6 @@ public abstract class NodeBuilder {
                 }
             }
 
-            propertyBuilder = Property.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -463,7 +476,7 @@ public abstract class NodeBuilder {
                     .value(inputs)
                     .editable();
 
-            addProperty(INPUTS_KEY, propertyBuilder.build());
+            addProperty(INPUTS_KEY);
             return this;
         }
 
@@ -481,7 +494,7 @@ public abstract class NodeBuilder {
                     typeSymbol -> propertyBuilder.value(
                             CommonUtils.getTypeSignature(semanticModel, typeSymbol, true, defaultModuleName)));
 
-            addProperty(OUTPUT_KEY, propertyBuilder.build());
+            addProperty(OUTPUT_KEY, node);
             return this;
         }
 
@@ -507,7 +520,6 @@ public abstract class NodeBuilder {
                 }
             }
 
-            propertyBuilder = Property.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -536,7 +548,7 @@ public abstract class NodeBuilder {
                         propertyBuilder.value(paramValue.toSourceCode());
                     }
 
-                    addProperty(parameterName, propertyBuilder.build());
+                    addProperty(parameterName, paramValue);
                 }
             }
             return this;
@@ -563,7 +575,6 @@ public abstract class NodeBuilder {
                 }
             }
 
-            propertyBuilder = Property.Builder.getInstance();
             int numParams = parameterSymbols.size();
             int numPositionalArgs = positionalArgs.size();
 
@@ -589,23 +600,22 @@ public abstract class NodeBuilder {
                     propertyBuilder.value(paramValue.toSourceCode());
                 }
 
-                addProperty(parameterName, propertyBuilder.build());
+                addProperty(parameterName, paramValue);
 
             }
             return this;
         }
 
         public PropertiesBuilder<T> condition(ExpressionNode expressionNode) {
-            Property condition = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.CONDITION_LABEL)
                         .description(Property.CONDITION_DOC)
                         .stepOut()
                     .value(expressionNode == null ? "true" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(Property.CONDITION_KEY, condition);
+                    .editable();
+            addProperty(Property.CONDITION_KEY, expressionNode);
             return this;
         }
 
@@ -614,120 +624,112 @@ public abstract class NodeBuilder {
         }
 
         public PropertiesBuilder<T> retryCount(int retryCount, boolean optional) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
-                    .label(Property.RETRY_COUNT_LABEL)
-                    .description(Property.RETRY_COUNT_DOC)
-                    .stepOut()
+                        .label(Property.RETRY_COUNT_LABEL)
+                        .description(Property.RETRY_COUNT_DOC)
+                        .stepOut()
                     .value(String.valueOf(retryCount))
                     .type(Property.ValueType.EXPRESSION)
                     .optional(optional)
-                    .editable()
-                    .build();
-            addProperty(Property.RETRY_COUNT_KEY, property);
+                    .editable();
+            addProperty(Property.RETRY_COUNT_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_DOC)
                         .description(expressionDoc)
                         .stepOut()
                     .value(expr)
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(Property.EXPRESSION_KEY, property);
+                    .editable();
+            addProperty(Property.EXPRESSION_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String expressionDoc) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_DOC)
                         .description(expressionDoc)
                         .stepOut()
                     .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(Property.EXPRESSION_KEY, property);
+                    .editable();
+            addProperty(Property.EXPRESSION_KEY, expressionNode);
             return this;
         }
 
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode, String key, String expressionDoc) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_DOC)
                         .description(expressionDoc)
                         .stepOut()
                     .value(expressionNode == null ? "" : expressionNode.toSourceCode())
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(key, property);
+                    .editable();
+            addProperty(key, expressionNode);
             return this;
         }
 
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_LABEL)
                         .description(Property.EXPRESSION_DOC)
                         .stepOut()
                     .editable()
                     .value(expressionNode == null ? "" : expressionNode.toString())
-                    .type(Property.ValueType.EXPRESSION)
-                    .build();
-            addProperty(Property.EXPRESSION_KEY, property);
+                    .type(Property.ValueType.EXPRESSION);
+            addProperty(Property.EXPRESSION_KEY, expressionNode);
             return this;
         }
 
         public PropertiesBuilder<T> statement(Node node) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(DefaultExpression.STATEMENT_LABEL)
                         .description(DefaultExpression.STATEMENT_DOC)
                         .stepOut()
                     .value(node == null ? "" : node.toSourceCode().strip())
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(DefaultExpression.STATEMENT_KEY, property);
+                    .editable();
+            addProperty(DefaultExpression.STATEMENT_KEY, node);
             return this;
         }
 
         public PropertiesBuilder<T> ignore(boolean ignore) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.IGNORE_LABEL)
                         .description(Property.IGNORE_DOC)
                         .stepOut()
                     .value(String.valueOf(ignore))
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(Property.IGNORE_KEY, property);
+                    .editable();
+            addProperty(Property.IGNORE_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> comment(String comment) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.COMMENT_LABEL)
                         .description(Property.COMMENT_DOC)
                         .stepOut()
                     .value(comment)
                     .type(Property.ValueType.STRING)
-                    .editable()
-                    .build();
-            addProperty(Property.COMMENT_KEY, property);
+                    .editable();
+            addProperty(Property.COMMENT_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> onErrorVariable(TypedBindingPatternNode typedBindingPatternNode) {
-            Property variable = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.ON_ERROR_VARIABLE_LABEL)
                         .description(Property.ON_ERROR_VARIABLE_DOC)
@@ -735,9 +737,9 @@ public abstract class NodeBuilder {
                     .value(typedBindingPatternNode == null ? "err" :
                             typedBindingPatternNode.bindingPattern().toString())
                     .type(Property.ValueType.IDENTIFIER)
-                    .editable()
-                    .build();
-            addProperty(Property.ON_ERROR_VARIABLE_KEY, variable);
+                    .editable();
+            addProperty(Property.ON_ERROR_VARIABLE_KEY,
+                    typedBindingPatternNode == null ? null : typedBindingPatternNode.bindingPattern());
 
             if (typedBindingPatternNode == null) {
                 propertyBuilder.value("error");
@@ -746,37 +748,35 @@ public abstract class NodeBuilder {
                         .ifPresent(typeSymbol -> propertyBuilder.value(
                                 CommonUtils.getTypeSignature(semanticModel, typeSymbol, false, defaultModuleName)));
             }
-            Property type = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.ON_ERROR_TYPE_LABEL)
                         .description(Property.ON_ERROR_TYPE_DOC)
                         .stepOut()
                     .editable()
-                    .type(Property.ValueType.TYPE)
-                    .build();
-            addProperty(Property.ON_ERROR_TYPE_KEY, type);
+                    .type(Property.ValueType.TYPE);
+            addProperty(Property.ON_ERROR_TYPE_KEY);
 
             return this;
         }
 
         public PropertiesBuilder<T> functionName(String functionName) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(FUNCTION_NAME_LABEL)
                         .description(FUNCTION_NAME_DOC)
                         .stepOut()
                     .type(Property.ValueType.IDENTIFIER)
                     .value(functionName)
-                    .editable()
-                    .build();
+                    .editable();
 
-            addProperty(FUNCTION_NAME_KEY, property);
+            addProperty(FUNCTION_NAME_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
                                            Object typeConstraint, String value, boolean optional) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(label)
                         .description(description)
@@ -785,42 +785,39 @@ public abstract class NodeBuilder {
                     .typeConstraint(typeConstraint)
                     .value(value)
                     .editable()
-                    .optional(optional)
-                    .build();
+                    .optional(optional);
 
-            addProperty(key, property);
+            addProperty(key);
             return this;
         }
 
         public PropertiesBuilder<T> scope(String scope) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.SCOPE_LABEL)
                         .description(Property.SCOPE_DOC)
                         .stepOut()
                     .type(Property.ValueType.ENUM)
                     .value(scope)
-                    .editable()
-                    .build();
-            addProperty(Property.SCOPE_KEY, property);
+                    .editable();
+            addProperty(Property.SCOPE_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> view(LineRange lineRange) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(DataMapper.VIEW_LABEL)
                         .description(DataMapper.VIEW_DOC)
                         .stepOut()
                     .value(lineRange)
-                    .type(Property.ValueType.VIEW)
-                    .build();
-            addProperty(DataMapper.VIEW_KEY, property);
+                    .type(Property.ValueType.VIEW);
+            addProperty(DataMapper.VIEW_KEY);
             return this;
         }
 
         public PropertiesBuilder<T> collection(Node expressionNode) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.COLLECTION_LABEL)
                         .description(Property.COLLECTION_DOC)
@@ -828,13 +825,20 @@ public abstract class NodeBuilder {
                     .editable()
                     .value(expressionNode == null ? "[]" : expressionNode.kind() == SyntaxKind.CHECK_EXPRESSION ?
                             ((CheckExpressionNode) expressionNode).expression().toString() : expressionNode.toString())
-                    .type(Property.ValueType.EXPRESSION)
-                    .build();
-            addProperty(Property.COLLECTION_KEY, property);
+                    .type(Property.ValueType.EXPRESSION);
+            addProperty(Property.COLLECTION_KEY, expressionNode);
             return this;
         }
 
-        public final void addProperty(String key, Property property) {
+        public final void addProperty(String key) {
+            addProperty(key, null);
+        }
+
+        public final void addProperty(String key, Node node) {
+            if (node != null) {
+                diagnosticHandler.handle(propertyBuilder, node.lineRange(), true);
+            }
+            Property property = propertyBuilder.build();
             if (property != null) {
                 this.nodeProperties.put(key, property);
             }

@@ -41,6 +41,7 @@ public record FlowNode(
         boolean returning,
         List<Branch> branches,
         Map<String, Property> properties,
+        Diagnostics diagnostics,
         int flags
 ) {
 
