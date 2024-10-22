@@ -9,7 +9,6 @@
   },
   "source": "new_data.bal",
   "description": "Tests a simple diagram flow",
-  "forceAssign": false,
   "diagram": {
     "fileName": "new_data.bal",
     "nodes": [
@@ -48,7 +47,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -104,7 +103,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -160,7 +159,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -216,7 +215,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -272,7 +271,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -328,7 +327,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -384,7 +383,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -440,7 +439,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",

@@ -131,7 +131,7 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
+                      "label": "Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -188,7 +188,7 @@
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable",
+                      "label": "Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -251,7 +251,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -308,7 +308,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",

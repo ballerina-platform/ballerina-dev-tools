@@ -263,13 +263,13 @@ public abstract class NodeBuilder {
             this.defaultModuleName = defaultModuleName;
         }
 
-        public PropertiesBuilder<T> variable(Node node) {
+        public PropertiesBuilder<T> variable(Node node, boolean implicit) {
             if (node == null) {
                 return this;
             }
             propertyBuilder
                     .metadata()
-                        .label(Property.VARIABLE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_LABEL)
                         .description(Property.VARIABLE_DOC)
                         .stepOut()
                     .value(CommonUtils.getVariableName(node))
@@ -278,6 +278,10 @@ public abstract class NodeBuilder {
 
             addProperty(Property.VARIABLE_KEY, propertyBuilder.build());
             return this;
+        }
+
+        public PropertiesBuilder<T> variable(Node node) {
+            return variable(node, false);
         }
 
         public PropertiesBuilder<T> type(Node node) {
@@ -308,12 +312,12 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            data(node);
+        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
+            data(node, implicit);
 
             propertyBuilder
                     .metadata()
-                        .label(Property.DATA_TYPE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_TYPE_LABEL : Property.DATA_TYPE_LABEL)
                         .description(Property.DATA_TYPE_DOC)
                         .stepOut()
                     .type(Property.ValueType.TYPE)
@@ -330,6 +334,10 @@ public abstract class NodeBuilder {
             addProperty(Property.DATA_TYPE_KEY, propertyBuilder.build());
 
             return this;
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node) {
+            return dataVariable(node, false);
         }
 
         public PropertiesBuilder<T> payload(Node node, String type) {
@@ -354,10 +362,10 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> data(Node node) {
+        public PropertiesBuilder<T> data(Node node, boolean implicit) {
             Property property = propertyBuilder
                     .metadata()
-                        .label(Property.DATA_VARIABLE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
                     .value(node == null ? "item" : CommonUtils.getVariableName(node))
@@ -367,6 +375,10 @@ public abstract class NodeBuilder {
             addProperty(Property.DATA_VARIABLE_KEY, property);
 
             return this;
+        }
+
+        public PropertiesBuilder<T> data(Node node) {
+            return data(node, false);
         }
 
         public PropertiesBuilder<T> defaultableName(String data) {

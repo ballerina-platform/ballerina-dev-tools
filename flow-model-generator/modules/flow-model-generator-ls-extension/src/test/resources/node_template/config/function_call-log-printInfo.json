@@ -1,4 +1,5 @@
 {
+  "source": "data_mapper/main.bal",
   "description": "Sample diagram node",
   "codedata": {
     "node": "FUNCTION_CALL",

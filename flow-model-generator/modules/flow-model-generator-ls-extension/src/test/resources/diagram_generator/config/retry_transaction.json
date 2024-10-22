@@ -9,7 +9,6 @@
   },
   "source": "retry_transaction.bal",
   "description": "Tests flow nodes generation for retry transaction statement",
-  "forceAssign": false,
   "diagram": {
     "fileName": "retry_transaction.bal",
     "nodes": [
@@ -81,7 +80,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               },
               {
@@ -193,7 +213,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               },
               {
@@ -395,7 +436,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry_transaction.bal",
+                      "startLine": {
+                        "line": 39,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 39,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               },
               {

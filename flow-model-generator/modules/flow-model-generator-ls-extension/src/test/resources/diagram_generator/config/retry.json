@@ -9,7 +9,6 @@
   },
   "source": "retry.bal",
   "description": "Tests flow nodes generation for retry statement",
-  "forceAssign": false,
   "diagram": {
     "fileName": "retry.bal",
     "nodes": [
@@ -81,7 +80,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               }
             ]
@@ -169,7 +189,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               }
             ]
@@ -347,7 +388,28 @@
                   "sourceCode": "check nameOrError();"
                 },
                 "returning": false,
-                "properties": {},
+                "properties": {
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "retry.bal",
+                      "startLine": {
+                        "line": 30,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 30,
+                        "offset": 44
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
+                  }
+                },
                 "flags": 1
               }
             ]
