@@ -55,8 +55,8 @@ public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
     public final FlowNode flowNode;
-    private final WorkspaceManager workspaceManager;
-    private final Path filePath;
+    public final WorkspaceManager workspaceManager;
+    public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
