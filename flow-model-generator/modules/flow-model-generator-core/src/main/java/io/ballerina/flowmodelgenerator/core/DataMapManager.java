@@ -40,12 +40,12 @@ import java.util.Optional;
  *
  * @since 1.4.0
  */
-public class DataMapper {
+public class DataMapManager {
 
     private final SemanticModel semanticModel;
     private final Gson gson;
 
-    public DataMapper(SemanticModel semanticModel) {
+    public DataMapManager(SemanticModel semanticModel) {
         this.semanticModel = semanticModel;
         this.gson = new Gson();
     }
@@ -56,48 +56,37 @@ public class DataMapper {
         NodeKind nodeKind = codedata.node();
         if (nodeKind == NodeKind.VARIABLE) {
             String dataType = flowNode.properties().get(Property.DATA_TYPE_KEY).toSourceCode();
-            Symbol varSymbol = getSymbol(semanticModel.moduleSymbols(), dataType);
-            if (varSymbol == null) {
+            Optional<Symbol> varSymbol = getSymbol(semanticModel.moduleSymbols(), dataType);
+            if (varSymbol.isEmpty()) {
                 throw new IllegalStateException("Symbol cannot be found for : " + dataType);
             }
-            Type t = Type.fromSemanticSymbol(varSymbol);
-            if (t != null) {
-                return gson.toJsonTree(t);
+            Type t = Type.fromSemanticSymbol(varSymbol.get());
+            if (t == null) {
+                throw new IllegalStateException("Type cannot be found for : " + propertyKey);
             }
-            throw new IllegalStateException("Type cannot be found for : " + propertyKey);
+            return gson.toJsonTree(t);
         } else if (nodeKind == NodeKind.FUNCTION_CALL) {
-            Symbol varSymbol = getSymbol(semanticModel.moduleSymbols(), codedata.symbol());
-            if (varSymbol == null || varSymbol.kind() != SymbolKind.FUNCTION) {
+            Optional<Symbol> varSymbol = getSymbol(semanticModel.moduleSymbols(), codedata.symbol());
+            if (varSymbol.isEmpty() || varSymbol.get().kind() != SymbolKind.FUNCTION) {
                 throw new IllegalStateException("Symbol cannot be found for : " + codedata.symbol());
             }
-            Optional<List<ParameterSymbol>> optParams = ((FunctionSymbol) varSymbol).typeDescriptor().params();
+            Optional<List<ParameterSymbol>> optParams = ((FunctionSymbol) varSymbol.get()).typeDescriptor().params();
             if (optParams.isEmpty()) {
                 return new JsonObject();
             }
-            for (ParameterSymbol paramSymbol : optParams.get()) {
-                Optional<String> optParamName = paramSymbol.getName();
-                if (optParamName.isPresent()) {
-                    if (optParamName.get().equals(propertyKey)) {
-                        Type t = Type.fromSemanticSymbol(paramSymbol);
-                        if (t != null) {
-                            return gson.toJsonTree(t);
-                        }
-                    }
-                }
+            Optional<Type> type = optParams.flatMap(params -> params.parallelStream()
+                    .filter(param -> param.nameEquals(propertyKey)).findAny()).map(Type::fromSemanticSymbol);
+            if (type.isEmpty()) {
+                throw new IllegalStateException("Type cannot be found for : " + propertyKey);
             }
-            throw new IllegalStateException("Type cannot be found for : " + propertyKey);
-        } else {
-            return new JsonObject();
+            return gson.toJsonTree(type.get());
         }
+        return new JsonObject();
     }
 
-    private Symbol getSymbol(List<Symbol> symbols, String name) {
-        for (Symbol symbol : symbols) {
-            Optional<String> optSymbolName = symbol.getName();
-            if (optSymbolName.isPresent() && optSymbolName.get().equals(name)) {
-                return symbol;
-            }
-        }
-        return null;
+    private Optional<Symbol> getSymbol(List<Symbol> symbols, String name) {
+        return symbols.parallelStream()
+                .filter(symbol -> symbol.nameEquals(name))
+                .findAny();
     }
 }

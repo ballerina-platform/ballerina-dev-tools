@@ -34,7 +34,7 @@ import java.nio.file.Path;
  *
  * @since 1.4.0
  */
-public class DataMapperTypesTest extends AbstractLSTest {
+public class DataMapManagerTypesTest extends AbstractLSTest {
 
     @DataProvider(name = "data-provider")
     @Override
@@ -58,7 +58,7 @@ public class DataMapperTypesTest extends AbstractLSTest {
         if (!type.equals(testConfig.type())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), type);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(type, testConfig.type());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
@@ -71,7 +71,7 @@ public class DataMapperTypesTest extends AbstractLSTest {
 
     @Override
     protected Class<? extends AbstractLSTest> clazz() {
-        return DataMapperTypesTest.class;
+        return DataMapManagerTypesTest.class;
     }
 
     @Override

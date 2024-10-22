@@ -19,7 +19,7 @@
 package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.flowmodelgenerator.core.DataMapper;
+import io.ballerina.flowmodelgenerator.core.DataMapManager;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperTypesResponse;
 import org.ballerinalang.annotation.JavaSPIService;
@@ -61,8 +61,8 @@ public class DataMapperService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                DataMapper dataMapper = new DataMapper(semanticModel.get());
-                response.setType(dataMapper.getTypes(request.flowNode(), request.propertyKey()));
+                DataMapManager dataMapManager = new DataMapManager(semanticModel.get());
+                response.setType(dataMapManager.getTypes(request.flowNode(), request.propertyKey()));
             } catch (Throwable e) {
                 response.setError(e);
             }
