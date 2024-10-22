@@ -311,6 +311,13 @@ public class CommonUtils {
         };
     }
 
+    /**
+     * Retrieves the document from the given project and location.
+     *
+     * @param project  the project to retrieve the document from
+     * @param location the location of the document
+     * @return the document at the specified location
+     */
     public static Document getDocument(Project project, Location location) {
         DocumentId documentId = project.documentId(
                 project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
