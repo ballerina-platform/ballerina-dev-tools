@@ -381,16 +381,15 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> data(Node node, boolean implicit) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
                     .value(node == null ? "item" : CommonUtils.getVariableName(node))
                     .type(Property.ValueType.IDENTIFIER)
-                    .editable()
-                    .build();
-            addProperty(Property.DATA_VARIABLE_KEY, property);
+                    .editable();
+            addProperty(Property.DATA_VARIABLE_KEY, node);
 
             return this;
         }
@@ -719,16 +718,15 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> defaultableVariable(String data) {
-            Property property = propertyBuilder
+            propertyBuilder
                     .metadata()
                         .label(Property.DEFAULT_VALUE_LABEL)
                         .description(Property.DEFAULT_VALUE_DOC)
                         .stepOut()
                     .value(data)
                     .type(Property.ValueType.EXPRESSION)
-                    .editable()
-                    .build();
-            addProperty(Property.DEFAULTABLE_KEY, property);
+                    .editable();
+            addProperty(Property.DEFAULTABLE_KEY);
             return this;
         }
 

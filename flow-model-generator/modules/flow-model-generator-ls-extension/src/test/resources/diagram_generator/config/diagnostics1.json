@@ -63,7 +63,28 @@
           "sourceCode": "fn();"
         },
         "returning": false,
-        "properties": {},
+        "properties": {
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "diagnostics1.bal",
+              "startLine": {
+                "line": 25,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 27,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
+          }
+        },
         "diagnostics": {
           "hasDiagnostics": true,
           "diagnostics": [
@@ -119,7 +140,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -178,7 +199,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -287,6 +308,26 @@
                 }
               ]
             }
+          },
+          "view": {
+            "metadata": {
+              "label": "View",
+              "description": "Function definition location"
+            },
+            "valueType": "VIEW",
+            "value": {
+              "fileName": "diagnostics1.bal",
+              "startLine": {
+                "line": 29,
+                "offset": 0
+              },
+              "endLine": {
+                "line": 31,
+                "offset": 1
+              }
+            },
+            "optional": false,
+            "editable": false
           }
         },
         "diagnostics": {
@@ -329,7 +370,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -394,7 +435,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -462,7 +503,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -715,7 +756,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -822,7 +863,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Result Variable"
             },
             "valueType": "IDENTIFIER",
@@ -880,7 +921,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
