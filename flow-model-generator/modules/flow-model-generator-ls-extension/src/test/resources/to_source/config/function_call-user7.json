@@ -2,7 +2,7 @@
   "source": "user_functions.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "102361",
+    "id": "108287",
     "metadata": {
       "label": "println",
       "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
@@ -16,15 +16,15 @@
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 71,
+          "line": 77,
           "offset": 4
         },
         "endLine": {
-          "line": 71,
-          "offset": 61
+          "line": 77,
+          "offset": 35
         }
       },
-      "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
+      "sourceCode": "io:println(\"6 * 3 = \", result);"
     },
     "returning": false,
     "properties": {},
@@ -48,12 +48,12 @@
       {
         "range": {
           "start": {
-            "line": 71,
+            "line": 77,
             "character": 4
           },
           "end": {
-            "line": 71,
-            "character": 61
+            "line": 77,
+            "character": 35
           }
         },
         "newText": "io:println();"
