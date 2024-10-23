@@ -76,7 +76,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -133,7 +133,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -244,6 +244,26 @@
                     "value": "\"x is greater than y\"",
                     "optional": false,
                     "editable": true
+                  },
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 21,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 23,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
                   }
                 },
                 "flags": 0
@@ -305,6 +325,26 @@
                     "value": "\"x is equal to y\"",
                     "optional": false,
                     "editable": true
+                  },
+                  "view": {
+                    "metadata": {
+                      "label": "View",
+                      "description": "Function definition location"
+                    },
+                    "valueType": "VIEW",
+                    "value": {
+                      "fileName": "if.bal",
+                      "startLine": {
+                        "line": 21,
+                        "offset": 0
+                      },
+                      "endLine": {
+                        "line": 23,
+                        "offset": 1
+                      }
+                    },
+                    "optional": false,
+                    "editable": false
                   }
                 },
                 "flags": 0,
@@ -399,6 +439,26 @@
                             "value": "\"x is equal to 10\"",
                             "optional": false,
                             "editable": true
+                          },
+                          "view": {
+                            "metadata": {
+                              "label": "View",
+                              "description": "Function definition location"
+                            },
+                            "valueType": "VIEW",
+                            "value": {
+                              "fileName": "if.bal",
+                              "startLine": {
+                                "line": 21,
+                                "offset": 0
+                              },
+                              "endLine": {
+                                "line": 23,
+                                "offset": 1
+                              }
+                            },
+                            "optional": false,
+                            "editable": false
                           }
                         },
                         "flags": 0,
@@ -460,6 +520,26 @@
                             "value": "\"x is not equal to 10\"",
                             "optional": false,
                             "editable": true
+                          },
+                          "view": {
+                            "metadata": {
+                              "label": "View",
+                              "description": "Function definition location"
+                            },
+                            "valueType": "VIEW",
+                            "value": {
+                              "fileName": "if.bal",
+                              "startLine": {
+                                "line": 21,
+                                "offset": 0
+                              },
+                              "endLine": {
+                                "line": 23,
+                                "offset": 1
+                              }
+                            },
+                            "optional": false,
+                            "editable": false
                           }
                         },
                         "flags": 0,

@@ -31,6 +31,7 @@ import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Module;
 import io.ballerina.projects.ModuleDescriptor;
+import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
@@ -54,8 +55,8 @@ public class SourceBuilder {
 
     private TokenBuilder tokenBuilder;
     public final FlowNode flowNode;
-    private final WorkspaceManager workspaceManager;
-    private final Path filePath;
+    public final WorkspaceManager workspaceManager;
+    public final Path filePath;
     private final Map<Path, List<TextEdit>> textEditsMap;
 
     public SourceBuilder(FlowNode flowNode, WorkspaceManager workspaceManager, Path filePath) {
@@ -85,13 +86,24 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder textEdit(boolean isExpression, String fileName) {
+    public SourceBuilder textEdit(boolean isExpression, String fileName, boolean allowEdits) {
+        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
+        LineRange flowNodeLineRange = flowNode.codedata().lineRange();
+        if (flowNodeLineRange != null && allowEdits) {
+            LinePosition startLine = flowNodeLineRange.startLine();
+            LinePosition endLine = flowNodeLineRange.endLine();
+
+            if (startLine.line() != 0 || startLine.offset() != 0 || endLine.line() != 0 || endLine.offset() != 0) {
+                textEdit(isExpression, resolvedPath, CommonUtils.toRange(flowNodeLineRange));
+                acceptImport(resolvedPath);
+                return this;
+            }
+        }
         try {
             workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
             throw new RuntimeException(e);
         }
-        Path resolvedPath = workspaceManager.projectRoot(filePath).resolve(fileName);
         Document document = workspaceManager.document(resolvedPath).orElseThrow();
         SyntaxTree syntaxTree = document.syntaxTree();
         LineRange lineRange = syntaxTree.rootNode().lineRange();
@@ -353,6 +365,11 @@ public class SourceBuilder {
 
         public TokenBuilder expression(Property property) {
             sb.append(property.toSourceCode());
+            return this;
+        }
+
+        public TokenBuilder expression(String exprAsStr) {
+            sb.append(exprAsStr);
             return this;
         }
 

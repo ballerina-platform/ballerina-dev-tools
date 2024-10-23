@@ -108,9 +108,11 @@ import io.ballerina.flowmodelgenerator.core.model.node.Return;
 import io.ballerina.flowmodelgenerator.core.model.node.Rollback;
 import io.ballerina.flowmodelgenerator.core.model.node.Start;
 import io.ballerina.flowmodelgenerator.core.model.node.XmlPayload;
+import io.ballerina.projects.Project;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +129,7 @@ import java.util.stream.Collectors;
 class CodeAnalyzer extends NodeVisitor {
 
     //TODO: Wrap the class variables inside another class
+    private final Project project;
     private final List<FlowNode> flowNodeList;
     private NodeBuilder nodeBuilder;
     private final SemanticModel semanticModel;
@@ -139,8 +142,10 @@ class CodeAnalyzer extends NodeVisitor {
     private final boolean forceAssign;
     private final DiagnosticHandler diagnosticHandler;
 
-    public CodeAnalyzer(SemanticModel semanticModel, String connectionScope, Map<String, LineRange> dataMappings,
-                        TextDocument textDocument, String defaultModuleName, boolean forceAssign) {
+    public CodeAnalyzer(Project project, SemanticModel semanticModel, String connectionScope,
+                        Map<String, LineRange> dataMappings, TextDocument textDocument, String defaultModuleName,
+                        boolean forceAssign) {
+        this.project = project;
         this.flowNodeList = new ArrayList<>();
         this.semanticModel = semanticModel;
         this.flowNodeBuilderStack = new Stack<>();
@@ -420,7 +425,9 @@ class CodeAnalyzer extends NodeVisitor {
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
         Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        boolean implicit = false;
         if (initializer.isEmpty()) {
+            implicit = true;
             startNode(NodeKind.VARIABLE, variableDeclarationNode)
                     .metadata()
                         .description(Assign.DESCRIPTION)
@@ -433,6 +440,7 @@ class CodeAnalyzer extends NodeVisitor {
 
             // Generate the default expression node if a node is not built
             if (isNodeUnidentified()) {
+                implicit = true;
                 startNode(NodeKind.VARIABLE, variableDeclarationNode)
                         .metadata()
                             .description(Assign.DESCRIPTION)
@@ -451,7 +459,7 @@ class CodeAnalyzer extends NodeVisitor {
         } else if (nodeBuilder instanceof BinaryData) {
             nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "byte[]");
         } else {
-            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern());
+            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern(), implicit);
         }
         variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
@@ -484,7 +492,7 @@ class CodeAnalyzer extends NodeVisitor {
                         .stepOut()
                     .properties()
                         .expression(expression)
-                        .variable(assignmentStatementNode.varRef());
+                        .variable(assignmentStatementNode.varRef(), true);
         }
 
         if (nodeBuilder instanceof XmlPayload || nodeBuilder instanceof JsonPayload
@@ -537,10 +545,6 @@ class CodeAnalyzer extends NodeVisitor {
         Optional<Symbol> symbol = semanticModel.symbol(functionCallExpressionNode);
         if (symbol.isEmpty() || symbol.get().kind() != SymbolKind.FUNCTION) {
             handleExpressionNode(functionCallExpressionNode);
-            return;
-        }
-
-        if (forceAssign && this.typedBindingPatternNode != null) {
             return;
         }
 
@@ -603,6 +607,10 @@ class CodeAnalyzer extends NodeVisitor {
                 functionSymbol.typeDescriptor().params().ifPresent(
                         params -> nodeBuilder.properties()
                                 .functionArguments(functionCallExpressionNode.arguments(), params));
+                functionSymbol.getLocation()
+                        .flatMap(location -> CommonUtil.findNode(functionSymbol,
+                                CommonUtils.getDocument(project, location).syntaxTree()))
+                        .ifPresent(node -> nodeBuilder.properties().view(node.lineRange()));
             }
         } else {
             handleExpressionNode(functionCallExpressionNode);

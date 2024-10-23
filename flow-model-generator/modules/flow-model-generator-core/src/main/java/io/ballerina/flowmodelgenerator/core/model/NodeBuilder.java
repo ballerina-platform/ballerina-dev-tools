@@ -40,6 +40,7 @@ import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.Break;
 import io.ballerina.flowmodelgenerator.core.model.node.Comment;
 import io.ballerina.flowmodelgenerator.core.model.node.Commit;
+import io.ballerina.flowmodelgenerator.core.model.node.ConfigVariable;
 import io.ballerina.flowmodelgenerator.core.model.node.Continue;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.DefaultExpression;
@@ -139,6 +140,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         put(NodeKind.ASSIGN, Assign::new);
         put(NodeKind.COMMENT, Comment::new);
         put(NodeKind.MATCH, Match::new);
+        put(NodeKind.CONFIG_VARIABLE, ConfigVariable::new);
     }};
 
     public static NodeBuilder getNodeFromKind(NodeKind kind) {
@@ -280,13 +282,13 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             this.defaultModuleName = defaultModuleName;
         }
 
-        public PropertiesBuilder<T> variable(Node node) {
+        public PropertiesBuilder<T> variable(Node node, boolean implicit) {
             if (node == null) {
                 return this;
             }
             propertyBuilder
                     .metadata()
-                        .label(Property.VARIABLE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.VARIABLE_LABEL)
                         .description(Property.VARIABLE_DOC)
                         .stepOut()
                     .value(CommonUtils.getVariableName(node))
@@ -295,6 +297,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
             addProperty(Property.VARIABLE_KEY, node);
             return this;
+        }
+
+        public PropertiesBuilder<T> variable(Node node) {
+            return variable(node, false);
         }
 
         public PropertiesBuilder<T> type(Node node) {
@@ -325,12 +331,12 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
-        public PropertiesBuilder<T> dataVariable(Node node) {
-            data(node);
+        public PropertiesBuilder<T> dataVariable(Node node, boolean implicit) {
+            data(node, implicit);
 
             propertyBuilder
                     .metadata()
-                        .label(Property.DATA_TYPE_LABEL)
+                        .label(implicit ? Property.DATA_IMPLICIT_TYPE_LABEL : Property.DATA_TYPE_LABEL)
                         .description(Property.DATA_TYPE_DOC)
                         .stepOut()
                     .type(Property.ValueType.TYPE)
@@ -346,6 +352,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
 
             addProperty(Property.DATA_TYPE_KEY);
             return this;
+        }
+
+        public PropertiesBuilder<T> dataVariable(Node node) {
+            return dataVariable(node, false);
         }
 
         public PropertiesBuilder<T> payload(Node node, String type) {
@@ -370,16 +380,35 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
             return this;
         }
 
+        public PropertiesBuilder<T> data(Node node, boolean implicit) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(implicit ? Property.DATA_IMPLICIT_VARIABLE_LABEL : Property.DATA_VARIABLE_LABEL)
+                        .description(Property.DATA_VARIABLE_DOC)
+                        .stepOut()
+                    .value(node == null ? "item" : CommonUtils.getVariableName(node))
+                    .type(Property.ValueType.IDENTIFIER)
+                    .editable()
+                    .build();
+            addProperty(Property.DATA_VARIABLE_KEY, property);
+
+            return this;
+        }
+
         public PropertiesBuilder<T> data(Node node) {
+            return data(node, false);
+        }
+
+        public PropertiesBuilder<T> defaultableName(String data) {
             propertyBuilder
                     .metadata()
                         .label(Property.DATA_VARIABLE_LABEL)
                         .description(Property.DATA_VARIABLE_DOC)
                         .stepOut()
-                    .value(node == null ? "item" : CommonUtils.getVariableName(node))
+                    .value(data)
                     .type(Property.ValueType.IDENTIFIER)
                     .editable();
-            addProperty(Property.DATA_VARIABLE_KEY, node);
+            addProperty(Property.DATA_VARIABLE_KEY);
             return this;
         }
 
@@ -686,6 +715,20 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                     .value(expressionNode == null ? "" : expressionNode.toString())
                     .type(Property.ValueType.EXPRESSION);
             addProperty(Property.EXPRESSION_KEY, expressionNode);
+            return this;
+        }
+
+        public PropertiesBuilder<T> defaultableVariable(String data) {
+            Property property = propertyBuilder
+                    .metadata()
+                        .label(Property.DEFAULT_VALUE_LABEL)
+                        .description(Property.DEFAULT_VALUE_DOC)
+                        .stepOut()
+                    .value(data)
+                    .type(Property.ValueType.EXPRESSION)
+                    .editable()
+                    .build();
+            addProperty(Property.DEFAULTABLE_KEY, property);
             return this;
         }
 

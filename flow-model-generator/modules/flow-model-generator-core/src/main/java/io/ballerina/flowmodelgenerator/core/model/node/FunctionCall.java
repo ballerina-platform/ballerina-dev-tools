@@ -19,6 +19,8 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
+import io.ballerina.projects.PackageDescriptor;
+import io.ballerina.projects.Project;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -42,7 +44,7 @@ public class FunctionCall extends NodeBuilder {
     public void setConcreteTemplateData(TemplateContext context) {
         Codedata codedata = context.codedata();
 
-        if (isLocalFunction(codedata)) {
+        if (isLocalFunction(context.workspaceManager(), context.filePath(), codedata)) {
             WorkspaceManager workspaceManager = context.workspaceManager();
 
             try {
@@ -127,11 +129,11 @@ public class FunctionCall extends NodeBuilder {
         }
 
         Codedata codedata = sourceBuilder.flowNode.codedata();
-        if (isLocalFunction(codedata)) {
+        if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
             return sourceBuilder.token()
                     .name(codedata.symbol())
                     .stepOut()
-                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type"))
+                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type", "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();
@@ -149,7 +151,7 @@ public class FunctionCall extends NodeBuilder {
         return sourceBuilder.token()
                 .name(methodCall)
                 .stepOut()
-                .functionParameters(nodeTemplate, Set.of("variable", "type"))
+                .functionParameters(nodeTemplate, Set.of("variable", "type", "view"))
                 .textEdit(false)
                 .acceptImport()
                 .build();
@@ -205,7 +207,22 @@ public class FunctionCall extends NodeBuilder {
         return value.isEmpty() ? "\"\"" : value;
     }
 
-    private static boolean isLocalFunction(Codedata codedata) {
-        return codedata.org() == null || codedata.module() == null || codedata.version() == null;
+    public boolean isLocalFunction(WorkspaceManager workspaceManager, Path filePath, Codedata codedata) {
+        if (codedata.org() == null || codedata.module() == null || codedata.version() == null) {
+            return true;
+        }
+        try {
+            Project project = workspaceManager.loadProject(filePath);
+            PackageDescriptor descriptor = project.currentPackage().descriptor();
+            String packageOrg = descriptor.org().value();
+            String packageName = descriptor.name().value();
+            String packageVersion = descriptor.version().value().toString();
+
+            return packageOrg.equals(codedata.org())
+                    && packageName.equals(codedata.module())
+                    && packageVersion.equals(codedata.version());
+        } catch (WorkspaceDocumentException | EventSyncException e) {
+            return false;
+        }
     }
 }

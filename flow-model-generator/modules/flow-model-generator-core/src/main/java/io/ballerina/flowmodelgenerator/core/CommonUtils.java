@@ -39,6 +39,10 @@ import io.ballerina.compiler.syntax.tree.SyntaxTree;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.projects.Document;
+import io.ballerina.projects.DocumentId;
+import io.ballerina.projects.Project;
+import io.ballerina.projects.ProjectKind;
+import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
@@ -305,5 +309,19 @@ public class CommonUtils {
             case "inclusion" -> param.inclusionType();
             default -> typeName;
         };
+    }
+
+    /**
+     * Retrieves the document from the given project and location.
+     *
+     * @param project  the project to retrieve the document from
+     * @param location the location of the document
+     * @return the document at the specified location
+     */
+    public static Document getDocument(Project project, Location location) {
+        DocumentId documentId = project.documentId(
+                project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
+                        project.sourceRoot().resolve(location.lineRange().fileName()));
+        return project.currentPackage().getDefaultModule().document(documentId);
     }
 }

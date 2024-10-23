@@ -85,12 +85,12 @@
       {
         "range": {
           "start": {
-            "line": 3,
-            "character": 76
+            "line": 4,
+            "character": 0
           },
           "end": {
-            "line": 3,
-            "character": 76
+            "line": 4,
+            "character": 39
           }
         },
         "newText": "redis:Client moduleRedisCl = check new ();"

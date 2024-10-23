@@ -1,68 +1,62 @@
 {
-  "source": "empty.bal",
+  "source": "user_functions.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "103328",
+    "id": "102361",
     "metadata": {
-      "label": "asum"
+      "label": "println",
+      "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "org": "$anon",
-      "module": ".",
-      "symbol": "asum",
+      "org": "ballerina",
+      "module": "io",
+      "symbol": "println",
+      "version": "1.6.1",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 72,
+          "line": 71,
           "offset": 4
         },
         "endLine": {
-          "line": 72,
-          "offset": 36
+          "line": 71,
+          "offset": 61
         }
       },
-      "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+      "sourceCode": "io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);"
     },
     "returning": false,
-    "properties": {
-      "variable": {
-        "metadata": {
-          "label": "Data variable",
-          "description": "Name of the variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "total",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Data type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "int",
-        "optional": false,
-        "editable": true
-      }
-    },
+    "properties": {},
     "flags": 0
   },
   "output": {
-    "empty.bal": [
+    "user_functions.bal": [
       {
         "range": {
           "start": {
-            "line": 72,
+            "line": 1,
+            "character": 0
+          },
+          "end": {
+            "line": 1,
+            "character": 0
+          }
+        },
+        "newText": "import ballerina/io;"
+      },
+      {
+        "range": {
+          "start": {
+            "line": 71,
             "character": 4
           },
           "end": {
-            "line": 72,
-            "character": 36
+            "line": 71,
+            "character": 61
           }
         },
-        "newText": "int total = asum();"
+        "newText": "io:println();"
       }
     ]
   }

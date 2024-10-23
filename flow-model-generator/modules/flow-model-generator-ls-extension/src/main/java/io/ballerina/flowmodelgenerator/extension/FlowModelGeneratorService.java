@@ -306,13 +306,11 @@ public class FlowModelGeneratorService implements ExtendedLanguageServerService 
 
                 // Obtain the semantic model and the document
                 Project project = this.workspaceManager.loadProject(filePath);
-                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
-                    return response;
-                }
+                SemanticModel semanticModel = this.workspaceManager.semanticModel(filePath).orElse(
+                        project.currentPackage().getDefaultModule().getCompilation().getSemanticModel());
 
                 // Generate the flow design model
-                ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel.get(), filePath);
+                ModelGenerator modelGenerator = new ModelGenerator(project, semanticModel, filePath);
                 response.setFlowDesignModel(modelGenerator.getModuleNodes());
             } catch (Throwable e) {
                 response.setError(e);
