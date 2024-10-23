@@ -36,6 +36,7 @@ import java.util.List;
  * @param value               value of the property
  * @param optional            whether the property is optional
  * @param editable            whether the property is editable
+ * @param diagnostics         diagnostics of the property
  * @since 1.4.0
  */
 public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,

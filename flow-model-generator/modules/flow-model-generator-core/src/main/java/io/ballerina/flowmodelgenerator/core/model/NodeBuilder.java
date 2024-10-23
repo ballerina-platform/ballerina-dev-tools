@@ -880,9 +880,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                 diagnosticHandler.handle(propertyBuilder, node.lineRange(), true);
             }
             Property property = propertyBuilder.build();
-            if (property != null) {
-                this.nodeProperties.put(key, property);
-            }
+            this.nodeProperties.put(key, property);
         }
 
         public Map<String, Property> build() {
