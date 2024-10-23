@@ -46,6 +46,14 @@ public class DiagnosticHandler {
         }
     }
 
+    /**
+     * Handles the diagnostic for the given node line range. Adds the diagnostic via the builder if the line ranges map
+     * to the corresponding node line range.
+     *
+     * @param builder       the builder capable of adding diagnostics
+     * @param nodeLineRange the line range of the node
+     * @param isLeafNode    whether the node is a leaf node
+     */
     public void handle(DiagnosticCapable builder, LineRange nodeLineRange, boolean isLeafNode) {
         if (currentDiagnostic == null) {
             return;
@@ -53,6 +61,8 @@ public class DiagnosticHandler {
         LinePosition nodeStartLine = nodeLineRange.startLine();
 
         while (currentDiagnostic != null) {
+
+            // Checks if the diagnostic has passed the node
             LineRange diagnosticLineRange = currentDiagnostic.location().lineRange();
             LinePosition diagnosticEndLine = diagnosticLineRange.endLine();
             while (hasDiagnosticPassed(nodeStartLine, diagnosticEndLine, isLeafNode)) {
@@ -129,6 +139,12 @@ public class DiagnosticHandler {
                         nodeStartLine.offset() > diagnosticEndLine.offset()));
     }
 
+    /**
+     * Interface representing a builder capable of adding diagnostics. The builder which has the capability to add
+     * diagnostic should implement this interface.
+     *
+     * @since 1.4.0
+     */
     public interface DiagnosticCapable {
 
         Diagnostics.Builder<?> diagnostics();
