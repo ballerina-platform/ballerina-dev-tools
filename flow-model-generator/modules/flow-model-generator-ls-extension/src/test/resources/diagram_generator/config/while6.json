@@ -33,6 +33,9 @@
           "sourceCode": "resource function get bananas(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|error response = foodClient->get(\"/food/bananas\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                continue;\n            }\n            i += 1;\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'msg'"
+            }
+          ]
         },
         "flags": 0
       },

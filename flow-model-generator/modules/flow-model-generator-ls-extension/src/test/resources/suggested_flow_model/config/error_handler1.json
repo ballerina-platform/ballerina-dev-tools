@@ -39,6 +39,9 @@
           "sourceCode": "resource function get greeting(string? name) returns string|error {\n        do {\n            if name is string {\n\n            }\n        } on fail error e {\n     return e.message();            \n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {

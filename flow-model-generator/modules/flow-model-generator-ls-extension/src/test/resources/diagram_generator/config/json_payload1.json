@@ -66,6 +66,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'j1'"
+            }
+          ]
+        },
         "flags": 0
       },
       {

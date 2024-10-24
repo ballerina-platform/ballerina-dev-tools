@@ -33,6 +33,9 @@
           "sourceCode": "resource function get apples() {\n        string? msg;\n        do {\n            json res2 = check foodClient->get(\"/western/apples\");\n            msg = res2.toString();\n        } on fail {\n            msg = \"Failed to get the response\";\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'msg'"
+            }
+          ]
         },
         "flags": 0
       },

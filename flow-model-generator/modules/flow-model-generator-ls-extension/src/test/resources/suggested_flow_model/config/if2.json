@@ -39,6 +39,9 @@
           "sourceCode": "function fn1(boolean flag) {\n    int i = 12;\n\n    string val = i.toString();   if (i < 10) {\n i = i + 3;\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -151,6 +154,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'val'"
+            }
+          ]
         },
         "flags": 0,
         "suggested": false

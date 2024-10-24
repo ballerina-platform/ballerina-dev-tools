@@ -33,6 +33,9 @@
           "sourceCode": "function testLock1() {\n    lock {\n        int i = 0;\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -132,11 +135,23 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'i'"
+                    }
+                  ]
+                },
                 "flags": 0
               }
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       }
     ],

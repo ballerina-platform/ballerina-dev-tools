@@ -301,7 +301,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -500,7 +500,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -686,7 +686,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }
@@ -872,7 +872,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               }
             ]
           }

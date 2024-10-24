@@ -9,7 +9,6 @@
   },
   "source": "commit.bal",
   "description": "Tests flow nodes generation for commit statement",
-  "forceAssign": false,
   "diagram": {
     "fileName": "commit.bal",
     "nodes": [

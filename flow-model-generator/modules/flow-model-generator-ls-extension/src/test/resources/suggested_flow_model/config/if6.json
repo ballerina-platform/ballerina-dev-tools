@@ -39,6 +39,9 @@
           "sourceCode": "function fn2() {\n    int x = 10;\n    int y = 20;\n   int z = x + y;\n        if (z > 30) {\n            print(\"Sum is greater than 30\");\n        } else {\n            print(\"Sum is less than or equal to 30);\n        }\n    if (x > y) {\n        print(\"x is greater than y\");\n    } else {\n        print(\"x is equal to y\");\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -350,6 +353,9 @@
             "children": []
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0,
         "suggested": true
       },

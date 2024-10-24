@@ -33,6 +33,9 @@
           "sourceCode": "public function fn2() returns error? {\n    http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");\n    redis:Client localRedisCl = check new redis:Client();\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -89,6 +92,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'localHttpCl'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -144,6 +156,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'localRedisCl'"
+            }
+          ]
         },
         "flags": 0
       }

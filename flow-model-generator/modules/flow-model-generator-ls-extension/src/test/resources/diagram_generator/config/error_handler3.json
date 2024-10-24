@@ -33,6 +33,9 @@
           "sourceCode": "resource function get pineapples() returns string {\n        do {\n            json res = check foodClient->get(\"/western/pineapples\");\n            return res.toString();\n        } on fail http:ClientError err {\n            return err.message();\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {

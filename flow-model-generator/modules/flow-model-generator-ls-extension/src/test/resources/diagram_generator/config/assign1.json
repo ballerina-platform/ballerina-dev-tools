@@ -33,6 +33,9 @@
           "sourceCode": "function testNewData() {\n    int i = 2;\n    i = 3;\n    _ = 4;\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'i'"
+            }
+          ]
         },
         "flags": 0
       },

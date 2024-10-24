@@ -33,6 +33,9 @@
           "sourceCode": "function testStart2() {\n    Foo1 f1 = new(\"foo\");\n\n    future<string> name = start f1->getName();\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -124,6 +127,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'name'"
+            }
+          ]
         },
         "flags": 0
       },
