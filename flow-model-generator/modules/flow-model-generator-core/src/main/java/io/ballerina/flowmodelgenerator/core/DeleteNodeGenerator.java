@@ -34,6 +34,7 @@ import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextDocument;
 import io.ballerina.tools.text.TextDocumentChange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.common.utils.PositionUtil;
 import org.ballerinalang.util.diagnostic.DiagnosticErrorCode;
 import org.eclipse.lsp4j.TextEdit;
 
@@ -82,8 +83,7 @@ public class DeleteNodeGenerator {
             DiagnosticInfo diagnosticInfo = diagnostic.diagnosticInfo();
             if (diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR &&
                     diagnosticInfo.code().equals(DiagnosticErrorCode.UNUSED_MODULE_PREFIX.diagnosticId())) {
-                ImportDeclarationNode importNode =
-                        getUnusedImport(String.valueOf(diagnostic.properties().get(0).value()), imports);
+                ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().lineRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
             }
@@ -96,9 +96,10 @@ public class DeleteNodeGenerator {
         return gson.toJsonTree(textEditsMap);
     }
 
-    private ImportDeclarationNode getUnusedImport(String unusedModule, NodeList<ImportDeclarationNode> imports) {
+    private ImportDeclarationNode getUnusedImport(LineRange diagnosticLocation,
+                                                  NodeList<ImportDeclarationNode> imports) {
         for (ImportDeclarationNode importNode : imports) {
-            if (importNode.moduleName().get(0).text().equals(unusedModule)) {
+            if (PositionUtil.isWithinLineRange(diagnosticLocation, importNode.lineRange())) {
                 return importNode;
             }
         }
