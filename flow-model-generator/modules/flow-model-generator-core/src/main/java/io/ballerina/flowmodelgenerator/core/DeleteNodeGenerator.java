@@ -82,8 +82,7 @@ public class DeleteNodeGenerator {
             DiagnosticInfo diagnosticInfo = diagnostic.diagnosticInfo();
             if (diagnostic.diagnosticInfo().severity() == DiagnosticSeverity.ERROR &&
                     diagnosticInfo.code().equals(DiagnosticErrorCode.UNUSED_MODULE_PREFIX.diagnosticId())) {
-                ImportDeclarationNode importNode =
-                        getUnusedImport(String.valueOf(diagnostic.properties().get(0).value()), imports);
+                ImportDeclarationNode importNode = getUnusedImport(diagnostic.location().textRange(), imports);
                 TextEdit deleteImportTextEdit = new TextEdit(CommonUtils.toRange(importNode.lineRange()), "");
                 textEdits.add(deleteImportTextEdit);
             }
@@ -96,9 +95,12 @@ public class DeleteNodeGenerator {
         return gson.toJsonTree(textEditsMap);
     }
 
-    private ImportDeclarationNode getUnusedImport(String unusedModule, NodeList<ImportDeclarationNode> imports) {
+    private ImportDeclarationNode getUnusedImport(TextRange diagnosticLocation,
+                                                  NodeList<ImportDeclarationNode> imports) {
         for (ImportDeclarationNode importNode : imports) {
-            if (importNode.moduleName().get(0).text().equals(unusedModule)) {
+            TextRange importNodeLocation = importNode.textRange();
+            if (importNodeLocation.startOffset() <= diagnosticLocation.startOffset() &&
+                    importNodeLocation.endOffset() >= diagnosticLocation.endOffset()) {
                 return importNode;
             }
         }
