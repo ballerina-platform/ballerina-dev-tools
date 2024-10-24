@@ -20,8 +20,12 @@ package io.ballerina.flowmodelgenerator.extension;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DataMapManager;
+import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
+import io.ballerina.flowmodelgenerator.extension.response.DataMapperModelResponse;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperTypesResponse;
+import io.ballerina.projects.Document;
+import io.ballerina.projects.Project;
 import org.ballerinalang.annotation.JavaSPIService;
 import org.ballerinalang.langserver.commons.service.spi.ExtendedLanguageServerService;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -57,12 +61,36 @@ public class DataMapperService implements ExtendedLanguageServerService {
                 Path filePath = Path.of(request.filePath());
                 this.workspaceManager.loadProject(filePath);
                 Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
-                if (semanticModel.isEmpty()) {
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
                     return response;
                 }
 
-                DataMapManager dataMapManager = new DataMapManager(semanticModel.get());
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(), document.get());
                 response.setType(dataMapManager.getTypes(request.flowNode(), request.propertyKey()));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<DataMapperModelResponse> links(DataMapperModelRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            DataMapperModelResponse response = new DataMapperModelResponse();
+            try {
+                Path filePath = Path.of(request.filePath());
+                Project project = this.workspaceManager.loadProject(filePath);
+                Optional<SemanticModel> semanticModel = this.workspaceManager.semanticModel(filePath);
+                Optional<Document> document = this.workspaceManager.document(filePath);
+                if (semanticModel.isEmpty() || document.isEmpty()) {
+                    return response;
+                }
+
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(), document.get());
+                response.setLinks(dataMapManager.getLinks(request.flowNode(), request.position(), request.propertyKey(),
+                        Path.of(request.filePath()), project));
             } catch (Throwable e) {
                 response.setError(e);
             }

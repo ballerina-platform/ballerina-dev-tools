@@ -1,63 +1,56 @@
 {
-  "source": "variable2.bal",
-  "description": "Sample diagram node",
+  "source": "function_call2.bal",
+  "description": "Tests a simple diagram flow",
   "diagram": {
-    "id": "32874",
+    "id": "43936",
     "metadata": {
-      "label": "Variable",
-      "description": "Assign a value to a variable"
+      "label": "foo",
+      "description": "",
+      "icon": ""
     },
     "codedata": {
-      "node": "VARIABLE",
+      "node": "FUNCTION_CALL",
+      "org": "",
+      "module": "",
+      "symbol": "foo",
       "lineRange": {
-        "fileName": "variable2.bal",
+        "fileName": "function_call2.bal",
         "startLine": {
-          "line": 1,
-          "offset": 4
+          "line": 12,
+          "offset": 8
         },
         "endLine": {
-          "line": 1,
-          "offset": 14
+          "line": 12,
+          "offset": 40
         }
       },
-      "sourceCode": "int i = 2;"
+      "sourceCode": ""
     },
     "returning": false,
     "properties": {
-      "expression": {
+      "i": {
         "metadata": {
-          "label": "Expression",
-          "description": "Expression"
+          "label": "i",
+          "description": ""
         },
         "valueType": "EXPRESSION",
         "value": "2",
         "optional": false,
         "editable": true
       },
-      "variable": {
+      "userInfo": {
         "metadata": {
-          "label": "Variable",
-          "description": "Name of the variable"
+          "label": "userInfo",
+          "description": ""
         },
-        "valueType": "IDENTIFIER",
-        "value": "i",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "UserInfo",
-        "optional": false,
+        "valueType": "EXPRESSION",
+        "optional": true,
         "editable": true
       }
     },
     "flags": 0
   },
-  "propertyKey": "expression",
+  "propertyKey": "userInfo",
   "type": {
     "fields": [
       {
@@ -106,8 +99,15 @@
       }
     ],
     "hasRestType": false,
+    "name": "UserInfo",
     "typeName": "record",
     "optional": false,
+    "typeInfo": {
+      "name": "UserInfo",
+      "orgName": "$anon",
+      "moduleName": ".",
+      "version": "0.0.0"
+    },
     "defaultable": false,
     "isRestType": false
   }
