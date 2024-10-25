@@ -443,7 +443,30 @@ class CodeAnalyzer extends NodeVisitor {
 
     @Override
     public void visit(VariableDeclarationNode variableDeclarationNode) {
-        Optional<ExpressionNode> initializer = variableDeclarationNode.initializer();
+        handleVariableNode(variableDeclarationNode);
+    }
+
+    private void handleVariableNode(NonTerminalNode variableDeclarationNode) {
+        Optional<ExpressionNode> initializer;
+        Optional<Token> finalKeyword;
+        switch (variableDeclarationNode.kind()) {
+            case LOCAL_VAR_DECL -> {
+                VariableDeclarationNode localVariableDeclarationNode =
+                        (VariableDeclarationNode) variableDeclarationNode;
+                initializer = localVariableDeclarationNode.initializer();
+                this.typedBindingPatternNode = localVariableDeclarationNode.typedBindingPattern();
+                finalKeyword = localVariableDeclarationNode.finalKeyword();
+            }
+            case MODULE_VAR_DECL -> {
+                ModuleVariableDeclarationNode moduleVariableDeclarationNode =
+                        (ModuleVariableDeclarationNode) variableDeclarationNode;
+                initializer = moduleVariableDeclarationNode.initializer();
+                this.typedBindingPatternNode = moduleVariableDeclarationNode.typedBindingPattern();
+                finalKeyword = Optional.empty();
+            }
+            default -> throw new IllegalStateException("Unexpected variable declaration kind: " +
+                    variableDeclarationNode.kind());
+        }
         boolean implicit = false;
         if (initializer.isEmpty()) {
             implicit = true;
@@ -454,7 +477,6 @@ class CodeAnalyzer extends NodeVisitor {
                     .properties().expression(null);
         } else {
             ExpressionNode initializerNode = initializer.get();
-            this.typedBindingPatternNode = variableDeclarationNode.typedBindingPattern();
             initializerNode.accept(this);
 
             // Generate the default expression node if a node is not built
@@ -470,33 +492,24 @@ class CodeAnalyzer extends NodeVisitor {
 
         // TODO: Find a better way on how we can achieve this
         if (nodeBuilder instanceof DataMapper) {
-            nodeBuilder.properties().data(variableDeclarationNode.typedBindingPattern());
+            nodeBuilder.properties().data(this.typedBindingPatternNode);
         } else if (nodeBuilder instanceof XmlPayload) {
-            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "xml");
+            nodeBuilder.properties().payload(this.typedBindingPatternNode, "xml");
         } else if (nodeBuilder instanceof JsonPayload) {
-            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "json");
+            nodeBuilder.properties().payload(this.typedBindingPatternNode, "json");
         } else if (nodeBuilder instanceof BinaryData) {
-            nodeBuilder.properties().payload(variableDeclarationNode.typedBindingPattern(), "byte[]");
+            nodeBuilder.properties().payload(this.typedBindingPatternNode, "byte[]");
         } else {
-            nodeBuilder.properties().dataVariable(variableDeclarationNode.typedBindingPattern(), implicit);
+            nodeBuilder.properties().dataVariable(this.typedBindingPatternNode, implicit);
         }
-        variableDeclarationNode.finalKeyword().ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
+        finalKeyword.ifPresent(token -> nodeBuilder.flag(FlowNode.NODE_FLAG_FINAL));
         endNode(variableDeclarationNode);
         this.typedBindingPatternNode = null;
     }
 
     @Override
     public void visit(ModuleVariableDeclarationNode moduleVariableDeclarationNode) {
-        Optional<ExpressionNode> initializer = moduleVariableDeclarationNode.initializer();
-        if (initializer.isEmpty()) {
-            return;
-        }
-        ExpressionNode initializerNode = initializer.get();
-        this.typedBindingPatternNode = moduleVariableDeclarationNode.typedBindingPattern();
-        initializerNode.accept(this);
-        nodeBuilder.properties().dataVariable(moduleVariableDeclarationNode.typedBindingPattern());
-        endNode(moduleVariableDeclarationNode);
-        this.typedBindingPatternNode = null;
+        handleVariableNode(moduleVariableDeclarationNode);
     }
 
     @Override

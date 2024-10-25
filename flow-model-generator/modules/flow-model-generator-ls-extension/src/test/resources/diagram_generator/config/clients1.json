@@ -103,15 +103,6 @@
             "optional": true,
             "editable": true
           },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true
-          },
           "type": {
             "metadata": {
               "label": "Variable Type",
@@ -280,15 +271,6 @@
             "metadata": {
               "label": "headers",
               "description": "The entity headers"
-            },
-            "valueType": "EXPRESSION",
-            "optional": true,
-            "editable": true
-          },
-          "targetType": {
-            "metadata": {
-              "label": "targetType",
-              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -478,7 +460,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "Target service url"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -487,7 +469,8 @@
           },
           "config": {
             "metadata": {
-              "label": "config"
+              "label": "config",
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -519,16 +502,11 @@
       {
         "id": "41709",
         "metadata": {
-          "label": "New Connection",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "$anon",
-          "module": ".",
-          "object": "Client",
-          "symbol": "init",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -544,19 +522,19 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
+              "label": "Expression",
+              "description": "Expression"
             },
-            "valueType": "ENUM",
-            "value": "Global",
+            "valueType": "EXPRESSION",
+            "value": "new MyClient()",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -566,7 +544,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -580,16 +558,11 @@
       {
         "id": "40698",
         "metadata": {
-          "label": "New Connection",
-          "description": "",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "NEW_CONNECTION",
-          "org": "$anon",
-          "module": ".",
-          "object": "Client",
-          "symbol": "init",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -605,19 +578,19 @@
         },
         "returning": false,
         "properties": {
-          "scope": {
+          "expression": {
             "metadata": {
-              "label": "Connection Scope",
-              "description": "Scope of the connection, Global or Local"
+              "label": "Expression",
+              "description": "Expression"
             },
-            "valueType": "ENUM",
-            "value": "Global",
+            "valueType": "EXPRESSION",
+            "value": "new",
             "optional": false,
             "editable": true
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -627,7 +600,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
