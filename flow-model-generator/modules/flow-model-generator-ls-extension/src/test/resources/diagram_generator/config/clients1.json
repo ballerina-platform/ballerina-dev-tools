@@ -119,11 +119,17 @@
       {
         "id": "46777",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "myRemoteFn",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ACTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "myRemoteFn",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -139,13 +145,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "connection": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "myModuleCl->myRemoteFn()",
+            "value": "    myModuleCl",
             "optional": false,
             "editable": true
           }
@@ -348,11 +354,17 @@
       {
         "id": "51736",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "myRemoteFn",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ACTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "myRemoteFn",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -368,13 +380,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "connection": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "myLocalCl->myRemoteFn()",
+            "value": "    myLocalCl",
             "optional": false,
             "editable": true
           }

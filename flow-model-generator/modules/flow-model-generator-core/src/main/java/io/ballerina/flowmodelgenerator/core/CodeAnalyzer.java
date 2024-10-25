@@ -90,12 +90,10 @@ import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
-import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
 import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
-import io.ballerina.flowmodelgenerator.core.model.node.ActionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
@@ -251,47 +249,22 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-
-        String orgName = CommonUtils.getOrgName(methodSymbol);
-        String packageName = CommonUtils.getPackageName(methodSymbol);
-        String moduleName = CommonUtils.getModuleName(methodSymbol);
-        String version = CommonUtils.getVersion(methodSymbol);
-        String icon = CommonUtils.getIcon(orgName, packageName, version);
-
         Optional<Documentation> documentation = methodSymbol.documentation();
         String description = documentation.flatMap(Documentation::description).orElse("");
         Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
-        Codedata codedata = new Codedata.Builder<>(null)
-                .node(NodeKind.ACTION_CALL)
-                .org(orgName)
-                .module(moduleName)
-                .object("Client")
-                .version(symbol.get().getModule().get().id().version())
-                .symbol(methodName)
-                .build();
-        FlowNode nodeTemplate = ActionCall.getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            handleExpressionNode(actionNode);
-            return;
-        }
-
         startNode(NodeKind.ACTION_CALL)
+                .symbolInfo(methodSymbol)
                 .metadata()
                     .label(methodName)
                     .description(description)
-                    .icon(icon)
                     .stepOut()
                 .codedata()
-                    .org(orgName)
-                    .module(packageName)
                     .object("Client")
-                    .version(version)
                     .symbol(methodName)
                     .stepOut()
                 .properties()
-                    .callExpression(expressionNode, Property.CONNECTION_KEY,
-                        nodeTemplate.properties().get(Property.CONNECTION_KEY))
+                    .callExpression(expressionNode, Property.CONNECTION_KEY)
                     .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
                 argumentNodes, params, documentationMap, methodSymbol.external()));
@@ -581,27 +554,18 @@ class CodeAnalyzer extends NodeVisitor {
         NameReferenceNode nameReferenceNode = functionCallExpressionNode.functionName();
 
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
-            String moduleName = CommonUtils.getModuleName(functionSymbol);
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            String packageName = CommonUtils.getPackageName(functionSymbol);
-            String version = CommonUtils.getVersion(functionSymbol);
-            String icon = CommonUtils.getIcon(orgName, packageName, version);
-
             Optional<Documentation> documentation = functionSymbol.documentation();
             String description = documentation.flatMap(Documentation::description).orElse("");
             Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
             startNode(NodeKind.FUNCTION_CALL)
+                    .symbolInfo(functionSymbol)
                     .metadata()
                         .label(functionName)
                         .description(description)
-                        .icon(icon)
                         .stepOut()
                     .codedata()
-                        .org(orgName)
-                        .module(packageName)
-                        .object(moduleName)
-                        .version(version)
                         .symbol(functionName);
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(

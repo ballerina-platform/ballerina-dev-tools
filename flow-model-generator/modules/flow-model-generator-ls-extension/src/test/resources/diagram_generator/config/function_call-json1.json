@@ -46,7 +46,6 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
-          "object": "data.jsondata",
           "symbol": "toJson",
           "version": "0.2.0",
           "lineRange": {
@@ -108,7 +107,6 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
-          "object": "data.jsondata",
           "symbol": "parseAsType",
           "version": "0.2.0",
           "lineRange": {

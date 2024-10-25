@@ -98,6 +98,8 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
     public static final String LOCAL_SCOPE = "Local";
 
     public static final String CONNECTION_KEY = "connection";
+    public static final String CONNECTION_LABEL = "Connection";
+    public static final String CONNECTION_DOC = "Connection to use";
 
     public static final String COMMENT_LABEL = "Comment";
     public static final String COMMENT_KEY = "comment";

@@ -122,7 +122,6 @@
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "lang.int",
-                  "object": "lang.int",
                   "symbol": "fromString",
                   "version": "0.0.0",
                   "lineRange": {

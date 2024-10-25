@@ -297,7 +297,6 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
-          "object": "io",
           "symbol": "println",
           "version": "1.6.1",
           "lineRange": {
@@ -493,7 +492,6 @@
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
-          "object": "io",
           "symbol": "println",
           "version": "1.6.1",
           "lineRange": {
