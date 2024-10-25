@@ -366,6 +366,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "simple_flow.bal",
             "startLine": {
@@ -446,6 +447,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "simple_flow.bal",
             "startLine": {

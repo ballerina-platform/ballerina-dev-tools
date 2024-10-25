@@ -343,10 +343,6 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
-        String packageName = CommonUtils.getPackageName(typeSymbol.get());
-        String orgName = CommonUtils.getOrgName(typeSymbol.get());
-        String version = CommonUtils.getVersion(typeSymbol.get());
-        String icon = CommonUtils.getIcon(orgName, moduleName, version);
 
         if (typeSymbol.get().typeKind() != TypeDescKind.TYPE_REFERENCE) {
             return;
@@ -366,14 +362,12 @@ class CodeAnalyzer extends NodeVisitor {
                 initMethodSymbol.get().documentation().map(Documentation::parameterMap).orElse(Map.of());
 
         startNode(NodeKind.NEW_CONNECTION)
+                .symbolInfo(initMethodSymbol.get())
                 .metadata()
                     .label(moduleName)
                     .description(description)
-                    .icon(icon)
                     .stepOut()
                 .codedata()
-                    .org(orgName)
-                    .module(packageName)
                     .object("Client")
                     .symbol("init")
                     .stepOut()

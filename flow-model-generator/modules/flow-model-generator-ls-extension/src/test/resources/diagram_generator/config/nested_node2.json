@@ -388,6 +388,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "nested_node.bal",
             "startLine": {

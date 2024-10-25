@@ -274,6 +274,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {

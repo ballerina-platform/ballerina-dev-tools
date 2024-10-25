@@ -162,6 +162,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -242,6 +243,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -322,6 +324,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -392,6 +395,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {

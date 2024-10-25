@@ -18,6 +18,7 @@
           "module": "grpc",
           "object": "Client",
           "symbol": "init",
+          "version": "1.11.0",
           "lineRange": {
             "fileName": "connections.bal",
             "startLine": {
@@ -98,6 +99,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -178,6 +180,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "connections.bal",
             "startLine": {

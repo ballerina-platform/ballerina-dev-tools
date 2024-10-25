@@ -226,6 +226,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
