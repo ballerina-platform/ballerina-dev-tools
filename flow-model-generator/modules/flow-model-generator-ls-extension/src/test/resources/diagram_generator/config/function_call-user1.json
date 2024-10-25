@@ -290,12 +290,14 @@
         "id": "102361",
         "metadata": {
           "label": "println",
-          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
+          "object": "io",
           "symbol": "println",
           "version": "1.6.1",
           "lineRange": {
@@ -484,12 +486,14 @@
         "id": "108287",
         "metadata": {
           "label": "println",
-          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n\n"
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "io",
+          "object": "io",
           "symbol": "println",
           "version": "1.6.1",
           "lineRange": {
@@ -564,7 +568,8 @@
         "id": "36771",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -600,7 +605,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -610,7 +615,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,

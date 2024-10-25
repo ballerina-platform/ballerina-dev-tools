@@ -324,4 +324,16 @@ public class CommonUtils {
                         project.sourceRoot().resolve(location.lineRange().fileName()));
         return project.currentPackage().getDefaultModule().document(documentId);
     }
+
+    public static String getVersion(Symbol symbol) {
+        return symbol.getModule().map(module -> module.id().version()).orElse("0.0.0");
+    }
+
+    public static String getPackageName(Symbol symbol) {
+        return symbol.getModule().map(module -> module.id().packageName()).orElse(".");
+    }
+
+    public static String getIcon(String org, String module, String version) {
+        return String.format("https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png", org, module, version);
+    }
 }

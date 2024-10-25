@@ -114,11 +114,17 @@
               {
                 "id": "273373",
                 "metadata": {
-                  "label": "Custom Expression",
-                  "description": "Represents a custom Ballerina expression"
+                  "label": "fromString",
+                  "description": "Returns the integer of a string that represents in decimal.\n\nReturns error if parameter `s` is not the decimal representation of an integer.\nThe first character may be `+` or `-`.\nThis is the inverse of function ``value:toString`` applied to an `int`.\n\n```ballerina\nint:fromString(\"76\") ⇒ 76\nint:fromString(\"-120\") ⇒ -120\nint:fromString(\"0xFFFF\") ⇒ error\n```\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.int_0.0.0.png"
                 },
                 "codedata": {
-                  "node": "EXPRESSION",
+                  "node": "FUNCTION_CALL",
+                  "org": "ballerina",
+                  "module": "lang.int",
+                  "object": "lang.int",
+                  "symbol": "fromString",
+                  "version": "0.0.0",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -134,13 +140,13 @@
                 },
                 "returning": false,
                 "properties": {
-                  "statement": {
+                  "s": {
                     "metadata": {
-                      "label": "Statement",
-                      "description": "Ballerina statement"
+                      "label": "s",
+                      "description": "string representation of a integer value"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "int:fromString(obj.quantity.toString())",
+                    "value": "obj.quantity.toString()",
                     "optional": false,
                     "editable": true
                   },

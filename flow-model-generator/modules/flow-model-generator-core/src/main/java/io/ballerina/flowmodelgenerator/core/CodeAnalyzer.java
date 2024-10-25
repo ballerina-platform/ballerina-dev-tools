@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
@@ -88,7 +89,6 @@ import io.ballerina.compiler.syntax.tree.TransactionStatementNode;
 import io.ballerina.compiler.syntax.tree.TypedBindingPatternNode;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
 import io.ballerina.compiler.syntax.tree.WhileStatementNode;
-import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
 import io.ballerina.flowmodelgenerator.core.model.Branch;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
 import io.ballerina.flowmodelgenerator.core.model.FlowNode;
@@ -100,7 +100,6 @@ import io.ballerina.flowmodelgenerator.core.model.node.Assign;
 import io.ballerina.flowmodelgenerator.core.model.node.BinaryData;
 import io.ballerina.flowmodelgenerator.core.model.node.DataMapper;
 import io.ballerina.flowmodelgenerator.core.model.node.Fail;
-import io.ballerina.flowmodelgenerator.core.model.node.FunctionCall;
 import io.ballerina.flowmodelgenerator.core.model.node.If;
 import io.ballerina.flowmodelgenerator.core.model.node.JsonPayload;
 import io.ballerina.flowmodelgenerator.core.model.node.Panic;
@@ -252,8 +251,16 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         MethodSymbol methodSymbol = (MethodSymbol) symbol.get();
-        String moduleName = symbol.get().getModule().flatMap(Symbol::getName).orElse("");
+
         String orgName = CommonUtils.getOrgName(methodSymbol);
+        String packageName = CommonUtils.getPackageName(methodSymbol);
+        String moduleName = CommonUtils.getModuleName(methodSymbol);
+        String version = CommonUtils.getVersion(methodSymbol);
+        String icon = CommonUtils.getIcon(orgName, packageName, version);
+
+        Optional<Documentation> documentation = methodSymbol.documentation();
+        String description = documentation.flatMap(Documentation::description).orElse("");
+        Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
         Codedata codedata = new Codedata.Builder<>(null)
                 .node(NodeKind.ACTION_CALL)
@@ -271,22 +278,23 @@ class CodeAnalyzer extends NodeVisitor {
 
         startNode(NodeKind.ACTION_CALL)
                 .metadata()
-                    .label(nodeTemplate.metadata().label())
-                    .description(nodeTemplate.metadata().description())
-                    .icon(nodeTemplate.metadata().icon())
+                    .label(methodName)
+                    .description(description)
+                    .icon(icon)
                     .stepOut()
                 .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol())
+                    .org(orgName)
+                    .module(packageName)
+                    .object("Client")
+                    .version(version)
+                    .symbol(methodName)
                     .stepOut()
                 .properties()
                     .callExpression(expressionNode, Property.CONNECTION_KEY,
                         nodeTemplate.properties().get(Property.CONNECTION_KEY))
                     .variable(this.typedBindingPatternNode);
         methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                argumentNodes, params, nodeTemplate.properties()));
+                argumentNodes, params, documentationMap, methodSymbol.external()));
     }
 
     @Override
@@ -362,26 +370,39 @@ class CodeAnalyzer extends NodeVisitor {
         }
 
         String moduleName = CommonUtils.getModuleName(typeSymbol.get());
+        String packageName = CommonUtils.getPackageName(typeSymbol.get());
         String orgName = CommonUtils.getOrgName(typeSymbol.get());
-        Codedata codedata = new Codedata.Builder<>(null)
-                .node(NodeKind.NEW_CONNECTION)
-                .org(orgName)
-                .module(moduleName)
-                .object("Client")
-                .symbol("init")
-                .build();
-        FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(codedata);
-        if (nodeTemplate == null) {
-            handleExpressionNode(newExpressionNode);
+        String version = CommonUtils.getVersion(typeSymbol.get());
+        String icon = CommonUtils.getIcon(orgName, moduleName, version);
+
+        if (typeSymbol.get().typeKind() != TypeDescKind.TYPE_REFERENCE) {
             return;
         }
+        Symbol defintionSymbol = ((TypeReferenceTypeSymbol) typeSymbol.get()).definition();
+        if (defintionSymbol.kind() != SymbolKind.CLASS) {
+            return;
+        }
+        ClassSymbol classSymbol = (ClassSymbol) defintionSymbol;
+        String description = classSymbol.documentation().flatMap(Documentation::description).orElse("");
+
+        Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
+        if (initMethodSymbol.isEmpty()) {
+            return;
+        }
+        Map<String, String> documentationMap =
+                initMethodSymbol.get().documentation().map(Documentation::parameterMap).orElse(Map.of());
+
         startNode(NodeKind.NEW_CONNECTION)
-                .metadata().description(nodeTemplate.metadata().description()).stepOut()
+                .metadata()
+                    .label(moduleName)
+                    .description(description)
+                    .icon(icon)
+                    .stepOut()
                 .codedata()
-                    .org(nodeTemplate.codedata().org())
-                    .module(nodeTemplate.codedata().module())
-                    .object(nodeTemplate.codedata().object())
-                    .symbol(nodeTemplate.codedata().symbol())
+                    .org(orgName)
+                    .module(packageName)
+                    .object("Client")
+                    .symbol("init")
                     .stepOut()
                 .properties().scope(connectionScope);
         try {
@@ -389,7 +410,7 @@ class CodeAnalyzer extends NodeVisitor {
                     ((ClassSymbol) ((TypeReferenceTypeSymbol) typeSymbol.get()).definition()).initMethod()
                             .orElseThrow();
             methodSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    argumentNodes, params, nodeTemplate.properties()));
+                    argumentNodes, params, documentationMap, methodSymbol.external()));
         } catch (RuntimeException ignored) {
 
         }
@@ -549,34 +570,29 @@ class CodeAnalyzer extends NodeVisitor {
         if (nameReferenceNode.kind() == SyntaxKind.QUALIFIED_NAME_REFERENCE) {
             String moduleName = CommonUtils.getModuleName(functionSymbol);
             String functionName = ((QualifiedNameReferenceNode) nameReferenceNode).identifier().text();
-            Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.FUNCTION_CALL)
-                    .org(orgName)
-                    .module(moduleName)
-                    .symbol(functionName)
-                    .version(functionSymbol.getModule().get().id().version())
-                    .build();
-            FlowNode nodeTemplate = FunctionCall.getNodeTemplate(codedata);
-            if (nodeTemplate == null) {
-                handleExpressionNode(functionCallExpressionNode);
-                return;
-            }
+            String packageName = CommonUtils.getPackageName(functionSymbol);
+            String version = CommonUtils.getVersion(functionSymbol);
+            String icon = CommonUtils.getIcon(orgName, packageName, version);
+
+            Optional<Documentation> documentation = functionSymbol.documentation();
+            String description = documentation.flatMap(Documentation::description).orElse("");
+            Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
 
             startNode(NodeKind.FUNCTION_CALL)
                     .metadata()
-                        .label(nodeTemplate.metadata().label())
-                        .description(nodeTemplate.metadata().description())
-                        .icon(nodeTemplate.metadata().icon())
+                        .label(functionName)
+                        .description(description)
+                        .icon(icon)
                         .stepOut()
                     .codedata()
-                        .org(nodeTemplate.codedata().org())
-                        .module(nodeTemplate.codedata().module())
-                        .object(nodeTemplate.codedata().object())
-                        .version(nodeTemplate.codedata().version())
-                        .symbol(nodeTemplate.codedata().symbol());
+                        .org(orgName)
+                        .module(packageName)
+                        .object(moduleName)
+                        .version(version)
+                        .symbol(functionName);
 
             functionSymbol.typeDescriptor().params().ifPresent(params -> nodeBuilder.properties().functionArguments(
-                    functionCallExpressionNode.arguments(), params, nodeTemplate.properties()));
+                    functionCallExpressionNode.arguments(), params, documentationMap, functionSymbol.external()));
         } else if (nameReferenceNode.kind() == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             SimpleNameReferenceNode simpleNameReferenceNode = (SimpleNameReferenceNode) nameReferenceNode;
             String functionName = simpleNameReferenceNode.name().text();

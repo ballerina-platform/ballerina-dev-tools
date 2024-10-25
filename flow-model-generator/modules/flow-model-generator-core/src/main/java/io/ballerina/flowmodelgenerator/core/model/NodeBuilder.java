@@ -516,7 +516,8 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
                                                       List<ParameterSymbol> parameterSymbols,
-                                                      Map<String, Property> properties) {
+                                                      Map<String, String> documentationMap,
+                                                      boolean ignoreTargetType) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
@@ -542,6 +543,11 @@ public abstract class NodeBuilder {
 
             for (int i = 0; i < numParams; i++) {
                 ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+
+                if (ignoreTargetType && parameterSymbol.nameEquals("targetType")) {
+                    continue;
+                }
+
                 Optional<String> name = parameterSymbol.getName();
                 if (name.isEmpty()) {
                     continue;
@@ -550,23 +556,20 @@ public abstract class NodeBuilder {
                 String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
-                Property propertyTemplate = properties.get(parameterName);
-                if (propertyTemplate != null) {
-                    propertyBuilder
-                            .metadata()
-                                .label(propertyTemplate.metadata().label())
-                                .description(propertyTemplate.metadata().description())
-                                .stepOut()
-                            .type(Property.ValueType.EXPRESSION)
-                            .editable()
-                            .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                propertyBuilder
+                        .metadata()
+                            .label(parameterName)
+                            .description(documentationMap.get(parameterName))
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .editable()
+                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
-                    if (paramValue != null) {
-                        propertyBuilder.value(paramValue.toSourceCode());
-                    }
-
-                    addProperty(parameterName, propertyBuilder.build());
+                if (paramValue != null) {
+                    propertyBuilder.value(paramValue.toSourceCode());
                 }
+
+                addProperty(parameterName, propertyBuilder.build());
             }
             return this;
         }

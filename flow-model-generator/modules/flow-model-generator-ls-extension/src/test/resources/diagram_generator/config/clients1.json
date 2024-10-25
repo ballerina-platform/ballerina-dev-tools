@@ -39,8 +39,8 @@
         "id": "45807",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -48,6 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -86,7 +87,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
@@ -96,7 +97,16 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -211,8 +221,8 @@
         "id": "49773",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -220,6 +230,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -258,7 +269,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
@@ -268,7 +279,16 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType",
+              "description": "HTTP response, `anydata` or stream of HTTP SSE, which is expected to be returned after data binding"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -421,7 +441,8 @@
         "id": "39739",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -457,7 +478,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "Target service url"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -466,8 +487,7 @@
           },
           "config": {
             "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "label": "config"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -499,11 +519,16 @@
       {
         "id": "41709",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "New Connection",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "init",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -519,13 +544,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "scope": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "EXPRESSION",
-            "value": "new MyClient()",
+            "valueType": "ENUM",
+            "value": "Global",
             "optional": false,
             "editable": true
           },
@@ -555,11 +580,16 @@
       {
         "id": "40698",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "New Connection",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "NEW_CONNECTION",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "init",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -575,13 +605,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "scope": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection Scope",
+              "description": "Scope of the connection, Global or Local"
             },
-            "valueType": "EXPRESSION",
-            "value": "new",
+            "valueType": "ENUM",
+            "value": "Global",
             "optional": false,
             "editable": true
           },
