@@ -30,7 +30,7 @@
               "offset": 5
             }
           },
-          "sourceCode": "resource function get cherries(map<anydata> data) returns string|error {\n        match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = check int:fromString(obj.quantity.toString());\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }\n    }"
+          "sourceCode": "resource function get cherries(map<anydata> data) returns string|error {\n        match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }\n    }"
         },
         "returning": false,
         "flags": 0
@@ -54,7 +54,7 @@
               "offset": 9
             }
           },
-          "sourceCode": "match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = check int:fromString(obj.quantity.toString());\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }"
+          "sourceCode": "match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }"
         },
         "returning": false,
         "branches": [
@@ -74,7 +74,7 @@
                   "offset": 13
                 }
               },
-              "sourceCode": "{\n                int quantity = check int:fromString(obj.quantity.toString());\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }"
+              "sourceCode": "{\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }"
             },
             "repeatable": "ONE_OR_MORE",
             "properties": {
@@ -112,18 +112,13 @@
             },
             "children": [
               {
-                "id": "273373",
+                "id": "273340",
                 "metadata": {
-                  "label": "fromString",
-                  "description": "Returns the integer of a string that represents in decimal.\n\nReturns error if parameter `s` is not the decimal representation of an integer.\nThe first character may be `+` or `-`.\nThis is the inverse of function ``value:toString`` applied to an `int`.\n\n```ballerina\nint:fromString(\"76\") ⇒ 76\nint:fromString(\"-120\") ⇒ -120\nint:fromString(\"0xFFFF\") ⇒ error\n```\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.int_0.0.0.png"
+                  "label": "Variable",
+                  "description": "Assign a value to a variable"
                 },
                 "codedata": {
-                  "node": "FUNCTION_CALL",
-                  "org": "ballerina",
-                  "module": "lang.int",
-                  "symbol": "fromString",
-                  "version": "0.0.0",
+                  "node": "VARIABLE",
                   "lineRange": {
                     "fileName": "match.bal",
                     "startLine": {
@@ -132,26 +127,26 @@
                     },
                     "endLine": {
                       "line": 243,
-                      "offset": 77
+                      "offset": 44
                     }
                   },
-                  "sourceCode": "int quantity = check int:fromString(obj.quantity.toString());"
+                  "sourceCode": "int quantity = obj.quantity;"
                 },
                 "returning": false,
                 "properties": {
-                  "s": {
+                  "expression": {
                     "metadata": {
-                      "label": "s",
-                      "description": "string representation of a integer value"
+                      "label": "Expression",
+                      "description": "Expression"
                     },
                     "valueType": "EXPRESSION",
-                    "value": "obj.quantity.toString()",
+                    "value": "obj.quantity",
                     "optional": false,
                     "editable": true
                   },
                   "variable": {
                     "metadata": {
-                      "label": "Variable Name",
+                      "label": "Name",
                       "description": "Name of the variable"
                     },
                     "valueType": "IDENTIFIER",
@@ -161,7 +156,7 @@
                   },
                   "type": {
                     "metadata": {
-                      "label": "Variable Type",
+                      "label": "Type",
                       "description": "Type of the variable"
                     },
                     "valueType": "TYPE",
@@ -170,7 +165,7 @@
                     "editable": true
                   }
                 },
-                "flags": 1
+                "flags": 0
               },
               {
                 "id": "274329",

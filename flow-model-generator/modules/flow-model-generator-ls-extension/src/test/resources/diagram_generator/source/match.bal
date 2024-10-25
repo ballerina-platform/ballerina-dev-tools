@@ -241,7 +241,7 @@ service /market on new http:Listener(9090) {
     resource function get cherries(map<anydata> data) returns string|error {
         match data {
             var obj if obj is record {|int quantity; string 'type;|} => {
-                int quantity = check int:fromString(obj.quantity.toString());
+                int quantity = obj.quantity;
                 string 'type = obj.'type;
                 return string `Order for ${quantity} ${'type} cherries placed`;
             }
