@@ -22,13 +22,39 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.compiler.api.SemanticModel;
-import io.ballerina.compiler.api.symbols.*;
-import io.ballerina.compiler.syntax.tree.*;
-import io.ballerina.flowmodelgenerator.core.model.*;
+import io.ballerina.compiler.api.symbols.FunctionSymbol;
+import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Qualifier;
+import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
+import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.VariableSymbol;
+import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
+import io.ballerina.compiler.syntax.tree.ExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
+import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.Node;
+import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
+import io.ballerina.flowmodelgenerator.core.model.Codedata;
+import io.ballerina.flowmodelgenerator.core.model.FlowNode;
+import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
+import io.ballerina.flowmodelgenerator.core.model.NodeKind;
+import io.ballerina.flowmodelgenerator.core.model.Property;
+import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
 import io.ballerina.tools.diagnostics.Diagnostic;
-import io.ballerina.tools.text.*;
+import io.ballerina.tools.text.LinePosition;
+import io.ballerina.tools.text.LineRange;
+import io.ballerina.tools.text.TextDocument;
+import io.ballerina.tools.text.TextDocumentChange;
+import io.ballerina.tools.text.TextRange;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.PrimitiveType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.RecordType;
@@ -114,10 +140,9 @@ public class DataMapManager {
         TextDocument textDocument = document.textDocument();
         int startTextPosition = textDocument.textPositionFrom(position);
         io.ballerina.tools.text.TextEdit te = io.ballerina.tools.text.TextEdit.from(TextRange.from(startTextPosition,
-                source.length()), source);
-
-        TextDocument modifiedTextDoc = textDocument
-                .apply(TextDocumentChange.from(List.of(te).toArray(new io.ballerina.tools.text.TextEdit[0])));
+                0), source);
+        io.ballerina.tools.text.TextEdit[] tes = {te};
+        TextDocument modifiedTextDoc = textDocument.apply(TextDocumentChange.from(tes));
         Document modifiedDoc =
                 project.duplicate().currentPackage().module(document.module().moduleId())
                         .document(document.documentId()).modify().withContent(String.join(System.lineSeparator(),
@@ -125,11 +150,8 @@ public class DataMapManager {
 
         SemanticModel newSemanticModel = modifiedDoc.module().packageInstance().getCompilation()
                 .getSemanticModel(modifiedDoc.module().moduleId());
-        LineRange lineRange = LineRange.from(filePath.getFileName().toString(),
-                modifiedTextDoc.linePositionFrom(startTextPosition),
-                modifiedTextDoc.linePositionFrom(startTextPosition + source.length()));
-        LinePosition startLine = lineRange.startLine();
-        LinePosition endLine = lineRange.endLine();
+        LinePosition startLine = modifiedTextDoc.linePositionFrom(startTextPosition);
+        LinePosition endLine = modifiedTextDoc.linePositionFrom(startTextPosition + source.length());
         Range range = new Range(new Position(startLine.line(), startLine.offset()),
                 new Position(endLine.line(), endLine.offset()));
         NonTerminalNode stNode = CommonUtil.findNode(range, modifiedDoc.syntaxTree());
@@ -203,7 +225,8 @@ public class DataMapManager {
 
     private void genInputs(Node expr, List<String> inputs) {
         SyntaxKind kind = expr.kind();
-        if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+        if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE ||
+                kind == SyntaxKind.NUMERIC_LITERAL) {
             inputs.add(expr.toSourceCode().trim());
         } else if (kind == SyntaxKind.BINARY_EXPRESSION) {
             BinaryExpressionNode binaryExpr = (BinaryExpressionNode) expr;
@@ -292,6 +315,14 @@ public class DataMapManager {
             this.id = id;
             this.type = type;
         }
+
+        String getCategory() {
+            return this.category;
+        }
+
+        Type getType() {
+            return this.type;
+        }
     }
 
     private static class MappingRecordType extends MappingType {
@@ -300,9 +331,5 @@ public class DataMapManager {
         MappingRecordType(String id, Type type) {
             super(id, type);
         }
-    }
-
-    private class MappingArrayType {
-
     }
 }

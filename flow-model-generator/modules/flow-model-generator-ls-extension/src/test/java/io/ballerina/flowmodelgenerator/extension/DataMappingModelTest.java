@@ -3,7 +3,6 @@ package io.ballerina.flowmodelgenerator.extension;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
-import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
 import io.ballerina.tools.text.LinePosition;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -20,7 +19,12 @@ public class DataMappingModelTest extends AbstractLSTest {
     protected Object[] getConfigsList() {
         return new Object[][]{
                 {Path.of("variable1.json")},
-                {Path.of("variable2.json")}
+                {Path.of("variable2.json")},
+                {Path.of("variable3.json")},
+                {Path.of("variable4.json")},
+                {Path.of("variable5.json")},
+                {Path.of("variable6.json")},
+                {Path.of("variable7.json")},
         };
     }
 
@@ -38,7 +42,7 @@ public class DataMappingModelTest extends AbstractLSTest {
         if (!model.equals(testConfig.model())) {
             TestConfig updateConfig = new TestConfig(testConfig.source(), testConfig.description(),
                     testConfig.diagram(), testConfig.propertyKey(), testConfig.position(), model);
-            updateConfig(configJsonPath, updateConfig);
+//            updateConfig(configJsonPath, updateConfig);
             compareJsonElements(model, testConfig.model());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }

@@ -66,7 +66,8 @@ public class DataMapperService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(), document.get());
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(),
+                        document.get());
                 response.setType(dataMapManager.getTypes(request.flowNode(), request.propertyKey()));
             } catch (Throwable e) {
                 response.setError(e);
@@ -88,7 +89,8 @@ public class DataMapperService implements ExtendedLanguageServerService {
                     return response;
                 }
 
-                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(), document.get());
+                DataMapManager dataMapManager = new DataMapManager(this.workspaceManager, semanticModel.get(),
+                        document.get());
                 response.setLinks(dataMapManager.getLinks(request.flowNode(), request.position(), request.propertyKey(),
                         Path.of(request.filePath()), project));
             } catch (Throwable e) {
