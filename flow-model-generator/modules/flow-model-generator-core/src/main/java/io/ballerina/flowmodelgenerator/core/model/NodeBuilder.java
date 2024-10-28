@@ -18,9 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.model;
 
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.compiler.api.symbols.ModuleSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
+import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.syntax.tree.CheckExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
@@ -107,6 +110,8 @@ public abstract class NodeBuilder {
     protected FlowNode cachedFlowNode;
     protected String defaultModuleName;
 
+    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
+
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(NodeKind.IF, If::new);
         put(NodeKind.RETURN, Return::new);
@@ -187,6 +192,28 @@ public abstract class NodeBuilder {
 
     public NodeBuilder flag(int flag) {
         this.flags |= flag;
+        return this;
+    }
+
+    public NodeBuilder symbolInfo(Symbol symbol) {
+        Optional<ModuleSymbol> module = symbol.getModule();
+        if (module.isEmpty()) {
+            codedata()
+                    .module(defaultModuleName)
+                    .version("0.0.0");
+            return this;
+        }
+
+        ModuleID moduleId = module.get().id();
+        String orgName = moduleId.orgName();
+        String packageName = moduleId.packageName();
+        String versionName = moduleId.version();
+
+        metadata().icon(String.format(CENTRAL_ICON_URL, orgName, packageName, versionName));
+        codedata()
+                .org(orgName)
+                .module(packageName)
+                .version(versionName);
         return this;
     }
 
@@ -425,12 +452,11 @@ public abstract class NodeBuilder {
             return this;
         }
 
-        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key,
-                                                   Property propertyTemplate) {
+        public PropertiesBuilder<T> callExpression(ExpressionNode expressionNode, String key) {
             Property client = Property.Builder.getInstance()
                     .metadata()
-                        .label(propertyTemplate.metadata().label())
-                        .description(propertyTemplate.metadata().description())
+                        .label(Property.CONNECTION_LABEL)
+                        .description(Property.CONNECTION_DOC)
                         .stepOut()
                     .type(Property.ValueType.EXPRESSION)
                     .value(expressionNode.toString())
@@ -516,7 +542,8 @@ public abstract class NodeBuilder {
 
         public PropertiesBuilder<T> functionArguments(SeparatedNodeList<FunctionArgumentNode> arguments,
                                                       List<ParameterSymbol> parameterSymbols,
-                                                      Map<String, Property> properties) {
+                                                      Map<String, String> documentationMap,
+                                                      boolean ignoreTargetType) {
             final Map<String, Node> namedArgValueMap = new HashMap<>();
             final Queue<Node> positionalArgs = new LinkedList<>();
 
@@ -542,6 +569,11 @@ public abstract class NodeBuilder {
 
             for (int i = 0; i < numParams; i++) {
                 ParameterSymbol parameterSymbol = parameterSymbols.get(i);
+
+                if (ignoreTargetType && parameterSymbol.nameEquals("targetType")) {
+                    continue;
+                }
+
                 Optional<String> name = parameterSymbol.getName();
                 if (name.isEmpty()) {
                     continue;
@@ -550,23 +582,20 @@ public abstract class NodeBuilder {
                 String parameterName = name.get().startsWith("'") ? name.get().substring(1) : name.get();
                 Node paramValue = i < numPositionalArgs ? positionalArgs.poll() : namedArgValueMap.get(parameterName);
 
-                Property propertyTemplate = properties.get(parameterName);
-                if (propertyTemplate != null) {
-                    propertyBuilder
-                            .metadata()
-                                .label(propertyTemplate.metadata().label())
-                                .description(propertyTemplate.metadata().description())
-                                .stepOut()
-                            .type(Property.ValueType.EXPRESSION)
-                            .editable()
-                            .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                propertyBuilder
+                        .metadata()
+                            .label(parameterName)
+                            .description(documentationMap.get(parameterName))
+                            .stepOut()
+                        .type(Property.ValueType.EXPRESSION)
+                        .editable()
+                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
-                    if (paramValue != null) {
-                        propertyBuilder.value(paramValue.toSourceCode());
-                    }
-
-                    addProperty(parameterName, propertyBuilder.build());
+                if (paramValue != null) {
+                    propertyBuilder.value(paramValue.toSourceCode());
                 }
+
+                addProperty(parameterName, propertyBuilder.build());
             }
             return this;
         }

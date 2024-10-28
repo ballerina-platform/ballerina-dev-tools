@@ -133,7 +133,7 @@ public class FunctionCall extends NodeBuilder {
             return sourceBuilder.token()
                     .name(codedata.symbol())
                     .stepOut()
-                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type"))
+                    .functionParameters(sourceBuilder.flowNode, Set.of("variable", "type", "view"))
                     .textEdit(false)
                     .acceptImport()
                     .build();
@@ -151,7 +151,7 @@ public class FunctionCall extends NodeBuilder {
         return sourceBuilder.token()
                 .name(methodCall)
                 .stepOut()
-                .functionParameters(nodeTemplate, Set.of("variable", "type"))
+                .functionParameters(nodeTemplate, Set.of("variable", "type", "view"))
                 .textEdit(false)
                 .acceptImport()
                 .build();

@@ -39,8 +39,8 @@
         "id": "45807",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -48,6 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -86,7 +87,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
@@ -96,7 +97,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -118,11 +119,17 @@
       {
         "id": "46777",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "myRemoteFn",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ACTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "myRemoteFn",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -138,13 +145,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "connection": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "myModuleCl->myRemoteFn()",
+            "value": "    myModuleCl",
             "optional": false,
             "editable": true
           }
@@ -211,8 +218,8 @@
         "id": "49773",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -220,6 +227,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -258,7 +266,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/hello\"",
@@ -268,7 +276,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -346,11 +354,17 @@
       {
         "id": "51736",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "myRemoteFn",
+          "description": "",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/$anon_._0.0.0.png"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "ACTION_CALL",
+          "org": "$anon",
+          "module": ".",
+          "object": "Client",
+          "symbol": "myRemoteFn",
+          "version": "0.0.0",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -366,13 +380,13 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "connection": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Connection",
+              "description": "Connection to use"
             },
             "valueType": "EXPRESSION",
-            "value": "myLocalCl->myRemoteFn()",
+            "value": "    myLocalCl",
             "optional": false,
             "editable": true
           }
@@ -421,7 +435,8 @@
         "id": "39739",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -429,6 +444,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -457,7 +473,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -467,7 +483,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -499,11 +515,11 @@
       {
         "id": "41709",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -519,10 +535,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new MyClient()",
@@ -531,7 +547,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -541,7 +557,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -555,11 +571,11 @@
       {
         "id": "40698",
         "metadata": {
-          "label": "Custom Expression",
-          "description": "Represents a custom Ballerina expression"
+          "label": "Variable",
+          "description": "Assign a value to a variable"
         },
         "codedata": {
-          "node": "EXPRESSION",
+          "node": "VARIABLE",
           "lineRange": {
             "fileName": "clients.bal",
             "startLine": {
@@ -575,10 +591,10 @@
         },
         "returning": false,
         "properties": {
-          "statement": {
+          "expression": {
             "metadata": {
-              "label": "Statement",
-              "description": "Ballerina statement"
+              "label": "Expression",
+              "description": "Expression"
             },
             "valueType": "EXPRESSION",
             "value": "new",
@@ -587,7 +603,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Variable Name",
+              "label": "Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -597,7 +613,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Variable Type",
+              "label": "Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

@@ -39,8 +39,8 @@
         "id": "65774",
         "metadata": {
           "label": "post",
-          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -48,6 +48,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "post",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -76,7 +77,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Resource path\n"
+              "description": "Resource path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/bananas\"",
@@ -86,7 +87,7 @@
           "message": {
             "metadata": {
               "label": "message",
-              "description": "An HTTP outbound request or any allowed payload\n"
+              "description": "An HTTP outbound request or any allowed payload"
             },
             "valueType": "EXPRESSION",
             "value": "\"banana\"",
@@ -96,7 +97,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -105,7 +106,7 @@
           "mediaType": {
             "metadata": {
               "label": "mediaType",
-              "description": "The MIME type header of the request entity\n"
+              "description": "The MIME type header of the request entity"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -120,7 +121,8 @@
         "id": "33773",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -128,6 +130,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_post_node.bal",
             "startLine": {
@@ -156,7 +159,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
@@ -166,7 +169,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,

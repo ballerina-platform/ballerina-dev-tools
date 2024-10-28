@@ -2,28 +2,28 @@
   "source": "user_functions.bal",
   "description": "Sample diagram node",
   "diagram": {
-    "id": "103328",
+    "id": "109256",
     "metadata": {
-      "label": "asum"
+      "label": "print"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
       "org": "$anon",
       "module": ".",
-      "symbol": "asum",
+      "symbol": "print",
       "version": "0.0.0",
       "lineRange": {
         "fileName": "function_call.bal",
         "startLine": {
-          "line": 72,
+          "line": 78,
           "offset": 4
         },
         "endLine": {
-          "line": 72,
-          "offset": 36
+          "line": 78,
+          "offset": 12
         }
       },
-      "sourceCode": "int total = asum(1, 2, 3, 4, 5);"
+      "sourceCode": "print();"
     },
     "returning": false,
     "properties": {
@@ -36,36 +36,16 @@
         "value": {
           "fileName": "function_call.bal",
           "startLine": {
-            "line": 47,
+            "line": 61,
             "offset": 0
           },
           "endLine": {
-            "line": 53,
+            "line": 63,
             "offset": 1
           }
         },
         "optional": false,
         "editable": false
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable Name",
-          "description": "Name of the variable"
-        },
-        "valueType": "IDENTIFIER",
-        "value": "total",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Variable Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "TYPE",
-        "value": "int",
-        "optional": false,
-        "editable": true
       }
     },
     "flags": 0
@@ -75,15 +55,15 @@
       {
         "range": {
           "start": {
-            "line": 72,
+            "line": 78,
             "character": 4
           },
           "end": {
-            "line": 72,
-            "character": 36
+            "line": 78,
+            "character": 12
           }
         },
-        "newText": "int total = asum();"
+        "newText": "print();"
       }
     ]
   }
