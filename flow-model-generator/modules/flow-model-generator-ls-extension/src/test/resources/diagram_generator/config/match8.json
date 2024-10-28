@@ -86,7 +86,8 @@
                 "valueType": "EXPRESSION",
                 "value": "quantity is int ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -120,8 +121,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "<int>quantity",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -131,7 +133,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "q",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -141,7 +144,8 @@
                     "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -204,11 +208,13 @@
                             "valueType": "EXPRESSION",
                             "value": "var n",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       },
                       "guard": {
                         "metadata": {
@@ -218,7 +224,8 @@
                         "valueType": "EXPRESSION",
                         "value": "n > 10 ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -253,7 +260,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"bulk\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -295,11 +303,13 @@
                             "valueType": "EXPRESSION",
                             "value": "var n",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       },
                       "guard": {
                         "metadata": {
@@ -309,7 +319,8 @@
                         "valueType": "EXPRESSION",
                         "value": "n > 5 ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -371,11 +382,13 @@
                                     "valueType": "EXPRESSION",
                                     "value": "var m",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 ],
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               },
                               "guard": {
                                 "metadata": {
@@ -385,7 +398,8 @@
                                 "valueType": "EXPRESSION",
                                 "value": "m > 8 ",
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               }
                             },
                             "children": [
@@ -420,7 +434,8 @@
                                     "valueType": "EXPRESSION",
                                     "value": "\"large pack\"",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 },
                                 "flags": 0
@@ -462,11 +477,13 @@
                                     "valueType": "EXPRESSION",
                                     "value": "var m",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 ],
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               },
                               "guard": {
                                 "metadata": {
@@ -476,7 +493,8 @@
                                 "valueType": "EXPRESSION",
                                 "value": "m > 6 ",
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               }
                             },
                             "children": [
@@ -511,7 +529,8 @@
                                     "valueType": "EXPRESSION",
                                     "value": "\"medium pack\"",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 },
                                 "flags": 0
@@ -553,11 +572,13 @@
                                     "valueType": "EXPRESSION",
                                     "value": "_",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 ],
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               }
                             },
                             "children": [
@@ -592,7 +613,8 @@
                                     "valueType": "EXPRESSION",
                                     "value": "\"small pack\"",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 },
                                 "flags": 0
@@ -609,7 +631,8 @@
                             "valueType": "EXPRESSION",
                             "value": "n ",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -651,11 +674,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -690,7 +715,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"individual\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -707,7 +733,8 @@
                     "valueType": "EXPRESSION",
                     "value": "q ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -748,7 +775,8 @@
             "valueType": "EXPRESSION",
             "value": "\"invalid quantity\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

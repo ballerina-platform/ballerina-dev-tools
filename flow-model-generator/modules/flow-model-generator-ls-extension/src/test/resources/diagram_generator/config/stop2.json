@@ -86,7 +86,8 @@
                 "valueType": "EXPRESSION",
                 "value": "x == 2 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -144,7 +145,8 @@
                 "valueType": "EXPRESSION",
                 "value": "x == 3 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -179,7 +181,8 @@
                     "valueType": "EXPRESSION",
                     "value": "x",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

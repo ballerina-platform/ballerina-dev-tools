@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "{}",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -79,7 +80,8 @@
             "valueType": "IDENTIFIER",
             "value": "bm1",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -89,7 +91,8 @@
             "valueType": "TYPE",
             "value": "map<boolean>",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -169,6 +172,7 @@
                     "value": "[bm1]",
                     "optional": false,
                     "editable": true,
+                    "advanced": false,
                     "diagnostics": {
                       "hasDiagnostics": true,
                       "diagnostics": [
@@ -191,7 +195,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "f",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {

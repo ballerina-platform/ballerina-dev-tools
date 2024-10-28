@@ -600,7 +600,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .editable()
-                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                        .defaultable(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                 if (paramValue != null) {
                     propertyBuilder.value(paramValue.toSourceCode());
@@ -651,7 +651,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                             .stepOut()
                         .type(Property.ValueType.EXPRESSION)
                         .editable()
-                        .optional(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
+                        .defaultable(parameterSymbol.paramKind() == ParameterKind.DEFAULTABLE);
 
                 if (paramValue != null) {
                     propertyBuilder.value(paramValue.toSourceCode());
@@ -734,6 +734,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> expression(ExpressionNode expressionNode) {
+            return expression(expressionNode, false);
+        }
+
+        public PropertiesBuilder<T> expression(ExpressionNode expressionNode, boolean optional) {
             propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_LABEL)
@@ -741,6 +745,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .editable()
                     .value(expressionNode == null ? "" : expressionNode.toString())
+                    .optional(optional)
                     .type(Property.ValueType.EXPRESSION);
             addProperty(Property.EXPRESSION_KEY, expressionNode);
             return this;

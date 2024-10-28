@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var q",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -107,7 +109,8 @@
                 "valueType": "EXPRESSION",
                 "value": "q > 10 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -142,7 +145,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"bulk order\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -184,11 +188,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var q",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -198,7 +204,8 @@
                 "valueType": "EXPRESSION",
                 "value": "q > 5 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -260,11 +267,13 @@
                             "valueType": "EXPRESSION",
                             "value": "1",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -299,7 +308,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"medium unripe pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -341,11 +351,13 @@
                             "valueType": "EXPRESSION",
                             "value": "2",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -380,7 +392,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"medium ripe pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -422,11 +435,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -461,7 +476,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"medium mixed pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -478,7 +494,8 @@
                     "valueType": "EXPRESSION",
                     "value": "ripeness ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -520,11 +537,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var q",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -534,7 +553,8 @@
                 "valueType": "EXPRESSION",
                 "value": "q > 0 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -569,7 +589,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"small pack\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -611,11 +632,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -650,7 +673,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"invalid order\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -667,7 +691,8 @@
             "valueType": "EXPRESSION",
             "value": "quantity ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

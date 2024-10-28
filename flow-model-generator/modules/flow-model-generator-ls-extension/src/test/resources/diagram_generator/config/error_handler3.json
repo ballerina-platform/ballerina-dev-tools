@@ -86,7 +86,7 @@
                 "metadata": {
                   "label": "get",
                   "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
@@ -94,7 +94,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
-                  "version": "2.12.1",
+                  "version": "2.12.2",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -118,7 +118,8 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -128,7 +129,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "path": {
                     "metadata": {
@@ -138,7 +140,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"/western/pineapples\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "headers": {
                     "metadata": {
@@ -147,7 +150,8 @@
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
-                    "editable": true
+                    "editable": true,
+                    "advanced": true
                   },
                   "type": {
                     "metadata": {
@@ -157,7 +161,8 @@
                     "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -193,7 +198,8 @@
                     "valueType": "EXPRESSION",
                     "value": "res.toString()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -228,7 +234,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -238,7 +245,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -248,7 +256,8 @@
                 "valueType": "TYPE",
                 "value": "http:ClientError",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -283,7 +292,8 @@
                     "valueType": "EXPRESSION",
                     "value": "err.message()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -300,7 +310,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -308,7 +318,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -332,7 +342,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -342,7 +353,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -351,7 +363,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -361,7 +374,8 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -371,7 +385,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

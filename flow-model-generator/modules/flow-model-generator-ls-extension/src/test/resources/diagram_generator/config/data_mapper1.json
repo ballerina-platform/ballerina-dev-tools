@@ -66,7 +66,8 @@
             "valueType": "STRING",
             "value": "Define local variables for input parameters",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -101,8 +102,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"John Doe\"",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -112,7 +114,8 @@
             "valueType": "IDENTIFIER",
             "value": "name",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -122,7 +125,8 @@
             "valueType": "TYPE",
             "value": "string",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -157,8 +161,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"john.doe@example.com\"",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -168,7 +173,8 @@
             "valueType": "IDENTIFIER",
             "value": "email",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -178,7 +184,8 @@
             "valueType": "TYPE",
             "value": "string",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -213,8 +220,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "{\n        houseNo: \"123\",\n        line1: \"Main Street\",\n        line2: \"Apartment 4B\",\n        city: \"New York\",\n        country: \"USA\"\n    }",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -224,7 +232,8 @@
             "valueType": "IDENTIFIER",
             "value": "address",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -234,7 +243,8 @@
             "valueType": "TYPE",
             "value": "Address",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -270,7 +280,8 @@
             "valueType": "STRING",
             "value": "Transform to Person",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -306,7 +317,8 @@
             "valueType": "IDENTIFIER",
             "value": "transformToPerson",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "output": {
             "metadata": {
@@ -316,7 +328,8 @@
             "valueType": "SINGLE_SELECT",
             "value": "Person",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "inputs": {
             "metadata": {
@@ -330,7 +343,8 @@
               "Address address"
             ],
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -350,7 +364,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -360,7 +375,8 @@
             "valueType": "IDENTIFIER",
             "value": "person",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -395,8 +411,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "{\n        empId: \"EMP001\",\n        admissionDate: \"2024-08-15\"\n    }",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -406,7 +423,8 @@
             "valueType": "IDENTIFIER",
             "value": "admission",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -416,7 +434,8 @@
             "valueType": "TYPE",
             "value": "Admission",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -452,7 +471,8 @@
             "valueType": "STRING",
             "value": "Transform to Employee",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -488,7 +508,8 @@
             "valueType": "IDENTIFIER",
             "value": "transformToEmployee",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "output": {
             "metadata": {
@@ -498,7 +519,8 @@
             "valueType": "SINGLE_SELECT",
             "value": "Employee",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "inputs": {
             "metadata": {
@@ -511,7 +533,8 @@
               "Admission admission"
             ],
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -531,7 +554,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -541,7 +565,8 @@
             "valueType": "IDENTIFIER",
             "value": "employee",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -579,7 +604,8 @@
             "valueType": "EXPRESSION",
             "value": "employee",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -599,7 +625,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 0
@@ -611,7 +638,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -619,7 +646,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "main.bal",
             "startLine": {
@@ -643,7 +670,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -653,7 +681,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -662,7 +691,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -672,7 +702,8 @@
             "valueType": "IDENTIFIER",
             "value": "cl",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -682,7 +713,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

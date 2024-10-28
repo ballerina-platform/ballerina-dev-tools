@@ -99,7 +99,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -140,7 +141,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -232,7 +234,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -291,7 +294,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -301,7 +305,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -311,7 +316,8 @@
                 "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -346,7 +352,8 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -363,7 +370,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -455,7 +463,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -514,7 +523,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -524,7 +534,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -534,7 +545,8 @@
                 "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -569,7 +581,8 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -586,7 +599,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -685,7 +699,8 @@
                         "valueType": "EXPRESSION",
                         "value": "true ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -749,7 +764,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"failed retry\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -784,7 +800,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -794,7 +811,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -804,7 +822,8 @@
                 "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -839,7 +858,8 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -856,7 +876,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -955,7 +976,8 @@
                         "valueType": "EXPRESSION",
                         "value": "true ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -1019,7 +1041,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"failed retry\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -1054,7 +1077,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -1064,7 +1088,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "err ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -1074,7 +1099,8 @@
                 "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -1109,7 +1135,8 @@
                     "valueType": "EXPRESSION",
                     "value": "check err;",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -1126,7 +1153,8 @@
             "valueType": "EXPRESSION",
             "value": "4",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

@@ -129,7 +129,8 @@
                         "valueType": "EXPRESSION",
                         "value": "i is () ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -210,7 +211,8 @@
                             "valueType": "EXPRESSION",
                             "value": "error(\"Rollback the transaction\")",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0

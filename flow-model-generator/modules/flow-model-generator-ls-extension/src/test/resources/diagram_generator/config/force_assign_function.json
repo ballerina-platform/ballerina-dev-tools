@@ -71,7 +71,8 @@
             "valueType": "EXPRESSION",
             "value": "payload",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -81,7 +82,8 @@
             "valueType": "IDENTIFIER",
             "value": "jsonResult",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -91,7 +93,8 @@
             "valueType": "TYPE",
             "value": "json",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -132,7 +135,8 @@
             "valueType": "EXPRESSION",
             "value": "jsonResult",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "options": {
             "metadata": {
@@ -141,7 +145,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "t": {
             "metadata": {
@@ -150,7 +155,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "variable": {
             "metadata": {
@@ -160,7 +166,8 @@
             "valueType": "IDENTIFIER",
             "value": "apple",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -170,7 +177,8 @@
             "valueType": "TYPE",
             "value": "Apple",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1
@@ -206,7 +214,8 @@
             "valueType": "EXPRESSION",
             "value": "apple",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -218,7 +227,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -226,7 +235,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -250,7 +259,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -260,7 +270,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -269,7 +280,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -279,7 +291,8 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -289,7 +302,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

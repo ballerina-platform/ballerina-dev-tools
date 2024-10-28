@@ -109,7 +109,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -119,7 +120,8 @@
                     "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -177,7 +179,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"Found error\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0

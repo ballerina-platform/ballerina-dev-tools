@@ -68,7 +68,8 @@
             "valueType": "EXPRESSION",
             "value": "\"Alice\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -88,7 +89,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -98,7 +100,8 @@
             "valueType": "IDENTIFIER",
             "value": "greeting",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -108,7 +111,8 @@
             "valueType": "TYPE",
             "value": "string",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -146,7 +150,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "exponent": {
             "metadata": {
@@ -154,7 +159,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "view": {
             "metadata": {
@@ -174,7 +180,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -184,7 +191,8 @@
             "valueType": "IDENTIFIER",
             "value": "squared",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -194,7 +202,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -232,7 +241,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "exponent": {
             "metadata": {
@@ -241,7 +251,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": true,
-            "editable": true
+            "editable": true,
+            "advanced": true
           },
           "view": {
             "metadata": {
@@ -261,7 +272,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -271,7 +283,8 @@
             "valueType": "IDENTIFIER",
             "value": "cubed",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -281,7 +294,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -360,7 +374,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -370,7 +385,8 @@
             "valueType": "IDENTIFIER",
             "value": "total",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -380,7 +396,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -418,7 +435,8 @@
             "valueType": "EXPRESSION",
             "value": "6",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "b": {
             "metadata": {
@@ -427,7 +445,8 @@
             "valueType": "EXPRESSION",
             "value": "3",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "func": {
             "metadata": {
@@ -436,7 +455,8 @@
             "valueType": "EXPRESSION",
             "value": "function(int x, int y) returns int {\n                return x * y;\n            }",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "view": {
             "metadata": {
@@ -456,7 +476,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -466,7 +487,8 @@
             "valueType": "IDENTIFIER",
             "value": "result",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -476,7 +498,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -585,7 +608,8 @@
               }
             },
             "optional": false,
-            "editable": false
+            "editable": false,
+            "advanced": false
           }
         },
         "flags": 0
@@ -597,7 +621,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -605,7 +629,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -629,7 +653,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -639,7 +664,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -648,7 +674,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -658,7 +685,8 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -668,7 +696,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

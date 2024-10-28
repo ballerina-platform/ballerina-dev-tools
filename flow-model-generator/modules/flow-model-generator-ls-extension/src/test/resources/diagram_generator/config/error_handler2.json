@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -79,7 +80,8 @@
             "valueType": "IDENTIFIER",
             "value": "msg",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -89,7 +91,8 @@
             "valueType": "TYPE",
             "value": "string|()",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -142,7 +145,7 @@
                 "metadata": {
                   "label": "get",
                   "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
@@ -150,7 +153,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
-                  "version": "2.12.1",
+                  "version": "2.12.2",
                   "lineRange": {
                     "fileName": "error_handler.bal",
                     "startLine": {
@@ -174,7 +177,8 @@
                     "valueType": "EXPRESSION",
                     "value": "foodClient",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -184,7 +188,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "res3",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "path": {
                     "metadata": {
@@ -194,7 +199,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"/western/oranges\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "headers": {
                     "metadata": {
@@ -203,7 +209,8 @@
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
-                    "editable": true
+                    "editable": true,
+                    "advanced": true
                   },
                   "type": {
                     "metadata": {
@@ -213,7 +220,8 @@
                     "valueType": "TYPE",
                     "value": "json",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 1
@@ -249,7 +257,8 @@
                     "valueType": "EXPRESSION",
                     "value": "res3.toString()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -259,7 +268,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -317,7 +327,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -327,7 +338,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "msg",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -380,7 +392,7 @@
                         "metadata": {
                           "label": "post",
                           "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
@@ -388,7 +400,7 @@
                           "module": "http",
                           "object": "Client",
                           "symbol": "post",
-                          "version": "2.12.1",
+                          "version": "2.12.2",
                           "lineRange": {
                             "fileName": "error_handler.bal",
                             "startLine": {
@@ -412,7 +424,8 @@
                             "valueType": "EXPRESSION",
                             "value": "foodClient",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -422,7 +435,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "res",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "path": {
                             "metadata": {
@@ -432,7 +446,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"/log\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "message": {
                             "metadata": {
@@ -442,7 +457,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"Error occurred while getting the response\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "headers": {
                             "metadata": {
@@ -451,7 +467,8 @@
                             },
                             "valueType": "EXPRESSION",
                             "optional": true,
-                            "editable": true
+                            "editable": true,
+                            "advanced": true
                           },
                           "mediaType": {
                             "metadata": {
@@ -460,7 +477,8 @@
                             },
                             "valueType": "EXPRESSION",
                             "optional": true,
-                            "editable": true
+                            "editable": true,
+                            "advanced": true
                           },
                           "type": {
                             "metadata": {
@@ -470,7 +488,8 @@
                             "valueType": "TYPE",
                             "value": "json",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 1
@@ -506,7 +525,8 @@
                             "valueType": "EXPRESSION",
                             "value": "msg.toString() + res.toString()",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -516,7 +536,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -574,7 +595,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"Error occurred while logging the error\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -584,7 +606,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "msg",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -606,7 +629,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -614,7 +637,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "error_handler.bal",
             "startLine": {
@@ -638,7 +661,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -648,7 +672,8 @@
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -657,7 +682,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -667,7 +693,8 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -677,7 +704,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

@@ -89,7 +89,8 @@
                 "valueType": "EXPRESSION",
                 "value": "flag ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -123,8 +124,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "1",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -134,7 +136,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "a",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -144,7 +147,8 @@
                     "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -210,8 +214,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "2",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -221,7 +226,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "b",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -231,7 +237,8 @@
                     "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -275,8 +282,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"12\"",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -286,7 +294,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "c",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -296,7 +305,8 @@
                     "valueType": "TYPE",
                     "value": "string",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -325,7 +335,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -333,7 +343,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.1",
+          "version": "2.12.2",
           "lineRange": {
             "fileName": "if_node.bal",
             "startLine": {
@@ -357,7 +367,8 @@
             "valueType": "ENUM",
             "value": "Global",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "url": {
             "metadata": {
@@ -367,7 +378,8 @@
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "config": {
             "metadata": {
@@ -376,7 +388,8 @@
             },
             "valueType": "EXPRESSION",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -386,7 +399,8 @@
             "valueType": "IDENTIFIER",
             "value": "foodClient",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -396,7 +410,8 @@
             "valueType": "TYPE",
             "value": "http:Client",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 1

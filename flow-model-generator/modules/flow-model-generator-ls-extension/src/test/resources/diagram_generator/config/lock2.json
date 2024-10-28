@@ -111,8 +111,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "0",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -122,7 +123,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -132,7 +134,8 @@
                     "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {
@@ -220,7 +223,8 @@
                             "valueType": "EXPRESSION",
                             "value": "3",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -230,7 +234,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "i",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0

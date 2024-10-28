@@ -129,7 +129,8 @@
                         "valueType": "EXPRESSION",
                         "value": "i is () ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [

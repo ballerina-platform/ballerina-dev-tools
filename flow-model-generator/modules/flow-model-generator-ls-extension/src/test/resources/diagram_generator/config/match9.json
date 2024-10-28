@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var q",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -107,7 +109,8 @@
                 "valueType": "EXPRESSION",
                 "value": "q > 10 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -169,11 +172,13 @@
                             "valueType": "EXPRESSION",
                             "value": "\"summer\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -208,7 +213,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"large summer pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -250,11 +256,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -289,7 +297,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"large off-season pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -306,7 +315,8 @@
                     "valueType": "EXPRESSION",
                     "value": "season ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -348,11 +358,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -414,11 +426,13 @@
                             "valueType": "EXPRESSION",
                             "value": "\"summer\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -453,7 +467,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"regular summer pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -495,11 +510,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -534,7 +551,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"regular off-season pack\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -551,7 +569,8 @@
                     "valueType": "EXPRESSION",
                     "value": "season ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -568,7 +587,8 @@
             "valueType": "EXPRESSION",
             "value": "quantity ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

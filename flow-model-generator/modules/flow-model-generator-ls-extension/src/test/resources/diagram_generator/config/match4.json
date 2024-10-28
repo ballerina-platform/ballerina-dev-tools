@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var p",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -107,7 +109,8 @@
                 "valueType": "EXPRESSION",
                 "value": "p > 100 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -142,7 +145,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"premium\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -184,11 +188,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var p",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -198,7 +204,8 @@
                 "valueType": "EXPRESSION",
                 "value": "p <= 100 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -260,11 +267,13 @@
                             "valueType": "EXPRESSION",
                             "value": "0",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -299,7 +308,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"discounted\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -341,11 +351,13 @@
                             "valueType": "EXPRESSION",
                             "value": "1",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -400,7 +412,8 @@
                                 "valueType": "EXPRESSION",
                                 "value": "p < 25 ",
                                 "optional": false,
-                                "editable": true
+                                "editable": true,
+                                "advanced": false
                               }
                             },
                             "children": [
@@ -435,7 +448,8 @@
                                     "valueType": "EXPRESSION",
                                     "value": "\"clearance\"",
                                     "optional": false,
-                                    "editable": true
+                                    "editable": true,
+                                    "advanced": false
                                   }
                                 },
                                 "flags": 0
@@ -482,11 +496,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -521,7 +537,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"regular price\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -538,7 +555,8 @@
                     "valueType": "EXPRESSION",
                     "value": "p % 4 ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -555,7 +573,8 @@
             "valueType": "EXPRESSION",
             "value": "price ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -591,7 +610,8 @@
             "valueType": "EXPRESSION",
             "value": "\"unpriced\"",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

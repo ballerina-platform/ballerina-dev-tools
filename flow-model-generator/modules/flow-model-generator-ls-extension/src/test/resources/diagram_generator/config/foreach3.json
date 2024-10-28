@@ -65,8 +65,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "[1, 2, 3]",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -76,7 +77,8 @@
             "valueType": "IDENTIFIER",
             "value": "intArr",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -86,7 +88,8 @@
             "valueType": "TYPE",
             "value": "int[]",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -165,7 +168,8 @@
                     "valueType": "EXPRESSION",
                     "value": "item",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -175,7 +179,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -233,7 +238,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"Error message\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -250,7 +256,8 @@
             "valueType": "IDENTIFIER",
             "value": "item",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -260,7 +267,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "collection": {
             "metadata": {
@@ -270,7 +278,8 @@
             "valueType": "EXPRESSION",
             "value": "intArr ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

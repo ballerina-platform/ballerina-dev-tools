@@ -68,8 +68,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "\"create xml\"",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -79,7 +80,8 @@
             "valueType": "IDENTIFIER",
             "value": "content",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -89,7 +91,8 @@
             "valueType": "TYPE",
             "value": "string",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -124,8 +127,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "xml `<p>${content}</p>`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -135,7 +139,8 @@
             "valueType": "IDENTIFIER",
             "value": "x1",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -145,7 +150,8 @@
             "valueType": "TYPE",
             "value": "xml",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -189,8 +195,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "xml `<book>The Lost World</book>`",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -200,7 +207,8 @@
             "valueType": "IDENTIFIER",
             "value": "x2",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -210,7 +218,8 @@
             "valueType": "TYPE",
             "value": "xml",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {

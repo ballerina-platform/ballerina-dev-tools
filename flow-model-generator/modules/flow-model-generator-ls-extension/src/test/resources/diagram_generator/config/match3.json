@@ -93,11 +93,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var p",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -107,7 +109,8 @@
                 "valueType": "EXPRESSION",
                 "value": "p < 100 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -142,7 +145,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"cheap\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -152,7 +156,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -194,11 +199,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var p",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -208,7 +215,8 @@
                 "valueType": "EXPRESSION",
                 "value": "p >= 100 && p < 200 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -270,11 +278,13 @@
                             "valueType": "EXPRESSION",
                             "value": "var q",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       },
                       "guard": {
                         "metadata": {
@@ -284,7 +294,8 @@
                         "valueType": "EXPRESSION",
                         "value": "q is int && q > 0 ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -319,7 +330,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"fresh; moderate\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -329,7 +341,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -371,11 +384,13 @@
                             "valueType": "EXPRESSION",
                             "value": "_",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         ],
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "advanced": false
                       }
                     },
                     "children": [
@@ -410,7 +425,8 @@
                             "valueType": "EXPRESSION",
                             "value": "\"expired; moderate\"",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           },
                           "variable": {
                             "metadata": {
@@ -420,7 +436,8 @@
                             "valueType": "IDENTIFIER",
                             "value": "fruit.quality",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -437,7 +454,8 @@
                     "valueType": "EXPRESSION",
                     "value": "fruit.quantity ",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -479,11 +497,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var p",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -493,7 +513,8 @@
                 "valueType": "EXPRESSION",
                 "value": "p >= 200 ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": []
@@ -533,11 +554,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -572,7 +595,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"expensive\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -582,7 +606,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "fruit.quality",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -599,7 +624,8 @@
             "valueType": "EXPRESSION",
             "value": "fruit.price ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0
@@ -635,7 +661,8 @@
             "valueType": "EXPRESSION",
             "value": "fruit",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

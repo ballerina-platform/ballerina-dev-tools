@@ -42,8 +42,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "{\"name\": \"value\"}",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -53,7 +54,8 @@
             "valueType": "IDENTIFIER",
             "value": "j1",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -63,7 +65,8 @@
             "valueType": "TYPE",
             "value": "json",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
@@ -108,7 +111,8 @@
             "valueType": "EXPRESSION",
             "value": "{\"name\": \"value1\", \"name2\": \"value2\"}",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -118,7 +122,8 @@
             "valueType": "IDENTIFIER",
             "value": "j1",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0

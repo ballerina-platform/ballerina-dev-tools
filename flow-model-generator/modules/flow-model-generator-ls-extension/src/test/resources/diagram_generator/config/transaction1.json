@@ -86,7 +86,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "res",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -96,7 +97,8 @@
                     "valueType": "TYPE",
                     "value": "()",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "diagnostics": {

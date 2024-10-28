@@ -96,11 +96,13 @@
                     "valueType": "EXPRESSION",
                     "value": "var obj",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "guard": {
                 "metadata": {
@@ -110,7 +112,8 @@
                 "valueType": "EXPRESSION",
                 "value": "obj is record {|int quantity; string 'type;|} ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -144,8 +147,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.quantity",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -155,7 +159,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -165,7 +170,8 @@
                     "valueType": "TYPE",
                     "value": "int",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -200,8 +206,9 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "obj.'type",
-                    "optional": false,
-                    "editable": true
+                    "optional": true,
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -211,7 +218,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "'type",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "type": {
                     "metadata": {
@@ -221,7 +229,8 @@
                     "valueType": "TYPE",
                     "value": "string",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -257,7 +266,8 @@
                     "valueType": "EXPRESSION",
                     "value": "string `Order for ${quantity} ${'type} cherries placed`",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -299,11 +309,13 @@
                     "valueType": "EXPRESSION",
                     "value": "_",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 ],
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -338,7 +350,8 @@
                     "valueType": "EXPRESSION",
                     "value": "error(\"Invalid data format\")",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -373,7 +386,8 @@
                 "valueType": "EXPRESSION",
                 "value": "false",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorVariable": {
                 "metadata": {
@@ -383,7 +397,8 @@
                 "valueType": "IDENTIFIER",
                 "value": "e ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               },
               "errorType": {
                 "metadata": {
@@ -393,7 +408,8 @@
                 "valueType": "TYPE",
                 "value": "error",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -449,6 +465,7 @@
                         "value": "e is error ",
                         "optional": false,
                         "editable": true,
+                        "advanced": false,
                         "diagnostics": {
                           "hasDiagnostics": true,
                           "diagnostics": [
@@ -492,7 +509,8 @@
                             "valueType": "EXPRESSION",
                             "value": "error(\"Data processing failed\", e)",
                             "optional": false,
-                            "editable": true
+                            "editable": true,
+                            "advanced": false
                           }
                         },
                         "flags": 0
@@ -517,7 +535,8 @@
             "valueType": "EXPRESSION",
             "value": "data ",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {
