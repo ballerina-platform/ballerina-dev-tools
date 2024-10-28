@@ -149,6 +149,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(true) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -196,6 +197,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "s",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -207,6 +209,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false

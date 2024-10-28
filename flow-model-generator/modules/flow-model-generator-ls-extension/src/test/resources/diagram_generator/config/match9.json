@@ -314,6 +314,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "season ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -568,6 +569,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "season ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -586,6 +588,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "quantity ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

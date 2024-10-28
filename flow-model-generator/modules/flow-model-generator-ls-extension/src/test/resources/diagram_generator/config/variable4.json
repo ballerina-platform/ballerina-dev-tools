@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "content",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -138,6 +140,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -149,6 +152,7 @@
             },
             "valueType": "TYPE",
             "value": "xml",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -206,6 +210,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x2",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -217,6 +222,7 @@
             },
             "valueType": "TYPE",
             "value": "xml",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

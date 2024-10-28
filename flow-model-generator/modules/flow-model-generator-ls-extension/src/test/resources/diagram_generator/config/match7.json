@@ -420,6 +420,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "q ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -522,6 +523,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "quantity ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -195,6 +197,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "newData2",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -206,6 +209,7 @@
             },
             "valueType": "TYPE",
             "value": "[int, int]",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

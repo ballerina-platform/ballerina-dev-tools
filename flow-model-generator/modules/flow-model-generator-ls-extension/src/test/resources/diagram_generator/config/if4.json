@@ -76,6 +76,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "mod",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -87,6 +88,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -144,6 +146,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "price > 100 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -246,6 +249,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "price < 50 ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -302,6 +306,7 @@
                                 },
                                 "valueType": "EXPRESSION",
                                 "value": "price < 25 ",
+                                "placeholder": "true",
                                 "optional": false,
                                 "editable": true,
                                 "advanced": false
@@ -358,6 +363,7 @@
                                         },
                                         "valueType": "EXPRESSION",
                                         "value": "price < 10 && mod == 1 ",
+                                        "placeholder": "true",
                                         "optional": false,
                                         "editable": true,
                                         "advanced": false
@@ -453,6 +459,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "mod == 0 ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -563,6 +570,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -574,6 +582,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -498,6 +498,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "ripeness ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

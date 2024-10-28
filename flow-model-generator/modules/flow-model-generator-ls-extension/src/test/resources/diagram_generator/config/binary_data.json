@@ -53,6 +53,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -64,6 +65,7 @@
             },
             "valueType": "TYPE",
             "value": "byte[]",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -121,6 +123,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b2",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -132,6 +135,7 @@
             },
             "valueType": "TYPE",
             "value": "byte[]",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -189,6 +193,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b3",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -200,6 +205,7 @@
             },
             "valueType": "TYPE",
             "value": "byte[]|string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -257,6 +263,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b4",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -268,6 +275,7 @@
             },
             "valueType": "TYPE",
             "value": "ByteRef",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -325,6 +333,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "b5",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -336,6 +345,7 @@
             },
             "valueType": "TYPE",
             "value": "byte[3]",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

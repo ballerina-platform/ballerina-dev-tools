@@ -147,6 +147,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -158,6 +159,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -209,6 +211,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -220,6 +223,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -388,6 +392,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -399,6 +404,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -456,6 +462,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "k",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -467,6 +474,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -527,6 +535,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "l",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -538,6 +547,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -598,6 +608,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(s == 12) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -663,6 +674,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "(i == \"12\") ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false,
@@ -714,6 +726,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(s == 12) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false,
@@ -786,6 +799,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "num2",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -797,6 +811,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -957,6 +972,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false,
@@ -977,6 +993,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

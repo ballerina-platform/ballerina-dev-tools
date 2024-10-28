@@ -85,6 +85,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity > 10 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -157,6 +158,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity > 5 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -229,6 +231,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity > 2 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -406,6 +409,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -417,6 +421,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

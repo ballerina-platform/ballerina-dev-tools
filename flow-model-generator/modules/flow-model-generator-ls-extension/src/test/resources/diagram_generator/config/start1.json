@@ -125,6 +125,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "futureVar",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -136,6 +137,7 @@
             },
             "valueType": "TYPE",
             "value": "future<int>",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

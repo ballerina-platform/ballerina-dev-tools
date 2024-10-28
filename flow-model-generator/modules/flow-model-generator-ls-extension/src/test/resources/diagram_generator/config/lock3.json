@@ -122,6 +122,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "i",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -133,6 +134,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false

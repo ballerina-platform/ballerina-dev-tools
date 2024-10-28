@@ -53,6 +53,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -64,6 +65,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -112,6 +114,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "f",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -123,6 +126,7 @@
             },
             "valueType": "TYPE",
             "value": "float",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -180,6 +184,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "d",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -191,6 +196,7 @@
             },
             "valueType": "TYPE",
             "value": "decimal",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -239,6 +245,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "d1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -250,6 +257,7 @@
             },
             "valueType": "TYPE",
             "value": "decimal",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -307,6 +315,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -318,6 +327,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -366,6 +376,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "k",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -377,6 +388,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -425,6 +437,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "l",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -436,6 +449,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -484,6 +498,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "_",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -495,6 +510,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

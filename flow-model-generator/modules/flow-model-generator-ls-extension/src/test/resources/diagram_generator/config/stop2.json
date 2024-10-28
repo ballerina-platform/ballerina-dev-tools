@@ -85,6 +85,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "x == 2 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -144,6 +145,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "x == 3 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false

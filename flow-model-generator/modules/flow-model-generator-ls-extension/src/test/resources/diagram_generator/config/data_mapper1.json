@@ -113,6 +113,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "name",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -124,6 +125,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -172,6 +174,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "email",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -183,6 +186,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -231,6 +235,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "address",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -242,6 +247,7 @@
             },
             "valueType": "TYPE",
             "value": "Address",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -374,6 +380,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "person",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -422,6 +429,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "admission",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -433,6 +441,7 @@
             },
             "valueType": "TYPE",
             "value": "Admission",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -564,6 +573,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "employee",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -701,6 +711,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "cl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -712,6 +723,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

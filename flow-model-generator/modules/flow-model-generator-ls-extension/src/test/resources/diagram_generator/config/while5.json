@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -138,6 +140,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "finalMsg",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -149,6 +152,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -246,6 +250,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -278,6 +283,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "json",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -399,6 +405,7 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -410,6 +417,7 @@
                 },
                 "valueType": "TYPE",
                 "value": "http:ClientError",
+                "placeholder": "error",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -457,6 +465,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "attempts",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -468,6 +477,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -516,6 +526,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "adminClient",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -527,6 +538,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "http:Client",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -584,6 +596,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "adminClient is http:ClientError ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -722,6 +735,7 @@
                             },
                             "valueType": "IDENTIFIER",
                             "value": "response",
+                            "placeholder": "item",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -775,6 +789,7 @@
                             },
                             "valueType": "TYPE",
                             "value": "json",
+                            "placeholder": "var",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -889,6 +904,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "attempts < retries ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -944,6 +960,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "i < count ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -1058,6 +1075,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -1069,6 +1087,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "a",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -147,6 +149,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "s",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -158,6 +161,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -215,6 +219,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -226,6 +231,7 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -283,6 +289,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -294,6 +301,7 @@
             },
             "valueType": "TYPE",
             "value": "xml",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

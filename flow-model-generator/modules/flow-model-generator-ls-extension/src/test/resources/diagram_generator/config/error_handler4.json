@@ -155,6 +155,7 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -166,6 +167,7 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
                 "editable": true,
                 "advanced": false

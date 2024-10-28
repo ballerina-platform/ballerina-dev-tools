@@ -88,6 +88,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "flag ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -135,6 +136,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "a",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -146,6 +148,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -225,6 +228,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "b",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -236,6 +240,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -293,6 +298,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "c",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -304,6 +310,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -398,6 +405,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -409,6 +417,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

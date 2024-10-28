@@ -158,6 +158,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "quantity",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -169,6 +170,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -217,6 +219,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "'type",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -228,6 +231,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -396,6 +400,7 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -407,6 +412,7 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -463,6 +469,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "e is error ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false,
@@ -534,6 +541,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "data ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

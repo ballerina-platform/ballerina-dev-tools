@@ -330,6 +330,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "count ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

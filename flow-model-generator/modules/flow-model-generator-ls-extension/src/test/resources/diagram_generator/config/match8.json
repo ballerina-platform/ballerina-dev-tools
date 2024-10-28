@@ -85,6 +85,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "quantity is int ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -132,6 +133,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "q",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -143,6 +145,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -630,6 +633,7 @@
                             },
                             "valueType": "EXPRESSION",
                             "value": "n ",
+                            "placeholder": "true",
                             "optional": false,
                             "editable": true,
                             "advanced": false
@@ -732,6 +736,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "q ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false

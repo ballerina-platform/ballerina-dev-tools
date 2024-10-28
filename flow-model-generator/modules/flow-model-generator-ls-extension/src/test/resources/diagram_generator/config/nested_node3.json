@@ -165,6 +165,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "asiri",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -176,6 +177,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

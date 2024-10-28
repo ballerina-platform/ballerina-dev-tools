@@ -436,6 +436,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "quantity ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

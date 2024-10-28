@@ -34,14 +34,16 @@ import java.util.List;
  * @param valueType           acceptable value types of the property
  * @param valueTypeConstraint constraint of the value type
  * @param value               value of the property
+ * @param placeholder         default value of the property
  * @param optional            whether the property can be left empty
  * @param editable            whether the property is not readonly
  * @param advanced            whether the property should be shown in the advanced tab
  * @param diagnostics         diagnostics of the property
  * @since 1.4.0
  */
-public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value, boolean optional,
-                       boolean editable, boolean advanced, Diagnostics diagnostics) {
+public record Property(Metadata metadata, String valueType, Object valueTypeConstraint, Object value,
+                       String placeholder, boolean optional, boolean editable, boolean advanced,
+                       Diagnostics diagnostics) {
 
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -160,6 +162,7 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
 
         private String type;
         private Object value;
+        private String placeholder;
         private boolean optional;
         private boolean editable;
         private boolean advanced;
@@ -221,6 +224,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder placeholder(String placeholder) {
+            this.placeholder = placeholder;
+            return this;
+        }
+
         public Metadata.Builder<Builder> metadata() {
             if (this.metadataBuilder == null) {
                 this.metadataBuilder = new Metadata.Builder<>(this);
@@ -239,12 +247,13 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
         public Property build() {
             Property property =
                     new Property(metadataBuilder == null ? null : metadataBuilder.build(), type, typeConstraint, value,
-                            optional, editable, advanced,
+                            placeholder, optional, editable, advanced,
                             diagnosticsBuilder == null ? null : diagnosticsBuilder.build());
             this.metadataBuilder = null;
             this.type = null;
             this.typeConstraint = null;
             this.value = null;
+            this.placeholder = null;
             this.optional = false;
             this.editable = false;
             this.advanced = false;

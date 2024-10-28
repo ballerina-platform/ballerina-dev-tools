@@ -85,6 +85,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleVal",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -117,6 +118,7 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -217,6 +219,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -228,6 +231,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -282,6 +286,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "localVal",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -314,6 +319,7 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -371,6 +377,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myLocalCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -382,6 +389,7 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -539,6 +547,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -550,6 +559,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -598,6 +608,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myExplicitModuleCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -609,6 +620,7 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -657,6 +669,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "myModuleCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -668,6 +681,7 @@
             },
             "valueType": "TYPE",
             "value": "MyClient",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

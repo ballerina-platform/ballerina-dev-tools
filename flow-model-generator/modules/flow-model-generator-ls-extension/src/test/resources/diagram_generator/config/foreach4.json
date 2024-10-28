@@ -76,6 +76,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "intArr",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -87,6 +88,7 @@
             },
             "valueType": "TYPE",
             "value": "int[]",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -225,6 +227,7 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -236,6 +239,7 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -290,6 +294,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "item",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -301,6 +306,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -312,6 +318,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "intArr ",
+            "placeholder": "[]",
             "optional": false,
             "editable": true,
             "advanced": false

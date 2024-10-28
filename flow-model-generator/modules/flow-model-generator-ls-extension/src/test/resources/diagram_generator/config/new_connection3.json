@@ -108,6 +108,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleHttpCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -119,6 +120,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -194,6 +196,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleHttpExCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -205,6 +208,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -269,6 +273,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleRedisCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -280,6 +285,7 @@
             },
             "valueType": "TYPE",
             "value": "redis:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -344,6 +350,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "moduleRedisExCl",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -355,6 +362,7 @@
             },
             "valueType": "TYPE",
             "value": "redis:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

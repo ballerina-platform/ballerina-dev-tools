@@ -453,6 +453,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "fruit.quantity ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -623,6 +624,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "fruit.price ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

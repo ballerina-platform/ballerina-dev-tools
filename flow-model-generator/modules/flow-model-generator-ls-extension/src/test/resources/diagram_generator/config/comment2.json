@@ -88,6 +88,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "true ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -172,6 +173,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "i",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -183,6 +185,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -240,6 +243,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "x",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -251,6 +255,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false

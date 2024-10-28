@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "msg",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "string|()",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -147,6 +149,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -158,6 +161,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -255,6 +259,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "response",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -287,6 +292,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "json",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -344,6 +350,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "(response is json) ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -545,6 +552,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "i < count ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -622,6 +630,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -633,6 +642,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

@@ -411,6 +411,7 @@
                                 },
                                 "valueType": "EXPRESSION",
                                 "value": "p < 25 ",
+                                "placeholder": "true",
                                 "optional": false,
                                 "editable": true,
                                 "advanced": false
@@ -554,6 +555,7 @@
                     },
                     "valueType": "EXPRESSION",
                     "value": "p % 4 ",
+                    "placeholder": "true",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -572,6 +574,7 @@
             },
             "valueType": "EXPRESSION",
             "value": "price ",
+            "placeholder": "true",
             "optional": false,
             "editable": true,
             "advanced": false

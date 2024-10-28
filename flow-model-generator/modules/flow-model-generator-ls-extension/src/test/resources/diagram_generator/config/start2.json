@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "f1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "Foo1",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -184,6 +186,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "name",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -195,6 +198,7 @@
             },
             "valueType": "TYPE",
             "value": "future<string>",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

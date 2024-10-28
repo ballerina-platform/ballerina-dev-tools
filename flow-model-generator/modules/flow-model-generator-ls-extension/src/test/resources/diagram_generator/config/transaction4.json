@@ -108,6 +108,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "_",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -119,6 +120,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "()",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false

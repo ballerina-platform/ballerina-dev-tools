@@ -79,6 +79,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "j1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -90,6 +91,7 @@
             },
             "valueType": "TYPE",
             "value": "json",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

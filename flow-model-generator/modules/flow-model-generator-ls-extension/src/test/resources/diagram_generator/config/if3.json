@@ -85,6 +85,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "food.price < 100 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -205,6 +206,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "food.price < 200 ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -261,6 +263,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "food.remaining > 0 ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -646,6 +649,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "foodClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -657,6 +661,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

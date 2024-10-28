@@ -76,6 +76,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "str1",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -87,6 +88,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
