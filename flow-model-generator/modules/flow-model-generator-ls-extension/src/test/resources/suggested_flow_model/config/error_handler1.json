@@ -137,6 +137,7 @@
                         },
                         "valueType": "EXPRESSION",
                         "value": "name is string ",
+                        "placeholder": "true",
                         "optional": false,
                         "editable": true,
                         "advanced": false
@@ -188,6 +189,7 @@
                 },
                 "valueType": "IDENTIFIER",
                 "value": "e ",
+                "placeholder": "err",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -199,6 +201,7 @@
                 },
                 "valueType": "TYPE",
                 "value": "error",
+                "placeholder": "error",
                 "optional": false,
                 "editable": true,
                 "advanced": false

@@ -85,6 +85,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "x",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -96,6 +97,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -145,6 +147,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "y",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -156,6 +159,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -205,6 +209,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "z",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -216,6 +221,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -274,6 +280,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(z > 30) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -421,6 +428,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "(x > y) ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false

@@ -94,6 +94,7 @@
                 },
                 "valueType": "EXPRESSION",
                 "value": "flag ",
+                "placeholder": "true",
                 "optional": false,
                 "editable": true,
                 "advanced": false
@@ -141,6 +142,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "j",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -152,6 +154,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "int",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -201,6 +204,7 @@
                     },
                     "valueType": "IDENTIFIER",
                     "value": "val",
+                    "placeholder": "item",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -212,6 +216,7 @@
                     },
                     "valueType": "TYPE",
                     "value": "string",
+                    "placeholder": "var",
                     "optional": false,
                     "editable": true,
                     "advanced": false
@@ -279,6 +284,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "i",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -290,6 +296,7 @@
             },
             "valueType": "TYPE",
             "value": "int",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -339,6 +346,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "val",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -350,6 +358,7 @@
             },
             "valueType": "TYPE",
             "value": "string",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false

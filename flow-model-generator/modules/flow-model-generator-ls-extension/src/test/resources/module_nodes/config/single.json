@@ -73,6 +73,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "grpcClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -84,6 +85,7 @@
             },
             "valueType": "TYPE",
             "value": "grpc:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -159,6 +161,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "httpClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -170,6 +173,7 @@
             },
             "valueType": "TYPE",
             "value": "http:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -234,6 +238,7 @@
             },
             "valueType": "IDENTIFIER",
             "value": "redisClient",
+            "placeholder": "item",
             "optional": false,
             "editable": true,
             "advanced": false
@@ -245,6 +250,7 @@
             },
             "valueType": "TYPE",
             "value": "redis:Client",
+            "placeholder": "var",
             "optional": false,
             "editable": true,
             "advanced": false
