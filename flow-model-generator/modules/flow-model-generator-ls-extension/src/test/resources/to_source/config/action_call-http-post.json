@@ -5,7 +5,7 @@
     "metadata": {
       "label": "post",
       "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.11.3.png"
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
@@ -27,6 +27,72 @@
     },
     "returning": false,
     "properties": {
+      "path": {
+        "metadata": {
+          "label": "path",
+          "description": "Resource path\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "message": {
+        "metadata": {
+          "label": "message",
+          "description": "An HTTP outbound request or any allowed payload\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "headers": {
+        "metadata": {
+          "label": "headers",
+          "description": "The entity headers\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "mediaType": {
+        "metadata": {
+          "label": "mediaType",
+          "description": "The MIME type header of the request entity\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "()",
+        "optional": true,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "json",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "connection": {
         "metadata": {
           "label": "Connection",
@@ -35,77 +101,8 @@
         "valueType": "Identifier",
         "value": "connection",
         "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "map<json>",
-        "optional": false,
-        "editable": false
-      },
-      "path": {
-        "metadata": {
-          "label": "path",
-          "description": "Resource path\n"
-        },
-        "valueType": "Expression",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
-      "message": {
-        "metadata": {
-          "label": "message",
-          "description": "An HTTP outbound request or any allowed payload\n"
-        },
-        "valueType": "Expression",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
-      "headers": {
-        "metadata": {
-          "label": "headers",
-          "description": "The entity headers\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "mediaType": {
-        "metadata": {
-          "label": "mediaType",
-          "description": "The MIME type header of the request entity\n"
-        },
-        "valueType": "Expression",
-        "value": "()",
-        "optional": true,
-        "editable": true
-      },
-      "targetType": {
-        "metadata": {
-          "label": "targetType",
-          "description": "HTTP response or `anydata`, which is expected to be returned after data binding\n"
-        },
-        "valueType": "Expression",
-        "value": "<>",
-        "optional": false,
-        "editable": true
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 1
@@ -136,7 +133,7 @@
             "character": 0
           }
         },
-        "newText": "map<json> res = check connection->post(, );"
+        "newText": "json value = check connection->post(\"\", );"
       }
     ]
   }

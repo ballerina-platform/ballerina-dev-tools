@@ -129,6 +129,9 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             "provide a value at runtime";
 
     public String toSourceCode() {
+        if (value == null || value.toString().isEmpty()) {
+            return placeholder == null ? "" : placeholder;
+        }
         return value.toString();
     }
 

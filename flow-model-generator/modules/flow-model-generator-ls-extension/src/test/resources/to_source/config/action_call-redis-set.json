@@ -27,6 +27,50 @@
     },
     "returning": false,
     "properties": {
+      "key": {
+        "metadata": {
+          "label": "key",
+          "description": "Key referring to a value\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "value": {
+        "metadata": {
+          "label": "value",
+          "description": "Values\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"\"",
+        "optional": false,
+        "editable": true,
+        "advanced": false
+      },
+      "variable": {
+        "metadata": {
+          "label": "Variable",
+          "description": "Variable to store value"
+        },
+        "valueType": "Identifier",
+        "value": "value",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
+      "type": {
+        "metadata": {
+          "label": "Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "Type",
+        "value": "string",
+        "optional": false,
+        "editable": false,
+        "advanced": false
+      },
       "connection": {
         "metadata": {
           "label": "Connection",
@@ -35,47 +79,8 @@
         "valueType": "Identifier",
         "value": "connection",
         "optional": false,
-        "editable": true
-      },
-      "variable": {
-        "metadata": {
-          "label": "Variable",
-          "description": "Variable to store the connection"
-        },
-        "valueType": "Identifier",
-        "value": "res",
-        "optional": false,
-        "editable": true
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the result"
-        },
-        "valueType": "Type",
-        "value": "string",
-        "optional": false,
-        "editable": false
-      },
-      "key": {
-        "metadata": {
-          "label": "key",
-          "description": "Key referring to a value\n"
-        },
-        "valueType": "Expression",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
-      "value": {
-        "metadata": {
-          "label": "value",
-          "description": "Values\n"
-        },
-        "valueType": "Expression",
-        "value": "",
-        "optional": false,
-        "editable": true
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 1
@@ -106,7 +111,7 @@
             "character": 0
           }
         },
-        "newText": "string res = check connection->set(, );"
+        "newText": "string value = check connection->set(\"\", \"\");"
       }
     ]
   }

@@ -36,9 +36,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "yesterday": {
         "metadata": {
@@ -47,9 +49,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "twoDaysAgo": {
         "metadata": {
@@ -58,9 +62,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "strict": {
         "metadata": {
@@ -69,9 +75,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "allowNull": {
         "metadata": {
@@ -80,29 +88,34 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": true
       },
       "type": {
         "metadata": {
-          "label": "Data type",
+          "label": "Variable Type",
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
         "value": "union",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
-          "label": "Data variable",
+          "label": "Variable Name",
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -111,9 +124,11 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "Client",
+        "value": "",
+        "placeholder": "Client",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0
