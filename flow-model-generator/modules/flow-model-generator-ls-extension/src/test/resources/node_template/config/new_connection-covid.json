@@ -36,7 +36,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "record",
-        "value": "{}",
+        "value": "",
+        "placeholder": "{}",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -48,7 +49,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -70,7 +72,8 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
         "editable": true,
         "advanced": false

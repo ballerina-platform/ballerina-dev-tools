@@ -20,7 +20,8 @@
           "description": "Boolean Condition"
         },
         "valueType": "EXPRESSION",
-        "value": "true",
+        "value": "",
+        "placeholder": "true",
         "optional": false,
         "editable": true,
         "advanced": false

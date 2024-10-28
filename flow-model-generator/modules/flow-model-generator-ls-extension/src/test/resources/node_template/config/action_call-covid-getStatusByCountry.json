@@ -32,7 +32,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -44,7 +45,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -56,7 +58,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -68,7 +71,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -80,7 +84,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "value": "",
+        "placeholder": "\"\"",
         "optional": true,
         "editable": true,
         "advanced": true
@@ -102,7 +107,8 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "item",
+        "value": "",
+        "placeholder": "item",
         "optional": false,
         "editable": true,
         "advanced": false
@@ -114,7 +120,8 @@
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "covid19:Client",
-        "value": "Client",
+        "value": "",
+        "placeholder": "Client",
         "optional": false,
         "editable": true,
         "advanced": false
