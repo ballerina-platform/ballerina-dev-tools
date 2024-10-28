@@ -30,7 +30,8 @@
         "valueType": "EXPRESSION",
         "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "message": {
         "metadata": {
@@ -40,7 +41,8 @@
         "valueType": "EXPRESSION",
         "value": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "headers": {
         "metadata": {
@@ -50,7 +52,8 @@
         "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "mediaType": {
         "metadata": {
@@ -60,7 +63,8 @@
         "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -70,7 +74,8 @@
         "valueType": "Identifier",
         "value": "value",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -80,7 +85,8 @@
         "valueType": "Type",
         "value": "json",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "connection": {
         "metadata": {
@@ -90,7 +96,8 @@
         "valueType": "Identifier",
         "value": "connection",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 1

@@ -74,8 +74,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "12",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -85,7 +86,8 @@
             "valueType": "IDENTIFIER",
             "value": "i",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -95,7 +97,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -152,7 +155,8 @@
                 "valueType": "EXPRESSION",
                 "value": "(i > 10) ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -187,7 +191,8 @@
                     "valueType": "EXPRESSION",
                     "value": "i + 3",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "variable": {
                     "metadata": {
@@ -197,7 +202,8 @@
                     "valueType": "IDENTIFIER",
                     "value": "i",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   }
                 },
                 "flags": 0,
@@ -239,8 +245,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "i.toString()",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -250,7 +257,8 @@
             "valueType": "IDENTIFIER",
             "value": "val",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -260,7 +268,8 @@
             "valueType": "TYPE",
             "value": "string",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "diagnostics": {

@@ -32,7 +32,8 @@
         "valueTypeConstraint": "string",
         "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "'error": {
         "metadata": {
@@ -43,7 +44,8 @@
         "valueTypeConstraint": "error",
         "value": "()",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "stackTrace": {
         "metadata": {
@@ -53,7 +55,8 @@
         "valueType": "EXPRESSION",
         "value": "()",
         "optional": true,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "keyValues": {
         "metadata": {
@@ -64,7 +67,8 @@
         "valueTypeConstraint": "KeyValues",
         "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

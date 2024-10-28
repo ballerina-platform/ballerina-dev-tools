@@ -29,7 +29,8 @@
         "valueTypeConstraint": "int",
         "value": "0",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -39,7 +40,8 @@
         "valueType": "TYPE",
         "value": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -49,7 +51,8 @@
         "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -193,7 +193,7 @@ public class FunctionCall extends NodeBuilder {
                     CommonUtils.getDefaultValueForType(typeName);
             boolean optional = defaultValue != null && !defaultValue.isEmpty();
             nodeBuilder.properties().custom(parameter.name(), parameter.name(), parameter.description(),
-                    Property.ValueType.EXPRESSION, typeName, defaultString, optional);
+                    Property.ValueType.EXPRESSION, typeName, defaultString, optional, optional);
         }
 
         List<Function.ReturnParameter> returnParameters = function.returnParameters();

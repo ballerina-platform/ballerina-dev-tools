@@ -30,7 +30,8 @@
         "valueType": "EXPRESSION",
         "value": "{}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -40,7 +41,8 @@
         "valueType": "Identifier",
         "value": "value",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -50,7 +52,8 @@
         "valueType": "Type",
         "value": "redis:Client",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": false
       },
       "scope": {
         "metadata": {
@@ -60,7 +63,8 @@
         "valueType": "Enum",
         "value": "Global",
         "optional": false,
-        "editable": false
+        "editable": false,
+        "advanced": true
       }
     },
     "flags": 1

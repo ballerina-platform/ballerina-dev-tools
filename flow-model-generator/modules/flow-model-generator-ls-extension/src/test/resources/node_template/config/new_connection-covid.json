@@ -38,7 +38,8 @@
         "valueTypeConstraint": "record",
         "value": "{}",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "serviceUrl": {
         "metadata": {
@@ -49,7 +50,8 @@
         "valueTypeConstraint": "string",
         "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -59,7 +61,8 @@
         "valueType": "TYPE",
         "value": "covid19:Client",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -69,7 +72,8 @@
         "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "scope": {
         "metadata": {
@@ -79,7 +83,8 @@
         "valueType": "ENUM",
         "value": "Global",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -30,7 +30,8 @@
             "valueType": "SINGLE_SELECT",
             "value": [],
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "children": []
@@ -51,7 +52,8 @@
             "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorVariable": {
             "metadata": {
@@ -61,7 +63,8 @@
             "valueType": "IDENTIFIER",
             "value": "err",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorType": {
             "metadata": {
@@ -71,7 +74,8 @@
             "valueType": "TYPE",
             "value": "error",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "children": []
@@ -86,7 +90,8 @@
         "valueType": "EXPRESSION",
         "value": "true",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

@@ -74,8 +74,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "10",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -85,7 +86,8 @@
             "valueType": "IDENTIFIER",
             "value": "x",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -95,7 +97,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -131,8 +134,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "20",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -142,7 +146,8 @@
             "valueType": "IDENTIFIER",
             "value": "y",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -152,7 +157,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -188,8 +194,9 @@
             },
             "valueType": "EXPRESSION",
             "value": "x + y",
-            "optional": false,
-            "editable": true
+            "optional": true,
+            "editable": true,
+            "advanced": false
           },
           "variable": {
             "metadata": {
@@ -199,7 +206,8 @@
             "valueType": "IDENTIFIER",
             "value": "z",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "type": {
             "metadata": {
@@ -209,7 +217,8 @@
             "valueType": "TYPE",
             "value": "int",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "flags": 0,
@@ -266,7 +275,8 @@
                 "valueType": "EXPRESSION",
                 "value": "(z > 30) ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -303,7 +313,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"Sum is greater than 30\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -323,7 +334,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0,
@@ -410,7 +422,8 @@
                 "valueType": "EXPRESSION",
                 "value": "(x > y) ",
                 "optional": false,
-                "editable": true
+                "editable": true,
+                "advanced": false
               }
             },
             "children": [
@@ -447,7 +460,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is greater than y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -467,7 +481,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0
@@ -527,7 +542,8 @@
                     "valueType": "EXPRESSION",
                     "value": "\"x is equal to y\"",
                     "optional": false,
-                    "editable": true
+                    "editable": true,
+                    "advanced": false
                   },
                   "view": {
                     "metadata": {
@@ -547,7 +563,8 @@
                       }
                     },
                     "optional": false,
-                    "editable": false
+                    "editable": false,
+                    "advanced": false
                   }
                 },
                 "flags": 0

@@ -211,6 +211,11 @@ public record Property(Metadata metadata, String valueType, Object valueTypeCons
             return this;
         }
 
+        public Builder advanced(boolean advanced) {
+            this.advanced = advanced;
+            return this;
+        }
+
         public Builder editable() {
             this.editable = true;
             return this;

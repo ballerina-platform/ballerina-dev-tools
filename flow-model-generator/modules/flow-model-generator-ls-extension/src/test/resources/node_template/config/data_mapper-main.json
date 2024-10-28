@@ -27,7 +27,8 @@
         "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "functionName": {
         "metadata": {
@@ -37,7 +38,8 @@
         "valueType": "IDENTIFIER",
         "value": "transform",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "inputs": {
         "metadata": {
@@ -54,7 +56,8 @@
         ],
         "value": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "output": {
         "metadata": {
@@ -73,7 +76,8 @@
         ],
         "value": "",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

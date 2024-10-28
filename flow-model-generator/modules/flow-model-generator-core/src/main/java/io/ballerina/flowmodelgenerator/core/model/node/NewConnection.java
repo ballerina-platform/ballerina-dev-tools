@@ -123,7 +123,7 @@ public class NewConnection extends NodeBuilder {
                 for (ConnectorResponse.Parameter param : initFunction.get().parameters()) {
                     nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
                             Property.valueTypeFrom(param.typeName()), getTypeConstraint(param, param.typeName()),
-                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+                            CommonUtils.getDefaultValueForType(param.typeName()), param.optional(), param.optional());
                 }
 
                 String returnType = initFunction.get().returnType().typeName();

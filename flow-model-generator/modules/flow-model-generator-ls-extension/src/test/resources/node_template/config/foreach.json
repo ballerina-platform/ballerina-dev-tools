@@ -39,7 +39,8 @@
             "valueType": "EXPRESSION",
             "value": "true",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorVariable": {
             "metadata": {
@@ -49,7 +50,8 @@
             "valueType": "IDENTIFIER",
             "value": "err",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           },
           "errorType": {
             "metadata": {
@@ -59,7 +61,8 @@
             "valueType": "TYPE",
             "value": "error",
             "optional": false,
-            "editable": true
+            "editable": true,
+            "advanced": false
           }
         },
         "children": []
@@ -74,7 +77,8 @@
         "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -84,7 +88,8 @@
         "valueType": "TYPE",
         "value": "var",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "collection": {
         "metadata": {
@@ -94,7 +99,8 @@
         "valueType": "EXPRESSION",
         "value": "[]",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

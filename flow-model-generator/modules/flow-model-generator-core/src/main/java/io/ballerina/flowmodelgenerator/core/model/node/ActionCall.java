@@ -124,7 +124,7 @@ public class ActionCall extends NodeBuilder {
             nodeBuilder.properties().custom(param.name(), param.name(), param.documentation(),
                     Property.valueTypeFrom(param.typeName()),
                     CommonUtils.getTypeConstraint(param, param.typeName()),
-                    CommonUtils.getDefaultValueForType(param.typeName()), param.optional());
+                    CommonUtils.getDefaultValueForType(param.typeName()), param.optional(), param.optional());
         }
 
         String returnType = optFunction.get().returnType().typeName();

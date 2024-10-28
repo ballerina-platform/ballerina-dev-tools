@@ -32,7 +32,8 @@
         "valueTypeConstraint": "anydata",
         "value": "\"\"",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "type": {
         "metadata": {
@@ -41,7 +42,8 @@
         },
         "valueType": "TYPE",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       },
       "variable": {
         "metadata": {
@@ -51,7 +53,8 @@
         "valueType": "IDENTIFIER",
         "value": "item",
         "optional": false,
-        "editable": true
+        "editable": true,
+        "advanced": false
       }
     },
     "flags": 0

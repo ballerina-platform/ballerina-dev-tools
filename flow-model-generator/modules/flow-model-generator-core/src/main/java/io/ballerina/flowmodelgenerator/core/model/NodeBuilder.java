@@ -695,6 +695,10 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> expression(String expr, String expressionDoc) {
+            return expression(expr, expressionDoc, false);
+        }
+
+        public PropertiesBuilder<T> expression(String expr, String expressionDoc, boolean optional) {
             propertyBuilder
                     .metadata()
                         .label(Property.EXPRESSION_DOC)
@@ -702,6 +706,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                         .stepOut()
                     .value(expr)
                     .type(Property.ValueType.EXPRESSION)
+                    .optional(optional)
                     .editable();
             addProperty(Property.EXPRESSION_KEY);
             return this;
@@ -850,7 +855,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         }
 
         public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
-                                           Object typeConstraint, String value, boolean optional) {
+                                           Object typeConstraint, String value, boolean optional, boolean advanced) {
             propertyBuilder
                     .metadata()
                         .label(label)
@@ -860,10 +865,16 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
                     .typeConstraint(typeConstraint)
                     .value(value)
                     .editable()
-                    .optional(optional);
+                    .optional(optional)
+                    .advanced(advanced);
 
             addProperty(key);
             return this;
+        }
+
+        public PropertiesBuilder<T> custom(String key, String label, String description, Property.ValueType type,
+                                           Object typeConstraint, String value, boolean optional) {
+            return custom(key, label, description, type, typeConstraint, value, optional, false);
         }
 
         public PropertiesBuilder<T> scope(String scope) {
