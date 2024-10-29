@@ -1,54 +1,30 @@
 import ballerina/http;
-import ballerinax/trigger.slack;
-
-configurable slack:ListenerConfig config = ?;
+import ballerina/log;
+import ballerinax/trigger.salesforce as sfdc;
 
 listener http:Listener httpListener = new (8090);
-listener slack:Listener webhookListener = new (config, httpListener);
+configurable sfdc:ListenerConfig configuration = {
+    username: "USER_NAME",
+    password: "PASSWORD" + "SECURITY_TOKEN",
+    channelName: "CHANNEL_NAME"
+};
+listener sfdc:Listener sfdcListener = new (configuration);
 
-service slack:AppService on webhookListener {
-
-    remote function onAppMention(slack:GenericEventWrapper payload) returns error? {
-        do {
-            //Not Implemented
-        } on fail error e {
-            return e;
-        }
+service sfdc:RecordService on sfdcListener {
+    remote function onUpdate(sfdc:EventData event) returns error? {
+        log:printInfo(event.toString());
     }
 
-    remote function onAppRateLimited(slack:GenericEventWrapper payload) returns error? {
-        do {
-            //Not Implemented
-        } on fail error e {
-            return e;
-        }
+    remote function onCreate(sfdc:EventData event) returns error? {
+
     }
 
-    remote function onAppUninstalled(slack:GenericEventWrapper payload) returns error? {
-        do {
-            //Not Implemented
-        } on fail error e {
-            return e;
-        }
-    }
-}
+    remote function onDelete(sfdc:EventData event) returns error? {
 
-service slack:DndService on webhookListener {
-
-    remote function onDndUpdated(slack:GenericEventWrapper payload) returns error? {
-        do {
-            //Not Implemented
-        } on fail error e {
-            return e;
-        }
     }
 
-    remote function onDndUpdatedUser(slack:GenericEventWrapper payload) returns error? {
-        do {
-            //Not Implemented
-        } on fail error e {
-            return e;
-        }
+    remote function onRestore(sfdc:EventData event) returns error? {
+
     }
 
     function nonRemoteFunction() {
