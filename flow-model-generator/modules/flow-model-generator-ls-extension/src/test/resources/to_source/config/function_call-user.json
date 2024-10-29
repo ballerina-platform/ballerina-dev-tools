@@ -70,7 +70,7 @@
             "character": 0
           }
         },
-        "newText": "var item = fn(0);"
+        "newText": "var item = check fn(0);"
       }
     ]
   }

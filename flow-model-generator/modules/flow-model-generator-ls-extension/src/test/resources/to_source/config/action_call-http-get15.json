@@ -95,7 +95,7 @@
             "character": 46
           }
         },
-        "newText": "return drinkClient->get(\"/milkshake\");"
+        "newText": "return check drinkClient->get(\"/milkshake\");"
       }
     ]
   }

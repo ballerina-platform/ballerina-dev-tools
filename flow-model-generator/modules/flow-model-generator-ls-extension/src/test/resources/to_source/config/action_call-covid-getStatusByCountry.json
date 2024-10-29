@@ -144,7 +144,7 @@
             "character": 0
           }
         },
-        "newText": "union item = Client->getStatusByCountry(\"\", strict = \"\");"
+        "newText": "union item = check Client->getStatusByCountry(\"\", strict = \"\");"
       }
     ]
   }

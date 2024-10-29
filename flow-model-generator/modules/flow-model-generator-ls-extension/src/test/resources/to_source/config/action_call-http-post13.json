@@ -114,7 +114,7 @@
             "character": 62
           }
         },
-        "newText": "return drinkClient->post(\"/milkshake\", \"mixed fruit\");"
+        "newText": "return check drinkClient->post(\"/milkshake\", \"mixed fruit\");"
       }
     ]
   }

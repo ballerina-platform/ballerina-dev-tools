@@ -92,7 +92,7 @@
             "character": 37
           }
         },
-        "newText": "string greeting = greet(\"Alice\");"
+        "newText": "string greeting = check greet(\"Alice\");"
       }
     ]
   }
