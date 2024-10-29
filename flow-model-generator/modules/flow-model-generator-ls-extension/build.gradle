@@ -99,21 +99,24 @@ task copyStdlibs() {
 }
 
 // TODO: Remove this once the workspace manager is refactored to import modules where necessary.
-tasks.register('pullBallerinaRedisModule') {
-    doLast {
-        if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-            exec {
-                commandLine 'cmd', '/c', 'bal', 'pull', 'ballerinax/redis'
-            }
-        } else {
-            exec {
-                commandLine 'bal', 'pull', 'ballerinax/redis'
+def pullBallerinaModule(String packageName) {
+    tasks.register("pullBallerinaModule_${packageName.replace('/', '_')}") {
+        doLast {
+            if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+                exec {
+                    commandLine 'cmd', '/c', 'bal', 'pull', packageName
+                }
+            } else {
+                exec {
+                    commandLine 'bal', 'pull', packageName
+                }
             }
         }
     }
 }
 
-test.dependsOn pullBallerinaRedisModule
+test.dependsOn pullBallerinaModule('ballerinax/redis')
+test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 
 test {
     dependsOn {
