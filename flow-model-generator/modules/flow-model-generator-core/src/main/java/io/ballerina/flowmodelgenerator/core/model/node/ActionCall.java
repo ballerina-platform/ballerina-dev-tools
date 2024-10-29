@@ -59,9 +59,9 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+//        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
+//        }
 
         FlowNode nodeTemplate = LocalIndexCentral.getInstance().getNodeTemplate(sourceBuilder.flowNode.codedata());
         if (nodeTemplate == null) {

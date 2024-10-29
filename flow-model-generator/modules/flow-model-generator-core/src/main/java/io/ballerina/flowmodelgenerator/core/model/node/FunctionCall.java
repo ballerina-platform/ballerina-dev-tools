@@ -124,9 +124,9 @@ public class FunctionCall extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+//        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-        }
+//        }
 
         Codedata codedata = sourceBuilder.flowNode.codedata();
         if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
