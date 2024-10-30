@@ -329,6 +329,14 @@ public class CommonUtils {
     }
 
 
+    /***
+     * Check whether the given line range is within a do clause.
+     *
+     * @param workspaceManager the workspace manager
+     * @param filePath the file path
+     * @param lineRange the line range
+     * @return true if the line range is within a do clause, false otherwise
+     */
     public static boolean withinDoClause(WorkspaceManager workspaceManager, Path filePath, LineRange lineRange) {
         try {
             workspaceManager.loadProject(filePath);
