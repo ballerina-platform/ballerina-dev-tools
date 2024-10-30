@@ -353,8 +353,8 @@ public class CommonUtils {
                 currentNode = currentNode.parent();
             }
             return false;
-        } catch (Exception e) {
-          return false;
+        } catch (Throwable t) {
+            return false;
         }
     }
 }
