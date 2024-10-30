@@ -33,6 +33,9 @@
           "sourceCode": "resource function get path2(boolean isKandy) returns error? {\n        transaction {\n            if isKandy {\n                json j = check asiri->get(path = \"/doctors/kandy\");\n            } else {\n                json j = check asiri->get(path = \"/doctors/colombo\");\n            }\n            error? unionResult = commit;\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -212,6 +215,15 @@
                             "editable": true
                           }
                         },
+                        "diagnostics": {
+                          "hasDiagnostics": true,
+                          "diagnostics": [
+                            {
+                              "severity": "WARNING",
+                              "message": "unused variable 'j'"
+                            }
+                          ]
+                        },
                         "flags": 1
                       }
                     ]
@@ -315,11 +327,23 @@
                             "editable": true
                           }
                         },
+                        "diagnostics": {
+                          "hasDiagnostics": true,
+                          "diagnostics": [
+                            {
+                              "severity": "WARNING",
+                              "message": "unused variable 'j'"
+                            }
+                          ]
+                        },
                         "flags": 1
                       }
                     ]
                   }
                 ],
+                "diagnostics": {
+                  "hasDiagnostics": true
+                },
                 "flags": 0
               },
               {
@@ -366,11 +390,23 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'unionResult'"
+                    }
+                  ]
+                },
                 "flags": 0
               }
             ]
           }
         ],
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       }
     ],

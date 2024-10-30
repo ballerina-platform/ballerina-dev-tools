@@ -33,6 +33,9 @@
           "sourceCode": "function testStart1() {\n    future<int> futureVar = start sum(40, 50);\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -68,6 +71,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'futureVar'"
+            }
+          ]
         },
         "flags": 0
       },

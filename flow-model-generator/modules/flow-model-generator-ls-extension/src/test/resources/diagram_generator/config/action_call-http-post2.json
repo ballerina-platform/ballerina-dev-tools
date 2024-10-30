@@ -33,6 +33,9 @@
           "sourceCode": "resource function post pears() {\n        json|error res1 = foodClient->post(\"/pears\", \"pear\");\n        json|http:ClientError res2 = foodClient->/pears.post(\"pear\");\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -133,6 +136,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res1'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -231,6 +243,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res2'"
+            }
+          ]
         },
         "flags": 0
       }

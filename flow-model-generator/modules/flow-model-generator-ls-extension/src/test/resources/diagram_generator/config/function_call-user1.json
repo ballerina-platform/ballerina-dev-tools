@@ -4,7 +4,7 @@
     "offset": 0
   },
   "end": {
-    "line": 79,
+    "line": 80,
     "offset": 1
   },
   "source": "function_call.bal",
@@ -13,7 +13,7 @@
     "fileName": "function_call.bal",
     "nodes": [
       {
-        "id": "99294",
+        "id": "99325",
         "metadata": {
           "label": "Start"
         },
@@ -26,11 +26,11 @@
               "offset": 23
             },
             "endLine": {
-              "line": 79,
+              "line": 80,
               "offset": 1
             }
           },
-          "sourceCode": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    print();\n}"
+          "sourceCode": "public function main() {\n    string greeting = greet(\"Alice\");\n    int squared = power(3);\n    int cubed = power(3, 3);\n    io:println(\"3 squared: \", squared, \", 3 cubed: \", cubed);\n    int total = asum(1, 2, 3, 4, 5);\n\n    int result = operate(6, 3, function(int x, int y) returns int {\n                return x * y;\n            });\n    io:println(\"6 * 3 = \", result);\n    io:println(greeting + total.toString());\n    print();\n}"
         },
         "returning": false,
         "flags": 0
@@ -512,7 +512,37 @@
         "flags": 0
       },
       {
-        "id": "109256",
+        "id": "109288",
+        "metadata": {
+          "label": "println",
+          "description": "Prints `any`, `error` or string templates(such as `The respective int value is ${val}`) value(s) to the STDOUT\nfollowed by a new line.\n```ballerina\nio:println(\"Start processing the CSV file from \", srcFileName);\n```\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_io_1.6.1.png"
+        },
+        "codedata": {
+          "node": "FUNCTION_CALL",
+          "org": "ballerina",
+          "module": "io",
+          "symbol": "println",
+          "version": "1.6.1",
+          "lineRange": {
+            "fileName": "function_call.bal",
+            "startLine": {
+              "line": 78,
+              "offset": 4
+            },
+            "endLine": {
+              "line": 78,
+              "offset": 44
+            }
+          },
+          "sourceCode": "io:println(greeting + total.toString());"
+        },
+        "returning": false,
+        "properties": {},
+        "flags": 0
+      },
+      {
+        "id": "110248",
         "metadata": {
           "label": "print"
         },
@@ -525,11 +555,11 @@
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
-              "line": 78,
+              "line": 79,
               "offset": 4
             },
             "endLine": {
-              "line": 78,
+              "line": 79,
               "offset": 12
             }
           },

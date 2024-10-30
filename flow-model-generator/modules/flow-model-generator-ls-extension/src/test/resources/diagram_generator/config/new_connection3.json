@@ -33,6 +33,9 @@
           "sourceCode": "resource function get .() {\n\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       }
     ],

@@ -33,6 +33,9 @@
           "sourceCode": "resource function get cherries(map<anydata> data) returns string|error {\n        match data {\n            var obj if obj is record {|int quantity; string 'type;|} => {\n                int quantity = obj.quantity;\n                string 'type = obj.'type;\n                return string `Order for ${quantity} ${'type} cherries placed`;\n            }\n            _ => {\n                return error(\"Invalid data format\");\n            }\n        } on fail var e {\n            if e is error {\n                return error(\"Data processing failed\", e);\n            }\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -445,7 +448,16 @@
                         "valueType": "EXPRESSION",
                         "value": "e is error ",
                         "optional": false,
-                        "editable": true
+                        "editable": true,
+                        "diagnostics": {
+                          "hasDiagnostics": true,
+                          "diagnostics": [
+                            {
+                              "severity": "HINT",
+                              "message": "unnecessary condition: expression will always evaluate to 'true'"
+                            }
+                          ]
+                        }
                       }
                     },
                     "children": [
@@ -488,6 +500,9 @@
                     ]
                   }
                 ],
+                "diagnostics": {
+                  "hasDiagnostics": true
+                },
                 "flags": 0
               }
             ]
@@ -504,6 +519,9 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
         },
         "flags": 0
       }
