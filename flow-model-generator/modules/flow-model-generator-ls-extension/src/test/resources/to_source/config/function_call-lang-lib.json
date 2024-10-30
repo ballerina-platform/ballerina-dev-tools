@@ -1,0 +1,82 @@
+{
+  "source": "empty.bal",
+  "description": "Sample diagram node",
+  "diagram": {
+    "id": "53877",
+    "metadata": {
+      "label": "fromString",
+      "description": "Returns the decimal value represented by a string.\n",
+      "icon": ""
+    },
+    "codedata": {
+      "node": "FUNCTION_CALL",
+      "org": "ballerina",
+      "module": "lang.decimal",
+      "symbol": "fromString",
+      "version": "2201.10.0",
+      "lineRange": {
+        "fileName": "function_call.bal",
+        "startLine": {
+          "line": 22,
+          "offset": 8
+        },
+        "endLine": {
+          "line": 22,
+          "offset": 61
+        }
+      },
+      "sourceCode": "Apple apple = check jsondata:parseAsType(jsonResult);"
+    },
+    "returning": false,
+    "properties": {
+      "v": {
+        "metadata": {
+          "label": "v",
+          "description": "Source value\n"
+        },
+        "valueType": "EXPRESSION",
+        "value": "\"11.11\"",
+        "optional": false,
+        "editable": true
+      },
+      "variable": {
+        "metadata": {
+          "label": "Data variable",
+          "description": "Name of the variable"
+        },
+        "valueType": "IDENTIFIER",
+        "value": "d",
+        "optional": false,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Data type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "decimal",
+        "optional": false,
+        "editable": true
+      }
+    },
+    "flags": 1
+  },
+  "output": {
+    "empty.bal": [
+      {
+        "range": {
+          "start": {
+            "line": 22,
+            "character": 8
+          },
+          "end": {
+            "line": 22,
+            "character": 61
+          }
+        },
+        "newText": "decimal d = check decimal:fromString();"
+      }
+    ]
+  }
+}
