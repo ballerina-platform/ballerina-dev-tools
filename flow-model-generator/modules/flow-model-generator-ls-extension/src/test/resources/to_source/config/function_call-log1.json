@@ -86,7 +86,7 @@
             "character": 40
           }
         },
-        "newText": "check log:printInfo(\"Getting apples\");"
+        "newText": "log:printInfo(\"Getting apples\");"
       }
     ]
   }

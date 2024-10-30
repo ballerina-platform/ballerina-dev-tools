@@ -100,7 +100,7 @@
             "character": 27
           }
         },
-        "newText": "int squared = check power(3);"
+        "newText": "int squared = power(3);"
       }
     ]
   }

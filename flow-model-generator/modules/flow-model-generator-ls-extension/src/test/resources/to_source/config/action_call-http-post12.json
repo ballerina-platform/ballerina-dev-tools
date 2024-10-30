@@ -114,7 +114,7 @@
             "character": 54
           }
         },
-        "newText": "return check foodClient->post(\"/bananas\", \"banana\");"
+        "newText": "return foodClient->post(\"/bananas\", \"banana\");"
       }
     ]
   }

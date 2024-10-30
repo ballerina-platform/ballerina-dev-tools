@@ -83,7 +83,7 @@
             "character": 36
           }
         },
-        "newText": "int total = check asum();"
+        "newText": "int total = asum();"
       }
     ]
   }

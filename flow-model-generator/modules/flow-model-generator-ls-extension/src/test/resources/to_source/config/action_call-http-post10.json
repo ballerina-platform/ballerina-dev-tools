@@ -132,7 +132,7 @@
             "character": 61
           }
         },
-        "newText": "json res1 = check foodClient->post(\"/pears\", \"pear\");"
+        "newText": "json res1 = foodClient->post(\"/pears\", \"pear\");"
       }
     ]
   }

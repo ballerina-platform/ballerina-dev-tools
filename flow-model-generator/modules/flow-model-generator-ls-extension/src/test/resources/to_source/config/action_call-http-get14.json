@@ -95,7 +95,7 @@
             "character": 43
           }
         },
-        "newText": "return check foodClient->get(\"/bananas\");"
+        "newText": "return foodClient->get(\"/bananas\");"
       }
     ]
   }

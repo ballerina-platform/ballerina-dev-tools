@@ -63,7 +63,7 @@
             "character": 12
           }
         },
-        "newText": "check print();"
+        "newText": "print();"
       }
     ]
   }

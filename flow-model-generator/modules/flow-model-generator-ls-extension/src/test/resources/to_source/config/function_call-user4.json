@@ -56,7 +56,7 @@
             "character": 61
           }
         },
-        "newText": "check io:println();"
+        "newText": "io:println();"
       }
     ]
   }
