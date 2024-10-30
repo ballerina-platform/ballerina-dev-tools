@@ -124,9 +124,12 @@ public class FunctionCall extends NodeBuilder {
     public Map<Path, List<TextEdit>> toSource(SourceBuilder sourceBuilder) {
         sourceBuilder.newVariable();
 
-//        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        // TODO: Make this condition and once we get the correct flag using index
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
+                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
+                sourceBuilder.flowNode.codedata().lineRange())) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
-//        }
+        }
 
         Codedata codedata = sourceBuilder.flowNode.codedata();
         if (isLocalFunction(sourceBuilder.workspaceManager, sourceBuilder.filePath, codedata)) {
