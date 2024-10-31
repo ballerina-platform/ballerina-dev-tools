@@ -20,6 +20,7 @@ package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
@@ -205,15 +206,7 @@ public class AvailableNodesGenerator {
             }
 
             ModuleSymbol moduleSymbol = typeDescriptorSymbol.typeDescriptor().getModule().orElseThrow();
-            Codedata codedata = new Codedata.Builder<>(null)
-                    .node(NodeKind.NEW_CONNECTION)
-                    .org(moduleSymbol.id().orgName())
-                    .module(moduleSymbol.getName().orElseThrow())
-                    .version(moduleSymbol.id().version())
-                    .object("Client")
-                    .symbol("init")
-                    .build();
-            List<Item> connections = fetchConnections(codedata);
+            List<Item> connections = fetchConnections(moduleSymbol.id(), symbol.getName().orElse(""));
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())
@@ -224,10 +217,10 @@ public class AvailableNodesGenerator {
         }
     }
 
-    private static List<Item> fetchConnections(Codedata codedata) {
+    private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
         DatabaseManager dbManager = new DatabaseManager();
         Optional<FunctionResult> connectorResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnection.INIT_SYMBOL,
                         DatabaseManager.FunctionKind.CONNECTOR);
         if (connectorResult.isEmpty()) {
             return List.of();
@@ -251,6 +244,7 @@ public class AvailableNodesGenerator {
                         .module(connector.packageName())
                         .object(NewConnection.CLIENT_SYMBOL)
                         .symbol(connectorAction.name())
+                        .parentSymbol(parentSymbol)
                         .id(connectorAction.functionId());
             availableNodes.add(actionBuilder.buildAvailableNode());
         }

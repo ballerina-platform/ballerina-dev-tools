@@ -36,7 +36,7 @@ import io.ballerina.tools.text.LineRange;
  * @since 1.5.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
-                       String version, LineRange lineRange, String sourceCode, int id) {
+                       String version, LineRange lineRange, String sourceCode, String parentSymbol, int id) {
 
     @Override
     public String toString() {
@@ -65,6 +65,7 @@ public record Codedata(NodeKind node, String org, String module, String object, 
         private String version;
         private LineRange lineRange;
         private String sourceCode;
+        private String parentSymbol;
         private int id;
 
         public Builder(T parentBuilder) {
@@ -117,13 +118,18 @@ public record Codedata(NodeKind node, String org, String module, String object, 
             return this;
         }
 
+        public Builder<T> parentSymbol(String parentSymbol) {
+            this.parentSymbol = parentSymbol;
+            return this;
+        }
+
         public Builder<T> id(int id) {
             this.id = id;
             return this;
         }
 
         public Codedata build() {
-            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, id);
+            return new Codedata(node, org, module, object, symbol, version, lineRange, sourceCode, parentSymbol, id);
         }
     }
 }

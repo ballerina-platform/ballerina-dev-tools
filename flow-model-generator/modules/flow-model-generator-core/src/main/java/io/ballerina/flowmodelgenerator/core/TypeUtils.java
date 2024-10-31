@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 
 public class TypeUtils {
 
+    public static final String TARGET_TYPE = "targetType";
     private static final Gson gson = new Gson();
 
     private static final String ARRAY_TYPE = "array";
@@ -79,6 +80,9 @@ public class TypeUtils {
     public static String getTypeSignature(Type type) {
         return switch (type.getTypeName()) {
             case UNION_TYPE -> {
+                if (type.name != null && type.name.equals(TARGET_TYPE)) {
+                    yield "json";
+                }
                 UnionType unionType = (UnionType) type;
                 yield unionType.members.stream()
                         .map(TypeUtils::getTypeSignature)

@@ -29,6 +29,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "post",
+                "parentSymbol": "moduleClient",
                 "id": 2
               },
               "enabled": true
@@ -45,6 +46,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "post",
+                "parentSymbol": "moduleClient",
                 "id": 3
               },
               "enabled": true
@@ -61,6 +63,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "put",
+                "parentSymbol": "moduleClient",
                 "id": 4
               },
               "enabled": true
@@ -77,6 +80,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "put",
+                "parentSymbol": "moduleClient",
                 "id": 5
               },
               "enabled": true
@@ -93,6 +97,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "patch",
+                "parentSymbol": "moduleClient",
                 "id": 6
               },
               "enabled": true
@@ -109,6 +114,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "patch",
+                "parentSymbol": "moduleClient",
                 "id": 7
               },
               "enabled": true
@@ -125,6 +131,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "delete",
+                "parentSymbol": "moduleClient",
                 "id": 8
               },
               "enabled": true
@@ -141,6 +148,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "delete",
+                "parentSymbol": "moduleClient",
                 "id": 9
               },
               "enabled": true
@@ -157,6 +165,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "head",
+                "parentSymbol": "moduleClient",
                 "id": 10
               },
               "enabled": true
@@ -173,6 +182,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "head",
+                "parentSymbol": "moduleClient",
                 "id": 11
               },
               "enabled": true
@@ -189,6 +199,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "get",
+                "parentSymbol": "moduleClient",
                 "id": 12
               },
               "enabled": true
@@ -205,6 +216,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "get",
+                "parentSymbol": "moduleClient",
                 "id": 13
               },
               "enabled": true
@@ -221,6 +233,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "options",
+                "parentSymbol": "moduleClient",
                 "id": 14
               },
               "enabled": true
@@ -237,6 +250,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "options",
+                "parentSymbol": "moduleClient",
                 "id": 15
               },
               "enabled": true
@@ -253,6 +267,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "execute",
+                "parentSymbol": "moduleClient",
                 "id": 16
               },
               "enabled": true
@@ -269,6 +284,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "forward",
+                "parentSymbol": "moduleClient",
                 "id": 17
               },
               "enabled": true
@@ -285,6 +301,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "submit",
+                "parentSymbol": "moduleClient",
                 "id": 18
               },
               "enabled": true
@@ -301,6 +318,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "getResponse",
+                "parentSymbol": "moduleClient",
                 "id": 19
               },
               "enabled": true
@@ -317,6 +335,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "hasPromise",
+                "parentSymbol": "moduleClient",
                 "id": 20
               },
               "enabled": true
@@ -333,6 +352,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "getNextPromise",
+                "parentSymbol": "moduleClient",
                 "id": 21
               },
               "enabled": true
@@ -349,6 +369,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "getPromisedResponse",
+                "parentSymbol": "moduleClient",
                 "id": 22
               },
               "enabled": true
@@ -365,6 +386,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "rejectPromise",
+                "parentSymbol": "moduleClient",
                 "id": 23
               },
               "enabled": true
@@ -381,6 +403,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "getCookieStore",
+                "parentSymbol": "moduleClient",
                 "id": 24
               },
               "enabled": true
@@ -397,6 +420,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "circuitBreakerForceClose",
+                "parentSymbol": "moduleClient",
                 "id": 25
               },
               "enabled": true
@@ -413,6 +437,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "circuitBreakerForceOpen",
+                "parentSymbol": "moduleClient",
                 "id": 26
               },
               "enabled": true
@@ -429,6 +454,7 @@
                 "module": "http",
                 "object": "Client",
                 "symbol": "getCircuitBreakerCurrentState",
+                "parentSymbol": "moduleClient",
                 "id": 27
               },
               "enabled": true

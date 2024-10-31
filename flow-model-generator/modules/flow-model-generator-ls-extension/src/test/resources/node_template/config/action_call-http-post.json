@@ -5,39 +5,45 @@
     "org": "ballerina",
     "module": "http",
     "object": "Client",
-    "symbol": "post"
+    "symbol": "post",
+    "parentSymbol": "httpClient",
+    "id": 3
   },
   "output": {
+    "id": "31",
     "metadata": {
       "label": "post",
-      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+      "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+      "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
       "node": "ACTION_CALL",
       "org": "ballerina",
       "module": "http",
       "object": "Client",
-      "symbol": "post"
+      "symbol": "post",
+      "id": 3
     },
     "returning": false,
     "properties": {
       "path": {
         "metadata": {
           "label": "path",
-          "description": "Resource path\n"
+          "description": "Resource path"
         },
         "valueType": "EXPRESSION",
-        "value": "\"\"",
+        "valueTypeConstraint": "{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "message": {
         "metadata": {
           "label": "message",
-          "description": "An HTTP outbound request or any allowed payload\n"
+          "description": "An HTTP outbound request or any allowed payload"
         },
         "valueType": "EXPRESSION",
+        "valueTypeConstraint": "{\"members\":[{\"typeName\":\"anydata\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"fields\":[],\"name\":\"Request\",\"typeName\":\"object\",\"optional\":false,\"typeInfo\":{\"name\":\"Request\",\"orgName\":\"ballerina\",\"moduleName\":\"http\",\"version\":\"2.12.2\"},\"defaultable\":false,\"isRestType\":false},{\"memberType\":{\"fields\":[],\"name\":\"Entity\",\"typeName\":\"object\",\"optional\":false,\"typeInfo\":{\"name\":\"Entity\",\"orgName\":\"ballerina\",\"moduleName\":\"mime\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"leftTypeParam\":{\"memberType\":{\"typeName\":\"byte\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"rightTypeParam\":{\"members\":[{\"isErrorUnion\":false,\"name\":\"Error\",\"typeName\":\"error\",\"optional\":false,\"typeInfo\":{\"name\":\"Error\",\"orgName\":\"ballerina\",\"moduleName\":\"io\",\"version\":\"1.6.1\"},\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"stream\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"name\":\"RequestMessage\",\"typeName\":\"union\",\"optional\":false,\"typeInfo\":{\"name\":\"RequestMessage\",\"orgName\":\"ballerina\",\"moduleName\":\"http\",\"version\":\"2.12.2\"},\"defaultable\":false,\"isRestType\":false}",
         "value": "",
         "optional": false,
         "editable": true
@@ -45,54 +51,57 @@
       "headers": {
         "metadata": {
           "label": "headers",
-          "description": "The entity headers\n"
+          "description": "The entity headers"
         },
         "valueType": "EXPRESSION",
-        "value": "()",
+        "valueTypeConstraint": "{\"members\":[{\"paramType\":{\"members\":[{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"memberType\":{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"map\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": true,
         "editable": true
       },
       "mediaType": {
         "metadata": {
           "label": "mediaType",
-          "description": "The MIME type header of the request entity\n"
+          "description": "The MIME type header of the request entity"
         },
         "valueType": "EXPRESSION",
-        "value": "()",
+        "valueTypeConstraint": "{\"members\":[{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": true,
+        "editable": true
+      },
+      "type": {
+        "metadata": {
+          "label": "Variable Type",
+          "description": "Type of the variable"
+        },
+        "valueType": "TYPE",
+        "value": "json|error",
+        "optional": false,
         "editable": true
       },
       "variable": {
         "metadata": {
-          "label": "Variable",
-          "description": "Variable to store value"
+          "label": "Variable Name",
+          "description": "Name of the variable"
         },
-        "valueType": "Identifier",
-        "value": "value",
+        "valueType": "IDENTIFIER",
+        "value": "item",
         "optional": false,
-        "editable": false
-      },
-      "type": {
-        "metadata": {
-          "label": "Type",
-          "description": "Type of the variable"
-        },
-        "valueType": "Type",
-        "value": "json",
-        "optional": false,
-        "editable": false
+        "editable": true
       },
       "connection": {
         "metadata": {
-          "label": "Connection",
-          "description": "Connection to use"
+          "label": "http",
+          "description": ""
         },
-        "valueType": "Identifier",
-        "value": "connection",
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:Client",
+        "value": "httpClient",
         "optional": false,
-        "editable": false
+        "editable": true
       }
     },
-    "flags": 1
+    "flags": 0
   }
 }
