@@ -61,6 +61,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
 public class IndexGenerator {
@@ -83,8 +84,10 @@ public class IndexGenerator {
         try (FileReader reader = new FileReader(PackageListGenerator.PACKAGE_JSON_PATH)) {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
                     typeToken);
-            packagesMap.forEach((key, value) -> value.forEach(
-                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)));
+            ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+            forkJoinPool.submit(() -> packagesMap.forEach((key, value) -> value.parallelStream().forEach(
+                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)
+            ))).join();
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -129,6 +132,8 @@ public class IndexGenerator {
             return;
         }
 
+        TypeSymbol errorTypeSymbol = semanticModel.types().ERROR;
+
         for (Symbol symbol : semanticModel.moduleSymbols()) {
             if (symbol.kind() == SymbolKind.FUNCTION) {
                 FunctionSymbol functionSymbol = (FunctionSymbol) symbol;
@@ -137,7 +142,7 @@ public class IndexGenerator {
                 }
 
                 processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
-                        descriptor.name().value());
+                        descriptor.name().value(), errorTypeSymbol);
                 continue;
             }
             if (symbol.kind() == SymbolKind.CLASS) {
@@ -155,7 +160,7 @@ public class IndexGenerator {
                 }
                 int connectorId =
                         processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR,
-                                descriptor.name().value());
+                                descriptor.name().value(), errorTypeSymbol);
                 if (connectorId == -1) {
                     continue;
                 }
@@ -177,7 +182,7 @@ public class IndexGenerator {
                         continue;
                     }
                     int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType,
-                            descriptor.name().value());
+                            descriptor.name().value(), errorTypeSymbol);
                     if (functionId == -1) {
                         continue;
                     }
@@ -192,7 +197,8 @@ public class IndexGenerator {
     }
 
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
-                                             FunctionType functionType, String packageName) {
+                                             FunctionType functionType, String packageName,
+                                             TypeSymbol errorTypeSymbol) {
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -207,7 +213,8 @@ public class IndexGenerator {
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
         String returnType = functionTypeSymbol.returnTypeDescriptor()
-                .map(returnTypeDesc -> functionSymbol.nameEquals("init") ? getClientType(packageName, returnTypeDesc) :
+                .map(returnTypeDesc -> functionSymbol.nameEquals("init") ?
+                        getClientType(packageName, returnTypeDesc, errorTypeSymbol) :
                         getTypeSignature(returnTypeDesc)).orElse("");
 
         int functionId =
@@ -281,7 +288,8 @@ public class IndexGenerator {
         };
     }
 
-    public static String getClientType(String importPrefix, TypeSymbol returnType) {
+    public static String getClientType(String packageName, TypeSymbol returnType, TypeSymbol errorTypeSymbol) {
+        String importPrefix = packageName.substring(packageName.lastIndexOf('.') + 1);
         String clientType = String.format("%s:%s", importPrefix, "Client");
         if (returnType.typeKind() != TypeDescKind.UNION) {
             return clientType;
@@ -289,7 +297,7 @@ public class IndexGenerator {
 
         UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) returnType;
         Optional<TypeSymbol> errorType = unionTypeSymbol.memberTypeDescriptors().stream()
-                .filter(member -> member.typeKind() == TypeDescKind.ERROR)
+                .filter(member -> member.subtypeOf(errorTypeSymbol))
                 .findFirst();
         return errorType.map(type -> clientType + "|" + getTypeSignature(type)).orElse(clientType);
     }
