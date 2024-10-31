@@ -53,12 +53,14 @@ dependencies {
     }
 
     implementation "io.ballerina.openapi:core:2.1.1-20240926-171100-1f88ade"
-    implementation ("io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}") {
+    implementation("io.swagger.parser.v3:swagger-parser:${swaggerParserVersion}") {
         exclude group: "io.swagger", module: "swagger-compat-spec-parser"
         exclude group: "org.slf4j", module: "slf4j-ext"
         exclude group: "javax.validation", module: "validation-api"
     }
     implementation "io.swagger.core.v3:swagger-models"
+    implementation "jakarta.persistence:jakarta.persistence-api:3.1.0"
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 }
 
 def balDistribution = file("$project.buildDir/extracted-distribution/jballerina-tools-${ballerinaLangVersion}")

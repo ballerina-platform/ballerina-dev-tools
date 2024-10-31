@@ -23,6 +23,7 @@ import com.google.gson.JsonArray;
 import io.ballerina.flowmodelgenerator.extension.request.FlowModelGetFunctionsRequest;
 import io.ballerina.tools.text.LineRange;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -57,6 +58,14 @@ public class GetFunctionsTest extends AbstractLSTest {
             compareJsonElements(categories, testConfig.categories());
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
+    }
+
+    @DataProvider(name = "data-provider")
+    @Override
+    protected Object[] getConfigsList() {
+        return new Object[]{
+                Path.of("simple.json")
+        };
     }
 
     @Override
