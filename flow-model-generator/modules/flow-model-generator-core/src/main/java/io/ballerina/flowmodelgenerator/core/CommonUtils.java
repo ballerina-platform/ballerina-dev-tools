@@ -30,6 +30,7 @@ import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BindingPatternNode;
 import io.ballerina.compiler.syntax.tree.BuiltinSimpleNameReferenceNode;
+import io.ballerina.compiler.syntax.tree.DoStatementNode;
 import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
@@ -46,9 +47,11 @@ import io.ballerina.tools.diagnostics.Location;
 import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import io.ballerina.tools.text.TextRange;
+import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
 import org.eclipse.lsp4j.Position;
 import org.eclipse.lsp4j.Range;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 
@@ -323,5 +326,35 @@ public class CommonUtils {
                 project.kind() == ProjectKind.SINGLE_FILE_PROJECT ? project.sourceRoot() :
                         project.sourceRoot().resolve(location.lineRange().fileName()));
         return project.currentPackage().getDefaultModule().document(documentId);
+    }
+
+
+    /***
+     * Check whether the given line range is within a do clause.
+     *
+     * @param workspaceManager the workspace manager
+     * @param filePath the file path
+     * @param lineRange the line range
+     * @return true if the line range is within a do clause, false otherwise
+     */
+    public static boolean withinDoClause(WorkspaceManager workspaceManager, Path filePath, LineRange lineRange) {
+        try {
+            workspaceManager.loadProject(filePath);
+            Document document = workspaceManager.document(filePath).orElseThrow();
+            int startPos = document.textDocument().textPositionFrom(lineRange.startLine());
+            int endPos = document.textDocument().textPositionFrom(lineRange.endLine());
+            ModulePartNode node = document.syntaxTree().rootNode();
+            NonTerminalNode currentNode = node.findNode(TextRange.from(startPos, endPos - startPos),
+                    true);
+            while (currentNode != null) {
+                if (currentNode.kind() == SyntaxKind.DO_STATEMENT) {
+                    return ((DoStatementNode) currentNode).onFailClause().isPresent();
+                }
+                currentNode = currentNode.parent();
+            }
+            return false;
+        } catch (Throwable t) {
+            return false;
+        }
     }
 }

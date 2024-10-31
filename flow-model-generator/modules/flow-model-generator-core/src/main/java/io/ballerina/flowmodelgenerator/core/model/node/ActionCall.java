@@ -59,7 +59,10 @@ public class ActionCall extends NodeBuilder {
             sourceBuilder.token().keyword(SyntaxKind.RETURN_KEYWORD);
         }
 
-        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)) {
+        // TODO: Make this condition and once we get the correct flag using index
+        if (sourceBuilder.flowNode.hasFlag(FlowNode.NODE_FLAG_CHECKED)
+                || CommonUtils.withinDoClause(sourceBuilder.workspaceManager, sourceBuilder.filePath,
+                sourceBuilder.flowNode.codedata().lineRange())) {
             sourceBuilder.token().keyword(SyntaxKind.CHECK_KEYWORD);
         }
 
