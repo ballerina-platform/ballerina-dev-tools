@@ -32,7 +32,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "transform"
+            "symbol": "transform",
+            "id": 0
           },
           "enabled": true
         },
@@ -43,7 +44,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "add"
+            "symbol": "add",
+            "id": 0
           },
           "enabled": true
         },
@@ -53,7 +55,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "sum"
+            "symbol": "sum",
+            "id": 0
           },
           "enabled": true
         },
@@ -64,7 +67,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "prefixSum"
+            "symbol": "prefixSum",
+            "id": 0
           },
           "enabled": true
         },
@@ -75,7 +79,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "safeDivide"
+            "symbol": "safeDivide",
+            "id": 0
           },
           "enabled": true
         },
@@ -85,7 +90,8 @@
           },
           "codedata": {
             "node": "FUNCTION_CALL",
-            "symbol": "greet"
+            "symbol": "greet",
+            "id": 0
           },
           "enabled": true
         }
@@ -105,128 +111,24 @@
       "items": [
         {
           "metadata": {
-            "label": "http",
+            "label": "redis",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
           },
           "items": [
             {
               "metadata": {
-                "label": "getCookieStore",
-                "description": "Retrieves the cookie store of the client.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                "label": "close",
+                "description": "Close the connection.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getCookieStore",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "circuitBreakerForceClose",
-                "description": "The circuit breaker client related method to force the circuit into a closed state in which it will allow\nrequests regardless of the error percentage until the failure threshold exceeds.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "circuitBreakerForceClose",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "circuitBreakerForceOpen",
-                "description": "The circuit breaker client related method to force the circuit into a open state in which it will suspend all\nrequests until `resetTime` interval exceeds.",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "circuitBreakerForceOpen",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "getCircuitBreakerCurrentState",
-                "description": "The circuit breaker client related method to provides the `http:CircuitState` of the circuit breaker.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "getCircuitBreakerCurrentState",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "authenticateResource",
-                "description": "Uses for declarative auth design, where the authentication/authorization decision is taken\nby reading the auth annotations provided in service/resource and the `Authorization` header of request.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "authenticateResource",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "createHttpCachingClient",
-                "description": "Creates an HTTP client capable of caching HTTP responses.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "createHttpCachingClient",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "parseHeader",
-                "description": "Parses the header value which contains multiple values or parameters.\n```ballerina\n http:HeaderValue[] values = check http:parseHeader(\"text/plain;level=1;q=0.6, application/xml;level=2\");\n```\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "parseHeader",
-                "version": "2.12.2"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "createHttpSecureClient",
-                "description": "Creates an HTTP client capable of securing HTTP requests with authentication.\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "http",
-                "symbol": "createHttpSecureClient",
-                "version": "2.12.2"
+                "org": "ballerinax",
+                "module": "redis",
+                "symbol": "close",
+                "version": "3.0.2",
+                "id": 0
               },
               "enabled": true
             }
@@ -234,188 +136,393 @@
         },
         {
           "metadata": {
-            "label": "time",
+            "label": "snowflake",
             "description": "",
-            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
           },
           "items": [
             {
               "metadata": {
-                "label": "utcNow",
-                "description": "Returns the UTC representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).\n```ballerina\ntime:Utc utc = time:utcNow();\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "close",
+                "description": "Closes the SQL client and shuts down the connection pool.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_snowflake_2.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "utcNow",
-                "version": "2.5.0"
+                "org": "ballerinax",
+                "module": "snowflake",
+                "symbol": "close",
+                "version": "2.0.0",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "postgresql",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "close",
+                "description": "Closes the PostgreSQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_postgresql_1.13.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "postgresql",
+                "symbol": "close",
+                "version": "1.13.1",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "persist.redis",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "getConstraintViolationError",
+                "description": "Generates a new `persist:ConstraintViolationError` with the given parameters.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "persist.redis",
+                "symbol": "getConstraintViolationError",
+                "version": "0.2.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "monotonicNow",
-                "description": "Returns no of seconds from unspecified epoch.\nThis API guarantees consistent value increase in subsequent calls with nanoseconds precision.\n```ballerina\ndecimal seconds = time:monotonicNow();\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "getAlreadyExistsError",
+                "description": "Generates a new `persist:AlreadyExistsError` with the given parameters.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_persist.redis_0.2.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "monotonicNow",
-                "version": "2.5.0"
+                "org": "ballerinax",
+                "module": "persist.redis",
+                "symbol": "getAlreadyExistsError",
+                "version": "0.2.0",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "googleapis.calendar",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "prepareUrlWithEventsOptionalParams",
+                "description": "Prepare URL with optional parameters.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.calendar_3.2.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "googleapis.calendar",
+                "symbol": "prepareUrlWithEventsOptionalParams",
+                "version": "3.2.0",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "java.jdbc",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "close",
+                "description": "Closes the JDBC client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_java.jdbc_1.12.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "java.jdbc",
+                "symbol": "close",
+                "version": "1.12.1",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "mysql",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "close",
+                "description": "Closes the MySQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mysql_1.13.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "mysql",
+                "symbol": "close",
+                "version": "1.13.1",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "googleapis.sheets",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "createRandomUUIDWithoutHyphens",
+                "description": "Create a random UUID removing the unnecessary hyphens which will interrupt querying opearations.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "googleapis.sheets",
+                "symbol": "createRandomUUIDWithoutHyphens",
+                "version": "3.5.1",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcFromString",
-                "description": "Converts from RFC 3339 timestamp (e.g., `2007-12-03T10:15:30.00Z`) to Utc.\n```ballerina\ntime:Utc|time:Error utc = time:utcFromString(\"2007-12-03T10:15:30.00Z\");\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "getA1RangeString",
+                "description": "Get a string containing the A1 Annotation from A1Range.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_googleapis.sheets_3.5.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "googleapis.sheets",
+                "symbol": "getA1RangeString",
+                "version": "3.5.1",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "mssql",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "close",
+                "description": "Closes the MSSQL client and shuts down the connection pool. The client must be closed only at the end of the\napplication lifetime (or closed for graceful stops in a service).\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_mssql_1.13.1.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerinax",
+                "module": "mssql",
+                "symbol": "close",
+                "version": "1.13.1",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "lang.string",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "length",
+                "description": "Returns the length of the string.\n\n```ballerina\n\"Hello, World!\".length() ⇒ 13;\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcFromString",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "length",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcToString",
-                "description": "Converts a given `time:Utc` time to a RFC 3339 timestamp (e.g., `2007-12-03T10:15:30.00Z`).\n```ballerina\nstring utcString = time:utcToString(time:utcNow());\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "iterator",
+                "description": "Returns an iterator over the string.\n\nThe iterator will yield the substrings of length 1 in order.\n\n```ballerina\nobject {\n  public isolated function next() returns record {|string:Char value;|}?;\n} iterator = \"Hello, World!\".iterator();\niterator.next() ⇒ {\"value\":\"H\"}\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcToString",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "iterator",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcAddSeconds",
-                "description": "Returns UTC time that occurs seconds after `utc`. This assumes that all days have 86400 seconds except when utc\nrepresents a time during a positive leap second, in which case the corresponding day will be assumed to have 86401 seconds.\n```ballerina\ntime:Utc utc = time:utcAddSeconds(time:utcNow(), 20.900);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "concat",
+                "description": "Concatenates zero or more strings.\n\n```ballerina\n\"http://worldtimeapi.org\".concat(\"/api/timezone/\", \"Asia\", \"/\", \"Colombo\") ⇒ http://worldtimeapi.org/api/timezone/Asia/Colombo\n// Alternative approach to achieve the same.\nstring:concat(\"http://worldtimeapi.org\", \"/api/timezone/\", \"Asia\", \"/\", \"Colombo\") ⇒ http://worldtimeapi.org/api/timezone/Asia/Colombo\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcAddSeconds",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "concat",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcDiffSeconds",
-                "description": "Returns difference in seconds between `utc1` and `utc2`.\nThis will be positive if `utc1` occurs after `utc2`\n```ballerina\ntime:Utc utc1 = time:utcNow();\ntime:Utc utc2 = check time:utcFromString(\"2021-04-12T23:20:50.520Z\");\ntime:Seconds seconds = time:utcDiffSeconds(utc1, utc2);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "getCodePoint",
+                "description": "Returns the code point of a character in a string.\n\n```ballerina\n\"Hello, World!\".getCodePoint(3) ⇒ 108\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcDiffSeconds",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "getCodePoint",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "dateValidate",
-                "description": "Check that days and months are within range as per Gregorian calendar rules.\n```ballerina\ntime:Date date = {year: 1994, month: 11, day: 7};\ntime:Error? isValid = time:dateValidate(date);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "substring",
+                "description": "Returns a substring of a string.\n\n```ballerina\n\"Hello, my name is John\".substring(7) ⇒ my name is John\n\"Hello, my name is John Anderson\".substring(18, 22) ⇒ John\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "dateValidate",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "substring",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "dayOfWeek",
-                "description": "Get the day of week for a specified date.\n```ballerina\ntime:Date date = {year: 1994, month: 11, day: 7};\ntime:DayOfWeek day = time:dayOfWeek(date);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "codePointCompare",
+                "description": "Lexicographically compares strings using their Unicode code points.\n\nThis orders strings in a consistent and well-defined way,\nbut the ordering will often not be consistent with cultural expectations\nfor sorted order.\n\n```ballerina\n\"Austria\".codePointCompare(\"Australia\") ⇒ 1\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "dayOfWeek",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "codePointCompare",
+                "version": "0.0.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcToCivil",
-                "description": "Converts a given `time:Utc` timestamp to a `time:Civil` value.\n```ballerina\ntime:Utc utc = time:utcNow();\ntime:Civil civil = time:utcToCivil(utc);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "'join",
+                "description": "Joins zero or more strings together with a separator.\n\n```ballerina\nstring:'join(\" \", \"Ballerina\", \"is\", \"a\", \"programming\", \"language\") ⇒ Ballerina is a programming language\nstring[] array = [\"John\", \"23\", \"USA\", \"Computer Science\", \"Swimmer\"];\nstring:'join(\",\", ...array) ⇒ John,23,USA,Computer Science,Swimmer\n```\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_lang.string_0.0.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcToCivil",
-                "version": "2.5.0"
+                "module": "lang.string",
+                "symbol": "'join",
+                "version": "0.0.0",
+                "id": 0
+              },
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "metadata": {
+            "label": "data.jsondata",
+            "description": "",
+            "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+          },
+          "items": [
+            {
+              "metadata": {
+                "label": "parseAsType",
+                "description": "Convert value of type `json` to subtype of `anydata`.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
+              },
+              "codedata": {
+                "node": "FUNCTION_CALL",
+                "org": "ballerina",
+                "module": "data.jsondata",
+                "symbol": "parseAsType",
+                "version": "0.2.0",
+                "id": 0
               },
               "enabled": true
             },
             {
               "metadata": {
-                "label": "utcFromCivil",
-                "description": "Converts a given `Civil` value to an `Utc` timestamp.\n```ballerina\ntime:Civil civil = time:utcToCivil(time:utcNow());\ntime:Utc utc = time:utcFromCivil(civil);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
+                "label": "parseString",
+                "description": "Converts JSON string to subtype of anydata.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
               },
               "codedata": {
                 "node": "FUNCTION_CALL",
                 "org": "ballerina",
-                "module": "time",
-                "symbol": "utcFromCivil",
-                "version": "2.5.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "civilFromString",
-                "description": "Converts a given RFC 3339 timestamp(e.g., `2007-12-03T10:15:30.00Z`) to `time:Civil`.\n```ballerina\ntime:Civil|time:Error civil1 = time:civilFromString(\"2021-04-12T23:20:50.520+05:30[Asia/Colombo]\");\ntime:Civil|time:Error civil2 = time:civilFromString(\"2007-12-03T10:15:30.00Z\");\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "civilFromString",
-                "version": "2.5.0"
-              },
-              "enabled": true
-            },
-            {
-              "metadata": {
-                "label": "civilToString",
-                "description": "Obtain a RFC 3339 timestamp (e.g., `2021-03-05T00:33:28.839564+05:30`) from a given `time:Civil`.\n```ballerina\ntime:Civil civil = check time:civilFromString(\"2007-12-03T10:15:30.00Z\");\nstring|time:Error civilString = time:civilToString(civil);\n```",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_time_2.5.0.png"
-              },
-              "codedata": {
-                "node": "FUNCTION_CALL",
-                "org": "ballerina",
-                "module": "time",
-                "symbol": "civilToString",
-                "version": "2.5.0"
+                "module": "data.jsondata",
+                "symbol": "parseString",
+                "version": "0.2.0",
+                "id": 0
               },
               "enabled": true
             }
