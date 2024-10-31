@@ -67,6 +67,8 @@ public class IndexGenerator {
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
 
+    private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
+
     private static final Gson gson = new Gson();
 
     public static void main(String[] args) {
@@ -78,9 +80,9 @@ public class IndexGenerator {
         try (FileReader reader = new FileReader(PackageListGenerator.PACKAGE_JSON_PATH)) {
             Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader, typeToken);
             List<PackageListGenerator.PackageMetadataInfo> ballerinaPackages = packagesMap.get("ballerina");
-            resolvePackage(buildProject, "ballerina", ballerinaPackages.get(0));
+            ballerinaPackages.forEach(ballerinaPackage -> resolvePackage(buildProject, "ballerina", ballerinaPackage));
         } catch (IOException e) {
-            Logger.getGlobal().severe("Error reading packages JSON file: " + e.getMessage());
+            LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
     }
 
@@ -106,10 +108,11 @@ public class IndexGenerator {
         Package resolvedPackage = balaProject.currentPackage();
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
+        LOGGER.info("Processing package: " + descriptor.name().value());
         int packageId = DatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
                 descriptor.version().value().toString(), resolvedPackage.manifest().keywords());
         if (packageId == -1) {
-            Logger.getGlobal().severe("Error inserting package to database: " + descriptor.name().value());
+            LOGGER.severe("Error inserting package to database: " + descriptor.name().value());
             return;
         }
 
@@ -118,7 +121,7 @@ public class IndexGenerator {
             semanticModel =
                     resolvedPackage.getCompilation().getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
         } catch (Exception e) {
-            Logger.getGlobal().severe("Error reading semantic model: " + e.getMessage());
+            LOGGER.severe("Error reading semantic model: " + e.getMessage());
             return;
         }
 

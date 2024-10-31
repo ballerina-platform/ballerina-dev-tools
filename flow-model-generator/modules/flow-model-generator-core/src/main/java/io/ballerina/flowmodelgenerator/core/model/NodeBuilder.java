@@ -113,8 +113,6 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
     protected FlowNode cachedFlowNode;
     protected String defaultModuleName;
 
-    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
-
     private static final Map<NodeKind, Supplier<? extends NodeBuilder>> CONSTRUCTOR_MAP = new HashMap<>() {{
         put(NodeKind.IF, If::new);
         put(NodeKind.RETURN, Return::new);
@@ -217,7 +215,7 @@ public abstract class NodeBuilder implements DiagnosticHandler.DiagnosticCapable
         String packageName = moduleId.packageName();
         String versionName = moduleId.version();
 
-        metadata().icon(String.format(CENTRAL_ICON_URL, orgName, packageName, versionName));
+        metadata().icon(CommonUtils.generateIcon(orgName, packageName, versionName));
         codedata()
                 .org(orgName)
                 .module(packageName)

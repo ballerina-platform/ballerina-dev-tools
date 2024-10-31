@@ -83,7 +83,7 @@ public class DatabaseManager {
 
     public static int insertPackage(String org, String name, String version, List<String> keywords) {
         String sql = "INSERT INTO Package (org, name, version, keywords) VALUES (?, ?, ?, ?)";
-        return insertEntry(sql, new Object[]{org, name, version, String.join(",", keywords)});
+        return insertEntry(sql, new Object[]{org, name, version, keywords == null ? "" : String.join(",", keywords)});
     }
 
     public static int insertFunction(int packageId, String name, String description, String returnType, String kind) {

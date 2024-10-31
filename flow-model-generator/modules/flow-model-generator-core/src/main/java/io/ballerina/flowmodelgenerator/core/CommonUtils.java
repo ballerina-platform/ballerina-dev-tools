@@ -62,6 +62,8 @@ import java.util.Optional;
  */
 public class CommonUtils {
 
+    private static final String CENTRAL_ICON_URL = "https://bcentral-packageicons.azureedge.net/images/%s_%s_%s.png";
+
     /**
      * Removes the quotes from the given string.
      *
@@ -328,7 +330,6 @@ public class CommonUtils {
         return project.currentPackage().getDefaultModule().document(documentId);
     }
 
-
     /***
      * Check whether the given line range is within a do clause.
      *
@@ -356,5 +357,9 @@ public class CommonUtils {
         } catch (Throwable t) {
             return false;
         }
+    }
+
+    public static String generateIcon(String orgName, String packageName, String versionName) {
+        return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
     }
 }
