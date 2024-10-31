@@ -74,7 +74,7 @@ public class ConnectorGenerator {
                     .module(connectorResult.packageName())
                     .object(NewConnection.CLIENT_SYMBOL)
                     .symbol(NewConnection.INIT_SYMBOL)
-                    .id(String.valueOf(connectorResult.functionId()))
+                    .id(connectorResult.functionId())
                     .build();
             connectors.add(new AvailableNode(metadata, codedata, true));
         }

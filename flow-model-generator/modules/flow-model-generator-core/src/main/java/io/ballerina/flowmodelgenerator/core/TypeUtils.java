@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core;
 
 import com.google.gson.Gson;
+import io.ballerina.flowmodelgenerator.core.model.node.NewConnection;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.diagramutil.connector.models.connector.types.ArrayType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.EnumType;
@@ -32,6 +33,7 @@ import org.ballerinalang.diagramutil.connector.models.connector.types.StreamType
 import org.ballerinalang.diagramutil.connector.models.connector.types.TableType;
 import org.ballerinalang.diagramutil.connector.models.connector.types.UnionType;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TypeUtils {
@@ -84,6 +86,18 @@ public class TypeUtils {
             }
             default -> type.getTypeName();
         };
+    }
+
+    public static String getClientType(String importPrefix, Type returnType) {
+        String clientType = String.format("%s:%s", importPrefix, NewConnection.CLIENT_SYMBOL);
+        if (!returnType.getTypeName().equals(UNION_TYPE)) {
+            return clientType;
+        }
+        UnionType unionType = (UnionType) returnType;
+        Optional<Type> errorType = unionType.members.stream()
+                .filter(member -> member.getTypeName().equals(ERROR_TYPE))
+                .findFirst();
+        return errorType.map(type -> clientType + "|" + type.getTypeName()).orElse(clientType);
     }
 
     public static boolean isReturnNil(String typeName) {

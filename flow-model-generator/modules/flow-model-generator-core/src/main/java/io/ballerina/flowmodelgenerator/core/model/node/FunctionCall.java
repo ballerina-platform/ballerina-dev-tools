@@ -137,15 +137,15 @@ public class FunctionCall extends NodeBuilder {
                 .symbol(codedata.symbol());
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
-        for (ParameterResult parameterResult : functionParameters) {
-            Type type = gson.fromJson(parameterResult.type(), Type.class);
+        for (ParameterResult paramResult : functionParameters) {
+            Type type = gson.fromJson(paramResult.type(), Type.class);
             String typeName = type.getTypeName();
             String defaultValue = type.getDefaultValue();
             String placeholder = defaultValue != null ? escapeDefaultValue(defaultValue) :
                     CommonUtils.getDefaultValueForType(typeName);
-            properties().custom(parameterResult.name(), parameterResult.name(), parameterResult.description(),
-                    Property.ValueType.EXPRESSION, parameterResult.type(), "",
-                    parameterResult.kind() == ParameterKind.DEFAULTABLE);
+            properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                    Property.ValueType.EXPRESSION, paramResult.type(), "",
+                    paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
         Type returnType = TypeUtils.fromString(function.returnType());

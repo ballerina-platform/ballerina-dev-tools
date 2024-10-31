@@ -183,6 +183,41 @@ public class DatabaseManager {
         }
     }
 
+    public Optional<FunctionResult> getFunction(int functionId) {
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name AS function_name, " +
+                "f.description AS function_description, " +
+                "f.return_type, " +
+                "p.name AS package_name, " +
+                "p.org, " +
+                "p.version " +
+                "FROM Function f " +
+                "JOIN Package p ON f.package_id = p.package_id " +
+                "WHERE f.function_id = ?;";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, functionId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(new FunctionResult(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("function_description"),
+                        rs.getString("return_type"),
+                        rs.getString("package_name"),
+                        rs.getString("org"),
+                        rs.getString("version")
+                ));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     public List<ParameterResult> getFunctionParameters(int functionId) {
         String sql = "SELECT " +
                 "p.parameter_id, " +

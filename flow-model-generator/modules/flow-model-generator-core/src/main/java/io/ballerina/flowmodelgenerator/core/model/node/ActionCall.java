@@ -96,9 +96,10 @@ public class ActionCall extends NodeBuilder {
             return null;
         }
 
-        ConnectorResponse connector = codedata.id() != null ? RemoteCentral.getInstance().connector(codedata.id()) :
-                RemoteCentral.getInstance()
-                        .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
+        ConnectorResponse connector =
+                codedata.id() > 0 ? RemoteCentral.getInstance().connector(String.valueOf(codedata.id())) :
+                        RemoteCentral.getInstance()
+                                .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
 
         if (connector == null) {
             return null;
