@@ -249,4 +249,38 @@ public class DatabaseManager {
         }
     }
 
+    public List<FunctionResult> getConnectorActions(int connectorId) {
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name AS function_name, " +
+                "f.description, " +
+                "f.kind, " +
+                "f.return_type " +
+                "FROM Function f " +
+                "JOIN FunctionConnector fc ON f.function_id = fc.function_id " +
+                "WHERE fc.connector_id = ?;";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, connectorId);
+            ResultSet rs = stmt.executeQuery();
+            List<FunctionResult> functionResults = new ArrayList<>();
+            while (rs.next()) {
+                FunctionResult functionResult = new FunctionResult(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("description"),
+                        rs.getString("return_type"),
+                        null, // packageName is not selected in this query
+                        null, // org is not selected in this query
+                        null  // version is not selected in this query
+                );
+                functionResults.add(functionResult);
+            }
+            return functionResults;
+        } catch (SQLException e) {
+            LOGGER.severe("Error executing query: " + e.getMessage());
+            return List.of();
+        }
+    }
 }

@@ -34,9 +34,9 @@ import io.ballerina.compiler.syntax.tree.ModulePartNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
-import io.ballerina.flowmodelgenerator.core.central.ConnectorResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
+import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
+import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.model.AvailableNode;
 import io.ballerina.flowmodelgenerator.core.model.Category;
 import io.ballerina.flowmodelgenerator.core.model.Codedata;
@@ -213,11 +213,7 @@ public class AvailableNodesGenerator {
                     .object("Client")
                     .symbol("init")
                     .build();
-            List<Item> connections = LocalIndexCentral.getInstance().getConnectorActions(codedata);
-
-            if (connections == null) {
-                connections = fetchConnections(codedata);
-            }
+            List<Item> connections = fetchConnections(codedata);
 
             Metadata metadata = new Metadata.Builder<>(null)
                     .label(symbol.getName().orElseThrow())
@@ -229,30 +225,36 @@ public class AvailableNodesGenerator {
     }
 
     private static List<Item> fetchConnections(Codedata codedata) {
-        List<Item> connectorActions = new ArrayList<>();
-        ConnectorResponse connector = RemoteCentral.getInstance()
-                .connector(codedata.org(), codedata.module(), codedata.version(), codedata.object());
-        for (ConnectorResponse.Function function : connector.functions()) {
-            if (function.name().equals(NewConnection.INIT_SYMBOL)) {
-                continue;
-            }
+        DatabaseManager dbManager = new DatabaseManager();
+        Optional<FunctionResult> connectorResult =
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.CONNECTOR);
+        if (connectorResult.isEmpty()) {
+            return List.of();
+        }
+
+        FunctionResult connector = connectorResult.get();
+        List<FunctionResult> connectorActions = dbManager.getConnectorActions(connector.functionId());
+
+        List<Item> availableNodes = new ArrayList<>();
+        for (FunctionResult connectorAction : connectorActions) {
             NodeBuilder actionBuilder = NodeBuilder.getNodeFromKind(NodeKind.ACTION_CALL);
             actionBuilder
                     .metadata()
-                        .label(function.name())
-                        .icon(connector.icon())
-                        .description(function.documentation())
+                        .label(connectorAction.name())
+                        .icon(CommonUtils.generateIcon(connector.org(), connector.packageName(), connector.version()))
+                        .description(connectorAction.description())
                         .stepOut()
                     .codedata()
                         .node(NodeKind.ACTION_CALL)
-                        .org(codedata.org())
-                        .module(codedata.module())
-                        .object(codedata.object())
-                        .id(connector.id())
-                        .symbol(function.name());
-            connectorActions.add(actionBuilder.buildAvailableNode());
+                        .org(connector.org())
+                        .module(connector.packageName())
+                        .object(NewConnection.CLIENT_SYMBOL)
+                        .symbol(connectorAction.name())
+                        .id(connectorAction.functionId());
+            availableNodes.add(actionBuilder.buildAvailableNode());
         }
-        return connectorActions;
+        return availableNodes;
     }
 
 }

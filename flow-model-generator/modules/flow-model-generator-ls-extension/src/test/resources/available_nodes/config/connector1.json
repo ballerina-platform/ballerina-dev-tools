@@ -20,225 +20,416 @@
             {
               "metadata": {
                 "label": "post",
-                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP POST requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "post"
+                "symbol": "post",
+                "id": 2
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "post",
+                "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "post",
+                "id": 3
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "put",
-                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP PUT requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "put"
+                "symbol": "put",
+                "id": 4
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "put",
+                "description": "The `Client.put()` function can be used to send HTTP PUT requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "put",
+                "id": 5
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "patch",
-                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP PATCH requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "patch"
+                "symbol": "patch",
+                "id": 6
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "patch",
+                "description": "The `Client.patch()` function can be used to send HTTP PATCH requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "patch",
+                "id": 7
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "delete",
-                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP DELETE requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "delete"
+                "symbol": "delete",
+                "id": 8
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "delete",
+                "description": "The `Client.delete()` function can be used to send HTTP DELETE requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "delete",
+                "id": 9
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "head",
-                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP HEAD requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "head"
+                "symbol": "head",
+                "id": 10
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "head",
+                "description": "The `Client.head()` function can be used to send HTTP HEAD requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "head",
+                "id": 11
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "get",
-                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "get"
+                "symbol": "get",
+                "id": 12
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "get",
+                "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "get",
+                "id": 13
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "options",
-                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The client resource function to send HTTP OPTIONS requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "options"
+                "symbol": "options",
+                "id": 14
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "options",
+                "description": "The `Client.options()` function can be used to send HTTP OPTIONS requests to HTTP endpoints.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "options",
+                "id": 15
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "execute",
-                "description": "Invokes an HTTP call with the specified HTTP verb.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Invokes an HTTP call with the specified HTTP verb.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "execute"
+                "symbol": "execute",
+                "id": 16
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "forward",
-                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "The `Client.forward()` function can be used to invoke an HTTP call with inbound request's HTTP verb\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "forward"
+                "symbol": "forward",
+                "id": 17
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "submit",
-                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Submits an HTTP request to a service with the specified HTTP verb.\nThe `Client->submit()` function does not give out a `http:Response` as the result.\nRather it returns an `http:HttpFuture` which can be used to do further interactions with the endpoint.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "submit"
+                "symbol": "submit",
+                "id": 18
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getResponse",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getResponse"
+                "symbol": "getResponse",
+                "id": 19
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "hasPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "hasPromise"
+                "symbol": "hasPromise",
+                "id": 20
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getNextPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getNextPromise"
+                "symbol": "getNextPromise",
+                "id": 21
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "getPromisedResponse",
-                "description": "Passes the request to an actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "Passes the request to an actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "getPromisedResponse"
+                "symbol": "getPromisedResponse",
+                "id": 22
               },
               "enabled": true
             },
             {
               "metadata": {
                 "label": "rejectPromise",
-                "description": "This just pass the request to actual network call.\n\n",
-                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                "description": "This just pass the request to actual network call.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
               },
               "codedata": {
                 "node": "ACTION_CALL",
                 "org": "ballerina",
                 "module": "http",
                 "object": "Client",
-                "symbol": "rejectPromise"
+                "symbol": "rejectPromise",
+                "id": 23
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getCookieStore",
+                "description": "Retrieves the cookie store of the client.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getCookieStore",
+                "id": 24
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "circuitBreakerForceClose",
+                "description": "The circuit breaker client related method to force the circuit into a closed state in which it will allow\nrequests regardless of the error percentage until the failure threshold exceeds.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "circuitBreakerForceClose",
+                "id": 25
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "circuitBreakerForceOpen",
+                "description": "The circuit breaker client related method to force the circuit into a open state in which it will suspend all\nrequests until `resetTime` interval exceeds.",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "circuitBreakerForceOpen",
+                "id": 26
+              },
+              "enabled": true
+            },
+            {
+              "metadata": {
+                "label": "getCircuitBreakerCurrentState",
+                "description": "The circuit breaker client related method to provides the `http:CircuitState` of the circuit breaker.\n",
+                "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+              },
+              "codedata": {
+                "node": "ACTION_CALL",
+                "org": "ballerina",
+                "module": "http",
+                "object": "Client",
+                "symbol": "getCircuitBreakerCurrentState",
+                "id": 27
               },
               "enabled": true
             }
@@ -257,7 +448,8 @@
             "label": "Variable"
           },
           "codedata": {
-            "node": "VARIABLE"
+            "node": "VARIABLE",
+            "id": 0
           },
           "enabled": true
         },
@@ -267,7 +459,8 @@
             "description": "Assign a value to a variable"
           },
           "codedata": {
-            "node": "ASSIGN"
+            "node": "ASSIGN",
+            "id": 0
           },
           "enabled": true
         },
@@ -277,7 +470,8 @@
             "description": "Both project and utility functions"
           },
           "codedata": {
-            "node": "FUNCTION"
+            "node": "FUNCTION",
+            "id": 0
           },
           "enabled": true
         },
@@ -287,7 +481,8 @@
             "description": "Map data from multiple variables to a record type"
           },
           "codedata": {
-            "node": "DATA_MAPPER"
+            "node": "DATA_MAPPER",
+            "id": 0
           },
           "enabled": true
         }
@@ -305,7 +500,8 @@
             "description": "Add conditional branch to the integration flow."
           },
           "codedata": {
-            "node": "IF"
+            "node": "IF",
+            "id": 0
           },
           "enabled": true
         },
@@ -315,7 +511,8 @@
             "description": "Switches the data flow based on the value of an expression."
           },
           "codedata": {
-            "node": "MATCH"
+            "node": "MATCH",
+            "id": 0
           },
           "enabled": true
         },
@@ -325,7 +522,8 @@
             "description": "Loop over a block of code."
           },
           "codedata": {
-            "node": "WHILE"
+            "node": "WHILE",
+            "id": 0
           },
           "enabled": true
         },
@@ -335,7 +533,8 @@
             "description": "Iterate over a block of code."
           },
           "codedata": {
-            "node": "FOREACH"
+            "node": "FOREACH",
+            "id": 0
           },
           "enabled": true
         },
@@ -344,7 +543,8 @@
             "label": "Return"
           },
           "codedata": {
-            "node": "RETURN"
+            "node": "RETURN",
+            "id": 0
           },
           "enabled": true
         },
@@ -354,7 +554,8 @@
             "description": "Stop the flow"
           },
           "codedata": {
-            "node": "STOP"
+            "node": "STOP",
+            "id": 0
           },
           "enabled": true
         }
@@ -372,7 +573,8 @@
             "description": "Fail the execution"
           },
           "codedata": {
-            "node": "FAIL"
+            "node": "FAIL",
+            "id": 0
           },
           "enabled": true
         },
@@ -382,7 +584,8 @@
             "description": "Panic and stop the execution"
           },
           "codedata": {
-            "node": "PANIC"
+            "node": "PANIC",
+            "id": 0
           },
           "enabled": true
         }
@@ -404,7 +607,8 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printInfo",
-            "version": "2.10.0"
+            "version": "2.10.0",
+            "id": 0
           },
           "enabled": true
         },
@@ -419,7 +623,8 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printError",
-            "version": "2.10.0"
+            "version": "2.10.0",
+            "id": 0
           },
           "enabled": true
         },
@@ -434,7 +639,8 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printWarn",
-            "version": "2.10.0"
+            "version": "2.10.0",
+            "id": 0
           },
           "enabled": true
         },
@@ -449,7 +655,8 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printDebug",
-            "version": "2.10.0"
+            "version": "2.10.0",
+            "id": 0
           },
           "enabled": true
         }
