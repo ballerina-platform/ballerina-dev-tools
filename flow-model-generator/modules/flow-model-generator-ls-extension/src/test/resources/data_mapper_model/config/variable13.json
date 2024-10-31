@@ -1,5 +1,5 @@
 {
-  "source": "variable4.bal",
+  "source": "variable6.bal",
   "description": "Sample diagram node",
   "diagram": {
     "id": "32874",
@@ -10,7 +10,7 @@
     "codedata": {
       "node": "VARIABLE",
       "lineRange": {
-        "fileName": "variable4.bal",
+        "fileName": "variable6.bal",
         "startLine": {
           "line": 0,
           "offset": 0
@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "{username: userInfo.username, password: userInfo.password + userInfo.username, length: 41}",
+        "value": "userInfo",
         "optional": false,
         "editable": true
       },
@@ -40,7 +40,7 @@
           "description": "Name of the variable"
         },
         "valueType": "IDENTIFIER",
-        "value": "student",
+        "value": "credentials",
         "optional": false,
         "editable": true
       },
@@ -50,7 +50,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "Student",
+        "value": "Credentials",
         "optional": false,
         "editable": true
       }
@@ -59,7 +59,7 @@
   },
   "propertyKey": "expression",
   "position": {
-    "line": 19,
+    "line": 18,
     "offset": 65
   },
   "model": {
@@ -134,7 +134,7 @@
     "output": {
       "fields": [
         {
-          "id": "student.username",
+          "id": "credentials.username",
           "type": {
             "name": "username",
             "typeName": "string",
@@ -144,7 +144,7 @@
           }
         },
         {
-          "id": "student.password",
+          "id": "credentials.password",
           "type": {
             "name": "password",
             "typeName": "string",
@@ -152,19 +152,9 @@
             "defaultable": false,
             "isRestType": false
           }
-        },
-        {
-          "id": "student.length",
-          "type": {
-            "name": "length",
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
-          }
         }
       ],
-      "id": "student",
+      "id": "credentials",
       "type": {
         "fields": [
           {
@@ -180,21 +170,14 @@
             "optional": false,
             "defaultable": false,
             "isRestType": false
-          },
-          {
-            "name": "length",
-            "typeName": "int",
-            "optional": false,
-            "defaultable": false,
-            "isRestType": false
           }
         ],
         "hasRestType": false,
-        "name": "Student",
+        "name": "Credentials",
         "typeName": "record",
         "optional": false,
         "typeInfo": {
-          "name": "Student",
+          "name": "Credentials",
           "orgName": "$anon",
           "moduleName": ".",
           "version": "0.0.0"
@@ -205,26 +188,11 @@
     },
     "mappings": [
       {
-        "output": "student.username",
+        "output": "credentials",
         "inputs": [
-          "userInfo.username"
+          "userInfo"
         ],
-        "expression": "userInfo.username",
-        "diagnostics": []
-      },
-      {
-        "output": "student.password",
-        "inputs": [
-          "userInfo.password",
-          "userInfo.username"
-        ],
-        "expression": "userInfo.password + userInfo.username",
-        "diagnostics": []
-      },
-      {
-        "output": "student.length",
-        "inputs": [],
-        "expression": "41",
+        "expression": "userInfo",
         "diagnostics": []
       }
     ]

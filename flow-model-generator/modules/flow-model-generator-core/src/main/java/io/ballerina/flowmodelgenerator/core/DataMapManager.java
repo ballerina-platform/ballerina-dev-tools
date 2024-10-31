@@ -25,19 +25,17 @@ import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
-import io.ballerina.compiler.api.symbols.RecordTypeSymbol;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
-import io.ballerina.compiler.api.symbols.TypeDescKind;
-import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
-import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.VariableSymbol;
 import io.ballerina.compiler.syntax.tree.BinaryExpressionNode;
 import io.ballerina.compiler.syntax.tree.ExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingConstructorExpressionNode;
 import io.ballerina.compiler.syntax.tree.MappingFieldNode;
+import io.ballerina.compiler.syntax.tree.MethodCallExpressionNode;
 import io.ballerina.compiler.syntax.tree.Node;
 import io.ballerina.compiler.syntax.tree.NonTerminalNode;
+import io.ballerina.compiler.syntax.tree.SimpleNameReferenceNode;
 import io.ballerina.compiler.syntax.tree.SpecificFieldNode;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.compiler.syntax.tree.VariableDeclarationNode;
@@ -170,9 +168,11 @@ public class DataMapManager {
                     if (optSymbolName.isPresent()) {
                         String symbolName = optSymbolName.get();
                         Type type = Type.fromSemanticSymbol(symbol);
-                        output = getMappingType(symbolName, type);
-                        generateDataMappingForVariableDecl((VariableDeclarationNode) stNode, newSemanticModel,
-                                mappings, (VariableSymbol) symbol, symbolName);
+                        if (type.getTypeName().equals("record")) {
+                            output = getMappingType(symbolName, type);
+                            generateRecordVariableDataMapping((VariableDeclarationNode) stNode, mappings, symbolName,
+                                    newSemanticModel);
+                        }
                     }
                 }
             }
@@ -180,21 +180,23 @@ public class DataMapManager {
         return gson.toJsonTree(new Model(inputTypes, output, mappings));
     }
 
-    private void generateDataMappingForVariableDecl(VariableDeclarationNode varDecl, SemanticModel semanticModel,
-                                                    List<Mapping> mappings, VariableSymbol varSymbol, String name) {
-        RecordTypeSymbol recordType = getRecordType((varSymbol).typeDescriptor());
-        if (recordType == null) {
-            return;
-        }
+    private void generateRecordVariableDataMapping(VariableDeclarationNode varDecl, List<Mapping> mappings,
+                                                   String name, SemanticModel semanticModel) {
         Optional<ExpressionNode> optInitializer = varDecl.initializer();
         if (optInitializer.isEmpty()) {
             return;
         }
         ExpressionNode expressionNode = optInitializer.get();
-        if (expressionNode.kind() != SyntaxKind.MAPPING_CONSTRUCTOR) {
-            return;
+        SyntaxKind exprKind = expressionNode.kind();
+        if (exprKind == SyntaxKind.MAPPING_CONSTRUCTOR) {
+            genMapping((MappingConstructorExpressionNode) expressionNode, mappings, name, semanticModel);
+        } else if (exprKind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
+            genMapping((SimpleNameReferenceNode) expressionNode, mappings, name, semanticModel);
         }
-        MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) expressionNode;
+    }
+
+    private void genMapping(MappingConstructorExpressionNode mappingCtrExpr, List<Mapping> mappings, String name,
+                            SemanticModel semanticModel) {
         for (MappingFieldNode field : mappingCtrExpr.fields()) {
             if (field.kind() == SyntaxKind.SPECIFIC_FIELD) {
                 SpecificFieldNode f = (SpecificFieldNode) field;
@@ -203,35 +205,51 @@ public class DataMapManager {
                     continue;
                 }
                 ExpressionNode fieldExpr = optFieldExpr.get();
-                List<String> inputs = new ArrayList<>();
-                genInputs(fieldExpr, inputs);
-                Mapping mapping = new Mapping(name + "." + f.fieldName(), inputs,
-                        fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel));
-                mappings.add(mapping);
+                if (fieldExpr.kind() == SyntaxKind.MAPPING_CONSTRUCTOR) {
+                    genMapping((MappingConstructorExpressionNode) fieldExpr, mappings, name + "." + f.fieldName(),
+                            semanticModel);
+                } else {
+                    List<String> inputs = new ArrayList<>();
+                    genInputs(fieldExpr, inputs);
+                    Mapping mapping = new Mapping(name + "." + f.fieldName(), inputs,
+                            fieldExpr.toSourceCode(), getDiagnostics(fieldExpr.lineRange(), semanticModel));
+                    mappings.add(mapping);
+                }
             }
         }
     }
 
-    private RecordTypeSymbol getRecordType(TypeSymbol typeSymbol) {
-        TypeDescKind kind = typeSymbol.typeKind();
-        if (kind == TypeDescKind.RECORD) {
-            return (RecordTypeSymbol) typeSymbol;
-        }
-        if (kind == TypeDescKind.TYPE_REFERENCE) {
-            return getRecordType(((TypeReferenceTypeSymbol) typeSymbol).typeDescriptor());
-        }
-        return null;
+    private void genMapping(SimpleNameReferenceNode varRef, List<Mapping> mappings, String name,
+                            SemanticModel semanticModel) {
+        List<String> inputs = new ArrayList<>();
+        genInputs(varRef, inputs);
+        Mapping mapping = new Mapping(name, inputs, varRef.toSourceCode(),
+                getDiagnostics(varRef.lineRange(), semanticModel));
+        mappings.add(mapping);
     }
 
     private void genInputs(Node expr, List<String> inputs) {
         SyntaxKind kind = expr.kind();
-        if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE ||
-                kind == SyntaxKind.NUMERIC_LITERAL) {
+        if (kind == SyntaxKind.FIELD_ACCESS || kind == SyntaxKind.SIMPLE_NAME_REFERENCE) {
             inputs.add(expr.toSourceCode().trim());
         } else if (kind == SyntaxKind.BINARY_EXPRESSION) {
             BinaryExpressionNode binaryExpr = (BinaryExpressionNode) expr;
             genInputs(binaryExpr.lhsExpr(), inputs);
             genInputs(binaryExpr.rhsExpr(), inputs);
+        } else if (kind == SyntaxKind.METHOD_CALL) {
+            MethodCallExpressionNode methodCallExpr = (MethodCallExpressionNode) expr;
+            genInputs(methodCallExpr.expression(), inputs);
+        } else if (kind == SyntaxKind.MAPPING_CONSTRUCTOR) {
+            MappingConstructorExpressionNode mappingCtrExpr = (MappingConstructorExpressionNode) expr;
+            for (MappingFieldNode field : mappingCtrExpr.fields()) {
+                SyntaxKind fieldKind = field.kind();
+                if (fieldKind == SyntaxKind.SPECIFIC_FIELD) {
+                    Optional<ExpressionNode> optFieldExpr = ((SpecificFieldNode) field).valueExpr();
+                    optFieldExpr.ifPresent(expressionNode -> genInputs(expressionNode, inputs));
+                } else {
+                    genInputs(field, inputs);
+                }
+            }
         }
     }
 

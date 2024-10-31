@@ -30,7 +30,7 @@
           "description": "Expression"
         },
         "valueType": "EXPRESSION",
-        "value": "{username: userInfo.username, password: userInfo.password + userInfo.username, length: 41}",
+        "value": "{username: userInfo.username, password: userInfo.password + userInfo.username, length: userInfo.password.length() + userInfo.username.length()}",
         "optional": false,
         "editable": true
       },
@@ -223,8 +223,11 @@
       },
       {
         "output": "student.length",
-        "inputs": [],
-        "expression": "41",
+        "inputs": [
+          "userInfo.password",
+          "userInfo.username"
+        ],
+        "expression": "userInfo.password.length() + userInfo.username.length()",
         "diagnostics": []
       }
     ]
