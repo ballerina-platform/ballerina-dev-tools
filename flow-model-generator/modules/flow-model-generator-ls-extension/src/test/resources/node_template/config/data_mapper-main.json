@@ -15,7 +15,8 @@
       "description": "Map data from multiple variables to a record type"
     },
     "codedata": {
-      "node": "DATA_MAPPER"
+      "node": "DATA_MAPPER",
+      "id": 0
     },
     "returning": false,
     "properties": {

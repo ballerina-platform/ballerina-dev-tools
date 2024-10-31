@@ -19,7 +19,8 @@
       "org": "ballerina",
       "module": "data.jsondata",
       "symbol": "toJson",
-      "version": "0.2.0"
+      "version": "0.2.0",
+      "id": 0
     },
     "returning": false,
     "properties": {
@@ -29,7 +30,7 @@
           "description": "Source anydata value"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"typeName\":\"anydata\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "anydata",
         "value": "",
         "optional": false,
         "editable": true
@@ -40,7 +41,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json|error",
+        "value": "json|data.jsondata:Error",
         "optional": false,
         "editable": true
       },

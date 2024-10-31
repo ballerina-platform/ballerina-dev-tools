@@ -16,7 +16,8 @@
     },
     "codedata": {
       "node": "FUNCTION_CALL",
-      "symbol": "fn"
+      "symbol": "fn",
+      "id": 0
     },
     "returning": false,
     "properties": {

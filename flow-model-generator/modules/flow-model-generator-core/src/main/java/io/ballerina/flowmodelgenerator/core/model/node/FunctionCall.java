@@ -44,7 +44,6 @@ import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.Project;
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.ballerinalang.langserver.common.utils.DefaultValueGenerationUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
@@ -138,19 +137,13 @@ public class FunctionCall extends NodeBuilder {
 
         List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
         for (ParameterResult paramResult : functionParameters) {
-            Type type = gson.fromJson(paramResult.type(), Type.class);
-            String typeName = type.getTypeName();
-            String defaultValue = type.getDefaultValue();
-            String placeholder = defaultValue != null ? escapeDefaultValue(defaultValue) :
-                    CommonUtils.getDefaultValueForType(typeName);
             properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
                     Property.ValueType.EXPRESSION, paramResult.type(), "",
                     paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        Type returnType = TypeUtils.fromString(function.returnType());
-        if (!TypeUtils.isReturnNil(returnType.getTypeName())) {
-            properties().type(TypeUtils.getTypeSignature(returnType)).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            properties().type(function.returnType()).data(null);
         }
     }
 

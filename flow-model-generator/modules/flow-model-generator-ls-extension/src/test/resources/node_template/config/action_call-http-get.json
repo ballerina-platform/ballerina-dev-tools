@@ -7,14 +7,13 @@
     "object": "Client",
     "symbol": "get",
     "version": "2.12.0",
-    "parentSymbol": "httpClient",
-    "id": 13
+    "parentSymbol": "httpClient"
   },
   "output": {
     "id": "31",
     "metadata": {
       "label": "get",
-      "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+      "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
       "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
     },
     "codedata": {
@@ -23,30 +22,30 @@
       "module": "http",
       "object": "Client",
       "symbol": "get",
-      "id": 13
+      "id": 3088
     },
     "returning": false,
     "properties": {
-      "path": {
-        "metadata": {
-          "label": "path",
-          "description": "Request path"
-        },
-        "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
-        "value": "",
-        "optional": false,
-        "editable": true
-      },
       "headers": {
         "metadata": {
           "label": "headers",
           "description": "The entity headers"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"members\":[{\"paramType\":{\"members\":[{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"memberType\":{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},\"typeName\":\"map\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "map<string|string[]>|()",
         "value": "",
         "optional": true,
+        "editable": true
+      },
+      "params": {
+        "metadata": {
+          "label": "params",
+          "description": "The query parameters"
+        },
+        "valueType": "EXPRESSION",
+        "valueTypeConstraint": "http:QueryParams",
+        "value": "",
+        "optional": false,
         "editable": true
       },
       "type": {
@@ -55,7 +54,7 @@
           "description": "Type of the variable"
         },
         "valueType": "TYPE",
-        "value": "json|error",
+        "value": "http:targetType|http:ClientError",
         "optional": false,
         "editable": true
       },
@@ -71,8 +70,8 @@
       },
       "connection": {
         "metadata": {
-          "label": "http",
-          "description": ""
+          "label": "Connection",
+          "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
         "valueTypeConstraint": "http:Client",

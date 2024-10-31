@@ -104,7 +104,7 @@ public class TypeUtils {
         return errorType.map(type -> clientType + "|" + type.getTypeName()).orElse(clientType);
     }
 
-    public static boolean isReturnNil(String typeName) {
-        return typeName.equals("()");
+    public static boolean hasReturn(String typeName) {
+        return !typeName.equals("()");
     }
 }

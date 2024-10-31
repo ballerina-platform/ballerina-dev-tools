@@ -33,7 +33,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -103,7 +102,8 @@ public class ActionCall extends NodeBuilder {
         }
 
         DatabaseManager dbManager = new DatabaseManager();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(codedata.id());
+        Optional<FunctionResult> functionResult = codedata.id() > 0 ? dbManager.getFunction(codedata.id()) :
+                dbManager.getAction(codedata.org(), codedata.module(), codedata.symbol());
         if (functionResult.isEmpty()) {
             return null;
         }
@@ -127,22 +127,16 @@ public class ActionCall extends NodeBuilder {
             if (paramResult.name().equals(TypeUtils.TARGET_TYPE)) {
                 continue;
             }
-            Type type = gson.fromJson(paramResult.type(), Type.class);
-            String typeName = type.getTypeName();
-            String defaultValue = type.getDefaultValue();
-            String placeholder = defaultValue != null ? escapeDefaultValue(defaultValue) :
-                    CommonUtils.getDefaultValueForType(typeName);
             nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
                     Property.ValueType.EXPRESSION, paramResult.type(), "",
                     paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        Type returnType = TypeUtils.fromString(function.returnType());
-        if (!TypeUtils.isReturnNil(returnType.getTypeName())) {
-            nodeBuilder.properties().type(TypeUtils.getTypeSignature(returnType)).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
         }
 
-        nodeBuilder.properties().custom(Property.CONNECTION_KEY, function.packageName(), "",
+        nodeBuilder.properties().custom(Property.CONNECTION_KEY, Property.CONNECTION_LABEL, Property.CONNECTION_DOC,
                 Property.ValueType.EXPRESSION, function.packageName() + ":" + NewConnection.CLIENT_SYMBOL,
                 codedata.parentSymbol(), false);
         return nodeBuilder.build();

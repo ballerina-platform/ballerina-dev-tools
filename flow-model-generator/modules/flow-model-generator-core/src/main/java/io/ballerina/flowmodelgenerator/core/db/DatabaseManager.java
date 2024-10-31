@@ -183,6 +183,46 @@ public class DatabaseManager {
         }
     }
 
+    public Optional<FunctionResult> getAction(String org, String module, String symbol) {
+        String sql = "SELECT " +
+                "f.function_id, " +
+                "f.name AS function_name, " +
+                "f.description AS function_description, " +
+                "f.return_type, " +
+                "p.name AS package_name, " +
+                "p.org, " +
+                "p.version " +
+                "FROM Function f " +
+                "JOIN Package p ON f.package_id = p.package_id " +
+                "WHERE (f.kind = 'REMOTE' OR f.kind = 'RESOURCE') " +
+                "AND p.org = ? " +
+                "AND p.name = ? " +
+                "AND f.name = ?;";
+
+        try (Connection conn = DriverManager.getConnection(dbPath);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, org);
+            stmt.setString(2, module);
+            stmt.setString(3, symbol);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return Optional.of(new FunctionResult(
+                        rs.getInt("function_id"),
+                        rs.getString("function_name"),
+                        rs.getString("function_description"),
+                        rs.getString("return_type"),
+                        rs.getString("package_name"),
+                        rs.getString("org"),
+                        rs.getString("version")
+                ));
+            }
+            return Optional.empty();
+        } catch (SQLException e) {
+            Logger.getGlobal().severe("Error executing query: " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     public Optional<FunctionResult> getFunction(int functionId) {
         String sql = "SELECT " +
                 "f.function_id, " +

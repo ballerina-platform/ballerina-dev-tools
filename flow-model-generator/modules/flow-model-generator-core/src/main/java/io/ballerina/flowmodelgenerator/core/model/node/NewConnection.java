@@ -33,7 +33,6 @@ import io.ballerina.flowmodelgenerator.core.model.NodeBuilder;
 import io.ballerina.flowmodelgenerator.core.model.NodeKind;
 import io.ballerina.flowmodelgenerator.core.model.Property;
 import io.ballerina.flowmodelgenerator.core.model.SourceBuilder;
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
 import org.eclipse.lsp4j.TextEdit;
 
 import java.nio.file.Path;
@@ -102,7 +101,9 @@ public class NewConnection extends NodeBuilder {
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
         DatabaseManager dbManager = new DatabaseManager();
-        Optional<FunctionResult> functionResult = dbManager.getFunction(codedata.id());
+        Optional<FunctionResult> functionResult = codedata.id() > 0 ? dbManager.getFunction(codedata.id()) :
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.CONNECTOR);
         if (functionResult.isEmpty()) {
             return null;
         }
@@ -130,9 +131,8 @@ public class NewConnection extends NodeBuilder {
                     paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        Type returnType = TypeUtils.fromString(function.returnType());
-        if (!TypeUtils.isReturnNil(returnType.getTypeName())) {
-            nodeBuilder.properties().type(TypeUtils.getClientType(function.packageName(), returnType)).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
         }
         nodeBuilder.properties().scope(Property.GLOBAL_SCOPE);
         return nodeBuilder.build();

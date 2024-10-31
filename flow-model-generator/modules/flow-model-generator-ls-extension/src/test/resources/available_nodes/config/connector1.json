@@ -30,7 +30,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 2
+                "id": 3078
               },
               "enabled": true
             },
@@ -47,7 +47,7 @@
                 "object": "Client",
                 "symbol": "post",
                 "parentSymbol": "moduleClient",
-                "id": 3
+                "id": 3079
               },
               "enabled": true
             },
@@ -64,7 +64,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 4
+                "id": 3080
               },
               "enabled": true
             },
@@ -81,7 +81,7 @@
                 "object": "Client",
                 "symbol": "put",
                 "parentSymbol": "moduleClient",
-                "id": 5
+                "id": 3081
               },
               "enabled": true
             },
@@ -98,7 +98,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 6
+                "id": 3082
               },
               "enabled": true
             },
@@ -115,7 +115,7 @@
                 "object": "Client",
                 "symbol": "patch",
                 "parentSymbol": "moduleClient",
-                "id": 7
+                "id": 3083
               },
               "enabled": true
             },
@@ -132,7 +132,7 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "id": 8
+                "id": 3084
               },
               "enabled": true
             },
@@ -149,7 +149,7 @@
                 "object": "Client",
                 "symbol": "delete",
                 "parentSymbol": "moduleClient",
-                "id": 9
+                "id": 3085
               },
               "enabled": true
             },
@@ -166,7 +166,7 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "id": 10
+                "id": 3086
               },
               "enabled": true
             },
@@ -183,7 +183,7 @@
                 "object": "Client",
                 "symbol": "head",
                 "parentSymbol": "moduleClient",
-                "id": 11
+                "id": 3087
               },
               "enabled": true
             },
@@ -200,7 +200,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
-                "id": 12
+                "id": 3088
               },
               "enabled": true
             },
@@ -217,7 +217,7 @@
                 "object": "Client",
                 "symbol": "get",
                 "parentSymbol": "moduleClient",
-                "id": 13
+                "id": 3089
               },
               "enabled": true
             },
@@ -234,7 +234,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "id": 14
+                "id": 3090
               },
               "enabled": true
             },
@@ -251,7 +251,7 @@
                 "object": "Client",
                 "symbol": "options",
                 "parentSymbol": "moduleClient",
-                "id": 15
+                "id": 3091
               },
               "enabled": true
             },
@@ -268,7 +268,7 @@
                 "object": "Client",
                 "symbol": "execute",
                 "parentSymbol": "moduleClient",
-                "id": 16
+                "id": 3092
               },
               "enabled": true
             },
@@ -285,7 +285,7 @@
                 "object": "Client",
                 "symbol": "forward",
                 "parentSymbol": "moduleClient",
-                "id": 17
+                "id": 3093
               },
               "enabled": true
             },
@@ -302,7 +302,7 @@
                 "object": "Client",
                 "symbol": "submit",
                 "parentSymbol": "moduleClient",
-                "id": 18
+                "id": 3094
               },
               "enabled": true
             },
@@ -319,7 +319,7 @@
                 "object": "Client",
                 "symbol": "getResponse",
                 "parentSymbol": "moduleClient",
-                "id": 19
+                "id": 3095
               },
               "enabled": true
             },
@@ -336,7 +336,7 @@
                 "object": "Client",
                 "symbol": "hasPromise",
                 "parentSymbol": "moduleClient",
-                "id": 20
+                "id": 3096
               },
               "enabled": true
             },
@@ -353,7 +353,7 @@
                 "object": "Client",
                 "symbol": "getNextPromise",
                 "parentSymbol": "moduleClient",
-                "id": 21
+                "id": 3097
               },
               "enabled": true
             },
@@ -370,7 +370,7 @@
                 "object": "Client",
                 "symbol": "getPromisedResponse",
                 "parentSymbol": "moduleClient",
-                "id": 22
+                "id": 3098
               },
               "enabled": true
             },
@@ -387,7 +387,7 @@
                 "object": "Client",
                 "symbol": "rejectPromise",
                 "parentSymbol": "moduleClient",
-                "id": 23
+                "id": 3099
               },
               "enabled": true
             },
@@ -404,7 +404,7 @@
                 "object": "Client",
                 "symbol": "getCookieStore",
                 "parentSymbol": "moduleClient",
-                "id": 24
+                "id": 3100
               },
               "enabled": true
             },
@@ -421,7 +421,7 @@
                 "object": "Client",
                 "symbol": "circuitBreakerForceClose",
                 "parentSymbol": "moduleClient",
-                "id": 25
+                "id": 3101
               },
               "enabled": true
             },
@@ -438,7 +438,7 @@
                 "object": "Client",
                 "symbol": "circuitBreakerForceOpen",
                 "parentSymbol": "moduleClient",
-                "id": 26
+                "id": 3102
               },
               "enabled": true
             },
@@ -455,7 +455,7 @@
                 "object": "Client",
                 "symbol": "getCircuitBreakerCurrentState",
                 "parentSymbol": "moduleClient",
-                "id": 27
+                "id": 3103
               },
               "enabled": true
             }

@@ -19,7 +19,8 @@
       "org": "ballerina",
       "module": "log",
       "symbol": "printInfo",
-      "version": "2.10.0"
+      "version": "2.10.0",
+      "id": 0
     },
     "returning": false,
     "properties": {
@@ -29,7 +30,7 @@
           "description": "The message to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "string",
         "value": "",
         "optional": false,
         "editable": true
@@ -40,7 +41,7 @@
           "description": "The error struct to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"members\":[{\"isErrorUnion\":false,\"typeName\":\"error\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "error|()",
         "value": "",
         "optional": true,
         "editable": true
@@ -51,7 +52,7 @@
           "description": "The error stack trace to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"members\":[{\"memberType\":{\"members\":[{\"typeName\":\"readonly\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"fields\":[],\"typeName\":\"object\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"name\":\"StackFrame\",\"typeName\":\"intersection\",\"optional\":false,\"typeInfo\":{\"name\":\"StackFrame\",\"orgName\":\"ballerina\",\"moduleName\":\"lang.error\",\"version\":\"0.0.0\"},\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "ballerina/lang.error:0.0.0:StackFrame[]|()",
         "value": "",
         "optional": true,
         "editable": true
@@ -62,7 +63,7 @@
           "description": "The key-value pairs to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "{\"fields\":[{\"name\":\"msg\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false},{\"name\":\"error\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false},{\"name\":\"stackTrace\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false}],\"hasRestType\":true,\"restType\":{\"members\":[{\"typeName\":\"anydata\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"name\":\"Valuer\",\"typeName\":\"function () returns anydata\",\"optional\":false,\"typeInfo\":{\"name\":\"Valuer\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false}],\"name\":\"Value\",\"typeName\":\"union\",\"optional\":false,\"typeInfo\":{\"name\":\"Value\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false},\"name\":\"KeyValues\",\"typeName\":\"record\",\"optional\":false,\"typeInfo\":{\"name\":\"KeyValues\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false}",
+        "valueTypeConstraint": "log:KeyValues",
         "value": "",
         "optional": false,
         "editable": true

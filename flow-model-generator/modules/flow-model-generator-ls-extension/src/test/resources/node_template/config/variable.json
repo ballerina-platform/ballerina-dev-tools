@@ -10,7 +10,8 @@
       "description": "New variable with type"
     },
     "codedata": {
-      "node": "VARIABLE"
+      "node": "VARIABLE",
+      "id": 0
     },
     "returning": false,
     "properties": {
