@@ -33,6 +33,9 @@
           "sourceCode": "function testNewDataXml() {\n    xml x1 = xml `<p>content</p>`;\n    x1 = xml `<book>The Lost World</book>`;\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'x1'"
+            }
+          ]
         },
         "flags": 0
       },

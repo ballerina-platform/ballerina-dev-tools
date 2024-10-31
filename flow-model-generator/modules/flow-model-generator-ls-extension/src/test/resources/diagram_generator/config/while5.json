@@ -33,6 +33,9 @@
           "sourceCode": "resource function get pineapples(int count, int retries) returns string {\n        int i = 0;\n        string finalMsg = \"\";\n        while i < count {\n            json response = check foodClient->get(\"/food/pineapples\");\n            finalMsg += response.toString();\n            i += 1;\n        } on fail http:ClientError e {\n            int attempts = 0;\n            http:Client|http:ClientError adminClient = new (\"http://localhost:9090\");\n            if adminClient is http:ClientError {\n                return \"Error occurred while creating admin client\";\n            }\n            while attempts < retries {\n                json response = check adminClient->post(\"/admin/restart\", {body: e.message()});\n                return \"Response received from admin service: \" + response.toString();\n            } on fail {\n                return \"Error occurred while invoking admin service\";\n            }\n            return \"Error occurred while invoking food service\";\n        }\n        return finalMsg;\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -194,8 +197,8 @@
                 "id": "83770",
                 "metadata": {
                   "label": "get",
-                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
@@ -203,6 +206,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
+                  "version": "2.12.1",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -241,7 +245,7 @@
                   "path": {
                     "metadata": {
                       "label": "path",
-                      "description": "Request path\n"
+                      "description": "Request path"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"/food/pineapples\"",
@@ -251,7 +255,7 @@
                   "headers": {
                     "metadata": {
                       "label": "headers",
-                      "description": "The entity headers\n"
+                      "description": "The entity headers"
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
@@ -651,8 +655,8 @@
                         "id": "93839",
                         "metadata": {
                           "label": "post",
-                          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                          "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
@@ -660,6 +664,7 @@
                           "module": "http",
                           "object": "Client",
                           "symbol": "post",
+                          "version": "2.12.1",
                           "lineRange": {
                             "fileName": "while.bal",
                             "startLine": {
@@ -698,7 +703,7 @@
                           "path": {
                             "metadata": {
                               "label": "path",
-                              "description": "Resource path\n"
+                              "description": "Resource path"
                             },
                             "valueType": "EXPRESSION",
                             "value": "\"/admin/restart\"",
@@ -708,7 +713,7 @@
                           "message": {
                             "metadata": {
                               "label": "message",
-                              "description": "An HTTP outbound request or any allowed payload\n"
+                              "description": "An HTTP outbound request or any allowed payload"
                             },
                             "valueType": "EXPRESSION",
                             "value": "{body: e.message()}",
@@ -718,7 +723,7 @@
                           "headers": {
                             "metadata": {
                               "label": "headers",
-                              "description": "The entity headers\n"
+                              "description": "The entity headers"
                             },
                             "valueType": "EXPRESSION",
                             "optional": true,
@@ -727,7 +732,7 @@
                           "mediaType": {
                             "metadata": {
                               "label": "mediaType",
-                              "description": "The MIME type header of the request entity\n"
+                              "description": "The MIME type header of the request entity"
                             },
                             "valueType": "EXPRESSION",
                             "optional": true,
@@ -952,7 +957,8 @@
         "id": "33789",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -960,6 +966,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -988,7 +995,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -998,7 +1005,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,

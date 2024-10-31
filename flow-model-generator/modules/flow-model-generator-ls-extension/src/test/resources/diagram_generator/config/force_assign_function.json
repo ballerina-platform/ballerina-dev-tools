@@ -39,14 +39,15 @@
         "id": "53873",
         "metadata": {
           "label": "toJson",
-          "description": "Converts a value of type `anydata` to `json`.\n\n",
-          "icon": ""
+          "description": "Converts a value of type `anydata` to `json`.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
           "symbol": "toJson",
+          "version": "0.2.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -65,7 +66,7 @@
           "v": {
             "metadata": {
               "label": "v",
-              "description": "Source anydata value\n"
+              "description": "Source anydata value"
             },
             "valueType": "EXPRESSION",
             "value": "payload",
@@ -99,14 +100,15 @@
         "id": "54869",
         "metadata": {
           "label": "parseAsType",
-          "description": "Convert value of type `json` to subtype of `anydata`.\n\n",
-          "icon": ""
+          "description": "Convert value of type `json` to subtype of `anydata`.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_data.jsondata_0.2.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "data.jsondata",
           "symbol": "parseAsType",
+          "version": "0.2.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -125,7 +127,7 @@
           "v": {
             "metadata": {
               "label": "v",
-              "description": "Source JSON value\n"
+              "description": "Source JSON value"
             },
             "valueType": "EXPRESSION",
             "value": "jsonResult",
@@ -135,7 +137,16 @@
           "options": {
             "metadata": {
               "label": "options",
-              "description": "Options to be used for filtering in the projection\n"
+              "description": "Options to be used for filtering in the projection"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "t": {
+            "metadata": {
+              "label": "t",
+              "description": "Target type"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -206,7 +217,8 @@
         "id": "36771",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -214,6 +226,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -242,7 +255,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -252,7 +265,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,

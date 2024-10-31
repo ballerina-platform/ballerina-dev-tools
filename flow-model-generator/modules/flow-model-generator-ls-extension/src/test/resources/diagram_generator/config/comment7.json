@@ -33,6 +33,9 @@
           "sourceCode": "public function commentOnFailBody1(int i) {\n    while i < 4 {\n        _ = i + 1;\n    } on fail var e {\n        // This is a comment in on fail\n        error err = e;\n\n        // Panic with error `err`\n    }\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -268,6 +271,15 @@
                     "editable": true
                   }
                 },
+                "diagnostics": {
+                  "hasDiagnostics": true,
+                  "diagnostics": [
+                    {
+                      "severity": "WARNING",
+                      "message": "unused variable 'err'"
+                    }
+                  ]
+                },
                 "flags": 0
               },
               {
@@ -320,6 +332,9 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true
         },
         "flags": 0
       }

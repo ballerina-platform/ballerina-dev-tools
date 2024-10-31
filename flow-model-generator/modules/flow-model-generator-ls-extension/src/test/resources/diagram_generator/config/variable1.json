@@ -122,6 +122,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'f'"
+            }
+          ]
+        },
         "flags": 0
       },
       {
@@ -233,6 +242,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'd1'"
+            }
+          ]
         },
         "flags": 0
       },

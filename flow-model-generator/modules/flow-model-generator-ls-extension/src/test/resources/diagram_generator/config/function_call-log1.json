@@ -13,17 +13,17 @@
     "fileName": "function_call.bal",
     "nodes": [
       {
-        "id": "40150",
+        "id": "41390",
         "metadata": {
-          "label": "HTTP API"
+          "label": "Start"
         },
         "codedata": {
-          "node": "EVENT_HTTP_API",
+          "node": "EVENT_START",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
               "line": 8,
-              "offset": 4
+              "offset": 44
             },
             "endLine": {
               "line": 19,
@@ -33,29 +33,7 @@
           "sourceCode": "resource function get apples(int count) {\n        if count > 20 {\n            log:printWarn(\"Count is greater than 20\");\n        }\n        log:printInfo(\"Getting apples\");\n        json|error res = foodClient->get(\"/western/apples?count=\" + count.toString());\n        if res is error {\n            log:printError(\"Failed to get the response\");\n        } else {\n            log:printInfo(\"Response: \", response = res);\n        }\n    }"
         },
         "returning": false,
-        "properties": {
-          "method": {
-            "metadata": {
-              "label": "Method",
-              "description": "HTTP Method"
-            },
-            "valueType": "IDENTIFIER",
-            "value": "get",
-            "optional": false,
-            "editable": true
-          },
-          "path": {
-            "metadata": {
-              "label": "Path",
-              "description": "HTTP Path"
-            },
-            "valueType": "STRING",
-            "value": "apples",
-            "optional": false,
-            "editable": true
-          }
-        },
-        "flags": 2048
+        "flags": 0
       },
       {
         "id": "40991",
@@ -116,14 +94,16 @@
                 "id": "42090",
                 "metadata": {
                   "label": "printWarn",
-                  "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n\n",
+                  "description": "Prints warn logs.\n```ballerina\nlog:printWarn(\"warn message\", id = 845315)\n```\n",
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "object": "log",
                   "symbol": "printWarn",
+                  "version": "2.10.0",
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
@@ -142,17 +122,25 @@
                   "msg": {
                     "metadata": {
                       "label": "msg",
-                      "description": "The message to be logged\n"
+                      "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Count is greater than 20\"",
                     "optional": false,
                     "editable": true
                   },
+                  "error": {
+                    "metadata": {
+                      "label": "error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",
-                      "description": "The error stack trace to be logged\n"
+                      "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
@@ -161,7 +149,7 @@
                   "keyValues": {
                     "metadata": {
                       "label": "keyValues",
-                      "description": "The key-value pairs to be logged\n"
+                      "description": "The key-value pairs to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": false,
@@ -179,14 +167,16 @@
         "id": "43936",
         "metadata": {
           "label": "printInfo",
-          "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+          "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
           "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
         },
         "codedata": {
           "node": "FUNCTION_CALL",
           "org": "ballerina",
           "module": "log",
+          "object": "log",
           "symbol": "printInfo",
+          "version": "2.10.0",
           "lineRange": {
             "fileName": "function_call.bal",
             "startLine": {
@@ -205,17 +195,25 @@
           "msg": {
             "metadata": {
               "label": "msg",
-              "description": "The message to be logged\n"
+              "description": "The message to be logged"
             },
             "valueType": "EXPRESSION",
             "value": "\"Getting apples\"",
             "optional": false,
             "editable": true
           },
+          "error": {
+            "metadata": {
+              "label": "error"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
           "stackTrace": {
             "metadata": {
               "label": "stackTrace",
-              "description": "The error stack trace to be logged\n"
+              "description": "The error stack trace to be logged"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -224,7 +222,7 @@
           "keyValues": {
             "metadata": {
               "label": "keyValues",
-              "description": "The key-value pairs to be logged\n"
+              "description": "The key-value pairs to be logged"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -273,7 +271,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -283,8 +281,7 @@
           },
           "path": {
             "metadata": {
-              "label": "path",
-              "description": "Request path\n"
+              "label": "path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/western/apples?count=\" + count.toString()",
@@ -293,8 +290,15 @@
           },
           "headers": {
             "metadata": {
-              "label": "headers",
-              "description": "The entity headers\n"
+              "label": "headers"
+            },
+            "valueType": "EXPRESSION",
+            "optional": true,
+            "editable": true
+          },
+          "targetType": {
+            "metadata": {
+              "label": "targetType"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -302,7 +306,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",
@@ -372,14 +376,16 @@
                 "id": "47053",
                 "metadata": {
                   "label": "printError",
-                  "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n\n",
+                  "description": "Prints error logs.\n```ballerina\nerror e = error(\"error occurred\");\nlog:printError(\"error log with cause\", 'error = e, id = 845315);\n```\n",
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "object": "log",
                   "symbol": "printError",
+                  "version": "2.10.0",
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
@@ -398,17 +404,25 @@
                   "msg": {
                     "metadata": {
                       "label": "msg",
-                      "description": "The message to be logged\n"
+                      "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Failed to get the response\"",
                     "optional": false,
                     "editable": true
                   },
+                  "error": {
+                    "metadata": {
+                      "label": "error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",
-                      "description": "The error stack trace to be logged\n"
+                      "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
@@ -417,7 +431,7 @@
                   "keyValues": {
                     "metadata": {
                       "label": "keyValues",
-                      "description": "The key-value pairs to be logged\n"
+                      "description": "The key-value pairs to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": false,
@@ -452,14 +466,16 @@
                 "id": "49036",
                 "metadata": {
                   "label": "printInfo",
-                  "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n",
+                  "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n",
                   "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_log_2.10.0.png"
                 },
                 "codedata": {
                   "node": "FUNCTION_CALL",
                   "org": "ballerina",
                   "module": "log",
+                  "object": "log",
                   "symbol": "printInfo",
+                  "version": "2.10.0",
                   "lineRange": {
                     "fileName": "function_call.bal",
                     "startLine": {
@@ -478,17 +494,25 @@
                   "msg": {
                     "metadata": {
                       "label": "msg",
-                      "description": "The message to be logged\n"
+                      "description": "The message to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"Response: \"",
                     "optional": false,
                     "editable": true
                   },
+                  "error": {
+                    "metadata": {
+                      "label": "error"
+                    },
+                    "valueType": "EXPRESSION",
+                    "optional": true,
+                    "editable": true
+                  },
                   "stackTrace": {
                     "metadata": {
                       "label": "stackTrace",
-                      "description": "The error stack trace to be logged\n"
+                      "description": "The error stack trace to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
@@ -497,7 +521,7 @@
                   "keyValues": {
                     "metadata": {
                       "label": "keyValues",
-                      "description": "The key-value pairs to be logged\n"
+                      "description": "The key-value pairs to be logged"
                     },
                     "valueType": "EXPRESSION",
                     "optional": false,
@@ -552,8 +576,7 @@
           },
           "url": {
             "metadata": {
-              "label": "url",
-              "description": "URL of the target service\n"
+              "label": "url"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -562,8 +585,7 @@
           },
           "config": {
             "metadata": {
-              "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "label": "config"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -571,7 +593,7 @@
           },
           "variable": {
             "metadata": {
-              "label": "Data variable",
+              "label": "Variable Name",
               "description": "Name of the variable"
             },
             "valueType": "IDENTIFIER",
@@ -581,7 +603,7 @@
           },
           "type": {
             "metadata": {
-              "label": "Data type",
+              "label": "Variable Type",
               "description": "Type of the variable"
             },
             "valueType": "TYPE",

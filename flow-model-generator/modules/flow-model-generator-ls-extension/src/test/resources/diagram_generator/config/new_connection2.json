@@ -33,6 +33,9 @@
           "sourceCode": "public function fn2() returns error? {\n    http:Client localHttpCl = check new http:Client(\"http://localhost:8080\");\n    redis:Client localRedisCl = check new redis:Client();\n}"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'localHttpCl'"
+            }
+          ]
         },
         "flags": 0
       },
@@ -145,6 +157,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'localRedisCl'"
+            }
+          ]
+        },
         "flags": 0
       }
     ],
@@ -153,7 +174,8 @@
         "id": "34783",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -161,6 +183,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -189,7 +212,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -199,7 +222,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -232,7 +255,8 @@
         "id": "42732",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -240,6 +264,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -268,7 +293,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -278,7 +303,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -311,7 +336,8 @@
         "id": "35751",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -319,6 +345,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -347,7 +374,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "configuration for the connector\n"
+              "description": "configuration for the connector"
             },
             "valueType": "EXPRESSION",
             "optional": false,
@@ -380,7 +407,8 @@
         "id": "43704",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "Ballerina Redis connector provides the capability to access Redis cache.\nThis connector lets you to perform operations to access and manipulate key-value data stored in a Redis database. \n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerinax_redis_3.0.2.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -388,6 +416,7 @@
           "module": "redis",
           "object": "Client",
           "symbol": "init",
+          "version": "3.0.2",
           "lineRange": {
             "fileName": "new_connection.bal",
             "startLine": {
@@ -416,7 +445,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "configuration for the connector\n"
+              "description": "configuration for the connector"
             },
             "valueType": "EXPRESSION",
             "optional": false,

@@ -19,6 +19,7 @@
 package io.ballerina.flowmodelgenerator.core.model;
 
 import io.ballerina.compiler.api.SemanticModel;
+import io.ballerina.flowmodelgenerator.core.DiagnosticHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +107,7 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
         protected Codedata.Builder<Builder> codedataBuilder;
         protected NodeBuilder.PropertiesBuilder<Builder> propertiesBuilder;
         private SemanticModel semanticModel;
+        private DiagnosticHandler diagnosticHandler;
         private String defaultModuleName;
 
         public Builder() {
@@ -114,6 +116,11 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public Builder semanticModel(SemanticModel semanticModel) {
             this.semanticModel = semanticModel;
+            return this;
+        }
+
+        public Builder diagnosticHandler(DiagnosticHandler diagnosticHandler) {
+            this.diagnosticHandler = diagnosticHandler;
             return this;
         }
 
@@ -149,7 +156,8 @@ public record Branch(String label, BranchKind kind, Codedata codedata, Repeatabl
 
         public NodeBuilder.PropertiesBuilder<Builder> properties() {
             if (this.propertiesBuilder == null) {
-                this.propertiesBuilder = new NodeBuilder.PropertiesBuilder<>(semanticModel, defaultModuleName, this);
+                this.propertiesBuilder =
+                        new NodeBuilder.PropertiesBuilder<>(semanticModel, diagnosticHandler, defaultModuleName, this);
             }
             return this.propertiesBuilder;
         }

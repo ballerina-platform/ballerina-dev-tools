@@ -35,6 +35,7 @@ import io.ballerina.tools.text.LinePosition;
 import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.formatter.core.FormattingTreeModifier;
 import org.ballerinalang.formatter.core.options.FormattingOptions;
+import org.ballerinalang.langserver.common.utils.CommonUtil;
 import org.ballerinalang.langserver.commons.eventsync.exceptions.EventSyncException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceDocumentException;
 import org.ballerinalang.langserver.commons.workspace.WorkspaceManager;
@@ -119,6 +120,11 @@ public class SourceBuilder {
         String org = flowNode.codedata().org();
         String module = flowNode.codedata().module();
 
+        if (org == null || module == null || org.equals(CommonUtil.BALLERINA_ORG_NAME) &&
+                CommonUtil.PRE_DECLARED_LANG_LIBS.contains(module)) {
+            return this;
+        }
+
         try {
             this.workspaceManager.loadProject(filePath);
         } catch (WorkspaceDocumentException | EventSyncException e) {
@@ -128,10 +134,6 @@ public class SourceBuilder {
         Document document = workspaceManager.document(resolvedPath).orElseThrow();
         SyntaxTree syntaxTree = document.syntaxTree();
         LineRange lineRange = syntaxTree.rootNode().lineRange();
-
-        if (org == null || module == null) {
-            return this;
-        }
 
         Optional<Module> currentModule = this.workspaceManager.module(filePath);
         if (currentModule.isPresent()) {

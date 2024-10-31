@@ -33,14 +33,17 @@
           "sourceCode": "resource function get apples() returns http:ClientError? {\n        var res1 = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json);\n        _ = check foodClient->get(\"/apples\", targetType = json, headers = ());\n        json res2 = check foodClient->/western/apples.get();\n        json res3 = check foodClient->/apples.get();\n        json res4 = check foodClient->/.get();\n        var res5 = check foodClient->/apples.get(targetType = json);\n        json res6 = check foodClient->/apples.get();\n        json res7 = check foodClient->/apples.get(headers = {\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        });\n        Food res8 = check foodClient->/apples.get();\n        json res9 = check foodClient->/apples/[varRef]/[12 + 3].get();\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
         "id": "45951",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -48,6 +51,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -86,7 +90,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/apples\"",
@@ -96,7 +100,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -113,14 +117,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res1'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "46936",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -128,6 +141,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -156,7 +170,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/apples\"",
@@ -166,7 +180,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
@@ -179,8 +193,8 @@
         "id": "47942",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -188,6 +202,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -216,7 +231,7 @@
           "path": {
             "metadata": {
               "label": "path",
-              "description": "Request path\n"
+              "description": "Request path"
             },
             "valueType": "EXPRESSION",
             "value": "\"/apples\"",
@@ -226,7 +241,7 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "value": "()",
@@ -240,8 +255,8 @@
         "id": "48916",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -249,6 +264,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -287,10 +303,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -304,14 +329,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res2'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "49900",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -319,6 +353,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -357,10 +392,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -374,14 +418,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res3'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "50886",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -389,6 +442,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -427,10 +481,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -444,14 +507,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res4'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "51900",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -459,6 +531,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -497,10 +570,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -514,14 +596,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res5'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "52876",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -529,6 +620,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -567,10 +659,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -584,14 +685,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res6'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "53920",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -599,6 +709,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -637,11 +748,20 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "value": "{\n            \"first-header\": \"first\",\n            \"second-header\": \"second\"\n        }",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -655,14 +775,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res7'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "57836",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -670,6 +799,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -708,10 +838,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -725,14 +864,23 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res8'"
+            }
+          ]
+        },
         "flags": 1
       },
       {
         "id": "58846",
         "metadata": {
           "label": "get",
-          "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+          "description": "The client resource function to send HTTP GET requests to HTTP endpoints.\n",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "ACTION_CALL",
@@ -740,6 +888,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "get",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -778,10 +927,19 @@
           "headers": {
             "metadata": {
               "label": "headers",
-              "description": "The entity headers\n"
+              "description": "The entity headers"
             },
             "valueType": "EXPRESSION",
             "optional": true,
+            "editable": true
+          },
+          "params": {
+            "metadata": {
+              "label": "params",
+              "description": "The query parameters"
+            },
+            "valueType": "EXPRESSION",
+            "optional": false,
             "editable": true
           },
           "type": {
@@ -795,6 +953,15 @@
             "editable": true
           }
         },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'res9'"
+            }
+          ]
+        },
         "flags": 1
       }
     ],
@@ -803,7 +970,8 @@
         "id": "33773",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -811,6 +979,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "http_get_node.bal",
             "startLine": {
@@ -839,7 +1008,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"/food\"",
@@ -849,7 +1018,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,

@@ -25,13 +25,14 @@ import java.util.Optional;
 /**
  * Represents a node in the flow model.
  *
- * @param id         The unique identifier of the node.
- * @param metadata   The metadata of the node.
- * @param codedata   The code data of the node.
- * @param returning  Whether the node is returning.
- * @param branches   The branches of the node.
- * @param properties The properties of the node.
- * @param flags      The flags of the node.
+ * @param id          The unique identifier of the node.
+ * @param metadata    The metadata of the node.
+ * @param codedata    The code data of the node.
+ * @param returning   Whether the node is returning.
+ * @param branches    The branches of the node.
+ * @param properties  The properties of the node.
+ * @param diagnostics The diagnostics of the node.
+ * @param flags       The flags of the node.
  * @since 1.4.0
  */
 public record FlowNode(
@@ -41,6 +42,7 @@ public record FlowNode(
         boolean returning,
         List<Branch> branches,
         Map<String, Property> properties,
+        Diagnostics diagnostics,
         int flags
 ) {
 

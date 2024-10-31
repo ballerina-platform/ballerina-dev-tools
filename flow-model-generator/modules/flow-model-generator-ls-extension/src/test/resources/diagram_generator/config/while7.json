@@ -33,6 +33,9 @@
           "sourceCode": "resource function get grapes(int count) {\n        string? msg;\n        int i = 0;\n        while i < count {\n            json|error response = foodClient->get(\"/food/grapes\");\n            if (response is json) {\n                msg = \"Response received from food service: \" + response.toString();\n            } else {\n                msg = \"Error occurred while invoking food service: \" + response.message();\n                break;\n            }\n            i += 1;\n        }\n    }"
         },
         "returning": false,
+        "diagnostics": {
+          "hasDiagnostics": true
+        },
         "flags": 0
       },
       {
@@ -88,6 +91,15 @@
             "optional": false,
             "editable": true
           }
+        },
+        "diagnostics": {
+          "hasDiagnostics": true,
+          "diagnostics": [
+            {
+              "severity": "WARNING",
+              "message": "unused variable 'msg'"
+            }
+          ]
         },
         "flags": 0
       },
@@ -194,8 +206,8 @@
                 "id": "122454",
                 "metadata": {
                   "label": "get",
-                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.0.png"
+                  "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
@@ -203,6 +215,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
+                  "version": "2.12.1",
                   "lineRange": {
                     "fileName": "while.bal",
                     "startLine": {
@@ -241,7 +254,7 @@
                   "path": {
                     "metadata": {
                       "label": "path",
-                      "description": "Request path\n"
+                      "description": "Request path"
                     },
                     "valueType": "EXPRESSION",
                     "value": "\"/food/grapes\"",
@@ -251,7 +264,7 @@
                   "headers": {
                     "metadata": {
                       "label": "headers",
-                      "description": "The entity headers\n"
+                      "description": "The entity headers"
                     },
                     "valueType": "EXPRESSION",
                     "optional": true,
@@ -527,7 +540,8 @@
         "id": "33789",
         "metadata": {
           "label": "New Connection",
-          "description": "Create a new connection"
+          "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -535,6 +549,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "while.bal",
             "startLine": {
@@ -563,7 +578,7 @@
           "url": {
             "metadata": {
               "label": "url",
-              "description": "URL of the target service\n"
+              "description": "URL of the target service"
             },
             "valueType": "EXPRESSION",
             "value": "\"http://localhost:9090\"",
@@ -573,7 +588,7 @@
           "config": {
             "metadata": {
               "label": "config",
-              "description": "The configurations to be used when initializing the `client`\n"
+              "description": "The configurations to be used when initializing the `client`"
             },
             "valueType": "EXPRESSION",
             "optional": false,
