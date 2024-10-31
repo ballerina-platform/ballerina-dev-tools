@@ -12,7 +12,7 @@
     "id": "31",
     "metadata": {
       "label": "printInfo",
-      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n\n"
+      "description": "Prints info logs.\n```ballerina\nlog:printInfo(\"info message\", id = 845315)\n```\n"
     },
     "codedata": {
       "node": "FUNCTION_CALL",
@@ -26,43 +26,44 @@
       "msg": {
         "metadata": {
           "label": "msg",
-          "description": "The message to be logged\n"
+          "description": "The message to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "string",
-        "value": "\"\"",
+        "valueTypeConstraint": "{\"typeName\":\"string\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": false,
         "editable": true
       },
       "'error": {
         "metadata": {
           "label": "'error",
-          "description": "The error struct to be logged\n"
+          "description": "The error struct to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "error",
-        "value": "()",
+        "valueTypeConstraint": "{\"members\":[{\"isErrorUnion\":false,\"typeName\":\"error\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": true,
         "editable": true
       },
       "stackTrace": {
         "metadata": {
           "label": "stackTrace",
-          "description": "The error stack trace to be logged\n"
+          "description": "The error stack trace to be logged"
         },
         "valueType": "EXPRESSION",
-        "value": "()",
+        "valueTypeConstraint": "{\"members\":[{\"memberType\":{\"members\":[{\"typeName\":\"readonly\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"fields\":[],\"typeName\":\"object\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"name\":\"StackFrame\",\"typeName\":\"intersection\",\"optional\":false,\"typeInfo\":{\"name\":\"StackFrame\",\"orgName\":\"ballerina\",\"moduleName\":\"lang.error\",\"version\":\"0.0.0\"},\"defaultable\":false,\"isRestType\":false},\"typeName\":\"array\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"typeName\":\"()\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}],\"typeName\":\"union\",\"optional\":false,\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": true,
         "editable": true
       },
       "keyValues": {
         "metadata": {
           "label": "keyValues",
-          "description": "The key-value pairs to be logged\n"
+          "description": "The key-value pairs to be logged"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "KeyValues",
-        "value": "\"\"",
+        "valueTypeConstraint": "{\"fields\":[{\"name\":\"msg\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false},{\"name\":\"error\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false},{\"name\":\"stackTrace\",\"typeName\":\"never\",\"optional\":true,\"defaultable\":false,\"isRestType\":false}],\"hasRestType\":true,\"restType\":{\"members\":[{\"typeName\":\"anydata\",\"optional\":false,\"defaultable\":false,\"isRestType\":false},{\"name\":\"Valuer\",\"typeName\":\"function () returns anydata\",\"optional\":false,\"typeInfo\":{\"name\":\"Valuer\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false}],\"name\":\"Value\",\"typeName\":\"union\",\"optional\":false,\"typeInfo\":{\"name\":\"Value\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false},\"name\":\"KeyValues\",\"typeName\":\"record\",\"optional\":false,\"typeInfo\":{\"name\":\"KeyValues\",\"orgName\":\"ballerina\",\"moduleName\":\"log\",\"version\":\"2.10.0\"},\"defaultable\":false,\"isRestType\":false}",
+        "value": "",
         "optional": false,
         "editable": true
       }

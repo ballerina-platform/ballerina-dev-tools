@@ -18,13 +18,12 @@
 
 package io.ballerina.flowmodelgenerator.core.db.model;
 
-public record FunctionResult(
-        int functionId,
+import io.ballerina.compiler.api.symbols.ParameterKind;
+
+public record ParameterResult(
+        int parameterId,
         String name,
-        String description,
-        String returnType,
-        String packageName,
-        String org,
-        String version
-) {
+        String type,
+        ParameterKind kind,
+        String description) {
 }
