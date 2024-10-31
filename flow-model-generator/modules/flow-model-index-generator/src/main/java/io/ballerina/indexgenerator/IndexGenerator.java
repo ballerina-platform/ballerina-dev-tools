@@ -26,12 +26,18 @@ import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.IntersectionTypeSymbol;
 import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
 import io.ballerina.compiler.api.symbols.Symbol;
 import io.ballerina.compiler.api.symbols.SymbolKind;
+import io.ballerina.compiler.api.symbols.TypeDescKind;
+import io.ballerina.compiler.api.symbols.TypeDescTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeReferenceTypeSymbol;
+import io.ballerina.compiler.api.symbols.TypeSymbol;
+import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
@@ -45,7 +51,6 @@ import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
 import io.ballerina.projects.environment.ResolutionResponse;
 import io.ballerina.projects.repos.TempDirCompilationCache;
-import org.ballerinalang.diagramutil.connector.models.connector.Type;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -69,8 +74,6 @@ public class IndexGenerator {
 
     private static final Logger LOGGER = Logger.getLogger(IndexGenerator.class.getName());
 
-    private static final Gson gson = new Gson();
-
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
         System.setProperty("ballerina.home", "/Library/Ballerina/distributions/ballerina-2201.10.0");
@@ -78,9 +81,10 @@ public class IndexGenerator {
 
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(PackageListGenerator.PACKAGE_JSON_PATH)) {
-            Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader, typeToken);
-            List<PackageListGenerator.PackageMetadataInfo> ballerinaPackages = packagesMap.get("ballerina");
-            ballerinaPackages.forEach(ballerinaPackage -> resolvePackage(buildProject, "ballerina", ballerinaPackage));
+            Map<String, List<PackageListGenerator.PackageMetadataInfo>> packagesMap = gson.fromJson(reader,
+                    typeToken);
+            packagesMap.forEach((key, value) -> value.forEach(
+                    packageMetadataInfo -> resolvePackage(buildProject, key, packageMetadataInfo)));
         } catch (IOException e) {
             LOGGER.severe("Error reading packages JSON file: " + e.getMessage());
         }
@@ -132,7 +136,8 @@ public class IndexGenerator {
                     continue;
                 }
 
-                processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION);
+                processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION,
+                        descriptor.name().value());
                 continue;
             }
             if (symbol.kind() == SymbolKind.CLASS) {
@@ -149,7 +154,8 @@ public class IndexGenerator {
                     continue;
                 }
                 int connectorId =
-                        processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR);
+                        processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR,
+                                descriptor.name().value());
                 if (connectorId == -1) {
                     continue;
                 }
@@ -170,7 +176,8 @@ public class IndexGenerator {
                     } else {
                         continue;
                     }
-                    int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType);
+                    int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType,
+                            descriptor.name().value());
                     if (functionId == -1) {
                         continue;
                     }
@@ -185,7 +192,7 @@ public class IndexGenerator {
     }
 
     private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
-                                             FunctionType functionType) {
+                                             FunctionType functionType, String packageName) {
         // Capture the name of the function
         Optional<String> name = functionSymbol.getName();
         if (name.isEmpty()) {
@@ -199,10 +206,12 @@ public class IndexGenerator {
 
         // Obtain the return type of the function
         FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-        Type returnType = functionTypeSymbol.returnTypeDescriptor().map(Type::fromSemanticSymbol).orElse(null);
+        String returnType = functionTypeSymbol.returnTypeDescriptor()
+                .map(returnTypeDesc -> functionSymbol.nameEquals("init") ? getClientType(packageName, returnTypeDesc) :
+                        getTypeSignature(returnTypeDesc)).orElse("");
 
         int functionId =
-                DatabaseManager.insertFunction(packageId, name.get(), description, gson.toJson(returnType),
+                DatabaseManager.insertFunction(packageId, name.get(), description, returnType,
                         functionType.name());
 
         // Handle the parameters of the function
@@ -212,7 +221,7 @@ public class IndexGenerator {
         }
         for (ParameterSymbol paramSymbol : params.get()) {
             String paramName = paramSymbol.getName().orElse("");
-            String paramType = gson.toJson(Type.fromSemanticSymbol(paramSymbol.typeDescriptor()));
+            String paramType = getTypeSignature(paramSymbol.typeDescriptor());
             String paramDescription = documentationMap.get(paramName);
             ParameterKind parameterKind = paramSymbol.paramKind();
             DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
@@ -223,6 +232,66 @@ public class IndexGenerator {
 
     private static String getDescription(Documentable documentable) {
         return documentable.documentation().flatMap(Documentation::description).orElse("");
+    }
+
+    private static String getTypeSignature(TypeSymbol typeSymbol) {
+        return switch (typeSymbol.typeKind()) {
+            case TYPE_REFERENCE -> {
+                TypeReferenceTypeSymbol typeReferenceTypeSymbol = (TypeReferenceTypeSymbol) typeSymbol;
+                yield typeReferenceTypeSymbol.definition().getName()
+                        .map(name -> typeReferenceTypeSymbol.getModule()
+                                .flatMap(Symbol::getName)
+                                .map(prefix -> prefix + ":" + name)
+                                .orElse(name))
+                        .orElseGet(() -> getTypeSignature(typeReferenceTypeSymbol.typeDescriptor()
+                        ));
+            }
+            case UNION -> {
+                UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) typeSymbol;
+                yield unionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(IndexGenerator::getTypeSignature)
+                        .reduce((s1, s2) -> s1 + "|" + s2)
+                        .orElse(unionTypeSymbol.signature());
+            }
+            case INTERSECTION -> {
+                IntersectionTypeSymbol intersectionTypeSymbol = (IntersectionTypeSymbol) typeSymbol;
+                yield intersectionTypeSymbol.memberTypeDescriptors().stream()
+                        .map(IndexGenerator::getTypeSignature)
+                        .reduce((s1, s2) -> s1 + " & " + s2)
+                        .orElse(intersectionTypeSymbol.signature());
+            }
+            case TYPEDESC -> {
+                TypeDescTypeSymbol typeDescTypeSymbol = (TypeDescTypeSymbol) typeSymbol;
+                yield typeDescTypeSymbol.typeParameter()
+                        .map(IndexGenerator::getTypeSignature)
+                        .orElse(typeDescTypeSymbol.signature());
+            }
+            case ERROR -> {
+                Optional<String> moduleName = typeSymbol.getModule()
+                        .map(module -> {
+                            String prefix = module.id().modulePrefix();
+                            return "annotations".equals(prefix) ? null : prefix;
+                        });
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.getName().orElse("error");
+            }
+            default -> {
+                Optional<String> moduleName = typeSymbol.getModule().map(module -> module.id().modulePrefix());
+                yield moduleName.map(s -> s + ":").orElse("") + typeSymbol.signature();
+            }
+        };
+    }
+
+    public static String getClientType(String importPrefix, TypeSymbol returnType) {
+        String clientType = String.format("%s:%s", importPrefix, "Client");
+        if (returnType.typeKind() != TypeDescKind.UNION) {
+            return clientType;
+        }
+
+        UnionTypeSymbol unionTypeSymbol = (UnionTypeSymbol) returnType;
+        Optional<TypeSymbol> errorType = unionTypeSymbol.memberTypeDescriptors().stream()
+                .filter(member -> member.typeKind() == TypeDescKind.ERROR)
+                .findFirst();
+        return errorType.map(type -> clientType + "|" + getTypeSignature(type)).orElse(clientType);
     }
 
     enum FunctionType {
