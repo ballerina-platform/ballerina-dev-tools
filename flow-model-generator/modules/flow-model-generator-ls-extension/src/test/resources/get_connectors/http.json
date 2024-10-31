@@ -5,14 +5,7 @@
     {
       "metadata": {
         "label": "http",
-        "description": "This package provides APIs for connecting and interacting with HTTP and HTTP2 endpoints. It",
-        "keywords": [
-          "http",
-          "network",
-          "service",
-          "listener",
-          "client"
-        ],
+        "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
         "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
       },
       "codedata": {
@@ -21,7 +14,7 @@
         "module": "http",
         "object": "Client",
         "symbol": "init",
-        "id": "9696"
+        "id": "1"
       },
       "enabled": true
     }

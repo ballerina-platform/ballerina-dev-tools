@@ -48,7 +48,14 @@ public class DatabaseManager {
         dbPath = "jdbc:sqlite:" + dbUrl.getPath();
     }
 
-    public List<FunctionResult> getAllFunctions() {
+    public enum FunctionKind {
+        FUNCTION,
+        REMOTE,
+        CONNECTOR,
+        RESOURCE
+    }
+
+    public List<FunctionResult> getAllFunctions(FunctionKind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -59,11 +66,12 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE f.kind = 'FUNCTION' " +
+                "WHERE f.kind = ? " +
                 "LIMIT 20;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, kind.name());
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
@@ -85,7 +93,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> searchFunctions(Map<String, String> queryMap) {
+    public List<FunctionResult> searchFunctions(Map<String, String> queryMap, FunctionKind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -96,7 +104,7 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE f.kind = 'FUNCTION' " +
+                "WHERE f.kind = ? " +
                 "AND (" +
                 "f.name LIKE ? OR " +
                 "p.name LIKE ? " +
@@ -107,10 +115,11 @@ public class DatabaseManager {
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, wildcardKeyword);
+            stmt.setString(1, kind.name());
             stmt.setString(2, wildcardKeyword);
-            stmt.setString(3, queryMap.get("limit"));
-            stmt.setString(4, queryMap.get("offset"));
+            stmt.setString(3, wildcardKeyword);
+            stmt.setString(4, queryMap.get("limit"));
+            stmt.setString(5, queryMap.get("offset"));
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
@@ -133,7 +142,7 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String symbol) {
+    public Optional<FunctionResult> getFunction(String org, String module, String symbol, FunctionKind kind) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -144,16 +153,17 @@ public class DatabaseManager {
                 "p.version " +
                 "FROM Function f " +
                 "JOIN Package p ON f.package_id = p.package_id " +
-                "WHERE f.kind = 'FUNCTION' " +
+                "WHERE f.kind = ? " +
                 "AND p.org = ? " +
                 "AND p.name = ? " +
                 "AND f.name = ?;";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, org);
-            stmt.setString(2, module);
-            stmt.setString(3, symbol);
+            stmt.setString(1, kind.name());
+            stmt.setString(2, org);
+            stmt.setString(3, module);
+            stmt.setString(4, symbol);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return Optional.of(new FunctionResult(
@@ -203,4 +213,5 @@ public class DatabaseManager {
             return List.of();
         }
     }
+
 }

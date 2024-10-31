@@ -129,8 +129,8 @@ public class FunctionGenerator {
         DatabaseManager dbManager = new DatabaseManager();
 
         List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
-                dbManager.getAllFunctions() :
-                dbManager.searchFunctions(queryMap);
+                dbManager.getAllFunctions(DatabaseManager.FunctionKind.FUNCTION) :
+                dbManager.searchFunctions(queryMap, DatabaseManager.FunctionKind.FUNCTION);
 
         for (FunctionResult functionResult : functionResults) {
             String icon = CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),

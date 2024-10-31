@@ -117,7 +117,8 @@ public class FunctionCall extends NodeBuilder {
 
         DatabaseManager dbManager = new DatabaseManager();
         Optional<FunctionResult> functionResult =
-                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol());
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.FUNCTION);
 
         if (functionResult.isEmpty()) {
             throw new RuntimeException("Function not found: " + codedata.symbol());
