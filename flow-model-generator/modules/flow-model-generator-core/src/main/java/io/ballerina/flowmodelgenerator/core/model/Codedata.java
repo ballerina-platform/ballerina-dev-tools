@@ -36,7 +36,7 @@ import io.ballerina.tools.text.LineRange;
  * @since 1.5.0
  */
 public record Codedata(NodeKind node, String org, String module, String object, String symbol,
-                       String version, LineRange lineRange, String sourceCode, String parentSymbol, int id) {
+                       String version, LineRange lineRange, String sourceCode, String parentSymbol, Integer id) {
 
     @Override
     public String toString() {

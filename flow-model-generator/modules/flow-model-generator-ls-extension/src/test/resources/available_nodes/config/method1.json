@@ -172,8 +172,7 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printInfo",
-            "version": "2.10.0",
-            "id": 0
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -188,8 +187,7 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printError",
-            "version": "2.10.0",
-            "id": 0
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -204,8 +202,7 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printWarn",
-            "version": "2.10.0",
-            "id": 0
+            "version": "2.10.0"
           },
           "enabled": true
         },
@@ -220,8 +217,7 @@
             "org": "ballerina",
             "module": "log",
             "symbol": "printDebug",
-            "version": "2.10.0",
-            "id": 0
+            "version": "2.10.0"
           },
           "enabled": true
         }

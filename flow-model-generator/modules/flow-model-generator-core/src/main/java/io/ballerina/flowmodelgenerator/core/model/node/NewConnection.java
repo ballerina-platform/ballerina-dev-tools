@@ -101,7 +101,7 @@ public class NewConnection extends NodeBuilder {
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
         DatabaseManager dbManager = new DatabaseManager();
-        Optional<FunctionResult> functionResult = codedata.id() > 0 ? dbManager.getFunction(codedata.id()) :
+        Optional<FunctionResult> functionResult = codedata.id() != null ? dbManager.getFunction(codedata.id()) :
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
                         DatabaseManager.FunctionKind.CONNECTOR);
         if (functionResult.isEmpty()) {
