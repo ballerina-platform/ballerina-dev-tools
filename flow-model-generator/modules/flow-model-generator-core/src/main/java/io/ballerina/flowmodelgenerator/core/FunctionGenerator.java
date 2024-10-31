@@ -40,6 +40,7 @@ import io.ballerina.tools.text.LineRange;
 import org.ballerinalang.langserver.common.utils.PositionUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -64,7 +65,16 @@ public class FunctionGenerator {
 
     public JsonArray getFunctions(Map<String, String> queryMap, LineRange position) {
         buildProjectNodes(queryMap, position);
-        buildUtilityNodes(queryMap);
+
+        Map<String, String> modifiedQueryMap = new HashMap<>(queryMap);
+        if (CommonUtils.hasNoKeyword(queryMap, "limit")) {
+            modifiedQueryMap.put("limit", "20");
+        }
+        if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
+            modifiedQueryMap.put("offset", "0");
+        }
+        buildUtilityNodes(modifiedQueryMap);
+
         return gson.toJsonTree(rootBuilder.build().items()).getAsJsonArray();
     }
 
@@ -118,9 +128,9 @@ public class FunctionGenerator {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
         DatabaseManager dbManager = new DatabaseManager();
 
-        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap) ?
+        List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
                 dbManager.getAllFunctions() :
-                dbManager.searchFunctions(queryMap.get("q"));
+                dbManager.searchFunctions(queryMap);
 
         for (FunctionResult functionResult : functionResults) {
             String icon = CommonUtils.generateIcon(functionResult.org(), functionResult.packageName(),

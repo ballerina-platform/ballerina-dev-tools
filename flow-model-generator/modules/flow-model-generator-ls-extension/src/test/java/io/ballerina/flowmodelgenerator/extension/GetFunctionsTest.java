@@ -60,14 +60,6 @@ public class GetFunctionsTest extends AbstractLSTest {
         }
     }
 
-    @DataProvider(name = "data-provider")
-    @Override
-    protected Object[] getConfigsList() {
-        return new Object[]{
-                Path.of("simple.json")
-        };
-    }
-
     @Override
     protected String getResourceDir() {
         return "get_functions";

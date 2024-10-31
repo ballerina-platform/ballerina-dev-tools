@@ -280,8 +280,9 @@ public class CommonUtils {
      * @param queryMap the query map to check
      * @return true if the query map has no keyword, false otherwise
      */
-    public static boolean hasNoKeyword(Map<String, String> queryMap) {
-        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey("q") || queryMap.get("q").isEmpty();
+    public static boolean hasNoKeyword(Map<String, String> queryMap, String keyName) {
+        return queryMap == null || queryMap.isEmpty() || !queryMap.containsKey(keyName) ||
+                queryMap.get(keyName).isEmpty();
     }
 
     /**

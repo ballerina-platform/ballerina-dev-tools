@@ -30,6 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -84,7 +85,7 @@ public class DatabaseManager {
         }
     }
 
-    public List<FunctionResult> searchFunctions(String keyword) {
+    public List<FunctionResult> searchFunctions(Map<String, String> queryMap) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
@@ -99,13 +100,17 @@ public class DatabaseManager {
                 "AND (" +
                 "f.name LIKE ? OR " +
                 "p.name LIKE ? " +
-                ");";
-        String wildcardKeyword = "%" + keyword + "%";
+                ")" +
+                "LIMIT ? " +
+                "OFFSET ?;";
+        String wildcardKeyword = "%" + queryMap.get("q") + "%";
 
         try (Connection conn = DriverManager.getConnection(dbPath);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, wildcardKeyword);
             stmt.setString(2, wildcardKeyword);
+            stmt.setString(3, queryMap.get("limit"));
+            stmt.setString(4, queryMap.get("offset"));
             ResultSet rs = stmt.executeQuery();
             List<FunctionResult> functionResults = new ArrayList<>();
             while (rs.next()) {
@@ -128,7 +133,7 @@ public class DatabaseManager {
         }
     }
 
-    public Optional<FunctionResult> getFunction(String org, String module, String version, String symbol) {
+    public Optional<FunctionResult> getFunction(String org, String module, String symbol) {
         String sql = "SELECT " +
                 "f.function_id, " +
                 "f.name AS function_name, " +
