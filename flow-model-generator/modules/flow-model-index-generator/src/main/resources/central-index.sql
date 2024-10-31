@@ -17,19 +17,11 @@ CREATE TABLE Package (
 -- Create Function table
 CREATE TABLE Function (
     function_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    kind TEXT CHECK(kind IN ('FUNCTION', 'CONNECTOR', 'REMOTE', 'RESOURCE')),
     name TEXT NOT NULL,
     description TEXT,
     package_id INTEGER,
     return_type JSON, -- JSON type for return type information
-    FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
-);
-
--- Create Connector table
-CREATE TABLE Connector (
-    connector_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT,
-    package_id INTEGER,
     FOREIGN KEY (package_id) REFERENCES Package(package_id) ON DELETE CASCADE
 );
 
@@ -39,7 +31,7 @@ CREATE TABLE FunctionConnector (
     connector_id INTEGER,
     PRIMARY KEY (function_id, connector_id),
     FOREIGN KEY (function_id) REFERENCES Function(function_id) ON DELETE CASCADE,
-    FOREIGN KEY (connector_id) REFERENCES Connector(connector_id) ON DELETE CASCADE
+    FOREIGN KEY (connector_id) REFERENCES Function(function_id) ON DELETE CASCADE
 );
 
 -- Create Parameter table

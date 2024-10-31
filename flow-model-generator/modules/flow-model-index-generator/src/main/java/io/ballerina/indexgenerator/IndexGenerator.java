@@ -22,9 +22,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.ClassSymbol;
+import io.ballerina.compiler.api.symbols.Documentable;
 import io.ballerina.compiler.api.symbols.Documentation;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.FunctionTypeSymbol;
+import io.ballerina.compiler.api.symbols.MethodSymbol;
 import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
 import io.ballerina.compiler.api.symbols.Qualifier;
@@ -35,11 +37,14 @@ import io.ballerina.projects.PackageDescriptor;
 import io.ballerina.projects.PackageName;
 import io.ballerina.projects.PackageOrg;
 import io.ballerina.projects.PackageVersion;
+import io.ballerina.projects.ProjectEnvironmentBuilder;
+import io.ballerina.projects.bala.BalaProject;
 import io.ballerina.projects.directory.BuildProject;
 import io.ballerina.projects.environment.PackageResolver;
 import io.ballerina.projects.environment.ResolutionOptions;
 import io.ballerina.projects.environment.ResolutionRequest;
 import io.ballerina.projects.environment.ResolutionResponse;
+import io.ballerina.projects.repos.TempDirCompilationCache;
 import org.ballerinalang.diagramutil.connector.models.connector.Type;
 
 import java.io.FileReader;
@@ -93,10 +98,16 @@ public class IndexGenerator {
         if (resolutionResponse.isEmpty()) {
             return;
         }
-        Package resolvedPackage = resolutionResponse.get().resolvedPackage();
+
+        Path balaPath = resolutionResponse.get().resolvedPackage().project().sourceRoot();
+        ProjectEnvironmentBuilder defaultBuilder = ProjectEnvironmentBuilder.getDefaultBuilder();
+        defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
+        BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
+        Package resolvedPackage = balaProject.currentPackage();
         PackageDescriptor descriptor = resolvedPackage.descriptor();
+
         int packageId = DatabaseManager.insertPackage(descriptor.org().value(), descriptor.name().value(),
-                descriptor.version().value().toString());
+                descriptor.version().value().toString(), resolvedPackage.manifest().keywords());
         if (packageId == -1) {
             Logger.getGlobal().severe("Error inserting package to database: " + descriptor.name().value());
             return;
@@ -104,7 +115,8 @@ public class IndexGenerator {
 
         SemanticModel semanticModel;
         try {
-            semanticModel = resolvedPackage.getDefaultModule().getCompilation().getSemanticModel();
+            semanticModel =
+                    resolvedPackage.getCompilation().getSemanticModel(resolvedPackage.getDefaultModule().moduleId());
         } catch (Exception e) {
             Logger.getGlobal().severe("Error reading semantic model: " + e.getMessage());
             return;
@@ -117,50 +129,103 @@ public class IndexGenerator {
                     continue;
                 }
 
-                // Capture the name of the function
-                Optional<String> name = functionSymbol.getName();
-                if (name.isEmpty()) {
-                    continue;
-                }
-
-                // Obtain the description of the function
-                Optional<Documentation> documentation = functionSymbol.documentation();
-                String description = documentation.flatMap(Documentation::description).orElse("");
-                Map<String, String> documentationMap = documentation.map(Documentation::parameterMap).orElse(Map.of());
-
-                // Obtain the return type of the function
-                FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
-                Type returnType = functionTypeSymbol.returnTypeDescriptor().map(Type::fromSemanticSymbol).orElse(null);
-
-                int functionId =
-                        DatabaseManager.insertFunction(packageId, name.get(), description, gson.toJson(returnType));
-
-                Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
-                if (params.isEmpty()) {
-                    continue;
-                }
-                for (ParameterSymbol paramSymbol : params.get()) {
-                    String paramName = paramSymbol.getName().orElse("");
-                    String paramType = gson.toJson(Type.fromSemanticSymbol(paramSymbol.typeDescriptor()));
-                    String paramDescription = documentationMap.get(paramName);
-                    ParameterKind parameterKind = paramSymbol.paramKind();
-                    DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
-                            parameterKind);
-                }
+                processFunctionSymbol(functionSymbol, functionSymbol, packageId, FunctionType.FUNCTION);
                 continue;
             }
             if (symbol.kind() == SymbolKind.CLASS) {
                 ClassSymbol classSymbol = (ClassSymbol) symbol;
-                if (!new HashSet<>(classSymbol.qualifiers()).containsAll(List.of(Qualifier.PUBLIC, Qualifier.CLIENT))) {
-                    System.out.println(symbol.getName().get() + " is not a public connector");
+                if (hasAllQualifiers(classSymbol.qualifiers(), List.of(Qualifier.PUBLIC, Qualifier.CLIENT))) {
+                    continue;
                 }
-                System.out.println(symbol.getName().get());
-                continue;
+
+                Optional<MethodSymbol> initMethodSymbol = classSymbol.initMethod();
+                if (initMethodSymbol.isEmpty()) {
+                    continue;
+                }
+                if (!classSymbol.nameEquals("Client")) {
+                    continue;
+                }
+                int connectorId =
+                        processFunctionSymbol(initMethodSymbol.get(), classSymbol, packageId, FunctionType.CONNECTOR);
+                if (connectorId == -1) {
+                    continue;
+                }
+
+                // Process the actions of the client
+                Map<String, MethodSymbol> methods = classSymbol.methods();
+                for (Map.Entry<String, MethodSymbol> entry : methods.entrySet()) {
+                    MethodSymbol methodSymbol = entry.getValue();
+
+                    List<Qualifier> qualifiers = methodSymbol.qualifiers();
+                    FunctionType functionType;
+                    if (qualifiers.contains(Qualifier.REMOTE)) {
+                        functionType = FunctionType.REMOTE;
+                    } else if (qualifiers.contains(Qualifier.RESOURCE)) {
+                        functionType = FunctionType.RESOURCE;
+                    } else if (qualifiers.contains(Qualifier.PUBLIC)) {
+                        functionType = FunctionType.FUNCTION;
+                    } else {
+                        continue;
+                    }
+                    int functionId = processFunctionSymbol(methodSymbol, methodSymbol, packageId, functionType);
+                    if (functionId == -1) {
+                        continue;
+                    }
+                    DatabaseManager.mapConnectorAction(functionId, connectorId);
+                }
             }
         }
-        List<Symbol> functions = semanticModel.moduleSymbols()
-                .stream().filter(symbol -> symbol.kind() == SymbolKind.FUNCTION)
-                .toList();
-        return;
+    }
+
+    private static boolean hasAllQualifiers(List<Qualifier> actualQualifiers, List<Qualifier> expectedQualifiers) {
+        return !new HashSet<>(actualQualifiers).containsAll(expectedQualifiers);
+    }
+
+    private static int processFunctionSymbol(FunctionSymbol functionSymbol, Documentable documentable, int packageId,
+                                             FunctionType functionType) {
+        // Capture the name of the function
+        Optional<String> name = functionSymbol.getName();
+        if (name.isEmpty()) {
+            return packageId;
+        }
+
+        // Obtain the description of the function
+        String description = getDescription(documentable);
+        Map<String, String> documentationMap =
+                functionSymbol.documentation().map(Documentation::parameterMap).orElse(Map.of());
+
+        // Obtain the return type of the function
+        FunctionTypeSymbol functionTypeSymbol = functionSymbol.typeDescriptor();
+        Type returnType = functionTypeSymbol.returnTypeDescriptor().map(Type::fromSemanticSymbol).orElse(null);
+
+        int functionId =
+                DatabaseManager.insertFunction(packageId, name.get(), description, gson.toJson(returnType),
+                        functionType.name());
+
+        // Handle the parameters of the function
+        Optional<List<ParameterSymbol>> params = functionTypeSymbol.params();
+        if (params.isEmpty()) {
+            return packageId;
+        }
+        for (ParameterSymbol paramSymbol : params.get()) {
+            String paramName = paramSymbol.getName().orElse("");
+            String paramType = gson.toJson(Type.fromSemanticSymbol(paramSymbol.typeDescriptor()));
+            String paramDescription = documentationMap.get(paramName);
+            ParameterKind parameterKind = paramSymbol.paramKind();
+            DatabaseManager.insertFunctionParameter(functionId, paramName, paramDescription, paramType,
+                    parameterKind);
+        }
+        return functionId;
+    }
+
+    private static String getDescription(Documentable documentable) {
+        return documentable.documentation().flatMap(Documentation::description).orElse("");
+    }
+
+    enum FunctionType {
+        FUNCTION,
+        REMOTE,
+        CONNECTOR,
+        RESOURCE
     }
 }
