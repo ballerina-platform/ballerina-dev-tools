@@ -48,6 +48,15 @@ public class DatabaseManager {
     private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
     private final String dbPath;
 
+    private static class Holder {
+
+        private static final DatabaseManager INSTANCE = new DatabaseManager();
+    }
+
+    public static DatabaseManager getInstance() {
+        return Holder.INSTANCE;
+    }
+
     public DatabaseManager() {
         try {
             Class.forName("org.sqlite.JDBC");
