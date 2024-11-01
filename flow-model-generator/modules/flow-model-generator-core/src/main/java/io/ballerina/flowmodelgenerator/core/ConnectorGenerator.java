@@ -54,7 +54,7 @@ public class ConnectorGenerator {
         if (CommonUtils.hasNoKeyword(queryMap, "offset")) {
             modifiedQueryMap.put("offset", "0");
         }
-        DatabaseManager dbManager = new DatabaseManager();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> connectorResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
                 dbManager.getAllFunctions(DatabaseManager.FunctionKind.CONNECTOR) :

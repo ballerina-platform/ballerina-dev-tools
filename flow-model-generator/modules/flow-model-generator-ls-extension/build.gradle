@@ -115,6 +115,20 @@ def pullBallerinaModule(String packageName) {
     }
 }
 
+// TODO: This should be removed once https://github.com/ballerina-platform/ballerina-distribution/issues/5811 is completed
+shadowJar {
+    archiveBaseName.set(project.name)
+    archiveClassifier.set('')
+    archiveVersion.set(project.version.toString())
+    configurations = [project.configurations.runtimeClasspath]
+    dependencies {
+        include(dependency("org.xerial:sqlite-jdbc:${sqliteJdbcVersion}"))
+        exclude('META-INF/*.SF')
+        exclude('META-INF/*.DSA')
+        exclude('META-INF/*.RSA')
+    }
+}
+
 test.dependsOn pullBallerinaModule('ballerinax/redis')
 test.dependsOn pullBallerinaModule('ballerinax/trigger.salesforce')
 
@@ -130,7 +144,6 @@ test {
 }
 
 ext.moduleName = 'io.ballerina.flowmodelgenerator.extension'
-
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     dependsOn configurations.dist
@@ -146,4 +159,8 @@ compileJava {
         ]
         classpath = files()
     }
+}
+
+artifacts {
+    archives shadowJar
 }

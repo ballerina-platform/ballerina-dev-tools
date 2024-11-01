@@ -217,7 +217,7 @@ public class AvailableNodesGenerator {
     }
 
     private static List<Item> fetchConnections(ModuleID moduleId, String parentSymbol) {
-        DatabaseManager dbManager = new DatabaseManager();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> connectorResult =
                 dbManager.getFunction(moduleId.orgName(), moduleId.packageName(), NewConnection.INIT_SYMBOL,
                         DatabaseManager.FunctionKind.CONNECTOR);

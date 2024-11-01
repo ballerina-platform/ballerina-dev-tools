@@ -110,7 +110,7 @@ public class FunctionCall extends NodeBuilder {
             return;
         }
 
-        DatabaseManager dbManager = new DatabaseManager();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult =
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
                         DatabaseManager.FunctionKind.FUNCTION);
@@ -184,7 +184,7 @@ public class FunctionCall extends NodeBuilder {
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
-        DatabaseManager dbManager = new DatabaseManager();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
         Optional<FunctionResult> functionResult =
                 dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
                         DatabaseManager.FunctionKind.FUNCTION);

@@ -126,7 +126,7 @@ public class FunctionGenerator {
 
     private void buildUtilityNodes(Map<String, String> queryMap) {
         Category.Builder utilityBuilder = rootBuilder.stepIn(Category.Name.UTILITIES);
-        DatabaseManager dbManager = new DatabaseManager();
+        DatabaseManager dbManager = DatabaseManager.getInstance();
 
         List<FunctionResult> functionResults = CommonUtils.hasNoKeyword(queryMap, "q") ?
                 dbManager.getAllFunctions(DatabaseManager.FunctionKind.FUNCTION) :
