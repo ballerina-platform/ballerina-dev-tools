@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class PackageListGenerator {
+class PackageListGenerator {
 
     private static final int LIMIT = 50;
     public static final String PACKAGE_JSON_FILE = "packages.json";

@@ -32,7 +32,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class DatabaseManager {
+class DatabaseManager {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
     private static final String INDEX_FILE_NAME = "central-index.sqlite";

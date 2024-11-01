@@ -40,26 +40,12 @@ import io.ballerina.compiler.api.symbols.TypeSymbol;
 import io.ballerina.compiler.api.symbols.UnionTypeSymbol;
 import io.ballerina.projects.Package;
 import io.ballerina.projects.PackageDescriptor;
-import io.ballerina.projects.PackageName;
-import io.ballerina.projects.PackageOrg;
-import io.ballerina.projects.PackageVersion;
-import io.ballerina.projects.ProjectEnvironmentBuilder;
-import io.ballerina.projects.bala.BalaProject;
 import io.ballerina.projects.directory.BuildProject;
-import io.ballerina.projects.environment.PackageResolver;
-import io.ballerina.projects.environment.ResolutionOptions;
-import io.ballerina.projects.environment.ResolutionRequest;
-import io.ballerina.projects.environment.ResolutionResponse;
-import io.ballerina.projects.repos.TempDirCompilationCache;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -68,9 +54,8 @@ import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
-public class IndexGenerator {
+class IndexGenerator {
 
-    private static final String PROJECT_NAME = "sample";
     private static final java.lang.reflect.Type typeToken =
             new TypeToken<Map<String, List<PackageListGenerator.PackageMetadataInfo>>>() { }.getType();
 
@@ -79,10 +64,7 @@ public class IndexGenerator {
     public static void main(String[] args) {
         DatabaseManager.createDatabase();
         // TODO: Set the distribution home √ia build.gradle
-        System.setProperty("ballerina.home", "/Library/Ballerina/distributions/ballerina-2201.10.0");
-        Path projectPath = Paths.get(
-                Objects.requireNonNull(IndexGenerator.class.getClassLoader().getResource(PROJECT_NAME)).getFile());
-        BuildProject buildProject = BuildProject.load(projectPath);
+        BuildProject buildProject = ModuleUtil.getSampleProject();
 
         Gson gson = new Gson();
         URL resource = IndexGenerator.class.getClassLoader().getResource(PackageListGenerator.PACKAGE_JSON_FILE);
@@ -100,24 +82,8 @@ public class IndexGenerator {
 
     private static void resolvePackage(BuildProject buildProject, String org,
                                        PackageListGenerator.PackageMetadataInfo packageMetadataInfo) {
-        ResolutionRequest resolutionRequest = ResolutionRequest.from(
-                PackageDescriptor.from(PackageOrg.from(org), PackageName.from(packageMetadataInfo.name()),
-                        PackageVersion.from(packageMetadataInfo.version())));
-
-        Collection<ResolutionResponse> resolutionResponses =
-                buildProject.projectEnvironmentContext().getService(PackageResolver.class)
-                        .resolvePackages(Collections.singletonList(resolutionRequest),
-                                ResolutionOptions.builder().setOffline(false).build());
-        Optional<ResolutionResponse> resolutionResponse = resolutionResponses.stream().findFirst();
-        if (resolutionResponse.isEmpty()) {
-            return;
-        }
-
-        Path balaPath = resolutionResponse.get().resolvedPackage().project().sourceRoot();
-        ProjectEnvironmentBuilder defaultBuilder = ProjectEnvironmentBuilder.getDefaultBuilder();
-        defaultBuilder.addCompilationCacheFactory(TempDirCompilationCache::from);
-        BalaProject balaProject = BalaProject.loadProject(defaultBuilder, balaPath);
-        Package resolvedPackage = balaProject.currentPackage();
+        Package resolvedPackage = ModuleUtil.getModulePackage(buildProject, org, packageMetadataInfo.name(),
+                packageMetadataInfo.version());
         PackageDescriptor descriptor = resolvedPackage.descriptor();
 
         LOGGER.info("Processing package: " + descriptor.name().value());

@@ -16,11 +16,13 @@
  *  under the License.
  */
 
-module io.ballerina.flow.model.index.generator {
+module io.ballerina.flowmodel.indexgenerator {
     requires io.ballerina.lang;
     requires io.ballerina.centralconnector;
     requires com.google.gson;
     requires io.ballerina.diagram.util;
     requires java.sql;
     requires io.ballerina.toml;
+
+    exports io.ballerina.indexgenerator;
 }
