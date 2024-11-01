@@ -29,10 +29,7 @@ import io.ballerina.compiler.api.symbols.SymbolKind;
 import io.ballerina.compiler.syntax.tree.SyntaxKind;
 import io.ballerina.flowmodelgenerator.core.CommonUtils;
 import io.ballerina.flowmodelgenerator.core.TypeUtils;
-import io.ballerina.flowmodelgenerator.core.central.Function;
-import io.ballerina.flowmodelgenerator.core.central.FunctionResponse;
 import io.ballerina.flowmodelgenerator.core.central.LocalIndexCentral;
-import io.ballerina.flowmodelgenerator.core.central.RemoteCentral;
 import io.ballerina.flowmodelgenerator.core.db.DatabaseManager;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
@@ -196,14 +193,15 @@ public class FunctionCall extends NodeBuilder {
     }
 
     private static FlowNode fetchNodeTemplate(NodeBuilder nodeBuilder, Codedata codedata) {
-        FunctionResponse functionResponse = RemoteCentral.getInstance()
-                .function(codedata.org(), codedata.module(), codedata.version(), codedata.symbol());
-        Function function;
-        try {
-            function = functionResponse.data().apiDocs().docsData().modules().get(0).functions();
-        } catch (Exception e) {
-            return null;
+        DatabaseManager dbManager = new DatabaseManager();
+        Optional<FunctionResult> functionResult =
+                dbManager.getFunction(codedata.org(), codedata.module(), codedata.symbol(),
+                        DatabaseManager.FunctionKind.FUNCTION);
+
+        if (functionResult.isEmpty()) {
+            throw new RuntimeException("Function not found: " + codedata.symbol());
         }
+        FunctionResult function = functionResult.get();
 
         nodeBuilder.metadata()
                 .label(function.name())
@@ -216,19 +214,15 @@ public class FunctionCall extends NodeBuilder {
                 .version(codedata.version())
                 .symbol(codedata.symbol());
 
-        for (Function.Parameter parameter : function.parameters()) {
-            String typeName = parameter.type().name();
-            String defaultValue = parameter.defaultValue();
-            String defaultString = defaultValue != null ? escapeDefaultValue(defaultValue) :
-                    CommonUtils.getDefaultValueForType(typeName);
-            boolean optional = defaultValue != null && !defaultValue.isEmpty();
-            nodeBuilder.properties().custom(parameter.name(), parameter.name(), parameter.description(),
-                    Property.ValueType.EXPRESSION, typeName, defaultString, optional);
+        List<ParameterResult> functionParameters = dbManager.getFunctionParameters(function.functionId());
+        for (ParameterResult paramResult : functionParameters) {
+            nodeBuilder.properties().custom(paramResult.name(), paramResult.name(), paramResult.description(),
+                    Property.ValueType.EXPRESSION, paramResult.type(), "",
+                    paramResult.kind() == ParameterKind.DEFAULTABLE);
         }
 
-        List<Function.ReturnParameter> returnParameters = function.returnParameters();
-        if (!returnParameters.isEmpty()) {
-            nodeBuilder.properties().type(returnParameters.get(0).type().name()).data(null);
+        if (TypeUtils.hasReturn(function.returnType())) {
+            nodeBuilder.properties().type(function.returnType()).data(null);
         }
         return nodeBuilder.build();
     }
