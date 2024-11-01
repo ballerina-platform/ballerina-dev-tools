@@ -133,7 +133,6 @@ public class DatabaseManager {
                         rs.getString("version")
                 );
                 functionResults.add(functionResult);
-                System.out.println(rs.getString("function_name"));
             }
             return functionResults;
         } catch (SQLException e) {

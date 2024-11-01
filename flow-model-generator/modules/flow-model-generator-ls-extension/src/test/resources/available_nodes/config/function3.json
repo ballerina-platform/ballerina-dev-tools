@@ -24,8 +24,7 @@
             "label": "Variable"
           },
           "codedata": {
-            "node": "VARIABLE",
-            "id": 0
+            "node": "VARIABLE"
           },
           "enabled": true
         },
@@ -35,8 +34,7 @@
             "description": "Assign a value to a variable"
           },
           "codedata": {
-            "node": "ASSIGN",
-            "id": 0
+            "node": "ASSIGN"
           },
           "enabled": true
         },
@@ -46,8 +44,7 @@
             "description": "Both project and utility functions"
           },
           "codedata": {
-            "node": "FUNCTION",
-            "id": 0
+            "node": "FUNCTION"
           },
           "enabled": true
         },
@@ -57,8 +54,7 @@
             "description": "Map data from multiple variables to a record type"
           },
           "codedata": {
-            "node": "DATA_MAPPER",
-            "id": 0
+            "node": "DATA_MAPPER"
           },
           "enabled": true
         }
@@ -76,8 +72,7 @@
             "description": "Add conditional branch to the integration flow."
           },
           "codedata": {
-            "node": "IF",
-            "id": 0
+            "node": "IF"
           },
           "enabled": true
         },
@@ -87,8 +82,7 @@
             "description": "Switches the data flow based on the value of an expression."
           },
           "codedata": {
-            "node": "MATCH",
-            "id": 0
+            "node": "MATCH"
           },
           "enabled": true
         },
@@ -98,8 +92,7 @@
             "description": "Loop over a block of code."
           },
           "codedata": {
-            "node": "WHILE",
-            "id": 0
+            "node": "WHILE"
           },
           "enabled": true
         },
@@ -109,8 +102,7 @@
             "description": "Iterate over a block of code."
           },
           "codedata": {
-            "node": "FOREACH",
-            "id": 0
+            "node": "FOREACH"
           },
           "enabled": true
         },
@@ -119,8 +111,7 @@
             "label": "Return"
           },
           "codedata": {
-            "node": "RETURN",
-            "id": 0
+            "node": "RETURN"
           },
           "enabled": true
         }
@@ -138,8 +129,7 @@
             "description": "Fail the execution"
           },
           "codedata": {
-            "node": "FAIL",
-            "id": 0
+            "node": "FAIL"
           },
           "enabled": true
         },
@@ -149,8 +139,7 @@
             "description": "Panic and stop the execution"
           },
           "codedata": {
-            "node": "PANIC",
-            "id": 0
+            "node": "PANIC"
           },
           "enabled": true
         }
