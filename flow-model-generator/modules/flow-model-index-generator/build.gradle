@@ -61,7 +61,3 @@ compileJava {
         classpath = files()
     }
 }
-
-spotbugs {
-    excludeFilter = file('spotbugs-exclude.xml')
-}
