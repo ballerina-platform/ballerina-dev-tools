@@ -22,7 +22,10 @@ import io.ballerina.compiler.api.symbols.ParameterKind;
 import io.ballerina.flowmodelgenerator.core.db.model.FunctionResult;
 import io.ballerina.flowmodelgenerator.core.db.model.ParameterResult;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -46,11 +49,31 @@ public class DatabaseManager {
     private final String dbPath;
 
     public DatabaseManager() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Failed to load SQLite JDBC driver", e);
+        }
+
+        Path tempDir;
+        try {
+            tempDir = Files.createTempDirectory("central-index");
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to create a temporary directory", e);
+        }
+
         URL dbUrl = getClass().getClassLoader().getResource(INDEX_FILE_NAME);
         if (dbUrl == null) {
             throw new RuntimeException("Database resource not found: " + INDEX_FILE_NAME);
         }
-        dbPath = "jdbc:sqlite:" + dbUrl.getPath();
+        Path tempFile = tempDir.resolve(INDEX_FILE_NAME);
+        try {
+            Files.copy(dbUrl.openStream(), tempFile);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to copy the database file to the temporary directory", e);
+        }
+
+        dbPath = "jdbc:sqlite:" + tempFile.toString();
     }
 
     public enum FunctionKind {
