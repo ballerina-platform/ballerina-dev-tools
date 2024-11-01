@@ -10,7 +10,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The base client used in the generated client code to provide the capability for initiating the contact and executing remote calls with a remote gRPC service.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.12.1.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_grpc_1.11.0.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -18,7 +18,7 @@
           "module": "grpc",
           "object": "Client",
           "symbol": "init",
-          "version": "1.12.1",
+          "version": "1.11.0",
           "lineRange": {
             "fileName": "connections.bal",
             "startLine": {

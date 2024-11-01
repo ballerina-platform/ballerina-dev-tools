@@ -60,4 +60,3 @@ public class PackageListGenerator {
 
     record PackageMetadataInfo(String name, String version) { }
 }
-
