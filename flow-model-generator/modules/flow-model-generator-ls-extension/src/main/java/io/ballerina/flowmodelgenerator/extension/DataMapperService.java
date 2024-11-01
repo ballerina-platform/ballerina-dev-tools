@@ -21,8 +21,10 @@ package io.ballerina.flowmodelgenerator.extension;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.flowmodelgenerator.core.DataMapManager;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperModelRequest;
+import io.ballerina.flowmodelgenerator.extension.request.DataMapperSourceRequest;
 import io.ballerina.flowmodelgenerator.extension.request.DataMapperTypesRequest;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperModelResponse;
+import io.ballerina.flowmodelgenerator.extension.response.DataMapperSourceResponse;
 import io.ballerina.flowmodelgenerator.extension.response.DataMapperTypesResponse;
 import io.ballerina.projects.Document;
 import io.ballerina.projects.Project;
@@ -93,6 +95,20 @@ public class DataMapperService implements ExtendedLanguageServerService {
                         document.get());
                 response.setLinks(dataMapManager.getLinks(request.flowNode(), request.position(), request.propertyKey(),
                         Path.of(request.filePath()), project));
+            } catch (Throwable e) {
+                response.setError(e);
+            }
+            return response;
+        });
+    }
+
+    @JsonRequest
+    public CompletableFuture<DataMapperSourceResponse> getSource(DataMapperSourceRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            DataMapperSourceResponse response = new DataMapperSourceResponse();
+            try {
+                DataMapManager dataMapManager = new DataMapManager(null, null, null);
+                response.setSource(dataMapManager.getSource(request.mappings()));
             } catch (Throwable e) {
                 response.setError(e);
             }

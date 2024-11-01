@@ -21,6 +21,7 @@ package io.ballerina.flowmodelgenerator.core;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.FunctionSymbol;
 import io.ballerina.compiler.api.symbols.ParameterSymbol;
@@ -65,6 +66,7 @@ import org.eclipse.lsp4j.TextEdit;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -130,6 +132,8 @@ public class DataMapManager {
 
     public JsonElement getLinks(JsonElement node, LinePosition position, String propertyKey, Path filePath,
                                 Project project) {
+        // TODO: add tests for enum
+        // TODO: Add array tests with where, select clauses
         FlowNode flowNode = gson.fromJson(node, FlowNode.class);
         SourceBuilder sourceBuilder = new SourceBuilder(flowNode, this.workspaceManager, filePath);
         Map<Path, List<TextEdit>> textEdits =
@@ -314,6 +318,60 @@ public class DataMapManager {
         }
     }
 
+    private static final java.lang.reflect.Type mt = new TypeToken<List<Mapping>>() {}.getType();
+
+    public String getSource(JsonElement mp) {
+        List<Mapping> mappings = gson.fromJson(mp, mt);
+        Map<String, Object> mappingSource = new HashMap<>();
+        for (Mapping mapping : mappings) {
+            genSourceForMapping(mapping, mappingSource);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        genSource(mappingSource, sb);
+        return sb.toString();
+    }
+
+    private void genSource(Map<String, Object> mappings, StringBuilder sb) {
+        sb.append("{");
+
+        int len = mappings.entrySet().size();
+        int i = 0;
+        for (Map.Entry<String, Object> stringObjectEntry : mappings.entrySet()) {
+            sb.append(stringObjectEntry.getKey()).append(":");
+            if (stringObjectEntry.getValue() instanceof Map<?,?>) {
+                genSource((Map<String, Object>) stringObjectEntry.getValue(), sb);
+            } else {
+                sb.append(stringObjectEntry.getValue());
+            }
+            if (i != len - 1) {
+                sb.append(",");
+            }
+            i = i + 1;
+        }
+        sb.append("}");
+    }
+
+    private void genSourceForMapping(Mapping mapping, Map<String, Object> mappingSource) {
+        String output = mapping.output;
+        String[] splits = output.split("\\.");
+        if (splits.length == 1) {
+            return;
+        }
+
+        Map<String, Object> currentMapping = mappingSource;
+        for (int i = 1; i < splits.length - 1; i++) {
+            Object o = currentMapping.get(splits[i]);
+            if (o == null) {
+                Map<String, Object> newMapping = new HashMap<>();
+                currentMapping.put(splits[i], newMapping);
+                currentMapping = newMapping;
+            } else if (o instanceof Map<?,?>) {
+                currentMapping = (Map<String, Object>) o;
+            }
+        }
+        currentMapping.put(splits[splits.length - 1], mapping.expression);
+    }
 
     private record Model(List<MappingType> inputs, MappingType output, List<Mapping> mappings) {
 
