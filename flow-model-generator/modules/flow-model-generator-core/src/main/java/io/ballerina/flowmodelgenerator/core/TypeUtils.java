@@ -36,6 +36,11 @@ import org.ballerinalang.diagramutil.connector.models.connector.types.UnionType;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to manage and manipulate the {@link Type} class.
+ *
+ * @since 1.4.0
+ */
 public class TypeUtils {
 
     public static final String TARGET_TYPE = "targetType";

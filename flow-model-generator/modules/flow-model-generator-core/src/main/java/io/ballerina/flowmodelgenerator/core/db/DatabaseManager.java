@@ -34,11 +34,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+/**
+ * Manages database operations for retrieving information about external connectors and functions.
+ *
+ * @since 1.4.0
+ */
 public class DatabaseManager {
 
     private static final String INDEX_FILE_NAME = "central-index.sqlite";
     private static final Logger LOGGER = Logger.getLogger(DatabaseManager.class.getName());
-    private String dbPath;
+    private final String dbPath;
 
     public DatabaseManager() {
         URL dbUrl = getClass().getClassLoader().getResource(INDEX_FILE_NAME);

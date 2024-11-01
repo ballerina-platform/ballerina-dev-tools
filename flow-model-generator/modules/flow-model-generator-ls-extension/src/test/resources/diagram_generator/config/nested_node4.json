@@ -172,7 +172,7 @@
                                 "metadata": {
                                   "label": "post",
                                   "description": "The `Client.post()` function can be used to send HTTP POST requests to HTTP endpoints.\n",
-                                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                                 },
                                 "codedata": {
                                   "node": "ACTION_CALL",
@@ -180,7 +180,7 @@
                                   "module": "http",
                                   "object": "Client",
                                   "symbol": "post",
-                                  "version": "2.12.2",
+                                  "version": "2.12.1",
                                   "lineRange": {
                                     "fileName": "nested_node.bal",
                                     "startLine": {
@@ -301,7 +301,7 @@
                         "metadata": {
                           "label": "get",
                           "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                         },
                         "codedata": {
                           "node": "ACTION_CALL",
@@ -309,7 +309,7 @@
                           "module": "http",
                           "object": "Client",
                           "symbol": "get",
-                          "version": "2.12.2",
+                          "version": "2.12.1",
                           "lineRange": {
                             "fileName": "nested_node.bal",
                             "startLine": {
@@ -399,7 +399,7 @@
                 "metadata": {
                   "label": "get",
                   "description": "The `Client.get()` function can be used to send HTTP GET requests to HTTP endpoints.\n",
-                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+                  "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
                 },
                 "codedata": {
                   "node": "ACTION_CALL",
@@ -407,7 +407,7 @@
                   "module": "http",
                   "object": "Client",
                   "symbol": "get",
-                  "version": "2.12.2",
+                  "version": "2.12.1",
                   "lineRange": {
                     "fileName": "nested_node.bal",
                     "startLine": {
@@ -519,7 +519,7 @@
         "metadata": {
           "label": "New Connection",
           "description": "The HTTP client provides the capability for initiating contact with a remote HTTP service. The API it\nprovides includes the functions for the standard HTTP methods forwarding a received request and sending requests\nusing custom HTTP verbs.",
-          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.2.png"
+          "icon": "https://bcentral-packageicons.azureedge.net/images/ballerina_http_2.12.1.png"
         },
         "codedata": {
           "node": "NEW_CONNECTION",
@@ -527,7 +527,7 @@
           "module": "http",
           "object": "Client",
           "symbol": "init",
-          "version": "2.12.2",
+          "version": "2.12.1",
           "lineRange": {
             "fileName": "nested_node.bal",
             "startLine": {

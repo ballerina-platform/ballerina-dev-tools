@@ -352,6 +352,14 @@ public class CommonUtils {
         }
     }
 
+    /**
+     * Generates the URL for the icon in the Ballerina central.
+     *
+     * @param orgName     the organization name
+     * @param packageName the package name
+     * @param versionName the version name
+     * @return the URL for the icon
+     */
     public static String generateIcon(String orgName, String packageName, String versionName) {
         return String.format(CENTRAL_ICON_URL, orgName, packageName, versionName);
     }
