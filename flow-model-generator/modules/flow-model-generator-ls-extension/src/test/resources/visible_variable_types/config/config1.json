@@ -23,7 +23,7 @@
                     "name": "ClientObject",
                     "orgName": "ballerina",
                     "moduleName": "http",
-                    "version": "2.12.2"
+                    "version": "2.12.1"
                   },
                   "defaultable": false,
                   "isRestType": false
@@ -41,7 +41,7 @@
               "name": "Client",
               "orgName": "ballerina",
               "moduleName": "http",
-              "version": "2.12.2"
+              "version": "2.12.1"
             },
             "defaultable": false,
             "isRestType": false
