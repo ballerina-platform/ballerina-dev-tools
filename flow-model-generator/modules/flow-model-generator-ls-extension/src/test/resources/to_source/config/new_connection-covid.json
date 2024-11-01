@@ -18,7 +18,6 @@
       "module": "covid19",
       "object": "Client",
       "symbol": "init",
-      "id": "6267",
       "lineRange": {
         "fileName": "test.bal",
         "startLine": {
